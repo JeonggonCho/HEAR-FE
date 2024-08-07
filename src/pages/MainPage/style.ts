@@ -22,3 +22,24 @@ export const Title = styled.h1`
     font-weight: bold;
     color: #2B65FC;
 `;
+
+export const Container = styled.div`
+    p {
+        line-height: 1.5;
+        margin-bottom: 32px;
+        margin-left: 8px;
+    }
+    
+    & > div:nth-child(3),
+    & > div:nth-child(4),
+    & > a:nth-child(5) {
+        margin-bottom: 16px;
+    }
+
+    & > div:nth-child(6) {
+        display: grid;
+        grid-gap: 16px;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 32px;
+    }
+`;
