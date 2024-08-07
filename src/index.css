@@ -1,0 +1,17 @@
+html {
+    min-height: 100vh;
+    box-shadow: 0 0 15px lightgray;
+}
+
+body {
+    margin-bottom: 80px;
+    scrollbar-gutter: stable !important;
+}
+
+:root {
+    max-width: 600px;
+    margin: auto;
+    font-family: Pretendard, Helvetica, sans-serif;
+    line-height: 1.5;
+    box-sizing: border-box;
+}
