@@ -1,18 +1,41 @@
 import './App.css';
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./components/Layout";
 import MainPage from "./pages/MainPage";
 import InstructionPage from "./pages/InstructionPage";
 import ReservationPage from "./pages/ReservationPage";
 import QnaPage from "./pages/QnaPage";
 import AccountPage from "./pages/AccountPage";
+import {useEffect, useState} from "react";
+import SplashPage from "./pages/SplashPage";
 
 const App = () => {
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const splashShown = sessionStorage.getItem('splashShown');
+
+        if (!splashShown) {
+            const timer = setTimeout(() => {
+                setIsLoading(false);
+                sessionStorage.setItem('splashShown', 'true');
+            }, 3000);
+
+            return () => clearTimeout(timer);
+        } else {
+            setIsLoading(false);
+        }
+    }, []);
+
+    if (isLoading) {
+        return <SplashPage/>;
+    }
+
     return (
         <div className="app">
             <Routes>
                 <Route path="/" element={<Layout/>}>
-                    <Route index element={""}/>
+                    <Route index element={<Navigate to="/main"/>}/>
                     <Route path="main" element={<MainPage/>}/>
                     <Route path="instruction" element={<InstructionPage/>}/>
                     <Route path="reservation" element={<ReservationPage/>}/>

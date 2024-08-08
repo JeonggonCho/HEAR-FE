@@ -24,6 +24,8 @@ export const Container = styled.div`
             gap: 4px;
 
             svg {
+                display: flex;
+                align-items: center;
                 fill: #999999;
             }
         }
