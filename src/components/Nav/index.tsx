@@ -9,15 +9,17 @@ import {ReactSVG} from "react-svg";
 import {useLocation} from "react-router-dom";
 
 interface Category {
-    [key: string]: string[];
+    label: string;
+    icon: string;
+    path: string;
 }
 
 const categories: Category[] = [
-    {"홈": [home, "/main"]},
-    {"사용법": [note, "/instruction"]},
-    {"예 약": [reservation, "/reservation"]},
-    {"문 의": [question, "/qna"]},
-    {"내정보": [account, "/account"]},
+    { label: "홈", icon: home, path: "/main" },
+    { label: "사용법", icon: note, path: "/instruction" },
+    { label: "예 약", icon: reservation, path: "/reservation" },
+    { label: "문 의", icon: question, path: "/qna" },
+    { label: "내정보", icon: account, path: "/account" },
 ];
 
 const Nav: FC = () => {
@@ -26,16 +28,16 @@ const Nav: FC = () => {
 
     return (
         <Container>
-            {categories.map((category, index) => {
-                const key = Object.keys(category)[0];
-                const value = category[key];
-                return (
-                    <Button to={value[1]} key={index} isActive={pathname.includes(value[1])}>
-                        <ReactSVG src={value[0]}/>
-                        {key}
-                    </Button>
-                );
-            })}
+            {categories.map((category, index) => (
+                <Button
+                    to={category.path}
+                    key={index}
+                    isActive={pathname.includes(category.path)}
+                >
+                    <ReactSVG src={category.icon} />
+                    {category.label}
+                </Button>
+            ))}
         </Container>
     );
 };

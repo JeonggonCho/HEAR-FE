@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const OutletWrapper = styled.section`
-    padding: 0 32px;
+    padding: 0 32px 32px;
     height: calc(100vh - 80px);
     overflow-y: auto;
 

@@ -18,7 +18,7 @@ export const Logo = styled.img`
 `;
 
 export const Title = styled.h1`
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
     color: #2B65FC;
 `;
@@ -40,6 +40,5 @@ export const Container = styled.div`
         display: grid;
         grid-gap: 16px;
         grid-template-columns: 1fr 1fr;
-        margin-bottom: 32px;
     }
 `;

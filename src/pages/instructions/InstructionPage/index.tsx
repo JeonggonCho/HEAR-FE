@@ -1,12 +1,12 @@
 import {Container} from "./style.ts";
-import Header from "../../components/Header";
-import MachineSelector from "../../components/MachineSelector";
-import printer from "../../assets/images/3d_printer.png";
-import laser from "../../assets/images/laser_cut.png";
-import heat from "../../assets/images/heat_cutter.png"
-import cnc from "../../assets/images/cnc.png";
-import saw from "../../assets/images/saw.png";
-import vacuum from "../../assets/images/vacuum.png"
+import Header from "../../../components/Header";
+import MachineSelector from "../../../components/MachineSelector";
+import printer from "../../../assets/images/3d_printer.png";
+import laser from "../../../assets/images/laser_cut.png";
+import heat from "../../../assets/images/heat_cutter.png"
+import cnc from "../../../assets/images/cnc.png";
+import saw from "../../../assets/images/saw.png";
+import vacuum from "../../../assets/images/vacuum.png"
 
 interface Machine {
     name: string;

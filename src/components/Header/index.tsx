@@ -3,15 +3,15 @@ import {Container} from "./style.ts";
 
 interface HeaderProps {
     leftChild?: ReactNode;
-    centerChild?: ReactNode;
+    centerText?: string;
     rightChild?: ReactNode;
 }
 
-const Header: FC<HeaderProps> = ({leftChild, centerChild, rightChild}) => {
+const Header: FC<HeaderProps> = ({leftChild, centerText, rightChild}) => {
     return (
         <Container>
             <div>{leftChild}</div>
-            <div>{centerChild}</div>
+            <div>{centerText}</div>
             <div>{rightChild}</div>
         </Container>
     );

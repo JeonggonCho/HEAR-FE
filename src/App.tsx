@@ -1,13 +1,23 @@
 import './App.css';
 import {Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./components/Layout";
-import MainPage from "./pages/MainPage";
-import InstructionPage from "./pages/InstructionPage";
-import ReservationPage from "./pages/ReservationPage";
-import QnaPage from "./pages/QnaPage";
-import AccountPage from "./pages/AccountPage";
+import MainPage from "./pages/Main/MainPage";
+import InstructionPage from "./pages/instructions/InstructionPage";
+import ReservationPage from "./pages/Reservation/ReservationPage";
+import QnaPage from "./pages/Qna/QnaPage";
+import AccountPage from "./pages/Auth/AccountPage";
 import {useEffect, useState} from "react";
-import SplashPage from "./pages/SplashPage";
+import SplashPage from "./pages/Main/SplashPage";
+import NoticePage from "./pages/Notice/NoticePage";
+import PrinterPage from "./pages/instructions/PrinterPage";
+import LaserPage from "./pages/instructions/LaserPage";
+import HeatPage from "./pages/instructions/HeatPage";
+import CncPage from "./pages/instructions/CncPage";
+import SawPage from "./pages/instructions/SawPage";
+import VacuumPage from "./pages/instructions/VacuumPage";
+import NoticeDetailPage from "./pages/Notice/NoticeDetailPage";
+import SituationPage from "./pages/Reservation/SituationPage";
+import FeedBackPage from "./pages/Qna/FeedBackPage";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -40,15 +50,18 @@ const App = () => {
                     <Route path="instruction" element={<InstructionPage/>}/>
                     <Route path="reservation" element={<ReservationPage/>}/>
                     <Route path="qna" element={<QnaPage/>}/>
+                    <Route path="qna/feedback" element={<FeedBackPage/>}/>
                     <Route path="account" element={<AccountPage/>}/>
+                    <Route path="notice" element={<NoticePage/>}/>
+                    <Route path="notice/:noticeId" element={<NoticeDetailPage/>}/>
 
 
-                    <Route path="instruction/3d-printer" element={<InstructionPage/>}/>
-                    <Route path="instruction/laser" element={<InstructionPage/>}/>
-                    <Route path="instruction/heat" element={<InstructionPage/>}/>
-                    <Route path="instruction/cnc" element={<InstructionPage/>}/>
-                    <Route path="instruction/saw" element={<InstructionPage/>}/>
-                    <Route path="instruction/vacuum" element={<InstructionPage/>}/>
+                    <Route path="instruction/3d-printer" element={<PrinterPage/>}/>
+                    <Route path="instruction/laser" element={<LaserPage/>}/>
+                    <Route path="instruction/heat" element={<HeatPage/>}/>
+                    <Route path="instruction/cnc" element={<CncPage/>}/>
+                    <Route path="instruction/saw" element={<SawPage/>}/>
+                    <Route path="instruction/vacuum" element={<VacuumPage/>}/>
 
 
                     <Route path="reservation/3d-printer" element={<ReservationPage/>}/>
@@ -57,6 +70,7 @@ const App = () => {
                     <Route path="reservation/cnc" element={<ReservationPage/>}/>
                     <Route path="reservation/saw" element={<ReservationPage/>}/>
                     <Route path="reservation/vacuum" element={<ReservationPage/>}/>
+                    <Route path="reservation/situation" element={<SituationPage/>}/>
                 </Route>
             </Routes>
         </div>

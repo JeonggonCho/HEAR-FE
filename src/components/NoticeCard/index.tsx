@@ -12,21 +12,21 @@ const NoticeCard:FC = () => {
                     <ReactSVG src={description}/>
                     <h3>공지사항</h3>
                 </div>
-                <More to={"/"}>
+                <More to={"/notice"}>
                     <ReactSVG src={arrowForward}/>
                 </More>
             </div>
 
             <div>
-                <Notice to={"/"}>
+                <Notice to={"/notice/1"}>
                     <span>모형제작실 교육 안내</span>
                     <span>2024.07.30</span>
                 </Notice>
-                <Notice to={"/"}>
+                <Notice to={"/notice/1"}>
                     <span>이용 후, 모형제작실 청소 주의</span>
                     <span>2024.07.30</span>
                 </Notice>
-                <Notice to={"/"}>
+                <Notice to={"/notice/1"}>
                     <span>시험기간 이용안내</span>
                     <span>2024.07.30</span>
                 </Notice>

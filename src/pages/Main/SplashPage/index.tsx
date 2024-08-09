@@ -1,6 +1,6 @@
 import {Container} from "./style.ts";
 import {ReactSVG} from "react-svg";
-import logo from "../../assets/logo.svg";
+import logo from "../../../assets/logo.svg";
 
 const SplashPage = () => {
     return (

@@ -2,7 +2,8 @@ import styled from "@emotion/styled";
 
 export const Container = styled.div`
     height: 80px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
     margin-bottom: 20px;
     font-weight: bold;
@@ -10,16 +11,18 @@ export const Container = styled.div`
 
     & > div:first-of-type {
         text-align: start;
-        flex-grow: 1;
+        text-wrap: nowrap;
     }
 
     & > div:nth-child(2) {
         text-align: center;
-        flex-grow: 1;
+        font-size: 24px;
+        font-weight: bold;
+        text-wrap: nowrap;
     }
 
     & > div:nth-child(3) {
         text-align: end;
-        flex-grow: 1;
+        text-wrap: nowrap;
     }
 `;

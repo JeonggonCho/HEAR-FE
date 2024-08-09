@@ -5,7 +5,7 @@ import {ReactSVG} from "react-svg";
 
 const SituationCard:FC = () => {
     return (
-        <Container to={"/"}>
+        <Container to={"/reservation/situation"}>
             <h3>예약 현황</h3>
             <ReactSVG src={arrowForward}/>
         </Container>
