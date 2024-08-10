@@ -8,13 +8,13 @@ import cnc from "../../../assets/images/cnc.png";
 import saw from "../../../assets/images/saw.png";
 import vacuum from "../../../assets/images/vacuum.png"
 
-interface Machine {
+interface IMachine {
     name: string;
     image: string;
     link: string;
 }
 
-const machines: Machine[] = [
+const machines: IMachine[] = [
     {name: "3D 프린터", image: printer, link: "/instruction/3d-printer"},
     {name: "레이저 커팅기", image: laser, link: "/instruction/laser"},
     {name: "열 선", image: heat, link: "/instruction/heat"},

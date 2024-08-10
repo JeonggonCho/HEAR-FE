@@ -28,7 +28,6 @@ export const Container = styled.div`
         gap: 18px;
 
         span {
-            color: #999999;
             line-height: 1.5;
             font-size: 18px;
         }

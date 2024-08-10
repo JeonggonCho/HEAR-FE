@@ -12,3 +12,7 @@ export const MachineImgWrapper = styled.div`
         object-fit: cover;
     }
 `;
+
+export const Content = styled.div`
+    padding: 0 8px;
+`;

@@ -1,13 +1,13 @@
 import {FC, ReactNode} from "react";
 import {Container} from "./style.ts";
 
-interface HeaderProps {
+interface IHeaderProps {
     leftChild?: ReactNode;
     centerText?: string;
     rightChild?: ReactNode;
 }
 
-const Header: FC<HeaderProps> = ({leftChild, centerText, rightChild}) => {
+const Header: FC<IHeaderProps> = ({leftChild, centerText, rightChild}) => {
     return (
         <Container>
             <div>{leftChild}</div>

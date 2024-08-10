@@ -1,13 +1,13 @@
 import {FC} from "react";
 import {Container, MachineImgWrapper} from "./style.ts";
 
-interface MachineSelectorProps {
+interface IMachineSelectorProps {
     image: string;
     name: string;
     to: string;
 }
 
-const MachineSelector: FC<MachineSelectorProps> = ({image, name, to}) => {
+const MachineSelector: FC<IMachineSelectorProps> = ({image, name, to}) => {
     return (
         <Container to={to}>
             <MachineImgWrapper>

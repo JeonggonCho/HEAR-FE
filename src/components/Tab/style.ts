@@ -9,6 +9,8 @@ export const Container = styled.div`
     display: flex;
     position: sticky;
     top: 15px;
+    margin-bottom: 32px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 `;
 
 export const TabButton = styled.div<{isActive: Boolean}>`

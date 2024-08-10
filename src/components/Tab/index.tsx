@@ -1,19 +1,18 @@
-import { useState } from 'react';
+import React, {FC} from 'react';
 import { Container, TabButton, Background } from "./style";
 
-interface Tab {
+export interface ITab {
     name: string;
+    content: JSX.Element;
 }
 
-const tabs: Tab[] = [
-    { name: "소개" },
-    { name: "준비" },
-    { name: "출력" },
-    { name: "사용후" },
-];
+interface ITabProps {
+    tabs: ITab[];
+    activeIndex: number;
+    setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
+}
 
-const TabComponent = () => {
-    const [activeIndex, setActiveIndex] = useState(0);
+const Tab:FC<ITabProps> = ({tabs, activeIndex, setActiveIndex}) => {
     const tabCount = tabs.length;
 
     const handleClickTab = (index: number) => {
@@ -36,4 +35,4 @@ const TabComponent = () => {
     );
 };
 
-export default TabComponent;
+export default Tab;

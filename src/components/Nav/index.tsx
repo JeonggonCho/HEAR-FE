@@ -8,13 +8,13 @@ import account from "../../assets/icons/account.svg";
 import {ReactSVG} from "react-svg";
 import {useLocation} from "react-router-dom";
 
-interface Category {
+interface ICategory {
     label: string;
     icon: string;
     path: string;
 }
 
-const categories: Category[] = [
+const categories: ICategory[] = [
     { label: "홈", icon: home, path: "/main" },
     { label: "사용법", icon: note, path: "/instruction" },
     { label: "예 약", icon: reservation, path: "/reservation" },

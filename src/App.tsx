@@ -1,23 +1,23 @@
 import './App.css';
 import {Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./components/Layout";
-import MainPage from "./pages/Main/MainPage";
+import MainPage from "./pages/main/MainPage";
 import InstructionPage from "./pages/instructions/InstructionPage";
-import ReservationPage from "./pages/Reservation/ReservationPage";
-import QnaPage from "./pages/Qna/QnaPage";
-import AccountPage from "./pages/Auth/AccountPage";
+import ReservationPage from "./pages/reservation/ReservationPage";
+import QnaPage from "./pages/qna/QnaPage";
+import AccountPage from "./pages/auth/AccountPage";
 import {useEffect, useState} from "react";
-import SplashPage from "./pages/Main/SplashPage";
-import NoticePage from "./pages/Notice/NoticePage";
-import PrinterPage from "./pages/instructions/PrinterPage";
-import LaserPage from "./pages/instructions/LaserPage";
-import HeatPage from "./pages/instructions/HeatPage";
-import CncPage from "./pages/instructions/CncPage";
-import SawPage from "./pages/instructions/SawPage";
-import VacuumPage from "./pages/instructions/VacuumPage";
-import NoticeDetailPage from "./pages/Notice/NoticeDetailPage";
-import SituationPage from "./pages/Reservation/SituationPage";
-import FeedBackPage from "./pages/Qna/FeedBackPage";
+import SplashPage from "./pages/main/SplashPage";
+import NoticePage from "./pages/notice/NoticePage";
+import PrinterPage from "./pages/instructions/printer/PrinterPage";
+import LaserPage from "./pages/instructions/laser/LaserPage";
+import HeatPage from "./pages/instructions/heat/HeatPage";
+import CncPage from "./pages/instructions/cnc/CncPage";
+import SawPage from "./pages/instructions/saw/SawPage";
+import VacuumPage from "./pages/instructions/vacuum/VacuumPage";
+import NoticeDetailPage from "./pages/notice/NoticeDetailPage";
+import SituationPage from "./pages/reservation/SituationPage";
+import FeedBackPage from "./pages/qna/FeedBackPage";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
