@@ -6,13 +6,13 @@ import {Content, MachineImgWrapper} from "./style.ts";
 import Tab, {ITab} from "../../../../components/Tab";
 import Introduction from "../Introduction";
 import Preparation from "../Preparation";
-import Printing from "../Printing";
 import After from "../After";
+import Usage from "../Usage";
 
 const tabs: ITab[] = [
     { name: "소개", content: <Introduction/>, },
     { name: "준비", content: <Preparation/>, },
-    { name: "출력", content: <Printing/>, },
+    { name: "사용", content: <Usage/>, },
     { name: "사용후", content: <After/>, },
 ];
 

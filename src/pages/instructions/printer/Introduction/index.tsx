@@ -1,6 +1,6 @@
 import {FC} from 'react';
 import {Container, ImageWrapper} from "../../instruction.style.ts";
-import printerModel from "../../../../assets/instruction_images/3d_printer/3d_printer_machine.jpg";
+import printerMachine from "../../../../assets/instruction_images/printer/3d_printer_machine.jpg";
 
 const Introduction:FC = () => {
     return (
@@ -8,7 +8,7 @@ const Introduction:FC = () => {
             <h3>1. 3D 프린터 기기</h3>
 
             <ImageWrapper>
-                <img src={printerModel} alt="3D 프린터 기기"/>
+                <img src={printerMachine} alt="3D 프린터 기기"/>
             </ImageWrapper>
 
             <section>
@@ -21,8 +21,12 @@ const Introduction:FC = () => {
                     <p>240(w) x 190(d) x 200(h)</p>
                 </div>
                 <div>
+                    <h4>재료</h4>
+                    <p>CUBICON 흰색 PLA 필라멘트</p>
+                </div>
+                <div>
                     <h4>확장자</h4>
-                    <p>STL(추천), OBJ</p>
+                    <p>STL(추천), OBJ → GCODE 변환</p>
                 </div>
                 <div>
                     <h4>GCODE 변환 소프트웨어</h4>
@@ -39,11 +43,11 @@ const Introduction:FC = () => {
                 </div>
             </section>
 
-            <h3>2. 예약 규칙</h3>
+            <h3>2. 규칙</h3>
 
             <section>
                 <div>
-                    <h4>3D 프린터 사용시간</h4>
+                    <h4>사용시간</h4>
                     <p>하루 : 10시 - 18시 (8시간)</p>
                     <span>* 기본적으로 주말 이용이 불가능하며 상황에 따라 탄력 운영</span>
                 </div>

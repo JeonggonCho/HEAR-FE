@@ -3,16 +3,12 @@ import ArrowBack from "../../../../components/ArrowBack";
 import cnc from "../../../../assets/images/cnc.png";
 import {MachineImgWrapper} from "./style.ts";
 import Tab, {ITab} from "../../../../components/Tab";
-import Introduction from "../../printer/Introduction";
-import Preparation from "../../printer/Preparation";
 import {Content} from "../../printer/PrinterPage/style.ts";
 import {useState} from "react";
+import Introduction from "../Introduction";
 
 const tabs: ITab[] = [
     { name: "소개", content: <Introduction/>, },
-    { name: "준비", content: <Preparation/>, },
-    { name: "출력", content: <Introduction/>, },
-    { name: "사용후", content: <Preparation/>, },
 ];
 
 const CncPage = () => {

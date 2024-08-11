@@ -2,9 +2,9 @@
 <img src="src/assets/logo.svg" width="28"> HEAR
 </h1>
 
-> Hanyang university ERICA Architecture Reservation
+> HYU ERICA Architecture Reservation
 >
-> 한양대학교 에리카 건축학과 모형제작실 예약 시스템
+> 한양대학교 에리카 건축학부 모형제작실 예약 시스템
 
 ## 기획
 

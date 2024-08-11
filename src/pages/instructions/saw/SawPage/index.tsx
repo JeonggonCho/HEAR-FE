@@ -3,16 +3,14 @@ import ArrowBack from "../../../../components/ArrowBack";
 import saw from "../../../../assets/images/saw.png";
 import {MachineImgWrapper} from "./style.ts";
 import Tab, {ITab} from "../../../../components/Tab";
-import Introduction from "../../printer/Introduction";
-import Preparation from "../../printer/Preparation";
 import {useState} from "react";
 import {Content} from "../../printer/PrinterPage/style.ts";
+import Warning from "../Warning";
+import After from "../After";
 
 const tabs: ITab[] = [
-    { name: "소개", content: <Introduction/>, },
-    { name: "준비", content: <Preparation/>, },
-    { name: "출력", content: <Introduction/>, },
-    { name: "사용후", content: <Preparation/>, },
+    { name: "주의사항", content: <Warning/>, },
+    { name: "사용후", content: <After/>, },
 ];
 
 const SawPage = () => {

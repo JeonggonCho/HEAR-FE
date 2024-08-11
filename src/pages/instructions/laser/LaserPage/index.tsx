@@ -3,16 +3,18 @@ import ArrowBack from "../../../../components/ArrowBack";
 import laser from "../../../../assets/images/laser_cut.png";
 import {MachineImgWrapper} from "./style.ts";
 import Tab, {ITab} from "../../../../components/Tab";
-import Introduction from "../../printer/Introduction";
 import {useState} from "react";
-import Preparation from "../../printer/Preparation";
 import {Content} from "../../printer/PrinterPage/style.ts";
+import Introduction from "../Introduction";
+import Usage from "../Usage";
+import After from "../After";
+import Preparation from "../Preparation";
 
 const tabs: ITab[] = [
     { name: "소개", content: <Introduction/>, },
     { name: "준비", content: <Preparation/>, },
-    { name: "출력", content: <Introduction/>, },
-    { name: "사용후", content: <Preparation/>, },
+    { name: "사용", content: <Usage/>, },
+    { name: "사용후", content: <After/>, },
 ];
 
 const LaserPage = () => {

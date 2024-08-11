@@ -33,7 +33,7 @@ const InstructionPage = () => {
     return (
         <Container>
             <Header leftChild={<InstructionHeaderLeft/>}/>
-            <p>사용법이 궁금한 기기를 선택해주세요</p>
+            <p>사용법 및 주의사항이 궁금한 기기를 선택해주세요</p>
             <div>
                 {machines.map((machine, index) => (
                     <MachineSelector key={index} image={machine.image} name={machine.name} to={machine.link}/>

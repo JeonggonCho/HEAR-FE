@@ -7,7 +7,7 @@ export const Container = styled.div`
     align-items: center;
     margin-bottom: 20px;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
 
     & > div:first-of-type {
         text-align: start;

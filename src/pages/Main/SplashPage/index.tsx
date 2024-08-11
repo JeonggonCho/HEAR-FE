@@ -6,7 +6,7 @@ const SplashPage = () => {
     return (
         <Container>
             <div>
-                <span>한양대 에리카 건축학과<br/>모형제작실 예약은 여기!</span>
+                <span>한양대 에리카 건축학부<br/>모형제작실 예약은 여기!</span>
                 <div>
                     <ReactSVG src={logo}/>
                     <h1>HEAR</h1>
