@@ -2,14 +2,14 @@ import {FC} from "react";
 import {Container, More, Notice} from "./style.ts";
 import {ReactSVG} from "react-svg";
 import arrowForward from "../../assets/icons/arrow_forward.svg";
-import description from "../../assets/icons/description.svg";
+import notice from "../../assets/images/notice.png";
 
 const NoticeCard:FC = () => {
     return (
         <Container>
             <div>
                 <div>
-                    <ReactSVG src={description}/>
+                    <img src={notice} alt="공지사항"/>
                     <h3>공지사항</h3>
                 </div>
                 <More to={"/notice"}>

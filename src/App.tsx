@@ -9,15 +9,21 @@ import AccountPage from "./pages/auth/AccountPage";
 import {useEffect, useState} from "react";
 import SplashPage from "./pages/main/SplashPage";
 import NoticePage from "./pages/notice/NoticePage";
-import PrinterPage from "./pages/instructions/printer/PrinterPage";
-import LaserPage from "./pages/instructions/laser/LaserPage";
-import HeatPage from "./pages/instructions/heat/HeatPage";
-import CncPage from "./pages/instructions/cnc/CncPage";
-import SawPage from "./pages/instructions/saw/SawPage";
-import VacuumPage from "./pages/instructions/vacuum/VacuumPage";
+import InstructionPrinter from "./pages/instructions/printer/InstructionPrinter";
+import InstructionLaser from "./pages/instructions/laser/InstructionLaser";
+import InstructionHeat from "./pages/instructions/heat/InstructionHeat";
+import InstructionCnc from "./pages/instructions/cnc/InstructionCnc";
+import InstructionSaw from "./pages/instructions/saw/InstructionSaw";
+import InstructionVacuum from "./pages/instructions/vacuum/InstructionVacuum";
 import NoticeDetailPage from "./pages/notice/NoticeDetailPage";
 import SituationPage from "./pages/reservation/SituationPage";
 import FeedBackPage from "./pages/qna/FeedBackPage";
+import ReservationPrinter from "./pages/reservation/ReservationPrinter";
+import ReservationLaser from "./pages/reservation/ReservationLaser";
+import ReservationHeat from "./pages/reservation/ReservationHeat";
+import ReservationCnc from "./pages/reservation/ReservationCnc";
+import ReservationSaw from "./pages/reservation/ReservationSaw";
+import ReservationVacuum from "./pages/reservation/ReservationVacuum";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -56,20 +62,20 @@ const App = () => {
                     <Route path="notice/:noticeId" element={<NoticeDetailPage/>}/>
 
 
-                    <Route path="instruction/3d-printer" element={<PrinterPage/>}/>
-                    <Route path="instruction/laser" element={<LaserPage/>}/>
-                    <Route path="instruction/heat" element={<HeatPage/>}/>
-                    <Route path="instruction/cnc" element={<CncPage/>}/>
-                    <Route path="instruction/saw" element={<SawPage/>}/>
-                    <Route path="instruction/vacuum" element={<VacuumPage/>}/>
+                    <Route path="instruction/3d-printer" element={<InstructionPrinter/>}/>
+                    <Route path="instruction/laser" element={<InstructionLaser/>}/>
+                    <Route path="instruction/heat" element={<InstructionHeat/>}/>
+                    <Route path="instruction/cnc" element={<InstructionCnc/>}/>
+                    <Route path="instruction/saw" element={<InstructionSaw/>}/>
+                    <Route path="instruction/vacuum" element={<InstructionVacuum/>}/>
 
 
-                    <Route path="reservation/3d-printer" element={<ReservationPage/>}/>
-                    <Route path="reservation/laser" element={<ReservationPage/>}/>
-                    <Route path="reservation/heat" element={<ReservationPage/>}/>
-                    <Route path="reservation/cnc" element={<ReservationPage/>}/>
-                    <Route path="reservation/saw" element={<ReservationPage/>}/>
-                    <Route path="reservation/vacuum" element={<ReservationPage/>}/>
+                    <Route path="reservation/3d-printer" element={<ReservationPrinter/>}/>
+                    <Route path="reservation/laser" element={<ReservationLaser/>}/>
+                    <Route path="reservation/heat" element={<ReservationHeat/>}/>
+                    <Route path="reservation/cnc" element={<ReservationCnc/>}/>
+                    <Route path="reservation/saw" element={<ReservationSaw/>}/>
+                    <Route path="reservation/vacuum" element={<ReservationVacuum/>}/>
                     <Route path="reservation/situation" element={<SituationPage/>}/>
                 </Route>
             </Routes>

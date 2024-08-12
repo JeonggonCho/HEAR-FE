@@ -4,14 +4,14 @@ import heat from "../../../../assets/images/heat_cutter.png";
 import {MachineImgWrapper} from "./style.ts";
 import Tab, {ITab} from "../../../../components/Tab";
 import {useState} from "react";
-import {Content} from "../../printer/PrinterPage/style.ts";
+import {Content} from "../../printer/InstructionPrinter/style.ts";
 import Introduction from "../Introduction";
 
 const tabs: ITab[] = [
     { name: "소개", content: <Introduction/>, },
 ];
 
-const HeatPage = () => {
+const InstructionHeat = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     return (
@@ -26,4 +26,4 @@ const HeatPage = () => {
     );
 };
 
-export default HeatPage;
+export default InstructionHeat;

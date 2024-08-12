@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const Container = styled.div`
     width: 100%;
-    height: 140px;
+    height: 132px;
     border-radius: 16px;
     background-color: white;
     padding: 18px;
@@ -28,6 +28,10 @@ export const Container = styled.div`
     h3 {
         margin: 0 0 8px;
         transition: all 0.2s ease-in-out 0s;
+    }
+
+    &:active {
+        transform: scale(0.9);
     }
     
     span {

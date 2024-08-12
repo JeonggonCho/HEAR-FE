@@ -1,30 +1,26 @@
 import Header from "../../../../components/Header";
 import ArrowBack from "../../../../components/ArrowBack";
-import laser from "../../../../assets/images/laser_cut.png";
+import saw from "../../../../assets/images/saw.png";
 import {MachineImgWrapper} from "./style.ts";
 import Tab, {ITab} from "../../../../components/Tab";
 import {useState} from "react";
-import {Content} from "../../printer/PrinterPage/style.ts";
-import Introduction from "../Introduction";
-import Usage from "../Usage";
+import {Content} from "../../printer/InstructionPrinter/style.ts";
+import Warning from "../Warning";
 import After from "../After";
-import Preparation from "../Preparation";
 
 const tabs: ITab[] = [
-    { name: "소개", content: <Introduction/>, },
-    { name: "준비", content: <Preparation/>, },
-    { name: "사용", content: <Usage/>, },
+    { name: "주의사항", content: <Warning/>, },
     { name: "사용후", content: <After/>, },
 ];
 
-const LaserPage = () => {
+const InstructionSaw = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     return (
         <div>
-            <Header leftChild={<ArrowBack/>} centerText={"레이저 커팅기"}/>
+            <Header leftChild={<ArrowBack/>} centerText={"톱"}/>
             <MachineImgWrapper>
-                <img src={laser} alt="레이저 커팅기"/>
+                <img src={saw} alt="톱"/>
             </MachineImgWrapper>
             <Tab tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
             <Content>{tabs[activeIndex].content}</Content>
@@ -32,4 +28,4 @@ const LaserPage = () => {
     );
 };
 
-export default LaserPage;
+export default InstructionSaw;

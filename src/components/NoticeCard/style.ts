@@ -21,12 +21,12 @@ export const Container = styled.div`
         & > div:first-child {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 10px;
 
-            svg {
+            img {
                 display: flex;
                 align-items: center;
-                fill: #999999;
+                width: 32px;
             }
         }
         

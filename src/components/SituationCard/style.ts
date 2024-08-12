@@ -24,6 +24,20 @@ export const Container = styled(NavLink)`
         }
     }
     
+    &:active {
+        transform: scale(0.9);
+    }
+    
+    & > div:first-child {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        
+        img {
+            width: 32px;
+        }
+    }
+    
     h3 {
         transition: all 0.2s ease-in-out 0s;
     }

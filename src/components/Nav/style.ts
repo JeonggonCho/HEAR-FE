@@ -22,6 +22,15 @@ export const Button = styled(NavLink)<{ isActive: boolean }>`
     gap: 8px;
     font-size: 14px;
     color: ${({isActive}) => isActive ? "#2B65FC" : "#999999"};
+    transition: all 0.2s ease-in-out 0s;
+    
+    &:hover {
+        transform: scale(1.1);
+    }
+    
+    &:active {
+        transform: scale(0.9);
+    }
 
     svg {
         fill: ${({isActive}) => isActive ? "#2B65FC" : "#999999"};

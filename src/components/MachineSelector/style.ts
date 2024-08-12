@@ -31,7 +31,8 @@ export const Container = styled(NavLink)`
     }
 
     &:active {
-        background-color: ${lighten(0.2, "#2B65FC")};
+        background-color: ${lighten(0.3, "#2B65FC")};
+        transform: scale(0.8);
     }
 `;
 

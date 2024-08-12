@@ -7,6 +7,7 @@ import heat from "../../../assets/images/heat_cutter.png";
 import cnc from "../../../assets/images/cnc.png";
 import saw from "../../../assets/images/saw.png";
 import vacuum from "../../../assets/images/vacuum.png";
+import HollowBtn from "../../../components/HollowBtn";
 
 interface IMachine {
     name: string;
@@ -23,16 +24,22 @@ const machines: IMachine[] = [
     {name: "사출 성형기", image: vacuum, link: "/reservation/vacuum"}
 ];
 
-const ReservationHeaderLeft = () => {
-    return (
-        <h2>예약</h2>
-    );
-};
+const ReservationHeaderLeft = () => <h2>예약</h2>;
+
+const ReservationHeaderRight = () => (
+    <HollowBtn
+        type={"link"}
+        to={"/reservation/situation"}
+        text={"예약 현황"}
+        width={"fit"}
+        color={"primary"}
+    />
+);
 
 const ReservationPage = () => {
     return (
         <Container>
-            <Header leftChild={<ReservationHeaderLeft/>}/>
+            <Header leftChild={<ReservationHeaderLeft/>} rightChild={<ReservationHeaderRight/>}/>
             <p>예약하실 기기를 선택해주세요</p>
             <div>
                 {machines.map((machine, index) => (

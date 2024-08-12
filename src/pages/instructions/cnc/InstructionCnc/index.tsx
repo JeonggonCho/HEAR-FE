@@ -3,7 +3,7 @@ import ArrowBack from "../../../../components/ArrowBack";
 import cnc from "../../../../assets/images/cnc.png";
 import {MachineImgWrapper} from "./style.ts";
 import Tab, {ITab} from "../../../../components/Tab";
-import {Content} from "../../printer/PrinterPage/style.ts";
+import {Content} from "../../printer/InstructionPrinter/style.ts";
 import {useState} from "react";
 import Introduction from "../Introduction";
 
@@ -11,7 +11,7 @@ const tabs: ITab[] = [
     { name: "소개", content: <Introduction/>, },
 ];
 
-const CncPage = () => {
+const InstructionCnc = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     return (
@@ -25,4 +25,4 @@ const CncPage = () => {
     );
 };
 
-export default CncPage;
+export default InstructionCnc;

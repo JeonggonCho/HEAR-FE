@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 
 export const Container = styled(NavLink)`
     width: 100%;
-    height: 140px;
+    height: 132px;
     border-radius: 16px;
     background-color: white;
     padding: 18px;
@@ -24,6 +24,10 @@ export const Container = styled(NavLink)`
             fill: black;
             transform: scale(1.05);
         }
+    }
+
+    &:active {
+        transform: scale(0.9);
     }
     
     h3 {

@@ -23,6 +23,26 @@ export const Title = styled.h1`
     color: #2B65FC;
 `;
 
+export const AlarmWrapper = styled.div`
+    width: 32px;
+    margin-right: 6px;
+    margin-top: 2px;
+    cursor: pointer;
+    
+    svg {
+        display: inline-block;
+        fill: #c5c5c5;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.2s ease-in-out 0s;
+        
+        &:hover {
+            fill: #666666;
+        }
+    }
+`;
+
 export const Container = styled.div`
     p {
         line-height: 1.5;

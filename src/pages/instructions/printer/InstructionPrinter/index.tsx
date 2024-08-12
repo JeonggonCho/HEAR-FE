@@ -1,28 +1,29 @@
+import {useState} from "react";
 import Header from "../../../../components/Header";
 import ArrowBack from "../../../../components/ArrowBack";
-import vacuum from "../../../../assets/images/vacuum.png";
-import {MachineImgWrapper} from "./style.ts";
+import printer from "../../../../assets/images/3d_printer.png";
+import {Content, MachineImgWrapper} from "./style.ts";
 import Tab, {ITab} from "../../../../components/Tab";
-import Introduction from "../../printer/Introduction";
-import Preparation from "../../printer/Preparation";
-import {useState} from "react";
-import {Content} from "../../printer/PrinterPage/style.ts";
+import Introduction from "../Introduction";
+import Preparation from "../Preparation";
+import After from "../After";
+import Usage from "../Usage";
 
 const tabs: ITab[] = [
     { name: "소개", content: <Introduction/>, },
     { name: "준비", content: <Preparation/>, },
-    { name: "출력", content: <Introduction/>, },
-    { name: "사용후", content: <Preparation/>, },
+    { name: "사용", content: <Usage/>, },
+    { name: "사용후", content: <After/>, },
 ];
 
-const VacuumPage = () => {
+const InstructionPrinter = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     return (
         <div>
-            <Header leftChild={<ArrowBack/>} centerText={"사출 성형기"}/>
+            <Header leftChild={<ArrowBack/>} centerText={"3D 프린터"}/>
             <MachineImgWrapper>
-                <img src={vacuum} alt="사출 성형기"/>
+                <img src={printer} alt="3d 프린터"/>
             </MachineImgWrapper>
             <Tab tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
             <Content>{tabs[activeIndex].content}</Content>
@@ -30,4 +31,4 @@ const VacuumPage = () => {
     );
 };
 
-export default VacuumPage;
+export default InstructionPrinter;
