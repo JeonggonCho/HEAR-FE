@@ -24,6 +24,8 @@ import ReservationHeat from "./pages/reservation/ReservationHeat";
 import ReservationCnc from "./pages/reservation/ReservationCnc";
 import ReservationSaw from "./pages/reservation/ReservationSaw";
 import ReservationVacuum from "./pages/reservation/ReservationVacuum";
+import AlarmPage from "./pages/main/AlarmPage";
+import InquiryPage from "./pages/qna/InquiryPage";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -56,10 +58,12 @@ const App = () => {
                     <Route path="instruction" element={<InstructionPage/>}/>
                     <Route path="reservation" element={<ReservationPage/>}/>
                     <Route path="qna" element={<QnaPage/>}/>
+                    <Route path="qna/inquiry" element={<InquiryPage/>}/>
                     <Route path="qna/feedback" element={<FeedBackPage/>}/>
                     <Route path="account" element={<AccountPage/>}/>
                     <Route path="notice" element={<NoticePage/>}/>
                     <Route path="notice/:noticeId" element={<NoticeDetailPage/>}/>
+                    <Route path="alarm" element={<AlarmPage/>}/>
 
 
                     <Route path="instruction/3d-printer" element={<InstructionPrinter/>}/>

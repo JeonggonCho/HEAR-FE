@@ -1,12 +1,13 @@
 import Header from "../../../components/Header";
 import ArrowBack from "../../../components/ArrowBack";
 
-const FeedBackPage = () => {
+const AlarmPage = () => {
     return (
         <div>
-            <Header leftChild={<ArrowBack/>} centerText={"어플리케이션 피드백"}/>
+            <Header leftChild={<ArrowBack/>} centerText={"알림"}/>
+            알림 페이지
         </div>
     );
 };
 
-export default FeedBackPage;
+export default AlarmPage;

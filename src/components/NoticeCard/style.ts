@@ -59,6 +59,13 @@ export const Notice = styled(NavLink)`
     align-items: center;
     justify-content: space-between;
     transition: all 0.2s ease-in-out 0s;
+    gap: 24px;
+    
+    & > span:first-child {
+        overflow:hidden;
+        text-overflow: ellipsis;
+        white-space:nowrap;
+    }
 
     & > span:last-child {
         font-size: 14px;

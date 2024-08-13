@@ -7,21 +7,24 @@ interface HollowBtnProps {
     text : string;
     width: "full" | "fit";
     color: "primary" | "second" | "danger";
+    btnSize: "small" | "normal" | "big";
 }
 
-const HollowBtn:FC<HollowBtnProps> = ({type = "button", to, text, width, color}) => {
+const HollowBtn:FC<HollowBtnProps> = ({type = "button", to, text, width, color, btnSize}) => {
     if (type === "button") {
         return (
-            <ButtonWrapper width={width} color={color}>{text}</ButtonWrapper>
+            <ButtonWrapper width={width} color={color} btnSize={btnSize}>{text}</ButtonWrapper>
         );
     } else if (type === "link" && to) {
         return (
-            <LinkWrapper to={to} width={width} color={color}>{text}</LinkWrapper>
+            <LinkWrapper to={to} width={width} color={color} btnSize={btnSize}>{text}</LinkWrapper>
         );
     } else if (type === "submit") {
         return (
-            <SubmitWrapper type={type} width={width} color={color}>{text}</SubmitWrapper>
+            <SubmitWrapper type="submit" width={width} color={color} value={text} btnSize={btnSize}/>
         );
+    } else {
+        return null;
     }
 };
 

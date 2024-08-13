@@ -1,7 +1,12 @@
+import Header from "../../../components/Header";
+import ArrowBack from "../../../components/ArrowBack";
+import RoomMap from "../../../components/RoomMap";
+
 const ReservationCnc = () => {
     return (
         <div>
-            cnc 예약
+            <Header leftChild={<ArrowBack/>} centerText={"CNC 예약"}/>
+            <RoomMap machine={"cnc"}/>
         </div>
     );
 };

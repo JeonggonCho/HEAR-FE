@@ -3,34 +3,38 @@ import { NavLink } from "react-router-dom";
 import { darken, lighten } from "polished";
 
 const commonBtnStyle = `
-    padding: 6px 9px;
     text-align: center;
-    border-radius: 8px;
     transition: all 0.1s ease-in-out 0s;
     display: inline-block;
+    vertical-align: center;
+    cursor: pointer;
 `;
 
-const getColorStyles = (color: "primary" | "second" | "danger") => {
+const getColorStyles = (color: "primary" | "approval" | "second" | "third" | "danger") => {
     const colors = {
         primary: "#2B65FC",
+        approval: "#F0F4FF",
         second: "#c5c5c5",
+        third: "#F8F8F8",
         danger: "#FFF1F1",
     };
 
-    const textColor = color === "danger" ? "#FF8585" : "white";
+    const textColor = color === "danger" ? "#FF8585" : color === "third" ? "#999999" : color === "approval" ? "#2B65FC" : "white";
 
     return {
         backgroundColor: colors[color],
         borderColor: colors[color],
         color: textColor,
-        hoverBgColor: color === "danger" ? darken(0.05, colors[color]) : lighten(0.1, colors[color]),
-        activeBgColor: darken(color === "danger" ? 0.1 : 0.2, colors[color]),
+        hoverBgColor: color === "danger" || color === "third" || color === "approval" ? darken(0.05, colors[color]) : lighten(0.1, colors[color]),
+        activeBgColor: darken(color === "danger" || color === "third" || color === "approval" ? 0.1 : 0.2, colors[color]),
     };
 };
 
-const BaseComponent = styled.div<{ width: "full" | "fit"; color: "primary" | "second" | "danger"; }>`
+const BaseComponent = styled.div<{ width: "full" | "fit"; color: "primary" | "approval" | "second" | "third" | "danger"; btnSize: "small" | "normal" | "big";}>`
     width: ${({ width }) => (width === "full" ? "100%" : "fit-content")};
-    
+    font-size: ${({btnSize}) => btnSize === "small" ? "16px" : btnSize === "normal" ? "18px" : "20px"};
+    padding: ${({btnSize}) => btnSize === "small" ? "6px 9px" : "12px 18px"};
+    border-radius: ${({btnSize}) => btnSize === "big" ? "12px" : "8px"};
     ${({ color }) => {
     const { backgroundColor, borderColor, color: textColor, hoverBgColor, activeBgColor } = getColorStyles(color);
     return `

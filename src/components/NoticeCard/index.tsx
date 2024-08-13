@@ -19,11 +19,11 @@ const NoticeCard:FC = () => {
 
             <div>
                 <Notice to={"/notice/1"}>
-                    <span>모형제작실 교육 안내</span>
+                    <span>매우 중요) 모형제작실 교육 안내</span>
                     <span>2024.07.30</span>
                 </Notice>
                 <Notice to={"/notice/1"}>
-                    <span>이용 후, 모형제작실 청소 주의</span>
+                    <span>이용 후, 모형제작실 청소 주의 안할 경우 경고 조치</span>
                     <span>2024.07.30</span>
                 </Notice>
                 <Notice to={"/notice/1"}>

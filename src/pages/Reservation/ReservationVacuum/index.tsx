@@ -1,7 +1,12 @@
+import Header from "../../../components/Header";
+import ArrowBack from "../../../components/ArrowBack";
+import RoomMap from "../../../components/RoomMap";
+
 const ReservationVacuum = () => {
     return (
         <div>
-            사출 성형기 예약
+            <Header leftChild={<ArrowBack/>} centerText={"사출 성형기 예약"}/>
+            <RoomMap machine={"vacuum"}/>
         </div>
     );
 };

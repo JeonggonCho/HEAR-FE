@@ -1,7 +1,12 @@
+import Header from "../../../components/Header";
+import ArrowBack from "../../../components/ArrowBack";
+import RoomMap from "../../../components/RoomMap";
+
 const ReservationLaser = () => {
     return (
         <div>
-            레이저 커팅기 예약
+            <Header leftChild={<ArrowBack/>} centerText={"레이저 커팅기 예약"}/>
+            <RoomMap machine={"laser"}/>
         </div>
     );
 };

@@ -22,7 +22,7 @@ const MainHeaderLeft: FC = () => {
 };
 
 const MainHeaderRight:FC = () => (
-    <AlarmWrapper>
+    <AlarmWrapper to={"/alarm"}>
         <ReactSVG src={alarm}/>
     </AlarmWrapper>
 );

@@ -1,4 +1,4 @@
-import {Container} from "./style.ts";
+import {Container, HeaderWrapper} from "./style.ts";
 import Header from "../../../components/Header";
 import MachineSelector from "../../../components/MachineSelector";
 import printer from "../../../assets/images/3d_printer.png";
@@ -8,6 +8,7 @@ import cnc from "../../../assets/images/cnc.png";
 import saw from "../../../assets/images/saw.png";
 import vacuum from "../../../assets/images/vacuum.png";
 import HollowBtn from "../../../components/HollowBtn";
+import reservation from "../../../assets/images/reservation.png";
 
 interface IMachine {
     name: string;
@@ -24,7 +25,15 @@ const machines: IMachine[] = [
     {name: "사출 성형기", image: vacuum, link: "/reservation/vacuum"}
 ];
 
-const ReservationHeaderLeft = () => <h2>예약</h2>;
+const ReservationHeaderLeft = () => {
+    return (
+        <HeaderWrapper>
+            <img src={reservation} alt="예약"/>
+            <h2>예약</h2>
+        </HeaderWrapper>
+
+    );
+};
 
 const ReservationHeaderRight = () => (
     <HollowBtn
@@ -33,6 +42,7 @@ const ReservationHeaderRight = () => (
         text={"예약 현황"}
         width={"fit"}
         color={"primary"}
+        btnSize={"small"}
     />
 );
 
