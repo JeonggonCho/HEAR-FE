@@ -6,8 +6,10 @@ const commonBtnStyle = `
     text-align: center;
     transition: all 0.1s ease-in-out 0s;
     display: inline-block;
-    vertical-align: center;
+    vertical-align: middle;
     cursor: pointer;
+    line-height: 1.4;
+
 `;
 
 const getColorStyles = (color: "primary" | "approval" | "second" | "third" | "danger") => {
@@ -33,7 +35,7 @@ const getColorStyles = (color: "primary" | "approval" | "second" | "third" | "da
 const BaseComponent = styled.div<{ width: "full" | "fit"; color: "primary" | "approval" | "second" | "third" | "danger"; btnSize: "small" | "normal" | "big";}>`
     width: ${({ width }) => (width === "full" ? "100%" : "fit-content")};
     font-size: ${({btnSize}) => btnSize === "small" ? "16px" : btnSize === "normal" ? "18px" : "20px"};
-    padding: ${({btnSize}) => btnSize === "small" ? "6px 9px" : "12px 18px"};
+    padding: ${({btnSize}) => btnSize === "small" ? "6px 12px" : "12px 18px"};
     border-radius: ${({btnSize}) => btnSize === "big" ? "12px" : "8px"};
     ${({ color }) => {
     const { backgroundColor, borderColor, color: textColor, hoverBgColor, activeBgColor } = getColorStyles(color);

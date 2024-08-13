@@ -12,7 +12,7 @@ export const HeaderWrapper = styled.div`
 
 export const Container = styled.div`
     p {
-        margin-bottom: 24px;
+        margin-bottom: 16px;
     }
 
     & > div:nth-child(3) {
