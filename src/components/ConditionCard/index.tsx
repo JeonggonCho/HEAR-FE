@@ -4,9 +4,9 @@ import arrowForward from "../../assets/icons/arrow_forward.svg";
 import {ReactSVG} from "react-svg";
 import situation from "../../assets/images/situation.png";
 
-const SituationCard:FC = () => {
+const ConditionCard:FC = () => {
     return (
-        <Container to={"/reservation/situation"}>
+        <Container to={"/reservation/condition"}>
             <div>
                 <img src={situation} alt="예약 현황"/>
                 <h3>예약 현황</h3>
@@ -17,4 +17,4 @@ const SituationCard:FC = () => {
     );
 };
 
-export default SituationCard;
+export default ConditionCard;

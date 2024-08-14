@@ -6,7 +6,7 @@ export const Container = styled.div`
     
     textarea {
         width: 100%;
-        min-height: 340px;
+        min-height: 280px;
         border-radius: 8px;
         padding: 8px;
         margin-bottom: 6px;

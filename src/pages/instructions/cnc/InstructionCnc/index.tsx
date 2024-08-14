@@ -4,7 +4,7 @@ import cnc from "../../../../assets/images/cnc.png";
 import {MachineImgWrapper} from "./style.ts";
 import Tab, {ITab} from "../../../../components/Tab";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
-import {useState} from "react";
+import React, {useState} from "react";
 import Introduction from "../Introduction";
 
 const tabs: ITab[] = [
@@ -25,4 +25,4 @@ const InstructionCnc = () => {
     );
 };
 
-export default InstructionCnc;
+export default React.memo(InstructionCnc);

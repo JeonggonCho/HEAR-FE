@@ -14,4 +14,8 @@ export const Container = styled.div`
         align-items: center;
         gap: 10px;
     }
+    
+    & > div:nth-child(7) {
+        margin-bottom: 32px;
+    }
 `;

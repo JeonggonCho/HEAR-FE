@@ -3,6 +3,7 @@ import ArrowBack from "../../../components/ArrowBack";
 import {Container} from "./style.ts";
 import ColoredBtn from "../../../components/ColoredBtn";
 import Textarea from "../../../components/Textarea";
+import Select from "../../../components/Select";
 
 const InquiryPage = () => {
     return (
@@ -14,6 +15,7 @@ const InquiryPage = () => {
             </p>
 
             <form method={"post"} onSubmit={() => {}}>
+                <Select id={"inquiry-category"} name={"inquiry-category"}/>
                 <Textarea/>
                 <ColoredBtn type={"submit"} text={"문의 보내기"} width={"full"} color={"primary"} btnSize={"big"}/>
             </form>

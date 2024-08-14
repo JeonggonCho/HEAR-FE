@@ -1,4 +1,4 @@
-import {FC, ReactNode} from "react";
+import React, {FC, ReactNode} from "react";
 import {Container} from "./style.ts";
 
 interface IHeaderProps {
@@ -17,4 +17,4 @@ const Header: FC<IHeaderProps> = ({leftChild, centerText, rightChild}) => {
     );
 };
 
-export default Header;
+export default React.memo(Header);

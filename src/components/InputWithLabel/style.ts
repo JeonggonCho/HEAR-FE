@@ -17,6 +17,10 @@ export const Container = styled.div`
         padding: 8px;
         font-size: 16px;
         font-family: Pretendard, Helvetica, sans-serif;
+        
+        &::placeholder {
+            color: #E2E2E2;
+        }
 
         &:focus {
             outline: 1px solid #2B65FC;

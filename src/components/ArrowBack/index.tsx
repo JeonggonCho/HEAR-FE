@@ -1,4 +1,4 @@
-import {FC} from "react";
+import React, {FC} from "react";
 import {ReactSVG} from "react-svg";
 import arrowBack from "../../assets/icons/arrow_back.svg";
 import {useNavigate} from "react-router-dom";
@@ -19,4 +19,4 @@ const ArrowBack:FC = () => {
     );
 };
 
-export default ArrowBack;
+export default React.memo(ArrowBack);

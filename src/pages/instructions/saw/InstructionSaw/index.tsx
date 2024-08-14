@@ -3,7 +3,7 @@ import ArrowBack from "../../../../components/ArrowBack";
 import saw from "../../../../assets/images/saw.png";
 import {MachineImgWrapper} from "./style.ts";
 import Tab, {ITab} from "../../../../components/Tab";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
 import Warning from "../Warning";
 import After from "../After";
@@ -28,4 +28,4 @@ const InstructionSaw = () => {
     );
 };
 
-export default InstructionSaw;
+export default React.memo(InstructionSaw);

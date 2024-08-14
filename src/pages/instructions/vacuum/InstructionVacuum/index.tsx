@@ -5,7 +5,7 @@ import {MachineImgWrapper} from "./style.ts";
 import Tab, {ITab} from "../../../../components/Tab";
 import Introduction from "../../printer/Introduction";
 import Preparation from "../../printer/Preparation";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
 
 const tabs: ITab[] = [
@@ -15,19 +15,23 @@ const tabs: ITab[] = [
     { name: "사용후", content: <Preparation/>, },
 ];
 
+const VacuumImage = React.memo(() => (
+    <MachineImgWrapper>
+        <img src={vacuum} alt="사출 성형기"/>
+    </MachineImgWrapper>
+));
+
 const InstructionVacuum = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     return (
         <div>
             <Header leftChild={<ArrowBack/>} centerText={"사출 성형기"}/>
-            <MachineImgWrapper>
-                <img src={vacuum} alt="사출 성형기"/>
-            </MachineImgWrapper>
+            <VacuumImage/>
             <Tab tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
             <Content>{tabs[activeIndex].content}</Content>
         </div>
     );
 };
 
-export default InstructionVacuum;
+export default React.memo(InstructionVacuum);

@@ -16,7 +16,6 @@ import InstructionCnc from "./pages/instructions/cnc/InstructionCnc";
 import InstructionSaw from "./pages/instructions/saw/InstructionSaw";
 import InstructionVacuum from "./pages/instructions/vacuum/InstructionVacuum";
 import NoticeDetailPage from "./pages/notice/NoticeDetailPage";
-import SituationPage from "./pages/reservation/SituationPage";
 import FeedBackPage from "./pages/qna/FeedBackPage";
 import ReservationPrinter from "./pages/reservation/ReservationPrinter";
 import ReservationLaser from "./pages/reservation/ReservationLaser";
@@ -26,6 +25,10 @@ import ReservationSaw from "./pages/reservation/ReservationSaw";
 import ReservationVacuum from "./pages/reservation/ReservationVacuum";
 import AlarmPage from "./pages/main/AlarmPage";
 import InquiryPage from "./pages/qna/InquiryPage";
+import LoginPage from "./pages/auth/LoginPage";
+import SignupPage from "./pages/auth/SignupPage";
+import FindPasswordPage from "./pages/auth/FindPasswordPage";
+import ConditionPage from "./pages/reservation/ConditionPage";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -55,17 +58,21 @@ const App = () => {
                 <Route path="/" element={<Layout/>}>
                     <Route index element={<Navigate to="/main"/>}/>
                     <Route path="main" element={<MainPage/>}/>
-                    <Route path="instruction" element={<InstructionPage/>}/>
-                    <Route path="reservation" element={<ReservationPage/>}/>
+                    <Route path="alarm" element={<AlarmPage/>}/>
+
                     <Route path="qna" element={<QnaPage/>}/>
                     <Route path="qna/inquiry" element={<InquiryPage/>}/>
                     <Route path="qna/feedback" element={<FeedBackPage/>}/>
+
                     <Route path="account" element={<AccountPage/>}/>
+                    <Route path="login" element={<LoginPage/>}/>
+                    <Route path="signup" element={<SignupPage/>}/>
+                    <Route path="password-reset" element={<FindPasswordPage/>}/>
+
                     <Route path="notice" element={<NoticePage/>}/>
                     <Route path="notice/:noticeId" element={<NoticeDetailPage/>}/>
-                    <Route path="alarm" element={<AlarmPage/>}/>
 
-
+                    <Route path="instruction" element={<InstructionPage/>}/>
                     <Route path="instruction/3d-printer" element={<InstructionPrinter/>}/>
                     <Route path="instruction/laser" element={<InstructionLaser/>}/>
                     <Route path="instruction/heat" element={<InstructionHeat/>}/>
@@ -73,14 +80,14 @@ const App = () => {
                     <Route path="instruction/saw" element={<InstructionSaw/>}/>
                     <Route path="instruction/vacuum" element={<InstructionVacuum/>}/>
 
-
+                    <Route path="reservation" element={<ReservationPage/>}/>
                     <Route path="reservation/3d-printer" element={<ReservationPrinter/>}/>
                     <Route path="reservation/laser" element={<ReservationLaser/>}/>
                     <Route path="reservation/heat" element={<ReservationHeat/>}/>
                     <Route path="reservation/cnc" element={<ReservationCnc/>}/>
                     <Route path="reservation/saw" element={<ReservationSaw/>}/>
                     <Route path="reservation/vacuum" element={<ReservationVacuum/>}/>
-                    <Route path="reservation/situation" element={<SituationPage/>}/>
+                    <Route path="reservation/condition" element={<ConditionPage/>}/>
                 </Route>
             </Routes>
         </div>

@@ -3,7 +3,7 @@ import ArrowBack from "../../../../components/ArrowBack";
 import heat from "../../../../assets/images/heat_cutter.png";
 import {MachineImgWrapper} from "./style.ts";
 import Tab, {ITab} from "../../../../components/Tab";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
 import Introduction from "../Introduction";
 
@@ -26,4 +26,4 @@ const InstructionHeat = () => {
     );
 };
 
-export default InstructionHeat;
+export default React.memo(InstructionHeat);

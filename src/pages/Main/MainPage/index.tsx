@@ -4,7 +4,7 @@ import logo from "../../../assets/logo.svg";
 import {FC} from "react";
 import ManagerCard from "../../../components/ManagerCard";
 import NoticeCard from "../../../components/NoticeCard";
-import SituationCard from "../../../components/SituationCard";
+import SituationCard from "../../../components/ConditionCard";
 import LangSettingCard from "../../../components/LangSettingCard";
 import FeedBackCard from "../../../components/FeedBackCard";
 import {ReactSVG} from "react-svg";

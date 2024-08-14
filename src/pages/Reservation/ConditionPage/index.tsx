@@ -1,7 +1,7 @@
 import Header from "../../../components/Header";
 import ArrowBack from "../../../components/ArrowBack";
 
-const SituationPage = () => {
+const ConditionPage = () => {
     return (
         <div>
             <Header leftChild={<ArrowBack/>} centerText={"예약 현황"}/>
@@ -9,4 +9,4 @@ const SituationPage = () => {
     );
 };
 
-export default SituationPage;
+export default ConditionPage;

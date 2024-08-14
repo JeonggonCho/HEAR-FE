@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import Header from "../../../../components/Header";
 import ArrowBack from "../../../../components/ArrowBack";
 import printer from "../../../../assets/images/3d_printer.png";
@@ -16,19 +16,23 @@ const tabs: ITab[] = [
     { name: "사용후", content: <After/>, },
 ];
 
+const PrinterImage = React.memo(() => (
+    <MachineImgWrapper>
+        <img src={printer} alt="3d 프린터"/>
+    </MachineImgWrapper>
+));
+
 const InstructionPrinter = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     return (
         <div>
             <Header leftChild={<ArrowBack/>} centerText={"3D 프린터"}/>
-            <MachineImgWrapper>
-                <img src={printer} alt="3d 프린터"/>
-            </MachineImgWrapper>
+            <PrinterImage/>
             <Tab tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
             <Content>{tabs[activeIndex].content}</Content>
         </div>
     );
 };
 
-export default InstructionPrinter;
+export default React.memo(InstructionPrinter);

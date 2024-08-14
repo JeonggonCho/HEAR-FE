@@ -7,7 +7,7 @@ const Textarea:FC = () => {
 
     const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const inputText = e.target.value;
-        if (inputText.length <= 500) {
+        if (inputText.length <= 400) {
             setText(inputText);
             setCountOfText(inputText.length);
         }
@@ -15,8 +15,8 @@ const Textarea:FC = () => {
 
     return (
         <Container>
-            <textarea value={text} onChange={handleTextChange} maxLength={500}/>
-            <p><span>{countOfText}</span> / 500자</p>
+            <textarea value={text} onChange={handleTextChange} maxLength={400}/>
+            <p><span>{countOfText}</span> / 400자</p>
         </Container>
     );
 };

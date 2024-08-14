@@ -1,4 +1,4 @@
-import {FC} from "react";
+import React, {FC} from "react";
 import {Button, Container} from "./style.ts";
 import home from "../../assets/icons/home.svg";
 import note from "../../assets/icons/note.svg";
@@ -42,4 +42,4 @@ const Nav: FC = () => {
     );
 };
 
-export default Nav;
+export default React.memo(Nav);
