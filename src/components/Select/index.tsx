@@ -12,12 +12,12 @@ const Select:FC<ISelectWithLabelProps> = ({label, id, name}) => {
         <Container>
             <label htmlFor={id}>{label}</label>
 
-            <select name={name} id={id}>
+            <div>
+                <input value={""}></input>
                 <option value={""}></option>
                 <option value={""}></option>
                 <option value={""}></option>
-                <option value={""}></option>
-            </select>
+            </div>
         </Container>
     );
 };

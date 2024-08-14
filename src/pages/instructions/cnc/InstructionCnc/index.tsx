@@ -6,9 +6,11 @@ import Tab, {ITab} from "../../../../components/Tab";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
 import React, {useState} from "react";
 import Introduction from "../Introduction";
+import Work from "../Work";
 
 const tabs: ITab[] = [
     { name: "소개", content: <Introduction/>, },
+    { name: "작업", content: <Work/>, },
 ];
 
 const InstructionCnc = () => {
@@ -21,7 +23,8 @@ const InstructionCnc = () => {
                 <img src={cnc} alt="CNC"/>
             </MachineImgWrapper>
             <Tab tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
-            <Content>{tabs[activeIndex].content}</Content>        </div>
+            <Content>{tabs[activeIndex].content}</Content>
+        </div>
     );
 };
 

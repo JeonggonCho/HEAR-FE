@@ -29,6 +29,8 @@ import LoginPage from "./pages/auth/LoginPage";
 import SignupPage from "./pages/auth/SignupPage";
 import FindPasswordPage from "./pages/auth/FindPasswordPage";
 import ConditionPage from "./pages/reservation/ConditionPage";
+import SignupDonePage from "./pages/auth/SignupDonePage";
+import ReservationDonePage from "./pages/reservation/ReservationDonePage";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -67,6 +69,7 @@ const App = () => {
                     <Route path="account" element={<AccountPage/>}/>
                     <Route path="login" element={<LoginPage/>}/>
                     <Route path="signup" element={<SignupPage/>}/>
+                    <Route path="signup/done" element={<SignupDonePage/>}/>
                     <Route path="password-reset" element={<FindPasswordPage/>}/>
 
                     <Route path="notice" element={<NoticePage/>}/>
@@ -81,6 +84,7 @@ const App = () => {
                     <Route path="instruction/vacuum" element={<InstructionVacuum/>}/>
 
                     <Route path="reservation" element={<ReservationPage/>}/>
+                    <Route path="reservation/done" element={<ReservationDonePage/>}/>
                     <Route path="reservation/3d-printer" element={<ReservationPrinter/>}/>
                     <Route path="reservation/laser" element={<ReservationLaser/>}/>
                     <Route path="reservation/heat" element={<ReservationHeat/>}/>
