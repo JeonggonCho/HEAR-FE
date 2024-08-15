@@ -2,10 +2,11 @@ import Header from "../../../components/Header";
 import ArrowBack from "../../../components/ArrowBack";
 import ColoredBtn from "../../../components/ColoredBtn";
 import InputWithLabel from "../../../components/InputWithLabel";
+import {Container} from "./style.ts";
 
 const ReservationSaw = () => {
     return (
-        <div>
+        <Container>
             <Header leftChild={<ArrowBack/>} centerText={"톱 예약"}/>
             <form method={"post"} onSubmit={() => {}}>
                 <InputWithLabel
@@ -26,7 +27,7 @@ const ReservationSaw = () => {
                 />
                 <ColoredBtn type={"submit"} text={"예약하기"} width={"full"} color={"primary"} btnSize={"big"}/>
             </form>
-        </div>
+        </Container>
     );
 };
 

@@ -1,22 +1,32 @@
 import {FC} from 'react';
-import {Container} from "./style.ts";
+import {Container, LabelWrapper, RadioWrapper} from "./style.ts";
 
 interface ISelectWithLabelProps {
     label?: string;
-    id: string;
-    name: string;
+    categories: {
+        label: string;
+        name: string;
+        value: string;
+        id: string;
+        onChange: () => void;
+        checked: boolean;
+    }[];
 }
 
-const Select:FC<ISelectWithLabelProps> = ({label, id, name}) => {
+const Select:FC<ISelectWithLabelProps> = ({label, categories}) => {
     return (
         <Container>
-            <label htmlFor={id}>{label}</label>
+            <label>{label}</label>
 
             <div>
-                <input value={""}></input>
-                <option value={""}></option>
-                <option value={""}></option>
-                <option value={""}></option>
+                {categories.map((category, index) => {
+                    return (
+                        <RadioWrapper key={index}>
+                            <input type="radio" name={category.name} value={category.value} id={category.id} onChange={category.onChange} checked={category.checked}/>
+                            <LabelWrapper htmlFor={category.id}>{category.label}</LabelWrapper>
+                        </RadioWrapper>
+                    );
+                })}
             </div>
         </Container>
     );

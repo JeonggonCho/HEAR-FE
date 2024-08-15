@@ -4,17 +4,17 @@ import RoomMap from "../../../components/RoomMap";
 import ColoredBtn from "../../../components/ColoredBtn";
 import InputWithLabel from "../../../components/InputWithLabel";
 import Select from "../../../components/Select";
+import {Container} from "./style.ts";
 
 const ReservationPrinter = () => {
     return (
-        <div>
+        <Container>
             <Header leftChild={<ArrowBack/>} centerText={"3D 프린터 예약"}/>
             <RoomMap machine={"printer"}/>
             <form method={"post"} onSubmit={() => {}}>
                 <Select
-                    id={"select-printer"}
-                    name={"select-printer"}
                     label={"기기 선택"}
+                    categories={[{}]}
                 />
                 <InputWithLabel
                     label={"날 짜"}
@@ -34,7 +34,7 @@ const ReservationPrinter = () => {
                 />
                 <ColoredBtn type={"submit"} text={"예약하기"} width={"full"} color={"primary"} btnSize={"big"}/>
             </form>
-        </div>
+        </Container>
     );
 };
 

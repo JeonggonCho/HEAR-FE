@@ -3,10 +3,11 @@ import ArrowBack from "../../../components/ArrowBack";
 import RoomMap from "../../../components/RoomMap";
 import ColoredBtn from "../../../components/ColoredBtn";
 import InputWithLabel from "../../../components/InputWithLabel";
+import {Container} from "./style.ts";
 
 const ReservationVacuum = () => {
     return (
-        <div>
+        <Container>
             <Header leftChild={<ArrowBack/>} centerText={"사출 성형기 예약"}/>
             <RoomMap machine={"vacuum"}/>
             <form method={"post"} onSubmit={() => {}}>
@@ -28,7 +29,7 @@ const ReservationVacuum = () => {
                 />
                 <ColoredBtn type={"submit"} text={"예약하기"} width={"full"} color={"primary"} btnSize={"big"}/>
             </form>
-        </div>
+        </Container>
     );
 };
 

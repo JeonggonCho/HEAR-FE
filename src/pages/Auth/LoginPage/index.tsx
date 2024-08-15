@@ -3,10 +3,11 @@ import ArrowBack from "../../../components/ArrowBack";
 import ColoredBtn from "../../../components/ColoredBtn";
 import InputWithLabel from "../../../components/InputWithLabel";
 import Link from "../../../components/Link";
+import {Container} from "./style.ts";
 
 const LoginPage = () => {
     return (
-        <div>
+        <Container>
             <Header leftChild={<ArrowBack/>} centerText={"로그인"}/>
             <form method={"post"}>
                 <InputWithLabel
@@ -34,10 +35,10 @@ const LoginPage = () => {
                     color={"primary"}
                     btnSize={"big"}
                 />
-                <Link text={"비밀번호 찾기"} to={"/password-reset"} color={"second"}/>
-                <Link text={"회원가입"} to={"/signup"} color={"primary"}/>
             </form>
-        </div>
+            <Link text={"비밀번호 찾기"} to={"/password-reset"} color={"second"}/>
+            <Link text={"회원가입"} to={"/signup"} color={"primary"}/>
+        </Container>
     );
 };
 

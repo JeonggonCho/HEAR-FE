@@ -3,10 +3,20 @@ import ArrowBack from "../../../components/ArrowBack";
 import ColoredBtn from "../../../components/ColoredBtn";
 import InputWithLabel from "../../../components/InputWithLabel";
 import Link from "../../../components/Link";
+import {Container} from "./style.ts";
+import Select from "../../../components/Select";
+
+const yearCategories = [
+    {label: "1학년", name: "year-type", value: "1", id: "radio-1", onChange: () => {}, checked: true},
+    {label: "2학년", name: "year-type", value: "2", id: "radio-2", onChange: () => {}, checked: false},
+    {label: "3학년", name: "year-type", value: "3", id: "radio-3", onChange: () => {}, checked: false},
+    {label: "4학년", name: "year-type", value: "4", id: "radio-4", onChange: () => {}, checked: false},
+    {label: "5학년", name: "year-type", value: "5", id: "radio-5", onChange: () => {}, checked: false},
+];
 
 const SignupPage = () => {
     return (
-        <div>
+        <Container>
             <Header leftChild={<ArrowBack/>} centerText={"회원가입"}/>
             <form method={"post"} onSubmit={() => {}}>
                 <InputWithLabel
@@ -54,6 +64,7 @@ const SignupPage = () => {
                     name={"confirm-password"}
                     onChange={() => {}}
                 />
+                <Select label={"학 년"} categories={yearCategories}/>
                 <InputWithLabel
                     label={"학 번"}
                     type={"number"}
@@ -82,9 +93,9 @@ const SignupPage = () => {
                     onChange={() => {}}
                 />
                 <ColoredBtn type={"submit"} text={"회원가입"} width={"full"} color={"primary"} btnSize={"big"}/>
-                <Link text={"로그인"} to={"/login"} color={"primary"}/>
             </form>
-        </div>
+            <Link text={"로그인"} to={"/login"} color={"primary"}/>
+        </Container>
     );
 };
 

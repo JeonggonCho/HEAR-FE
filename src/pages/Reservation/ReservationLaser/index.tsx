@@ -4,17 +4,17 @@ import RoomMap from "../../../components/RoomMap";
 import ColoredBtn from "../../../components/ColoredBtn";
 import Select from "../../../components/Select";
 import InputWithLabel from "../../../components/InputWithLabel";
+import {Container} from "./style.ts";
 
 const ReservationLaser = () => {
     return (
-        <div>
+        <Container>
             <Header leftChild={<ArrowBack/>} centerText={"레이저 커팅기 예약"}/>
             <RoomMap machine={"laser"}/>
             <form method={"post"} onSubmit={() => {}}>
                 <Select
-                    id={"select-laser"}
-                    name={"select-laser"}
                     label={"기기 선택"}
+                    categories={[{}]}
                 />
                 <InputWithLabel
                     label={"날 짜"}
@@ -34,7 +34,7 @@ const ReservationLaser = () => {
                 />
                 <ColoredBtn type={"submit"} text={"예약하기"} width={"full"} color={"primary"} btnSize={"big"}/>
             </form>
-        </div>
+        </Container>
     );
 };
 

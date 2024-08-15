@@ -3,10 +3,11 @@ import ArrowBack from "../../../components/ArrowBack";
 import RoomMap from "../../../components/RoomMap";
 import InputWithLabel from "../../../components/InputWithLabel";
 import ColoredBtn from "../../../components/ColoredBtn";
+import {Container} from "./style.ts";
 
 const ReservationCnc = () => {
     return (
-        <div>
+        <Container>
             <Header leftChild={<ArrowBack/>} centerText={"CNC 예약"}/>
             <RoomMap machine={"cnc"}/>
             <form method={"post"} onSubmit={() => {}}>
@@ -28,7 +29,7 @@ const ReservationCnc = () => {
                 />
                 <ColoredBtn type={"submit"} text={"예약하기"} width={"full"} color={"primary"} btnSize={"big"}/>
             </form>
-        </div>
+        </Container>
     );
 };
 

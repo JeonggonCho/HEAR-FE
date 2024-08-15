@@ -2,10 +2,11 @@ import Header from "../../../components/Header";
 import ArrowBack from "../../../components/ArrowBack";
 import InputWithLabel from "../../../components/InputWithLabel";
 import ColoredBtn from "../../../components/ColoredBtn";
+import {Container} from "./style.ts";
 
 const FindPasswordPage = () => {
     return (
-        <div>
+        <Container>
             <Header leftChild={<ArrowBack/>} centerText={"비밀번호 찾기"}/>
             <form method={"post"} onSubmit={() => {}}>
                 <InputWithLabel
@@ -37,7 +38,7 @@ const FindPasswordPage = () => {
                 />
                 <ColoredBtn type={"submit"} text={"비밀번호 찾기"} width={"full"} color={"primary"} btnSize={"big"}/>
             </form>
-        </div>
+        </Container>
     );
 };
 
