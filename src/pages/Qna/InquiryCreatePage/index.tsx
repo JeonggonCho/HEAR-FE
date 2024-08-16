@@ -26,7 +26,7 @@ const InquiryCreatePage = () => {
                 <InputWithLabel label={"제 목"} type={"text"} id={"inquiry-title"} name={"inquiry-title"} placeholder={"제목을 입력해주세요"} value={""}/>
                 <Select categories={inquiryCategories}/>
                 <Textarea/>
-                <ColoredBtn type={"submit"} text={"문의 보내기"} width={"full"} color={"primary"} btnSize={"big"}/>
+                <ColoredBtn type={"submit"} text={"문의하기"} width={"full"} color={"primary"} btnSize={"big"}/>
             </form>
         </Container>
     );
