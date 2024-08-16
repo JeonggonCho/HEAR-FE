@@ -5,7 +5,7 @@ import arrowForward from "../../assets/icons/arrow_forward.svg";
 
 const FeedBackCard:FC = () => {
     return (
-        <Container to={"/qna/feedback"}>
+        <Container to={"/feedback/new"}>
             <h3>
                 어플리케이션<br/>
                 피드백

@@ -4,7 +4,6 @@ import Layout from "./components/Layout";
 import MainPage from "./pages/main/MainPage";
 import InstructionPage from "./pages/instructions/InstructionPage";
 import ReservationPage from "./pages/reservation/ReservationPage";
-import QnaPage from "./pages/qna/QnaPage";
 import AccountPage from "./pages/auth/AccountPage";
 import {useEffect, useState} from "react";
 import SplashPage from "./pages/main/SplashPage";
@@ -16,7 +15,6 @@ import InstructionCnc from "./pages/instructions/cnc/InstructionCnc";
 import InstructionSaw from "./pages/instructions/saw/InstructionSaw";
 import InstructionVacuum from "./pages/instructions/vacuum/InstructionVacuum";
 import NoticeDetailPage from "./pages/notice/NoticeDetailPage";
-import FeedBackPage from "./pages/qna/FeedBackPage";
 import ReservationPrinter from "./pages/reservation/ReservationPrinter";
 import ReservationLaser from "./pages/reservation/ReservationLaser";
 import ReservationHeat from "./pages/reservation/ReservationHeat";
@@ -24,13 +22,16 @@ import ReservationCnc from "./pages/reservation/ReservationCnc";
 import ReservationSaw from "./pages/reservation/ReservationSaw";
 import ReservationVacuum from "./pages/reservation/ReservationVacuum";
 import AlarmPage from "./pages/main/AlarmPage";
-import InquiryPage from "./pages/qna/InquiryPage";
 import LoginPage from "./pages/auth/LoginPage";
 import SignupPage from "./pages/auth/SignupPage";
 import FindPasswordPage from "./pages/auth/FindPasswordPage";
 import ConditionPage from "./pages/reservation/ConditionPage";
 import SignupDonePage from "./pages/auth/SignupDonePage";
 import ReservationDonePage from "./pages/reservation/ReservationDonePage";
+import InquiryCreatePage from "./pages/qna/InquiryCreatePage";
+import FeedbackCreatePage from "./pages/qna/FeedbackCreatePage";
+import FeedbackPage from "./pages/qna/FeedbackPage";
+import InquiryPage from "./pages/qna/InquiryPage";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -62,9 +63,10 @@ const App = () => {
                     <Route path="main" element={<MainPage/>}/>
                     <Route path="alarm" element={<AlarmPage/>}/>
 
-                    <Route path="qna" element={<QnaPage/>}/>
-                    <Route path="qna/inquiry" element={<InquiryPage/>}/>
-                    <Route path="qna/feedback" element={<FeedBackPage/>}/>
+                    <Route path="inquiry" element={<InquiryPage/>}/>
+                    <Route path="inquiry/new" element={<InquiryCreatePage/>}/>
+                    <Route path="feedback" element={<FeedbackPage/>}/>
+                    <Route path="feedback/new" element={<FeedbackCreatePage/>}/>
 
                     <Route path="account" element={<AccountPage/>}/>
                     <Route path="login" element={<LoginPage/>}/>

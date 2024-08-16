@@ -18,13 +18,12 @@ const categories: ICategory[] = [
     { label: "홈", icon: home, path: "/main" },
     { label: "사용법", icon: note, path: "/instruction" },
     { label: "예 약", icon: reservation, path: "/reservation" },
-    { label: "문 의", icon: question, path: "/qna" },
+    { label: "문 의", icon: question, path: "/inquiry" },
     { label: "내정보", icon: account, path: "/account" },
 ];
 
 const Nav: FC = () => {
     const {pathname} = useLocation();
-    console.log(pathname)
 
     return (
         <Container>

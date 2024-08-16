@@ -39,7 +39,7 @@ export const Container = styled.div`
             & > span:last-child {
                 font-size: 14px;
                 color: #999999;
-                margin-bottom: 6px;
+                margin-bottom: 5px;
             }
         }
     }

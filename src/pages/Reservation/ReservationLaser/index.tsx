@@ -6,6 +6,11 @@ import Select from "../../../components/Select";
 import InputWithLabel from "../../../components/InputWithLabel";
 import {Container} from "./style.ts";
 
+const laserCategories = [
+    {label: "1호기", name: "laser-type", value: "1", id: "radio-1", onChange: () => {}, checked: true},
+    {label: "2호기", name: "laser-type", value: "2", id: "radio-2", onChange: () => {}, checked: false},
+];
+
 const ReservationLaser = () => {
     return (
         <Container>
@@ -14,7 +19,7 @@ const ReservationLaser = () => {
             <form method={"post"} onSubmit={() => {}}>
                 <Select
                     label={"기기 선택"}
-                    categories={[{}]}
+                    categories={laserCategories}
                 />
                 <InputWithLabel
                     label={"날 짜"}

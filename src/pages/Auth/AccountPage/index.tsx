@@ -8,6 +8,7 @@ import StatusCard from "../../../components/StatusCard";
 import CountOfLaserCard from "../../../components/CountOfLaserCard";
 import ReservationListCard from "../../../components/ReservationListCard";
 import UsageListCard from "../../../components/UsageListCard";
+import InquiryListCard from "../../../components/InquiryListCard";
 
 const AccountHeaderLeft:FC = () => <h2><UserName>조정곤</UserName>님 안녕하세요</h2>;
 
@@ -35,6 +36,7 @@ const AccountPage = () => {
             <StatusCard/>
             <CountOfLaserCard/>
             <ReservationListCard/>
+            <InquiryListCard/>
             <UsageListCard/>
             <HollowBtn type={"submit"} text={"탈퇴하기"} width={"full"} color={"danger"} btnSize={"big"}/>
         </Container>
