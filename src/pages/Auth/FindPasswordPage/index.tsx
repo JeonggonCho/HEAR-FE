@@ -8,7 +8,9 @@ const FindPasswordPage = () => {
     return (
         <Container>
             <Header leftChild={<ArrowBack/>} centerText={"비밀번호 찾기"}/>
-            <form method={"post"} onSubmit={() => {}}>
+            <form method={"post"} onSubmit={(e) => {
+                e.preventDefault();
+            }}>
                 <InputWithLabel
                     label={"이 름"}
                     type={"text"}

@@ -16,7 +16,9 @@ const ReservationLaser = () => {
         <Container>
             <Header leftChild={<ArrowBack/>} centerText={"레이저 커팅기 예약"}/>
             <RoomMap machine={"laser"}/>
-            <form method={"post"} onSubmit={() => {}}>
+            <form method={"post"} onSubmit={(e) => {
+                e.preventDefault();
+            }}>
                 <Select
                     label={"기기 선택"}
                     categories={laserCategories}

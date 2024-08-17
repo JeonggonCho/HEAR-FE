@@ -22,7 +22,9 @@ const InquiryCreatePage = () => {
                 문의사항을 보내주세요
             </p>
 
-            <form method={"post"} onSubmit={() => {}}>
+            <form method={"post"} onSubmit={(e) => {
+                e.preventDefault();
+            }}>
                 <InputWithLabel label={"제 목"} type={"text"} id={"inquiry-title"} name={"inquiry-title"} placeholder={"제목을 입력해주세요"} value={""}/>
                 <Select categories={inquiryCategories}/>
                 <Textarea/>

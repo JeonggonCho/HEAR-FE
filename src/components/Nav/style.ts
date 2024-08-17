@@ -13,6 +13,7 @@ export const Container = styled.div`
     align-items: center;
     justify-content: space-between;
     background-color: #F8F8F8;
+    z-index: 5;
 `;
 
 export const Button = styled(NavLink)<{ isActive: boolean }>`

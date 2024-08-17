@@ -9,6 +9,7 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 12px;
     margin-bottom: 16px;
+    border: 1px solid white;
     
     & > div {
         display: flex;

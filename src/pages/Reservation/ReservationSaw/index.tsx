@@ -8,7 +8,9 @@ const ReservationSaw = () => {
     return (
         <Container>
             <Header leftChild={<ArrowBack/>} centerText={"톱 예약"}/>
-            <form method={"post"} onSubmit={() => {}}>
+            <form method={"post"} onSubmit={(e) => {
+                e.preventDefault();
+            }}>
                 <InputWithLabel
                     label={"날 짜"}
                     type={"date"}

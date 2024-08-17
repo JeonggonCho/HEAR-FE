@@ -5,15 +5,15 @@ import close from "../../assets/icons/close.svg";
 import check from "../../assets/icons/check.svg";
 
 interface ILangSettingModalContentProps {
-    setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const LangSettingModalContent:FC<ILangSettingModalContentProps> = ({setModalOpen}) => {
+const LangSettingModalContent:FC<ILangSettingModalContentProps> = ({setModal}) => {
     return (
         <Container>
             <div>
                 <h3>언어설정</h3>
-                <div onClick={() => setModalOpen(false)}>
+                <div onClick={() => setModal(false)}>
                     <ReactSVG src={close}/>
                 </div>
             </div>

@@ -16,7 +16,9 @@ const ReservationPrinter = () => {
         <Container>
             <Header leftChild={<ArrowBack/>} centerText={"3D 프린터 예약"}/>
             <RoomMap machine={"printer"}/>
-            <form method={"post"} onSubmit={() => {}}>
+            <form method={"post"} onSubmit={(e) => {
+                e.preventDefault();
+            }}>
                 <Select
                     label={"기기 선택"}
                     categories={printerCategories}

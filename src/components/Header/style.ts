@@ -8,6 +8,10 @@ export const Container = styled.div`
     margin-bottom: 20px;
     font-weight: bold;
     font-size: 16px;
+    position: sticky;
+    top: 0;
+    background-color: #F8F8F8;
+    z-index: 1;
 
     & > div:first-of-type {
         display: flex;

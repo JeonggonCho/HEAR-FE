@@ -8,6 +8,7 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border: 1px solid white;
     
     & > div {
         display: flex;
@@ -26,6 +27,7 @@ export const Container = styled.div`
     
     & > p:last-child {
         font-weight: bold;
+        font-size: 18px;
         
         span {
             color: #2B65FC;

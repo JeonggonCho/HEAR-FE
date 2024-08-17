@@ -3,16 +3,16 @@ import {Container} from "./style.ts";
 
 interface IModalProps {
     content: React.ReactElement;
-    setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Modal:FC<IModalProps> = ({content, setModalOpen}) => {
+const Modal:FC<IModalProps> = ({content, setModal}) => {
     const modalRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
             if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-                setModalOpen(false);
+                setModal(false);
             }
         };
 
@@ -21,7 +21,7 @@ const Modal:FC<IModalProps> = ({content, setModalOpen}) => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [modalRef, setModalOpen]);
+    }, [modalRef, setModal]);
 
     return (
         <Container>

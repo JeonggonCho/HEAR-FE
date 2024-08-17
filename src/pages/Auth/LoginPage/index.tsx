@@ -9,7 +9,9 @@ const LoginPage = () => {
     return (
         <Container>
             <Header leftChild={<ArrowBack/>} centerText={"로그인"}/>
-            <form method={"post"}>
+            <form method={"post"} onSubmit={(e) => {
+                e.preventDefault();
+            }}>
                 <InputWithLabel
                     label={"한양대학교 이메일"}
                     type={"text"}

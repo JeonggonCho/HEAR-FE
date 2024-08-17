@@ -4,12 +4,12 @@ import {ReactSVG} from "react-svg";
 import arrowForward from "../../assets/icons/arrow_forward.svg";
 
 interface ILangSettingCardProps {
-    setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const LangSettingCard:FC<ILangSettingCardProps> = ({setModalOpen}) => {
+const LangSettingCard:FC<ILangSettingCardProps> = ({setModal}) => {
     return (
-        <Container onClick={() => setModalOpen(true)}>
+        <Container onClick={() => setModal(true)}>
             <div>
                 <h3>언어설정</h3>
                 <span>Language</span>

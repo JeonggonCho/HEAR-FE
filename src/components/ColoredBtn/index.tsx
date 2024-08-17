@@ -8,12 +8,13 @@ interface ColoredBtnProps {
     width: "full" | "fit";
     color: "primary" | "approval" | "second" | "third" | "danger";
     btnSize: "small" | "normal" | "big";
+    onClick ?: () => void;
 }
 
-const ColoredBtn:FC<ColoredBtnProps> = ({type = "button", to, text, width, color, btnSize}) => {
+const ColoredBtn:FC<ColoredBtnProps> = ({type = "button", to, text, width, color, btnSize, onClick}) => {
     if (type === "button") {
         return (
-            <ButtonWrapper width={width} color={color} btnSize={btnSize}>{text}</ButtonWrapper>
+            <ButtonWrapper width={width} color={color} btnSize={btnSize} onClick={onClick}>{text}</ButtonWrapper>
         );
     } else if (type === "link" && to) {
         return (
@@ -21,7 +22,7 @@ const ColoredBtn:FC<ColoredBtnProps> = ({type = "button", to, text, width, color
         );
     } else if (type === "submit") {
         return (
-            <SubmitWrapper type="submit" width={width} color={color} value={text} btnSize={btnSize}/>
+            <SubmitWrapper type="submit" width={width} color={color} value={text} btnSize={btnSize} onClick={onClick}/>
         );
     } else {
         return null;

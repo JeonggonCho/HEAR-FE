@@ -30,7 +30,7 @@ const MainHeaderRight:FC = () => (
 );
 
 const MainPage = () => {
-    const [modalOpen, setModalOpen] = useState(false);
+    const [langModal, setLangModal] = useState<boolean>(false);
 
     return (
         <Container>
@@ -43,14 +43,14 @@ const MainPage = () => {
             <NoticeCard/>
             <SituationCard/>
             <div>
-                <LangSettingCard setModalOpen={setModalOpen}/>
+                <LangSettingCard setModal={setLangModal}/>
                 <FeedBackCard/>
             </div>
 
-            {modalOpen &&
+            {langModal &&
               <Modal
-                setModalOpen={setModalOpen}
-                content={<LangSettingModalContent setModalOpen={setModalOpen}/>}
+                setModal={setLangModal}
+                content={<LangSettingModalContent setModal={setLangModal}/>}
               />
             }
         </Container>

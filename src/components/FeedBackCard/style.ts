@@ -12,6 +12,7 @@ export const Container = styled(NavLink)`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    border: 1px solid white;
     
     &:hover {
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);

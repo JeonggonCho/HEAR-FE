@@ -8,6 +8,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 12px;
+    border: 1px solid white;
     
     h3 {
         margin: 0;

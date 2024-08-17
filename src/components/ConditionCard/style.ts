@@ -3,13 +3,14 @@ import {NavLink} from "react-router-dom";
 
 export const Container = styled(NavLink)`
     width: 100%;
-    padding: 18px;
+    padding: 12px 18px;
     border-radius: 16px;
     background-color: white;
     transition: all 0.2s ease-in-out 0s;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border: 1px solid white;
     
     &:hover {
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);

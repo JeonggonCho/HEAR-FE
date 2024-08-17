@@ -18,7 +18,9 @@ const SignupPage = () => {
     return (
         <Container>
             <Header leftChild={<ArrowBack/>} centerText={"회원가입"}/>
-            <form method={"post"} onSubmit={() => {}}>
+            <form method={"post"} onSubmit={(e) => {
+                e.preventDefault();
+            }}>
                 <InputWithLabel
                     label={"이름"}
                     type={"text"}

@@ -10,7 +10,9 @@ const ReservationVacuum = () => {
         <Container>
             <Header leftChild={<ArrowBack/>} centerText={"사출 성형기 예약"}/>
             <RoomMap machine={"vacuum"}/>
-            <form method={"post"} onSubmit={() => {}}>
+            <form method={"post"} onSubmit={(e) => {
+                e.preventDefault();
+            }}>
                 <InputWithLabel
                     label={"날 짜"}
                     type={"date"}

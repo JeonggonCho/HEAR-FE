@@ -6,6 +6,7 @@ export const Container = styled.div`
     padding: 18px;
     border-radius: 16px;
     background-color: white;
+    border: 1px solid white;
 
     & > div:first-child {
         display: flex;

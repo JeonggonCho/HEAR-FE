@@ -10,7 +10,9 @@ const ReservationCnc = () => {
         <Container>
             <Header leftChild={<ArrowBack/>} centerText={"CNC 예약"}/>
             <RoomMap machine={"cnc"}/>
-            <form method={"post"} onSubmit={() => {}}>
+            <form method={"post"} onSubmit={(e) => {
+                e.preventDefault();
+            }}>
                 <InputWithLabel
                     label={"날 짜"}
                     type={"date"}
