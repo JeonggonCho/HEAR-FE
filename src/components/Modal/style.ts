@@ -14,9 +14,10 @@ const fadeIn = keyframes`
 
 
 export const Container = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 50%;
+    bottom: 50px;
     transform: translateX(-50%);
     max-width: 600px;
     width: 100%;

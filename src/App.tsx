@@ -34,6 +34,7 @@ import FeedbackPage from "./pages/qna/FeedbackPage";
 import InquiryPage from "./pages/qna/InquiryPage";
 import UpdateAccountPage from "./pages/auth/UpdateAccountPage";
 import UpdatePasswordPage from "./pages/auth/UpdatePasswordPage";
+import TestPage from "./pages/test/TestPage";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -80,6 +81,8 @@ const App = () => {
 
                     <Route path="notice" element={<NoticePage/>}/>
                     <Route path="notice/:noticeId" element={<NoticeDetailPage/>}/>
+
+                    <Route path="test" element={<TestPage/>}/>
 
                     <Route path="instruction" element={<InstructionPage/>}/>
                     <Route path="instruction/3d-printer" element={<InstructionPrinter/>}/>

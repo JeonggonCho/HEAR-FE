@@ -15,7 +15,7 @@ export const Container = styled.div`
         gap: 10px;
     }
     
-    & > div:nth-child(7) {
+    & > div:nth-child(8) {
         margin-bottom: 32px;
     }
 `;

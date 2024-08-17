@@ -6,11 +6,13 @@ export const Container = styled.div`
     background-color: white;
     padding: 6px;
     border-radius: 16px;
+    border: 1px solid white;
     display: flex;
     position: sticky;
-    top: 80px;
+    top: 72px;
     margin-bottom: 32px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    z-index: 3;
 `;
 
 export const TabButton = styled.div<{isActive: Boolean}>`
