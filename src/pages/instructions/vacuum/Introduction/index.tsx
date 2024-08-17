@@ -5,7 +5,7 @@ import vacuumMachine from "../../../../assets/instruction_images/vacuum/vacuum_m
 const Introduction:FC = () => {
     return (
         <Container>
-            <h3>1. 기기 소개</h3>
+            <h3>1. 사출 성형기 기기</h3>
 
             <ImageWrapper>
                 <img src={vacuumMachine} alt="사출 성형기 기기"/>

@@ -30,8 +30,8 @@ const AccountPage = () => {
             <Header leftChild={<AccountHeaderLeft/>} rightChild={<AccountHeaderRight/>}/>
             <ProfileCard/>
             <div>
-                <ColoredBtn type={"link"} text={"내정보 수정"} width={"full"} color={"second"} btnSize={"small"} to={"/"}/>
-                <ColoredBtn type={"link"} text={"비밀번호 변경"} width={"full"} color={"second"} btnSize={"small"} to={"/"}/>
+                <ColoredBtn type={"link"} text={"내정보 수정"} width={"full"} color={"second"} btnSize={"small"} to={"/account/update"}/>
+                <ColoredBtn type={"link"} text={"비밀번호 변경"} width={"full"} color={"second"} btnSize={"small"} to={"/password/update"}/>
             </div>
             <StatusCard/>
             <CountOfLaserCard/>

@@ -32,6 +32,8 @@ import InquiryCreatePage from "./pages/qna/InquiryCreatePage";
 import FeedbackCreatePage from "./pages/qna/FeedbackCreatePage";
 import FeedbackPage from "./pages/qna/FeedbackPage";
 import InquiryPage from "./pages/qna/InquiryPage";
+import UpdateAccountPage from "./pages/auth/UpdateAccountPage";
+import UpdatePasswordPage from "./pages/auth/UpdatePasswordPage";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -69,10 +71,12 @@ const App = () => {
                     <Route path="feedback/new" element={<FeedbackCreatePage/>}/>
 
                     <Route path="account" element={<AccountPage/>}/>
+                    <Route path="account/update" element={<UpdateAccountPage/>}/>
                     <Route path="login" element={<LoginPage/>}/>
                     <Route path="signup" element={<SignupPage/>}/>
                     <Route path="signup/done" element={<SignupDonePage/>}/>
-                    <Route path="password-reset" element={<FindPasswordPage/>}/>
+                    <Route path="password/reset" element={<FindPasswordPage/>}/>
+                    <Route path="password/update" element={<UpdatePasswordPage/>}/>
 
                     <Route path="notice" element={<NoticePage/>}/>
                     <Route path="notice/:noticeId" element={<NoticeDetailPage/>}/>

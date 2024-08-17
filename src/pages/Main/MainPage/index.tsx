@@ -1,7 +1,7 @@
 import Header from "../../../components/Header";
 import {AlarmWrapper, Container, HeaderElementWrapper, Logo, LogoWrapper, Title} from "./style.ts";
 import logo from "../../../assets/logo.svg";
-import {FC} from "react";
+import {FC, useState} from "react";
 import ManagerCard from "../../../components/ManagerCard";
 import NoticeCard from "../../../components/NoticeCard";
 import SituationCard from "../../../components/ConditionCard";
@@ -9,6 +9,8 @@ import LangSettingCard from "../../../components/LangSettingCard";
 import FeedBackCard from "../../../components/FeedBackCard";
 import {ReactSVG} from "react-svg";
 import alarm from "../../../assets/icons/alarm.svg";
+import Modal from "../../../components/Modal";
+import LangSettingModalContent from "../../../components/LangSettingModalContent";
 
 const MainHeaderLeft: FC = () => {
     return (
@@ -28,6 +30,8 @@ const MainHeaderRight:FC = () => (
 );
 
 const MainPage = () => {
+    const [modalOpen, setModalOpen] = useState(false);
+
     return (
         <Container>
             <Header leftChild={<MainHeaderLeft/>} rightChild={<MainHeaderRight/>}/>
@@ -39,9 +43,16 @@ const MainPage = () => {
             <NoticeCard/>
             <SituationCard/>
             <div>
-                <LangSettingCard/>
+                <LangSettingCard setModalOpen={setModalOpen}/>
                 <FeedBackCard/>
             </div>
+
+            {modalOpen &&
+              <Modal
+                setModalOpen={setModalOpen}
+                content={<LangSettingModalContent setModalOpen={setModalOpen}/>}
+              />
+            }
         </Container>
     );
 };

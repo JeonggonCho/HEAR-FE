@@ -36,7 +36,7 @@ const LoginPage = () => {
                     btnSize={"big"}
                 />
             </form>
-            <Link text={"비밀번호 찾기"} to={"/password-reset"} color={"second"}/>
+            <Link text={"비밀번호 찾기"} to={"/password/reset"} color={"second"}/>
             <Link text={"회원가입"} to={"/signup"} color={"primary"}/>
         </Container>
     );
