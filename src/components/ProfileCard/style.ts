@@ -16,7 +16,7 @@ export const Container = styled.div`
         align-items: center;
         gap: 20px;
         
-        & > span:first-child {
+        & > span:first-of-type {
             width: 80px;
             color: #999999;
         }

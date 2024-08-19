@@ -1,6 +1,7 @@
 import React, {ChangeEvent, ReactNode} from "react";
 import {To} from "react-router-dom";
 import {ITab} from "@/types/tab.ts";
+import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 
 
 // 채워진 버튼(ColoredBtn) props
@@ -10,7 +11,7 @@ export interface IColoredBtnProps {
     text : string;
     width: "full" | "fit";
     color: "primary" | "approval" | "second" | "third" | "danger";
-    btnSize: "small" | "normal" | "big";
+    scale: "small" | "normal" | "big";
     onClick ?: () => void;
 }
 
@@ -22,7 +23,7 @@ export interface IHollowBtnProps {
     text : string;
     width: "full" | "fit";
     color: "primary" | "second" | "danger";
-    btnSize: "small" | "normal" | "big";
+    scale: "small" | "normal" | "big";
     onClick ?: () => void;
 }
 
@@ -45,14 +46,15 @@ export interface IHeaderProps {
 
 
 // 인풋(InputWithLabel) props
-export interface IInputWithLabelProps {
+export interface IInputWithLabelProps<TFieldValues extends FieldValues> {
     label: string;
     type: string;
     id: string;
-    name: string;
+    name: FieldPath<TFieldValues>;
     placeholder: string;
-    value: string | number;
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+    register: UseFormRegister<TFieldValues>;
+    errorMessage?: string;
 }
 
 
@@ -99,14 +101,14 @@ export interface IRoomMapProps {
 
 // 선택(Select) props
 export interface ISelectWithLabelProps {
+    register: UseFormRegister<any>;
+    name: string;
+    errorMessage?: string;
     label?: string;
     categories: {
         label: string;
-        name: string;
         value: string;
         id: string;
-        onChange: () => void;
-        checked: boolean;
     }[];
 }
 
@@ -141,4 +143,18 @@ export interface IEmptyProps {
     image?: string;
     title: string;
     message?: string;
+}
+
+
+// 인풋 에러 메시지(InputError) props
+export interface IInputErrorProps {
+    errorMessage?: string | undefined;
+}
+
+
+// 텍스트 영역(Textarea) props
+export interface ITextareaProps {
+    register: UseFormRegister<any>;
+    name: string;
+    errorMessage?: string;
 }

@@ -6,11 +6,11 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 6px;
     
-    & > label:first-child {
+    & > label:first-of-type {
         margin-left: 6px;
     }
     
-    & > div:nth-child(2) {
+    & > div:nth-of-type(1) {
         display: flex;
         align-items: center;
         justify-content: space-between;

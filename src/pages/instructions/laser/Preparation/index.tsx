@@ -1,11 +1,11 @@
 import {FC} from "react";
 import {Container, ImageWrapper} from "../../instruction.style.ts";
-import cadLine from "../../../../assets/instruction_images/laser/cad_line.jpg";
-import cadLayer from  "../../../../assets/instruction_images/laser/cad_layer.jpeg";
-import cadDxf from "../../../../assets/instruction_images/laser/cad_dxf.jpeg";
-import rhinoLine from "../../../../assets/instruction_images/laser/rhino_line.jpeg";
-import rhinoLayer from "../../../../assets/instruction_images/laser/rhino_layer.jpeg";
-import rhinoDxf from "../../../../assets/instruction_images/laser/rhino_dxf.jpeg";
+import cadLine from "@assets/instruction_images/laser/cad_line.jpg";
+import cadLayer from "@assets/instruction_images/laser/cad_layer.jpeg";
+import cadDxf from "@assets/instruction_images/laser/cad_dxf.jpeg";
+import rhinoLine from "@assets/instruction_images/laser/rhino_line.jpeg";
+import rhinoLayer from "@assets/instruction_images/laser/rhino_layer.jpeg";
+import rhinoDxf from "@assets/instruction_images/laser/rhino_dxf.jpeg";
 
 const Preparation:FC = () => {
     return (

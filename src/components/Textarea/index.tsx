@@ -1,7 +1,9 @@
 import {ChangeEvent, FC, useState} from "react";
 import {Container} from "./style.ts";
+import InputError from "@components/InputError";
+import {ITextareaProps} from "@/types/componentProps.ts";
 
-const Textarea:FC = () => {
+const Textarea:FC<ITextareaProps> = ({register, name, errorMessage}) => {
     const [text, setText] = useState("");
     const [countOfText, setCountOfText] = useState(0);
 
@@ -15,7 +17,13 @@ const Textarea:FC = () => {
 
     return (
         <Container>
-            <textarea value={text} onChange={handleTextChange} maxLength={400}/>
+            <textarea
+                {...register(name)}
+                value={text}
+                onChange={handleTextChange}
+                maxLength={400}
+            />
+            {errorMessage && <InputError errorMessage={errorMessage}/> }
             <p><span>{countOfText}</span> / 400자</p>
         </Container>
     );

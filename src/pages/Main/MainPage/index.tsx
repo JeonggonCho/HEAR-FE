@@ -1,16 +1,16 @@
-import Header from "../../../components/Header";
+import Header from "@components/Header";
 import {AlarmWrapper, Container, HeaderElementWrapper, Logo, LogoWrapper, Title} from "./style.ts";
-import logo from "../../../assets/logo.svg";
+import logo from "@assets/logo.svg";
 import {FC, useState} from "react";
-import ManagerCard from "../../../components/ManagerCard";
-import NoticeCard from "../../../components/NoticeCard";
-import SituationCard from "../../../components/ConditionCard";
-import LangSettingCard from "../../../components/LangSettingCard";
-import FeedBackCard from "../../../components/FeedBackCard";
+import ManagerCard from "@components/ManagerCard";
+import NoticeCard from "@components/NoticeCard";
+import SituationCard from "@components/ConditionCard";
+import LangSettingCard from "@components/LangSettingCard";
+import FeedBackCard from "@components/FeedBackCard";
 import {ReactSVG} from "react-svg";
-import alarm from "../../../assets/icons/alarm.svg";
-import Modal from "../../../components/Modal";
-import LangSettingModalContent from "../../../components/LangSettingModalContent";
+import alarm from "@assets/icons/alarm.svg";
+import Modal from "@components/Modal";
+import LangSettingModalContent from "@components/LangSettingModalContent";
 
 const MainHeaderLeft: FC = () => {
     return (

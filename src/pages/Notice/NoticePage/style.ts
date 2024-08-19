@@ -14,11 +14,11 @@ export const Container = styled.div`
             background-color: white;
             
             tr {
-                & > td:first-child {
+                & > td:first-of-type {
                     text-align: center;
                 }
 
-                & > td:nth-child(3) {
+                & > td:nth-of-type(3) {
                     text-align: center;
                 }
             }

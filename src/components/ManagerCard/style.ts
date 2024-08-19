@@ -14,7 +14,7 @@ export const Container = styled.div`
         margin: 0;
     }
     
-    & > div:first-child {
+    & > div:first-of-type {
         display: flex;
         align-items: center;
         gap: 10px;
@@ -24,7 +24,7 @@ export const Container = styled.div`
         }
     }
     
-    & > div:last-child {
+    & > div:last-of-type {
         display: flex;
         justify-content: space-between;
         
@@ -37,7 +37,7 @@ export const Container = styled.div`
                 margin-bottom: 4px;
             }
             
-            & > span:last-child {
+            & > span:last-of-type {
                 font-size: 14px;
                 color: #999999;
                 margin-bottom: 5px;

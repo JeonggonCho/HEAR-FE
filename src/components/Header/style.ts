@@ -21,7 +21,7 @@ export const Container = styled.div`
         text-wrap: nowrap;
     }
 
-    & > div:nth-child(2) {
+    & > div:nth-of-type(2) {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -31,7 +31,7 @@ export const Container = styled.div`
         text-wrap: nowrap;
     }
 
-    & > div:nth-child(3) {
+    & > div:nth-of-type(3) {
         display: flex;
         align-items: center;
         justify-content: end;

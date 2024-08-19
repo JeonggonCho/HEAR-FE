@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {Container} from "./style.ts";
-import manager from "../../assets/images/manager.png";
-import ColoredBtn from "../ColoredBtn";
+import manager from "@assets/images/manager.png";
+import ColoredBtn from "@components/ColoredBtn";
 
 const ManagerCard:FC = () => {
     return (
@@ -17,7 +17,7 @@ const ManagerCard:FC = () => {
                     <span>병원건축연구실(216호)</span>
                 </div>
 
-                <ColoredBtn type={"link"} to={"/inquiry/new"} text={"문의하기"} width={"fit"} color={"third"} btnSize={"small"}/>
+                <ColoredBtn type={"link"} to={"/inquiry/new"} text={"문의하기"} width={"fit"} color={"third"} scale={"small"}/>
             </div>
         </Container>
     );

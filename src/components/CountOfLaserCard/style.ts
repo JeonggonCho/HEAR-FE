@@ -25,7 +25,7 @@ export const Container = styled.div`
         line-height: 1.5;
     }
     
-    & > p:last-child {
+    & > p:last-of-type {
         font-weight: bold;
         font-size: 18px;
         

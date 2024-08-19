@@ -1,8 +1,8 @@
-import Header from "../../../../components/Header";
-import ArrowBack from "../../../../components/ArrowBack";
-import heat from "../../../../assets/images/heat_cutter.png";
+import Header from "@components/Header";
+import ArrowBack from "@components/ArrowBack";
+import heat from "@assets/images/heat_cutter.png";
 import {MachineImgWrapper} from "./style.ts";
-import Tab from "../../../../components/Tab";
+import Tab from "@components/Tab";
 import React, {useState} from "react";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
 import Introduction from "../Introduction";

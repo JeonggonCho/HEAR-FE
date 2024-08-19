@@ -1,13 +1,13 @@
 import {FC} from "react";
 import {Container, ImageWrapper} from "../../instruction.style.ts";
-import modeling1 from "../../../../assets/instruction_images/printer/3d_printer_1-1.jpg";
-import modeling2 from "../../../../assets/instruction_images/printer/3d_printer_1-2.jpg";
-import modeling3 from "../../../../assets/instruction_images/printer/3d_printer_1-3.jpg";
-import modeling4 from "../../../../assets/instruction_images/printer/3d_printer_1-4.jpg";
-import modeling5 from "../../../../assets/instruction_images/printer/3d_printer_1-5.jpg";
-import modeling6 from "../../../../assets/instruction_images/printer/3d_printer_1-6.jpg";
-import modeling7 from "../../../../assets/instruction_images/printer/3d_printer_1-7.jpg";
-import modeling8 from "../../../../assets/instruction_images/printer/3d_printer_1-8.jpg";
+import modeling1 from "@assets/instruction_images/printer/3d_printer_1-1.jpg";
+import modeling2 from "@assets/instruction_images/printer/3d_printer_1-2.jpg";
+import modeling3 from "@assets/instruction_images/printer/3d_printer_1-3.jpg";
+import modeling4 from "@assets/instruction_images/printer/3d_printer_1-4.jpg";
+import modeling5 from "@assets/instruction_images/printer/3d_printer_1-5.jpg";
+import modeling6 from "@assets/instruction_images/printer/3d_printer_1-6.jpg";
+import modeling7 from "@assets/instruction_images/printer/3d_printer_1-7.jpg";
+import modeling8 from "@assets/instruction_images/printer/3d_printer_1-8.jpg";
 
 const Preparation:FC = () => {
     return (

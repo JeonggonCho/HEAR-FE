@@ -16,7 +16,7 @@ export const Container = styled(NavLink)<{ category: "machine" | "reservation" |
         }
     }
     
-    & > span:first-child {
+    & > span:first-of-type {
         font-size: 14px;
         margin-bottom: 8px;
         display: inline-block;
@@ -26,7 +26,7 @@ export const Container = styled(NavLink)<{ category: "machine" | "reservation" |
         border-radius: 6px;
     }
     
-    & > div:nth-child(2) {
+    & > div:first-of-type {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -47,16 +47,16 @@ export const Container = styled(NavLink)<{ category: "machine" | "reservation" |
         }
     }
     
-    & > div:last-child {
+    & > div:last-of-type {
         display: flex;
         align-items: center;
         justify-content: space-between;
         
-        & > span:first-child {
+        & > span:first-of-type {
             font-size: 16px;
         }
         
-        & > span:last-child {
+        & > span:last-of-type {
             font-size: 14px;
             color: #999999;
         }

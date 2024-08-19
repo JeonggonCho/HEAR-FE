@@ -6,7 +6,7 @@ export const Container = styled.div`
     height: 100%;
     padding: 12px;
     
-    & > div:first-child {
+    & > div:first-of-type {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -19,7 +19,7 @@ export const Container = styled.div`
             margin: 0;
         }
         
-        & > div:nth-child(2) {
+        & > div:first-of-type {
             cursor: pointer;
             
             svg {
@@ -34,7 +34,7 @@ export const Container = styled.div`
         }
     }
     
-    & > div:nth-child(2) {
+    & > div:nth-of-type(2) {
         display: flex;
         flex-direction: column;
         gap: 8px;
@@ -80,7 +80,7 @@ export const Container = styled.div`
         }
     }
 
-    & > button:last-child {
+    & > button:last-of-type {
         margin: auto;
         display: block;
         border: none;

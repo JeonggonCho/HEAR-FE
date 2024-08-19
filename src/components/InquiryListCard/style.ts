@@ -8,7 +8,7 @@ export const Container = styled.div`
     background-color: white;
     border: 1px solid white;
 
-    & > div:first-child {
+    & > div:first-of-type {
         display: flex;
         align-items: center;
         gap: 10px;
@@ -23,7 +23,7 @@ export const Container = styled.div`
         }
     }
 
-    & > div:nth-child(2) {
+    & > div:nth-of-type(2) {
         display: flex;
         flex-direction: column;
         gap: 14px;
@@ -38,12 +38,12 @@ export const Inquiry = styled(NavLink)`
     transition: all 0.2s ease-in-out 0s;
 
     &:hover {
-        & > span:first-child {
+        & > span:first-of-type {
             color: #2B65FC;
         }
     }
 
-    & > span:last-child {
+    & > span:last-of-type {
         font-size: 14px;
         color: #999999;
     }

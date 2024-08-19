@@ -3,14 +3,14 @@ import styled from "@emotion/styled";
 export const Container = styled.div`
     width: 100%;
 
-    & > p:first-child {
+    & > p:first-of-type {
         text-align: center;
         font-size: 20px;
         font-weight: bold;
         margin: 28px 0 32px;
     }
 
-    & > p:nth-child(2) {
+    & > p:nth-of-type(2) {
         text-align: center;
         word-break: keep-all;
         text-wrap: balance;
@@ -19,7 +19,7 @@ export const Container = styled.div`
         margin: 0 0 32px;
     }
 
-    & > div:last-child {
+    & > div:last-of-type {
         display: flex;
         align-items: center;
         justify-content: space-between;

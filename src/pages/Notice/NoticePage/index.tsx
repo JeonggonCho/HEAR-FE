@@ -1,5 +1,5 @@
-import Header from "../../../components/Header";
-import ArrowBack from "../../../components/ArrowBack";
+import Header from "@components/Header";
+import ArrowBack from "@components/ArrowBack";
 import {Container} from "./style.ts";
 import CreateBtn from "@components/CreateBtn";
 import Empty from "@components/Empty";

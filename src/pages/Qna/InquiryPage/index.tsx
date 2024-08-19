@@ -1,7 +1,7 @@
-import Header from "../../../components/Header";
-import qna from "../../../assets/images/qna.png";
+import Header from "@components/Header";
+import qna from "@assets/images/qna.png";
 import {Container, HeaderWrapper} from "./style.ts";
-import HollowBtn from "../../../components/HollowBtn";
+import HollowBtn from "@components/HollowBtn";
 import InquiryListItem from "@components/InquiryListItem";
 import {IInquiryListItemProps} from "@/types/componentProps.ts";
 import CreateBtn from "@components/CreateBtn";
@@ -74,7 +74,7 @@ const InquiryHeaderLeft = () => (
 );
 
 const InquiryHeaderRight = () => (
-    <HollowBtn type={"link"} text={"피드백"} width={"fit"} color={"primary"} btnSize={"small"} to={"/feedback"}/>
+    <HollowBtn type={"link"} text={"피드백"} width={"fit"} color={"primary"} scale={"small"} to={"/feedback"}/>
 );
 
 const InquiryPage = () => {

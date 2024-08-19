@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-    & > p:nth-child(2) {
+    & > p:first-of-type {
         line-height: 1.5;
         margin-bottom: 28px;
         margin-left: 8px;

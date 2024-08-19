@@ -1,8 +1,8 @@
 import {FC} from "react";
 import {Container} from "./style.ts";
 import {ReactSVG} from "react-svg";
-import close from "../../assets/icons/close.svg";
-import check from "../../assets/icons/check.svg";
+import close from "@assets/icons/close.svg";
+import check from "@assets/icons/check.svg";
 import {ILangSettingModalContentProps} from "@/types/componentProps.ts";
 
 const LangSettingModalContent:FC<ILangSettingModalContentProps> = ({setModal}) => {

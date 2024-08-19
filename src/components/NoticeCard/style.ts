@@ -13,13 +13,13 @@ export const Container = styled.div`
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
     }
 
-    & > div:first-child {
+    & > div:first-of-type {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 24px;
         
-        & > div:first-child {
+        & > div:first-of-type {
             display: flex;
             align-items: center;
             gap: 10px;
@@ -36,7 +36,7 @@ export const Container = styled.div`
         }
     }
 
-    & > div:nth-child(2) {
+    & > div:nth-of-type(2) {
         display: flex;
         flex-direction: column;
         gap: 14px;
@@ -62,19 +62,19 @@ export const Notice = styled(NavLink)`
     transition: all 0.2s ease-in-out 0s;
     gap: 24px;
     
-    & > span:first-child {
+    & > span:first-of-type {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
 
-    & > span:last-child {
+    & > span:last-of-type {
         font-size: 14px;
         color: #999999;
     }
     
     &:hover {
-        span:first-child {
+        span:first-of-type {
             color: #2B65FC;
         }
     }

@@ -1,8 +1,8 @@
 export const feedbackCategories = [
-    {label: "좋은점", name: "feedback-type", value: "good", id: "radio-1", onChange: () => {}, checked: false},
-    {label: "문제점", name: "feedback-type", value: "bad", id: "radio-2", onChange: () => {}, checked: false},
-    {label: "제안", name: "feedback-type", value: "suggest", id: "radio-3", onChange: () => {}, checked: true},
-    {label: "기타", name: "feedback-type", value: "etc", id: "radio-4", onChange: () => {}, checked: false},
+    {label: "좋은점", value: "good", id: "radio-1"},
+    {label: "문제점", value: "bad", id: "radio-2"},
+    {label: "제안", value: "suggest", id: "radio-3"},
+    {label: "기타", value: "etc", id: "radio-4"},
 ];
 
 export const feedbackCategoriesValues = {

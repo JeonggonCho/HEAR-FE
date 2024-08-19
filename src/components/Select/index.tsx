@@ -1,8 +1,9 @@
 import {FC} from 'react';
 import {Container, LabelWrapper, RadioWrapper} from "./style.ts";
 import {ISelectWithLabelProps} from "@/types/componentProps.ts";
+import InputError from "@components/InputError";
 
-const Select:FC<ISelectWithLabelProps> = ({label, categories}) => {
+const Select:FC<ISelectWithLabelProps> = ({label, categories, register, name, errorMessage}) => {
     return (
         <Container>
             <label>{label}</label>
@@ -11,12 +12,18 @@ const Select:FC<ISelectWithLabelProps> = ({label, categories}) => {
                 {categories.map((category, index) => {
                     return (
                         <RadioWrapper key={index}>
-                            <input type="radio" name={category.name} value={category.value} id={category.id} onChange={category.onChange} checked={category.checked}/>
+                            <input
+                                type="radio"
+                                value={category.value}
+                                id={category.id}
+                                {...register(name)}
+                            />
                             <LabelWrapper htmlFor={category.id}>{category.label}</LabelWrapper>
                         </RadioWrapper>
                     );
                 })}
             </div>
+            {errorMessage && <InputError errorMessage={errorMessage}/> }
         </Container>
     );
 };

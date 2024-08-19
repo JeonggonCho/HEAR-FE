@@ -19,7 +19,7 @@ export const Container = styled.div`
     animation-fill-mode: forwards;
     animation-delay: 2.8s;
     
-    & > div:first-child {
+    & > div:first-of-type {
         position: absolute;
         top: 25%;
         left: 8%;
@@ -51,7 +51,7 @@ export const Container = styled.div`
         }
     }
     
-    & > span:nth-child(2) {
+    & > span:first-of-type {
         width: 100%;
         text-align: center;
         color: #999999;

@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {Container, ImageWrapper} from "../../instruction.style.ts";
-import safe from "../../../../assets/instruction_images/saw/saw_safe.jpg";
-import sawDirection from "../../../../assets/instruction_images/saw/saw_direction.jpg";
+import safe from "@assets/instruction_images/saw/saw_safe.jpg";
+import sawDirection from "@assets/instruction_images/saw/saw_direction.jpg";
 
 const Warning:FC = () => {
     return (

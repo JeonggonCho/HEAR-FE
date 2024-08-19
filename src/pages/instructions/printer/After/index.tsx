@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {Container, ImageWrapper} from "../../instruction.style.ts";
-import off from "../../../../assets/instruction_images/printer/3d_printer_off.jpg";
-import clean from "../../../../assets/instruction_images/printer/3d_printer_clean.jpg";
+import off from "@assets/instruction_images/printer/3d_printer_off.jpg";
+import clean from "@assets/instruction_images/printer/3d_printer_clean.jpg";
 
 const After:FC = () => {
     return (

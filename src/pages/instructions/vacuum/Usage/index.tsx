@@ -1,22 +1,22 @@
 import {FC} from 'react';
 import {Container, ImageWrapper} from "../../instruction.style.ts";
-import controllers from "../../../../assets/instruction_images/vacuum/vacuum_controllers.jpg";
-import on from "../../../../assets/instruction_images/vacuum/vacuum_on.jpg";
-import heat from "../../../../assets/instruction_images/vacuum/vacuum_heat.jpg";
-import mould from "../../../../assets/instruction_images/vacuum/vacuum_mould.jpg";
-import leverUp from "../../../../assets/instruction_images/vacuum/vacuum_lever_up.jpg";
-import modelDown from "../../../../assets/instruction_images/vacuum/vacuum_model_down.jpg";
-import material from "../../../../assets/instruction_images/vacuum/vacuum_material.jpg";
-import fit from "../../../../assets/instruction_images/vacuum/vacuum_fit.jpg";
-import pullHeat from "../../../../assets/instruction_images/vacuum/vacuum_pull_heat.jpg";
-import timer from "../../../../assets/instruction_images/vacuum/vacuum_timer.jpg";
-import pushHeat from "../../../../assets/instruction_images/vacuum/vacuum_push_heat.jpg";
-import vacuumPump from "../../../../assets/instruction_images/vacuum/vacuum_pump.jpg";
-import pushLever from "../../../../assets/instruction_images/vacuum/vacuum_push_lever.jpg";
-import pressure from "../../../../assets/instruction_images/vacuum/vacuum_pressure.jpg";
-import mouldUp from "../../../../assets/instruction_images/vacuum/vacuum_mould_up.jpg";
-import remove from "../../../../assets/instruction_images/vacuum/vacuum_remove.jpg";
-import finish from "../../../../assets/instruction_images/vacuum/vacuum_finish.jpg";
+import controllers from "@assets/instruction_images/vacuum/vacuum_controllers.jpg";
+import on from "@assets/instruction_images/vacuum/vacuum_on.jpg";
+import heat from "@assets/instruction_images/vacuum/vacuum_heat.jpg";
+import mould from "@assets/instruction_images/vacuum/vacuum_mould.jpg";
+import leverUp from "@assets/instruction_images/vacuum/vacuum_lever_up.jpg";
+import modelDown from "@assets/instruction_images/vacuum/vacuum_model_down.jpg";
+import material from "@assets/instruction_images/vacuum/vacuum_material.jpg";
+import fit from "@assets/instruction_images/vacuum/vacuum_fit.jpg";
+import pullHeat from "@assets/instruction_images/vacuum/vacuum_pull_heat.jpg";
+import timer from "@assets/instruction_images/vacuum/vacuum_timer.jpg";
+import pushHeat from "@assets/instruction_images/vacuum/vacuum_push_heat.jpg";
+import vacuumPump from "@assets/instruction_images/vacuum/vacuum_pump.jpg";
+import pushLever from "@assets/instruction_images/vacuum/vacuum_push_lever.jpg";
+import pressure from "@assets/instruction_images/vacuum/vacuum_pressure.jpg";
+import mouldUp from "@assets/instruction_images/vacuum/vacuum_mould_up.jpg";
+import remove from "@assets/instruction_images/vacuum/vacuum_remove.jpg";
+import finish from "@assets/instruction_images/vacuum/vacuum_finish.jpg";
 
 const Usage:FC = () => {
     return (

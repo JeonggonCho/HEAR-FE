@@ -26,7 +26,7 @@ export const Container = styled.div`
     backdrop-filter: blur(2px);
     z-index: 3;
     
-    & > div:first-child {
+    & > div:first-of-type {
         padding: 12px;
         max-width: 332px;
         width: 100%;

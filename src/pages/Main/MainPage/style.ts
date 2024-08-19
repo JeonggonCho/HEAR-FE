@@ -51,13 +51,13 @@ export const Container = styled.div`
         margin-left: 8px;
     }
     
-    & > div:nth-child(3),
-    & > div:nth-child(4),
-    & > a:nth-child(5) {
+    & > div:nth-of-type(2),
+    & > div:nth-of-type(3),
+    & > a:nth-of-type(1) {
         margin-bottom: 16px;
     }
 
-    & > div:nth-child(6) {
+    & > div:nth-of-type(4) {
         display: grid;
         grid-gap: 16px;
         grid-template-columns: 1fr 1fr;

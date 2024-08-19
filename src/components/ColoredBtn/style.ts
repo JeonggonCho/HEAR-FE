@@ -32,11 +32,11 @@ const getColorStyles = (color: "primary" | "approval" | "second" | "third" | "da
     };
 };
 
-const BaseComponent = styled.div<{ width: "full" | "fit"; color: "primary" | "approval" | "second" | "third" | "danger"; btnSize: "small" | "normal" | "big";}>`
+const BaseComponent = styled.div<{ width: "full" | "fit"; color: "primary" | "approval" | "second" | "third" | "danger"; scale: "small" | "normal" | "big";}>`
     width: ${({ width }) => (width === "full" ? "100%" : "fit-content")};
-    font-size: ${({btnSize}) => btnSize === "small" ? "16px" : btnSize === "normal" ? "18px" : "20px"};
-    padding: ${({btnSize}) => btnSize === "small" ? "6px 12px" : "12px 18px"};
-    border-radius: ${({btnSize}) => btnSize === "big" ? "12px" : "8px"};
+    font-size: ${({scale}) => scale === "small" ? "16px" : scale === "normal" ? "18px" : "20px"};
+    padding: ${({scale}) => scale === "small" ? "6px 12px" : "12px 18px"};
+    border-radius: ${({scale}) => scale === "big" ? "12px" : "8px"};
     ${({ color }) => {
     const { backgroundColor, borderColor, color: textColor, hoverBgColor, activeBgColor } = getColorStyles(color);
     return `

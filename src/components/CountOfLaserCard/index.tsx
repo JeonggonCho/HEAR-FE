@@ -1,6 +1,6 @@
 import {FC} from 'react';
 import {Container} from "./style.ts";
-import count from "../../assets/images/count.png";
+import count from "@assets/images/count.png";
 
 const CountOfLaserCard:FC = () => {
     return (

@@ -15,7 +15,7 @@ export const Container = styled.div`
         margin-bottom: 16px;
     }
 
-    & > div:nth-child(3) {
+    & > div:nth-of-type(2) {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-gap: 16px;

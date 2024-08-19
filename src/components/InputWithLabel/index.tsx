@@ -1,19 +1,29 @@
-import {FC} from 'react';
 import {Container} from "./style.ts";
 import {IInputWithLabelProps} from "@/types/componentProps.ts";
+import {FieldValues} from "react-hook-form";
+import InputError from "@components/InputError";
 
-const InputWithLabel:FC<IInputWithLabelProps> = ({label, type, id, name, placeholder, value, onChange}) => {
+const InputWithLabel = <TFieldValues extends FieldValues>(
+    {
+        label,
+        type,
+        id,
+        name,
+        placeholder,
+        register,
+        errorMessage,
+    }: IInputWithLabelProps<TFieldValues>
+) => {
     return (
         <Container>
             <label htmlFor={id}>{label}</label>
             <input
+                {...register(name)}
                 type={type}
                 id={id}
-                name={name}
-                value={value}
                 placeholder={placeholder}
-                onChange={onChange}
             />
+            {errorMessage && <InputError errorMessage={errorMessage}/> }
         </Container>
     );
 };

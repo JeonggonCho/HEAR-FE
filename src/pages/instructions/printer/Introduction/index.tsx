@@ -1,6 +1,6 @@
 import {FC} from 'react';
 import {Container, ImageWrapper} from "../../instruction.style.ts";
-import printerMachine from "../../../../assets/instruction_images/printer/3d_printer_machine.jpg";
+import printerMachine from "@assets/instruction_images/printer/3d_printer_machine.jpg";
 
 const Introduction:FC = () => {
     return (

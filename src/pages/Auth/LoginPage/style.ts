@@ -6,4 +6,32 @@ export const Container = styled.div`
         flex-direction: column;
         gap: 32px;
     }
+    
+    & > div:nth-of-type(2) {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 32px;
+
+        div {
+            width: 64px;
+            height: 64px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        
+        h3 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2B65FC;
+            margin: 0;
+        }
+    }
 `;

@@ -1,9 +1,9 @@
 import {Container, ImageWrapper} from "../../instruction.style.ts";
 import {FC} from "react";
-import ballEndmill from "../../../../assets/instruction_images/cnc/cnc_ballEndmill.jpg";
-import flatEndmill from "../../../../assets/instruction_images/cnc/cnc_flatEndmill.jpg";
-import cncLine from "../../../../assets/instruction_images/cnc/cnc_line.jpg";
-import cncVolume from "../../../../assets/instruction_images/cnc/cnc_volume.jpg";
+import ballEndmill from "@assets/instruction_images/cnc/cnc_ballEndmill.jpg";
+import flatEndmill from "@assets/instruction_images/cnc/cnc_flatEndmill.jpg";
+import cncLine from "@assets/instruction_images/cnc/cnc_line.jpg";
+import cncVolume from "@assets/instruction_images/cnc/cnc_volume.jpg";
 
 const Work:FC = () => {
     return (

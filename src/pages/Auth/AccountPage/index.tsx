@@ -1,15 +1,15 @@
-import Header from "../../../components/Header";
+import Header from "@components/Header";
 import {FC, useState} from "react";
 import {Container, UserName} from "./style.ts";
-import HollowBtn from "../../../components/HollowBtn";
-import ProfileCard from "../../../components/ProfileCard";
-import ColoredBtn from "../../../components/ColoredBtn";
-import StatusCard from "../../../components/StatusCard";
-import CountOfLaserCard from "../../../components/CountOfLaserCard";
-import ReservationListCard from "../../../components/ReservationListCard";
-import UsageListCard from "../../../components/UsageListCard";
-import Modal from "../../../components/Modal";
-import ConfirmModalContent from "../../../components/ConfirmModalContent";
+import HollowBtn from "@components/HollowBtn";
+import ProfileCard from "@components/ProfileCard";
+import ColoredBtn from "@components/ColoredBtn";
+import StatusCard from "@components/StatusCard";
+import CountOfLaserCard from "@components/CountOfLaserCard";
+import ReservationListCard from "@components/ReservationListCard";
+import UsageListCard from "@components/UsageListCard";
+import Modal from "@components/Modal";
+import ConfirmModalContent from "@components/ConfirmModalContent";
 
 const AccountPage = () => {
     const [logoutModal, setLogoutModal] = useState<boolean>(false);
@@ -24,7 +24,7 @@ const AccountPage = () => {
                 text={"로그아웃"}
                 width={"fit"}
                 color={"second"}
-                btnSize={"small"}
+                scale={"small"}
                 onClick={() => setLogoutModal(true)}
             />
         )
@@ -37,7 +37,7 @@ const AccountPage = () => {
                 text={"닫 기"}
                 width={"full"}
                 color={"third"}
-                btnSize={"normal"}
+                scale={"normal"}
                 onClick={() => setLogoutModal(false)}
             />
         );
@@ -47,7 +47,7 @@ const AccountPage = () => {
                 text={"로그아웃"}
                 width={"full"}
                 color={"danger"}
-                btnSize={"normal"}
+                scale={"normal"}
             />
         );
         return (
@@ -62,7 +62,7 @@ const AccountPage = () => {
                 text={"닫 기"}
                 width={"full"}
                 color={"third"}
-                btnSize={"normal"}
+                scale={"normal"}
                 onClick={() => setUnregisterModal(false)}
             />
         );
@@ -72,7 +72,7 @@ const AccountPage = () => {
                 text={"탈퇴하기"}
                 width={"full"}
                 color={"danger"}
-                btnSize={"normal"}
+                scale={"normal"}
             />
         );
         return (
@@ -90,8 +90,8 @@ const AccountPage = () => {
             <Header leftChild={<AccountHeaderLeft/>} rightChild={<AccountHeaderRight/>}/>
             <ProfileCard/>
             <div>
-                <ColoredBtn type={"link"} text={"내정보 수정"} width={"full"} color={"second"} btnSize={"small"} to={"/account/update"}/>
-                <ColoredBtn type={"link"} text={"비밀번호 변경"} width={"full"} color={"second"} btnSize={"small"} to={"/password/update"}/>
+                <ColoredBtn type={"link"} text={"내정보 수정"} width={"full"} color={"second"} scale={"small"} to={"/account/update"}/>
+                <ColoredBtn type={"link"} text={"비밀번호 변경"} width={"full"} color={"second"} scale={"small"} to={"/password/update"}/>
             </div>
             <StatusCard/>
             <CountOfLaserCard/>
@@ -103,7 +103,7 @@ const AccountPage = () => {
                 text={"탈퇴하기"}
                 width={"full"}
                 color={"danger"}
-                btnSize={"big"}
+                scale={"big"}
                 onClick={() => setUnregisterModal(true)}
             />
 

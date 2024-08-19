@@ -1,7 +1,7 @@
-import Header from "../../../components/Header";
+import Header from "@components/Header";
 import {Container} from "./style.ts";
 import {HeaderWrapper} from "../../qna/InquiryPage/style.ts";
-import test from "../../../assets/images/test.png";
+import test from "@assets/images/test.png";
 
 const TestHeaderLeft = () => (
     <HeaderWrapper>

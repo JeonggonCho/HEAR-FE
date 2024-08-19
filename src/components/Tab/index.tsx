@@ -10,7 +10,7 @@ const Tab:FC<ITabProps> = ({tabs, activeIndex, setActiveIndex}) => {
                 <TabButton
                     key={index}
                     onClick={() => setActiveIndex(index)}
-                    isActive={activeIndex === index}
+                    active={(activeIndex === index).toString()}
                 >
                     {tab.name}
                 </TabButton>

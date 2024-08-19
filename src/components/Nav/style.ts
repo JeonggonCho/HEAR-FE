@@ -26,13 +26,13 @@ export const NavWrapper = styled.div`
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 `;
 
-export const Button = styled(NavLink)<{ isActive: boolean }>`
+export const Button = styled(NavLink)<{ active: string }>`
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
     font-size: 14px;
-    color: ${({isActive}) => isActive ? "#2B65FC" : "#999999"};
+    color: ${({active}) => active === "true" ? "#2B65FC" : "#999999"};
     transition: all 0.2s ease-in-out 0s;
     
     &:hover {
@@ -44,6 +44,6 @@ export const Button = styled(NavLink)<{ isActive: boolean }>`
     }
 
     svg {
-        fill: ${({isActive}) => isActive ? "#2B65FC" : "#999999"};
+        fill: ${({active}) => active === "true" ? "#2B65FC" : "#999999"};
     }
 `;

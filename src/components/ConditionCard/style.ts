@@ -29,7 +29,7 @@ export const Container = styled(NavLink)`
         transform: scale(0.9);
     }
     
-    & > div:first-child {
+    & > div:first-of-type {
         display: flex;
         align-items: center;
         gap: 10px;

@@ -1,24 +1,24 @@
 import {FC} from "react";
 import {Container, ImageWrapper} from "../../instruction.style.ts";
-import on from "../../../../assets/instruction_images/printer/3d_printer_on.jpg";
-import thermal from "../../../../assets/instruction_images/printer/3d_printer_thermal.jpg";
-import ingredient from "../../../../assets/instruction_images/printer/3d_printer_indredient.jpg";
-import thermalSetup from "../../../../assets/instruction_images/printer/3d_printer_thermal_setup.jpg";
-import usb from "../../../../assets/instruction_images/printer/3d_printer_usb.jpg";
-import copy1 from "../../../../assets/instruction_images/printer/3d_printer_copy_1.jpg";
-import copy2 from "../../../../assets/instruction_images/printer/3d_printer_copy_2.jpg";
-import copy3 from "../../../../assets/instruction_images/printer/3d_printer_copy_3.jpg";
-import copy4 from "../../../../assets/instruction_images/printer/3d_printer_copy_4.jpg";
-import copy5 from "../../../../assets/instruction_images/printer/3d_printer_copy_5.jpg";
-import copy6 from "../../../../assets/instruction_images/printer/3d_printer_copy_6.jpg";
-import copy7 from "../../../../assets/instruction_images/printer/3d_printer_copy_7.jpg";
-import removeUsb from "../../../../assets/instruction_images/printer/3d_printer_remove_usb.jpg";
-import autoLeveling from "../../../../assets/instruction_images/printer/3d_printer_auto_leveling.jpg";
-import cleaner from "../../../../assets/instruction_images/printer/3d_printer_cleaner.jpg";
-import nozzle from "../../../../assets/instruction_images/printer/3d_printer_nozzle.jpg";
-import axis from "../../../../assets/instruction_images/printer/3d_printer_axis.jpg";
-import sharp from "../../../../assets/instruction_images/printer/3d_printer_sharp.jpg";
-import touch from "../../../../assets/instruction_images/printer/3d_printer_touch.jpg";
+import on from "@assets/instruction_images/printer/3d_printer_on.jpg";
+import thermal from "@assets/instruction_images/printer/3d_printer_thermal.jpg";
+import ingredient from "@assets/instruction_images/printer/3d_printer_indredient.jpg";
+import thermalSetup from "@assets/instruction_images/printer/3d_printer_thermal_setup.jpg";
+import usb from "@assets/instruction_images/printer/3d_printer_usb.jpg";
+import copy1 from "@assets/instruction_images/printer/3d_printer_copy_1.jpg";
+import copy2 from "@assets/instruction_images/printer/3d_printer_copy_2.jpg";
+import copy3 from "@assets/instruction_images/printer/3d_printer_copy_3.jpg";
+import copy4 from "@assets/instruction_images/printer/3d_printer_copy_4.jpg";
+import copy5 from "@assets/instruction_images/printer/3d_printer_copy_5.jpg";
+import copy6 from "@assets/instruction_images/printer/3d_printer_copy_6.jpg";
+import copy7 from "@assets/instruction_images/printer/3d_printer_copy_7.jpg";
+import removeUsb from "@assets/instruction_images/printer/3d_printer_remove_usb.jpg";
+import autoLeveling from "@assets/instruction_images/printer/3d_printer_auto_leveling.jpg";
+import cleaner from "@assets/instruction_images/printer/3d_printer_cleaner.jpg";
+import nozzle from "@assets/instruction_images/printer/3d_printer_nozzle.jpg";
+import axis from "@assets/instruction_images/printer/3d_printer_axis.jpg";
+import sharp from "@assets/instruction_images/printer/3d_printer_sharp.jpg";
+import touch from "@assets/instruction_images/printer/3d_printer_touch.jpg";
 
 const Usage: FC = () => {
     return (

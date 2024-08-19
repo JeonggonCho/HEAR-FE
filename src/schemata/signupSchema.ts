@@ -1,5 +1,5 @@
 import {z} from "zod";
-import {EMAIL_REGEX, PW_REGEX, STUDENTID_REGEX, TEL_REGEX, VERIFICATION_REGEX} from "@constants/authRegex.ts";
+import {EMAIL_REGEX, PW_REGEX, STUDENTID_REGEX, TEL_REGEX} from "@constants/authRegex.ts";
 
 export const signupSchema = z.object({
     username: z
@@ -9,11 +9,7 @@ export const signupSchema = z.object({
         .string()
         .min(1, "이메일을 입력해주세요")
         .email("이메일 주소를 확인해주세요")
-        .regex(EMAIL_REGEX, "이메일 주소는 '@hanyang.ac.kr' 도메인만 사용해야 합니다"),
-    verificationCode: z
-        .string()
-        .length(6, "인증번호 6자리를 입력해주세요")
-        .regex(VERIFICATION_REGEX, "인증번호 6자리를 입력해주세요"),
+        .regex(EMAIL_REGEX, "이메일은 '@hanyang.ac.kr' 만 사용이 가능합니다"),
     password: z
         .string()
         .min(8, "비밀번호는 8자 이상 20자 이하로 입력해주세요")
@@ -23,6 +19,9 @@ export const signupSchema = z.object({
         .string()
         .min(8, "비밀번호 확인은 8자 이상 20자 이하로 입력해주세요")
         .max(20, "비밀번호 확인은 8자 이상 20자 이하로 입력해주세요"),
+    year: z
+        .string()
+        .min(1, "학년을 선택해주세요"),
     studentId: z
         .string()
         .regex(STUDENTID_REGEX, "학번은 10자리의 숫자여야 합니다"),

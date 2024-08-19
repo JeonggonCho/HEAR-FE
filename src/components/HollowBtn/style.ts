@@ -49,11 +49,11 @@ const commonBtnStyle = (color: "primary" | "second" | "danger") => {
     `;
 };
 
-const BaseComponent = styled.div<{ width: "full" | "fit"; color: "primary" | "second" | "danger"; btnSize: "small" | "normal" | "big";}>`
+const BaseComponent = styled.div<{ width: "full" | "fit"; color: "primary" | "second" | "danger"; scale: "small" | "normal" | "big";}>`
     width: ${({ width }) => (width === "full" ? "100%" : "fit-content")};
-    font-size: ${({btnSize}) => btnSize === "small" ? "16px" : btnSize === "normal" ? "18px" : "20px"};
-    padding: ${({btnSize}) => btnSize === "small" ? "6px 12px" : "12px 18px"};
-    border-radius: ${({btnSize}) => btnSize === "big" ? "12px" : "8px"};
+    font-size: ${({scale}) => scale === "small" ? "16px" : scale === "normal" ? "18px" : "20px"};
+    padding: ${({scale}) => scale === "small" ? "6px 12px" : "12px 18px"};
+    border-radius: ${({scale}) => scale === "big" ? "12px" : "8px"};
 
     ${({ color }) => commonBtnStyle(color)};
 `;

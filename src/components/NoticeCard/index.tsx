@@ -1,8 +1,8 @@
 import {FC} from "react";
 import {Container, More, Notice} from "./style.ts";
 import {ReactSVG} from "react-svg";
-import arrowForward from "../../assets/icons/arrow_forward.svg";
-import notice from "../../assets/images/notice.png";
+import arrowForward from "@assets/icons/arrow_forward.svg";
+import notice from "@assets/images/notice.png";
 
 const NoticeCard:FC = () => {
     return (

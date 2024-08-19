@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {Container} from "./style.ts";
 import {ReactSVG} from "react-svg";
-import arrowForward from "../../assets/icons/arrow_forward.svg";
+import arrowForward from "@assets/icons/arrow_forward.svg";
 
 const FeedBackCard:FC = () => {
     return (

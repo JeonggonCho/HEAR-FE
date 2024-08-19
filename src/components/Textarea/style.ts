@@ -32,7 +32,7 @@ export const Container = styled.div`
         }
     }
     
-    p {
+    & > p:last-of-type {
         margin: 0;
         text-align: end;
         color: #999999;

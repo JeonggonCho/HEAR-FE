@@ -1,9 +1,9 @@
 import {FC} from "react";
 import {Container, ImageWrapper} from "../../instruction.style.ts";
-import cover from "../../../../assets/instruction_images/saw/saw_cover.jpg";
-import push from "../../../../assets/instruction_images/saw/saw_push.jpg";
-import plug from "../../../../assets/instruction_images/saw/saw_plug.jpg";
-import cleaning from "../../../../assets/instruction_images/saw/saw_cleaning.jpg";
+import cover from "@assets/instruction_images/saw/saw_cover.jpg";
+import push from "@assets/instruction_images/saw/saw_push.jpg";
+import plug from "@assets/instruction_images/saw/saw_plug.jpg";
+import cleaning from "@assets/instruction_images/saw/saw_cleaning.jpg";
 
 const After:FC = () => {
     return (

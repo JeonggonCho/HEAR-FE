@@ -1,8 +1,8 @@
-import Header from "../../../../components/Header";
-import ArrowBack from "../../../../components/ArrowBack";
-import laser from "../../../../assets/images/laser_cut.png";
+import Header from "@components/Header";
+import ArrowBack from "@components/ArrowBack";
+import laser from "@assets/images/laser_cut.png";
 import {MachineImgWrapper} from "./style.ts";
-import Tab from "../../../../components/Tab";
+import Tab from "@components/Tab";
 import React, {useState} from "react";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
 import Introduction from "../Introduction";

@@ -15,7 +15,7 @@ export const Container = styled.div`
         word-break: keep-all;
     }
 
-    & > p:first-child {
+    & > p:first-of-type {
         font-size: 18px;
     }
 `;

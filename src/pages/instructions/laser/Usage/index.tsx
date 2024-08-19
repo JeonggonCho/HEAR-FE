@@ -1,23 +1,23 @@
 import {FC} from "react";
 import {Container, ImageWrapper} from "../../instruction.style.ts";
-import fan from "../../../../assets/instruction_images/laser/laser_fan.jpg";
-import on from "../../../../assets/instruction_images/laser/laser_on.jpg";
-import program from "../../../../assets/instruction_images/laser/laser_program.jpg";
-import programWindow from "../../../../assets/instruction_images/laser/laser_program_window.jpg";
-import importFile from "../../../../assets/instruction_images/laser/laser_import_file.jpg";
-import importFile2 from "../../../../assets/instruction_images/laser/laser_import_file_2.jpg";
-import checkFile from "../../../../assets/instruction_images/laser/laser_check_file.jpg";
-import mode from "../../../../assets/instruction_images/laser/laser_mode.jpg";
-import modeCategories from "../../../../assets/instruction_images/laser/laser_mode_categories.jpg";
-import speedPower from "../../../../assets/instruction_images/laser/laser_speed_power.jpg";
-import download from "../../../../assets/instruction_images/laser/laser_download.jpg";
-import downloadCurrent from "../../../../assets/instruction_images/laser/laser_download_current.jpg";
-import loading from "../../../../assets/instruction_images/laser/laser_loading.jpg";
-import downloaded from "../../../../assets/instruction_images/laser/laser_downloaded.jpg";
-import fileToMachine from "../../../../assets/instruction_images/laser/laser_file_to_machine.jpg";
-import guide from "../../../../assets/instruction_images/laser/laser_guide.jpg";
-import settingHeight from "../../../../assets/instruction_images/laser/laser_setting_height.jpg";
-import start from "../../../../assets/instruction_images/laser/laser_start.jpg";
+import fan from "@assets/instruction_images/laser/laser_fan.jpg";
+import on from "@assets/instruction_images/laser/laser_on.jpg";
+import program from "@assets/instruction_images/laser/laser_program.jpg";
+import programWindow from "@assets/instruction_images/laser/laser_program_window.jpg";
+import importFile from "@assets/instruction_images/laser/laser_import_file.jpg";
+import importFile2 from "@assets/instruction_images/laser/laser_import_file_2.jpg";
+import checkFile from "@assets/instruction_images/laser/laser_check_file.jpg";
+import mode from "@assets/instruction_images/laser/laser_mode.jpg";
+import modeCategories from "@assets/instruction_images/laser/laser_mode_categories.jpg";
+import speedPower from "@assets/instruction_images/laser/laser_speed_power.jpg";
+import download from "@assets/instruction_images/laser/laser_download.jpg";
+import downloadCurrent from "@assets/instruction_images/laser/laser_download_current.jpg";
+import loading from "@assets/instruction_images/laser/laser_loading.jpg";
+import downloaded from "@assets/instruction_images/laser/laser_downloaded.jpg";
+import fileToMachine from "@assets/instruction_images/laser/laser_file_to_machine.jpg";
+import guide from "@assets/instruction_images/laser/laser_guide.jpg";
+import settingHeight from "@assets/instruction_images/laser/laser_setting_height.jpg";
+import start from "@assets/instruction_images/laser/laser_start.jpg";
 
 const Usage:FC = () => {
     return (

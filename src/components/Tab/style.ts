@@ -15,14 +15,14 @@ export const Container = styled.div`
     z-index: 3;
 `;
 
-export const TabButton = styled.div<{isActive: Boolean}>`
+export const TabButton = styled.div<{active: string}>`
     width: 100%;
     height: 38px;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: ${({isActive}) => isActive ? "#2B65FC" : "#999999"};
+    color: ${({active}) => active === "true" ? "#2B65FC" : "#999999"};
     font-size: 18px;
     letter-spacing: 0.5px;
     cursor: pointer;

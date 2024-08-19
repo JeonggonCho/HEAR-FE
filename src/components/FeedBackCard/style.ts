@@ -36,7 +36,7 @@ export const Container = styled(NavLink)`
         margin: 0;
     }
     
-    & > div:nth-child(2) {
+    & > div:nth-of-type(1) {
         display: flex;
         align-items: center;
         justify-content: end;

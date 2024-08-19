@@ -1,8 +1,8 @@
 import {FC} from 'react';
 import {Container} from "./style.ts";
-import arrowForward from "../../assets/icons/arrow_forward.svg";
+import arrowForward from "@assets/icons/arrow_forward.svg";
 import {ReactSVG} from "react-svg";
-import situation from "../../assets/images/situation.png";
+import situation from "@assets/images/situation.png";
 
 const ConditionCard:FC = () => {
     return (

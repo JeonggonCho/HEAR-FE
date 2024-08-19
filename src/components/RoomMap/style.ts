@@ -9,7 +9,7 @@ export const Container = styled.div`
     text-wrap: nowrap;
     margin-bottom: 28px;
 
-    & > p:first-child {
+    & > p:first-of-type {
         margin: 0 0 24px;
         font-weight: bolder;
     }
@@ -19,13 +19,13 @@ export const MapWrapper = styled.div`
     max-width: 340px;
     margin: auto;
 
-    & > div:first-child {
+    & > div:first-of-type {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         margin-bottom: 20px;
     }
 
-    & > div:last-child {
+    & > div:last-of-type {
         width: 100%;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
@@ -40,7 +40,7 @@ export const MapWrapper = styled.div`
             gap: 8px;
         }
 
-        & > div:nth-child(2) {
+        & > div:nth-of-type(2) {
             justify-content: end;
             text-align: center;
             line-height: 1.2;

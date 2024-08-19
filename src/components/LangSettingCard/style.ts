@@ -39,7 +39,7 @@ export const Container = styled.div`
         color: #999999;
     }
     
-    & > div:nth-child(2) {
+    & > div:nth-of-type(2) {
         display: flex;
         align-items: center;
         justify-content: space-between;

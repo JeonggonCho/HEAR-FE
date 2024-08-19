@@ -9,13 +9,13 @@ export const Container = styled.div`
         margin-bottom: 16px;
     }
     
-    & > div:nth-child(3) {
+    & > div:nth-of-type(3) {
         display: flex;
         align-items: center;
         gap: 10px;
     }
     
-    & > div:nth-child(8) {
+    & > div:nth-of-type(7) {
         margin-bottom: 32px;
     }
 `;
