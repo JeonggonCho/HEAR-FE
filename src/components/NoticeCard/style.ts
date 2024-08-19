@@ -63,9 +63,9 @@ export const Notice = styled(NavLink)`
     gap: 24px;
     
     & > span:first-child {
-        overflow:hidden;
+        overflow: hidden;
         text-overflow: ellipsis;
-        white-space:nowrap;
+        white-space: nowrap;
     }
 
     & > span:last-child {

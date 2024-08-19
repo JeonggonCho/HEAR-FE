@@ -15,7 +15,7 @@ export const NavWrapper = styled.div`
     border-top: 1px solid #E2E2E2;
     border-left: 1px solid #E2E2E2;
     border-right: 1px solid #E2E2E2;
-    padding: 0 24px;
+    padding: 0 28px;
     border-radius: 24px 24px 0 0;
     display: flex;
     align-items: center;

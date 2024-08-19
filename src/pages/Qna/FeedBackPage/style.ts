@@ -9,3 +9,15 @@ export const HeaderWrapper = styled.div`
         width: 36px;
     }
 `;
+
+export const Container = styled.div`
+    width: 100%;
+    min-height: 100%;
+    position: relative;
+
+    p {
+        line-height: 1.5;
+        margin-bottom: 16px;
+        margin-left: 8px;
+    }
+`;

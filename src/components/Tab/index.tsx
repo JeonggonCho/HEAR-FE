@@ -1,31 +1,15 @@
-import React, {FC} from 'react';
+import {FC} from 'react';
 import { Container, TabButton, Background } from "./style";
-
-export interface ITab {
-    name: string;
-    content: JSX.Element;
-}
-
-interface ITabProps {
-    tabs: ITab[];
-    activeIndex: number;
-    setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
-}
+import {ITabProps} from "@/types/componentProps.ts";
 
 const Tab:FC<ITabProps> = ({tabs, activeIndex, setActiveIndex}) => {
-    const tabCount = tabs.length;
-
-    const handleClickTab = (index: number) => {
-        setActiveIndex(index);
-    };
-
     return (
         <Container>
-            <Background activeIndex={activeIndex} tabCount={tabCount} />
+            <Background activeIndex={activeIndex} tabCount={tabs.length} />
             {tabs.map((tab, index) => (
                 <TabButton
                     key={index}
-                    onClick={() => handleClickTab(index)}
+                    onClick={() => setActiveIndex(index)}
                     isActive={activeIndex === index}
                 >
                     {tab.name}

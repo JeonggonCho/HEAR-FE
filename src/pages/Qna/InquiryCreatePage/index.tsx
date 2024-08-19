@@ -5,13 +5,7 @@ import ColoredBtn from "../../../components/ColoredBtn";
 import Textarea from "../../../components/Textarea";
 import Select from "../../../components/Select";
 import InputWithLabel from "../../../components/InputWithLabel";
-
-const inquiryCategories = [
-    {label: "기기", name: "inquiry-type", value: "machine", id: "radio-1", onChange: () => {}, checked: true},
-    {label: "예약", name: "inquiry-type", value: "reservation", id: "radio-2", onChange: () => {}, checked: false},
-    {label: "실관련", name: "inquiry-type", value: "room", id: "radio-3", onChange: () => {}, checked: false},
-    {label: "기타", name: "inquiry-type", value: "etc", id: "radio-4", onChange: () => {}, checked: false},
-];
+import {inquiryCategories} from "@constants/inquiryCategories.ts";
 
 const InquiryCreatePage = () => {
     return (

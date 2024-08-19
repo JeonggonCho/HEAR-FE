@@ -1,12 +1,6 @@
-import React, {FC} from "react";
+import {FC} from "react";
 import {Container} from "./style.ts";
-
-interface IConfirmModalContentProps {
-    text: string;
-    description?: string;
-    leftBtn: React.ReactElement;
-    rightBtn: React.ReactElement;
-}
+import {IConfirmModalContentProps} from "@/types/componentProps.ts";
 
 const ConfirmModalContent:FC<IConfirmModalContentProps> = ({text, description, leftBtn, rightBtn}) => {
     return (

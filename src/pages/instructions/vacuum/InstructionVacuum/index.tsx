@@ -2,12 +2,13 @@ import Header from "../../../../components/Header";
 import ArrowBack from "../../../../components/ArrowBack";
 import vacuum from "../../../../assets/images/vacuum.png";
 import {MachineImgWrapper} from "./style.ts";
-import Tab, {ITab} from "../../../../components/Tab";
+import Tab from "../../../../components/Tab";
 import React, {useState} from "react";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
 import Introduction from "../Introduction";
 import Preparation from "../Preparation";
 import Usage from "../Usage";
+import {ITab} from "@/types/tab.ts";
 
 const tabs: ITab[] = [
     { name: "소개", content: <Introduction/>, },

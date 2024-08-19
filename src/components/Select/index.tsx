@@ -1,17 +1,6 @@
 import {FC} from 'react';
 import {Container, LabelWrapper, RadioWrapper} from "./style.ts";
-
-interface ISelectWithLabelProps {
-    label?: string;
-    categories: {
-        label: string;
-        name: string;
-        value: string;
-        id: string;
-        onChange: () => void;
-        checked: boolean;
-    }[];
-}
+import {ISelectWithLabelProps} from "@/types/componentProps.ts";
 
 const Select:FC<ISelectWithLabelProps> = ({label, categories}) => {
     return (

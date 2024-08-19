@@ -1,12 +1,9 @@
-import React, {FC} from "react";
+import {FC} from "react";
 import {Container} from "./style.ts";
 import {ReactSVG} from "react-svg";
 import close from "../../assets/icons/close.svg";
 import check from "../../assets/icons/check.svg";
-
-interface ILangSettingModalContentProps {
-    setModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import {ILangSettingModalContentProps} from "@/types/componentProps.ts";
 
 const LangSettingModalContent:FC<ILangSettingModalContentProps> = ({setModal}) => {
     return (

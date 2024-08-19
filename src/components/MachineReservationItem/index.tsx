@@ -1,13 +1,8 @@
 import {FC} from "react";
 import {Container, MachineImgWrapper} from "./style.ts";
+import {IMachineSelectorProps} from "@/types/componentProps.ts";
 
-interface IMachineSelectorProps {
-    image: string;
-    name: string;
-    to: string;
-}
-
-const MachineSelector: FC<IMachineSelectorProps> = ({image, name, to}) => {
+const MachineReservationItem: FC<IMachineSelectorProps> = ({image, name, to}) => {
     return (
         <Container to={to}>
             <MachineImgWrapper>
@@ -19,4 +14,4 @@ const MachineSelector: FC<IMachineSelectorProps> = ({image, name, to}) => {
     );
 };
 
-export default MachineSelector;
+export default MachineReservationItem;

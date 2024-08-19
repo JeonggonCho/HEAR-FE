@@ -1,11 +1,8 @@
-import React, {FC} from 'react';
+import {FC} from 'react';
 import {Container} from "./style.ts";
 import {ReactSVG} from "react-svg";
-import arrowForward from "../../assets/icons/arrow_forward.svg";
-
-interface ILangSettingCardProps {
-    setModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import arrowForward from "@assets/icons/arrow_forward.svg";
+import {ILangSettingCardProps} from "@/types/componentProps.ts";
 
 const LangSettingCard:FC<ILangSettingCardProps> = ({setModal}) => {
     return (

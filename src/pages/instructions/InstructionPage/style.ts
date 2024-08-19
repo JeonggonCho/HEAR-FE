@@ -16,8 +16,8 @@ export const Container = styled.div`
     }
 
     & > div:nth-child(3) {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
     }
 `;

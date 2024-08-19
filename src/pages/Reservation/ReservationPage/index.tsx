@@ -1,6 +1,6 @@
 import {Container, HeaderWrapper} from "./style.ts";
 import Header from "../../../components/Header";
-import MachineSelector from "../../../components/MachineSelector";
+import MachineSelector from "../../../components/MachineReservationItem";
 import printer from "../../../assets/images/3d_printer.png";
 import laser from "../../../assets/images/laser_cut.png";
 import heat from "../../../assets/images/heat_cutter.png";

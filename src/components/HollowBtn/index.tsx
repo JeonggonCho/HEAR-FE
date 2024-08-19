@@ -1,17 +1,8 @@
 import {FC} from "react";
 import {ButtonWrapper, LinkWrapper, SubmitWrapper} from "./style.ts";
+import {IHollowBtnProps} from "@/types/componentProps.ts";
 
-interface HollowBtnProps {
-    type: "button" | "link" | "submit";
-    to ?: string;
-    text : string;
-    width: "full" | "fit";
-    color: "primary" | "second" | "danger";
-    btnSize: "small" | "normal" | "big";
-    onClick ?: () => void;
-}
-
-const HollowBtn:FC<HollowBtnProps> = ({type = "button", to, text, width, color, btnSize, onClick}) => {
+const HollowBtn:FC<IHollowBtnProps> = ({type = "button", to, text, width, color, btnSize, onClick}) => {
     if (type === "button") {
         return (
             <ButtonWrapper width={width} color={color} btnSize={btnSize} onClick={onClick}>{text}</ButtonWrapper>

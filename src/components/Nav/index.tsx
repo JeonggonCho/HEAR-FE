@@ -8,12 +8,7 @@ import account from "../../assets/icons/account.svg";
 import test from "../../assets/icons/test.svg";
 import {ReactSVG} from "react-svg";
 import {useLocation} from "react-router-dom";
-
-interface ICategory {
-    label: string;
-    icon: string;
-    path: string;
-}
+import {ICategory} from "@/types/navCategory.ts";
 
 const categories: ICategory[] = [
     { label: "홈", icon: home, path: "/main" },

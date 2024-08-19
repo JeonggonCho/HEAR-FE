@@ -1,10 +1,6 @@
-import React, {FC, useEffect, useRef} from 'react';
+import {FC, useEffect, useRef} from 'react';
 import {Container} from "./style.ts";
-
-interface IModalProps {
-    content: React.ReactElement;
-    setModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import {IModalProps} from "@/types/componentProps.ts";
 
 const Modal:FC<IModalProps> = ({content, setModal}) => {
     const modalRef = useRef<HTMLDivElement>(null);

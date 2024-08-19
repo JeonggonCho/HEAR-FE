@@ -1,12 +1,13 @@
-import Header from "../../../../components/Header";
-import ArrowBack from "../../../../components/ArrowBack";
-import cnc from "../../../../assets/images/cnc.png";
+import Header from "@components/Header";
+import ArrowBack from "@components/ArrowBack";
+import cnc from "@assets/images/cnc.png";
 import {MachineImgWrapper} from "./style.ts";
-import Tab, {ITab} from "../../../../components/Tab";
+import Tab from "@components/Tab";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
 import React, {useState} from "react";
 import Introduction from "../Introduction";
 import Work from "../Work";
+import {ITab} from "@/types/tab.ts";
 
 const tabs: ITab[] = [
     { name: "소개", content: <Introduction/>, },

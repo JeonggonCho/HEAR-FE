@@ -5,15 +5,9 @@ import ColoredBtn from "../../../components/ColoredBtn";
 import {Container} from "./style.ts";
 import Select from "../../../components/Select";
 import InputWithLabel from "../../../components/InputWithLabel";
+import {feedbackCategories} from "@constants/feedbackCategories.ts";
 
-const feedBackCategories = [
-    {label: "좋은점", name: "feedback-type", value: "good", id: "radio-1", onChange: () => {}, checked: false},
-    {label: "문제점", name: "feedback-type", value: "bad", id: "radio-2", onChange: () => {}, checked: false},
-    {label: "제안", name: "feedback-type", value: "suggest", id: "radio-3", onChange: () => {}, checked: true},
-    {label: "기타", name: "feedback-type", value: "etc", id: "radio-4", onChange: () => {}, checked: false},
-];
-
-const FeedBackCreatePage = () => {
+const FeedbackCreatePage = () => {
     return (
         <Container>
             <Header leftChild={<ArrowBack/>} centerText={"어플리케이션 피드백"}/>
@@ -26,7 +20,7 @@ const FeedBackCreatePage = () => {
                 e.preventDefault();
             }}>
                 <InputWithLabel label={"제 목"} type={"text"} id={"inquiry-title"} name={"inquiry-title"} placeholder={"제목을 입력해주세요"} value={""}/>
-                <Select categories={feedBackCategories}/>
+                <Select categories={feedbackCategories}/>
                 <Textarea/>
                 <ColoredBtn type={"submit"} text={"피드백 보내기"} width={"full"} color={"primary"} btnSize={"big"}/>
             </form>
@@ -34,4 +28,4 @@ const FeedBackCreatePage = () => {
     );
 };
 
-export default FeedBackCreatePage;
+export default FeedbackCreatePage;

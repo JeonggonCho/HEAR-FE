@@ -8,10 +8,8 @@ import StatusCard from "../../../components/StatusCard";
 import CountOfLaserCard from "../../../components/CountOfLaserCard";
 import ReservationListCard from "../../../components/ReservationListCard";
 import UsageListCard from "../../../components/UsageListCard";
-import InquiryListCard from "../../../components/InquiryListCard";
 import Modal from "../../../components/Modal";
 import ConfirmModalContent from "../../../components/ConfirmModalContent";
-
 
 const AccountPage = () => {
     const [logoutModal, setLogoutModal] = useState<boolean>(false);
@@ -98,7 +96,7 @@ const AccountPage = () => {
             <StatusCard/>
             <CountOfLaserCard/>
             <ReservationListCard/>
-            <InquiryListCard/>
+            {/*<InquiryListCard/>*/}
             <UsageListCard/>
             <HollowBtn
                 type={"button"}

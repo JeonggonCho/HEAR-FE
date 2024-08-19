@@ -1,15 +1,6 @@
-import {ChangeEvent, FC} from 'react';
+import {FC} from 'react';
 import {Container} from "./style.ts";
-
-interface IInputWithLabelProps {
-    label: string;
-    type: string;
-    id: string;
-    name: string;
-    placeholder: string;
-    value: string | number;
-    onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-}
+import {IInputWithLabelProps} from "@/types/componentProps.ts";
 
 const InputWithLabel:FC<IInputWithLabelProps> = ({label, type, id, name, placeholder, value, onChange}) => {
     return (

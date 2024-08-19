@@ -3,11 +3,12 @@ import Header from "../../../../components/Header";
 import ArrowBack from "../../../../components/ArrowBack";
 import printer from "../../../../assets/images/3d_printer.png";
 import {Content, MachineImgWrapper} from "./style.ts";
-import Tab, {ITab} from "../../../../components/Tab";
+import Tab from "../../../../components/Tab";
 import Introduction from "../Introduction";
 import Preparation from "../Preparation";
 import After from "../After";
 import Usage from "../Usage";
+import {ITab} from "@/types/tab.ts";
 
 const tabs: ITab[] = [
     { name: "소개", content: <Introduction/>, },
