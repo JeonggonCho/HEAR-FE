@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 export const Container = styled.div`
     width: 100%;
@@ -30,7 +30,7 @@ export const Container = styled.div`
     }
 `;
 
-export const Reservation = styled(NavLink)`
+export const Reservation = styled(Link)`
     cursor: pointer;
     display: flex;
     align-items: center;

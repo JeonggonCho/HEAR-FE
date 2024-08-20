@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 export const Container = styled.div`
     width: 100%;
@@ -43,7 +43,7 @@ export const Container = styled.div`
     }
 `;
 
-export const More = styled(NavLink)`
+export const More = styled(Link)`
     svg {
         fill: #999999;
         transition: all 0.2s ease-in-out 0s;
@@ -55,7 +55,7 @@ export const More = styled(NavLink)`
     }
 `;
 
-export const Notice = styled(NavLink)`
+export const Notice = styled(Link)`
     display: flex;
     align-items: center;
     justify-content: space-between;

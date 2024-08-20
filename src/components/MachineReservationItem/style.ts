@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {lighten} from "polished";
 
-export const Container = styled(NavLink)`
+export const Container = styled(Link)`
     height: 100%;
     background-color: white;
     border-radius: 16px;

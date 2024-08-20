@@ -1,6 +1,6 @@
 import {FC} from 'react';
 import {Container, Inquiry} from "./style.ts";
-import myInquiry from "@assets/images/my_inquiry.png";
+import myInquiry from "@assets/images/inquiry.png";
 
 const InquiryListCard:FC = () => {
     return (

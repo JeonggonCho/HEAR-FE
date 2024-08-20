@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 
-export const Container = styled(NavLink)<{ category: "machine" | "reservation" | "room" | "etc" }>`
+export const Container = styled(Link)<{ category: "machine" | "reservation" | "room" | "etc" }>`
     width: 100%;
     display: inline-block;
     border-bottom: 1px solid #e2e2e2;

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 export const HeaderElementWrapper = styled.div`
     display: flex;
@@ -24,7 +24,7 @@ export const Title = styled.h1`
     color: #2B65FC;
 `;
 
-export const AlarmWrapper = styled(NavLink)`
+export const AlarmWrapper = styled(Link)`
     width: 32px;
     margin-right: 6px;
     margin-top: 2px;

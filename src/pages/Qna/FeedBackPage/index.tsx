@@ -1,7 +1,7 @@
 import {Container, HeaderWrapper} from "./style.ts";
 import Header from "@components/Header";
 import HollowBtn from "@components/HollowBtn";
-import qna from "@assets/images/qna.png";
+import inquiry from "@assets/images/inquiry.png";
 import {IInquiryListItemProps} from "@/types/componentProps.ts";
 import InquiryListItem from "@components/InquiryListItem";
 import CreateBtn from "@components/CreateBtn";
@@ -68,13 +68,13 @@ const dummy:IInquiryListItemProps[] = [
 
 const FeedbackHeaderLeft = () => (
     <HeaderWrapper>
-        <img src={qna} alt="피드백"/>
+        <img src={inquiry} alt="피드백"/>
         <h2>피드백</h2>
     </HeaderWrapper>
 );
 
 const FeedbackHeaderRight = () => (
-    <HollowBtn type={"link"} text={"모형제작실 문의"} width={"fit"} color={"primary"} scale={"small"} to={"/inquiry"}/>
+    <HollowBtn type={"link"} text={"문의"} width={"fit"} color={"primary"} scale={"small"} to={"/inquiry"}/>
 );
 
 const FeedbackPage = () => {

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 
-export const Container = styled(NavLink)`
+export const Container = styled(Link)`
     width: 100%;
     padding: 12px 18px;
     border-radius: 16px;

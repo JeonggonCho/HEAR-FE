@@ -1,5 +1,5 @@
 import Header from "@components/Header";
-import qna from "@assets/images/qna.png";
+import inquiry from "@assets/images/inquiry.png";
 import {Container, HeaderWrapper} from "./style.ts";
 import HollowBtn from "@components/HollowBtn";
 import InquiryListItem from "@components/InquiryListItem";
@@ -68,8 +68,8 @@ const dummy:IInquiryListItemProps[] = [
 
 const InquiryHeaderLeft = () => (
     <HeaderWrapper>
-        <img src={qna} alt="모형제작실 문의"/>
-        <h2>모형제작실 문의</h2>
+        <img src={inquiry} alt="모형제작실 문의"/>
+        <h2>문의</h2>
     </HeaderWrapper>
 );
 

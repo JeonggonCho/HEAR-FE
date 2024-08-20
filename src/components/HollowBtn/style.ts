@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { lighten } from "polished";
 
 const getColorStyles = (color: "primary" | "second" | "danger") => {
@@ -59,5 +59,5 @@ const BaseComponent = styled.div<{ width: "full" | "fit"; color: "primary" | "se
 `;
 
 export const ButtonWrapper = BaseComponent.withComponent("button");
-export const LinkWrapper = BaseComponent.withComponent(NavLink);
+export const LinkWrapper = BaseComponent.withComponent(Link);
 export const SubmitWrapper = BaseComponent.withComponent("input");

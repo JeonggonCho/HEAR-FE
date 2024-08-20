@@ -28,6 +28,8 @@
       "@constants/*": ["src/constants/*"],
       "@pages/*": ["src/pages/*"],
       "@schemata/*": ["src/schemata/*"],
+      "@store/*": ["src/store/*"],
+      "@router/*": ["src/router/*"],
       "@*": ["src/*"],
     }
   },

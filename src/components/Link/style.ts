@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {lighten} from "polished";
 
 export const Container = styled.div`
@@ -9,7 +9,7 @@ export const Container = styled.div`
     text-align: center;
 `;
 
-export const LinkWrapper = styled(NavLink)<{color: "primary" | "second"}>`
+export const LinkWrapper = styled(Link)<{color: "primary" | "second"}>`
     cursor: pointer;
     color: ${({color}) => color === "primary" ? "#2B65FC" : "#999999"};
     transition: all 0.2s ease-in-out 0s;

@@ -5,6 +5,7 @@ export const Container = styled.div`
     background-color: white;
     padding: 20px;
     border-radius: 16px;
+    border: 1px solid white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
     text-wrap: nowrap;
     margin-bottom: 28px;
@@ -51,6 +52,7 @@ export const MapWrapper = styled.div`
 export const CncWrapper = styled.div<{machine: "cnc" | "laser" | "printer" | "vacuum"}>`
     color: ${({machine}) => machine === "cnc" ? "#2B65FC" : "#999999"};
     background-color: ${({machine}) => machine === "cnc" ? "#F0F4FF" : "#EFEFEF"};
+    border: 1px solid ${({machine}) => machine === "cnc" ? "#F0F4FF" : "#EFEFEF"};
     border-radius: 8px;
     padding: 16px 18px;
     text-align: center;
@@ -60,6 +62,7 @@ export const CncWrapper = styled.div<{machine: "cnc" | "laser" | "printer" | "va
 export const LaserWrapper = styled.div<{machine: "cnc" | "laser" | "printer" | "vacuum"}>`
     color: ${({machine}) => machine === "laser" ? "#2B65FC" : "#999999"};
     background-color: ${({machine}) => machine === "laser" ? "#F0F4FF" : "#EFEFEF"};
+    border: 1px solid ${({machine}) => machine === "laser" ? "#F0F4FF" : "#EFEFEF"};
     border-radius: 8px;
     padding: 16px 18px;
     text-align: center;
@@ -70,6 +73,7 @@ export const LaserWrapper = styled.div<{machine: "cnc" | "laser" | "printer" | "
 export const PrinterWrapper = styled.div<{machine: "cnc" | "laser" | "printer" | "vacuum"}>`
     color: ${({machine}) => machine === "printer" ? "#2B65FC" : "#999999"};
     background-color: ${({machine}) => machine === "printer" ? "#F0F4FF" : "#EFEFEF"};
+    border: 1px solid ${({machine}) => machine === "printer" ? "#F0F4FF" : "#EFEFEF"};
     border-radius: 8px;
     padding: 10px 12px;
     text-align: center;
@@ -80,6 +84,7 @@ export const PrinterWrapper = styled.div<{machine: "cnc" | "laser" | "printer" |
 export const VacuumWrapper = styled.div<{machine: "cnc" | "laser" | "printer" | "vacuum"}>`
     color: ${({machine}) => machine === "vacuum" ? "#2B65FC" : "#999999"};
     background-color: ${({machine}) => machine === "vacuum" ? "#F0F4FF" : "#EFEFEF"};
+    border: 1px solid ${({machine}) => machine === "vacuum" ? "#F0F4FF" : "#EFEFEF"};
     border-radius: 8px;
     padding: 10px 12px;
     text-align: center;
