@@ -1,16 +1,16 @@
 import {FC} from 'react';
 import {Outlet} from "react-router-dom";
 import Nav from "../Nav";
-import {OutletWrapper} from "./style.ts";
+import {Container, OutletWrapper} from "./style.ts";
 
 const Layout: FC = () => {
     return (
-        <div>
+        <Container>
             <OutletWrapper>
                 <Outlet/>
             </OutletWrapper>
             <Nav/>
-        </div>
+        </Container>
     );
 };
 

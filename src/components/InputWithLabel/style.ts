@@ -37,6 +37,7 @@ export const Container = styled.div`
         position: absolute;
         right: 12px;
         top: 30px;
+        cursor: pointer;
     }
 
     input[type="date"]::-webkit-calendar-picker-indicator {

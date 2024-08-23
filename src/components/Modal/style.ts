@@ -17,7 +17,10 @@ const moveUp = keyframes`
         transform: translateX(-50%) translateY(200%);
     }
     80% {
-        transform: translateX(-50%) translateY(-5%);
+        transform: translateX(-50%) translateY(-8%);
+    }
+    100% {
+        transform: translateX(-50%) translateY(0%);
     }
 `;
 
@@ -53,10 +56,10 @@ export const PopupWrapper = styled.div`
 `;
 
 export const BottomSheetWrapper = styled.div`
-    width: 95%;
+    width: 98%;
     padding: 12px 12px 88px 12px;
     background-color: white;
-    border-radius: 16px 16px 0 0;
+    border-radius: 20px 20px 0 0;
     position: absolute;
     transform: translateX(-50%);
     left: 50%;
@@ -64,11 +67,11 @@ export const BottomSheetWrapper = styled.div`
     animation: ${moveUp} 0.4s;
 
     @media (max-width: 600px) {
-        max-width: calc(100vw - 20px);
+        max-width: calc(100vw - 10px);
     }
 
     & > div:first-of-type {
-        width: 72px;
+        width: 64px;
         height: 6px;
         background-color: #e2e2e2;
         margin: auto auto 24px auto;

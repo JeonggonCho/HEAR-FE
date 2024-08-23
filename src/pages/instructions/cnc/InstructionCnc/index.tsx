@@ -4,7 +4,7 @@ import cnc from "@assets/images/cnc.png";
 import {MachineImgWrapper} from "./style.ts";
 import Tab from "@components/Tab";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Introduction from "../Introduction";
 import Work from "../Work";
 import {ITab} from "@/types/tab.ts";
@@ -16,6 +16,10 @@ const tabs: ITab[] = [
 
 const InstructionCnc = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
+
+    useEffect(() => {
+        window.scrollTo({top: 0, behavior: "smooth"});
+    }, [activeIndex]);
 
     return (
         <div>

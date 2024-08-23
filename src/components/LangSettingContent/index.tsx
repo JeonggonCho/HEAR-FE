@@ -10,13 +10,13 @@ const LangSettingContent:FC<ILangSettingContentProps> = ({setModal}) => {
 
             <div>
                 <input type={"radio"} id="korean" name="language" value="korean"/>
-                <label htmlFor="korean">Korean</label>
+                <label htmlFor="korean">한국어</label>
 
                 <input type={"radio"} id="english" name="language" value="english"/>
                 <label htmlFor="english">English</label>
 
                 <input type={"radio"} id="chinese" name="language" value="chinese"/>
-                <label htmlFor="chinese">Chinese</label>
+                <label htmlFor="chinese">中文</label>
             </div>
 
             <ColoredBtn

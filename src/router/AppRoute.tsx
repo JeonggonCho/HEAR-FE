@@ -18,7 +18,6 @@ import UpdatePasswordPage from "@pages/auth/UpdatePasswordPage";
 import NoticePage from "@pages/notice/NoticePage";
 import NoticeCreatePage from "@pages/notice/NoticeCreatePage";
 import NoticeDetailPage from "@pages/notice/NoticeDetailPage";
-import TestPage from "@pages/test/TestPage";
 import InstructionPage from "@pages/instructions/InstructionPage";
 import InstructionPrinter from "@pages/instructions/printer/InstructionPrinter";
 import InstructionLaser from "@pages/instructions/laser/InstructionLaser";
@@ -36,10 +35,13 @@ import ReservationSaw from "@pages/reservation/ReservationSaw";
 import ReservationVacuum from "@pages/reservation/ReservationVacuum";
 import ConditionPage from "@pages/reservation/ConditionPage";
 import NotFoundPage from "@pages/main/NotFoundPage";
+import ScrollToTop from "@components/ScrollToTop";
+import QuizPage from "@pages/quiz/QuizPage";
 
 const AppRoute = () => {
     return (
         <>
+            <ScrollToTop/>
             <Routes>
                 <Route path="/" element={<Layout/>}>
                     <Route index element={<Navigate to="/main"/>}/>
@@ -65,7 +67,7 @@ const AppRoute = () => {
                     <Route path="notice/new" element={<NoticeCreatePage/>}/>
                     <Route path="notice/:noticeId" element={<NoticeDetailPage/>}/>
 
-                    <Route path="test" element={<TestPage/>}/>
+                    <Route path="quiz" element={<QuizPage/>}/>
 
                     <Route path="instruction" element={<InstructionPage/>}/>
                     <Route path="instruction/3d-printer" element={<InstructionPrinter/>}/>

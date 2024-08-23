@@ -54,8 +54,6 @@ const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate}) => {
 
     return (
         <Container>
-            <h3>날짜 선택</h3>
-
             <CalendarMonthWrapper>
                 <div>
                     <ColoredBtn

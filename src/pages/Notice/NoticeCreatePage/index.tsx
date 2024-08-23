@@ -19,7 +19,7 @@ const NoticeCreatePage = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"공지사항 작성하기"}/>
+            <Header leftChild={<ArrowBack/>} centerText={"공지사항 작성"}/>
             <form method={"post"} onSubmit={handleSubmit((data) => {
                 console.log(data);
             })}>

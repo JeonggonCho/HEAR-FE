@@ -4,12 +4,6 @@ export const Container = styled.div`
     width: 100%;
     height: 100%;
     padding: 12px;
-
-    h3 {
-        font-weight: bold;
-        font-size: 20px;
-        margin: 0 0 32px;
-    }
 `;
 
 export const CalendarMonthWrapper = styled.div`
@@ -61,10 +55,10 @@ export const DaysOfWeekWrapper = styled.div`
 export const CalendarDayWrapper = styled.div`
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    column-gap: clamp(3px, 2vw, 30px);
+    column-gap: clamp(1px, 1vw, 30px);
     row-gap: 4px;
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 `;
 
 export const DayButton = styled.button<{selected: boolean | null}>`
@@ -75,9 +69,8 @@ export const DayButton = styled.button<{selected: boolean | null}>`
     border-radius: 10px;
     background: ${({selected}) => selected ? "#2B65FC" : "none"};
     color: ${({selected}) => selected ? "white" : "black"};
-    font-size: 16px;
+    font-size: 18px;
     text-align: center;
-    padding: 8px;
     cursor: pointer;
     transition: all 0.1s ease-in-out 0s;
 `;

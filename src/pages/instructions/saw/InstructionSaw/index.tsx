@@ -3,7 +3,7 @@ import ArrowBack from "@components/ArrowBack";
 import saw from "@assets/images/saw.png";
 import {MachineImgWrapper} from "./style.ts";
 import Tab from "@components/Tab";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
 import Warning from "../Warning";
 import After from "../After";
@@ -16,6 +16,10 @@ const tabs: ITab[] = [
 
 const InstructionSaw = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
+
+    useEffect(() => {
+        window.scrollTo({top: 0, behavior: "smooth"});
+    }, [activeIndex]);
 
     return (
         <div>

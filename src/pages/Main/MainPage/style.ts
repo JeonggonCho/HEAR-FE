@@ -47,10 +47,9 @@ export const AlarmWrapper = styled(Link)`
 export const Container = styled.div`
     p {
         line-height: 1.5;
-        margin-bottom: 16px;
-        margin-left: 8px;
+        margin: 0 0 24px 6px;
     }
-    
+
     & > div:nth-of-type(2),
     & > div:nth-of-type(3),
     & > a:nth-of-type(1) {

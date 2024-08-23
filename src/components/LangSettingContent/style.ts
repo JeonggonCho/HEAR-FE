@@ -9,7 +9,7 @@ export const Container = styled.div`
     h3 {
         font-weight: bold;
         font-size: 20px;
-        margin: 0 0 32px;
+        margin: 0 0 32px 4px;
     }
 
     & > div:first-of-type {

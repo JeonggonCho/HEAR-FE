@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import printer from "@assets/images/3d_printer.png";
@@ -25,6 +25,10 @@ const PrinterImage = React.memo(() => (
 
 const InstructionPrinter = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
+
+    useEffect(() => {
+        window.scrollTo({top: 0, behavior: "smooth"});
+    }, [activeIndex]);
 
     return (
         <div>

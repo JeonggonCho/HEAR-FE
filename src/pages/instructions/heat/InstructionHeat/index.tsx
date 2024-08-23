@@ -3,7 +3,7 @@ import ArrowBack from "@components/ArrowBack";
 import heat from "@assets/images/heat_cutter.png";
 import {MachineImgWrapper} from "./style.ts";
 import Tab from "@components/Tab";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
 import Introduction from "../Introduction";
 import {ITab} from "@/types/tab.ts";
@@ -14,6 +14,10 @@ const tabs: ITab[] = [
 
 const InstructionHeat = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
+
+    useEffect(() => {
+        window.scrollTo({top: 0, behavior: "smooth"});
+    }, [activeIndex]);
 
     return (
         <div>

@@ -3,7 +3,7 @@ import ArrowBack from "@components/ArrowBack";
 import vacuum from "@assets/images/vacuum.png";
 import {MachineImgWrapper} from "./style.ts";
 import Tab from "@components/Tab";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
 import Introduction from "../Introduction";
 import Preparation from "../Preparation";
@@ -24,6 +24,10 @@ const VacuumImage = React.memo(() => (
 
 const InstructionVacuum = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
+
+    useEffect(() => {
+        window.scrollTo({top: 0, behavior: "smooth"});
+    }, [activeIndex]);
 
     return (
         <div>
