@@ -39,7 +39,7 @@ const NoticeCreatePage = () => {
                     errorMessage={errors.content?.message}
                 />
 
-                <ColoredBtn type={"submit"} text={"공지하기"} width={"full"} color={"primary"} scale={"big"}/>
+                <ColoredBtn type={"submit"} content={"공지하기"} width={"full"} color={"primary"} scale={"big"}/>
             </form>
         </Container>
     );

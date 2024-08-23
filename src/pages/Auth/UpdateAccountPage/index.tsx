@@ -28,7 +28,7 @@ const UpdateAccountPage = () => {
         const leftBtn = (
             <ColoredBtn
                 type={"button"}
-                text={"닫기"}
+                content={"닫기"}
                 width={"full"}
                 color={"third"}
                 scale={"normal"}
@@ -38,7 +38,7 @@ const UpdateAccountPage = () => {
         const rightBtn = (
             <ColoredBtn
                 type={"submit"}
-                text={"수정하기"}
+                content={"수정하기"}
                 width={"full"}
                 color={"approval"}
                 scale={"normal"}
@@ -90,7 +90,7 @@ const UpdateAccountPage = () => {
 
                 <ColoredBtn
                     type={"submit"}
-                    text={"내 정보 수정"}
+                    content={"내 정보 수정"}
                     width={"full"}
                     color={"primary"}
                     scale={"big"}

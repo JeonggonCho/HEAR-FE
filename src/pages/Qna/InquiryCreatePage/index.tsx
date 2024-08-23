@@ -54,7 +54,7 @@ const InquiryCreatePage = () => {
                     errorMessage={errors.content?.message}
                 />
 
-                <ColoredBtn type={"submit"} text={"문의하기"} width={"full"} color={"primary"} scale={"big"}/>
+                <ColoredBtn type={"submit"} content={"문의하기"} width={"full"} color={"primary"} scale={"big"}/>
             </form>
         </Container>
     );

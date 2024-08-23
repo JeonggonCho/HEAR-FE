@@ -84,6 +84,10 @@ const AppRoute = () => {
                     <Route path="reservation/saw" element={<ReservationSaw/>}/>
                     <Route path="reservation/vacuum" element={<ReservationVacuum/>}/>
                     <Route path="reservation/condition" element={<ConditionPage/>}/>
+
+
+                    {/*관리자 관련 페이지*/}
+
                     <Route path="*" element={<NotFoundPage/>}/>
                 </Route>
             </Routes>

@@ -4,6 +4,7 @@ import {ReactSVG} from "react-svg";
 import close from "@assets/icons/close.svg";
 import check from "@assets/icons/check.svg";
 import {ILangSettingModalContentProps} from "@/types/componentProps.ts";
+import ColoredBtn from "@components/ColoredBtn";
 
 const LangSettingModalContent:FC<ILangSettingModalContentProps> = ({setModal}) => {
     return (
@@ -26,7 +27,13 @@ const LangSettingModalContent:FC<ILangSettingModalContentProps> = ({setModal}) =
                 <label htmlFor="chinese">Chinese <ReactSVG src={check}/></label>
             </div>
 
-            <button>선택 완료</button>
+            <ColoredBtn
+                type={"button"}
+                content={"선택완료"}
+                width={"full"}
+                color={"approval"}
+                scale={"big"}
+            />
         </Container>
     );
 };

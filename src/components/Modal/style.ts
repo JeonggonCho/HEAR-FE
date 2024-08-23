@@ -19,8 +19,7 @@ export const Container = styled.div`
     left: 50%;
     bottom: 50px;
     transform: translateX(-50%);
-    max-width: 600px;
-    width: 100%;
+    width: 600px;
     height: 100%;
     background: rgba(91, 91, 91, 0.5);
     backdrop-filter: blur(2px);
@@ -28,16 +27,20 @@ export const Container = styled.div`
     
     & > div:first-of-type {
         padding: 12px;
-        max-width: 332px;
-        width: 100%;
         height: auto;
+        max-width: 560px;
+        min-width: 55%;
         border-radius: 16px;
         background-color: white;
         position: absolute;
         transform: translateX(-50%);
         left: 50%;
-        top: 100px;
+        top: 80px;
         animation: ${fadeIn} 0.3s;
+        
+        @media (max-width: 600px) {
+            max-width: calc(100vw - 40px);
+        }
     }
 `;
 

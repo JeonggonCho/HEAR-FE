@@ -53,7 +53,7 @@ const FindPasswordPage = () => {
                     errorMessage={errors.studentId?.message}
                 />
 
-                <ColoredBtn type={"submit"} text={"비밀번호 찾기"} width={"full"} color={"primary"} scale={"big"}/>
+                <ColoredBtn type={"submit"} content={"비밀번호 찾기"} width={"full"} color={"primary"} scale={"big"}/>
             </form>
         </Container>
     );

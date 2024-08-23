@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ReactNode} from "react";
+import React, {ChangeEvent, ReactElement, ReactNode} from "react";
 import {To} from "react-router-dom";
 import {ITab} from "@/types/tab.ts";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
@@ -8,11 +8,12 @@ import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 export interface IColoredBtnProps {
     type: "button" | "link" | "submit";
     to ?: string;
-    text : string;
+    content : string | ReactElement;
     width: "full" | "fit";
     color: "primary" | "approval" | "second" | "third" | "danger";
     scale: "small" | "normal" | "big";
     onClick ?: () => void;
+    disabled ?: boolean;
 }
 
 
@@ -20,11 +21,12 @@ export interface IColoredBtnProps {
 export interface IHollowBtnProps {
     type: "button" | "link" | "submit";
     to ?: string;
-    text : string;
+    content : string | ReactElement;
     width: "full" | "fit";
     color: "primary" | "second" | "danger";
     scale: "small" | "normal" | "big";
     onClick ?: () => void;
+    disabled ?: boolean;
 }
 
 
@@ -51,10 +53,13 @@ export interface IInputWithLabelProps<TFieldValues extends FieldValues> {
     type: string;
     id: string;
     name: FieldPath<TFieldValues>;
-    placeholder: string;
+    placeholder?: string;
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+    onClick?: () => void;
     register: UseFormRegister<TFieldValues>;
     errorMessage?: string;
+    readonly ?: boolean;
+    visibleToggle ?: boolean;
 }
 
 
@@ -67,6 +72,12 @@ export interface ILangSettingCardProps {
 // 언어 설정 모달 내용(LangSettingModalContent) props
 export interface ILangSettingModalContentProps {
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+// 달력 (Calendar) props
+export interface ICalendarProps {
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
+    onSelectDate: (date:string) => void;
 }
 
 

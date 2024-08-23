@@ -21,7 +21,7 @@ const AccountPage = () => {
         return (
             <HollowBtn
                 type={"button"}
-                text={"로그아웃"}
+                content={"로그아웃"}
                 width={"fit"}
                 color={"second"}
                 scale={"small"}
@@ -34,7 +34,7 @@ const AccountPage = () => {
         const leftBtn = (
             <ColoredBtn
                 type={"button"}
-                text={"닫 기"}
+                content={"닫 기"}
                 width={"full"}
                 color={"third"}
                 scale={"normal"}
@@ -44,7 +44,7 @@ const AccountPage = () => {
         const rightBtn = (
             <ColoredBtn
                 type={"submit"}
-                text={"로그아웃"}
+                content={"로그아웃"}
                 width={"full"}
                 color={"danger"}
                 scale={"normal"}
@@ -59,7 +59,7 @@ const AccountPage = () => {
         const leftBtn = (
             <ColoredBtn
                 type={"button"}
-                text={"닫 기"}
+                content={"닫 기"}
                 width={"full"}
                 color={"third"}
                 scale={"normal"}
@@ -69,7 +69,7 @@ const AccountPage = () => {
         const rightBtn = (
             <ColoredBtn
                 type={"submit"}
-                text={"탈퇴하기"}
+                content={"탈퇴하기"}
                 width={"full"}
                 color={"danger"}
                 scale={"normal"}
@@ -90,17 +90,16 @@ const AccountPage = () => {
             <Header leftChild={<AccountHeaderLeft/>} rightChild={<AccountHeaderRight/>}/>
             <ProfileCard/>
             <div>
-                <ColoredBtn type={"link"} text={"내정보 수정"} width={"full"} color={"second"} scale={"small"} to={"/account/update"}/>
-                <ColoredBtn type={"link"} text={"비밀번호 변경"} width={"full"} color={"second"} scale={"small"} to={"/password/update"}/>
+                <ColoredBtn type={"link"} content={"내정보 수정"} width={"full"} color={"second"} scale={"small"} to={"/account/update"}/>
+                <ColoredBtn type={"link"} content={"비밀번호 변경"} width={"full"} color={"second"} scale={"small"} to={"/password/update"}/>
             </div>
             <StatusCard/>
             <CountOfLaserCard/>
             <ReservationListCard/>
-            {/*<InquiryListCard/>*/}
             <UsageListCard/>
             <HollowBtn
                 type={"button"}
-                text={"탈퇴하기"}
+                content={"탈퇴하기"}
                 width={"full"}
                 color={"danger"}
                 scale={"big"}

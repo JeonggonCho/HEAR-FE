@@ -43,7 +43,7 @@ const ReservationCnc = () => {
                     register={register}
                     errorMessage={errors.time?.message}
                 />
-                <ColoredBtn type={"submit"} text={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>
+                <ColoredBtn type={"submit"} content={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>
             </form>
         </Container>
     );

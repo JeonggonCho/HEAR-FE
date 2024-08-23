@@ -9,9 +9,14 @@ import {machineType} from "@constants/machineCategories.ts";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {printerSchema} from "@schemata/printerSchema.ts";
+import {useState} from "react";
+import Modal from "@components/Modal";
+import Calendar from "@components/Calendar";
 
 const ReservationPrinter = () => {
-    const {register, handleSubmit, formState: {errors}} = useForm({
+    const [isOpenCalendar, setIsOpenCalendar] = useState<boolean>(false);
+
+    const {register, handleSubmit, formState: {errors}, setValue} = useForm({
         resolver: zodResolver(printerSchema),
         defaultValues: {
             machine: "",
@@ -19,6 +24,10 @@ const ReservationPrinter = () => {
             time: "",
         },
     });
+
+    const handleDateSelect = (date: string) => {
+        setValue("date", date);
+    };
 
     return (
         <Container>
@@ -45,6 +54,8 @@ const ReservationPrinter = () => {
                     placeholder={"날짜를 선택해주세요"}
                     register={register}
                     errorMessage={errors.date?.message}
+                    onClick={() => setIsOpenCalendar(true)}
+                    readonly
                 />
 
                 <InputWithLabel
@@ -57,8 +68,15 @@ const ReservationPrinter = () => {
                     errorMessage={errors.time?.message}
                 />
 
-                <ColoredBtn type={"submit"} text={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>
+                <ColoredBtn type={"submit"} content={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>
             </form>
+
+            {isOpenCalendar &&
+              <Modal
+                content={<Calendar setModal={setIsOpenCalendar} onSelectDate={handleDateSelect}/>}
+                setModal={setIsOpenCalendar}
+              />
+            }
         </Container>
     );
 };

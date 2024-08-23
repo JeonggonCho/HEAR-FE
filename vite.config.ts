@@ -13,6 +13,7 @@ export default defineConfig({
       {find: "@schemata", replacement: "/src/schemata"},
       {find: "@store", replacement: "/src/store"},
       {find: "@router", replacement: "/src/router"},
+      {find: "@util", replacement: "/src/util"},
       {find: "@", replacement: "/src"},
     ],
   }

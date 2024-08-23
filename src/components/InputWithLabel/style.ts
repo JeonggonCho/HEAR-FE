@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
+    position: relative;
     gap: 6px;
     
     label {
@@ -16,6 +17,7 @@ export const Container = styled.div`
         padding: 8px;
         font-size: 16px;
         font-family: Pretendard, Helvetica, sans-serif;
+        cursor: pointer;
         
         &::placeholder {
             color: #E2E2E2;
@@ -24,5 +26,16 @@ export const Container = styled.div`
         &:focus {
             outline: 1px solid #2B65FC;
         }
+    }
+    
+    svg {
+        fill: #999999;
+        position: absolute;
+        right: 12px;
+        top: 30px;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        display: none;
     }
 `;

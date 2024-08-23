@@ -59,6 +59,7 @@ const SignupPage = () => {
                     name={"password"}
                     register={register}
                     errorMessage={errors.password?.message}
+                    visibleToggle={true}
                 />
 
                 <InputWithLabel
@@ -69,6 +70,7 @@ const SignupPage = () => {
                     name={"confirmPassword"}
                     register={register}
                     errorMessage={errors.confirmPassword?.message}
+                    visibleToggle={true}
                 />
 
                 <Select
@@ -109,7 +111,7 @@ const SignupPage = () => {
                     errorMessage={errors.tel?.message}
                 />
 
-                <ColoredBtn type={"submit"} text={"회원가입"} width={"full"} color={"primary"} scale={"big"}/>
+                <ColoredBtn type={"submit"} content={"회원가입"} width={"full"} color={"primary"} scale={"big"}/>
             </form>
             <Link text={"로그인"} to={"/login"} color={"primary"}/>
         </Container>

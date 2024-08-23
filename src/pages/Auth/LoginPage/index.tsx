@@ -52,11 +52,12 @@ const LoginPage = () => {
                     name={"password"}
                     register={register}
                     errorMessage={errors.password?.message}
+                    visibleToggle={true}
                 />
 
                 <ColoredBtn
                     type={"submit"}
-                    text={"로그인"}
+                    content={"로그인"}
                     width={"full"}
                     color={"primary"}
                     scale={"big"}

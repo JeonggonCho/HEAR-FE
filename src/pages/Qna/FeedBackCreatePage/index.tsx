@@ -54,7 +54,7 @@ const FeedbackCreatePage = () => {
                     errorMessage={errors.content?.message}
                 />
 
-                <ColoredBtn type={"submit"} text={"피드백 보내기"} width={"full"} color={"primary"} scale={"big"}/>
+                <ColoredBtn type={"submit"} content={"피드백 보내기"} width={"full"} color={"primary"} scale={"big"}/>
             </form>
         </Container>
     );

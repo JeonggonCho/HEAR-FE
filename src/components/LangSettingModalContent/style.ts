@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import {darken, lighten} from "polished";
+import {lighten} from "polished";
 
 export const Container = styled.div`
     width: 100%;
@@ -77,22 +77,6 @@ export const Container = styled.div`
             svg {
                 display: none;
             }
-        }
-    }
-
-    & > button:last-of-type {
-        margin: auto;
-        display: block;
-        border: none;
-        background: none;
-        text-align: center;
-        color: #2B65FC;
-        font-size: 20px;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out 0s;
-        
-        &:hover {
-            color: ${darken(0.1, "#2B65FC")};
         }
     }
 `;

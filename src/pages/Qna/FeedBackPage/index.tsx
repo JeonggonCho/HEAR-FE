@@ -74,7 +74,7 @@ const FeedbackHeaderLeft = () => (
 );
 
 const FeedbackHeaderRight = () => (
-    <HollowBtn type={"link"} text={"문의"} width={"fit"} color={"primary"} scale={"small"} to={"/inquiry"}/>
+    <HollowBtn type={"link"} content={"문의"} width={"fit"} color={"primary"} scale={"small"} to={"/inquiry"}/>
 );
 
 const FeedbackPage = () => {

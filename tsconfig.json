@@ -30,6 +30,7 @@
       "@schemata/*": ["src/schemata/*"],
       "@store/*": ["src/store/*"],
       "@router/*": ["src/router/*"],
+      "@util/*": ["src/util/*"],
       "@*": ["src/*"],
     }
   },

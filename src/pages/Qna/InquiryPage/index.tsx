@@ -74,7 +74,7 @@ const InquiryHeaderLeft = () => (
 );
 
 const InquiryHeaderRight = () => (
-    <HollowBtn type={"link"} text={"피드백"} width={"fit"} color={"primary"} scale={"small"} to={"/feedback"}/>
+    <HollowBtn type={"link"} content={"피드백"} width={"fit"} color={"primary"} scale={"small"} to={"/feedback"}/>
 );
 
 const InquiryPage = () => {

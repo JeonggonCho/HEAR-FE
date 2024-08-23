@@ -19,7 +19,7 @@ const ReservationHeaderRight = () => (
     <HollowBtn
         type={"link"}
         to={"/reservation/condition"}
-        text={"예약 현황"}
+        content={"예약 현황"}
         width={"fit"}
         color={"primary"}
         scale={"small"}

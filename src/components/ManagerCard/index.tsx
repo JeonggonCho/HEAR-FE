@@ -17,7 +17,7 @@ const ManagerCard:FC = () => {
                     <span>병원건축연구실(216호)</span>
                 </div>
 
-                <ColoredBtn type={"link"} to={"/inquiry/new"} text={"문의하기"} width={"fit"} color={"third"} scale={"small"}/>
+                <ColoredBtn type={"link"} to={"/inquiry/new"} content={"문의하기"} width={"fit"} color={"third"} scale={"small"}/>
             </div>
         </Container>
     );
