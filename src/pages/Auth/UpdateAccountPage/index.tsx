@@ -6,7 +6,7 @@ import InputWithLabel from "@components/InputWithLabel";
 import ColoredBtn from "@components/ColoredBtn";
 import {useState} from "react";
 import Modal from "@components/Modal";
-import ConfirmModalContent from "@components/ConfirmModalContent";
+import ConfirmContent from "@components/ConfirmContent";
 import {yearCategories} from "@constants/yearCategories.ts";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -24,7 +24,7 @@ const UpdateAccountPage = () => {
 
     const [updateAccountModal, setUpdateAccountModal] = useState<boolean>(false);
 
-    const UpdateAccountModalContent = () => {
+    const UpdateAccountContent = () => {
         const leftBtn = (
             <ColoredBtn
                 type={"button"}
@@ -45,7 +45,7 @@ const UpdateAccountPage = () => {
             />
         );
         return (
-            <ConfirmModalContent
+            <ConfirmContent
                 text={"회원정보를 수정하시겠습니까?"}
                 leftBtn={leftBtn}
                 rightBtn={rightBtn}
@@ -69,11 +69,11 @@ const UpdateAccountPage = () => {
                 />
 
                 <InputWithLabel
-                    label={"스튜디오 지도 교수님"}
+                    label={"스튜디오"}
                     type={"text"}
                     id={"studio"}
                     name={"studio"}
-                    placeholder={"지도 교수님 이름을 입력해주세요"}
+                    placeholder={"스튜디오 교수님 이름을 입력해주세요"}
                     register={register}
                     errorMessage={errors.studio?.message}
                 />
@@ -99,8 +99,9 @@ const UpdateAccountPage = () => {
 
             {updateAccountModal &&
               <Modal
-                content={<UpdateAccountModalContent/>}
+                content={<UpdateAccountContent/>}
                 setModal={setUpdateAccountModal}
+                type={"popup"}
               />
             }
         </Container>

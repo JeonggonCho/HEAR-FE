@@ -14,6 +14,7 @@ export const Container = styled.div`
 
     & > div:first-of-type, & > div:last-of-type {
         text-align: center;
+        width: 100%;
         line-height: 1.2;
         display: flex;
         flex-direction: column;

@@ -30,8 +30,8 @@ export interface IHollowBtnProps {
 }
 
 
-// 확인 모달 내용(ConfirmModalContent) props
-export interface IConfirmModalContentProps {
+// 확인 내용(ConfirmContent) props
+export interface IConfirmContentProps {
     text: string;
     description?: string;
     leftBtn: React.ReactElement;
@@ -60,6 +60,7 @@ export interface IInputWithLabelProps<TFieldValues extends FieldValues> {
     errorMessage?: string;
     readonly ?: boolean;
     visibleToggle ?: boolean;
+    disabled ?: boolean;
 }
 
 
@@ -69,8 +70,8 @@ export interface ILangSettingCardProps {
 }
 
 
-// 언어 설정 모달 내용(LangSettingModalContent) props
-export interface ILangSettingModalContentProps {
+// 언어 설정 내용(LangSettingContent) props
+export interface ILangSettingContentProps {
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -97,10 +98,11 @@ export interface IMachineSelectorProps {
 }
 
 
-// 모달(Modal) props
+// 모달 (Modal) props
 export interface IModalProps {
     content: React.ReactElement;
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
+    type: "popup" | "bottomSheet";
 }
 
 

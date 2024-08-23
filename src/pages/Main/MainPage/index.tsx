@@ -10,7 +10,7 @@ import FeedBackCard from "@components/FeedBackCard";
 import {ReactSVG} from "react-svg";
 import alarm from "@assets/icons/alarm.svg";
 import Modal from "@components/Modal";
-import LangSettingModalContent from "@components/LangSettingModalContent";
+import LangSettingContent from "@components/LangSettingContent";
 
 const MainHeaderLeft: FC = () => {
     return (
@@ -50,7 +50,8 @@ const MainPage = () => {
             {langModal &&
               <Modal
                 setModal={setLangModal}
-                content={<LangSettingModalContent setModal={setLangModal}/>}
+                content={<LangSettingContent setModal={setLangModal}/>}
+                type={"bottomSheet"}
               />
             }
         </Container>

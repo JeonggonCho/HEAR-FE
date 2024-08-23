@@ -7,11 +7,11 @@ import InputWithLabel from "@components/InputWithLabel";
 import {Container} from "./style.ts";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {laserSchema} from "@schemata/laserSchema.ts";
+import {laserSchema} from "@schemata/machineSchema.ts";
 import {machineType} from "@constants/machineCategories.ts";
 
 const ReservationLaser = () => {
-    const {register, handleSubmit, formState: {errors}} = useForm({
+    const {register, handleSubmit, formState: {errors}, setValue} = useForm({
         resolver: zodResolver(laserSchema),
         defaultValues: {
             machine: "",
@@ -19,6 +19,12 @@ const ReservationLaser = () => {
             time: "",
         },
     });
+
+    const year = new Date().getFullYear();
+    const month = (new Date().getMonth() + 1).toString().padStart(2, '0');
+    const day = (new Date().getDate() + 1).toString().padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+    setValue("date", formattedDate);
 
     return (
         <Container>
@@ -45,6 +51,7 @@ const ReservationLaser = () => {
                     placeholder={"날짜를 선택해주세요"}
                     register={register}
                     errorMessage={errors.date?.message}
+                    disabled={true}
                 />
 
                 <InputWithLabel

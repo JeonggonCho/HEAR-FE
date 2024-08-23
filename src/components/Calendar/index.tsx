@@ -1,14 +1,12 @@
 import {FC, useState} from "react";
 import {
     Container,
-    CalendarHeader,
     CalendarMonthWrapper,
     DaysOfWeekWrapper,
     CalendarDayWrapper,
     DayButton
 } from "./style.ts";
 import {ReactSVG} from "react-svg";
-import close from "@assets/icons/close.svg";
 import arrowBack from "@assets/icons/arrow_back_small.svg";
 import arrowForward from "@assets/icons/arrow_forward_small.svg";
 import {ICalendarProps} from "@/types/componentProps.ts";
@@ -56,12 +54,7 @@ const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate}) => {
 
     return (
         <Container>
-            <CalendarHeader>
-                <h3>날짜 선택</h3>
-                <div onClick={() => setModal(false)}>
-                    <ReactSVG src={close}/>
-                </div>
-            </CalendarHeader>
+            <h3>날짜 선택</h3>
 
             <CalendarMonthWrapper>
                 <div>

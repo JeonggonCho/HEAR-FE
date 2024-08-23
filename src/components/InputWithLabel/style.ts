@@ -19,6 +19,10 @@ export const Container = styled.div`
         font-family: Pretendard, Helvetica, sans-serif;
         cursor: pointer;
         
+        &:disabled {
+            cursor: auto;
+        }
+        
         &::placeholder {
             color: #E2E2E2;
         }

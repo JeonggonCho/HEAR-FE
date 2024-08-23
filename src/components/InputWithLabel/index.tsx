@@ -19,7 +19,8 @@ const InputWithLabel = <TFieldValues extends FieldValues>(
         onClick,
         onChange,
         readonly,
-        visibleToggle
+        visibleToggle,
+        disabled,
     }: IInputWithLabelProps<TFieldValues>
 ) => {
     const [inputType, setInputType] = useState<string>(type);
@@ -35,6 +36,7 @@ const InputWithLabel = <TFieldValues extends FieldValues>(
                 onClick={onClick}
                 onChange={onChange}
                 readOnly={readonly}
+                disabled={disabled}
             />
             {visibleToggle && inputType === "password"
                 ? <ReactSVG

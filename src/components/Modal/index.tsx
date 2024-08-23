@@ -1,9 +1,9 @@
-import {FC, useEffect, useRef} from 'react';
-import {Container} from "./style.ts";
+import {FC, useEffect, useRef} from "react";
+import {Container, BottomSheetWrapper, PopupWrapper} from "./style.ts";
 import {IModalProps} from "@/types/componentProps.ts";
 import ReactDOM from "react-dom";
 
-const Modal:FC<IModalProps> = ({content, setModal}) => {
+const Modal:FC<IModalProps> = ({content, setModal, type}) => {
     const modalRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -20,16 +20,19 @@ const Modal:FC<IModalProps> = ({content, setModal}) => {
         };
     }, [modalRef, setModal]);
 
-
     const modalRoot = document.getElementById("modal-hook");
 
     if (!modalRoot) return null;
 
     const modalContent = (
         <Container>
-            <div ref={modalRef}>
-                {content}
-            </div>
+            {type === "popup"
+                ? <PopupWrapper ref={modalRef}>{content}</PopupWrapper>
+                : <BottomSheetWrapper ref={modalRef}>
+                    <div onClick={() => setModal(false)}/>
+                    {content}
+                </BottomSheetWrapper>
+            }
         </Container>
     );
 

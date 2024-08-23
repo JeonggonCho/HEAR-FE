@@ -8,7 +8,7 @@ import {Container} from "./style.ts";
 import {machineType} from "@constants/machineCategories.ts";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {printerSchema} from "@schemata/printerSchema.ts";
+import {printerSchema} from "@schemata/machineSchema.ts";
 import {useState} from "react";
 import Modal from "@components/Modal";
 import Calendar from "@components/Calendar";
@@ -58,16 +58,6 @@ const ReservationPrinter = () => {
                     readonly
                 />
 
-                <InputWithLabel
-                    label={"출력 예상 소요 시간 (시:분)"}
-                    type={"time"}
-                    id={"required-time"}
-                    name={"time"}
-                    placeholder={"출력 예상 소요 시간을 입력해주세요"}
-                    register={register}
-                    errorMessage={errors.time?.message}
-                />
-
                 <ColoredBtn type={"submit"} content={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>
             </form>
 
@@ -75,6 +65,7 @@ const ReservationPrinter = () => {
               <Modal
                 content={<Calendar setModal={setIsOpenCalendar} onSelectDate={handleDateSelect}/>}
                 setModal={setIsOpenCalendar}
+                type={"bottomSheet"}
               />
             }
         </Container>

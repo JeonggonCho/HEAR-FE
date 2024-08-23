@@ -5,16 +5,21 @@ import InputWithLabel from "@components/InputWithLabel";
 import {Container} from "./style.ts";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {cncHeatSawVacuumSchema} from "@schemata/cncHeatSawVacuumSchema.ts";
+import {cncHeatSchema} from "@schemata/machineSchema.ts";
 
 const ReservationHeat = () => {
-    const {register, handleSubmit, formState: {errors}} = useForm({
-        resolver: zodResolver(cncHeatSawVacuumSchema),
+    const {register, handleSubmit, formState: {errors}, setValue} = useForm({
+        resolver: zodResolver(cncHeatSchema),
         defaultValues: {
             date: "",
-            time: "",
         }
     });
+
+    const year = new Date().getFullYear();
+    const month = (new Date().getMonth() + 1).toString().padStart(2, '0');
+    const day = (new Date().getDate() + 1).toString().padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+    setValue("date", formattedDate);
 
     return (
         <Container>
@@ -31,16 +36,7 @@ const ReservationHeat = () => {
                     placeholder={"날짜를 선택해주세요"}
                     register={register}
                     errorMessage={errors.date?.message}
-                />
-
-                <InputWithLabel
-                    label={"시 간"}
-                    type={"time"}
-                    id={"heat-reservation-time"}
-                    name={"time"}
-                    placeholder={"시간을 선택해주세요"}
-                    register={register}
-                    errorMessage={errors.time?.message}
+                    disabled={true}
                 />
 
                 <ColoredBtn type={"submit"} content={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>

@@ -9,7 +9,7 @@ import CountOfLaserCard from "@components/CountOfLaserCard";
 import ReservationListCard from "@components/ReservationListCard";
 import UsageListCard from "@components/UsageListCard";
 import Modal from "@components/Modal";
-import ConfirmModalContent from "@components/ConfirmModalContent";
+import ConfirmContent from "@components/ConfirmContent";
 
 const AccountPage = () => {
     const [logoutModal, setLogoutModal] = useState<boolean>(false);
@@ -30,7 +30,7 @@ const AccountPage = () => {
         )
     };
 
-    const LogoutModalContent = () => {
+    const LogoutContent = () => {
         const leftBtn = (
             <ColoredBtn
                 type={"button"}
@@ -51,11 +51,11 @@ const AccountPage = () => {
             />
         );
         return (
-            <ConfirmModalContent text={"로그아웃 하시겠습니까?"} leftBtn={leftBtn} rightBtn={rightBtn}/>
+            <ConfirmContent text={"로그아웃 하시겠습니까?"} leftBtn={leftBtn} rightBtn={rightBtn}/>
         );
     };
 
-    const UnregisterModalContent = () => {
+    const UnregisterContent = () => {
         const leftBtn = (
             <ColoredBtn
                 type={"button"}
@@ -76,7 +76,7 @@ const AccountPage = () => {
             />
         );
         return (
-            <ConfirmModalContent
+            <ConfirmContent
                 text={"탈퇴 하시겠습니까?"}
                 description={"탈퇴 시, 경고 내역을 제외한 유저의 교육 이수 내역 및 모든 정보는 삭제됩니다"}
                 leftBtn={leftBtn}
@@ -97,7 +97,8 @@ const AccountPage = () => {
             <CountOfLaserCard/>
             <ReservationListCard/>
             <UsageListCard/>
-            <HollowBtn
+
+            <ColoredBtn
                 type={"button"}
                 content={"탈퇴하기"}
                 width={"full"}
@@ -108,15 +109,17 @@ const AccountPage = () => {
 
             {logoutModal &&
               <Modal
-                content={<LogoutModalContent/>}
+                content={<LogoutContent/>}
                 setModal={setLogoutModal}
+                type={"popup"}
               />
             }
 
             {unregisterModal &&
               <Modal
-                content={<UnregisterModalContent/>}
+                content={<UnregisterContent/>}
                 setModal={setUnregisterModal}
+                type={"popup"}
               />
             }
         </Container>

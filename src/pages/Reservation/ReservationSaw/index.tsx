@@ -5,16 +5,25 @@ import InputWithLabel from "@components/InputWithLabel";
 import {Container} from "./style.ts";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {cncHeatSawVacuumSchema} from "@schemata/cncHeatSawVacuumSchema.ts";
+import {sawVacuumSchema} from "@schemata/machineSchema.ts";
+import {useState} from "react";
+import Modal from "@components/Modal";
+import Calendar from "@components/Calendar";
 
 const ReservationSaw = () => {
-    const {register, handleSubmit, formState: {errors}} = useForm({
-        resolver: zodResolver(cncHeatSawVacuumSchema),
+    const [isOpenCalendar, setIsOpenCalendar] = useState<boolean>(false);
+
+    const {register, handleSubmit, formState: {errors}, setValue} = useForm({
+        resolver: zodResolver(sawVacuumSchema),
         defaultValues: {
             date: "",
             time: "",
         }
     });
+
+    const handleDateSelect = (date: string) => {
+        setValue("date", date);
+    };
 
     return (
         <Container>
@@ -31,6 +40,8 @@ const ReservationSaw = () => {
                     placeholder={"날짜를 선택해주세요"}
                     register={register}
                     errorMessage={errors.date?.message}
+                    onClick={() => setIsOpenCalendar(true)}
+                    readonly
                 />
 
                 <InputWithLabel
@@ -45,6 +56,14 @@ const ReservationSaw = () => {
 
                 <ColoredBtn type={"submit"} content={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>
             </form>
+
+            {isOpenCalendar &&
+              <Modal
+                content={<Calendar setModal={setIsOpenCalendar} onSelectDate={handleDateSelect}/>}
+                setModal={setIsOpenCalendar}
+                type={"bottomSheet"}
+              />
+            }
         </Container>
     );
 };

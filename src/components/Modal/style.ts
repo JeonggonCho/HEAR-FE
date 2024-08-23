@@ -12,6 +12,14 @@ const fadeIn = keyframes`
     }
 `;
 
+const moveUp = keyframes`
+    0% {
+        transform: translateX(-50%) translateY(200%);
+    }
+    80% {
+        transform: translateX(-50%) translateY(-5%);
+    }
+`;
 
 export const Container = styled.div`
     position: fixed;
@@ -24,23 +32,47 @@ export const Container = styled.div`
     background: rgba(91, 91, 91, 0.5);
     backdrop-filter: blur(2px);
     z-index: 3;
-    
-    & > div:first-of-type {
-        padding: 12px;
-        height: auto;
-        max-width: 560px;
-        min-width: 55%;
-        border-radius: 16px;
-        background-color: white;
-        position: absolute;
-        transform: translateX(-50%);
-        left: 50%;
-        top: 80px;
-        animation: ${fadeIn} 0.3s;
-        
-        @media (max-width: 600px) {
-            max-width: calc(100vw - 40px);
-        }
+`;
+
+export const PopupWrapper = styled.div`
+    padding: 12px;
+    height: auto;
+    max-width: 560px;
+    min-width: 55%;
+    border-radius: 16px;
+    background-color: white;
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    top: 80px;
+    animation: ${fadeIn} 0.3s;
+
+    @media (max-width: 600px) {
+        max-width: calc(100vw - 40px);
     }
 `;
 
+export const BottomSheetWrapper = styled.div`
+    width: 95%;
+    padding: 12px 12px 88px 12px;
+    background-color: white;
+    border-radius: 16px 16px 0 0;
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    bottom: 0;
+    animation: ${moveUp} 0.4s;
+
+    @media (max-width: 600px) {
+        max-width: calc(100vw - 20px);
+    }
+
+    & > div:first-of-type {
+        width: 72px;
+        height: 6px;
+        background-color: #e2e2e2;
+        margin: auto auto 24px auto;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+`;

@@ -4,32 +4,11 @@ export const Container = styled.div`
     width: 100%;
     height: 100%;
     padding: 12px;
-`;
-
-export const CalendarHeader = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 32px;
 
     h3 {
         font-weight: bold;
         font-size: 20px;
-        margin: 0;
-    }
-
-    & > div:first-of-type {
-        cursor: pointer;
-
-        svg {
-            fill: #999999;
-            transition: all 0.2s ease-in-out 0s;
-
-            &:hover {
-                fill: black;
-                transform: scale(1.05);
-            }
-        }
+        margin: 0 0 32px;
     }
 `;
 
@@ -89,6 +68,9 @@ export const CalendarDayWrapper = styled.div`
 `;
 
 export const DayButton = styled.button<{selected: boolean | null}>`
+    width: 40px;
+    height: 40px;
+    margin: auto;
     border: none;
     border-radius: 10px;
     background: ${({selected}) => selected ? "#2B65FC" : "none"};
