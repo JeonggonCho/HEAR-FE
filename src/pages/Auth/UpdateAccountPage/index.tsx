@@ -10,7 +10,7 @@ import ConfirmContent from "@components/ConfirmContent";
 import {yearCategories} from "@constants/yearCategories.ts";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {updateAccountSchema} from "@schemata/updateAccountSchema.ts";
+import {updateAccountSchema} from "@schemata/authSchema.ts";
 
 const UpdateAccountPage = () => {
     const {register, handleSubmit, formState: {errors}} = useForm({

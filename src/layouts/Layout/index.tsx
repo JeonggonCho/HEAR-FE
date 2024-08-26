@@ -1,12 +1,13 @@
 import {FC} from 'react';
 import {Outlet} from "react-router-dom";
-import Nav from "../Nav";
+import Nav from "@components/Nav";
 import {Container, OutletWrapper} from "./style.ts";
+import {ILayoutProps} from "@/types/layoutProps.ts";
 
-const Layout: FC = () => {
+const Layout: FC<ILayoutProps> = ({background}) => {
     return (
         <Container>
-            <OutletWrapper>
+            <OutletWrapper background={background}>
                 <Outlet/>
             </OutletWrapper>
             <Nav/>

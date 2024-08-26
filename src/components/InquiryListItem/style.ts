@@ -4,9 +4,12 @@ import {Link} from "react-router-dom";
 export const Container = styled(Link)<{ category: "machine" | "reservation" | "room" | "etc" }>`
     width: 100%;
     display: inline-block;
-    border-bottom: 1px solid #e2e2e2;
     padding: 12px 8px;
     transition: all 0.2s ease-in-out 0s;
+    
+    & + & {
+        border-top: 1px solid #e2e2e2;
+    }
     
     &:hover {
         transform: translateY(-4px);
@@ -20,8 +23,6 @@ export const Container = styled(Link)<{ category: "machine" | "reservation" | "r
         font-size: 14px;
         margin-bottom: 8px;
         display: inline-block;
-        padding: 4px 8px;
-        background-color: #F0F4FF;
         color: #2B65FC;
         border-radius: 6px;
     }

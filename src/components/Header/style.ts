@@ -33,7 +33,7 @@ export const Container = styled.div`
         align-items: center;
         justify-content: center;
         text-align: center;
-        font-size: 24px;
+        font-size: 20px;
         font-weight: bold;
         text-wrap: nowrap;
     }

@@ -1,5 +1,4 @@
 import {Navigate, Route, Routes} from "react-router-dom";
-import Layout from "@components/Layout";
 import MainPage from "@pages/main/MainPage";
 import AlarmPage from "@pages/main/AlarmPage";
 import InquiryPage from "@pages/qna/InquiryPage";
@@ -37,6 +36,7 @@ import ConditionPage from "@pages/reservation/ConditionPage";
 import NotFoundPage from "@pages/main/NotFoundPage";
 import ScrollToTop from "@components/ScrollToTop";
 import QuizPage from "@pages/quiz/QuizPage";
+import Layout from "@layouts/Layout";
 
 const AppRoute = () => {
     return (
@@ -70,12 +70,6 @@ const AppRoute = () => {
                     <Route path="quiz" element={<QuizPage/>}/>
 
                     <Route path="instruction" element={<InstructionPage/>}/>
-                    <Route path="instruction/3d-printer" element={<InstructionPrinter/>}/>
-                    <Route path="instruction/laser" element={<InstructionLaser/>}/>
-                    <Route path="instruction/heat" element={<InstructionHeat/>}/>
-                    <Route path="instruction/cnc" element={<InstructionCnc/>}/>
-                    <Route path="instruction/saw" element={<InstructionSaw/>}/>
-                    <Route path="instruction/vacuum" element={<InstructionVacuum/>}/>
 
                     <Route path="reservation" element={<ReservationPage/>}/>
                     <Route path="reservation/done" element={<ReservationDonePage/>}/>
@@ -91,6 +85,15 @@ const AppRoute = () => {
                     {/*관리자 관련 페이지*/}
 
                     <Route path="*" element={<NotFoundPage/>}/>
+                </Route>
+
+                <Route path="/instruction" element={<Layout background={"none"}/>}>
+                    <Route path="3d-printer" element={<InstructionPrinter/>}/>
+                    <Route path="laser" element={<InstructionLaser/>}/>
+                    <Route path="heat" element={<InstructionHeat/>}/>
+                    <Route path="cnc" element={<InstructionCnc/>}/>
+                    <Route path="saw" element={<InstructionSaw/>}/>
+                    <Route path="vacuum" element={<InstructionVacuum/>}/>
                 </Route>
             </Routes>
         </>

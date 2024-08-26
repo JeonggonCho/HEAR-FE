@@ -5,7 +5,7 @@ import ColoredBtn from "@components/ColoredBtn";
 import {Container} from "./style.ts";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {findPasswordSchema} from "@schemata/findPasswordSchema.ts";
+import {findPasswordSchema} from "@schemata/authSchema.ts";
 
 const FindPasswordPage = () => {
     const {register, handleSubmit, formState:{errors}} = useForm({

@@ -100,6 +100,7 @@ export interface IMachineSelectorProps {
 
 // 모달 (Modal) props
 export interface IModalProps {
+    title?: string;
     content: React.ReactElement;
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
     type: "popup" | "bottomSheet";

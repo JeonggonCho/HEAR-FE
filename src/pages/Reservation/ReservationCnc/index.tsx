@@ -49,6 +49,7 @@ const ReservationCnc = () => {
 
             {isOpenCalendar &&
               <Modal
+                title={"날 짜"}
                 content={<Calendar setModal={setIsOpenCalendar} onSelectDate={handleDateSelect}/>}
                 setModal={setIsOpenCalendar}
                 type={"bottomSheet"}

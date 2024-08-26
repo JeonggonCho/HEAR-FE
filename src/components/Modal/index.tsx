@@ -3,7 +3,7 @@ import {Container, BottomSheetWrapper, PopupWrapper} from "./style.ts";
 import {IModalProps} from "@/types/componentProps.ts";
 import ReactDOM from "react-dom";
 
-const Modal:FC<IModalProps> = ({content, setModal, type}) => {
+const Modal:FC<IModalProps> = ({title, content, setModal, type}) => {
     const modalRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -30,6 +30,7 @@ const Modal:FC<IModalProps> = ({content, setModal, type}) => {
                 ? <PopupWrapper ref={modalRef}>{content}</PopupWrapper>
                 : <BottomSheetWrapper ref={modalRef}>
                     <div onClick={() => setModal(false)}/>
+                    <h3>{title}</h3>
                     {content}
                 </BottomSheetWrapper>
             }

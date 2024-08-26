@@ -49,6 +49,7 @@ const MainPage = () => {
 
             {langModal &&
               <Modal
+                title={"언어설정"}
                 setModal={setLangModal}
                 content={<LangSettingContent setModal={setLangModal}/>}
                 type={"bottomSheet"}

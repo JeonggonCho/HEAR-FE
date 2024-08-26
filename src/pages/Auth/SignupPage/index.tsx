@@ -8,7 +8,7 @@ import Select from "@components/Select";
 import {yearCategories} from "@constants/yearCategories.ts";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {signupSchema} from "@schemata/signupSchema.ts";
+import {signupSchema} from "@schemata/authSchema.ts";
 
 const SignupPage = () => {
     const {register, handleSubmit, formState:{errors}} = useForm({

@@ -6,8 +6,6 @@ import ColoredBtn from "@components/ColoredBtn";
 const LangSettingContent:FC<ILangSettingContentProps> = ({setModal}) => {
     return (
         <Container>
-            <h3>언어설정</h3>
-
             <div>
                 <input type={"radio"} id="korean" name="language" value="korean"/>
                 <label htmlFor="korean">한국어</label>

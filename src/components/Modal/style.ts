@@ -34,7 +34,7 @@ export const Container = styled.div`
     height: 100%;
     background: rgba(91, 91, 91, 0.5);
     backdrop-filter: blur(2px);
-    z-index: 3;
+    z-index: 5;
 `;
 
 export const PopupWrapper = styled.div`
@@ -56,26 +56,35 @@ export const PopupWrapper = styled.div`
 `;
 
 export const BottomSheetWrapper = styled.div`
-    width: 98%;
-    padding: 12px 12px 88px 12px;
+    width: 100%;
+    padding: 12px 0 80px 0;
     background-color: white;
-    border-radius: 20px 20px 0 0;
+    border-radius: 24px 24px 0 0;
     position: absolute;
     transform: translateX(-50%);
     left: 50%;
-    bottom: 0;
+    bottom: -68px;
     animation: ${moveUp} 0.4s;
 
     @media (max-width: 600px) {
-        max-width: calc(100vw - 10px);
+        max-width: 100vw;
     }
 
     & > div:first-of-type {
-        width: 64px;
+        width: 40px;
         height: 6px;
         background-color: #e2e2e2;
-        margin: auto auto 24px auto;
+        margin: auto auto 20px auto;
         border-radius: 3px;
         cursor: pointer;
+    }
+    
+    h3 {
+        width: 100%;
+        text-align: center;
+        font-size: 18px;
+        margin-bottom: 8px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #f8f8f8;
     }
 `;

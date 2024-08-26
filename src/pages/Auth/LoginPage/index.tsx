@@ -6,7 +6,7 @@ import Link from "@components/Link";
 import {Container} from "./style.ts";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {loginSchema} from "@schemata/loginSchema.ts";
+import {loginSchema} from "@schemata/authSchema.ts";
 import logo from "@assets/logo.svg";
 
 const LoginPage = () => {

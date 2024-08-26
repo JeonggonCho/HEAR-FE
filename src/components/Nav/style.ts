@@ -16,7 +16,7 @@ export const Container = styled.nav`
     background-color: white;
     position: fixed;
     bottom: 0;
-    z-index: 10;
+    z-index: 3;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 `;
 

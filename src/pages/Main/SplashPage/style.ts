@@ -12,7 +12,9 @@ const fadeOutAnimation = keyframes`
 
 export const Container = styled.div`
     width: 100%;
+    max-width: 600px;
     height: 100vh;
+    margin: auto;
     position: relative;
     background: linear-gradient(150deg, #E2E3F7 8.51%, #FFFFFF 35.48%, #C6D6FF 61.62%, #EEFAFF 84.02%);
     animation: ${fadeOutAnimation} 0.3s ease-out;

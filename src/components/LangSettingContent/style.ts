@@ -4,13 +4,7 @@ import {lighten} from "polished";
 export const Container = styled.div`
     width: 100%;
     height: 100%;
-    padding: 12px;
-
-    h3 {
-        font-weight: bold;
-        font-size: 20px;
-        margin: 0 0 32px 4px;
-    }
+    padding: 12px 24px;
 
     & > div:first-of-type {
         display: flex;
