@@ -10,7 +10,11 @@ export const Container = styled.div`
     }
     
     div + span {
-        margin-top: 48px;
+        margin-top: 56px;
+    }
+    
+    span + div {
+        margin-top: 24px;
     }
 
     div + p {
@@ -58,6 +62,10 @@ export const ImageWrapper = styled.div`
     border-radius: 12px;
     overflow: hidden;
     margin-bottom: 18px;
+    
+    & + & {
+        margin-top: 0;
+    }
     
     img {
         width: 100%;

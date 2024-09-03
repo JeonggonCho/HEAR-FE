@@ -1,17 +1,17 @@
 import {create} from "zustand";
 
-interface AuthState {
-    isAuthenticated: boolean;
-    userToken: string | null;
+interface IAuthState {
+    isLoggedIn: boolean;
+    token: string | null;
     login: (token: string) => void;
     logout: () => void;
 }
 
-const useAuthStore = create<AuthState>((set) => ({
-    isAuthenticated: false,
-    userToken: null,
-    login: (token: string) => set({ isAuthenticated: true, userToken: token }),
-    logout: () => set({ isAuthenticated: false, userToken: null }),
+const useAuthStore = create<IAuthState>((set) => ({
+    isLoggedIn: false,
+    token: null,
+    login: (token: string) => set({ token: token }),
+    logout: () => set({ token: null }),
 }));
 
 export default useAuthStore;

@@ -10,7 +10,6 @@ export const Container = styled(Link)`
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
     padding-top: 8px;
     padding-bottom: 16px;
     gap: 8px;
@@ -21,7 +20,6 @@ export const Container = styled(Link)`
     }
 
     &:hover {
-        box-shadow: none;
         border: 1px solid #2B65FC;
         background-color: ${lighten(0.4, "#2B65FC")};
 

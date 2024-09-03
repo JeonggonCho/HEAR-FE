@@ -1,21 +1,34 @@
-import create from 'zustand';
+import {create} from 'zustand';
+import {createJSONStorage, devtools, persist} from "zustand/middleware";
 
-interface User {
-    id: number;
-    name: string;
+interface IUser {
+    id: string;
+    username: string;
     email: string;
+    role: "admin" | "student" | "manager";
+    passQuiz: boolean;
+    studio: string;
+    year: "1" | "2" | "3" | "4" | "5";
+    tel: string;
+    studentId: string;
+    warning: number;
+    countOfLaser: number;
 }
 
-interface UserState {
-    user: User | null;
-    setUser: (user: User) => void;
+interface IUserState {
+    user: IUser | null;
+    setUser: (user: IUser) => void;
     clearUser: () => void;
 }
 
-const useUserStore = create<UserState>((set) => ({
+const userStore = (set: any):IUserState => ({
     user: null,
-    setUser: (user: User) => set({ user }),
+    setUser: (user: IUser) => set({ user }),
     clearUser: () => set({ user: null }),
-}));
+});
 
-export default useUserStore;
+export const useUserStore = create<IUserState>()(
+    devtools(
+        persist(userStore, {name:"user-storage", storage: createJSONStorage(() => localStorage)})
+    )
+);

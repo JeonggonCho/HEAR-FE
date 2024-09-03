@@ -1,17 +1,28 @@
+import {SubmitHandler, useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import { z } from "zod";
+
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import ColoredBtn from "@components/ColoredBtn";
 import InputWithLabel from "@components/InputWithLabel";
 import Link from "@components/Link";
-import {Container} from "./style.ts";
 import Select from "@components/Select";
+
 import {yearCategories} from "@constants/yearCategories.ts";
-import {useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
 import {signupSchema} from "@schemata/authSchema.ts";
+// import useAuthStore from "@store/useAuthStore.ts";
+import {Container} from "./style.ts";
+import useRequest from "@hooks/useRequest.ts";
 
 const SignupPage = () => {
-    const {register, handleSubmit, formState:{errors}} = useForm({
+    // const {login} = useAuthStore();
+
+    const {isLoading, errorText, sendRequest, clearError} = useRequest();
+
+    type SignupFormData = z.infer<typeof signupSchema>;
+
+    const {register, handleSubmit, formState:{errors}} = useForm<SignupFormData>({
         resolver: zodResolver(signupSchema),
         defaultValues: {
             username: "",
@@ -25,12 +36,23 @@ const SignupPage = () => {
         }
     });
 
+    const submitHandler: SubmitHandler<SignupFormData> = async (data) => {
+        try {
+            const responseData = await sendRequest({
+                url: "/users/signup",
+                method: "post",
+                data:data
+            });
+            console.log(responseData);
+        } catch (err) {
+            console.log("회원가입 실패: ", err);
+        }
+    };
+
     return (
         <Container>
             <Header leftChild={<ArrowBack/>} centerText={"회원가입"}/>
-            <form method={"post"} onSubmit={handleSubmit((data) => {
-                console.log(data);
-            })}>
+            <form method={"post"} onSubmit={handleSubmit(submitHandler)}>
                 <InputWithLabel
                     label={"이름"}
                     type={"text"}

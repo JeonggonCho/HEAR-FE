@@ -12,9 +12,11 @@ export default defineConfig({
       {find: "@constants", replacement: "/src/constants"},
       {find: "@schemata", replacement: "/src/schemata"},
       {find: "@store", replacement: "/src/store"},
-      {find: "@router", replacement: "/src/router"},
+      {find: "@routes", replacement: "/src/routes"},
       {find: "@util", replacement: "/src/util"},
       {find: "@layouts", replacement: "/src/layouts"},
+      {find: "@api", replacement: "/src/api"},
+      {find: "@hooks", replacement: "/src/hooks"},
       {find: "@", replacement: "/src"},
     ],
   }

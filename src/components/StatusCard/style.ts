@@ -6,6 +6,7 @@ export const Container = styled.div`
     padding: 16px;
     border-radius: 16px;
     background-color: #F0F4FF;
+    border: 1px solid ${lighten(0.3, "#2B65FC")};
     color: #2B65FC;
     display: flex;
     align-items: center;

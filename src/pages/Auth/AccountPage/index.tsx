@@ -10,12 +10,15 @@ import ReservationListCard from "@components/ReservationListCard";
 import UsageListCard from "@components/UsageListCard";
 import Modal from "@components/Modal";
 import ConfirmContent from "@components/ConfirmContent";
+import {useUserStore} from "@store/useUserStore.ts";
 
 const AccountPage = () => {
     const [logoutModal, setLogoutModal] = useState<boolean>(false);
     const [unregisterModal, setUnregisterModal] = useState<boolean>(false);
 
-    const AccountHeaderLeft:FC = () => <h2><UserName>조정곤</UserName>님 안녕하세요</h2>;
+    const {user} = useUserStore();
+
+    const AccountHeaderLeft:FC = () => <h2><UserName>{user?.username}</UserName>님 안녕하세요</h2>;
 
     const AccountHeaderRight:FC = () => {
         return (

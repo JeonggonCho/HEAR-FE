@@ -12,7 +12,6 @@ export const Container = styled(Link)`
     padding: 12px;
     border-radius: 16px;
     border: 1px solid white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
     transition: all 0.2s ease-in-out 0s;
     
     h4 {
@@ -38,7 +37,6 @@ export const Container = styled(Link)`
     }
     
     &:hover {
-        box-shadow: none;
         border: 1px solid #2B65FC;
         background-color: ${lighten(0.4, "#2B65FC")};
         

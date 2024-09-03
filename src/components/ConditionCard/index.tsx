@@ -1,8 +1,7 @@
 import {FC} from 'react';
 import {Container} from "./style.ts";
-import arrowForward from "@assets/icons/arrow_forward.svg";
-import {ReactSVG} from "react-svg";
 import situation from "@assets/images/situation.png";
+import ArrowForward from "@components/ArrowForward";
 
 const ConditionCard:FC = () => {
     return (
@@ -12,7 +11,7 @@ const ConditionCard:FC = () => {
                 <h3>예약 현황</h3>
             </div>
 
-            <ReactSVG src={arrowForward}/>
+            <ArrowForward/>
         </Container>
     );
 };

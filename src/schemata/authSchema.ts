@@ -20,8 +20,9 @@ export const signupSchema = z.object({
         .min(8, "비밀번호 확인은 8자 이상 20자 이하로 입력해주세요")
         .max(20, "비밀번호 확인은 8자 이상 20자 이하로 입력해주세요"),
     year: z
-        .string()
-        .min(1, "학년을 선택해주세요"),
+        .enum(["1", "2", "3", "4", "5"], {
+            required_error: "학년을 선택해주세요"
+        }),
     studentId: z
         .string()
         .regex(STUDENTID_REGEX, "학번은 10자리의 숫자여야 합니다"),
@@ -56,8 +57,9 @@ export const loginSchema = z.object({
 
 export const updateAccountSchema = z.object({
     year: z
-        .string()
-        .min(1, "학년을 선택해주세요"),
+        .enum(["1", "2", "3", "4", "5"], {
+            required_error: "학년을 선택해주세요"
+        }),
     studio: z
         .string()
         .min(1, "스튜디오 교수님을 입력해주세요"),

@@ -37,7 +37,10 @@ const InputWithLabel = <TFieldValues extends FieldValues>(
                 onChange={onChange}
                 readOnly={readonly}
                 disabled={disabled}
+                min={inputType === "number" ? 0 : undefined}
+                onWheel={e => (e.target as HTMLElement).blur()}
             />
+            {errorMessage && <InputError errorMessage={errorMessage}/> }
             {visibleToggle && inputType === "password"
                 ? <ReactSVG
                     src={visible}
@@ -50,7 +53,6 @@ const InputWithLabel = <TFieldValues extends FieldValues>(
                     />
                     : null
             }
-            {errorMessage && <InputError errorMessage={errorMessage}/> }
         </Container>
     );
 };

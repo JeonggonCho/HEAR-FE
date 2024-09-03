@@ -1,4 +1,4 @@
-import {FC, useState} from "react";
+import {FC, useMemo, useState} from "react";
 import {
     Container,
     CalendarMonthWrapper,
@@ -18,10 +18,18 @@ const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate}) => {
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
-    const days = generateCalendar(currentDate);
+    const days = useMemo(() => generateCalendar(currentDate), [currentDate]);
 
-    const isPrevMonthDisabled = currentDate.getFullYear() === new Date().getFullYear() && currentDate.getMonth() === new Date().getMonth();
-    const isNextMonthDisabled = currentDate.getFullYear() === new Date().getFullYear() && currentDate.getMonth() === new Date().getMonth() + 1;
+    const isPrevMonthDisabled = useMemo(() => (
+        currentDate.getFullYear() === new Date().getFullYear() &&
+        currentDate.getMonth() === new Date().getMonth()
+    ), [currentDate]);
+
+    const isNextMonthDisabled = useMemo(() => (
+        currentDate.getFullYear() === new Date().getFullYear() &&
+        currentDate.getMonth() === new Date().getMonth() + 1
+    ), [currentDate]);
+
 
     const handlePrevMonth = () => {
         if (!isPrevMonthDisabled) {

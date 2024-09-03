@@ -1,10 +1,13 @@
 import {FC} from 'react';
 import {Container} from "./style.ts";
-import {ReactSVG} from "react-svg";
-import arrowForward from "@assets/icons/arrow_forward.svg";
 import {ILangSettingCardProps} from "@/types/componentProps.ts";
+import ArrowForward from "@components/ArrowForward";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {langCategories} from "@constants/themeCategories.ts";
 
 const LangSettingCard:FC<ILangSettingCardProps> = ({setModal}) => {
+    const {lang} = useThemeStore()
+
     return (
         <Container onClick={() => setModal(true)}>
             <div>
@@ -12,8 +15,8 @@ const LangSettingCard:FC<ILangSettingCardProps> = ({setModal}) => {
                 <span>Language</span>
             </div>
             <div>
-                <h4>한국어</h4>
-                <ReactSVG src={arrowForward}/>
+                <h4>{langCategories[lang]}</h4>
+                <ArrowForward/>
             </div>
         </Container>
     );

@@ -3,10 +3,10 @@ import styled from "@emotion/styled";
 export const Container = styled.div`
     width: 100%;
     height: 44px;
-    background-color: #f2f2f2;
+    background-color: #F2F4F6;
     padding: 2px;
     border-radius: 10px;
-    border: 1px solid #f2f2f2;
+    border: 1px solid #F2F4F6;
     display: flex;
     position: sticky;
     top: 72px;

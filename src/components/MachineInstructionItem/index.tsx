@@ -1,8 +1,7 @@
 import {FC} from 'react';
 import {IMachineSelectorProps} from "@/types/componentProps.ts";
 import {Container, MachineImgWrapper} from "./style.ts";
-import {ReactSVG} from "react-svg";
-import arrowForward from "@assets/icons/arrow_forward.svg";
+import ArrowForward from "@components/ArrowForward";
 
 const MachineInstructionItem:FC<IMachineSelectorProps> = ({image, name, to}) => {
     return (
@@ -14,7 +13,7 @@ const MachineInstructionItem:FC<IMachineSelectorProps> = ({image, name, to}) => 
                 <h4>{name}</h4>
             </div>
 
-            <ReactSVG src={arrowForward}/>
+            <ArrowForward/>
         </Container>
     );
 };

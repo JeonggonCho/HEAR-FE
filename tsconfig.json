@@ -29,9 +29,11 @@
       "@pages/*": ["src/pages/*"],
       "@schemata/*": ["src/schemata/*"],
       "@store/*": ["src/store/*"],
-      "@router/*": ["src/router/*"],
+      "@routes/*": ["src/routes/*"],
       "@util/*": ["src/util/*"],
       "@layouts/*": ["src/layouts/*"],
+      "@api/*": ["src/api/*"],
+      "@hooks/*": ["src/hooks/*"],
       "@*": ["src/*"],
     }
   },
