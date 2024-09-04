@@ -36,7 +36,7 @@ import ConditionPage from "@pages/reservation/ConditionPage";
 import NotFoundPage from "@pages/main/NotFoundPage";
 import QuizPage from "@pages/quiz/QuizPage";
 import Layout from "@layouts/Layout";
-import useAuthStore from "@store/useAuthStore.ts";
+import {useAuthStore} from "@store/useAuthStore.ts";
 
 const AppRoute = () => {
     const {isLoggedIn} = useAuthStore();
@@ -102,6 +102,7 @@ const AppRoute = () => {
                         <Route index element={<Navigate to="/login"/>}/>
                         <Route path="login" element={<LoginPage/>}/>
                         <Route path="signup" element={<SignupPage/>}/>
+                        <Route path="signup/done" element={<SignupDonePage/>}/>
                         <Route path="password/reset" element={<FindPasswordPage/>}/>
                     </Route>
                 </Routes>

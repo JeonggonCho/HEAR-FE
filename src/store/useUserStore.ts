@@ -2,17 +2,10 @@ import {create} from 'zustand';
 import {createJSONStorage, devtools, persist} from "zustand/middleware";
 
 interface IUser {
-    id: string;
+    userId: string;
     username: string;
     email: string;
-    role: "admin" | "student" | "manager";
-    passQuiz: boolean;
-    studio: string;
-    year: "1" | "2" | "3" | "4" | "5";
-    tel: string;
     studentId: string;
-    warning: number;
-    countOfLaser: number;
 }
 
 interface IUserState {

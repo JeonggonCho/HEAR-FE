@@ -2,7 +2,7 @@ import axios, {AxiosError, AxiosInstance, AxiosResponse} from "axios";
 
 const axiosInstance:AxiosInstance = axios.create({
     baseURL: `${import.meta.env.VITE_SERVER}`,
-    timeout: 1000,
+    timeout: 3000,
     headers: {
         'Content-Type': 'application/json'
     }

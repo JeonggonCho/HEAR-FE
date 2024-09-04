@@ -1,8 +1,10 @@
-import './App.css';
 import {useEffect, useState} from "react";
+
 import SplashPage from "./pages/main/SplashPage";
 import AppRoute from "@routes/AppRoute.tsx";
 import ScrollToTop from "@components/ScrollToTop";
+
+import './App.css';
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);

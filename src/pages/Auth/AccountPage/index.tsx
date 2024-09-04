@@ -1,6 +1,7 @@
-import Header from "@components/Header";
 import {FC, useState} from "react";
-import {Container, UserName} from "./style.ts";
+import {useNavigate} from "react-router-dom";
+
+import Header from "@components/Header";
 import HollowBtn from "@components/HollowBtn";
 import ProfileCard from "@components/ProfileCard";
 import ColoredBtn from "@components/ColoredBtn";
@@ -10,15 +11,28 @@ import ReservationListCard from "@components/ReservationListCard";
 import UsageListCard from "@components/UsageListCard";
 import Modal from "@components/Modal";
 import ConfirmContent from "@components/ConfirmContent";
+
 import {useUserStore} from "@store/useUserStore.ts";
+import {useAuthStore} from "@store/useAuthStore.ts";
+
+import {Container, UserName} from "./style.ts";
 
 const AccountPage = () => {
     const [logoutModal, setLogoutModal] = useState<boolean>(false);
     const [unregisterModal, setUnregisterModal] = useState<boolean>(false);
 
-    const {user} = useUserStore();
+    const navigate = useNavigate();
+
+    const {user, clearUser} = useUserStore();
+    const {logout} = useAuthStore();
 
     const AccountHeaderLeft:FC = () => <h2><UserName>{user?.username}</UserName>님 안녕하세요</h2>;
+
+    const handleLogout = () => {
+        logout();
+        clearUser();
+        navigate("/login");
+    };
 
     const AccountHeaderRight:FC = () => {
         return (
@@ -51,6 +65,7 @@ const AccountPage = () => {
                 width={"full"}
                 color={"danger"}
                 scale={"normal"}
+                onClick={handleLogout}
             />
         );
         return (

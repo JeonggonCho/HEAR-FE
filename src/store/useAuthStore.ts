@@ -1,17 +1,24 @@
 import {create} from "zustand";
+import {createJSONStorage, devtools, persist} from "zustand/middleware";
 
 interface IAuthState {
     isLoggedIn: boolean;
-    token: string | null;
-    login: (token: string) => void;
+    accessToken: string | null;
+    refreshToken: string | null;
+    login: (accessToken: string, refreshToken: string) => void;
     logout: () => void;
 }
 
-const useAuthStore = create<IAuthState>((set) => ({
+const authStore = (set: any): IAuthState => ({
     isLoggedIn: false,
-    token: null,
-    login: (token: string) => set({ token: token }),
-    logout: () => set({ token: null }),
-}));
+    accessToken: null,
+    refreshToken: null,
+    login: (accessToken: string, refreshToken: string) => set({ accessToken, refreshToken, isLoggedIn: true }),
+    logout: () => set({ accessToken: null, refreshToken: null, isLoggedIn: false }),
+});
 
-export default useAuthStore;
+export const useAuthStore = create<IAuthState>()(
+    devtools(
+        persist(authStore, {name: "auth-storage", storage: createJSONStorage(() => localStorage)})
+    )
+);
