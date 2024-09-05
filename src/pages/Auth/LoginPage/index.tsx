@@ -15,7 +15,7 @@ import {loginSchema} from "@schemata/authSchema.ts";
 import {zodResolver} from "@hookform/resolvers/zod";
 import useRequest from "@hooks/useRequest.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
-import {useUserStore} from "@store/useUserStore.ts";
+import {useUserInfoStore} from "@store/useUserStore.ts";
 import {IAuthResponseData} from "@/types/authResponse.ts";
 
 import {Container} from "./style.ts";
@@ -25,7 +25,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     const {login} = useAuthStore();
-    const {setUser} = useUserStore();
+    const {setUserInfo} = useUserInfoStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     type LoginFormData = z.infer<typeof loginSchema>;
@@ -47,7 +47,7 @@ const LoginPage = () => {
             });
             const {userId, email, username, studentId, accessToken, refreshToken} = response.data;
             login(accessToken, refreshToken);
-            setUser({userId, email, username, studentId});
+            setUserInfo({userId, email, username, studentId});
             navigate("/");
         } catch (err) {
             console.log("로그인 실패: ", err);
@@ -105,11 +105,11 @@ const LoginPage = () => {
             }
 
             {errorText &&
-              <Modal
-                content={<div>에러</div>}
-                setModal={clearError}
-                type={"popup"}
-              />
+                <Modal
+                    content={<div>에러</div>}
+                    setModal={clearError}
+                    type={"popup"}
+                />
             }
         </Container>
     );

@@ -8,9 +8,22 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
     
+    & > div:nth-of-type(2) {
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+        margin-bottom: 8px;
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    
     & > p:first-of-type {
         text-align: center;
-        margin-bottom: 36px;
+        margin-bottom: 64px;
         color: #999999;
     }
 `;

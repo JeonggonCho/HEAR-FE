@@ -7,26 +7,26 @@ import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 // 채워진 버튼(ColoredBtn) props
 export interface IColoredBtnProps {
     type: "button" | "link" | "submit";
-    to ?: string;
+    to?: string;
     content : string | ReactElement;
     width: "full" | "fit";
     color: "primary" | "approval" | "second" | "third" | "danger";
     scale: "small" | "normal" | "big";
-    onClick ?: () => void;
-    disabled ?: boolean;
+    onClick?: () => void;
+    disabled?: boolean;
 }
 
 
 // 비워진 버튼(HollowBtn) props
 export interface IHollowBtnProps {
     type: "button" | "link" | "submit";
-    to ?: string;
+    to?: string;
     content : string | ReactElement;
     width: "full" | "fit";
     color: "primary" | "second" | "danger";
     scale: "small" | "normal" | "big";
-    onClick ?: () => void;
-    disabled ?: boolean;
+    onClick?: () => void;
+    disabled?: boolean;
 }
 
 

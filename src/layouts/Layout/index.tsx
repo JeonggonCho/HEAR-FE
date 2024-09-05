@@ -4,10 +4,10 @@ import Nav from "@components/Nav";
 import {Container, OutletWrapper} from "./style.ts";
 import {ILayoutProps} from "@/types/layoutProps.ts";
 
-const Layout: FC<ILayoutProps> = ({background, showNav=true}) => {
+const Layout: FC<ILayoutProps> = ({showNav=true}) => {
     return (
         <Container>
-            <OutletWrapper background={background}>
+            <OutletWrapper>
                 <Outlet/>
             </OutletWrapper>
             {showNav && <Nav/>}

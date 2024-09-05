@@ -1,4 +1,4 @@
-import {FC, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 import Header from "@components/Header";
@@ -12,27 +12,50 @@ import UsageListCard from "@components/UsageListCard";
 import Modal from "@components/Modal";
 import ConfirmContent from "@components/ConfirmContent";
 
-import {useUserStore} from "@store/useUserStore.ts";
+import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
 
 import {Container, UserName} from "./style.ts";
+import useRequest from "@hooks/useRequest.ts";
+import LoadingLoop from "@components/LoadingLoop";
 
 const AccountPage = () => {
     const [logoutModal, setLogoutModal] = useState<boolean>(false);
     const [unregisterModal, setUnregisterModal] = useState<boolean>(false);
+    const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     const navigate = useNavigate();
 
-    const {user, clearUser} = useUserStore();
+    const {userInfo, clearUserInfo} = useUserInfoStore();
+    const {setUserData, clearUserData} = useUserDataStore();
     const {logout} = useAuthStore();
 
-    const AccountHeaderLeft:FC = () => <h2><UserName>{user?.username}</UserName>님 안녕하세요</h2>;
+    // 유저 정보 조회
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await sendRequest({
+                    url: "/users",
+                    method: "get",
+                });
+                const {year, studio, passQuiz, countOfLaser, countOfWarning, tel} = response.data;
+                setUserData({year, studio, passQuiz, countOfLaser, countOfWarning, tel});
+            } catch (err) {
+                console.error("유저 정보 조회 에러: ", err);
+            }
+        };
+        fetchUser();
+    }, [sendRequest]);
 
     const handleLogout = () => {
         logout();
-        clearUser();
+        clearUserInfo();
+        clearUserData();
         navigate("/login");
     };
+
+
+    const AccountHeaderLeft:FC = () => <h2><UserName>{userInfo?.username}</UserName>님 안녕하세요</h2>;
 
     const AccountHeaderRight:FC = () => {
         return (
@@ -106,39 +129,53 @@ const AccountPage = () => {
     return (
         <Container>
             <Header leftChild={<AccountHeaderLeft/>} rightChild={<AccountHeaderRight/>}/>
-            <ProfileCard/>
-            <div>
-                <ColoredBtn type={"link"} content={"내정보 수정"} width={"full"} color={"second"} scale={"small"} to={"/account/update"}/>
-                <ColoredBtn type={"link"} content={"비밀번호 변경"} width={"full"} color={"second"} scale={"small"} to={"/password/update"}/>
-            </div>
-            <StatusCard/>
-            <CountOfLaserCard/>
-            <ReservationListCard/>
-            <UsageListCard/>
+            {isLoading ?
+                <LoadingLoop/>
+                :
+                <>
+                    <ProfileCard/>
+                    <div>
+                        <ColoredBtn type={"link"} content={"내정보 수정"} width={"full"} color={"second"} scale={"small"} to={"/account/update"}/>
+                        <ColoredBtn type={"link"} content={"비밀번호 변경"} width={"full"} color={"second"} scale={"small"} to={"/password/update"}/>
+                    </div>
+                    <StatusCard/>
+                    <CountOfLaserCard/>
+                    <ReservationListCard/>
+                    <UsageListCard/>
 
-            <ColoredBtn
-                type={"button"}
-                content={"탈퇴하기"}
-                width={"full"}
-                color={"danger"}
-                scale={"big"}
-                onClick={() => setUnregisterModal(true)}
-            />
+                    <ColoredBtn
+                        type={"button"}
+                        content={"탈퇴하기"}
+                        width={"full"}
+                        color={"danger"}
+                        scale={"big"}
+                        onClick={() => setUnregisterModal(true)}
+                    />
 
-            {logoutModal &&
-              <Modal
-                content={<LogoutContent/>}
-                setModal={setLogoutModal}
-                type={"popup"}
-              />
+                    {logoutModal &&
+                      <Modal
+                        content={<LogoutContent/>}
+                        setModal={setLogoutModal}
+                        type={"popup"}
+                      />
+                    }
+
+                    {unregisterModal &&
+                      <Modal
+                        content={<UnregisterContent/>}
+                        setModal={setUnregisterModal}
+                        type={"popup"}
+                      />
+                    }
+                </>
             }
 
-            {unregisterModal &&
-              <Modal
-                content={<UnregisterContent/>}
-                setModal={setUnregisterModal}
-                type={"popup"}
-              />
+            {errorText &&
+                <Modal
+                    content={<div>에러</div>}
+                    setModal={clearError}
+                    type={"popup"}
+                />
             }
         </Container>
     );
