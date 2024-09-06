@@ -9,12 +9,11 @@ import ColoredBtn from "@components/ColoredBtn";
 import InputWithLabel from "@components/InputWithLabel";
 import Link from "@components/Link";
 import Select from "@components/Select";
+import Modal from "@components/Modal";
+import LoadingLoop from "@components/LoadingLoop";
 
 import {yearCategories} from "@constants/yearCategories.ts";
 import {signupSchema} from "@schemata/authSchema.ts";
-import LoadingLoop from "@components/LoadingLoop";
-import Modal from "@components/Modal";
-
 import {zodResolver} from "@hookform/resolvers/zod";
 import useRequest from "@hooks/useRequest.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
@@ -58,7 +57,7 @@ const SignupPage = () => {
             setUserInfo({userId, email, username, studentId});
             navigate("/signup/done", { replace: true });
         } catch (err) {
-            console.log("회원가입 실패: ", err);
+            console.error("회원가입 실패: ", err);
         }
     };
 
@@ -158,7 +157,7 @@ const SignupPage = () => {
 
             {errorText &&
                 <Modal
-                    content={<div>에러</div>}
+                    content={<div>{errorText}</div>}
                     setModal={clearError}
                     type={"popup"}
                 />

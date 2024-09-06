@@ -18,7 +18,7 @@ const ProfileCard:FC = () => {
             </div>
             <div>
                 <span>학 년</span>
-                <span>{userData?.year}</span>
+                <span>{userData?.year}학년</span>
             </div>
             <div>
                 <span>스튜디오</span>

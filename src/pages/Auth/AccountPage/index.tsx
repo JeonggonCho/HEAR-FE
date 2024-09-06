@@ -55,7 +55,7 @@ const AccountPage = () => {
     };
 
 
-    const AccountHeaderLeft:FC = () => <h2><UserName>{userInfo?.username}</UserName>님 안녕하세요</h2>;
+    const AccountHeaderLeft:FC = () => <h2 style={{marginLeft: "6px"}}><UserName>{userInfo?.username}</UserName>님 안녕하세요</h2>;
 
     const AccountHeaderRight:FC = () => {
         return (
@@ -172,7 +172,7 @@ const AccountPage = () => {
 
             {errorText &&
                 <Modal
-                    content={<div>에러</div>}
+                    content={<div>{errorText}</div>}
                     setModal={clearError}
                     type={"popup"}
                 />

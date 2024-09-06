@@ -6,11 +6,11 @@ import Textarea from "@components/Textarea";
 import ColoredBtn from "@components/ColoredBtn";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {noticeQnaSchema} from "@schemata/noticeQnaSchema.ts";
+import {noticeSchema} from "@schemata/qnaSchema.ts";
 
 const NoticeCreatePage = () => {
     const {register, handleSubmit, formState:{errors}} = useForm({
-        resolver: zodResolver(noticeQnaSchema),
+        resolver: zodResolver(noticeSchema),
         defaultValues: {
             title: "",
             content: "",

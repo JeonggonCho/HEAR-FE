@@ -8,11 +8,11 @@ import InputWithLabel from "@components/InputWithLabel";
 import {feedbackCategories} from "@constants/feedbackCategories.ts";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {noticeQnaSchema} from "@schemata/noticeQnaSchema.ts";
+import {feedbackSchema} from "@schemata/qnaSchema.ts";
 
 const FeedbackCreatePage = () => {
     const {register, handleSubmit, formState:{errors}} = useForm({
-        resolver: zodResolver(noticeQnaSchema),
+        resolver: zodResolver(feedbackSchema),
         defaultValues: {
             title: "",
             category: "good",

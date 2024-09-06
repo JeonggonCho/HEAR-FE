@@ -11,7 +11,7 @@ const getColorStyles = (color: "primary" | "second" | "danger") => {
 
     const borderColor = colors[color];
     const textColor = colors[color];
-    const hoverBgColor = color === "second" || color === "danger" ? lighten(0.2, colors[color]) : lighten(0.4, colors[color]);
+    const hoverBgColor = color === "second" || color === "danger" ? lighten(0.35, colors[color]) : lighten(0.4, colors[color]);
     const activeBgColor = color === "second" || color === "danger" ? lighten(0.15, colors[color]) : lighten(0.3, colors[color]);
 
     return {

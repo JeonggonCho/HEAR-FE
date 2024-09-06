@@ -1,18 +1,32 @@
+import {SubmitHandler, useForm} from "react-hook-form";
+import {z} from "zod";
+import {useNavigate} from "react-router-dom";
+
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
-import {Container} from "./style.ts";
 import ColoredBtn from "@components/ColoredBtn";
 import Textarea from "@components/Textarea";
 import Select from "@components/Select";
 import InputWithLabel from "@components/InputWithLabel";
+
 import {inquiryCategories} from "@constants/inquiryCategories.ts";
-import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {noticeQnaSchema} from "@schemata/noticeQnaSchema.ts";
+import {inquirySchema} from "@schemata/qnaSchema.ts";
+import useRequest from "@hooks/useRequest.ts";
+
+import {Container} from "./style.ts";
+import LoadingLoop from "@components/LoadingLoop";
+import Modal from "@components/Modal";
 
 const InquiryCreatePage = () => {
-    const {register, handleSubmit, formState:{errors}} = useForm({
-        resolver: zodResolver(noticeQnaSchema),
+    const navigate = useNavigate();
+
+    const {isLoading, errorText, sendRequest, clearError} = useRequest();
+
+    type InquiryFormData = z.infer<typeof inquirySchema>;
+
+    const {register, handleSubmit, formState:{errors}} = useForm<InquiryFormData>({
+        resolver: zodResolver(inquirySchema),
         defaultValues: {
             title: "",
             category: "machine",
@@ -20,42 +34,68 @@ const InquiryCreatePage = () => {
         }
     })
 
+    const submitHandler: SubmitHandler<InquiryFormData> = async (data) => {
+        try {
+            const response = await sendRequest({
+                url: "/inquiries/new",
+                method: "post",
+                data: data,
+            });
+            const {inquiryId} = response.data;
+            navigate(`/inquiry/${inquiryId}`, { replace: true });
+        } catch (err) {
+            console.error("문의 실패: ", err);
+        }
+    };
+
     return (
         <Container>
             <Header leftChild={<ArrowBack/>} centerText={"문의하기"}/>
-            <p>
-                모형제작실과 관련된 문제점, 궁금한 점 등<br/>
-                문의사항을 보내주세요
-            </p>
+            {isLoading ?
+                <LoadingLoop/>
+                :
+                <>
+                    <p>
+                        모형제작실과 관련된 문제점, 궁금한 점 등<br/>
+                        문의사항을 보내주세요
+                    </p>
 
-            <form method={"post"} onSubmit={handleSubmit((data) => {
-                console.log(data);
-            })}>
-                <InputWithLabel
-                    label={"제 목"}
-                    type={"text"}
-                    id={"inquiry-title"}
-                    name={"title"}
-                    placeholder={"제목을 입력해주세요"}
-                    register={register}
-                    errorMessage={errors.title?.message}
-                />
+                    <form onSubmit={handleSubmit(submitHandler)}>
+                        <InputWithLabel
+                            label={"제 목"}
+                            type={"text"}
+                            id={"inquiry-title"}
+                            name={"title"}
+                            placeholder={"제목을 입력해주세요"}
+                            register={register}
+                            errorMessage={errors.title?.message}
+                        />
 
-                <Select
-                    categories={inquiryCategories}
-                    name={"category"}
-                    register={register}
-                    errorMessage={errors.category?.message}
-                />
+                        <Select
+                            categories={inquiryCategories}
+                            name={"category"}
+                            register={register}
+                            errorMessage={errors.category?.message}
+                        />
 
-                <Textarea
-                    register={register}
-                    name={"content"}
-                    errorMessage={errors.content?.message}
-                />
+                        <Textarea
+                            register={register}
+                            name={"content"}
+                            errorMessage={errors.content?.message}
+                        />
 
-                <ColoredBtn type={"submit"} content={"문의하기"} width={"full"} color={"primary"} scale={"big"}/>
-            </form>
+                        <ColoredBtn type={"submit"} content={"문의하기"} width={"full"} color={"primary"} scale={"big"}/>
+                    </form>
+                </>
+            }
+
+            {errorText &&
+              <Modal
+                content={<div>{errorText}</div>}
+                setModal={clearError}
+                type={"popup"}
+              />
+            }
         </Container>
     );
 };

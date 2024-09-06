@@ -106,7 +106,7 @@ const LoginPage = () => {
 
             {errorText &&
                 <Modal
-                    content={<div>에러</div>}
+                    content={<div>{errorText}</div>}
                     setModal={clearError}
                     type={"popup"}
                 />
