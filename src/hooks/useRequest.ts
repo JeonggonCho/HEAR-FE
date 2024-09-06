@@ -3,7 +3,7 @@ import axiosInstance from "@api/axiosInstance.ts";
 
 interface IRequestProps {
     url: string;
-    method: "get" | "post" | "put" | "patch" | "delete";
+    method?: "get" | "post" | "put" | "patch" | "delete";
     data?: any;
     header?: any;
 }

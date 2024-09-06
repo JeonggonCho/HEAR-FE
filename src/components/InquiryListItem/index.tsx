@@ -1,11 +1,11 @@
 import {FC} from 'react';
-import {IInquiryListItemProps} from "@/types/componentProps.ts";
+import {IInquiryProps} from "@/types/componentProps.ts";
 import {Container} from "./style.ts";
 import {inquiryCategoriesValues} from "@constants/inquiryCategories.ts";
 
-const InquiryListItem:FC<IInquiryListItemProps> = (props) => {
+const InquiryListItem:FC<IInquiryProps> = (props) => {
     return (
-        <Container to={`/inquiry/${props.id}`} category={props.category}>
+        <Container to={`/inquiry/${props._id}`} category={props.category}>
             <span>{inquiryCategoriesValues[props.category]}</span>
             <div>
                 <h3>{props.title}</h3>
@@ -14,8 +14,8 @@ const InquiryListItem:FC<IInquiryListItemProps> = (props) => {
                 }
             </div>
             <div>
-                <span>{props.author}</span>
-                <span>{props.date}</span>
+                <span>{props.creator}</span>
+                <span>{props.createdAt}</span>
             </div>
         </Container>
     );

@@ -136,11 +136,12 @@ export interface ITabProps {
 
 
 // 문의 리스트 아이템(InquiryListItem) props
-export interface IInquiryListItemProps {
-    id: number;
+export interface IInquiryProps {
+    _id: string;
     title: string;
-    author: string;
-    date: string;
+    creator: string;
+    createdAt: string;
+    content?: string;
     category: "machine" | "reservation" | "room"| "etc";
     answer: boolean;
 }
