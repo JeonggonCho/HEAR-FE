@@ -10,7 +10,9 @@ export const Container = styled.div`
         border-radius: 8px;
         padding: 8px;
         margin-bottom: 6px;
-        border: 1px solid #E2E2E2;
+        background-color: ${({theme}) => theme.colors.bg.main};
+        color: ${({theme}) => theme.colors.font.main};
+        border: 1px solid ${({theme}) => theme.colors.line.main};
         line-height: 1.5;
         resize: none;
         font-size: 16px;
@@ -18,7 +20,7 @@ export const Container = styled.div`
 
 
         &:focus {
-            outline: 1px solid #2B65FC;
+            outline: 1px solid ${({theme}) => theme.colors.line.primary};
         }
         
         &::-webkit-scrollbar {
@@ -26,8 +28,8 @@ export const Container = styled.div`
         }
         
         &::-webkit-scrollbar-thumb {
-            background-color: lightgrey;
-            border: 7px solid white;
+            background-color: ${({theme}) => theme.colors.font.placeholder};
+            border: 7px solid ${({theme}) => theme.colors.bg.main};
             border-radius: 10px;
         }
     }
@@ -35,10 +37,10 @@ export const Container = styled.div`
     & > p:last-of-type {
         margin: 0;
         text-align: end;
-        color: #999999;
+        color: ${({theme}) => theme.colors.font.sub};
         
         span {
-            color: #2B65FC;
+            color: ${({theme}) => theme.colors.font.primary};
         }
     }
 `;

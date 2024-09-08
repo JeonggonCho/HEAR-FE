@@ -1,15 +1,18 @@
+import {useEffect, useState} from "react";
+
 import Header from "@components/Header";
-import inquiry from "@assets/images/inquiry.png";
-import {Container, HeaderWrapper} from "./style.ts";
-import HollowBtn from "@components/HollowBtn";
-import InquiryListItem from "@components/InquiryListItem";
-import {IInquiryProps} from "@/types/componentProps.ts";
+import ColoredBtn from "@components/ColoredBtn";
+import InquiryFeedbackListItem from "@components/InquiryFeedbackListItem";
 import CreateBtn from "@components/CreateBtn";
 import Empty from "@components/Empty";
-import {useEffect, useState} from "react";
-import useRequest from "@hooks/useRequest.ts";
 import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
+
+import useRequest from "@hooks/useRequest.ts";
+import {IInquiryProps} from "@/types/componentProps.ts";
+
+import {Container, HeaderWrapper} from "./style.ts";
+import inquiry from "@assets/images/inquiry.png";
 
 const InquiryHeaderLeft = () => (
     <HeaderWrapper>
@@ -19,7 +22,14 @@ const InquiryHeaderLeft = () => (
 );
 
 const InquiryHeaderRight = () => (
-    <HollowBtn type={"link"} content={"피드백"} width={"fit"} color={"primary"} scale={"small"} to={"/feedback"}/>
+    <ColoredBtn
+        type={"link"}
+        content={"피드백"}
+        width={"fit"}
+        color={"second"}
+        scale={"small"}
+        to={"/feedback"}
+    />
 );
 
 const InquiryPage = () => {
@@ -54,7 +64,7 @@ const InquiryPage = () => {
                     </p>
 
                     {inquiries.length !== 0 ? inquiries.map((value, idx) => (
-                            <InquiryListItem key={idx} {...value}/>
+                            <InquiryFeedbackListItem key={idx} type={"inquiry"} {...value}/>
                         ))
                         :
                         <Empty
@@ -68,11 +78,11 @@ const InquiryPage = () => {
             }
 
             {errorText &&
-              <Modal
-                content={<div>{errorText}</div>}
-                setModal={clearError}
-                type={"popup"}
-              />
+                <Modal
+                    content={<div>{errorText}</div>}
+                    setModal={clearError}
+                    type={"popup"}
+                />
             }
         </Container>
     );

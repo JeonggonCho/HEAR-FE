@@ -3,14 +3,14 @@ import {Link} from "react-router-dom";
 
 export const Container = styled.div`
     width: 100%;
-    background-color: white;
+    background-color: ${({theme}) => theme.colors.bg.main};
     border-radius: 16px;
     padding: 18px;
     transition: all 0.2s ease-in-out 0s;
-    border: 1px solid white;
+    border: 1px solid ${({theme}) => theme.colors.bg.main};
     
     &:hover {
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
     }
 
     & > div:first-of-type {
@@ -33,6 +33,7 @@ export const Container = styled.div`
         
         h3 {
             margin: 0;
+            color: ${({theme}) => theme.colors.font.main};
         }
     }
 
@@ -45,11 +46,11 @@ export const Container = styled.div`
 
 export const More = styled(Link)`
     svg {
-        fill: #999999;
+        fill: ${({theme}) => theme.colors.font.sub};
         transition: all 0.2s ease-in-out 0s;
         
         &:hover {
-            fill: black;
+            fill: ${({theme}) => theme.colors.font.main};
             transform: scale(1.05);
         }
     }
@@ -66,16 +67,17 @@ export const Notice = styled(Link)`
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        color: ${({theme}) => theme.colors.font.main};
     }
 
     & > span:last-of-type {
         font-size: 14px;
-        color: #999999;
+        color: ${({theme}) => theme.colors.font.sub};
     }
     
     &:hover {
         span:first-of-type {
-            color: #2B65FC;
+            color: ${({theme}) => theme.colors.font.primary};
         }
     }
 `;

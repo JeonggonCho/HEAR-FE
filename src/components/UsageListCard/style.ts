@@ -5,8 +5,8 @@ export const Container = styled.div`
     width: 100%;
     padding: 18px;
     border-radius: 16px;
-    background-color: white;
-    border: 1px solid white;
+    background-color: ${({theme}) => theme.colors.bg.main};
+    border: 1px solid ${({theme}) => theme.colors.bg.main};
     
     & > div:first-of-type {
         display: flex;
@@ -19,6 +19,7 @@ export const Container = styled.div`
         }
 
         h3 {
+            color: ${({theme}) => theme.colors.font.main};
             margin: 0;
         }
     }
@@ -36,15 +37,23 @@ export const Usage = styled(Link)`
     align-items: center;
     justify-content: space-between;
     transition: all 0.2s ease-in-out 0s;
+    
+    & > span:first-of-type {
+        color: ${({theme}) => theme.colors.font.main};
+    }
+
+    & > span:last-of-type {
+        color: ${({theme}) => theme.colors.font.sub};
+    }
 
     &:hover {
         & > span:first-of-type {
-            color: #2B65FC;
+            color: ${({theme}) => theme.colors.font.primary};
         }
     }
 
     & > span:last-of-type {
         font-size: 14px;
-        color: #999999;
+        color: ${({theme}) => theme.colors.font.sub};
     }
 `;

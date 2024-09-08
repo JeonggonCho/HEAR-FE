@@ -8,7 +8,7 @@ export const Container = styled.div`
     height: 60vh;
 
     p {
-        color: #999999;
+        color: ${({theme}) => theme.colors.font.sub};
         margin: 24px 0 0;
         text-align: center;
         text-wrap: balance;

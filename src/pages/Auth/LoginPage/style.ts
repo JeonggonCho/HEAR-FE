@@ -30,7 +30,7 @@ export const Container = styled.div`
         h3 {
             font-size: 24px;
             font-weight: bold;
-            color: #2B65FC;
+            color: ${({theme}) => theme.colors.font.primary};
             margin: 0;
         }
     }

@@ -7,6 +7,7 @@ export const Container = styled.div`
     gap: 6px;
     
     & > label:first-of-type {
+        color: ${({theme}) => theme.colors.font.sub};
         margin-left: 6px;
     }
     
@@ -28,9 +29,9 @@ export const RadioWrapper = styled.div`
     }
     
     input[type='radio']:checked + label {
-        border: 1px solid #2B65FC;
-        background-color: #F0F4FF;
-        color: #2B65FC;
+        border: 1px solid ${({theme}) => theme.colors.line.primary};
+        background-color: ${({theme}) => theme.colors.button.approval};
+        color: ${({theme}) => theme.colors.font.primary};
     }
 `;
 
@@ -40,10 +41,10 @@ export const LabelWrapper = styled.label`
     justify-content: center;
     width: 100%;
     height: 56px;
-    background-color: white;
-    color: #999999;
+    background-color: ${({theme}) => theme.colors.bg.main};
+    color: ${({theme}) => theme.colors.font.sub};
     border-radius: 8px;
-    border: 1px solid #E2E2E2;
+    border: 1px solid ${({theme}) => theme.colors.line.main};
     cursor: pointer;
     transition: all 0.2s ease-in-out 0s;
 `;

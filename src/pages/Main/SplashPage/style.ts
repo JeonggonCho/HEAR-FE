@@ -12,55 +12,62 @@ const fadeOutAnimation = keyframes`
 
 export const Container = styled.div`
     width: 100%;
-    max-width: 600px;
-    height: 100vh;
-    margin: auto;
-    position: relative;
-    background: linear-gradient(150deg, #E2E3F7 8.51%, #FFFFFF 35.48%, #C6D6FF 61.62%, #EEFAFF 84.02%);
-    animation: ${fadeOutAnimation} 0.3s ease-out;
-    animation-fill-mode: forwards;
-    animation-delay: 2.8s;
+    height: 100%;
+    position: absolute;
+    background-color: ${({theme}) => theme.colors.bg.main};
     
     & > div:first-of-type {
-        position: absolute;
-        top: 25%;
-        left: 8%;
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-
-        span {
-            line-height: 1.5;
-            font-size: 18px;
-        }
-        
-        div {
-            display: flex;
-            align-items: center;
-
-            svg {
-                width: 56px;
-                height: auto;
-                margin-right: 12px;
-            }
-
-            h1 {
-                margin: 0;
-                color: #2B65FC;
-                font-weight: bold;
-                font-size: 40px;
-            }
-        }
-    }
-    
-    & > span:first-of-type {
         width: 100%;
-        text-align: center;
-        color: #999999;
-        position: absolute;
-        bottom: 50px;
-        left: 50%;
-        font-size: 14px;
-        transform: translateX(-50%);
+        max-width: 600px;
+        height: 100vh;
+        margin: auto;
+        position: relative;
+        background: ${({theme}) => theme.colors.bg.splash};
+        animation: ${fadeOutAnimation} 0.4s ease-out 2.5s;
+        animation-fill-mode: forwards;
+
+        & > div:first-of-type {
+            position: absolute;
+            top: 25%;
+            left: 8%;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+
+            span {
+                color: ${({theme}) => theme.colors.font.main};
+                line-height: 1.5;
+                font-size: 18px;
+            }
+
+            div {
+                display: flex;
+                align-items: center;
+
+                svg {
+                    width: 56px;
+                    height: auto;
+                    margin-right: 12px;
+                }
+
+                h1 {
+                    margin: 0;
+                    color: ${({theme}) => theme.colors.font.primary};
+                    font-weight: bold;
+                    font-size: 40px;
+                }
+            }
+        }
+
+        & > span:first-of-type {
+            width: 100%;
+            text-align: center;
+            color: ${({theme}) => theme.colors.font.sub};
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            font-size: 14px;
+            transform: translateX(-50%);
+        }
     }
 `;

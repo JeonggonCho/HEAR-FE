@@ -44,7 +44,7 @@ const ReservationLaser = () => {
                 />
 
                 <InputWithLabel
-                    label={"날 짜"}
+                    label={"날 짜 (다음날만 예약 가능)"}
                     type={"date"}
                     id={"laser-reservation-date"}
                     name={"date"}

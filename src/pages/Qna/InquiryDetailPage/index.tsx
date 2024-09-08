@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {useParams} from "react-router-dom";
 
 import Header from "@components/Header";
@@ -9,6 +9,7 @@ import Modal from "@components/Modal";
 import useRequest from "@hooks/useRequest.ts";
 import {IInquiryProps} from "@/types/componentProps.ts";
 import {inquiryCategoriesValues} from "@constants/inquiryCategories.ts";
+import getTimeStamp from "@util/getTimeStamp.ts";
 
 import {Container} from "./style.ts";
 
@@ -16,6 +17,10 @@ const InquiryDetailPage = () => {
     const [inquiry, setInquiry] = useState<IInquiryProps>();
 
     const {inquiryId} = useParams();
+
+    const timeStamp = useMemo(() => {
+        return inquiry?.createdAt ? getTimeStamp(inquiry.createdAt) : '';
+    }, [inquiry?.createdAt]);
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
@@ -40,7 +45,7 @@ const InquiryDetailPage = () => {
                 <>
                     <span>{inquiryCategoriesValues[inquiry.category]}</span>
                     <h2>{inquiry.title}</h2>
-                    <p>{inquiry.createdAt}</p>
+                    <p>{timeStamp}</p>
                     <p>{inquiry.creator}</p>
                     <p>{inquiry.content}</p>
                 </>

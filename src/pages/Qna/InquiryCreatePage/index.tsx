@@ -44,7 +44,7 @@ const InquiryCreatePage = () => {
             const {inquiryId} = response.data;
             navigate(`/inquiry/${inquiryId}`, { replace: true });
         } catch (err) {
-            console.error("문의 실패: ", err);
+            console.error("문의 생성 시 에러 발생: ", err);
         }
     };
 
@@ -90,11 +90,11 @@ const InquiryCreatePage = () => {
             }
 
             {errorText &&
-              <Modal
-                content={<div>{errorText}</div>}
-                setModal={clearError}
-                type={"popup"}
-              />
+                <Modal
+                    content={<div>{errorText}</div>}
+                    setModal={clearError}
+                    type={"popup"}
+                />
             }
         </Container>
     );

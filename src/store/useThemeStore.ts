@@ -3,19 +3,19 @@ import {devtools, persist, createJSONStorage} from "zustand/middleware";
 
 interface ITheme {
     lang: "ko" | "en" | "ch";
-    theme: "light" | "dark";
+    isDarkMode: boolean;
 }
 
 interface IThemeState extends ITheme {
     setLang: (lang: ITheme["lang"]) => void;
-    setTheme: (theme: ITheme["theme"]) => void;
+    setTheme: (isDarkMode: boolean) => void;
 }
 
 const themeStore = (set: any): IThemeState => ({
     lang: "ko",
-    theme: "light",
+    isDarkMode: false,
     setLang: (lang: ITheme["lang"]) => set({lang}),
-    setTheme: (theme: ITheme["theme"]) => set({theme})
+    setTheme: (isDarkMode: boolean) => set({isDarkMode: !isDarkMode}),
 });
 
 export const useThemeStore = create<IThemeState>()(

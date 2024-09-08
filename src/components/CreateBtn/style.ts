@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import {Link} from "react-router-dom";
-import {darken, lighten} from "polished";
+import {lighten} from "polished";
 
 export const Container = styled(Link)`
     position: fixed;
@@ -11,16 +11,15 @@ export const Container = styled(Link)`
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background-color: #2B65FC;
+    background-color: ${({theme}) => theme.colors.button.primary};
     transition: all 0.2s ease-in-out 0s;
 
     &:hover {
-        background-color: ${lighten(0.1, "#2B65FC")};
+        background-color: ${({theme}) => lighten(0.1, theme.colors.button.primary)};
         transform: scale(1.05);
     }
 
     &:active {
-        background-color: ${darken(0.1, "#2B65FC")};
         transform: scale(0.8);
     }
 

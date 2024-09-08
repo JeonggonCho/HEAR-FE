@@ -18,9 +18,9 @@ export const Container = styled.div`
         }
 
         input[type="radio"]:checked + label {
-            color: #2B65FC;
-            border: 1px solid #2B65FC;
-            background-color: #F0F4FF;
+            color: ${({theme}) => theme.colors.font.primary};
+            border: 1px solid ${({theme}) => theme.colors.line.primary};
+            background-color: ${({theme}) => theme.colors.button.approval};
         }
 
         label {
@@ -30,16 +30,16 @@ export const Container = styled.div`
             align-items: center;
             justify-content: center;
             font-size: 20px;
-            border: 1px solid #E2E2E2;
+            border: 1px solid ${({theme}) => theme.colors.line.main};
             border-radius: 8px;
             padding: 0 16px;
             cursor: pointer;
-            color: #999999;
+            color: ${({theme}) => theme.colors.font.sub};
             transition: all 0.2s ease-in-out 0s;
 
             &:hover {
-                color: ${lighten(0.1, "#2B65FC")};
-                border: 1px solid ${lighten(0.1, "#2B65FC")};
+                color: ${({theme}) => lighten(0.1, theme.colors.font.primary)};
+                border: 1px solid ${({theme}) => lighten(0.1, theme.colors.line.primary)};
             }
         }
     }

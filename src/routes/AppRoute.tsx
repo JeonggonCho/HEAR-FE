@@ -18,9 +18,9 @@ const SignupPage = lazy(() => import("@pages/auth/SignupPage"));
 const SignupDonePage = lazy(() => import("@pages/auth/SignupDonePage"));
 const FindPasswordPage = lazy(() => import("@pages/auth/FindPasswordPage"));
 const UpdatePasswordPage = lazy(() => import("@pages/auth/UpdatePasswordPage"));
-const NoticePage = lazy(() => import("@pages/notice/NoticePage"));
-const NoticeCreatePage = lazy(() => import("@pages/notice/NoticeCreatePage"));
-const NoticeDetailPage = lazy(() => import("@pages/notice/NoticeDetailPage"));
+const NoticePage = lazy(() => import("@pages/qna/NoticePage"));
+const NoticeCreatePage = lazy(() => import("@pages/qna/NoticeCreatePage"));
+const NoticeDetailPage = lazy(() => import("@pages/qna/NoticeDetailPage"));
 const InstructionPage = lazy(() => import("@pages/instructions/InstructionPage"));
 const InstructionPrinter = lazy(() => import("@pages/instructions/printer/InstructionPrinter"));
 const InstructionLaser = lazy(() => import("@pages/instructions/laser/InstructionLaser"));
@@ -37,8 +37,8 @@ const ReservationCnc = lazy(() => import("@pages/reservation/ReservationCnc"));
 const ReservationSaw = lazy(() => import("@pages/reservation/ReservationSaw"));
 const ReservationVacuum = lazy(() => import("@pages/reservation/ReservationVacuum"));
 const ConditionPage = lazy(() => import("@pages/reservation/ConditionPage"));
-const NotFoundPage = lazy(() => import("@pages/main/NotFoundPage"));
 const QuizPage = lazy(() => import("@pages/quiz/QuizPage"));
+const NotFoundPage = lazy(() => import("@pages/main/NotFoundPage"));
 
 import {useAuthStore} from "@store/useAuthStore.ts";
 import isTokenValid from "@util/isTokenValid.ts";
@@ -53,7 +53,7 @@ const AppRoute = () => {
     }, [isLoggedIn, accessToken, logout]);
 
     return (
-        <Suspense fallback={<div>로딩중...</div>}>
+        <Suspense fallback={<div>suspense 로딩중...</div>}>
             <Routes>
                 <Route path="/" element={<Layout showNav={isLoggedIn}/>}>
                     <Route index element={<Navigate to={isLoggedIn ? "/main" : "/login"}/>}/>

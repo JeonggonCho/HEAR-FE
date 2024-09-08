@@ -20,6 +20,9 @@ axiosInstance.interceptors.request.use(
         return config;
     },
     (error: AxiosError) => {
+        if (error.response) {
+            return Promise.reject(error.response.data);
+        }
         return Promise.reject(error);
     }
 );
@@ -29,6 +32,9 @@ axiosInstance.interceptors.response.use(
         return response.data;
     },
     (error: AxiosError) => {
+        if (error.response) {
+            return Promise.reject(error.response.data);
+        }
         return Promise.reject(error);
     }
 );

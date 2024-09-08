@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import {Link} from "react-router-dom";
-import {lighten} from "polished";
 
 export const Container = styled(Link)`
     width: 100%;
@@ -8,26 +7,19 @@ export const Container = styled(Link)`
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    background-color: white;
+    background-color: ${({theme}) => theme.colors.bg.main};
     padding: 12px;
     border-radius: 16px;
-    border: 1px solid white;
+    border: 1px solid ${({theme}) => theme.colors.bg.main};
     transition: all 0.2s ease-in-out 0s;
     
     h4 {
         margin: 0;
-    }
-    
-    span {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        font-size: 14px;
-        color: #999999;
+        color: ${({theme}) => theme.colors.font.main};
     }
     
     svg {
-        fill: #999999;
+        fill: ${({theme}) => theme.colors.font.sub};
         transition: all 0.2s ease-in-out 0s;
 
         &:hover {
@@ -37,16 +29,15 @@ export const Container = styled(Link)`
     }
     
     &:hover {
-        border: 1px solid #2B65FC;
-        background-color: ${lighten(0.4, "#2B65FC")};
+        border: 1px solid ${({theme}) => theme.colors.line.primary};
+        background-color: ${({theme}) => theme.colors.button.approval};
         
         h4 {
-            color: #2B65FC;
+            color: ${({theme}) => theme.colors.font.primary};
         }
     }
     
     &:active {
-        background-color: ${lighten(0.3, "#2B65FC")};
         transform: scale(0.8);
     }
     
@@ -58,12 +49,15 @@ export const Container = styled(Link)`
 `;
 
 export const MachineImgWrapper = styled.div`
-    width: 56px;
-    height: 56px;
+    width: 60px;
+    height: 60px;
+    padding: 14px;
+    background-color: ${({theme}) => theme.colors.bg.sub};
+    border-radius: 24px;
 
     img {
         width: 100%;
-        height: 100%;
+        height: auto;
         object-fit: cover;
     }
 `;

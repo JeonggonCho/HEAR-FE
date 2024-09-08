@@ -12,10 +12,10 @@ export const machineType = [
 ];
 
 export const machineCategories: IMachine[] = [
-    {name: "3D 프린터", image: printer, link: "/reservation/3d-printer"},
     {name: "레이저 커팅기", image: laser, link: "/reservation/laser"},
+    {name: "3D 프린터", image: printer, link: "/reservation/3d-printer"},
     {name: "열 선", image: heat, link: "/reservation/heat"},
-    {name: "CNC", image: cnc, link: "/reservation/cnc"},
     {name: "톱", image: saw, link: "/reservation/saw"},
-    {name: "사출 성형기", image: vacuum, link: "/reservation/vacuum"}
+    {name: "사출 성형기", image: vacuum, link: "/reservation/vacuum"},
+    {name: "CNC", image: cnc, link: "/reservation/cnc"},
 ];

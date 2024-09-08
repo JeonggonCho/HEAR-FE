@@ -7,33 +7,38 @@ export const Container = styled.div`
     gap: 6px;
     
     label {
+        color: ${({theme}) => theme.colors.font.sub};
         margin-left: 6px;
     }
     
     input {
+        color: ${({theme}) => theme.colors.font.main};
         height: 40px;
         border-radius: 8px;
-        border: 1px solid #E2E2E2;
+        border: 1px solid ${({theme}) => theme.colors.line.main};
         padding: 8px;
+        background-color: ${({theme}) => theme.colors.bg.main};
         font-size: 16px;
         font-family: Pretendard, Helvetica, sans-serif;
         cursor: pointer;
         
         &:disabled {
             cursor: auto;
+            background-color: ${({theme}) => theme.colors.bg.sub};
+            color: ${({theme}) => theme.colors.font.sub};
         }
         
         &::placeholder {
-            color: #E2E2E2;
+            color: ${({theme}) => theme.colors.font.placeholder};
         }
 
         &:focus {
-            outline: 1px solid #2B65FC;
+            outline: 1px solid ${({theme}) => theme.colors.line.primary};
         }
     }
     
     svg {
-        fill: #999999;
+        fill: ${({theme}) => theme.colors.icon.fill};
         position: absolute;
         right: 12px;
         top: 30px;

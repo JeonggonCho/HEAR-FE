@@ -1,6 +1,5 @@
-import {Container} from "./style.ts";
+import {Container, LottieWrapper} from "./style.ts";
 import Header from "@components/Header";
-import {LottieWrapper} from "../../auth/SignupDonePage/style.ts";
 import done from "@assets/images/done.json";
 import ColoredBtn from "@components/ColoredBtn";
 

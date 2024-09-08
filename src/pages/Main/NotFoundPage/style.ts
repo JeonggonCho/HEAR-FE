@@ -24,6 +24,6 @@ export const Container = styled.div`
     & > p:first-of-type {
         text-align: center;
         margin-bottom: 64px;
-        color: #999999;
+        color: ${({theme}) => theme.colors.font.sub};
     }
 `;

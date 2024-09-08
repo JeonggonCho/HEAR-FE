@@ -14,6 +14,7 @@ export const CalendarMonthWrapper = styled.div`
     margin-bottom: 28px;
 
     h4 {
+        color: ${({theme}) => theme.colors.font.main};
         margin: 0;
         font-weight: bold;
         font-size: 18px;
@@ -29,7 +30,7 @@ export const CalendarMonthWrapper = styled.div`
         }
         
         svg {
-            fill: #999999;
+            fill: ${({theme}) => theme.colors.font.sub};
         }
     }
 `;
@@ -43,12 +44,13 @@ export const DaysOfWeekWrapper = styled.div`
     margin-bottom: 20px;
 
     span {
+        color: ${({theme}) => theme.colors.font.main};
         display: inline-block;
         margin: auto;
     }
 
     & > span:first-of-type {
-        color: #FF8585;
+        color: ${({theme}) => theme.colors.font.danger};
     }
 `;
 
@@ -67,8 +69,8 @@ export const DayButton = styled.button<{selected: boolean | null}>`
     margin: auto;
     border: none;
     border-radius: 10px;
-    background: ${({selected}) => selected ? "#2B65FC" : "none"};
-    color: ${({selected}) => selected ? "white" : "black"};
+    background: ${({selected, theme}) => selected ? theme.colors.button.primary : "none"};
+    color: ${({selected, theme}) => selected ? "white" : theme.colors.font.main};
     font-size: 18px;
     text-align: center;
     cursor: pointer;

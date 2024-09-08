@@ -1,13 +1,15 @@
-import {Container, HeaderWrapper} from "./style.ts";
 import Header from "@components/Header";
+import MachineInstructionItem from "@components/MachineInstructionItem";
+
+import {Container, HeaderWrapper} from "./style.ts";
+
+import instruction from "@assets/images/instruction.png";
 import printer from "@assets/images/printer_icon.png";
 import laser from "@assets/images/laser_icon.png";
 import heat from "@assets/images/heat_icon.png"
 import cnc from "@assets/images/cnc_icon.png";
 import saw from "@assets/images/saw_icon.png";
 import vacuum from "@assets/images/vacuum_icon.png"
-import instruction from "@assets/images/instruction.png";
-import MachineInstructionItem from "@components/MachineInstructionItem";
 
 interface IMachine {
     name: string;
@@ -16,12 +18,12 @@ interface IMachine {
 }
 
 const machines: IMachine[] = [
-    {name: "3D 프린터", image: printer, link: "/instruction/3d-printer"},
     {name: "레이저 커팅기", image: laser, link: "/instruction/laser"},
+    {name: "3D 프린터", image: printer, link: "/instruction/3d-printer"},
     {name: "열 선", image: heat, link: "/instruction/heat"},
-    {name: "CNC", image: cnc, link: "/instruction/cnc"},
     {name: "톱", image: saw, link: "/instruction/saw"},
-    {name: "사출 성형기", image: vacuum, link: "/instruction/vacuum"}
+    {name: "사출 성형기", image: vacuum, link: "/instruction/vacuum"},
+    {name: "CNC", image: cnc, link: "/instruction/cnc"},
 ];
 
 const InstructionHeaderLeft = () => {

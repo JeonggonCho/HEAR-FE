@@ -9,13 +9,13 @@ export const Container = styled.div`
     align-items: center;
     font-weight: bold;
     font-size: 16px;
+    color: ${({theme}) => theme.colors.font.main};
     position: fixed;
     top: 0;
     left: calc((100vw - 615px) / 2);
     padding: 0 24px;
-    background-color: #F2F4F6;
     z-index: 1;
-    
+
     @media (max-width: 600px) {
         left: 0;
     }

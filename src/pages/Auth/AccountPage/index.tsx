@@ -2,7 +2,6 @@ import {FC, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 import Header from "@components/Header";
-import HollowBtn from "@components/HollowBtn";
 import ProfileCard from "@components/ProfileCard";
 import ColoredBtn from "@components/ColoredBtn";
 import StatusCard from "@components/StatusCard";
@@ -59,7 +58,7 @@ const AccountPage = () => {
 
     const AccountHeaderRight:FC = () => {
         return (
-            <HollowBtn
+            <ColoredBtn
                 type={"button"}
                 content={"로그아웃"}
                 width={"fit"}
@@ -147,7 +146,7 @@ const AccountPage = () => {
                         type={"button"}
                         content={"탈퇴하기"}
                         width={"full"}
-                        color={"danger"}
+                        color={"second"}
                         scale={"big"}
                         onClick={() => setUnregisterModal(true)}
                     />

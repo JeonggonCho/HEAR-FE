@@ -4,21 +4,22 @@ export const Container = styled.div`
     width: 100%;
     border-radius: 16px;
     padding: 18px;
-    background-color: white;
+    background-color: ${({theme}) => theme.colors.bg.main};
     display: flex;
     flex-direction: column;
     gap: 12px;
     margin-bottom: 16px;
-    border: 1px solid white;
+    border: 1px solid ${({theme}) => theme.colors.bg.main};
     
     & > div {
         display: flex;
         align-items: center;
-        gap: 20px;
-        
+        gap: 12px;
+        color: ${({theme}) => theme.colors.font.main};
+
         & > span:first-of-type {
-            width: 80px;
-            color: #999999;
+            width: 60px;
+            color: ${({theme}) => theme.colors.font.sub};
         }
     }
 `;

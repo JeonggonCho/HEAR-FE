@@ -3,12 +3,12 @@ import styled from "@emotion/styled";
 export const Container = styled.div`
     width: 100%;
     padding: 18px;
-    background-color: white;
+    background-color: ${({theme}) => theme.colors.bg.main};
     border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid white;
+    border: 1px solid ${({theme}) => theme.colors.bg.main};
     
     & > div {
         display: flex;
@@ -21,6 +21,7 @@ export const Container = styled.div`
     }
     
     p {
+        color: ${({theme}) => theme.colors.font.main};
         margin: 0;
         line-height: 1.5;
     }
@@ -30,7 +31,7 @@ export const Container = styled.div`
         font-size: 18px;
         
         span {
-            color: #2B65FC;
+            color: ${({theme}) => theme.colors.font.primary};
         }
     }
 `;

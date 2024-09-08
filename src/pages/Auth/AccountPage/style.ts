@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const UserName = styled.span`
-    color: #2B65FC;
+    color: ${({theme}) => theme.colors.font.primary};
 `;
 
 export const Container = styled.div`

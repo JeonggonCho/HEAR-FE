@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
 import {Link} from "react-router-dom";
-import {lighten} from "polished";
 
 export const Container = styled(Link)`
     height: 100%;
-    background-color: white;
+    background-color: ${({theme}) => theme.colors.bg.main};
     border-radius: 16px;
-    border: 1px solid white;
+    border: 1px solid ${({theme}) => theme.colors.bg.main};
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,20 +15,20 @@ export const Container = styled(Link)`
     transition: all 0.2s ease-in-out 0s;
 
     span {
+        color: ${({theme}) => theme.colors.font.main};
         font-size: 16px;
     }
 
     &:hover {
-        border: 1px solid #2B65FC;
-        background-color: ${lighten(0.4, "#2B65FC")};
+        border: 1px solid ${({theme}) => theme.colors.line.primary};
+        background-color: ${({theme}) => theme.colors.button.approval};
 
         span {
-            color: #2B65FC;
+            color: ${({theme}) => theme.colors.font.primary};
         }
     }
 
     &:active {
-        background-color: ${lighten(0.3, "#2B65FC")};
         transform: scale(0.8);
     }
 `;

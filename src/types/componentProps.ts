@@ -4,26 +4,13 @@ import {ITab} from "@/types/tab.ts";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 
 
-// 채워진 버튼(ColoredBtn) props
+// 버튼(ColoredBtn) props
 export interface IColoredBtnProps {
     type: "button" | "link" | "submit";
     to?: string;
     content : string | ReactElement;
     width: "full" | "fit";
     color: "primary" | "approval" | "second" | "third" | "danger";
-    scale: "small" | "normal" | "big";
-    onClick?: () => void;
-    disabled?: boolean;
-}
-
-
-// 비워진 버튼(HollowBtn) props
-export interface IHollowBtnProps {
-    type: "button" | "link" | "submit";
-    to?: string;
-    content : string | ReactElement;
-    width: "full" | "fit";
-    color: "primary" | "second" | "danger";
     scale: "small" | "normal" | "big";
     onClick?: () => void;
     disabled?: boolean;
@@ -135,15 +122,27 @@ export interface ITabProps {
 }
 
 
-// 문의 리스트 아이템(InquiryListItem) props
-export interface IInquiryProps {
+// 문의, 공지, 피드백 공통 타입
+export interface IQna {
     _id: string;
     title: string;
     creator: string;
     createdAt: string;
     content?: string;
+    answer?: boolean;
+    type?: "inquiry" | "feedback";
+}
+
+
+// 문의 타입
+export interface IInquiryProps extends IQna {
     category: "machine" | "reservation" | "room"| "etc";
-    answer: boolean;
+}
+
+
+// 피드백 타입
+export interface IFeedbackProps extends IQna {
+    category: "good" | "bad" | "suggest"| "etc";
 }
 
 

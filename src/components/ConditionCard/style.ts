@@ -5,46 +5,47 @@ export const Container = styled(Link)`
     width: 100%;
     padding: 12px 18px;
     border-radius: 16px;
-    background-color: white;
+    background-color: ${({theme}) => theme.colors.bg.main};
     transition: all 0.2s ease-in-out 0s;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid white;
+    border: 1px solid ${({theme}) => theme.colors.bg.main};
+
+    & > div:first-of-type {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        img {
+            width: 32px;
+        }
+    }
+
+    h3 {
+        color: ${({theme}) => theme.colors.font.main};
+        transition: all 0.2s ease-in-out 0s;
+    }
+
+    svg {
+        fill: ${({theme}) => theme.colors.font.sub};
+        transition: all 0.2s ease-in-out 0s;
+    }
     
     &:hover {
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
         
         h3 {
-            color: #2B65FC;
+            color: ${({theme}) => theme.colors.font.primary};
         }
         
         svg {
-            fill: black;
+            fill: ${({theme}) => theme.colors.font.main};
             transform: scale(1.05);
         }
     }
     
     &:active {
         transform: scale(0.9);
-    }
-    
-    & > div:first-of-type {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        
-        img {
-            width: 32px;
-        }
-    }
-    
-    h3 {
-        transition: all 0.2s ease-in-out 0s;
-    }
-    
-    svg {
-        fill: #999999;
-        transition: all 0.2s ease-in-out 0s;
     }
 `;

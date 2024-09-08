@@ -5,19 +5,20 @@ export const Container = styled.nav`
     width: 100%;
     max-width: 600px;
     height: 80px;
-    border-top: 1px solid #E2E2E2;
-    border-left: 1px solid #E2E2E2;
-    border-right: 1px solid #E2E2E2;
+    border-top: 1px solid ${({theme}) => theme.colors.line.main};
+    border-left: 1px solid ${({theme}) => theme.colors.line.main};
+    border-right: 1px solid ${({theme}) => theme.colors.line.main};
     padding: 0 20px;
     border-radius: 24px 24px 0 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: white;
+    background-color: ${({theme}) => theme.colors.bg.main};
     position: fixed;
-    bottom: 0;
+    bottom: -1px;
     z-index: 3;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease-in-out 0s;
+    box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
 `;
 
 export const Button = styled(NavLink)<{ active: string }>`
@@ -29,7 +30,7 @@ export const Button = styled(NavLink)<{ active: string }>`
     align-items: center;
     justify-content: space-between;
     font-size: 14px;
-    color: ${({active}) => active === "true" ? "#2B65FC" : "#999999"};
+    color: ${({active, theme}) => active === "true" ? theme.colors.font.primary : theme.colors.font.sub};
     transition: all 0.2s ease-in-out 0s;
     
     &:hover {
@@ -41,6 +42,6 @@ export const Button = styled(NavLink)<{ active: string }>`
     }
 
     svg {
-        fill: ${({active}) => active === "true" ? "#2B65FC" : "#999999"};
+        fill: ${({active, theme}) => active === "true" ? theme.colors.button.primary : theme.colors.icon.fill};
     }
 `;

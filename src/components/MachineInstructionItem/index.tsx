@@ -1,14 +1,17 @@
 import {FC} from 'react';
-import {IMachineSelectorProps} from "@/types/componentProps.ts";
-import {Container, MachineImgWrapper} from "./style.ts";
+
 import ArrowForward from "@components/ArrowForward";
+
+import {IMachineSelectorProps} from "@/types/componentProps.ts";
+
+import {Container, MachineImgWrapper} from "./style.ts";
 
 const MachineInstructionItem:FC<IMachineSelectorProps> = ({image, name, to}) => {
     return (
         <Container to={to}>
             <div>
                 <MachineImgWrapper>
-                    <img src={image} alt="기기 아이콘"/>
+                    <img src={image} alt="machine_img"/>
                 </MachineImgWrapper>
                 <h4>{name}</h4>
             </div>

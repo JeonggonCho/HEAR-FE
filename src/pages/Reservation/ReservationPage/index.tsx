@@ -1,9 +1,12 @@
-import {Container, HeaderWrapper} from "./style.ts";
 import Header from "@components/Header";
 import MachineSelector from "@components/MachineReservationItem";
-import HollowBtn from "@components/HollowBtn";
-import reservation from "@assets/images/reservation.png";
+import ColoredBtn from "@components/ColoredBtn";
+
 import {machineCategories} from "@constants/machineCategories.ts";
+
+import {Container, HeaderWrapper} from "./style.ts";
+
+import reservation from "@assets/images/reservation.png";
 
 const ReservationHeaderLeft = () => {
     return (
@@ -16,7 +19,7 @@ const ReservationHeaderLeft = () => {
 };
 
 const ReservationHeaderRight = () => (
-    <HollowBtn
+    <ColoredBtn
         type={"link"}
         to={"/reservation/condition"}
         content={"예약 현황"}

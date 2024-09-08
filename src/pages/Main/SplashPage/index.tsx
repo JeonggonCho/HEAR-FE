@@ -11,14 +11,16 @@ const SplashPage = () => {
     const splash = (
         <Container>
             <div>
-                <span>한양대 에리카 건축학부<br/>모형제작실 예약은 여기!</span>
                 <div>
-                    <ReactSVG src={logo}/>
-                    <h1>HEAR</h1>
+                    <span>한양대 에리카 건축학부<br/>모형제작실 예약은 여기!</span>
+                    <div>
+                        <ReactSVG src={logo}/>
+                        <h1>HEAR</h1>
+                    </div>
                 </div>
-            </div>
 
-            <span>Copyright 2024. 조정곤 all rights reserved.</span>
+                <span>Copyright 2024. 조정곤 all rights reserved.</span>
+            </div>
         </Container>
     );
 

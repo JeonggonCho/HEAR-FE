@@ -16,6 +16,7 @@ export const Container = styled.div`
     position: relative;
 
     p {
+        color: ${({theme}) => theme.colors.font.main};
         line-height: 1.5;
         margin: 0 0 24px 6px;
     }

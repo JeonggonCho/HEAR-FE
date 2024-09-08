@@ -32,7 +32,7 @@ export const Container = styled.div`
     transform: translateX(-50%);
     width: 600px;
     height: 100%;
-    background: rgba(91, 91, 91, 0.5);
+    background: rgba(100, 100, 100, 0.5);
     backdrop-filter: blur(2px);
     z-index: 5;
 `;
@@ -43,7 +43,8 @@ export const PopupWrapper = styled.div`
     max-width: 560px;
     min-width: 55%;
     border-radius: 16px;
-    background-color: white;
+    background-color: ${({theme}) => theme.colors.bg.main};
+    color: ${({theme}) => theme.colors.font.main};
     position: absolute;
     transform: translateX(-50%);
     left: 50%;
@@ -58,7 +59,7 @@ export const PopupWrapper = styled.div`
 export const BottomSheetWrapper = styled.div`
     width: 100%;
     padding: 12px 0 80px 0;
-    background-color: white;
+    background-color: ${({theme}) => theme.colors.bg.main};
     border-radius: 24px 24px 0 0;
     position: absolute;
     transform: translateX(-50%);
@@ -73,18 +74,19 @@ export const BottomSheetWrapper = styled.div`
     & > div:first-of-type {
         width: 40px;
         height: 6px;
-        background-color: #e2e2e2;
+        background-color: ${({theme}) => theme.colors.line.main};
         margin: auto auto 20px auto;
         border-radius: 3px;
         cursor: pointer;
     }
     
     h3 {
+        color: ${({theme}) => theme.colors.font.main};
         width: 100%;
         text-align: center;
         font-size: 18px;
         margin-bottom: 8px;
         padding-bottom: 12px;
-        border-bottom: 1px solid #f8f8f8;
+        border-bottom: 1px solid ${({theme}) => theme.colors.line.main};
     }
 `;

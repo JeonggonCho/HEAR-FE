@@ -5,7 +5,7 @@ export const Container = styled.div`
     
     &:hover {
         svg {
-            fill: black;
+            fill: ${({theme}) => theme.colors.font.main};
             transform: scale(1.05);
         }
     }

@@ -22,19 +22,20 @@ export const Container = styled.div`
     }
 
     h3 {
-        color: #2B65FC;
+        color: ${({theme}) => theme.colors.font.primary};
         font-size: 20px;
         font-weight: bold;
     }
 
     h4 {
         font-size: 16px;
-        color: #999999;
+        color: ${({theme}) => theme.colors.font.sub};
         margin: 0 0 8px;
         font-weight: lighter;
     }
 
     p {
+        color: ${({theme}) => theme.colors.font.main};
         font-weight: bold;
         line-height: 1.5;
         margin: 0 0 20px;
@@ -42,14 +43,15 @@ export const Container = styled.div`
         word-break: keep-all;
     }
 
-    span {
+    span {     
+        color: ${({theme}) => theme.colors.font.main};
         display: block;
         line-height: 1.5;
         margin: 8px 0;
     }
 
     a {
-        color: #4D7FFF;
+        color: ${({theme}) => theme.colors.font.primary};
         text-decoration: underline;
         margin: 0 18px;
         font-size: 16px;

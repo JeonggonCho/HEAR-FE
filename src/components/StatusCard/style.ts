@@ -1,17 +1,18 @@
 import styled from "@emotion/styled";
-import {lighten} from "polished";
+import {darken, lighten} from "polished";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 export const Container = styled.div`
     width: 100%;
     padding: 16px;
     border-radius: 16px;
-    background-color: #F0F4FF;
-    border: 1px solid ${lighten(0.3, "#2B65FC")};
-    color: #2B65FC;
+    background-color: ${({theme}) => theme.colors.button.approval};
+    color: ${({theme}) => theme.colors.font.primary};
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     gap: 16px;
+    box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
 
     & > div:first-of-type, & > div:last-of-type {
         text-align: center;
@@ -39,6 +40,9 @@ export const Container = styled.div`
 
     & > div:nth-of-type(2) {
         min-height: 60px;
-        border-left: 1px solid ${lighten(0.3, "#2B65FC")};
+        border-left: 1px solid ${({theme}) => {
+            const {isDarkMode} = useThemeStore();
+            return isDarkMode? darken(0.1, theme.colors.line.primary) : lighten(0.2, theme.colors.line.primary);
+        }};
     }
 `;

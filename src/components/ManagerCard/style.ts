@@ -2,16 +2,18 @@ import styled from "@emotion/styled";
 
 export const Container = styled.div`
     width: 100%;
-    background-color: white;
+    background-color: ${({theme}) => theme.colors.bg.main};
     border-radius: 16px;
     padding: 18px;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    border: 1px solid white;
-    
+    border: 1px solid ${({theme}) => theme.colors.bg.main};
+    transition: all 0.2s ease-in-out 0s;
+
     h3 {
         margin: 0;
+        color: ${({theme}) => theme.colors.font.main};
     }
     
     & > div:first-of-type {
@@ -35,11 +37,12 @@ export const Container = styled.div`
 
             span {
                 margin-bottom: 4px;
+                color: ${({theme}) => theme.colors.font.main};
             }
             
             & > span:last-of-type {
                 font-size: 14px;
-                color: #999999;
+                color: ${({theme}) => theme.colors.font.sub};
                 margin-bottom: 5px;
             }
         }

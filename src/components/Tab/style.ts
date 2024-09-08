@@ -1,18 +1,17 @@
 import styled from "@emotion/styled";
-import {lighten} from "polished";
 
 export const Container = styled.div`
     width: 100%;
     height: 44px;
-    background-color: white;
+    background-color: ${({theme}) => theme.colors.bg.main};
     padding: 2px;
     border-radius: 10px;
-    border: 1px solid white;
+    border: 1px solid ${({theme}) => theme.colors.bg.main};
     display: flex;
     position: sticky;
     top: 72px;
     margin-bottom: 32px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
     z-index: 3;
 `;
 
@@ -21,7 +20,7 @@ export const TabButton = styled.div<{active: string}>`
     display: flex;
     align-items: center;
     justify-content: center;
-    color: ${({active}) => active === "true" ? "#2B65FC" : "#999999"};
+    color: ${({active, theme}) => active === "true" ? theme.colors.font.primary : theme.colors.font.sub};
     font-size: 18px;
     letter-spacing: 0.5px;
     cursor: pointer;
@@ -36,8 +35,8 @@ export const Background = styled.div<{ activeIndex: number; tabCount: number }>`
     width: ${({ tabCount }) => `calc((100% - 4px) / ${tabCount})`};
     height: 38px;
     border-radius: 8px;
-    background-color: ${lighten(0.38, "#2B65FC")};
-    border: 1px solid ${lighten(0.38, "#2B65FC")};
+    background-color: ${({theme}) => theme.colors.button.approval};
+    border: 1px solid ${({theme}) => theme.colors.button.approval};
     transition: left 0.3s ease-in-out;
     z-index: 0;
 `;

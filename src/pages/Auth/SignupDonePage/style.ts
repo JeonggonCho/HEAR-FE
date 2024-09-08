@@ -5,6 +5,7 @@ export const Container = styled.div`
     width: 100%;
 
     p {
+        color: ${({theme}) => theme.colors.font.main};
         text-align: center;
         margin: 0 0 124px;
         font-size: 20px;
@@ -12,7 +13,7 @@ export const Container = styled.div`
     }
     
     span {
-        color: #2B65FC;
+        color: ${({theme}) => theme.colors.font.primary};
     }
 `;
 

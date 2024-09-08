@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { darken, lighten } from "polished";
+import { useThemeStore } from "@store/useThemeStore.ts";
 
 const commonBtnStyle = `
     text-align: center;
@@ -9,55 +10,64 @@ const commonBtnStyle = `
     vertical-align: middle;
     cursor: pointer;
     line-height: 1.4;
-
+    border: none;
 `;
 
-const getColorStyles = (color: "primary" | "approval" | "second" | "third" | "danger") => {
-    const colors = {
-        primary: "#2B65FC",
-        approval: "#F0F4FF",
-        second: "#c5c5c5",
-        third: "#F8F8F8",
-        danger: "#FFF1F1",
-    };
-
-    const textColor = color === "danger" ? "#FF8585" : color === "third" ? "#999999" : color === "approval" ? "#2B65FC" : "white";
-
-    return {
-        backgroundColor: colors[color],
-        borderColor: colors[color],
-        color: textColor,
-        hoverBgColor: color === "danger" || color === "third" || color === "approval" ? darken(0.05, colors[color]) : lighten(0.1, colors[color]),
-        activeBgColor: darken(color === "danger" || color === "third" || color === "approval" ? 0.1 : 0.2, colors[color]),
-    };
+const getBackgroundColor = (theme: any, color: "primary" | "approval" | "second" | "third" | "danger", isDarkMode:boolean) => {
+    const baseColor = theme.colors.button[color];
+    return isDarkMode ? lighten(0.05, baseColor) : darken(0.05, baseColor);
 };
 
-const BaseComponent = styled.div<{ width: "full" | "fit"; color: "primary" | "approval" | "second" | "third" | "danger"; scale: "small" | "normal" | "big";}>`
-    width: ${({ width }) => (width === "full" ? "100%" : "fit-content")};
-    font-size: ${({scale}) => scale === "small" ? "16px" : scale === "normal" ? "18px" : "20px"};
-    padding: ${({scale}) => scale === "small" ? "6px 12px" : "12px 18px"};
-    border-radius: ${({scale}) => scale === "big" ? "12px" : "8px"};
-    ${({ color }) => {
-    const { backgroundColor, borderColor, color: textColor, hoverBgColor, activeBgColor } = getColorStyles(color);
-    return `
-            background-color: ${backgroundColor};
-            border: 1px solid ${borderColor};
-            color: ${textColor};
+const getTextColor = (theme: any, color: "primary" | "approval" | "second" | "third" | "danger") => {
+    switch (color) {
+        case "primary":
+        case "second":
+            return "white";
+        case "approval":
+            return theme.colors.font.primary;
+        case "third":
+            return theme.colors.font.sub;
+        case "danger":
+            return theme.colors.font.danger;
+        default:
+            return;
+    }
+};
 
-            &:hover {
-                background-color: ${hoverBgColor};
-                border-color: ${hoverBgColor};
-            }
-
-            &:active {
-                background-color: ${activeBgColor};
-                border-color: ${activeBgColor};
-                transform: scale(0.95);
-            }
-        `;
-    }}
-    
+const BaseComponent = styled.div<{
+    width: "full" | "fit";
+    color: "primary" | "approval" | "second" | "third" | "danger";
+    scale: "small" | "normal" | "big";
+}>`
     ${commonBtnStyle};
+    
+    width: ${({ width }) => (width === "full" ? "100%" : "fit-content")};
+    font-size: ${({ scale }) => ({
+        small: "16px", 
+        normal: "18px", 
+        big: "20px"
+    }[scale])};
+    
+    padding: ${({ scale }) => ({
+        small: "6px 12px", 
+        normal: "12px 18px", 
+        big: "12px 18px"
+    }[scale])};
+    
+    border-radius: ${({ scale }) => (scale === "big" ? "12px" : "8px")};
+    background-color: ${({ theme, color }) => theme.colors.button[color]};
+    color: ${({ theme, color }) => getTextColor(theme, color)};
+    
+    &:hover {
+        background-color: ${({ theme, color }) => {
+            const { isDarkMode } = useThemeStore();
+            return getBackgroundColor(theme, color, isDarkMode);
+        }};
+    }
+    
+    &:active {
+        transform: scale(0.95);
+    }
 `;
 
 export const ButtonWrapper = BaseComponent.withComponent("button");

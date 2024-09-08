@@ -17,6 +17,7 @@ export default defineConfig({
       {find: "@layouts", replacement: "/src/layouts"},
       {find: "@api", replacement: "/src/api"},
       {find: "@hooks", replacement: "/src/hooks"},
+      {find: "@styles", replacement: "/src/styles"},
       {find: "@", replacement: "/src"},
     ],
   }
