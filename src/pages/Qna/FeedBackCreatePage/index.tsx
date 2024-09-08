@@ -14,6 +14,7 @@ import {useNavigate} from "react-router-dom";
 import useRequest from "@hooks/useRequest.ts";
 import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
+import ErrorContent from "@components/ErrorContent";
 
 const FeedbackCreatePage = () => {
     const navigate = useNavigate();
@@ -87,11 +88,11 @@ const FeedbackCreatePage = () => {
             }
 
             {errorText &&
-              <Modal
-                content={<div>{errorText}</div>}
-                setModal={clearError}
-                type={"popup"}
-              />
+                <Modal
+                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
+                    setModal={clearError}
+                    type={"popup"}
+                />
             }
         </Container>
     );

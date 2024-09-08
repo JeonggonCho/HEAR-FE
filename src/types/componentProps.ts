@@ -26,6 +26,13 @@ export interface IConfirmContentProps {
 }
 
 
+// 에러 메시지(ErrorContent) props
+export interface IErrorContentProps {
+    text: string;
+    closeModal: () => void;
+}
+
+
 // 헤더(Header) props
 export interface IHeaderProps {
     leftChild?: ReactNode;

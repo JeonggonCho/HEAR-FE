@@ -19,6 +19,7 @@ import {updateAccountSchema} from "@schemata/authSchema.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
 
 import {Container} from "./style.ts";
+import ErrorContent from "@components/ErrorContent";
 
 
 const UpdateAccountPage = () => {
@@ -157,21 +158,21 @@ const UpdateAccountPage = () => {
                     </form>
 
                     {updateAccountModal &&
-                      <Modal
-                        content={<UpdateAccountContent/>}
-                        setModal={setUpdateAccountModal}
-                        type={"popup"}
-                      />
+                        <Modal
+                            content={<UpdateAccountContent/>}
+                            setModal={setUpdateAccountModal}
+                            type={"popup"}
+                        />
                     }
                 </>
             }
 
             {errorText &&
-              <Modal
-                content={<div>{errorText}</div>}
-                setModal={clearError}
-                type={"popup"}
-              />
+                <Modal
+                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
+                    setModal={clearError}
+                    type={"popup"}
+                />
             }
         </Container>
     );

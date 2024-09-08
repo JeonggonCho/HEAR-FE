@@ -17,6 +17,7 @@ import useRequest from "@hooks/useRequest.ts";
 import {Container} from "./style.ts";
 import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
+import ErrorContent from "@components/ErrorContent";
 
 const InquiryCreatePage = () => {
     const navigate = useNavigate();
@@ -91,7 +92,7 @@ const InquiryCreatePage = () => {
 
             {errorText &&
                 <Modal
-                    content={<div>{errorText}</div>}
+                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
                     setModal={clearError}
                     type={"popup"}
                 />

@@ -12,6 +12,7 @@ import {inquiryCategoriesValues} from "@constants/inquiryCategories.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 
 import {Container} from "./style.ts";
+import ErrorContent from "@components/ErrorContent";
 
 const InquiryDetailPage = () => {
     const [inquiry, setInquiry] = useState<IInquiryProps>();
@@ -55,7 +56,7 @@ const InquiryDetailPage = () => {
 
             {errorText &&
               <Modal
-                content={<div>{errorText}</div>}
+                content={<ErrorContent text={errorText} closeModal={clearError}/>}
                 setModal={clearError}
                 type={"popup"}
               />

@@ -17,6 +17,7 @@ import {useAuthStore} from "@store/useAuthStore.ts";
 import {Container, UserName} from "./style.ts";
 import useRequest from "@hooks/useRequest.ts";
 import LoadingLoop from "@components/LoadingLoop";
+import ErrorContent from "@components/ErrorContent";
 
 const AccountPage = () => {
     const [logoutModal, setLogoutModal] = useState<boolean>(false);
@@ -134,8 +135,8 @@ const AccountPage = () => {
                 <>
                     <ProfileCard/>
                     <div>
-                        <ColoredBtn type={"link"} content={"내정보 수정"} width={"full"} color={"second"} scale={"small"} to={"/account/update"}/>
-                        <ColoredBtn type={"link"} content={"비밀번호 변경"} width={"full"} color={"second"} scale={"small"} to={"/password/update"}/>
+                        <ColoredBtn type={"link"} content={"내정보 수정"} width={"full"} color={"second"} scale={"normal"} to={"/account/update"}/>
+                        <ColoredBtn type={"link"} content={"비밀번호 변경"} width={"full"} color={"second"} scale={"normal"} to={"/password/update"}/>
                     </div>
                     <StatusCard/>
                     <CountOfLaserCard/>
@@ -171,7 +172,7 @@ const AccountPage = () => {
 
             {errorText &&
                 <Modal
-                    content={<div>{errorText}</div>}
+                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
                     setModal={clearError}
                     type={"popup"}
                 />

@@ -21,6 +21,7 @@ import {useUserInfoStore} from "@store/useUserStore.ts";
 import {IAuthResponseData} from "@/types/authResponse.ts";
 
 import {Container} from "./style.ts";
+import ErrorContent from "@components/ErrorContent";
 
 const SignupPage = () => {
     const navigate = useNavigate();
@@ -157,7 +158,7 @@ const SignupPage = () => {
 
             {errorText &&
                 <Modal
-                    content={<div>{errorText}</div>}
+                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
                     setModal={clearError}
                     type={"popup"}
                 />

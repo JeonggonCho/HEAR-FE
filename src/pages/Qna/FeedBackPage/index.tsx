@@ -13,6 +13,7 @@ import {IFeedbackProps} from "@/types/componentProps.ts";
 
 import {Container, HeaderWrapper} from "./style.ts";
 import inquiry from "@assets/images/inquiry.png";
+import ErrorContent from "@components/ErrorContent";
 
 const FeedbackHeaderLeft = () => (
     <HeaderWrapper>
@@ -79,7 +80,7 @@ const FeedbackPage = () => {
 
             {errorText &&
                 <Modal
-                    content={<div>{errorText}</div>}
+                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
                     setModal={clearError}
                     type={"popup"}
                 />

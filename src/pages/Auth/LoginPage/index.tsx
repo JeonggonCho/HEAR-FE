@@ -20,6 +20,7 @@ import {IAuthResponseData} from "@/types/authResponse.ts";
 
 import {Container} from "./style.ts";
 import logo from "@assets/logo.svg";
+import ErrorContent from "@components/ErrorContent";
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -106,7 +107,7 @@ const LoginPage = () => {
 
             {errorText &&
                 <Modal
-                    content={<div>{errorText}</div>}
+                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
                     setModal={clearError}
                     type={"popup"}
                 />

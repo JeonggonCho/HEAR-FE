@@ -54,7 +54,7 @@ const BaseComponent = styled.div<{
         big: "12px 18px"
     }[scale])};
     
-    border-radius: ${({ scale }) => (scale === "big" ? "12px" : "8px")};
+    border-radius: ${({ scale }) => (scale === "big" ? "12px" : scale === "normal" ? "10px" : "8px")};
     background-color: ${({ theme, color }) => theme.colors.button[color]};
     color: ${({ theme, color }) => getTextColor(theme, color)};
     
