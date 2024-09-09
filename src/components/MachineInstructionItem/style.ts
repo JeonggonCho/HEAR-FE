@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import {Link} from "react-router-dom";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {darken, lighten} from "polished";
 
 export const Container = styled(Link)`
     width: 100%;
@@ -30,7 +32,10 @@ export const Container = styled(Link)`
     
     &:hover {
         border: 1px solid ${({theme}) => theme.colors.line.primary};
-        background-color: ${({theme}) => theme.colors.button.approval};
+        background-color: ${({theme}) => {
+            const {isDarkMode} = useThemeStore();
+            return isDarkMode ? darken(0.05, theme.colors.button.approval) : lighten(0.02, theme.colors.button.approval)
+        }};
         
         h4 {
             color: ${({theme}) => theme.colors.font.primary};

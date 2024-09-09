@@ -1,103 +1,70 @@
+import {useEffect, useState} from "react";
+
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
-import {Container} from "./style.ts";
 import CreateBtn from "@components/CreateBtn";
 import Empty from "@components/Empty";
+import NoticeListItem from "@components/NoticeListItem";
+import Modal from "@components/Modal";
+import LoadingLoop from "@components/LoadingLoop";
+import ErrorContent from "@components/ErrorContent";
 
-const dummy = [
-    {
-        id: 1,
-        title: "모형제작실 교육",
-        author: "조정곤",
-        date: "2024.08.18",
-    },
-    {
-        id: 2,
-        title: "경고 조치",
-        author: "조정곤",
-        date: "2024.08.18",
-    },
-    {
-        id: 3,
-        title: "청소의 당부",
-        author: "조정곤",
-        date: "2024.08.18",
-    },
-    {
-        id: 4,
-        title: "방학기간 사용",
-        author: "조정곤",
-        date: "2024.08.18",
-    },
-    {
-        id: 5,
-        title: "예약 안내",
-        author: "조정곤",
-        date: "2024.08.18",
-    },
-    {
-        id: 6,
-        title: "기기 수리 조치",
-        author: "조정곤",
-        date: "2024.08.18",
-    },
-    {
-        id: 7,
-        title: "모형제작실 교육",
-        author: "조정곤",
-        date: "2024.08.18",
-    },
-    {
-        id: 8,
-        title: "고장날 수 있으니 주의",
-        author: "조정곤",
-        date: "2024.08.18",
-    },
-    {
-        id: 9,
-        title: "교육을 꼭 이수할 필요가 있음",
-        author: "조정곤",
-        date: "2024.08.18",
-    },
-    {
-        id: 10,
-        title: "모형제작실 교육",
-        author: "조정곤",
-        date: "2024.08.18",
-    },
-];
+import {useUserDataStore} from "@store/useUserStore.ts";
+import useRequest from "@hooks/useRequest.ts";
+import {INotice} from "@/types/componentProps.ts";
+
+import {Container} from "./style.ts";
 
 const NoticePage = () => {
+    const [notices, setNotices] = useState<INotice[]>([]);
+    const {userData} = useUserDataStore();
+
+    const {isLoading, errorText, sendRequest, clearError} = useRequest();
+
+    useEffect(() => {
+        const fetchNotices = async () => {
+            try {
+                const response = await sendRequest({
+                    url: "/notices",
+                });
+                setNotices(response.data);
+            } catch (err) {
+                console.error("공지 목록 조회 중 에러 발생: ", err);
+            }
+        };
+        fetchNotices();
+    }, [sendRequest]);
+
     return (
         <Container>
             <Header leftChild={<ArrowBack/>} centerText={"공지사항"}/>
-
-            {dummy.length !== 0 ?
-                <table>
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>제목</th>
-                            <th>날짜</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {dummy.map((value, index) => {
-                            return (
-                                <tr key={index}>
-                                    <td>{value.id}</td>
-                                    <td>{value.title}</td>
-                                    <td>{value.date}</td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+            {isLoading ?
+                <LoadingLoop/>
                 :
-                <Empty title={"작성된 공지사항이 없습니다"}/>
+                <>
+                    {notices.length !== 0 ? notices.map((value, idx) => (
+                            <NoticeListItem
+                                key={idx}
+                                title={value.title}
+                                _id={value._id}
+                                createdAt={value.createdAt}
+                            />
+                        ))
+                        :
+                        <Empty title={"작성된 공지사항이 없습니다"}/>
+                    }
+
+                    {userData?.role === "manager" && <CreateBtn to={"/notice/new"}/>}
+                </>
             }
 
-            <CreateBtn to={"/notice/new"}/>
+            {errorText &&
+                <Modal
+                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
+                    setModal={clearError}
+                    type={"popup"}
+                />
+            }
         </Container>
     );
 };

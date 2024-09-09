@@ -15,6 +15,7 @@ interface IUserData {
     countOfWarning: number;
     countOfLaser: number;
     tel: string;
+    role: "student" | "manager" | "admin";
 }
 
 interface IUserInfoState {
@@ -30,7 +31,7 @@ interface IUserDataState {
     clearUserData: () => void;
 }
 
-const userStore = (set: any):IUserInfoState => ({
+const userInfoStore = (set: any): IUserInfoState => ({
     userInfo: null,
     setUserInfo: (userInfo: IUserInfo) => set({ userInfo }),
     clearUserInfo: () => set({ userInfo: null }),
@@ -39,12 +40,18 @@ const userStore = (set: any):IUserInfoState => ({
 
 export const useUserInfoStore = create<IUserInfoState>()(
     devtools(
-        persist(userStore, {name:"user-storage", storage: createJSONStorage(() => localStorage)})
+        persist(userInfoStore, {name: "user-Info-storage", storage: createJSONStorage(() => localStorage)})
     )
 );
 
-export const useUserDataStore = create((set: any): IUserDataState => ({
+const userDataStore = (set: any): IUserDataState => ({
     userData: null,
     setUserData: (userData: IUserData) => set({userData}),
     clearUserData: () => set({ userData: null }),
-}));
+});
+
+export const useUserDataStore = create<IUserDataState>()(
+    devtools(
+        persist(userDataStore, {name: "user-data-storage", storage: createJSONStorage(() => localStorage)})
+    )
+);

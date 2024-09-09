@@ -22,14 +22,14 @@ export const lightTheme:Theme = {
             danger: "#FF8585",
         },
         icon: {
-            fill: "#C5C5C5",
+            fill: "#C7CBCF",
         },
         button: {
             primary: "#2B65FC",
-            approval: "#F0F4FF",
-            second: "#C5C5C5",
+            approval: "#E1E9FF",
+            second: "#C7CBCF",
             third: "#F2F3F5",
-            danger: "#FFF1F1",
+            danger: "#FFEAEA",
         }
     },
 };
@@ -56,12 +56,12 @@ export const darkTheme:Theme = {
             danger: "#E07070",
         },
         icon: {
-            fill: "#62626D",
+            fill: "#3D3D43",
         },
         button: {
             primary: "#1949C6",
             approval: "#252C40",
-            second: "#393939",
+            second: "#3D3D43",
             third: "#2C2C35",
             danger: "#492F2F",
         }

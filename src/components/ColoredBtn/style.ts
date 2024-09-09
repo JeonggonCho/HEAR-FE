@@ -19,9 +19,15 @@ const getBackgroundColor = (theme: any, color: "primary" | "approval" | "second"
 };
 
 const getTextColor = (theme: any, color: "primary" | "approval" | "second" | "third" | "danger") => {
+    const { isDarkMode } = useThemeStore();
+
     switch (color) {
         case "primary":
+            return "white";
         case "second":
+            if (isDarkMode) {
+                return lighten(0.1, theme.colors.font.sub);
+            }
             return "white";
         case "approval":
             return theme.colors.font.primary;
@@ -49,7 +55,7 @@ const BaseComponent = styled.div<{
     }[scale])};
     
     padding: ${({ scale }) => ({
-        small: "6px 12px", 
+        small: "8px 14px", 
         normal: "12px 18px", 
         big: "12px 18px"
     }[scale])};

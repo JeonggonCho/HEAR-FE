@@ -17,7 +17,7 @@ import {signupSchema} from "@schemata/authSchema.ts";
 import {zodResolver} from "@hookform/resolvers/zod";
 import useRequest from "@hooks/useRequest.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
-import {useUserInfoStore} from "@store/useUserStore.ts";
+import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {IAuthResponseData} from "@/types/authResponse.ts";
 
 import {Container} from "./style.ts";
@@ -28,6 +28,7 @@ const SignupPage = () => {
 
     const {login} = useAuthStore();
     const {setUserInfo} = useUserInfoStore();
+    const {setUserData} = useUserDataStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     type SignupFormData = z.infer<typeof signupSchema>;
@@ -53,9 +54,12 @@ const SignupPage = () => {
                 method: "post",
                 data: data
             });
-            const {userId, email, username, studentId, accessToken, refreshToken} = response.data;
+            const {userId, email, username, studentId, year, studio, passQuiz, countOfLaser, countOfWarning, tel, role, accessToken, refreshToken} = response.data;
+
             login(accessToken, refreshToken);
             setUserInfo({userId, email, username, studentId});
+            setUserData({year, studio, passQuiz, countOfLaser, countOfWarning, tel, role});
+
             navigate("/signup/done", { replace: true });
         } catch (err) {
             console.error("회원가입 실패: ", err);

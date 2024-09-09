@@ -11,21 +11,21 @@ import ColoredBtn from "@components/ColoredBtn";
 import Modal from "@components/Modal";
 import ConfirmContent from "@components/ConfirmContent";
 import LoadingLoop from "@components/LoadingLoop";
+import ErrorContent from "@components/ErrorContent";
 
 import {yearCategories} from "@constants/yearCategories.ts";
 import {zodResolver} from "@hookform/resolvers/zod";
 import useRequest from "@hooks/useRequest.ts";
 import {updateAccountSchema} from "@schemata/authSchema.ts";
-import {useUserDataStore} from "@store/useUserStore.ts";
+import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 
 import {Container} from "./style.ts";
-import ErrorContent from "@components/ErrorContent";
-
 
 const UpdateAccountPage = () => {
     const [formData, setFormData] = useState<any>(null);
     const [updateAccountModal, setUpdateAccountModal] = useState<boolean>(false);
 
+    const {userInfo, setUserInfo} = useUserInfoStore();
     const {userData, setUserData} = useUserDataStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
@@ -34,26 +34,32 @@ const UpdateAccountPage = () => {
     // 유저 데이터 조회
     useEffect(() => {
         const fetchUser = async () => {
-            try {
-                const response = await sendRequest({
-                    url: "/users",
-                    method: "get",
-                });
-                const {year, studio, passQuiz, countOfLaser, countOfWarning, tel} = response.data;
-                setUserData({year, studio, passQuiz, countOfLaser, countOfWarning, tel});
-            } catch (err) {
-                console.error("유저 정보 조회 에러: ", err);
+            if (userInfo && userData) {
+                try {
+                    const response = await sendRequest({
+                        url: "/users",
+                        method: "get",
+                    });
+                    const {userId, username, email, year, studentId, studio, passQuiz, countOfLaser, countOfWarning, tel, role} = response.data;
+
+                    setUserData({year, studio, passQuiz, countOfLaser, countOfWarning, tel, role});
+                    setUserInfo({userId, username, email, studentId});
+                } catch (err) {
+                    console.error("유저 정보 조회 에러: ", err);
+                }
             }
         };
         fetchUser();
-    }, [sendRequest]);
+    }, [sendRequest, setUserData, setUserInfo]);
 
     type UpdateAccountFormData = z.infer<typeof updateAccountSchema>;
 
-    const {register, handleSubmit, formState: {errors}} = useForm({
+    const {register, handleSubmit, formState: {errors}} = useForm<UpdateAccountFormData>({
         resolver: zodResolver(updateAccountSchema),
         defaultValues: {
+            username: userInfo?.username ?? "",
             year: userData?.year ?? "1",
+            studentId: userInfo?.studentId ?? "",
             studio: userData?.studio ?? "",
             tel: userData?.tel ?? "",
         }
@@ -120,12 +126,32 @@ const UpdateAccountPage = () => {
                 :
                 <>
                     <form onSubmit={handleSubmit(submitHandler)}>
+                        <InputWithLabel
+                            label={"이름"}
+                            type={"text"}
+                            placeholder={"이름을 입력해주세요"}
+                            id={"username"}
+                            name={"username"}
+                            register={register}
+                            errorMessage={errors.username?.message}
+                        />
+
                         <Select
                             categories={yearCategories}
                             label={"학 년"}
                             name={"year"}
                             register={register}
                             errorMessage={errors.year?.message}
+                        />
+
+                        <InputWithLabel
+                            label={"학 번"}
+                            type={"number"}
+                            placeholder={"학번을 입력해주세요"}
+                            id={"student-id"}
+                            name={"studentId"}
+                            register={register}
+                            errorMessage={errors.studentId?.message}
                         />
 
                         <InputWithLabel

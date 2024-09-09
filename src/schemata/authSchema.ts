@@ -56,10 +56,16 @@ export const loginSchema = z.object({
 });
 
 export const updateAccountSchema = z.object({
+    username: z
+        .string()
+        .min(1, "이름을 입력해주세요"),
     year: z
         .enum(["1", "2", "3", "4", "5"], {
             required_error: "학년을 선택해주세요"
         }),
+    studentId: z
+        .string()
+        .regex(STUDENTID_REGEX, "학번은 10자리의 숫자여야 합니다"),
     studio: z
         .string()
         .min(1, "스튜디오 교수님을 입력해주세요"),

@@ -21,16 +21,15 @@ const InquiryFeedbackListItem:FC<IFeedbackProps | IInquiryProps> = (props) => {
 
     return (
         <Container
-            to={props.type === "inquiry"
-                ? `/inquiry/${props._id}`
-                : props.type === "feedback"
-                    ? `/feedback/${props._id}`
+            to={props.type === "inquiry" ? `/inquiry/${props._id}`
+                : props.type === "feedback" ? `/feedback/${props._id}`
                     : "/"}
-            category={props.category}
         >
-            <span>{categoryLabel}</span>
             <div>
-                <h3>{props.title}</h3>
+                <div>
+                    <span>{categoryLabel}</span>
+                    <h3>{props.title}</h3>
+                </div>
                 {props.answer &&
                   <span>{props.answer && "답변완료"}</span>
                 }

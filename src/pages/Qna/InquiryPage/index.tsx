@@ -27,7 +27,7 @@ const InquiryHeaderRight = () => (
         type={"link"}
         content={"피드백"}
         width={"fit"}
-        color={"second"}
+        color={"primary"}
         scale={"small"}
         to={"/feedback"}
     />

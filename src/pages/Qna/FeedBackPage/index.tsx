@@ -27,7 +27,7 @@ const FeedbackHeaderRight = () => (
         type={"link"}
         content={"문의"}
         width={"fit"}
-        color={"second"}
+        color={"primary"}
         scale={"small"}
         to={"/inquiry"}
     />

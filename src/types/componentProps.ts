@@ -153,6 +153,15 @@ export interface IFeedbackProps extends IQna {
 }
 
 
+// 공지 (Notice) 타입
+export interface INotice {
+    _id: string;
+    title: string;
+    content?: string;
+    createdAt: string;
+}
+
+
 // 생성 버튼(CreateBtn) props
 export interface ICreateBtnProps {
     to:To;

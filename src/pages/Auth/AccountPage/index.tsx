@@ -26,7 +26,7 @@ const AccountPage = () => {
 
     const navigate = useNavigate();
 
-    const {userInfo, clearUserInfo} = useUserInfoStore();
+    const {userInfo, setUserInfo, clearUserInfo} = useUserInfoStore();
     const {setUserData, clearUserData} = useUserDataStore();
     const {logout} = useAuthStore();
 
@@ -38,8 +38,9 @@ const AccountPage = () => {
                     url: "/users",
                     method: "get",
                 });
-                const {year, studio, passQuiz, countOfLaser, countOfWarning, tel} = response.data;
-                setUserData({year, studio, passQuiz, countOfLaser, countOfWarning, tel});
+                const {userId, username, email, year, studentId, studio, passQuiz, countOfLaser, countOfWarning, tel, role} = response.data;
+                setUserData({year, studio, passQuiz, countOfLaser, countOfWarning, tel, role});
+                setUserInfo({userId, username, email, studentId});
             } catch (err) {
                 console.error("유저 정보 조회 에러: ", err);
             }

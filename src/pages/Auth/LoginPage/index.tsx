@@ -10,23 +10,24 @@ import InputWithLabel from "@components/InputWithLabel";
 import Link from "@components/Link";
 import Modal from "@components/Modal";
 import LoadingLoop from "@components/LoadingLoop";
+import ErrorContent from "@components/ErrorContent";
 
 import {loginSchema} from "@schemata/authSchema.ts";
 import {zodResolver} from "@hookform/resolvers/zod";
 import useRequest from "@hooks/useRequest.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
-import {useUserInfoStore} from "@store/useUserStore.ts";
+import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {IAuthResponseData} from "@/types/authResponse.ts";
 
 import {Container} from "./style.ts";
 import logo from "@assets/logo.svg";
-import ErrorContent from "@components/ErrorContent";
 
 const LoginPage = () => {
     const navigate = useNavigate();
 
     const {login} = useAuthStore();
     const {setUserInfo} = useUserInfoStore();
+    const {setUserData} = useUserDataStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     type LoginFormData = z.infer<typeof loginSchema>;
@@ -46,9 +47,26 @@ const LoginPage = () => {
                 method: "post",
                 data: data
             });
-            const {userId, email, username, studentId, accessToken, refreshToken} = response.data;
+            const {
+                userId,
+                email,
+                username,
+                studentId,
+                year,
+                studio,
+                passQuiz,
+                countOfLaser,
+                countOfWarning,
+                tel,
+                role,
+                accessToken,
+                refreshToken
+            } = response.data;
+
             login(accessToken, refreshToken);
             setUserInfo({userId, email, username, studentId});
+            setUserData({year, studio, passQuiz, countOfLaser, countOfWarning, tel, role});
+
             navigate("/");
         } catch (err) {
             console.log("로그인 실패: ", err);
@@ -100,8 +118,9 @@ const LoginPage = () => {
                             scale={"big"}
                         />
                     </form>
-                    <Link text={"비밀번호 찾기"} to={"/password/reset"} color={"second"}/>
+
                     <Link text={"회원가입"} to={"/signup"} color={"primary"}/>
+                    <Link text={"비밀번호 찾기"} to={"/password/reset"} color={"second"}/>
                 </>
             }
 

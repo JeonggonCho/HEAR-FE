@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import {NavLink} from "react-router-dom";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {darken, lighten} from "polished";
 
 export const Container = styled.nav`
     width: 100%;
@@ -42,6 +44,9 @@ export const Button = styled(NavLink)<{ active: string }>`
     }
 
     svg {
-        fill: ${({active, theme}) => active === "true" ? theme.colors.button.primary : theme.colors.icon.fill};
+        fill: ${({active, theme}) => {
+            const {isDarkMode} = useThemeStore();
+            return active === "true" ? theme.colors.button.primary : isDarkMode ? lighten(0.1, theme.colors.icon.fill) : darken(0.1, theme.colors.icon.fill);
+        }};
     }
 `;

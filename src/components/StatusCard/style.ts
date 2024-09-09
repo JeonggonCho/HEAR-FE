@@ -6,7 +6,10 @@ export const Container = styled.div`
     width: 100%;
     padding: 16px;
     border-radius: 16px;
-    background-color: ${({theme}) => theme.colors.button.approval};
+    background-color: ${({theme}) => {
+        const {isDarkMode} = useThemeStore();
+        return isDarkMode ? darken(0.05, theme.colors.button.approval) : lighten(0.02, theme.colors.button.approval)
+    }};
     color: ${({theme}) => theme.colors.font.primary};
     display: flex;
     align-items: center;
