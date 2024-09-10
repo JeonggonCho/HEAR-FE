@@ -9,72 +9,72 @@ import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
 
 import useRequest from "@hooks/useRequest.ts";
-import {IInquiryProps} from "@/types/componentProps.ts";
+import {IFeedbackProps} from "@types/componentProps.ts";
 
 import {Container, HeaderWrapper} from "./style.ts";
 import inquiry from "@assets/images/inquiry.png";
 import ErrorContent from "@components/ErrorContent";
 
-const InquiryHeaderLeft = () => (
+const FeedbackHeaderLeft = () => (
     <HeaderWrapper>
-        <img src={inquiry} alt="모형제작실 문의"/>
-        <h2>문의</h2>
+        <img src={inquiry} alt="피드백"/>
+        <h2>피드백</h2>
     </HeaderWrapper>
 );
 
-const InquiryHeaderRight = () => (
+const FeedbackHeaderRight = () => (
     <ColoredBtn
         type={"link"}
-        content={"피드백"}
+        content={"문의"}
         width={"fit"}
         color={"primary"}
         scale={"small"}
-        to={"/feedback"}
+        to={"/inquiry"}
     />
 );
 
-const InquiryPage = () => {
-    const [inquiries, setInquiries] = useState<IInquiryProps[]>([]);
+const FeedbackPage = () => {
+    const [feedback, setFeedback] = useState<IFeedbackProps[]>([]);
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     useEffect(() => {
-        const fetchInquiries = async () => {
+        const fetchFeedback = async () => {
             try {
                 const response = await sendRequest({
-                    url: "/inquiries",
+                    url: "/feedback",
                 });
-                setInquiries(response.data);
+                setFeedback(response.data);
             } catch (err) {
-                console.error("문의 목록 조회 중 에러 발생: ", err);
+                console.error("피드백 목록 조회 중 에러 발생: ", err);
             }
         };
-        fetchInquiries();
+        fetchFeedback();
     }, [sendRequest]);
 
     return (
         <Container>
-            <Header leftChild={<InquiryHeaderLeft/>} rightChild={<InquiryHeaderRight/>}/>
+            <Header leftChild={<FeedbackHeaderLeft/>} rightChild={<FeedbackHeaderRight/>}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
                 <>
                     <p>
-                        문의사항은 모형제작실 조교에게 전달되며,<br/>
-                        답변을 받는 데 시간이 소요될 수 있습니다
+                        피드백은 애플리케이션 개발자에게 전달되며,<br/>
+                        해당 앱 업데이트에 도움이 됩니다
                     </p>
 
-                    {inquiries.length !== 0 ? inquiries.map((value, idx) => (
-                            <InquiryFeedbackListItem key={idx} type={"inquiry"} {...value}/>
+                    {feedback.length !== 0 ? feedback.map((value, idx) => (
+                            <InquiryFeedbackListItem key={idx} type={"feedback"} {...value}/>
                         ))
                         :
                         <Empty
-                            title={"작성된 문의가 아직 없어요"}
-                            message={"모형제작실에 관해서 궁금한 점이 있으시면 언제든 물어보세요"}
+                            title={"작성된 피드백이 아직 없어요"}
+                            message={"서비스에 대한 여러분의 피드백을 남겨주세요"}
                         />
                     }
 
-                    <CreateBtn to={"/inquiry/new"}/>
+                    <CreateBtn to={"/feedback/new"}/>
                 </>
             }
 
@@ -89,4 +89,4 @@ const InquiryPage = () => {
     );
 };
 
-export default InquiryPage;
+export default FeedbackPage;

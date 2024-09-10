@@ -7,7 +7,7 @@ import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
 
 import useRequest from "@hooks/useRequest.ts";
-import {IInquiryProps} from "@/types/componentProps.ts";
+import {IInquiryProps} from "@types/componentProps.ts";
 import {inquiryCategoriesValues} from "@constants/inquiryCategories.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 

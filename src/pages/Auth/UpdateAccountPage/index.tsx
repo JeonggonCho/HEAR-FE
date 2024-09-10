@@ -54,16 +54,28 @@ const UpdateAccountPage = () => {
 
     type UpdateAccountFormData = z.infer<typeof updateAccountSchema>;
 
-    const {register, handleSubmit, formState: {errors}} = useForm<UpdateAccountFormData>({
+    const {register, handleSubmit, formState: {errors}, reset} = useForm<UpdateAccountFormData>({
         resolver: zodResolver(updateAccountSchema),
         defaultValues: {
-            username: userInfo?.username ?? "",
-            year: userData?.year ?? "1",
-            studentId: userInfo?.studentId ?? "",
-            studio: userData?.studio ?? "",
-            tel: userData?.tel ?? "",
+            username: "",
+            year: "1",
+            studentId: "",
+            studio: "",
+            tel: "",
         }
     });
+
+    useEffect(() => {
+        if (userInfo && userData) {
+            reset({
+                username: userInfo.username,
+                year: userData?.year,
+                studentId: userInfo?.studentId,
+                studio: userData?.studio,
+                tel: userData?.tel,
+            });
+        }
+    }, [userInfo, userData, reset]);
 
     // 내 정보 수정 버튼 클릭 시, 유효성 검사 및 confirm 모달 보이기
     const submitHandler: SubmitHandler<UpdateAccountFormData> = async (data) => {

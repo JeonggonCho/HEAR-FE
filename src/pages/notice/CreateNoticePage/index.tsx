@@ -9,22 +9,22 @@ import InputWithLabel from "@components/InputWithLabel";
 import Textarea from "@components/Textarea";
 import ColoredBtn from "@components/ColoredBtn";
 import LoadingLoop from "@components/LoadingLoop";
-
-import {noticeSchema} from "@schemata/qnaSchema.ts";
-
-import {Container} from "./style.ts";
-import useRequest from "@hooks/useRequest.ts";
 import Modal from "@components/Modal";
 import ErrorContent from "@components/ErrorContent";
 
-const NoticeCreatePage = () => {
+import {noticeSchema} from "@schemata/qnaSchema.ts";
+import useRequest from "@hooks/useRequest.ts";
+
+import {Container} from "./style.ts";
+
+const CreateNoticePage = () => {
     const navigate = useNavigate();
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     type NoticeFormData = z.infer<typeof noticeSchema>;
 
-    const {register, handleSubmit, formState:{errors}} = useForm<NoticeFormData>({
+    const {register, handleSubmit, formState: {errors}} = useForm<NoticeFormData>({
         resolver: zodResolver(noticeSchema),
         defaultValues: {
             title: "",
@@ -53,7 +53,7 @@ const NoticeCreatePage = () => {
                 <LoadingLoop/>
                 :
                 <>
-                    <form method={"post"} onSubmit={handleSubmit(submitHandler)}>
+                    <form onSubmit={handleSubmit(submitHandler)}>
                         <InputWithLabel
                             label={"제목"}
                             type={"text"}
@@ -86,4 +86,4 @@ const NoticeCreatePage = () => {
     );
 };
 
-export default NoticeCreatePage;
+export default CreateNoticePage;

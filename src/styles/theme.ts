@@ -56,7 +56,7 @@ export const darkTheme:Theme = {
             danger: "#E07070",
         },
         icon: {
-            fill: "#3D3D43",
+            fill: "#4B4B53",
         },
         button: {
             primary: "#1949C6",

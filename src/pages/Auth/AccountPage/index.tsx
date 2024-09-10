@@ -111,7 +111,7 @@ const AccountPage = () => {
         const rightBtn = (
             <ColoredBtn
                 type={"submit"}
-                content={"탈퇴하기"}
+                content={"탈 퇴"}
                 width={"full"}
                 color={"danger"}
                 scale={"normal"}
@@ -120,7 +120,7 @@ const AccountPage = () => {
         return (
             <ConfirmContent
                 text={"탈퇴 하시겠습니까?"}
-                description={"탈퇴 시, 경고 내역을 제외한 유저의 교육 이수 내역 및 모든 정보는 삭제됩니다"}
+                description={"탈퇴 시, 교육 이수 내역 및 모든 정보는 삭제됩니다"}
                 leftBtn={leftBtn}
                 rightBtn={rightBtn}
             />

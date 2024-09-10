@@ -5,12 +5,14 @@ const Layout = lazy(() => import("@layouts/Layout"));
 
 const MainPage = lazy(() => import("@pages/main/MainPage"));
 const AlarmPage = lazy(() => import("@pages/main/AlarmPage"));
-const InquiryPage = lazy(() => import("@pages/qna/InquiryPage"));
-const InquiryDetailPage = lazy(() => import("@pages/qna/InquiryDetailPage"));
-const InquiryCreatePage = lazy(() => import("@pages/qna/InquiryCreatePage"));
-const FeedbackPage = lazy(() => import("@pages/qna/FeedbackPage"));
-const FeedbackDetailPage = lazy(() => import("@pages/qna/FeedbackDetailPage"));
-const FeedbackCreatePage = lazy(() => import("@pages/qna/FeedbackCreatePage"));
+const InquiryPage = lazy(() => import("@pages/inquiry/InquiryPage"));
+const InquiryDetailPage = lazy(() => import("@pages/inquiry/InquiryDetailPage"));
+const CreateInquiryPage = lazy(() => import("@pages/inquiry/CreateInquiryPage"));
+const UpdateInquiryPage = lazy(() => import("@pages/inquiry/UpdateInquiryPage"));
+const FeedbackPage = lazy(() => import("@pages/feedback/FeedbackPage"));
+const FeedbackDetailPage = lazy(() => import("@pages/feedback/FeedbackDetailPage"));
+const CreateFeedbackPage = lazy(() => import("@pages/feedback/CreateFeedbackPage"));
+const UpdateFeedbackPage = lazy(() => import("@pages/feedback/UpdateFeedbackPage"));
 const AccountPage = lazy(() => import("@pages/auth/AccountPage"));
 const UpdateAccountPage = lazy(() => import("@pages/auth/UpdateAccountPage"));
 const LoginPage = lazy(() => import("@pages/auth/LoginPage"));
@@ -18,9 +20,10 @@ const SignupPage = lazy(() => import("@pages/auth/SignupPage"));
 const SignupDonePage = lazy(() => import("@pages/auth/SignupDonePage"));
 const FindPasswordPage = lazy(() => import("@pages/auth/FindPasswordPage"));
 const UpdatePasswordPage = lazy(() => import("@pages/auth/UpdatePasswordPage"));
-const NoticePage = lazy(() => import("@pages/qna/NoticePage"));
-const NoticeCreatePage = lazy(() => import("@pages/qna/NoticeCreatePage"));
-const NoticeDetailPage = lazy(() => import("@pages/qna/NoticeDetailPage"));
+const NoticePage = lazy(() => import("@pages/notice/NoticePage"));
+const CreateNoticePage = lazy(() => import("@pages/notice/CreateNoticePage"));
+const NoticeDetailPage = lazy(() => import("@pages/notice/NoticeDetailPage"));
+const UpdateNoticePage = lazy(() => import("@pages/notice/UpdateNoticePage"));
 const InstructionPage = lazy(() => import("@pages/instructions/InstructionPage"));
 const InstructionPrinter = lazy(() => import("@pages/instructions/printer/InstructionPrinter"));
 const InstructionLaser = lazy(() => import("@pages/instructions/laser/InstructionLaser"));
@@ -67,9 +70,10 @@ const AppRoute = () => {
                             <Route path="password/reset" element={<FindPasswordPage/>}/>
                             <Route path="password/update" element={<UpdatePasswordPage/>}/>
 
-                            <Route path="notice/new" element={<NoticeCreatePage/>}/>
+                            <Route path="notice/new" element={<CreateNoticePage/>}/>
                             <Route path="notice" element={<NoticePage/>}/>
                             <Route path="notice/:noticeId" element={<NoticeDetailPage/>}/>
+                            <Route path="notice/:noticeId/update" element={<UpdateNoticePage/>}/>
 
                             <Route path="instruction" element={<InstructionPage/>}/>
                             <Route path="instruction/3d-printer" element={<InstructionPrinter/>}/>
@@ -89,12 +93,15 @@ const AppRoute = () => {
                             <Route path="reservation/vacuum" element={<ReservationVacuum/>}/>
                             <Route path="reservation/condition" element={<ConditionPage/>}/>
 
-                            <Route path="inquiry/new" element={<InquiryCreatePage/>}/>
-                            <Route path="feedback/new" element={<FeedbackCreatePage/>}/>
+                            <Route path="inquiry/new" element={<CreateInquiryPage/>}/>
                             <Route path="inquiry" element={<InquiryPage/>}/>
                             <Route path="inquiry/:inquiryId" element={<InquiryDetailPage/>}/>
+                            <Route path="inquiry/:inquiryId/update" element={<UpdateInquiryPage/>}/>
+
+                            <Route path="feedback/new" element={<CreateFeedbackPage/>}/>
                             <Route path="feedback" element={<FeedbackPage/>}/>
                             <Route path="feedback/:feedbackId" element={<FeedbackDetailPage/>}/>
+                            <Route path="feedback/:feedbackId/update" element={<UpdateFeedbackPage/>}/>
 
                             <Route path="alarm" element={<AlarmPage/>}/>
                             <Route path="quiz" element={<QuizPage/>}/>

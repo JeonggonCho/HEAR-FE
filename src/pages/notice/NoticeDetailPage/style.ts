@@ -25,18 +25,6 @@ export const Container = styled.div`
             font-size: 16px;
             color: ${({theme}) => theme.colors.font.sub};
         }
-
-        svg {
-            width: 40px;
-            height: 28px;
-            fill: ${({theme}) => theme.colors.font.sub};
-            cursor: pointer;
-            transition: all 0.2s ease-in-out 0s;
-            
-            &:hover {
-                fill: ${({theme}) => theme.colors.font.main};
-            }
-        }
     }
 
     hr {
@@ -64,15 +52,4 @@ export const Container = styled.div`
         text-decoration: underline;
     }
 }
-`;
-
-export const Dropdown = styled.div`
-    min-width: 140px;
-    position: absolute;
-    padding: 8px;
-    top: 36px;
-    right: 4px;
-    border-radius: 8px;
-    background-color: ${({theme}) => theme.colors.bg.main};
-    box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
 `;

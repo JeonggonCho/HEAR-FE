@@ -16,7 +16,7 @@ import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
 import ErrorContent from "@components/ErrorContent";
 
-const FeedbackCreatePage = () => {
+const CreateFeedbackPage = () => {
     const navigate = useNavigate();
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
@@ -98,4 +98,4 @@ const FeedbackCreatePage = () => {
     );
 };
 
-export default FeedbackCreatePage;
+export default CreateFeedbackPage;

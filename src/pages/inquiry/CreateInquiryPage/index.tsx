@@ -19,7 +19,7 @@ import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
 import ErrorContent from "@components/ErrorContent";
 
-const InquiryCreatePage = () => {
+const CreateInquiryPage = () => {
     const navigate = useNavigate();
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
@@ -101,4 +101,4 @@ const InquiryCreatePage = () => {
     );
 };
 
-export default InquiryCreatePage;
+export default CreateInquiryPage;

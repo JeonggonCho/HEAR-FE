@@ -1,25 +1,23 @@
 import {FC, useEffect, useMemo, useState} from "react";
 import {useParams} from "react-router-dom";
-import {ReactSVG} from "react-svg";
 
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
 import ErrorContent from "@components/ErrorContent";
+import Dropdown from "@components/Dropdown";
 
 import useRequest from "@hooks/useRequest.ts";
 import {INotice} from "@/types/componentProps.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import generateLink from "@util/generateLink.ts";
-
-import {Container, Dropdown} from "./style.ts";
-import more from "@assets/icons/more.svg";
 import {useUserDataStore} from "@store/useUserStore.ts";
+
+import {Container} from "./style.ts";
 
 const NoticeDetailPage:FC = () => {
     const [notice, setNotice] = useState<INotice>();
-    const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
     const {noticeId} = useParams();
 
@@ -54,10 +52,9 @@ const NoticeDetailPage:FC = () => {
 
                     <div>
                         <span>{timeStamp}</span>
-                        {userData?.role === "admin" || userData?.role === "manager" &&
-                          <ReactSVG src={more} onClick={() => setShowDropdown((prevState) => !prevState)}/>
+                        {userData?.role === "admin" || userData?.role === "manager" && noticeId &&
+                          <Dropdown deleteUrl={`/notices/${noticeId}`} type={"notice"} id={noticeId}/>
                         }
-                        {showDropdown && <Dropdown>헬로</Dropdown>}
                     </div>
 
                     <hr/>
@@ -65,15 +62,15 @@ const NoticeDetailPage:FC = () => {
                       <p dangerouslySetInnerHTML={{__html: generateLink(notice.content)}}/>
                     }
                 </>
-                    :
-                    <LoadingLoop/>
-                    }
+                :
+                <LoadingLoop/>
+            }
 
-                    {errorText &&
-                        <Modal
-                  content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                  setModal={clearError}
-                  type={"popup"}
+            {errorText &&
+                <Modal
+                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
+                    setModal={clearError}
+                    type={"popup"}
                 />
             }
         </Container>

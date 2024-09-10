@@ -188,3 +188,11 @@ export interface ITextareaProps {
     name: string;
     errorMessage?: string;
 }
+
+
+// 드롭다운(Dropdown) props
+export interface IDropdownProps {
+    deleteUrl: string;
+    type: "feedback" | "inquiry" | "notice";
+    id: string;
+}
