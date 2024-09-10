@@ -1,14 +1,19 @@
+import React, {FC, useEffect, useState} from "react";
+
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
-import vacuum from "@assets/images/vacuum.png";
-import {MachineImgWrapper} from "./style.ts";
 import Tab from "@components/Tab";
-import React, {useEffect, useState} from "react";
+
+import {ITab} from "@/types/tab.ts";
+
+import {MachineImgWrapper} from "./style.ts";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
+
+import vacuum from "@assets/images/vacuum.png";
+
 import Introduction from "../Introduction";
 import Preparation from "../Preparation";
 import Usage from "../Usage";
-import {ITab} from "@/types/tab.ts";
 
 const tabs: ITab[] = [
     { name: "소개", content: <Introduction/>, },
@@ -22,7 +27,7 @@ const VacuumImage = React.memo(() => (
     </MachineImgWrapper>
 ));
 
-const InstructionVacuum = () => {
+const InstructionVacuum:FC = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     useEffect(() => {

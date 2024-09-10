@@ -19,7 +19,7 @@ import alarm from "@assets/icons/alarm.svg";
 import dark from "@assets/icons/dark.svg";
 import light from "@assets/icons/light.svg";
 
-const MainHeaderLeft: FC = () => {
+const MainHeaderLeft:FC = () => {
     return (
         <HeaderElementWrapper>
             <LogoWrapper>

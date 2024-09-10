@@ -1,8 +1,11 @@
 import {FC} from 'react';
 import {ReactSVG} from "react-svg";
-import write from "@assets/icons/write.svg";
-import {Container} from "./style.ts";
+
 import {ICreateBtnProps} from "@/types/componentProps.ts";
+
+import {Container} from "./style.ts";
+
+import write from "@assets/icons/write.svg";
 
 const CreateBtn:FC<ICreateBtnProps> = ({to}) => {
     return (

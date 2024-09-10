@@ -1,6 +1,8 @@
 import React, {FC} from "react";
-import {Container} from "./style.ts";
+
 import {IHeaderProps} from "@/types/componentProps.ts";
+
+import {Container} from "./style.ts";
 
 const Header: FC<IHeaderProps> = ({leftChild, centerText, rightChild}) => {
     return (

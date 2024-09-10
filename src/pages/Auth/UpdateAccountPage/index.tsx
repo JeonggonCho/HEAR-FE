@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
 import {useNavigate} from "react-router-dom";
@@ -21,7 +21,7 @@ import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 
 import {Container} from "./style.ts";
 
-const UpdateAccountPage = () => {
+const UpdateAccountPage:FC = () => {
     const [formData, setFormData] = useState<any>(null);
     const [updateAccountModal, setUpdateAccountModal] = useState<boolean>(false);
 

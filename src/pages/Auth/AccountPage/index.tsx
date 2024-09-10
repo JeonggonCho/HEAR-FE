@@ -10,16 +10,17 @@ import ReservationListCard from "@components/ReservationListCard";
 import UsageListCard from "@components/UsageListCard";
 import Modal from "@components/Modal";
 import ConfirmContent from "@components/ConfirmContent";
-
-import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
-import {useAuthStore} from "@store/useAuthStore.ts";
-
-import {Container, UserName} from "./style.ts";
-import useRequest from "@hooks/useRequest.ts";
 import LoadingLoop from "@components/LoadingLoop";
 import ErrorContent from "@components/ErrorContent";
 
-const AccountPage = () => {
+import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
+import {useAuthStore} from "@store/useAuthStore.ts";
+import useRequest from "@hooks/useRequest.ts";
+
+import {Container, UserName} from "./style.ts";
+
+
+const AccountPage:FC = () => {
     const [logoutModal, setLogoutModal] = useState<boolean>(false);
     const [unregisterModal, setUnregisterModal] = useState<boolean>(false);
     const {isLoading, errorText, sendRequest, clearError} = useRequest();

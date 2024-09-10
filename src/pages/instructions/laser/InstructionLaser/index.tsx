@@ -1,15 +1,20 @@
+import React, {FC, useEffect, useState} from "react";
+
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
-import laser from "@assets/images/laser_cut.png";
-import {MachineImgWrapper} from "./style.ts";
 import Tab from "@components/Tab";
-import React, {useEffect, useState} from "react";
+
+import {ITab} from "@/types/tab.ts";
+
+import {MachineImgWrapper} from "./style.ts";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
+
+import laser from "@assets/images/laser_cut.png";
+
 import Introduction from "../Introduction";
 import Usage from "../Usage";
 import After from "../After";
 import Preparation from "../Preparation";
-import {ITab} from "@/types/tab.ts";
 
 const tabs: ITab[] = [
     { name: "소개", content: <Introduction/>, },
@@ -24,7 +29,7 @@ const LaserImage = React.memo(() => (
     </MachineImgWrapper>
 ));
 
-const InstructionLaser = () => {
+const InstructionLaser:FC = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     useEffect(() => {

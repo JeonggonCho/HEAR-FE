@@ -1,5 +1,7 @@
 import {FC} from "react";
+
 import {Container, ImageWrapper} from "../../instruction.style.ts";
+
 import on from "@assets/instruction_images/printer/3d_printer_on.jpg";
 import thermal from "@assets/instruction_images/printer/3d_printer_thermal.jpg";
 import ingredient from "@assets/instruction_images/printer/3d_printer_indredient.jpg";

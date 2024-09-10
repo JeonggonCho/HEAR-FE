@@ -1,5 +1,7 @@
 import {FC} from 'react';
+
 import {Container, ImageWrapper} from "../../instruction.style.ts";
+
 import mould from "@assets/instruction_images/vacuum/vacuum_mould.jpg";
 import mould2 from "@assets/instruction_images/vacuum/vacuum_mould2.jpg";
 

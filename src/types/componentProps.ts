@@ -192,7 +192,15 @@ export interface ITextareaProps {
 
 // 드롭다운(Dropdown) props
 export interface IDropdownProps {
-    deleteUrl: string;
     type: "feedback" | "inquiry" | "notice";
     id: string;
+}
+
+
+// 말풍선(ChatBubble) props
+export interface IChatBubbleProps {
+    text: string;
+    isMine: boolean;
+    showProfile: boolean;
+    profile: string;
 }

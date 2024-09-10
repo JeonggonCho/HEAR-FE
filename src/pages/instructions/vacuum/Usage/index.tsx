@@ -1,5 +1,7 @@
 import {FC} from 'react';
+
 import {Container, ImageWrapper} from "../../instruction.style.ts";
+
 import controllers from "@assets/instruction_images/vacuum/vacuum_controllers.jpg";
 import on from "@assets/instruction_images/vacuum/vacuum_on.jpg";
 import heat from "@assets/instruction_images/vacuum/vacuum_heat.jpg";

@@ -1,20 +1,25 @@
+import React, {useState, useEffect, FC} from "react";
+
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
-import cnc from "@assets/images/cnc.png";
-import {MachineImgWrapper} from "./style.ts";
 import Tab from "@components/Tab";
+
+import {ITab} from "@/types/tab.ts";
+
+import {MachineImgWrapper} from "./style.ts";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
-import React, {useState, useEffect} from "react";
+
+import cnc from "@assets/images/cnc.png";
+
 import Introduction from "../Introduction";
 import Work from "../Work";
-import {ITab} from "@/types/tab.ts";
 
 const tabs: ITab[] = [
     { name: "소개", content: <Introduction/>, },
     { name: "작업", content: <Work/>, },
 ];
 
-const InstructionCnc = () => {
+const InstructionCnc:FC = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     useEffect(() => {

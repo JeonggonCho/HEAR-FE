@@ -1,11 +1,15 @@
-import {Container} from "./style.ts";
-import {IInputWithLabelProps} from "@/types/componentProps.ts";
-import {FieldValues} from "react-hook-form";
-import InputError from "@components/InputError";
+import {useState} from "react";
 import {ReactSVG} from "react-svg";
+import {FieldValues} from "react-hook-form";
+
+import InputError from "@components/InputError";
+
+import {IInputWithLabelProps} from "@/types/componentProps.ts";
+
+import {Container} from "./style.ts";
+
 import visible from "@assets/icons/visible.svg";
 import invisible from "@assets/icons/invisible.svg";
-import {useState} from "react";
 
 const InputWithLabel = <TFieldValues extends FieldValues>(
     {

@@ -1,5 +1,7 @@
 import {FC} from "react";
+
 import {Container, ImageWrapper} from "../../instruction.style.ts";
+
 import modeling1 from "@assets/instruction_images/printer/3d_printer_1-1.jpg";
 import modeling2 from "@assets/instruction_images/printer/3d_printer_1-2.jpg";
 import modeling3 from "@assets/instruction_images/printer/3d_printer_1-3.jpg";

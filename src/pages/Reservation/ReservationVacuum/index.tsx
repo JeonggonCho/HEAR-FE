@@ -1,17 +1,20 @@
+import {FC, useState} from "react";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import RoomMap from "@components/RoomMap";
 import ColoredBtn from "@components/ColoredBtn";
 import InputWithLabel from "@components/InputWithLabel";
-import {Container} from "./style.ts";
-import {useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {sawVacuumSchema} from "@schemata/machineSchema.ts";
 import Modal from "@components/Modal";
 import Calendar from "@components/Calendar";
-import {useState} from "react";
 
-const ReservationVacuum = () => {
+import {sawVacuumSchema} from "@schemata/machineSchema.ts";
+
+import {Container} from "./style.ts";
+
+const ReservationVacuum:FC = () => {
     const [isOpenCalendar, setIsOpenCalendar] = useState<boolean>(false);
 
     const {register, handleSubmit, formState: {errors}, setValue} = useForm({

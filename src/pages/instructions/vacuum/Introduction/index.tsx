@@ -1,5 +1,7 @@
 import {FC} from 'react';
+
 import {Container, ImageWrapper} from "../../instruction.style.ts";
+
 import vacuumMachine from "@assets/instruction_images/vacuum/vacuum_machine.jpg";
 
 const Introduction:FC = () => {

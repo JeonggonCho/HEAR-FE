@@ -4,6 +4,7 @@ import {lighten} from "polished";
 
 export const Container = styled.div`
     position: relative;
+    z-index: 3;
 
     svg {
         display: flex;
@@ -47,7 +48,10 @@ export const DropdownWrapper = styled.div`
         }
         
         svg {
-            fill: ${({theme}) => theme.colors.icon.fill};
+            fill: ${({theme}) => {
+                const {isDarkMode} = useThemeStore();
+                return isDarkMode ? lighten(0.2, theme.colors.icon.fill) : theme.colors.icon.fill;
+            }};
         }
     }
 `;

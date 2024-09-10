@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {FC, useEffect, useState} from "react";
 
 import Header from "@components/Header";
 import ColoredBtn from "@components/ColoredBtn";
@@ -7,13 +7,14 @@ import CreateBtn from "@components/CreateBtn";
 import Empty from "@components/Empty";
 import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
+import ErrorContent from "@components/ErrorContent";
 
 import useRequest from "@hooks/useRequest.ts";
-import {IInquiryProps} from "@types/componentProps.ts";
+import {IInquiryProps} from "@/types/componentProps.ts";
 
 import {Container, HeaderWrapper} from "./style.ts";
+
 import inquiry from "@assets/images/inquiry.png";
-import ErrorContent from "@components/ErrorContent";
 
 const InquiryHeaderLeft = () => (
     <HeaderWrapper>
@@ -33,7 +34,7 @@ const InquiryHeaderRight = () => (
     />
 );
 
-const InquiryPage = () => {
+const InquiryPage:FC = () => {
     const [inquiries, setInquiries] = useState<IInquiryProps[]>([]);
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();

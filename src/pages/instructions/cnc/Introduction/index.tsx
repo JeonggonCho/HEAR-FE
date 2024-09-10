@@ -1,5 +1,7 @@
 import {FC} from "react";
+
 import {Container, ImageWrapper} from "../../instruction.style.ts";
+
 import cncMachine from "@assets/instruction_images/cnc/cnc_machine.jpg";
 
 const Introduction:FC = () => {

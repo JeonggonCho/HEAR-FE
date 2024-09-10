@@ -1,5 +1,7 @@
 import {FC} from 'react';
+
 import {Container, Usage} from "./style.ts";
+
 import history from "@assets/images/history.png";
 
 const UsageListCard:FC = () => {

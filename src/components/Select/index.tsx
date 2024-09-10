@@ -1,7 +1,10 @@
 import {FC} from 'react';
-import {Container, LabelWrapper, RadioWrapper} from "./style.ts";
-import {ISelectWithLabelProps} from "@/types/componentProps.ts";
+
 import InputError from "@components/InputError";
+
+import {ISelectWithLabelProps} from "@/types/componentProps.ts";
+
+import {Container, LabelWrapper, RadioWrapper} from "./style.ts";
 
 const Select:FC<ISelectWithLabelProps> = ({label, categories, register, name, errorMessage}) => {
     return (

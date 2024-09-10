@@ -1,16 +1,20 @@
+import {FC} from "react";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import RoomMap from "@components/RoomMap";
 import ColoredBtn from "@components/ColoredBtn";
 import Select from "@components/Select";
 import InputWithLabel from "@components/InputWithLabel";
-import {Container} from "./style.ts";
-import {useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
+
 import {laserSchema} from "@schemata/machineSchema.ts";
 import {machineType} from "@constants/machineCategories.ts";
 
-const ReservationLaser = () => {
+import {Container} from "./style.ts";
+
+const ReservationLaser:FC = () => {
     const {register, handleSubmit, formState: {errors}, setValue} = useForm({
         resolver: zodResolver(laserSchema),
         defaultValues: {

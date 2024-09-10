@@ -1,3 +1,5 @@
+import {FC} from "react";
+
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import ColoredBtn from "@components/ColoredBtn";
@@ -8,7 +10,7 @@ import {Container} from "./style.ts";
 
 import logo from "@assets/images/404_logo.png";
 
-const NotFoundPage = () => {
+const NotFoundPage:FC = () => {
     const {isLoggedIn} = useAuthStore();
 
     return (

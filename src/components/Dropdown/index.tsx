@@ -1,4 +1,4 @@
-import {FC, useState} from "react";
+import {FC, useEffect, useRef, useState} from "react";
 import {ReactSVG} from "react-svg";
 import {useNavigate} from "react-router-dom";
 
@@ -16,13 +16,27 @@ import deleteIcon from "@assets/icons/delete.svg";
 import editIcon from "@assets/icons/edit.svg";
 import more from "@assets/icons/more.svg";
 
-const Dropdown:FC<IDropdownProps> = ({deleteUrl, type, id}) => {
+const Dropdown:FC<IDropdownProps> = ({type, id}) => {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
     const navigate = useNavigate();
 
     const {errorText, clearError, sendRequest} = useRequest();
+
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setShowDropdown(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     const updateLinkHandler = () => {
         switch (type) {
@@ -41,9 +55,15 @@ const Dropdown:FC<IDropdownProps> = ({deleteUrl, type, id}) => {
     };
 
     const deleteHandler = async () => {
+        const deleteUrl: { [key: string]: string } = {
+            feedback: `/feedback/${id}`,
+            notice: `/notices/${id}`,
+            inquiry: `/inquiries/${id}`
+        };
+
         try {
             await sendRequest({
-                url: deleteUrl,
+                url: deleteUrl[type],
                 method: "delete",
             });
             navigate(-1);
@@ -53,7 +73,7 @@ const Dropdown:FC<IDropdownProps> = ({deleteUrl, type, id}) => {
     };
 
     return (
-        <Container>
+        <Container ref={dropdownRef}>
             <ReactSVG src={more} onClick={() => setShowDropdown((prevState) => !prevState)}/>
 
             {showDropdown &&

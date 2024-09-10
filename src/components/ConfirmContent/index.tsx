@@ -1,6 +1,8 @@
 import {FC} from "react";
-import {Container} from "./style.ts";
+
 import {IConfirmContentProps} from "@/types/componentProps.ts";
+
+import {Container} from "./style.ts";
 
 const ConfirmContent:FC<IConfirmContentProps> = ({text, description, leftBtn, rightBtn}) => {
     return (

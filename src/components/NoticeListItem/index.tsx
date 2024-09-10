@@ -1,10 +1,11 @@
 import {FC, useMemo} from "react";
 
+import ArrowForward from "@components/ArrowForward";
+
 import {INotice} from "@/types/componentProps.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 
 import {Container} from "./style.ts";
-import ArrowForward from "@components/ArrowForward";
 
 const NoticeListItem:FC<INotice> = (props) => {
     const timeStamp = useMemo(() => getTimeStamp(props.createdAt), [props.createdAt]);

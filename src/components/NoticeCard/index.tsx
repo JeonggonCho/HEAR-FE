@@ -1,7 +1,10 @@
 import {FC} from "react";
-import {Container, More, Notice} from "./style.ts";
-import notice from "@assets/images/notice.png";
+
 import ArrowForward from "@components/ArrowForward";
+
+import {Container, More, Notice} from "./style.ts";
+
+import notice from "@assets/images/notice.png";
 
 const NoticeCard:FC = () => {
     return (

@@ -1,3 +1,4 @@
+import {FC} from "react";
 import {useNavigate} from "react-router-dom";
 import { z } from "zod";
 import {SubmitHandler, useForm} from "react-hook-form";
@@ -20,9 +21,10 @@ import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {IAuthResponseData} from "@/types/authResponse.ts";
 
 import {Container} from "./style.ts";
+
 import logo from "@assets/logo.svg";
 
-const LoginPage = () => {
+const LoginPage:FC = () => {
     const navigate = useNavigate();
 
     const {login} = useAuthStore();

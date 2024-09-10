@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {FC, useEffect, useState} from "react";
 
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
@@ -11,11 +11,11 @@ import ErrorContent from "@components/ErrorContent";
 
 import {useUserDataStore} from "@store/useUserStore.ts";
 import useRequest from "@hooks/useRequest.ts";
-import {INotice} from "@types/componentProps.ts";
+import {INotice} from "@/types/componentProps.ts";
 
 import {Container} from "./style.ts";
 
-const NoticePage = () => {
+const NoticePage:FC = () => {
     const [notices, setNotices] = useState<INotice[]>([]);
     const {userData} = useUserDataStore();
 

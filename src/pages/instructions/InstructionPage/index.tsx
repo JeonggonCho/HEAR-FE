@@ -1,3 +1,5 @@
+import {FC} from "react";
+
 import Header from "@components/Header";
 import MachineInstructionItem from "@components/MachineInstructionItem";
 
@@ -36,7 +38,7 @@ const InstructionHeaderLeft = () => {
     );
 };
 
-const InstructionPage = () => {
+const InstructionPage:FC = () => {
     return (
         <Container>
             <Header leftChild={<InstructionHeaderLeft/>}/>

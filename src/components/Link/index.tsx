@@ -1,6 +1,8 @@
 import {FC} from 'react';
-import {Container, LinkWrapper} from "./style.ts";
+
 import {ILinkProps} from "@/types/componentProps.ts";
+
+import {Container, LinkWrapper} from "./style.ts";
 
 const Link:FC<ILinkProps> = ({text, to, color}) => {
     return (

@@ -1,11 +1,12 @@
 import React, {FC} from "react";
-import {Container, Button} from "./style.ts";
 import {ReactSVG} from "react-svg";
 import {useLocation} from "react-router-dom";
+
 import {navCategories} from "@constants/navCategories.ts";
 
+import {Container, Button} from "./style.ts";
 
-const Nav: FC = () => {
+const Nav:FC = () => {
     const {pathname} = useLocation();
 
     return (

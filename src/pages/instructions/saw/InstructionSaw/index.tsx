@@ -1,20 +1,25 @@
+import React, {FC, useEffect, useState} from "react";
+
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
-import saw from "@assets/images/saw.png";
-import {MachineImgWrapper} from "./style.ts";
 import Tab from "@components/Tab";
-import React, {useEffect, useState} from "react";
+
+import {ITab} from "@/types/tab.ts";
+
 import {Content} from "../../printer/InstructionPrinter/style.ts";
+import {MachineImgWrapper} from "./style.ts";
+
+import saw from "@assets/images/saw.png";
+
 import Warning from "../Warning";
 import After from "../After";
-import {ITab} from "@/types/tab.ts";
 
 const tabs: ITab[] = [
     { name: "주의사항", content: <Warning/>, },
     { name: "사용후", content: <After/>, },
 ];
 
-const InstructionSaw = () => {
+const InstructionSaw:FC = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     useEffect(() => {

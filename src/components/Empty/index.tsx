@@ -1,6 +1,8 @@
 import {FC} from 'react';
-import {Container} from "./style.ts";
+
 import {IEmptyProps} from "@/types/componentProps.ts";
+
+import {Container} from "./style.ts";
 
 const Empty:FC<IEmptyProps> = ({image, title, message}) => {
     return (

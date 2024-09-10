@@ -1,6 +1,11 @@
+import {FC} from "react";
+
 import Header from "@components/Header";
-import {Container} from "./style.ts";
+
 import {HeaderWrapper} from "@pages/inquiry/InquiryPage/style.ts";
+
+import {Container} from "./style.ts";
+
 import test from "@assets/images/test.png";
 
 const QuizHeaderLeft = () => (
@@ -10,7 +15,7 @@ const QuizHeaderLeft = () => (
     </HeaderWrapper>
 );
 
-const QuizPage = () => {
+const QuizPage:FC = () => {
     return (
         <Container>
             <Header leftChild={<QuizHeaderLeft/>}/>

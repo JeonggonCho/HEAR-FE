@@ -1,7 +1,9 @@
+import {FC} from "react";
+
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 
-const AlarmPage = () => {
+const AlarmPage:FC = () => {
     return (
         <div>
             <Header leftChild={<ArrowBack/>} centerText={"알림"}/>

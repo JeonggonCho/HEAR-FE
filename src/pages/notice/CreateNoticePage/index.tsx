@@ -1,3 +1,4 @@
+import {FC} from "react";
 import {useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -17,7 +18,7 @@ import useRequest from "@hooks/useRequest.ts";
 
 import {Container} from "./style.ts";
 
-const CreateNoticePage = () => {
+const CreateNoticePage:FC = () => {
     const navigate = useNavigate();
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();

@@ -1,7 +1,10 @@
 import {FC} from "react";
-import {Container} from "./style.ts";
-import manager from "@assets/images/manager.png";
+
 import ColoredBtn from "@components/ColoredBtn";
+
+import {Container} from "./style.ts";
+
+import manager from "@assets/images/manager.png";
 
 const ManagerCard:FC = () => {
     return (

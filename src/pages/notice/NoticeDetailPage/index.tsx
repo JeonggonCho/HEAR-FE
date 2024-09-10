@@ -11,7 +11,7 @@ import Dropdown from "@components/Dropdown";
 import useRequest from "@hooks/useRequest.ts";
 import {INotice} from "@/types/componentProps.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
-import generateLink from "@util/generateLink.ts";
+import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
 
 import {Container} from "./style.ts";
@@ -53,13 +53,12 @@ const NoticeDetailPage:FC = () => {
                     <div>
                         <span>{timeStamp}</span>
                         {userData?.role === "admin" || userData?.role === "manager" && noticeId &&
-                          <Dropdown deleteUrl={`/notices/${noticeId}`} type={"notice"} id={noticeId}/>
+                          <Dropdown type={"notice"} id={noticeId}/>
                         }
                     </div>
-
                     <hr/>
                     {notice.content &&
-                      <p dangerouslySetInnerHTML={{__html: generateLink(notice.content)}}/>
+                      <p dangerouslySetInnerHTML={{__html: generateLinksAndLineBreaks(notice.content)}}/>
                     }
                 </>
                 :

@@ -1,3 +1,5 @@
+import {FC} from "react";
+
 import Header from "@components/Header";
 import MachineSelector from "@components/MachineReservationItem";
 import ColoredBtn from "@components/ColoredBtn";
@@ -29,7 +31,7 @@ const ReservationHeaderRight = () => (
     />
 );
 
-const ReservationPage = () => {
+const ReservationPage:FC = () => {
     return (
         <Container>
             <Header leftChild={<ReservationHeaderLeft/>} rightChild={<ReservationHeaderRight/>}/>

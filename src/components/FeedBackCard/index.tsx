@@ -1,6 +1,8 @@
 import {FC} from "react";
-import {Container} from "./style.ts";
+
 import ArrowForward from "@components/ArrowForward";
+
+import {Container} from "./style.ts";
 
 const FeedBackCard:FC = () => {
     return (

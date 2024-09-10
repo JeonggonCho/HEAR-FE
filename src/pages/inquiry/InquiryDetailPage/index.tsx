@@ -1,20 +1,24 @@
-import {useEffect, useMemo, useState} from "react";
+import {FC, useEffect, useMemo, useState} from "react";
 import {useParams} from "react-router-dom";
 
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
+import ErrorContent from "@components/ErrorContent";
+import Dropdown from "@components/Dropdown";
+import ChatBubble from "@components/ChatBubble";
 
 import useRequest from "@hooks/useRequest.ts";
-import {IInquiryProps} from "@types/componentProps.ts";
+import {IInquiryProps} from "@/types/componentProps.ts";
 import {inquiryCategoriesValues} from "@constants/inquiryCategories.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 
 import {Container} from "./style.ts";
-import ErrorContent from "@components/ErrorContent";
 
-const InquiryDetailPage = () => {
+import Q from "@assets/images/Q.png";
+
+const InquiryDetailPage:FC = () => {
     const [inquiry, setInquiry] = useState<IInquiryProps>();
 
     const {inquiryId} = useParams();
@@ -46,9 +50,30 @@ const InquiryDetailPage = () => {
                 <>
                     <span>{inquiryCategoriesValues[inquiry.category]}</span>
                     <h2>{inquiry.title}</h2>
-                    <p>{timeStamp}</p>
-                    <p>{inquiry.creator}</p>
-                    <p>{inquiry.content}</p>
+
+                    <div>
+                        <span>{inquiry.creator}</span>
+                        <div>
+                            <span>{timeStamp}</span>
+                            {inquiryId &&
+                                <Dropdown type={"inquiry"} id={inquiryId}/>
+                            }
+                        </div>
+                    </div>
+                    <hr/>
+                    <div>
+                        {inquiry.content &&
+                          <ChatBubble
+                            text={inquiry.content}
+                            isMine={true}
+                            showProfile={true}
+                            profile={Q}
+                          />
+                        }
+                    </div>
+                    <div>
+                        작성된 답변이 없습니다
+                    </div>
                 </>
                 :
                 <LoadingLoop/>

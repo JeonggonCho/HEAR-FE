@@ -1,9 +1,13 @@
-import {Container, LottieWrapper} from "./style.ts";
+import {FC} from "react";
+
 import Header from "@components/Header";
-import done from "@assets/images/done.json";
 import ColoredBtn from "@components/ColoredBtn";
 
-const ReservationDonePage = () => {
+import {Container, LottieWrapper} from "./style.ts";
+
+import done from "@assets/images/done.json";
+
+const ReservationDonePage:FC = () => {
     return (
         <Container>
             <Header centerText={"예약 완료"}/>

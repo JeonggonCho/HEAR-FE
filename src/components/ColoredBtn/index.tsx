@@ -1,6 +1,8 @@
 import {FC} from "react";
-import {ButtonWrapper, LinkWrapper, SubmitWrapper} from "./style.ts";
+
 import {IColoredBtnProps} from "@/types/componentProps.ts";
+
+import {ButtonWrapper, LinkWrapper, SubmitWrapper} from "./style.ts";
 
 const ColoredBtn:FC<IColoredBtnProps> = ({type = "button", to, content, width, color, scale, onClick, disabled}) => {
     if (type === "button") {

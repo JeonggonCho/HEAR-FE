@@ -1,5 +1,7 @@
 import {FC} from "react";
+
 import {Container, ImageWrapper} from "../../instruction.style.ts";
+
 import fan from "@assets/instruction_images/laser/laser_fan.jpg";
 import on from "@assets/instruction_images/laser/laser_on.jpg";
 import program from "@assets/instruction_images/laser/laser_program.jpg";

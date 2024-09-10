@@ -1,13 +1,17 @@
+import {FC} from "react";
+import {useForm} from "react-hook-form";
+
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import ColoredBtn from "@components/ColoredBtn";
 import InputWithLabel from "@components/InputWithLabel";
-import {Container} from "./style.ts";
-import {useForm} from "react-hook-form";
+
 import {zodResolver} from "@hookform/resolvers/zod";
 import {cncHeatSchema} from "@schemata/machineSchema.ts";
 
-const ReservationHeat = () => {
+import {Container} from "./style.ts";
+
+const ReservationHeat:FC = () => {
     const {register, handleSubmit, formState: {errors}, setValue} = useForm({
         resolver: zodResolver(cncHeatSchema),
         defaultValues: {

@@ -1,9 +1,12 @@
+import {FC} from "react";
+
 import Header from "@components/Header";
-import done from "@assets/images/done.json";
-import {Container, LottieWrapper} from "./style.ts";
 import ColoredBtn from "@components/ColoredBtn";
 
-const SignupDonePage = () => {
+import {Container, LottieWrapper} from "./style.ts";
+import done from "@assets/images/done.json";
+
+const SignupDonePage:FC = () => {
     return (
         <Container>
             <Header centerText={"회원가입 완료"}/>

@@ -1,7 +1,10 @@
 import {FC} from 'react';
-import {Container} from "./style.ts";
-import situation from "@assets/images/situation.png";
+
 import ArrowForward from "@components/ArrowForward";
+
+import {Container} from "./style.ts";
+
+import situation from "@assets/images/situation.png";
 
 const ConditionCard:FC = () => {
     return (

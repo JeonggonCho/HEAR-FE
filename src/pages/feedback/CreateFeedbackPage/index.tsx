@@ -1,22 +1,26 @@
+import {FC} from "react";
 import {z} from "zod";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {useNavigate} from "react-router-dom";
+import {zodResolver} from "@hookform/resolvers/zod";
+
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import Textarea from "@components/Textarea";
 import ColoredBtn from "@components/ColoredBtn";
-import {Container} from "./style.ts";
 import Select from "@components/Select";
 import InputWithLabel from "@components/InputWithLabel";
-import {feedbackCategories} from "@constants/feedbackCategories.ts";
-import {SubmitHandler, useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {feedbackSchema} from "@schemata/qnaSchema.ts";
-import {useNavigate} from "react-router-dom";
-import useRequest from "@hooks/useRequest.ts";
 import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
 import ErrorContent from "@components/ErrorContent";
 
-const CreateFeedbackPage = () => {
+import {feedbackCategories} from "@constants/feedbackCategories.ts";
+import {feedbackSchema} from "@schemata/qnaSchema.ts";
+import useRequest from "@hooks/useRequest.ts";
+
+import {Container} from "./style.ts";
+
+const CreateFeedbackPage:FC = () => {
     const navigate = useNavigate();
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();

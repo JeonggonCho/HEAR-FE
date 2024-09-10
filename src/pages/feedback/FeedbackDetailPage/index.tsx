@@ -1,11 +1,15 @@
+import {FC} from "react";
+
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 
-const FeedbackDetailPage = () => {
+import {Container} from "./style.ts";
+
+const FeedbackDetailPage:FC = () => {
     return (
-        <div>
+        <Container>
             <Header leftChild={<ArrowBack/>} centerText={"피드백"}/>
-        </div>
+        </Container>
     );
 };
 

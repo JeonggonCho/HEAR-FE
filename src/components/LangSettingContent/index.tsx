@@ -1,8 +1,11 @@
 import {FC, useState} from "react";
-import {Container} from "./style.ts";
-import {ILangSettingContentProps} from "@/types/componentProps.ts";
+
 import ColoredBtn from "@components/ColoredBtn";
+
+import {ILangSettingContentProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+
+import {Container} from "./style.ts";
 
 const LangSettingContent:FC<ILangSettingContentProps> = ({setModal}) => {
     const {lang, setLang} = useThemeStore();

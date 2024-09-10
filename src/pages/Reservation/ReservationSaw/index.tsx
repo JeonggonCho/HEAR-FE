@@ -1,16 +1,19 @@
+import {FC, useState} from "react";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import ColoredBtn from "@components/ColoredBtn";
 import InputWithLabel from "@components/InputWithLabel";
-import {Container} from "./style.ts";
-import {useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {sawVacuumSchema} from "@schemata/machineSchema.ts";
-import {useState} from "react";
 import Modal from "@components/Modal";
 import Calendar from "@components/Calendar";
 
-const ReservationSaw = () => {
+import {sawVacuumSchema} from "@schemata/machineSchema.ts";
+
+import {Container} from "./style.ts";
+
+const ReservationSaw:FC = () => {
     const [isOpenCalendar, setIsOpenCalendar] = useState<boolean>(false);
 
     const {register, handleSubmit, formState: {errors}, setValue} = useForm({

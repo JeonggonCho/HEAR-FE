@@ -1,13 +1,17 @@
+import {FC} from "react";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import InputWithLabel from "@components/InputWithLabel";
 import ColoredBtn from "@components/ColoredBtn";
-import {Container} from "./style.ts";
-import {useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
+
 import {findPasswordSchema} from "@schemata/authSchema.ts";
 
-const FindPasswordPage = () => {
+import {Container} from "./style.ts";
+
+const FindPasswordPage:FC = () => {
     const {register, handleSubmit, formState:{errors}} = useForm({
         resolver: zodResolver(findPasswordSchema),
         defaultValues: {

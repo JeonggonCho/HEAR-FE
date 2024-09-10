@@ -1,5 +1,7 @@
 import {FC} from 'react';
+
 import {Container, Reservation} from "./style.ts";
+
 import myReservation from "@assets/images/my_reservation.png";
 
 const ReservationListCard:FC = () => {

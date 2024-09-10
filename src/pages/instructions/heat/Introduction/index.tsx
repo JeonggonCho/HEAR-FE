@@ -1,5 +1,7 @@
 import {FC} from "react";
+
 import {Container, ImageWrapper} from "../../instruction.style.ts";
+
 import heatMachine from "@assets/instruction_images/heat/heat_machine.jpg";
 
 const Introduction:FC = () => {

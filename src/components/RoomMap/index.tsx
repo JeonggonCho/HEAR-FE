@@ -1,6 +1,8 @@
 import {FC} from "react";
-import {CncWrapper, Container, LaserWrapper, MapWrapper, PrinterWrapper, VacuumWrapper} from "./style.ts";
+
 import {IRoomMapProps} from "@/types/componentProps.ts";
+
+import {CncWrapper, Container, LaserWrapper, MapWrapper, PrinterWrapper, VacuumWrapper} from "./style.ts";
 
 const RoomMap:FC<IRoomMapProps> = ({machine}) => {
     return (

@@ -1,7 +1,10 @@
 import {ChangeEvent, FC, useState} from "react";
-import {Container} from "./style.ts";
+
 import InputError from "@components/InputError";
+
 import {ITextareaProps} from "@/types/componentProps.ts";
+
+import {Container} from "./style.ts";
 
 const Textarea:FC<ITextareaProps> = ({register, name, errorMessage}) => {
     const [text, setText] = useState("");

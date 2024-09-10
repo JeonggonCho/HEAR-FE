@@ -1,6 +1,8 @@
 import {FC} from "react";
-import {Container} from "./style.ts";
+
 import {useUserInfoStore, useUserDataStore} from "@store/useUserStore.ts";
+
+import {Container} from "./style.ts";
 
 const ProfileCard:FC = () => {
     const {userInfo} = useUserInfoStore();

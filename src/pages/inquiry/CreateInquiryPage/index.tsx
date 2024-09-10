@@ -1,6 +1,8 @@
+import {FC} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
 import {useNavigate} from "react-router-dom";
+import {zodResolver} from "@hookform/resolvers/zod";
 
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
@@ -8,18 +10,17 @@ import ColoredBtn from "@components/ColoredBtn";
 import Textarea from "@components/Textarea";
 import Select from "@components/Select";
 import InputWithLabel from "@components/InputWithLabel";
-
-import {inquiryCategories} from "@constants/inquiryCategories.ts";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {inquirySchema} from "@schemata/qnaSchema.ts";
-import useRequest from "@hooks/useRequest.ts";
-
-import {Container} from "./style.ts";
 import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
 import ErrorContent from "@components/ErrorContent";
 
-const CreateInquiryPage = () => {
+import {inquiryCategories} from "@constants/inquiryCategories.ts";
+import {inquirySchema} from "@schemata/qnaSchema.ts";
+import useRequest from "@hooks/useRequest.ts";
+
+import {Container} from "./style.ts";
+
+const CreateInquiryPage:FC = () => {
     const navigate = useNavigate();
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();

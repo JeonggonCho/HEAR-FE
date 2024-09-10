@@ -1,3 +1,4 @@
+import {FC} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
 import {useNavigate} from "react-router-dom";
@@ -11,6 +12,7 @@ import Link from "@components/Link";
 import Select from "@components/Select";
 import Modal from "@components/Modal";
 import LoadingLoop from "@components/LoadingLoop";
+import ErrorContent from "@components/ErrorContent";
 
 import {yearCategories} from "@constants/yearCategories.ts";
 import {signupSchema} from "@schemata/authSchema.ts";
@@ -21,9 +23,8 @@ import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {IAuthResponseData} from "@/types/authResponse.ts";
 
 import {Container} from "./style.ts";
-import ErrorContent from "@components/ErrorContent";
 
-const SignupPage = () => {
+const SignupPage:FC = () => {
     const navigate = useNavigate();
 
     const {login} = useAuthStore();

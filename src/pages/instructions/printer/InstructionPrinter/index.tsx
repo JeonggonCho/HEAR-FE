@@ -1,14 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
+
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
-import printer from "@assets/images/3d_printer.png";
-import {Content, MachineImgWrapper} from "./style.ts";
 import Tab from "@components/Tab";
+
+import {ITab} from "@/types/tab.ts";
+
+import {Content, MachineImgWrapper} from "./style.ts";
+
+import printer from "@assets/images/3d_printer.png";
+
 import Introduction from "../Introduction";
 import Preparation from "../Preparation";
 import After from "../After";
 import Usage from "../Usage";
-import {ITab} from "@/types/tab.ts";
 
 const tabs: ITab[] = [
     { name: "소개", content: <Introduction/>, },
@@ -23,7 +28,7 @@ const PrinterImage = React.memo(() => (
     </MachineImgWrapper>
 ));
 
-const InstructionPrinter = () => {
+const InstructionPrinter:FC = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     useEffect(() => {

@@ -1,6 +1,8 @@
 import {FC} from 'react';
-import { Container, TabButton, Background } from "./style";
+
 import {ITabProps} from "@/types/componentProps.ts";
+
+import { Container, TabButton, Background } from "./style";
 
 const Tab:FC<ITabProps> = ({tabs, activeIndex, setActiveIndex}) => {
     return (

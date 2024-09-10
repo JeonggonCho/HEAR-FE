@@ -1,4 +1,12 @@
 import {FC, useMemo, useState} from "react";
+import {ReactSVG} from "react-svg";
+
+import ColoredBtn from "@components/ColoredBtn";
+
+import {ICalendarProps} from "@/types/componentProps.ts";
+import {daysOfWeek} from "@constants/calendar.ts";
+import generateCalendar from "@util/generateCalendar.ts";
+
 import {
     Container,
     CalendarMonthWrapper,
@@ -6,13 +14,9 @@ import {
     CalendarDayWrapper,
     DayButton
 } from "./style.ts";
-import {ReactSVG} from "react-svg";
+
 import arrowBack from "@assets/icons/arrow_back_small.svg";
 import arrowForward from "@assets/icons/arrow_forward_small.svg";
-import {ICalendarProps} from "@/types/componentProps.ts";
-import {daysOfWeek} from "@constants/calendar.ts";
-import ColoredBtn from "@components/ColoredBtn";
-import generateCalendar from "@util/generateCalendar.ts";
 
 const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate}) => {
     const [currentDate, setCurrentDate] = useState<Date>(new Date());

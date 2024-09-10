@@ -1,9 +1,12 @@
-import {Container} from "./style.ts";
-import {ReactSVG} from "react-svg";
-import logo from "@assets/logo.svg";
+import {FC} from "react";
 import ReactDOM from "react-dom";
+import {ReactSVG} from "react-svg";
 
-const SplashPage = () => {
+import {Container} from "./style.ts";
+
+import logo from "@assets/logo.svg";
+
+const SplashPage:FC = () => {
     const splashRoot = document.getElementById("splash-hook");
 
     if (!splashRoot) return null;

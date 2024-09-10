@@ -1,5 +1,7 @@
 import {FC} from "react";
+
 import {Container, ImageWrapper} from "../../instruction.style.ts";
+
 import laserMachine from "@assets/instruction_images/laser/laser_machine.jpg";
 
 const Introduction:FC = () => {

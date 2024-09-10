@@ -1,6 +1,8 @@
 import {FC} from "react";
-import {Container, MachineImgWrapper} from "./style.ts";
+
 import {IMachineSelectorProps} from "@/types/componentProps.ts";
+
+import {Container, MachineImgWrapper} from "./style.ts";
 
 const MachineReservationItem: FC<IMachineSelectorProps> = ({image, name, to}) => {
     return (

@@ -1,6 +1,8 @@
 import {FC} from "react";
-import {Container} from "./style.ts";
+
 import {useUserDataStore} from "@store/useUserStore.ts";
+
+import {Container} from "./style.ts";
 
 const StatusCard:FC = () => {
     const {userData} = useUserDataStore();
