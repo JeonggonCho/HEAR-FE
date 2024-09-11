@@ -1,7 +1,5 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useCallback, useEffect, useState} from "react";
 
-import Header from "@components/Header";
-import ColoredBtn from "@components/ColoredBtn";
 import InquiryFeedbackListItem from "@components/InquiryFeedbackListItem";
 import CreateBtn from "@components/CreateBtn";
 import Empty from "@components/Empty";
@@ -12,50 +10,30 @@ import ErrorContent from "@components/ErrorContent";
 import useRequest from "@hooks/useRequest.ts";
 import {IFeedbackProps} from "@/types/componentProps.ts";
 
-import {Container, HeaderWrapper} from "./style.ts";
-
-import inquiry from "@assets/images/inquiry.png";
-
-const FeedbackHeaderLeft = () => (
-    <HeaderWrapper>
-        <img src={inquiry} alt="피드백"/>
-        <h2>피드백</h2>
-    </HeaderWrapper>
-);
-
-const FeedbackHeaderRight = () => (
-    <ColoredBtn
-        type={"link"}
-        content={"문의"}
-        width={"fit"}
-        color={"primary"}
-        scale={"small"}
-        to={"/inquiry"}
-    />
-);
+import {Container} from "./style.ts";
 
 const FeedbackPage:FC = () => {
     const [feedback, setFeedback] = useState<IFeedbackProps[]>([]);
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
-    useEffect(() => {
-        const fetchFeedback = async () => {
-            try {
-                const response = await sendRequest({
-                    url: "/feedback",
-                });
-                setFeedback(response.data);
-            } catch (err) {
-                console.error("피드백 목록 조회 중 에러 발생: ", err);
-            }
-        };
-        fetchFeedback();
+    const fetchFeedback = useCallback(async () => {
+        try {
+            const response = await sendRequest({
+                url: "/feedback",
+            });
+            setFeedback(response.data);
+        } catch (err) {
+            console.error("피드백 목록 조회 중 에러 발생: ", err);
+        }
     }, [sendRequest]);
+
+    useEffect(() => {
+        fetchFeedback();
+    }, [fetchFeedback]);
 
     return (
         <Container>
-            <Header leftChild={<FeedbackHeaderLeft/>} rightChild={<FeedbackHeaderRight/>}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
@@ -70,12 +48,12 @@ const FeedbackPage:FC = () => {
                         ))
                         :
                         <Empty
-                            title={"작성된 피드백이 아직 없어요"}
+                            title={"작성하신 피드백이 아직 없어요"}
                             message={"서비스에 대한 여러분의 피드백을 남겨주세요"}
                         />
                     }
 
-                    <CreateBtn to={"/feedback/new"}/>
+                    <CreateBtn to={"/communication/feedback/new"}/>
                 </>
             }
 

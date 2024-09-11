@@ -30,7 +30,7 @@ const InstructionHeat:FC = () => {
             <MachineImgWrapper>
                 <img src={heat} alt="열선"/>
             </MachineImgWrapper>
-            <Tab tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
+            <Tab type={"button"} tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
             <Content>{tabs[activeIndex].content}</Content>
         </div>
     );

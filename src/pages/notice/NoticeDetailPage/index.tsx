@@ -1,4 +1,4 @@
-import {FC, useEffect, useMemo, useState} from "react";
+import {FC, useCallback, useEffect, useMemo, useState} from "react";
 import {useParams} from "react-router-dom";
 
 import Header from "@components/Header";
@@ -27,21 +27,26 @@ const NoticeDetailPage:FC = () => {
         return notice?.createdAt ? getTimeStamp(notice.createdAt): '';
     },[notice?.createdAt]);
 
+    const memoizedText = useMemo(() => {
+        return notice?.content ? generateLinksAndLineBreaks(notice.content) : '';
+    }, [notice?.content]);
+
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
-    useEffect(() => {
-        const fetchNotice = async () => {
-            try {
-                const response = await sendRequest({
-                    url: `/notices/${noticeId}`,
-                });
-                setNotice(response.data);
-            } catch (err) {
-                console.error("공지 조회 중 에러 발생: ", err);
-            }
-        };
-        fetchNotice();
+    const fetchNotice = useCallback(async () => {
+        try {
+            const response = await sendRequest({
+                url: `/notices/${noticeId}`,
+            });
+            setNotice(response.data);
+        } catch (err) {
+            console.error("공지 조회 중 에러 발생: ", err);
+        }
     }, [sendRequest, noticeId]);
+
+    useEffect(() => {
+        fetchNotice();
+    }, [fetchNotice]);
 
     return (
         <Container>
@@ -58,7 +63,7 @@ const NoticeDetailPage:FC = () => {
                     </div>
                     <hr/>
                     {notice.content &&
-                      <p dangerouslySetInnerHTML={{__html: generateLinksAndLineBreaks(notice.content)}}/>
+                      <p dangerouslySetInnerHTML={{__html: memoizedText}}/>
                     }
                 </>
                 :

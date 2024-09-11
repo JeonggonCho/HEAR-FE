@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 import Header from "@components/Header";
@@ -31,23 +31,24 @@ const AccountPage:FC = () => {
     const {setUserData, clearUserData} = useUserDataStore();
     const {logout} = useAuthStore();
 
+    const fetchUser = useCallback(async () => {
+        try {
+            const response = await sendRequest({
+                url: "/users",
+                method: "get",
+            });
+            const {userId, username, email, year, studentId, studio, passQuiz, countOfLaser, countOfWarning, tel, role} = response.data;
+            setUserData({year, studio, passQuiz, countOfLaser, countOfWarning, tel, role});
+            setUserInfo({userId, username, email, studentId});
+        } catch (err) {
+            console.error("유저 정보 조회 에러: ", err);
+        }
+    }, [sendRequest]);
+
     // 유저 정보 조회
     useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const response = await sendRequest({
-                    url: "/users",
-                    method: "get",
-                });
-                const {userId, username, email, year, studentId, studio, passQuiz, countOfLaser, countOfWarning, tel, role} = response.data;
-                setUserData({year, studio, passQuiz, countOfLaser, countOfWarning, tel, role});
-                setUserInfo({userId, username, email, studentId});
-            } catch (err) {
-                console.error("유저 정보 조회 에러: ", err);
-            }
-        };
         fetchUser();
-    }, [sendRequest]);
+    }, [fetchUser]);
 
     const handleLogout = () => {
         logout();

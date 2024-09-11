@@ -1,7 +1,5 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useCallback, useEffect, useState} from "react";
 
-import Header from "@components/Header";
-import ArrowBack from "@components/ArrowBack";
 import CreateBtn from "@components/CreateBtn";
 import Empty from "@components/Empty";
 import NoticeListItem from "@components/NoticeListItem";
@@ -21,23 +19,23 @@ const NoticePage:FC = () => {
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
-    useEffect(() => {
-        const fetchNotices = async () => {
-            try {
-                const response = await sendRequest({
-                    url: "/notices",
-                });
-                setNotices(response.data);
-            } catch (err) {
-                console.error("공지 목록 조회 중 에러 발생: ", err);
-            }
-        };
-        fetchNotices();
+    const fetchNotices = useCallback(async () => {
+        try {
+            const response = await sendRequest({
+                url: "/notices",
+            });
+            setNotices(response.data);
+        } catch (err) {
+            console.error("공지 목록 조회 중 에러 발생: ", err);
+        }
     }, [sendRequest]);
+
+    useEffect(() => {
+        fetchNotices();
+    }, [fetchNotices]);
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"공지사항"}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
@@ -54,7 +52,7 @@ const NoticePage:FC = () => {
                         <Empty title={"작성된 공지사항이 없습니다"}/>
                     }
 
-                    {userData?.role === "manager" && <CreateBtn to={"/notice/new"}/>}
+                    {userData?.role === "manager" && <CreateBtn to={"/communication/notice/new"}/>}
                 </>
             }
 

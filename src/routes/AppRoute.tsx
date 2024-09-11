@@ -2,6 +2,7 @@ import {lazy, Suspense, useEffect} from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
 
 const Layout = lazy(() => import("@layouts/Layout"));
+const CommunicationLayout = lazy(() => import("@layouts/CommunicationLayout"));
 
 const MainPage = lazy(() => import("@pages/main/MainPage"));
 const AlarmPage = lazy(() => import("@pages/main/AlarmPage"));
@@ -70,10 +71,24 @@ const AppRoute = () => {
                             <Route path="password/reset" element={<FindPasswordPage/>}/>
                             <Route path="password/update" element={<UpdatePasswordPage/>}/>
 
-                            <Route path="notice/new" element={<CreateNoticePage/>}/>
-                            <Route path="notice" element={<NoticePage/>}/>
-                            <Route path="notice/:noticeId" element={<NoticeDetailPage/>}/>
-                            <Route path="notice/:noticeId/update" element={<UpdateNoticePage/>}/>
+                            <Route path="/communication" element={<CommunicationLayout/>}>
+                                <Route index element={<Navigate to="notice" />} />
+                                <Route path="notice" element={<NoticePage/>}/>
+                                <Route path="inquiry" element={<InquiryPage/>}/>
+                                <Route path="feedback" element={<FeedbackPage/>}/>
+                            </Route>
+
+                            <Route path="communication/notice/new" element={<CreateNoticePage/>}/>
+                            <Route path="communication/notice/:noticeId" element={<NoticeDetailPage/>}/>
+                            <Route path="communication/notice/:noticeId/update" element={<UpdateNoticePage/>}/>
+
+                            <Route path="communication/inquiry/new" element={<CreateInquiryPage/>}/>
+                            <Route path="communication/inquiry/:inquiryId" element={<InquiryDetailPage/>}/>
+                            <Route path="communication/inquiry/:inquiryId/update" element={<UpdateInquiryPage/>}/>
+
+                            <Route path="communication/feedback/new" element={<CreateFeedbackPage/>}/>
+                            <Route path="communication/feedback/:feedbackId" element={<FeedbackDetailPage/>}/>
+                            <Route path="communication/feedback/:feedbackId/update" element={<UpdateFeedbackPage/>}/>
 
                             <Route path="instruction" element={<InstructionPage/>}/>
                             <Route path="instruction/3d-printer" element={<InstructionPrinter/>}/>
@@ -92,16 +107,6 @@ const AppRoute = () => {
                             <Route path="reservation/saw" element={<ReservationSaw/>}/>
                             <Route path="reservation/vacuum" element={<ReservationVacuum/>}/>
                             <Route path="reservation/condition" element={<ConditionPage/>}/>
-
-                            <Route path="inquiry/new" element={<CreateInquiryPage/>}/>
-                            <Route path="inquiry" element={<InquiryPage/>}/>
-                            <Route path="inquiry/:inquiryId" element={<InquiryDetailPage/>}/>
-                            <Route path="inquiry/:inquiryId/update" element={<UpdateInquiryPage/>}/>
-
-                            <Route path="feedback/new" element={<CreateFeedbackPage/>}/>
-                            <Route path="feedback" element={<FeedbackPage/>}/>
-                            <Route path="feedback/:feedbackId" element={<FeedbackDetailPage/>}/>
-                            <Route path="feedback/:feedbackId/update" element={<UpdateFeedbackPage/>}/>
 
                             <Route path="alarm" element={<AlarmPage/>}/>
                             <Route path="quiz" element={<QuizPage/>}/>

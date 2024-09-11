@@ -121,12 +121,21 @@ export interface ISelectWithLabelProps {
 }
 
 
-// 탭(Tab) props
-export interface ITabProps {
+// 버튼형태 탭(Tab) props
+interface IButtonTabProps {
+    type: "button";
     tabs: ITab[];
     activeIndex: number;
     setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
 }
+
+// 라인형태 탭(Tab) props
+interface ILineTabProps {
+    type: "line";
+    tabs: ITab[];
+}
+
+export type ITabProps = IButtonTabProps | ILineTabProps;
 
 
 // 문의, 공지, 피드백 공통 타입
@@ -144,12 +153,14 @@ export interface IQna {
 // 문의 타입
 export interface IInquiryProps extends IQna {
     category: "machine" | "reservation" | "room"| "etc";
+    creatorId?: string;
 }
 
 
 // 피드백 타입
 export interface IFeedbackProps extends IQna {
     category: "good" | "bad" | "suggest"| "etc";
+    creatorId?: string;
 }
 
 

@@ -11,7 +11,7 @@ const NoticeListItem:FC<INotice> = (props) => {
     const timeStamp = useMemo(() => getTimeStamp(props.createdAt), [props.createdAt]);
 
     return (
-        <Container to={`/notice/${props._id}`}>
+        <Container to={`/communication/notice/${props._id}`}>
             <div>
                 <h3>{props.title}</h3>
                 <span>{timeStamp}</span>

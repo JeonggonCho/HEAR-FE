@@ -5,8 +5,11 @@ import ColoredBtn from "@components/ColoredBtn";
 import {Container} from "./style.ts";
 
 import manager from "@assets/images/manager.png";
+import {useUserDataStore} from "@store/useUserStore.ts";
 
 const ManagerCard:FC = () => {
+    const {userData} = useUserDataStore();
+
     return (
         <Container>
             <div>
@@ -20,7 +23,9 @@ const ManagerCard:FC = () => {
                     <span>병원건축연구실(216호)</span>
                 </div>
 
-                <ColoredBtn type={"link"} to={"/inquiry/new"} content={"문의하기"} width={"fit"} color={"third"} scale={"small"}/>
+                {userData?.role !== "manager" &&
+                    <ColoredBtn type={"link"} to={"/communication/inquiry/new"} content={"문의하기"} width={"fit"} color={"third"} scale={"small"}/>
+                }
             </div>
         </Container>
     );

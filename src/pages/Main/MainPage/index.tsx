@@ -56,9 +56,9 @@ const MainPage = () => {
                 한양대학교 에리카 건축학부<br/>
                 모형제작실 사용 및 예약 애플리케이션
             </p>
-            <ManagerCard/>
             <NoticeCard/>
             <SituationCard/>
+            <ManagerCard/>
             <div>
                 <LangSettingCard setModal={setLangModal}/>
                 <FeedBackCard/>

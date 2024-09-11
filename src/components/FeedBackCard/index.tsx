@@ -6,7 +6,7 @@ import {Container} from "./style.ts";
 
 const FeedBackCard:FC = () => {
     return (
-        <Container to={"/feedback/new"}>
+        <Container to={"/communication/feedback/new"}>
             <h3>
                 어플리케이션<br/>
                 피드백

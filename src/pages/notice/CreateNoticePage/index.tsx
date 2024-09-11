@@ -41,7 +41,7 @@ const CreateNoticePage:FC = () => {
                 data: data,
             });
             const {noticeId} = response.data;
-            navigate(`/notice/${noticeId}`, { replace: true });
+            navigate(`/communication/notice/${noticeId}`, { replace: true });
         } catch (err) {
             console.error("공지 등록 중 에러 발생: ", err);
         }

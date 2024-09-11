@@ -32,7 +32,7 @@ const InstructionCnc:FC = () => {
             <MachineImgWrapper>
                 <img src={cnc} alt="CNC"/>
             </MachineImgWrapper>
-            <Tab tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
+            <Tab type={"button"} tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
             <Content>{tabs[activeIndex].content}</Content>
         </div>
     );

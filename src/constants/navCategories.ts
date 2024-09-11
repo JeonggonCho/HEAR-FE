@@ -11,6 +11,6 @@ export const navCategories: ICategory[] = [
     { label: "사용법", icon: note, path: "/instruction" },
     { label: "예약", icon: reservation, path: "/reservation" },
     // { label: "교육", icon: quiz, path: "/quiz" },
-    { label: "문의", icon: inquiry, path: "/inquiry" },
+    { label: "소통", icon: inquiry, path: "/communication" },
     { label: "내정보", icon: account, path: "/account" },
 ];

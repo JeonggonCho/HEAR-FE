@@ -9,6 +9,7 @@ export const Container = styled.div`
     box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
     text-wrap: nowrap;
     margin-bottom: 28px;
+    margin-top: 10px;
 
     & > p:first-of-type {
         color: ${({theme}) => theme.colors.font.main};

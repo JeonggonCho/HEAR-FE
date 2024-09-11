@@ -38,7 +38,7 @@ const InstructionVacuum:FC = () => {
         <div>
             <Header leftChild={<ArrowBack/>} centerText={"사출 성형기"}/>
             <VacuumImage/>
-            <Tab tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
+            <Tab type={"button"} tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
             <Content>{tabs[activeIndex].content}</Content>
         </div>
     );

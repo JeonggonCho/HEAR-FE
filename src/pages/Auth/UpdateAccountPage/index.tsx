@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useCallback, useEffect, useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
 import {useNavigate} from "react-router-dom";
@@ -31,26 +31,27 @@ const UpdateAccountPage:FC = () => {
 
     const navigate = useNavigate();
 
+    const fetchUser = useCallback(async () => {
+        if (userInfo && userData) {
+            try {
+                const response = await sendRequest({
+                    url: "/users",
+                    method: "get",
+                });
+                const {userId, username, email, year, studentId, studio, passQuiz, countOfLaser, countOfWarning, tel, role} = response.data;
+
+                setUserData({year, studio, passQuiz, countOfLaser, countOfWarning, tel, role});
+                setUserInfo({userId, username, email, studentId});
+            } catch (err) {
+                console.error("유저 정보 조회 에러: ", err);
+            }
+        }
+    }, [sendRequest, setUserData, setUserInfo]);
+
     // 유저 데이터 조회
     useEffect(() => {
-        const fetchUser = async () => {
-            if (userInfo && userData) {
-                try {
-                    const response = await sendRequest({
-                        url: "/users",
-                        method: "get",
-                    });
-                    const {userId, username, email, year, studentId, studio, passQuiz, countOfLaser, countOfWarning, tel, role} = response.data;
-
-                    setUserData({year, studio, passQuiz, countOfLaser, countOfWarning, tel, role});
-                    setUserInfo({userId, username, email, studentId});
-                } catch (err) {
-                    console.error("유저 정보 조회 에러: ", err);
-                }
-            }
-        };
         fetchUser();
-    }, [sendRequest, setUserData, setUserInfo]);
+    }, [fetchUser]);
 
     type UpdateAccountFormData = z.infer<typeof updateAccountSchema>;
 

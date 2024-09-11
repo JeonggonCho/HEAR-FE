@@ -10,7 +10,7 @@ export const Container = styled.main`
 export const OutletWrapper = styled.section`
     width: 100%;
     min-height: 100vh;
-    padding: 90px 24px 100px;
+    padding: 80px 24px 100px;
     box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
     transition: all 0.2s ease-in-out 0s;
     background-color: ${({theme}) => theme.colors.bg.sub};

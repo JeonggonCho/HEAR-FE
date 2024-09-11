@@ -14,6 +14,7 @@ export const Container = styled(Link)`
         margin: 0;
         font-size: 18px;
         font-weight: bold;
+        line-height: 1.2;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;

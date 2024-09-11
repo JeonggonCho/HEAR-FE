@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useCallback, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
@@ -27,20 +27,21 @@ const UpdateNoticePage:FC = () => {
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
-    useEffect(() => {
-        const fetchNotice = async () => {
-            try {
-                const response = await sendRequest({
-                    url: `/notices/${noticeId}`,
-                });
-                const {title, content} = response.data;
-                setNotice({title, content});
-            } catch (err) {
-                console.error("공지 조회 중 에러 발생: ", err);
-            }
-        };
-        fetchNotice();
+    const fetchNotice = useCallback(async () => {
+        try {
+            const response = await sendRequest({
+                url: `/notices/${noticeId}`,
+            });
+            const {title, content} = response.data;
+            setNotice({title, content});
+        } catch (err) {
+            console.error("공지 조회 중 에러 발생: ", err);
+        }
     }, [sendRequest, noticeId]);
+
+    useEffect(() => {
+        fetchNotice();
+    }, [fetchNotice]);
 
     type NoticeFormData = z.infer<typeof noticeSchema>;
 
@@ -65,7 +66,7 @@ const UpdateNoticePage:FC = () => {
                 method: "patch",
                 data: data,
             });
-            navigate(`/notice/${noticeId}`, {replace: true});
+            navigate(`/communication/notice/${noticeId}`, {replace: true});
         } catch (err) {
             console.log("공지 수정 중 에러 발생: ", err);
         }

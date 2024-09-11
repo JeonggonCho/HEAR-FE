@@ -4,6 +4,8 @@ import {darken, lighten} from "polished";
 
 export const Container = styled.div`
     & > span:first-of-type {
+        display: block;
+        width: fit-content;
         font-size: 14px;
         padding: 6px 8px;
         text-wrap: nowrap;

@@ -44,7 +44,7 @@ const CreateFeedbackPage:FC = () => {
                 data: data,
             });
             const {feedbackId} = response.data;
-            navigate(`/feedback/${feedbackId}`, { replace: true });
+            navigate(`/communication/feedback/${feedbackId}`, { replace: true });
         } catch (err) {
             console.error("피드백 생성 시 에러 발생: ", err);
         }

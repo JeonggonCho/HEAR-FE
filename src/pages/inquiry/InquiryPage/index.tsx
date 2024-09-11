@@ -1,7 +1,5 @@
-import {FC, useEffect, useState} from "react";
+import React, {FC, useCallback, useEffect, useState} from "react";
 
-import Header from "@components/Header";
-import ColoredBtn from "@components/ColoredBtn";
 import InquiryFeedbackListItem from "@components/InquiryFeedbackListItem";
 import CreateBtn from "@components/CreateBtn";
 import Empty from "@components/Empty";
@@ -12,50 +10,31 @@ import ErrorContent from "@components/ErrorContent";
 import useRequest from "@hooks/useRequest.ts";
 import {IInquiryProps} from "@/types/componentProps.ts";
 
-import {Container, HeaderWrapper} from "./style.ts";
-
-import inquiry from "@assets/images/inquiry.png";
-
-const InquiryHeaderLeft = () => (
-    <HeaderWrapper>
-        <img src={inquiry} alt="모형제작실 문의"/>
-        <h2>문의</h2>
-    </HeaderWrapper>
-);
-
-const InquiryHeaderRight = () => (
-    <ColoredBtn
-        type={"link"}
-        content={"피드백"}
-        width={"fit"}
-        color={"primary"}
-        scale={"small"}
-        to={"/feedback"}
-    />
-);
+import {Container} from "./style.ts";
+import {useUserDataStore} from "@store/useUserStore.ts";
 
 const InquiryPage:FC = () => {
     const [inquiries, setInquiries] = useState<IInquiryProps[]>([]);
 
+    const {userData} = useUserDataStore();
+
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
-    useEffect(() => {
-        const fetchInquiries = async () => {
-            try {
-                const response = await sendRequest({
-                    url: "/inquiries",
-                });
-                setInquiries(response.data);
-            } catch (err) {
-                console.error("문의 목록 조회 중 에러 발생: ", err);
-            }
-        };
-        fetchInquiries();
+    const fetchInquiries = useCallback(async () => {
+        try {
+            const response = await sendRequest({ url: "/inquiries" });
+            setInquiries(response.data);
+        } catch (err) {
+            console.error("문의 목록 조회 중 에러 발생: ", err);
+        }
     }, [sendRequest]);
+
+    useEffect(() => {
+        fetchInquiries();
+    }, [fetchInquiries]);
 
     return (
         <Container>
-            <Header leftChild={<InquiryHeaderLeft/>} rightChild={<InquiryHeaderRight/>}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
@@ -70,12 +49,14 @@ const InquiryPage:FC = () => {
                         ))
                         :
                         <Empty
-                            title={"작성된 문의가 아직 없어요"}
-                            message={"모형제작실에 관해서 궁금한 점이 있으시면 언제든 물어보세요"}
+                            title={"작성하신 문의가 아직 없어요"}
+                            message={"모형제작실에 관해서 궁금한 점에 대해 문의 주세요"}
                         />
                     }
 
-                    <CreateBtn to={"/inquiry/new"}/>
+                    {userData?.role !== "manager" &&
+                        <CreateBtn to={"/communication/inquiry/new"}/>
+                    }
                 </>
             }
 
@@ -90,4 +71,4 @@ const InquiryPage:FC = () => {
     );
 };
 
-export default InquiryPage;
+export default React.memo(InquiryPage);

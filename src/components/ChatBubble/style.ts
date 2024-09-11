@@ -16,7 +16,6 @@ export const Container = styled.div<{isMine: boolean}>`
     display: flex;
     gap: 32px;
     ${({isMine}) => isMine ? "flex-direction: row-reverse;" : "flex-direction: row;"};
-    ${({isMine}) => isMine ? "margin-left: auto" : ""};
     
     & > div {
         background-color: ${({theme}) => {
@@ -37,7 +36,7 @@ export const Container = styled.div<{isMine: boolean}>`
     
     p {
         position: relative;
-        max-width: 80%;
+        max-width: 75%;
         background-color: ${({theme, isMine}) => {
             const {isDarkMode} = useThemeStore();
             if (isMine) {

@@ -10,11 +10,12 @@ export const Container = styled.div`
     font-weight: bold;
     font-size: 16px;
     color: ${({theme}) => theme.colors.font.main};
+    background-color: ${({theme}) => theme.colors.bg.sub};
     position: fixed;
     top: 0;
     left: calc((100vw - 615px) / 2);
     padding: 0 24px;
-    z-index: 1;
+    z-index: 3;
 
     @media (max-width: 600px) {
         left: 0;

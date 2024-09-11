@@ -44,7 +44,7 @@ const CreateInquiryPage:FC = () => {
                 data: data,
             });
             const {inquiryId} = response.data;
-            navigate(`/inquiry/${inquiryId}`, { replace: true });
+            navigate(`/communication/inquiry/${inquiryId}`, { replace: true });
         } catch (err) {
             console.error("문의 생성 시 에러 발생: ", err);
         }

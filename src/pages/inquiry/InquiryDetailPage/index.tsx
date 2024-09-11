@@ -1,4 +1,4 @@
-import {FC, useEffect, useMemo, useState} from "react";
+import {FC, useCallback, useEffect, useMemo, useState} from "react";
 import {useParams} from "react-router-dom";
 
 import Header from "@components/Header";
@@ -17,11 +17,14 @@ import getTimeStamp from "@util/getTimeStamp.ts";
 import {Container} from "./style.ts";
 
 import Q from "@assets/images/Q.png";
+import {useUserInfoStore} from "@store/useUserStore.ts";
 
 const InquiryDetailPage:FC = () => {
     const [inquiry, setInquiry] = useState<IInquiryProps>();
 
     const {inquiryId} = useParams();
+
+    const {userInfo} = useUserInfoStore();
 
     const timeStamp = useMemo(() => {
         return inquiry?.createdAt ? getTimeStamp(inquiry.createdAt) : '';
@@ -29,19 +32,20 @@ const InquiryDetailPage:FC = () => {
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
-    useEffect(() => {
-        const fetchInquiry = async () => {
-            try {
-                const response = await sendRequest({
-                    url: `/inquiries/${inquiryId}`
-                });
-                setInquiry(response.data);
-            } catch (err) {
-                console.error("문의 조회 중 에러 발생: ", err);
-            }
-        };
-        fetchInquiry();
+    const fetchInquiry = useCallback(async () => {
+        try {
+            const response = await sendRequest({
+                url: `/inquiries/${inquiryId}`
+            });
+            setInquiry(response.data);
+        } catch (err) {
+            console.error("문의 조회 중 에러 발생: ", err);
+        }
     }, [sendRequest, inquiryId]);
+
+    useEffect(() => {
+        fetchInquiry();
+    }, [fetchInquiry]);
 
     return (
         <Container>
@@ -55,7 +59,7 @@ const InquiryDetailPage:FC = () => {
                         <span>{inquiry.creator}</span>
                         <div>
                             <span>{timeStamp}</span>
-                            {inquiryId &&
+                            {inquiryId && inquiry.creatorId === userInfo?.userId &&
                                 <Dropdown type={"inquiry"} id={inquiryId}/>
                             }
                         </div>
@@ -63,12 +67,12 @@ const InquiryDetailPage:FC = () => {
                     <hr/>
                     <div>
                         {inquiry.content &&
-                          <ChatBubble
-                            text={inquiry.content}
-                            isMine={true}
-                            showProfile={true}
-                            profile={Q}
-                          />
+                            <ChatBubble
+                                text={inquiry.content}
+                                isMine={true}
+                                showProfile={true}
+                                profile={Q}
+                            />
                         }
                     </div>
                     <div>
@@ -80,11 +84,11 @@ const InquiryDetailPage:FC = () => {
             }
 
             {errorText &&
-              <Modal
-                content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                setModal={clearError}
-                type={"popup"}
-              />
+                <Modal
+                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
+                    setModal={clearError}
+                    type={"popup"}
+                />
             }
         </Container>
     );

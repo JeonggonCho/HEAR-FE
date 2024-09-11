@@ -40,7 +40,7 @@ const InstructionLaser:FC = () => {
         <div>
             <Header leftChild={<ArrowBack/>} centerText={"레이저 커팅기"}/>
             <LaserImage/>
-            <Tab tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
+            <Tab type={"button"} tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
             <Content>{tabs[activeIndex].content}</Content>
         </div>
     );
