@@ -30,6 +30,7 @@ export const lightTheme:Theme = {
             second: "#C7CBCF",
             third: "#F2F3F5",
             danger: "#FFEAEA",
+            green: "#2ED058",
         }
     },
 };
@@ -64,6 +65,7 @@ export const darkTheme:Theme = {
             second: "#3D3D43",
             third: "#2C2C35",
             danger: "#492F2F",
+            green: "#2CAD4E",
         }
     },
 };

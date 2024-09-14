@@ -19,9 +19,11 @@ import {feedbackSchema} from "@schemata/qnaSchema.ts";
 import {feedbackCategories} from "@constants/feedbackCategories.ts";
 
 import {Container} from "./style.ts";
+import ConfirmContent from "@components/ConfirmContent";
 
 const UpdateFeedbackPage:FC = () => {
-    const [feedback, setFeedback] = useState();
+    const [feedback, setFeedback] = useState<any>();
+    const [updateFeedbackModal, setUpdateFeedbackModal] = useState<boolean>(false);
 
     const navigate = useNavigate();
 
@@ -62,16 +64,54 @@ const UpdateFeedbackPage:FC = () => {
     }, [feedback, reset]);
 
     const submitHandler:SubmitHandler<FeedbackFormData> = async (data) => {
-        try {
-            await sendRequest({
-                url: `/feedback/${feedbackId}`,
-                method: "patch",
-                data: data,
-            });
-            navigate(`/communication/feedback/${feedbackId}`, {replace: true});
-        } catch (err) {
-            console.error("피드백 수정 중 에러 발생: ", err);
+        setFeedback(data);
+        setUpdateFeedbackModal(true);
+    };
+
+    const handleConfirmUpdate = async () => {
+        if (feedback) {
+            try {
+                await sendRequest({
+                    url: `/feedback/${feedbackId}`,
+                    method: "patch",
+                    data: feedback,
+                });
+                navigate(`/communication/feedback/${feedbackId}`, {replace: true});
+            } catch (err) {
+                setUpdateFeedbackModal(false);
+                console.error("피드백 수정 에러: ", err);
+            }
         }
+    }
+
+    const UpdateFeedbackModalContent = () => {
+        const leftBtn = (
+            <ColoredBtn
+                type={"button"}
+                content={"닫기"}
+                width={"full"}
+                color={"third"}
+                scale={"normal"}
+                onClick={() => setUpdateFeedbackModal(false)}
+            />
+        );
+        const rightBtn = (
+            <ColoredBtn
+                type={"submit"}
+                content={"수정하기"}
+                width={"full"}
+                color={"approval"}
+                scale={"normal"}
+                onClick={handleConfirmUpdate}
+            />
+        );
+        return (
+            <ConfirmContent
+                text={"피드백을 수정하시겠습니까?"}
+                leftBtn={leftBtn}
+                rightBtn={rightBtn}
+            />
+        );
     };
 
     return (
@@ -107,6 +147,14 @@ const UpdateFeedbackPage:FC = () => {
 
                         <ColoredBtn type={"submit"} content={"피드백 수정하기"} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
+
+                    {updateFeedbackModal &&
+                        <Modal
+                          content={<UpdateFeedbackModalContent/>}
+                          setModal={setUpdateFeedbackModal}
+                          type={"popup"}
+                        />
+                    }
                 </>
             }
 

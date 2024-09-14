@@ -1,7 +1,7 @@
 import {FC} from "react";
 
 import Header from "@components/Header";
-import MachineInstructionItem from "@components/MachineInstructionItem";
+import LinkCard from "@components/LinkCard";
 
 import {Container, HeaderWrapper} from "./style.ts";
 
@@ -45,11 +45,12 @@ const InstructionPage:FC = () => {
             <p>사용법 및 주의사항이 궁금한 기기를 선택해주세요</p>
             <div>
                 {machines.map((machine, index) => (
-                    <MachineInstructionItem
+                    <LinkCard
                         key={index}
                         image={machine.image}
                         name={machine.name}
                         to={machine.link}
+                        type={"linear"}
                     />
                 ))}
             </div>

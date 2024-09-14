@@ -93,7 +93,7 @@ const UpdateAccountPage:FC = () => {
                     method: "patch",
                     data: formData,
                 });
-                navigate("/account");
+                navigate("/account", {replace: true});
             } catch (err) {
                 setUpdateAccountModal(false);
                 console.error("정보 수정 에러: ", err);
@@ -101,7 +101,7 @@ const UpdateAccountPage:FC = () => {
         }
     };
 
-    const UpdateAccountContent = () => {
+    const UpdateAccountModalContent = () => {
         const leftBtn = (
             <ColoredBtn
                 type={"button"}
@@ -198,7 +198,7 @@ const UpdateAccountPage:FC = () => {
 
                     {updateAccountModal &&
                         <Modal
-                            content={<UpdateAccountContent/>}
+                            content={<UpdateAccountModalContent/>}
                             setModal={setUpdateAccountModal}
                             type={"popup"}
                         />

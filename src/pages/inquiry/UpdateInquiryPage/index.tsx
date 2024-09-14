@@ -13,6 +13,7 @@ import Textarea from "@components/Textarea";
 import ColoredBtn from "@components/ColoredBtn";
 import InputWithLabel from "@components/InputWithLabel";
 import Select from "@components/Select";
+import ConfirmContent from "@components/ConfirmContent";
 
 import useRequest from "@hooks/useRequest.ts";
 import {inquirySchema} from "@schemata/qnaSchema.ts";
@@ -21,7 +22,8 @@ import {inquiryCategories} from "@constants/inquiryCategories.ts";
 import {Container} from "./style.ts";
 
 const UpdateInquiryPage:FC = () => {
-    const [inquiry, setInquiry] = useState();
+    const [inquiry, setInquiry] = useState<any>();
+    const [updateInquiryModal, setUpdateInquiryModal] = useState<boolean>(false);
 
     const navigate = useNavigate();
 
@@ -62,16 +64,54 @@ const UpdateInquiryPage:FC = () => {
     }, [inquiry, reset]);
 
     const submitHandler:SubmitHandler<InquiryFormData> = async (data) => {
-        try {
-            await sendRequest({
-                url: `/inquiries/${inquiryId}`,
-                method: "patch",
-                data: data,
-            });
-            navigate(`/communication/inquiry/${inquiryId}`, {replace: true});
-        } catch (err) {
-            console.error("문의 수정 중 에러 발생: ", err);
+        setInquiry(data);
+        setUpdateInquiryModal(true);
+    };
+
+    const handleConfirmUpdate = async () => {
+        if (inquiry) {
+            try {
+                await sendRequest({
+                    url: `/inquiries/${inquiryId}`,
+                    method: "patch",
+                    data: inquiry,
+                });
+                navigate(`/communication/inquiry/${inquiryId}`, {replace: true});
+            } catch (err) {
+                setUpdateInquiryModal(false);
+                console.error("문의 수정 에러: ", err);
+            }
         }
+    };
+
+    const UpdateInquiryModalContent = () => {
+        const leftBtn = (
+            <ColoredBtn
+                type={"button"}
+                content={"닫기"}
+                width={"full"}
+                color={"third"}
+                scale={"normal"}
+                onClick={() => setUpdateInquiryModal(false)}
+            />
+        );
+        const rightBtn = (
+            <ColoredBtn
+                type={"submit"}
+                content={"수정하기"}
+                width={"full"}
+                color={"approval"}
+                scale={"normal"}
+                onClick={handleConfirmUpdate}
+            />
+        );
+        return (
+            <ConfirmContent
+                text={"문의를 수정하시겠습니까?"}
+                leftBtn={leftBtn}
+                rightBtn={rightBtn}
+            />
+        );
     };
 
     return (
@@ -107,6 +147,14 @@ const UpdateInquiryPage:FC = () => {
 
                         <ColoredBtn type={"submit"} content={"문의 수정하기"} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
+
+                    {updateInquiryModal &&
+                        <Modal
+                          content={<UpdateInquiryModalContent/>}
+                          setModal={setUpdateInquiryModal}
+                          type={"popup"}
+                        />
+                    }
                 </>
             }
 

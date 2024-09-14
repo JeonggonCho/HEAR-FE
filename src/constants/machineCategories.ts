@@ -11,7 +11,7 @@ export const machineType = [
     {label: "2호기", value: "2", id: "radio-2"},
 ];
 
-export const machineCategories: IMachine[] = [
+export const machineReservationCategories:IMachine[] = [
     {name: "레이저 커팅기", image: laser, link: "/reservation/laser"},
     {name: "3D 프린터", image: printer, link: "/reservation/3d-printer"},
     {name: "열 선", image: heat, link: "/reservation/heat"},

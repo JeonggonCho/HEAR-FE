@@ -12,12 +12,17 @@ import Modal from "@components/Modal";
 import ConfirmContent from "@components/ConfirmContent";
 import LoadingLoop from "@components/LoadingLoop";
 import ErrorContent from "@components/ErrorContent";
+import LinkCard from "@components/LinkCard";
 
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
 import useRequest from "@hooks/useRequest.ts";
 
 import {Container, UserName} from "./style.ts";
+
+import no_profile from "@assets/images/no_profile.png";
+import machine from "@assets/images/machine.png";
+import list from "@assets/images/list.png";
 
 
 const AccountPage:FC = () => {
@@ -28,14 +33,13 @@ const AccountPage:FC = () => {
     const navigate = useNavigate();
 
     const {userInfo, setUserInfo, clearUserInfo} = useUserInfoStore();
-    const {setUserData, clearUserData} = useUserDataStore();
+    const {userData, setUserData, clearUserData} = useUserDataStore();
     const {logout} = useAuthStore();
 
     const fetchUser = useCallback(async () => {
         try {
             const response = await sendRequest({
                 url: "/users",
-                method: "get",
             });
             const {userId, username, email, year, studentId, studio, passQuiz, countOfLaser, countOfWarning, tel, role} = response.data;
             setUserData({year, studio, passQuiz, countOfLaser, countOfWarning, tel, role});
@@ -122,7 +126,7 @@ const AccountPage:FC = () => {
         return (
             <ConfirmContent
                 text={"탈퇴 하시겠습니까?"}
-                description={"탈퇴 시, 교육 이수 내역 및 모든 정보는 삭제됩니다"}
+                description={"탈퇴 시, 유저의 모든 정보가 삭제됩니다"}
                 leftBtn={leftBtn}
                 rightBtn={rightBtn}
             />
@@ -137,14 +141,28 @@ const AccountPage:FC = () => {
                 :
                 <>
                     <ProfileCard/>
+
                     <div>
                         <ColoredBtn type={"link"} content={"내정보 수정"} width={"full"} color={"second"} scale={"normal"} to={"/account/update"}/>
                         <ColoredBtn type={"link"} content={"비밀번호 변경"} width={"full"} color={"second"} scale={"normal"} to={"/password/update"}/>
                     </div>
-                    <StatusCard/>
-                    <CountOfLaserCard/>
-                    <ReservationListCard/>
-                    <UsageListCard/>
+
+                    {userData?.role === "student" &&
+                        <>
+                          <StatusCard/>
+                          <CountOfLaserCard/>
+                          <ReservationListCard/>
+                          <UsageListCard/>
+                        </>
+                    }
+
+                    {(userData?.role === "manager" || userData?.role === "admin") && (
+                        <>
+                            <LinkCard image={list} name={"예약 관리"} to={"/"} type={"linear"} />
+                            <LinkCard image={no_profile} name={"유저 관리"} to={"/users"} type={"linear"} />
+                            <LinkCard image={machine} name={"기기 관리"} to={"/machines"} type={"linear"} />
+                        </>
+                    )}
 
                     <ColoredBtn
                         type={"button"}

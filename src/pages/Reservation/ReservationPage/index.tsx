@@ -1,10 +1,9 @@
 import {FC} from "react";
 
 import Header from "@components/Header";
-import MachineSelector from "@components/MachineReservationItem";
-import ColoredBtn from "@components/ColoredBtn";
+import LinkCard from "@components/LinkCard";
 
-import {machineCategories} from "@constants/machineCategories.ts";
+import {machineReservationCategories} from "@constants/machineCategories.ts";
 
 import {Container, HeaderWrapper} from "./style.ts";
 
@@ -20,25 +19,14 @@ const ReservationHeaderLeft = () => {
     );
 };
 
-const ReservationHeaderRight = () => (
-    <ColoredBtn
-        type={"link"}
-        to={"/reservation/condition"}
-        content={"예약 현황"}
-        width={"fit"}
-        color={"primary"}
-        scale={"small"}
-    />
-);
-
 const ReservationPage:FC = () => {
     return (
         <Container>
-            <Header leftChild={<ReservationHeaderLeft/>} rightChild={<ReservationHeaderRight/>}/>
+            <Header leftChild={<ReservationHeaderLeft/>}/>
             <p>예약하실 기기를 선택해주세요</p>
             <div>
-                {machineCategories.map((machine, index) => (
-                    <MachineSelector key={index} image={machine.image} name={machine.name} to={machine.link}/>
+                {machineReservationCategories.map((machine, index) => (
+                    <LinkCard key={index} image={machine.image} name={machine.name} to={machine.link} type={"grid"}/>
                 ))}
             </div>
         </Container>

@@ -2,6 +2,7 @@ import React, {ChangeEvent, ReactElement, ReactNode} from "react";
 import {To} from "react-router-dom";
 import {ITab} from "@/types/tab.ts";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
+import {ICncs, IHeats, ILasers, IPrinters, ISaws, IVacuums} from "@/types/machine.ts";
 
 
 // 버튼(ColoredBtn) props
@@ -84,11 +85,12 @@ export interface ILinkProps {
 }
 
 
-// 기기 사용법, 예약 아이템 props
-export interface IMachineSelectorProps {
-    image: string;
+// 링크 카드(LinkCard) props
+export interface ILinkCardProps {
+    image?: string;
     name: string;
     to: string;
+    type: "linear" | "grid";
 }
 
 
@@ -214,4 +216,20 @@ export interface IChatBubbleProps {
     isMine: boolean;
     showProfile: boolean;
     profile: string;
+}
+
+
+// 기기 관리 카드(MachineManageCard) props
+export interface IMachineManageCardProps {
+    name: string;
+    img: string;
+    machineData: ILasers[] | IPrinters[] | IHeats[] | ISaws[] | IVacuums[] | ICncs[];
+    machineType: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc";
+}
+
+
+// 토글(Toggle) props
+export interface IToggleProps {
+    url: string;
+    status: boolean;
 }

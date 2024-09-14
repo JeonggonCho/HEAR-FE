@@ -8,7 +8,6 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-bottom: 16px;
     border: 1px solid ${({theme}) => theme.colors.bg.main};
     
     & > div {
