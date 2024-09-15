@@ -8,6 +8,7 @@ export const Container = styled.div`
     margin-bottom: 16px;
     display: flex;
     flex-direction: column;
+    cursor: pointer;
 
     h3 {
         font-size: 16px;
@@ -46,4 +47,27 @@ export const IconWrapper = styled.div`
         height: auto;
         object-fit: cover;
     }
+`;
+
+export const MoreWrapper = styled.div<{isOpen: boolean}>`
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(${({isOpen}) => isOpen ? "180deg" : "0deg"});
+    transition: transform 0.3s ease-in-out 0s;
+    overflow: hidden;
+    
+    svg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+`;
+
+export const MachineListWrapper = styled.div<{ isOpen: boolean; maxHeight: string }>`
+    max-height: ${(props) => (props.isOpen ? props.maxHeight : "0")};
+    transition: max-height 0.3s ease-in-out;
+    overflow: hidden;
 `;

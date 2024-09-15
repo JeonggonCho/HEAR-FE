@@ -230,6 +230,7 @@ export interface IMachineManageCardProps {
 
 // 토글(Toggle) props
 export interface IToggleProps {
-    url: string;
+    handleToggle: () => {};
     status: boolean;
+    isLoading: boolean;
 }

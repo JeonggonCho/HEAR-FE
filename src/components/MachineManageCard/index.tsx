@@ -2,23 +2,35 @@ import {FC, useState} from "react";
 import {ReactSVG} from "react-svg";
 
 import Toggle from "@components/Toggle";
-import ColoredBtn from "@components/ColoredBtn";
-
-import {IMachineManageCardProps} from "@/types/componentProps.ts";
-
-import {Container, IconWrapper} from "./style.ts";
-
-import add from "@assets/icons/add.svg";
 import Modal from "@components/Modal";
 import MachineListItem from "@components/MachineListItem";
+
+import {IMachineManageCardProps} from "@/types/componentProps.ts";
+import useListCollapse from "@hooks/useListCollapse.ts";
+
+import {Container, IconWrapper, MachineListWrapper, MoreWrapper} from "./style.ts";
+
+import more from "@assets/icons/arrow_down.svg";
+import useToggle from "@hooks/useToggle.ts";
+import ErrorContent from "@components/ErrorContent";
 
 const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, machineType}) => {
     const [newLaserModal, setNewLaserModal] = useState<boolean>(false);
     const [newPrinterModal, setNewPrinterModal] = useState<boolean>(false);
 
+    const {isOpen: isLaserOpen, listRef: laserListRef, maxHeight: laserMaxHeight, handleList: handleLaserList,} = useListCollapse();
+    const {isOpen: isPrinterOpen, listRef: printerListRef, maxHeight: printerMaxHeight, handleList: handlePrinterList,} = useListCollapse();
+
+    const {status, handleToggle, isLoading, errorText, clearError} = useToggle(machineData[0]?.status, machineData[0]?.updateUrl);
+
     return (
         <Container>
-            <div>
+            <div onClick={
+                machineType === "laser" ? handleLaserList
+                    : machineType === "printer" ? handlePrinterList
+                        : (machineType === "heat" || machineType === "saw" || machineType === "vacuum" || machineType === "cnc") ? handleToggle
+                            :() => {}
+            }>
                 <div>
                     <IconWrapper>
                         <img src={img} alt="기기 이미지"/>
@@ -26,48 +38,50 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
                     <h3>{name}</h3>
                 </div>
 
+                {/*기기 목록보기 버튼 배치*/}
+                {machineType === "laser" && (
+                    <MoreWrapper isOpen={isLaserOpen}>
+                        <ReactSVG src={more} />
+                    </MoreWrapper>
+                )}
+
+                {machineType === "printer" && (
+                    <MoreWrapper isOpen={isPrinterOpen}>
+                        <ReactSVG src={more} />
+                    </MoreWrapper>
+                )}
+
                 {/*토글 버튼 배치*/}
                 {(machineType === "heat" || machineType === "saw" || machineType === "vacuum" || machineType === "cnc") &&
                   <Toggle
-                    status={machineData[0]?.status}
-                    url={machineData[0]?.updateUrl}
+                    handleToggle={handleToggle}
+                    status={status}
+                    isLoading={isLoading}
                   />
-                }
-
-                {/*기기 추가 버튼 배치*/}
-                {(machineType === "laser" || machineType === "printer") &&
-                    <ColoredBtn
-                      type={"button"}
-                      content={<ReactSVG src={add}/>}
-                      width={"fit"}
-                      color={"third"}
-                      scale={"small"}
-                      onClick={() => {
-                          machineType === "laser" ? setNewLaserModal(true)
-                              : machineType === "printer" ? setNewPrinterModal(true)
-                                  : null
-                      }}
-                    />
                 }
             </div>
 
-            {/*레이저 커팅기 목록 배치*/}
-            {machineType === "laser" &&
-                <>
-                    {machineData.map((laser) => (
-                        <MachineListItem key={laser._id}/>
-                    ))}
-                </>
-            }
+            {/* 레이저 커팅기 목록 배치 */}
+            <MachineListWrapper
+                ref={laserListRef}
+                isOpen={isLaserOpen}
+                maxHeight={isLaserOpen ? `${laserMaxHeight}px` : "0"}
+            >
+                {machineType === "laser" &&
+                    machineData.map((laser) => <MachineListItem key={laser._id} />)
+                }
+            </MachineListWrapper>
 
-            {/*3d 프린터 목록 배치*/}
-            {machineType === "printer" &&
-                <>
-                    {machineData.map((printer) => (
-                        <MachineListItem key={printer._id}/>
-                    ))}
-                </>
-            }
+            {/* 3D 프린터 목록 배치 */}
+            <MachineListWrapper
+                ref={printerListRef}
+                isOpen={isPrinterOpen}
+                maxHeight={isPrinterOpen ? `${printerMaxHeight}px` : "0"}
+            >
+                {machineType === "printer" &&
+                    machineData.map((printer) => <MachineListItem key={printer._id} />)
+                }
+            </MachineListWrapper>
 
             {/*레이저 커팅기 추가 모달*/}
             {newLaserModal &&
@@ -85,6 +99,13 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
                 setModal={setNewPrinterModal}
                 type={"popup"}
               />
+            }
+
+            {errorText &&
+                <Modal content={<ErrorContent text={errorText} closeModal={clearError}/>}
+                       setModal={clearError}
+                       type={"popup"}
+                />
             }
         </Container>
     );
