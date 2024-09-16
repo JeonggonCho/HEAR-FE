@@ -4,10 +4,10 @@ import {IToggleProps} from "@/types/componentProps.ts";
 
 import {Container} from "./style.ts";
 
-const Toggle:FC<IToggleProps> = ({handleToggle, status, isLoading}) => {
+const Toggle:FC<IToggleProps> = ({status, isLoading, click}) => {
     return (
         <Container
-            onClick={handleToggle}
+            onClick={click}
             status={status}
             disabled={isLoading as boolean}
         >

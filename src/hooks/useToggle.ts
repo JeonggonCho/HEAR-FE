@@ -18,7 +18,6 @@ const useToggle = (initialStatus: boolean, url: string) => {
         } catch (err) {
             console.error("토글 에러 발생: ", err);
         }
-
     }, [url, sendRequest, isLoading, status])
 
     return {status, handleToggle, isLoading, errorText, clearError};

@@ -1,8 +1,8 @@
-import React, {ChangeEvent, ReactElement, ReactNode} from "react";
+import React, {ChangeEvent, MutableRefObject, ReactElement, ReactNode} from "react";
 import {To} from "react-router-dom";
 import {ITab} from "@/types/tab.ts";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
-import {ICncs, IHeats, ILasers, IPrinters, ISaws, IVacuums} from "@/types/machine.ts";
+import {ICommonMachine, IHeats, ILasers, IPrinters} from "@/types/machine.ts";
 
 
 // 버튼(ColoredBtn) props
@@ -223,14 +223,24 @@ export interface IChatBubbleProps {
 export interface IMachineManageCardProps {
     name: string;
     img: string;
-    machineData: ILasers[] | IPrinters[] | IHeats[] | ISaws[] | IVacuums[] | ICncs[];
+    machineData: ILasers[] | IPrinters[] | IHeats[] | ICommonMachine[];
     machineType: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc";
+    setMachines?: React.Dispatch<React.SetStateAction<ILasers[]>> | React.Dispatch<React.SetStateAction<IPrinters[]>>;
 }
 
 
 // 토글(Toggle) props
 export interface IToggleProps {
-    handleToggle: () => {};
+    click: () => void;
     status: boolean;
     isLoading: boolean;
+}
+
+
+// 기기추가 모달 내용(NewMachineContent) props
+export interface INewMachineContentProps {
+    title: string;
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
+    machine: "laser" | "printer";
+    setMachines: React.Dispatch<React.SetStateAction<ILasers[]>> | React.Dispatch<React.SetStateAction<IPrinters[]>>
 }

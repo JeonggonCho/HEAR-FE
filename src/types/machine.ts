@@ -4,35 +4,21 @@ export interface IMachine {
     link?: string;
 }
 
-interface ICommonMachineProps {
+export interface ICommonMachine {
     _id: string;
     status: boolean;
-    updateUrl: string;
+    url: string;
 }
 
-export interface ILasers extends ICommonMachineProps {
+export interface ILasers extends ICommonMachine {
+    name: string;
+    time: string[];
+}
+
+export interface IPrinters extends ICommonMachine {
     name: string;
 }
 
-export interface IPrinters extends ICommonMachineProps {
-    name: string;
-}
-
-export interface IHeats extends ICommonMachineProps {
+export interface IHeats extends ICommonMachine {
     count: number;
-}
-
-export interface ISaws extends ICommonMachineProps {}
-
-export interface IVacuums extends ICommonMachineProps {}
-
-export interface ICncs extends ICommonMachineProps {}
-
-export interface IMachines {
-    lasers: ILasers[];
-    printers: IPrinters[];
-    heats: IHeats[];
-    saws: ISaws[];
-    vacuums: IVacuums[];
-    cncs: ICncs[];
 }

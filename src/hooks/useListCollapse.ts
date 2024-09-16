@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 
-const useListCollapse = () => {
+const useListCollapse = (dataLength: number) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [maxHeight, setMaxHeight] = useState<number | null>(null);
 
@@ -10,7 +10,7 @@ const useListCollapse = () => {
         if (listRef.current) {
             setMaxHeight(listRef.current.scrollHeight);
         }
-    }, [isOpen]);
+    }, [isOpen, listRef, dataLength]);
 
     const handleList = () => {
         setIsOpen(prevState => !prevState);

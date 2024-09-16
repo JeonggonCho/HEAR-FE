@@ -2,7 +2,7 @@ import {FC} from "react";
 
 import Header from "@components/Header";
 
-import {HeaderWrapper} from "@pages/inquiry/InquiryPage/style.ts";
+import {HeaderWrapper} from "@layouts/CommunicationLayout/style.ts";
 
 import {Container} from "./style.ts";
 

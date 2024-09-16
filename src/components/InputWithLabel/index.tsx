@@ -32,19 +32,33 @@ const InputWithLabel = <TFieldValues extends FieldValues>(
     return (
         <Container>
             <label htmlFor={id}>{label}</label>
-            <input
-                {...register(name)}
-                type={inputType}
-                id={id}
-                placeholder={placeholder}
-                onClick={onClick}
-                onChange={onChange}
-                readOnly={readonly}
-                disabled={disabled}
-                min={inputType === "number" ? 0 : undefined}
-                onWheel={e => (e.target as HTMLElement).blur()}
-            />
-            {errorMessage && <InputError errorMessage={errorMessage}/> }
+
+            {type === "range" ?
+                <>
+                    <input
+                        {...register(name, {onChange})}
+                        type={inputType}
+                        id={id}
+                        min={0}
+                        max={15}
+                    />
+                </>
+                :
+                <input
+                    {...register(name)}
+                    type={inputType}
+                    id={id}
+                    placeholder={placeholder}
+                    onClick={onClick}
+                    onChange={onChange}
+                    readOnly={readonly}
+                    disabled={disabled}
+                    min={inputType === "number" ? 0 : undefined}
+                    onWheel={e => (e.target as HTMLElement).blur()}
+                />
+            }
+
+            {errorMessage && <InputError errorMessage={errorMessage}/>}
             {visibleToggle && inputType === "password"
                 ? <ReactSVG
                     src={visible}

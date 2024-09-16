@@ -1,35 +1,82 @@
-import {FC, useState} from "react";
+import React, {ChangeEvent, FC, useCallback, useState} from "react";
 import {ReactSVG} from "react-svg";
+import {z} from "zod";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
 
 import Toggle from "@components/Toggle";
 import Modal from "@components/Modal";
 import MachineListItem from "@components/MachineListItem";
+import ErrorContent from "@components/ErrorContent";
+import NewMachineContent from "@components/NewMachineContent";
+import InputWithLabel from "@components/InputWithLabel";
 
 import {IMachineManageCardProps} from "@/types/componentProps.ts";
+import {IHeats, ILasers, IPrinters} from "@/types/machine.ts";
 import useListCollapse from "@hooks/useListCollapse.ts";
+import useToggle from "@hooks/useToggle.ts";
+import useRequest from "@hooks/useRequest.ts";
+import {updateHeatCountSchema} from "@schemata/machineSchema.ts";
 
-import {Container, IconWrapper, MachineListWrapper, MoreWrapper} from "./style.ts";
+import {BtnsWrapper, Container, CountWrapper, IconWrapper, MachineListWrapper, MoreWrapper} from "./style.ts";
 
 import more from "@assets/icons/arrow_down.svg";
-import useToggle from "@hooks/useToggle.ts";
-import ErrorContent from "@components/ErrorContent";
 
-const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, machineType}) => {
+const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, machineType, setMachines}) => {
+    const [showEdit, setShowEdit] = useState<boolean>(false);
     const [newLaserModal, setNewLaserModal] = useState<boolean>(false);
     const [newPrinterModal, setNewPrinterModal] = useState<boolean>(false);
+    const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(null);
+    const [rangeValue, setRangeValue] = useState<number | undefined>(machineType === "heat" ? (machineData[0] as IHeats)?.count : undefined);
 
-    const {isOpen: isLaserOpen, listRef: laserListRef, maxHeight: laserMaxHeight, handleList: handleLaserList,} = useListCollapse();
-    const {isOpen: isPrinterOpen, listRef: printerListRef, maxHeight: printerMaxHeight, handleList: handlePrinterList,} = useListCollapse();
+    const {isOpen, listRef, maxHeight, handleList} = useListCollapse(machineData.length);
 
-    const {status, handleToggle, isLoading, errorText, clearError} = useToggle(machineData[0]?.status, machineData[0]?.updateUrl);
+    const {sendRequest, errorText, clearError} = useRequest();
+
+    const {status, handleToggle, isLoading, errorText:toggleErrorText, clearError:clearToggleError} = useToggle(machineData[0]?.status, machineData[0]?.url);
+
+    type UpdateHeatCountFormType = z.infer<typeof updateHeatCountSchema>;
+
+    const {register, formState:{errors}} = useForm<UpdateHeatCountFormType>({
+        resolver: zodResolver(updateHeatCountSchema),
+        defaultValues: {
+            count: machineType === "heat" ? (machineData[0] as IHeats)?.count : undefined,
+        },
+    });
+
+    const submitHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        const newCount = Number(e.target.value);
+        setRangeValue(newCount);
+
+        // 1. 기존의 타이머가 있다면 지운다.
+        if (debounceTimeout) {
+            clearTimeout(debounceTimeout);
+        }
+
+        // 2. 새로운 타이머를 설정한다.
+        const newTimeout = setTimeout(async () => {
+            try {
+                // 3. 타이머가 끝나면 서버에 요청을 보낸다.
+                await sendRequest({
+                    url: machineData[0]?.url,
+                    method: "patch",
+                    data: { "count": newCount },
+                });
+            } catch (err) {
+                console.error("열선 개수 수정 중 에러 발생: ", err);
+            }
+        }, 500); // 500ms (0.5초) 후에 실행
+
+        // 4. 새로 설정한 타이머를 상태로 저장한다.
+        setDebounceTimeout(newTimeout);
+    }, [debounceTimeout, sendRequest, machineData]);
 
     return (
         <Container>
             <div onClick={
-                machineType === "laser" ? handleLaserList
-                    : machineType === "printer" ? handlePrinterList
-                        : (machineType === "heat" || machineType === "saw" || machineType === "vacuum" || machineType === "cnc") ? handleToggle
-                            :() => {}
+                (machineType === "laser" || machineType === "printer" || machineType === "heat") ? handleList
+                    : (machineType === "saw" || machineType === "vacuum" || machineType === "cnc") ? handleToggle
+                        :() => {}
             }>
                 <div>
                     <IconWrapper>
@@ -39,54 +86,95 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
                 </div>
 
                 {/*기기 목록보기 버튼 배치*/}
-                {machineType === "laser" && (
-                    <MoreWrapper isOpen={isLaserOpen}>
-                        <ReactSVG src={more} />
-                    </MoreWrapper>
-                )}
-
-                {machineType === "printer" && (
-                    <MoreWrapper isOpen={isPrinterOpen}>
+                {(machineType === "laser" || machineType === "printer" || machineType === "heat") && (
+                    <MoreWrapper isOpen={isOpen}>
                         <ReactSVG src={more} />
                     </MoreWrapper>
                 )}
 
                 {/*토글 버튼 배치*/}
-                {(machineType === "heat" || machineType === "saw" || machineType === "vacuum" || machineType === "cnc") &&
-                  <Toggle
-                    handleToggle={handleToggle}
-                    status={status}
-                    isLoading={isLoading}
-                  />
+                {(machineType === "saw" || machineType === "vacuum" || machineType === "cnc") &&
+                  <Toggle click={() => handleToggle} status={status} isLoading={isLoading}/>
                 }
             </div>
 
-            {/* 레이저 커팅기 목록 배치 */}
+            {/* 기기 목록 배치 */}
             <MachineListWrapper
-                ref={laserListRef}
-                isOpen={isLaserOpen}
-                maxHeight={isLaserOpen ? `${laserMaxHeight}px` : "0"}
+                ref={listRef}
+                isOpen={isOpen}
+                maxHeight={isOpen ? `${maxHeight}px` : "0"}
             >
-                {machineType === "laser" &&
-                    machineData.map((laser) => <MachineListItem key={laser._id} />)
-                }
-            </MachineListWrapper>
+                <>
+                    {(machineType === "laser" || machineType === "printer") &&
+                      <BtnsWrapper>
+                        <span>{machineData.length}개</span>
 
-            {/* 3D 프린터 목록 배치 */}
-            <MachineListWrapper
-                ref={printerListRef}
-                isOpen={isPrinterOpen}
-                maxHeight={isPrinterOpen ? `${printerMaxHeight}px` : "0"}
-            >
-                {machineType === "printer" &&
-                    machineData.map((printer) => <MachineListItem key={printer._id} />)
-                }
+                        <div>
+                          <button
+                            onClick={() => setShowEdit(prevState => !prevState)}
+                          >편집</button>
+                          <button
+                            onClick={() => machineType === "laser" ? setNewLaserModal(true)
+                                : machineType === "printer" ? setNewPrinterModal(true)
+                                    : null}
+                          >추가</button>
+                        </div>
+                      </BtnsWrapper>
+                    }
+
+                    {/*레이터 커팅기, 3d 프린터 목록*/}
+                    {machineType === "laser" &&
+                        machineData.map((laser) => (
+                            <MachineListItem
+                                key={laser._id}
+                                showEdit={showEdit}
+                                setMachines={setMachines as React.Dispatch<React.SetStateAction<ILasers[]>>}
+                                {...(laser as ILasers)}
+                            />
+                        ))
+                    }
+
+                    {machineType === "printer" &&
+                        machineData.map((printer) => (
+                            <MachineListItem
+                                key={printer._id}
+                                showEdit={showEdit}
+                                setMachines={setMachines as React.Dispatch<React.SetStateAction<IPrinters[]>>}
+                                {...(printer as IPrinters)}
+                            />
+                        ))
+                    }
+
+                    {/*열선 개수 조절*/}
+                    {machineType === "heat" &&
+                        <CountWrapper rangeValue={rangeValue as number}>
+                            <div>
+                                <InputWithLabel
+                                    label={"개 수"}
+                                    type={"range"}
+                                    id={"heat-count"}
+                                    name={"count"}
+                                    register={register}
+                                    onChange={submitHandler}
+                                    errorMessage={errors.count?.message}
+                                />
+                                <span>{rangeValue}</span>
+                            </div>
+                            <Toggle click={handleToggle} status={status} isLoading={isLoading}/>
+                        </CountWrapper>
+                    }
+                </>
             </MachineListWrapper>
 
             {/*레이저 커팅기 추가 모달*/}
             {newLaserModal &&
               <Modal
-                content={<>레이저</>}
+                content={<NewMachineContent
+                    title={"레이저 커팅기 추가"}
+                    setModal={setNewLaserModal}
+                    machine={"laser"}
+                    setMachines={setMachines as React.Dispatch<React.SetStateAction<ILasers[]>>}
+                />}
                 setModal={setNewLaserModal}
                 type={"popup"}
               />
@@ -95,17 +183,31 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
             {/*3d 프린터 추가 모달*/}
             {newPrinterModal &&
               <Modal
-                content={<>프린터</>}
+                content={<NewMachineContent
+                    title={"3D 프린터 추가"}
+                    setModal={setNewPrinterModal}
+                    machine={"printer"}
+                    setMachines={setMachines as React.Dispatch<React.SetStateAction<IPrinters[]>>}
+                />}
                 setModal={setNewPrinterModal}
                 type={"popup"}
               />
             }
 
+
+            {/*에러 모달*/}
             {errorText &&
                 <Modal content={<ErrorContent text={errorText} closeModal={clearError}/>}
                        setModal={clearError}
                        type={"popup"}
                 />
+            }
+
+            {toggleErrorText &&
+              <Modal content={<ErrorContent text={toggleErrorText} closeModal={clearToggleError}/>}
+                     setModal={clearToggleError}
+                     type={"popup"}
+              />
             }
         </Container>
     );
