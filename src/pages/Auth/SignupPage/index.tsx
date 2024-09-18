@@ -6,7 +6,7 @@ import {AxiosResponse} from "axios";
 
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 import InputWithLabel from "@components/InputWithLabel";
 import Link from "@components/Link";
 import Select from "@components/Select";
@@ -155,7 +155,7 @@ const SignupPage:FC = () => {
                             errorMessage={errors.tel?.message}
                         />
 
-                        <ColoredBtn type={"submit"} content={"회원가입"} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={"회원가입"} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
                     <Link text={"로그인"} to={"/login"} color={"primary"}/>
                 </>

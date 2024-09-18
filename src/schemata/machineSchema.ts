@@ -1,21 +1,41 @@
 import {z} from "zod";
 import {DATE_REGEX} from "@constants/reservationRegex.ts";
+import {timeRegex} from "@constants/regex.ts";
+
+export const timeRangeSchema = z.object({
+    startTime: z.string().regex(timeRegex, "시작 시간이 유효한 시간 형식이 아닙니다."),
+    endTime: z.string().regex(timeRegex, "종료 시간이 유효한 시간 형식이 아닙니다."),
+}).refine((data) => {
+    const startHour = Number(data.startTime.split(":")[0]);
+    const endHour = Number(data.endTime.split(":")[0]);
+    return startHour < endHour;
+}, {
+    message: "시작 시간은 종료 시간보다 이전이여야 합니다",
+    path: ["endTime"],
+});
 
 export const newLaserSchema = z.object({
     name: z
         .string()
+        .trim()
         .min(1, "기기명을 입력해주세요"),
-    date: z.object({}),
+    times: z.array(z.object({
+        startTime: z.string().min(1, '시작 시간을 입력해주세요'),
+        endTime: z.string().min(1, '종료 시간을 입력해주세요')
+    })).nonempty({
+        message: "시간 목록을 입력해주세요"
+    })
 });
 
 export const newPrinterSchema = z.object({
     name: z
         .string()
+        .trim()
         .min(1, "기기명을 입력해주세요"),
 });
 
 export const updateHeatCountSchema = z.object({
-    count: z.number().min(0).max(15),
+    count: z.number().int().min(0).max(15),
 });
 
 export const cncHeatSchema = z.object({

@@ -7,7 +7,7 @@ import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import Select from "@components/Select";
 import InputWithLabel from "@components/InputWithLabel";
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 import Modal from "@components/Modal";
 import ConfirmContent from "@components/ConfirmContent";
 import LoadingLoop from "@components/LoadingLoop";
@@ -103,7 +103,7 @@ const UpdateAccountPage:FC = () => {
 
     const UpdateAccountModalContent = () => {
         const leftBtn = (
-            <ColoredBtn
+            <Button
                 type={"button"}
                 content={"닫기"}
                 width={"full"}
@@ -113,7 +113,7 @@ const UpdateAccountPage:FC = () => {
             />
         );
         const rightBtn = (
-            <ColoredBtn
+            <Button
                 type={"submit"}
                 content={"수정하기"}
                 width={"full"}
@@ -187,7 +187,7 @@ const UpdateAccountPage:FC = () => {
                             errorMessage={errors.tel?.message}
                         />
 
-                        <ColoredBtn
+                        <Button
                             type={"submit"}
                             content={"내 정보 수정"}
                             width={"full"}

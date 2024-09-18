@@ -1,10 +1,10 @@
 import {FC} from "react";
 
-import {IColoredBtnProps} from "@/types/componentProps.ts";
+import {IButtonProps} from "@/types/componentProps.ts";
 
 import {ButtonWrapper, LinkWrapper, SubmitWrapper} from "./style.ts";
 
-const ColoredBtn:FC<IColoredBtnProps> = ({type = "button", to, content, width, color, scale, onClick, disabled}) => {
+const Button:FC<IButtonProps> = ({type = "button", to, content, width, color, scale, onClick, disabled}) => {
     if (type === "button") {
         return (
             <ButtonWrapper width={width} color={color} scale={scale} onClick={onClick} disabled={disabled}>{content}</ButtonWrapper>
@@ -22,4 +22,4 @@ const ColoredBtn:FC<IColoredBtnProps> = ({type = "button", to, content, width, c
     }
 };
 
-export default ColoredBtn;
+export default Button;

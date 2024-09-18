@@ -1,6 +1,6 @@
 import {FC} from "react";
 
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 
 import {Container} from "./style.ts";
 
@@ -24,7 +24,7 @@ const ManagerCard:FC = () => {
                 </div>
 
                 {userData?.role !== "manager" &&
-                    <ColoredBtn type={"link"} to={"/communication/inquiry/new"} content={"문의하기"} width={"fit"} color={"third"} scale={"small"}/>
+                    <Button type={"link"} to={"/communication/inquiry/new"} content={"문의하기"} width={"fit"} color={"third"} scale={"small"}/>
                 }
             </div>
         </Container>

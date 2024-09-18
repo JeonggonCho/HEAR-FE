@@ -5,7 +5,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import InputWithLabel from "@components/InputWithLabel";
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 
 import {findPasswordSchema} from "@schemata/authSchema.ts";
 
@@ -57,7 +57,7 @@ const FindPasswordPage:FC = () => {
                     errorMessage={errors.studentId?.message}
                 />
 
-                <ColoredBtn type={"submit"} content={"비밀번호 찾기"} width={"full"} color={"primary"} scale={"big"}/>
+                <Button type={"submit"} content={"비밀번호 찾기"} width={"full"} color={"primary"} scale={"big"}/>
             </form>
         </Container>
     );

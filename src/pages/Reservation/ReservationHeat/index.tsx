@@ -3,7 +3,7 @@ import {useForm} from "react-hook-form";
 
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 import InputWithLabel from "@components/InputWithLabel";
 
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -43,7 +43,7 @@ const ReservationHeat:FC = () => {
                     disabled={true}
                 />
 
-                <ColoredBtn type={"submit"} content={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>
+                <Button type={"submit"} content={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>
             </form>
         </Container>
     );

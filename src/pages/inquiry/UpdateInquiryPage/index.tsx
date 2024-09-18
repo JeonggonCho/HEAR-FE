@@ -10,7 +10,7 @@ import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
 import ErrorContent from "@components/ErrorContent";
 import Textarea from "@components/Textarea";
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 import InputWithLabel from "@components/InputWithLabel";
 import Select from "@components/Select";
 import ConfirmContent from "@components/ConfirmContent";
@@ -86,7 +86,7 @@ const UpdateInquiryPage:FC = () => {
 
     const UpdateInquiryModalContent = () => {
         const leftBtn = (
-            <ColoredBtn
+            <Button
                 type={"button"}
                 content={"닫기"}
                 width={"full"}
@@ -96,7 +96,7 @@ const UpdateInquiryPage:FC = () => {
             />
         );
         const rightBtn = (
-            <ColoredBtn
+            <Button
                 type={"submit"}
                 content={"수정하기"}
                 width={"full"}
@@ -145,7 +145,7 @@ const UpdateInquiryPage:FC = () => {
                             errorMessage={errors.content?.message}
                         />
 
-                        <ColoredBtn type={"submit"} content={"문의 수정하기"} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={"문의 수정하기"} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
 
                     {updateInquiryModal &&

@@ -11,7 +11,7 @@ import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
 import ErrorContent from "@components/ErrorContent";
 import Textarea from "@components/Textarea";
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 
 import useRequest from "@hooks/useRequest.ts";
 import {noticeSchema} from "@schemata/qnaSchema.ts";
@@ -96,7 +96,7 @@ const UpdateNoticePage:FC = () => {
                             errorMessage={errors.content?.message}
                         />
 
-                        <ColoredBtn type={"submit"} content={"공지 수정하기"} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={"공지 수정하기"} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
                 </>
             }

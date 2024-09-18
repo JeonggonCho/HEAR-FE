@@ -1,12 +1,12 @@
-import React, {ChangeEvent, MutableRefObject, ReactElement, ReactNode} from "react";
+import React, {ChangeEvent, ReactElement, ReactNode} from "react";
 import {To} from "react-router-dom";
 import {ITab} from "@/types/tab.ts";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 import {ICommonMachine, IHeats, ILasers, IPrinters} from "@/types/machine.ts";
 
 
-// 버튼(ColoredBtn) props
-export interface IColoredBtnProps {
+// 버튼(Button) props
+export interface IButtonProps {
     type: "button" | "link" | "submit";
     to?: string;
     content : string | ReactElement;
@@ -56,6 +56,7 @@ export interface IInputWithLabelProps<TFieldValues extends FieldValues> {
     readonly ?: boolean;
     visibleToggle ?: boolean;
     disabled ?: boolean;
+    value?: any;
 }
 
 
@@ -243,4 +244,10 @@ export interface INewMachineContentProps {
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
     machine: "laser" | "printer";
     setMachines: React.Dispatch<React.SetStateAction<ILasers[]>> | React.Dispatch<React.SetStateAction<IPrinters[]>>
+}
+
+export interface ITimeListItemProps {
+    startTime: string;
+    endTime: string;
+    onDelete: () => void;
 }

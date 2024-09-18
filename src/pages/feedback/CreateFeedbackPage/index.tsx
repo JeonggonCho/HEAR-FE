@@ -7,7 +7,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import Textarea from "@components/Textarea";
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 import Select from "@components/Select";
 import InputWithLabel from "@components/InputWithLabel";
 import LoadingLoop from "@components/LoadingLoop";
@@ -86,7 +86,7 @@ const CreateFeedbackPage:FC = () => {
                             errorMessage={errors.content?.message}
                         />
 
-                        <ColoredBtn type={"submit"} content={"피드백 보내기"} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={"피드백 보내기"} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
                 </>
             }

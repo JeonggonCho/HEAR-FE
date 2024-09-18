@@ -1,16 +1,16 @@
 import {FC, useCallback, useState} from "react";
 
 import Toggle from "@components/Toggle";
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 import Modal from "@components/Modal";
 import ConfirmContent from "@components/ConfirmContent";
+import ErrorContent from "@components/ErrorContent";
 
 import {ILasers, IPrinters} from "@/types/machine.ts";
 import useToggle from "@hooks/useToggle.ts";
 import useRequest from "@hooks/useRequest.ts";
 
 import {Container, ControlWrapper} from "./style.ts";
-import ErrorContent from "@components/ErrorContent";
 
 const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines: React.Dispatch<React.SetStateAction<ILasers[]>> | React.Dispatch<React.SetStateAction<IPrinters[]>>}> = (props) => {
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
@@ -46,7 +46,7 @@ const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines
                 }
 
                 <ControlWrapper showEdit={props.showEdit}>
-                    <ColoredBtn
+                    <Button
                         type={"button"}
                         content={"수정"}
                         width={"fit"}
@@ -54,7 +54,7 @@ const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines
                         scale={"small"}
                         onClick={() => {}}
                     />
-                    <ColoredBtn
+                    <Button
                         type={"button"}
                         content={"삭제"}
                         width={"fit"}
@@ -68,7 +68,7 @@ const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines
                     <Modal
                       content={<ConfirmContent
                           text={"기기를 삭제 하시겠습니까?"}
-                          leftBtn={<ColoredBtn
+                          leftBtn={<Button
                               type={"button"}
                               content={"닫 기"}
                               color={"third"}
@@ -76,7 +76,7 @@ const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines
                               scale={"normal"}
                               onClick={() => setShowDeleteModal(false)}
                           />}
-                          rightBtn={<ColoredBtn
+                          rightBtn={<Button
                               type={"button"}
                               scale={"normal"}
                               color={"danger"}

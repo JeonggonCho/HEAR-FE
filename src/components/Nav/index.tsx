@@ -4,7 +4,7 @@ import {useLocation} from "react-router-dom";
 
 import {navCategories} from "@constants/navCategories.ts";
 
-import {Container, Button} from "./style.ts";
+import {Container, NavButton} from "./style.ts";
 
 const Nav:FC = () => {
     const {pathname} = useLocation();
@@ -12,14 +12,14 @@ const Nav:FC = () => {
     return (
         <Container>
             {navCategories.map((category, index) => (
-                <Button
+                <NavButton
                     to={category.path}
                     key={index}
                     active={(pathname.includes(category.path)).toString()}
                 >
                     <ReactSVG src={category.icon} />
                     {category.label}
-                </Button>
+                </NavButton>
             ))}
         </Container>
     );

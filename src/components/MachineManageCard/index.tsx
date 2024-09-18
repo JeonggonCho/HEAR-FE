@@ -44,19 +44,20 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
         },
     });
 
+    // 열선 개수 수정 요청 (디바운스를 사용하여 단일 요청만 보내기)
     const submitHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         const newCount = Number(e.target.value);
         setRangeValue(newCount);
 
-        // 1. 기존의 타이머가 있다면 지운다.
+        // 1. 기존의 타이머가 있다면 지우기
         if (debounceTimeout) {
             clearTimeout(debounceTimeout);
         }
 
-        // 2. 새로운 타이머를 설정한다.
+        // 2. 새로운 타이머를 설정
         const newTimeout = setTimeout(async () => {
             try {
-                // 3. 타이머가 끝나면 서버에 요청을 보낸다.
+                // 3. 타이머가 끝나면 서버에 요청을 보내기
                 await sendRequest({
                     url: machineData[0]?.url,
                     method: "patch",
@@ -65,9 +66,9 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
             } catch (err) {
                 console.error("열선 개수 수정 중 에러 발생: ", err);
             }
-        }, 500); // 500ms (0.5초) 후에 실행
+        }, 500);
 
-        // 4. 새로 설정한 타이머를 상태로 저장한다.
+        // 4. 새로 설정한 타이머를 상태로 저장
         setDebounceTimeout(newTimeout);
     }, [debounceTimeout, sendRequest, machineData]);
 

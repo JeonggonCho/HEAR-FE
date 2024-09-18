@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 
 import Header from "@components/Header";
 import ProfileCard from "@components/ProfileCard";
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 import StatusCard from "@components/StatusCard";
 import CountOfLaserCard from "@components/CountOfLaserCard";
 import ReservationListCard from "@components/ReservationListCard";
@@ -66,7 +66,7 @@ const AccountPage:FC = () => {
 
     const AccountHeaderRight:FC = () => {
         return (
-            <ColoredBtn
+            <Button
                 type={"button"}
                 content={"로그아웃"}
                 width={"fit"}
@@ -79,7 +79,7 @@ const AccountPage:FC = () => {
 
     const LogoutContent = () => {
         const leftBtn = (
-            <ColoredBtn
+            <Button
                 type={"button"}
                 content={"닫 기"}
                 width={"full"}
@@ -89,7 +89,7 @@ const AccountPage:FC = () => {
             />
         );
         const rightBtn = (
-            <ColoredBtn
+            <Button
                 type={"submit"}
                 content={"로그아웃"}
                 width={"full"}
@@ -105,7 +105,7 @@ const AccountPage:FC = () => {
 
     const UnregisterContent = () => {
         const leftBtn = (
-            <ColoredBtn
+            <Button
                 type={"button"}
                 content={"닫 기"}
                 width={"full"}
@@ -115,7 +115,7 @@ const AccountPage:FC = () => {
             />
         );
         const rightBtn = (
-            <ColoredBtn
+            <Button
                 type={"submit"}
                 content={"탈 퇴"}
                 width={"full"}
@@ -143,8 +143,8 @@ const AccountPage:FC = () => {
                     <ProfileCard/>
 
                     <div>
-                        <ColoredBtn type={"link"} content={"내정보 수정"} width={"full"} color={"second"} scale={"normal"} to={"/account/update"}/>
-                        <ColoredBtn type={"link"} content={"비밀번호 변경"} width={"full"} color={"second"} scale={"normal"} to={"/password/update"}/>
+                        <Button type={"link"} content={"내정보 수정"} width={"full"} color={"second"} scale={"normal"} to={"/account/update"}/>
+                        <Button type={"link"} content={"비밀번호 변경"} width={"full"} color={"second"} scale={"normal"} to={"/password/update"}/>
                     </div>
 
                     {userData?.role === "student" &&
@@ -164,7 +164,7 @@ const AccountPage:FC = () => {
                         </>
                     )}
 
-                    <ColoredBtn
+                    <Button
                         type={"button"}
                         content={"탈퇴하기"}
                         width={"full"}

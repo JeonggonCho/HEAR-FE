@@ -1,5 +1,5 @@
 import {z} from "zod";
-import {EMAIL_REGEX, PW_REGEX, STUDENTID_REGEX, TEL_REGEX} from "@constants/authRegex.ts";
+import {EMAIL_REGEX, PW_REGEX, STUDENTID_REGEX, TEL_REGEX} from "@constants/regex.ts";
 
 export const signupSchema = z.object({
     username: z

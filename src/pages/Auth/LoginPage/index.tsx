@@ -6,7 +6,7 @@ import {AxiosResponse} from "axios";
 
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 import InputWithLabel from "@components/InputWithLabel";
 import Link from "@components/Link";
 import Modal from "@components/Modal";
@@ -112,7 +112,7 @@ const LoginPage:FC = () => {
                             visibleToggle={true}
                         />
 
-                        <ColoredBtn
+                        <Button
                             type={"submit"}
                             content={"로그인"}
                             width={"full"}

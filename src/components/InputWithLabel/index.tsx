@@ -25,6 +25,7 @@ const InputWithLabel = <TFieldValues extends FieldValues>(
         readonly,
         visibleToggle,
         disabled,
+        value,
     }: IInputWithLabelProps<TFieldValues>
 ) => {
     const [inputType, setInputType] = useState<string>(type);
@@ -41,6 +42,7 @@ const InputWithLabel = <TFieldValues extends FieldValues>(
                         id={id}
                         min={0}
                         max={15}
+                        value={value}
                     />
                 </>
                 :
@@ -55,6 +57,7 @@ const InputWithLabel = <TFieldValues extends FieldValues>(
                     disabled={disabled}
                     min={inputType === "number" ? 0 : undefined}
                     onWheel={e => (e.target as HTMLElement).blur()}
+                    value={value}
                 />
             }
 

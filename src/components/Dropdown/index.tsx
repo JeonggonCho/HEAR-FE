@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 
 import Modal from "@components/Modal";
 import ConfirmContent from "@components/ConfirmContent";
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 import ErrorContent from "@components/ErrorContent";
 
 import {IDropdownProps} from "@/types/componentProps.ts";
@@ -95,8 +95,8 @@ const Dropdown:FC<IDropdownProps> = ({type, id}) => {
                 <Modal
                     content={<ConfirmContent
                         text={"삭제 하시겠습니까?"}
-                        leftBtn={<ColoredBtn type={"button"} content={"닫 기"} color={"third"} scale={"normal"} width={"full"} onClick={() => setShowModal(false)}/> }
-                        rightBtn={<ColoredBtn type={"submit"} content={"삭 제"} color={"danger"} scale={"normal"} width={"full"} onClick={deleteHandler}/>}
+                        leftBtn={<Button type={"button"} content={"닫 기"} color={"third"} scale={"normal"} width={"full"} onClick={() => setShowModal(false)}/> }
+                        rightBtn={<Button type={"submit"} content={"삭 제"} color={"danger"} scale={"normal"} width={"full"} onClick={deleteHandler}/>}
                     />}
                     setModal={setShowModal}
                     type={"popup"}

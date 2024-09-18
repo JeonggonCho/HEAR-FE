@@ -2,7 +2,7 @@ import {FC} from "react";
 
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 
 import {useAuthStore} from "@store/useAuthStore.ts";
 
@@ -20,7 +20,7 @@ const NotFoundPage:FC = () => {
                 <img src={logo}/>
             </div>
             <p>해당 페이지를 찾을 수 없습니다</p>
-            <ColoredBtn type={"link"} content={isLoggedIn ? "홈으로 이동" : "로그인 하기"} width={"full"} color={"primary"} scale={"big"} to={"/"}/>
+            <Button type={"link"} content={isLoggedIn ? "홈으로 이동" : "로그인 하기"} width={"full"} color={"primary"} scale={"big"} to={"/"}/>
         </Container>
     );
 };

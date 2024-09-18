@@ -1,6 +1,6 @@
 import {FC, useState} from "react";
 
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 
 import {ILangSettingContentProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
@@ -55,7 +55,7 @@ const LangSettingContent:FC<ILangSettingContentProps> = ({setModal}) => {
                 <label htmlFor="chinese">中文</label>
             </div>
 
-            <ColoredBtn
+            <Button
                 type={"button"}
                 content={"선택 완료"}
                 width={"full"}

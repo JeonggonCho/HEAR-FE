@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {ReactSVG} from "react-svg";
 
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 
 import {IErrorContentProps} from "@/types/componentProps.ts";
 
@@ -15,7 +15,7 @@ const ErrorContent:FC<IErrorContentProps> = ({text, closeModal}) => {
         <Container>
             <ReactSVG src={error}/>
             <p>{text}</p>
-            <ColoredBtn
+            <Button
                 type={"button"}
                 content={"닫 기"}
                 width={"full"}

@@ -10,7 +10,7 @@ import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
 import ErrorContent from "@components/ErrorContent";
 import InputWithLabel from "@components/InputWithLabel";
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 import Textarea from "@components/Textarea";
 import Select from "@components/Select";
 
@@ -86,7 +86,7 @@ const UpdateFeedbackPage:FC = () => {
 
     const UpdateFeedbackModalContent = () => {
         const leftBtn = (
-            <ColoredBtn
+            <Button
                 type={"button"}
                 content={"닫기"}
                 width={"full"}
@@ -96,7 +96,7 @@ const UpdateFeedbackPage:FC = () => {
             />
         );
         const rightBtn = (
-            <ColoredBtn
+            <Button
                 type={"submit"}
                 content={"수정하기"}
                 width={"full"}
@@ -145,7 +145,7 @@ const UpdateFeedbackPage:FC = () => {
                             errorMessage={errors.content?.message}
                         />
 
-                        <ColoredBtn type={"submit"} content={"피드백 수정하기"} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={"피드백 수정하기"} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
 
                     {updateFeedbackModal &&

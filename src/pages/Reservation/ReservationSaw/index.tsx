@@ -4,7 +4,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 import InputWithLabel from "@components/InputWithLabel";
 import Modal from "@components/Modal";
 import Calendar from "@components/Calendar";
@@ -57,7 +57,7 @@ const ReservationSaw:FC = () => {
                     errorMessage={errors.time?.message}
                 />
 
-                <ColoredBtn type={"submit"} content={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>
+                <Button type={"submit"} content={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>
             </form>
 
             {isOpenCalendar &&

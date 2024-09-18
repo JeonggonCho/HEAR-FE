@@ -23,7 +23,7 @@ export const Container = styled.nav`
     box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
 `;
 
-export const Button = styled(NavLink)<{ active: string }>`
+export const NavButton = styled(NavLink)<{ active: string }>`
     width: 56px;
     height: 56px;
     padding: 6px;

@@ -5,7 +5,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import RoomMap from "@components/RoomMap";
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 import InputWithLabel from "@components/InputWithLabel";
 import Select from "@components/Select";
 import Modal from "@components/Modal";
@@ -61,7 +61,7 @@ const ReservationPrinter:FC = () => {
                     readonly
                 />
 
-                <ColoredBtn type={"submit"} content={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>
+                <Button type={"submit"} content={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>
             </form>
 
             {isOpenCalendar &&

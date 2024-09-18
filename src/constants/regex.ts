@@ -9,3 +9,6 @@ export const STUDENTID_REGEX = /^\d{10}$/;
 
 // 휴대전화번호 정규표현식
 export const TEL_REGEX = /^\+?[0-9\s\-()]{7,20}$/;
+
+// 시간 형식(HH:MM) 정규표현식
+export const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;

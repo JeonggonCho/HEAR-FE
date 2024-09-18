@@ -1,7 +1,7 @@
 import {FC, useMemo, useState} from "react";
 import {ReactSVG} from "react-svg";
 
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 
 import {ICalendarProps} from "@/types/componentProps.ts";
 import {daysOfWeek} from "@constants/calendar.ts";
@@ -68,7 +68,7 @@ const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate}) => {
         <Container>
             <CalendarMonthWrapper>
                 <div>
-                    <ColoredBtn
+                    <Button
                         type={"button"}
                         content={<ReactSVG src={arrowBack}/>}
                         width={"fit"}
@@ -77,7 +77,7 @@ const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate}) => {
                         onClick={handlePrevMonth}
                     />
                     <h4>{`${currentDate.getFullYear()}.${(currentDate.getMonth() + 1).toString().padStart(2, '0')}`}</h4>
-                    <ColoredBtn
+                    <Button
                         type={"button"}
                         content={<ReactSVG src={arrowForward}/>}
                         width={"fit"}
@@ -87,7 +87,7 @@ const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate}) => {
                     />
                 </div>
 
-                <ColoredBtn
+                <Button
                     type={"button"}
                     content={"이번달"}
                     width={"fit"}
@@ -115,7 +115,7 @@ const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate}) => {
                 ))}
             </CalendarDayWrapper>
 
-            <ColoredBtn
+            <Button
                 type={"button"}
                 content={`${selectedDate ? selectedDate.toLocaleDateString('default', { month: 'long', day: 'numeric' }) : ""} 선택완료`}
                 width={"full"}

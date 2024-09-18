@@ -8,7 +8,7 @@ import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import InputWithLabel from "@components/InputWithLabel";
 import Textarea from "@components/Textarea";
-import ColoredBtn from "@components/ColoredBtn";
+import Button from "@components/Button";
 import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
 import ErrorContent from "@components/ErrorContent";
@@ -71,7 +71,7 @@ const CreateNoticePage:FC = () => {
                             errorMessage={errors.content?.message}
                         />
 
-                        <ColoredBtn type={"submit"} content={"공지하기"} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={"공지하기"} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
                 </>
             }
