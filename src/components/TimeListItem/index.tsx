@@ -1,27 +1,41 @@
 import {FC} from "react";
 import {ReactSVG} from "react-svg";
-
-import Button from "@components/Button";
+import {Draggable} from "react-beautiful-dnd";
 
 import {ITimeListItemProps} from "@/types/componentProps.ts";
 
 import {Container} from "./style.ts";
 
 import remove from "@assets/icons/close.svg";
+import drag from "@assets/icons/drag.svg";
 
-const TimeListItem:FC<ITimeListItemProps> = ({startTime, endTime, onDelete}) => {
+const TimeListItem:FC<ITimeListItemProps> = ({index, id, startTime, endTime, onDelete}) => {
     return (
-        <Container>
-            <span>{`${startTime} - ${endTime}`}</span>
-            <Button
-                type={"button"}
-                content={<ReactSVG src={remove}/> }
-                width={"fit"}
-                color={"second"}
-                scale={"small"}
-                onClick={onDelete}
-            />
-        </Container>
+        <Draggable draggableId={id} index={index}>
+            {(provided, snapshot) => (
+                (
+                    <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        style={{
+                            ...provided.draggableProps.style,
+                        }}
+                    >
+                        <Container isDragging={snapshot.isDragging}>
+                            <div>
+                                <div
+                                    {...provided.dragHandleProps}
+                                >
+                                    <ReactSVG src={drag}/>
+                                </div>
+                                <span>{`${startTime} - ${endTime}`}</span>
+                            </div>
+                            <ReactSVG src={remove} onClick={onDelete}/>
+                        </Container>
+                    </div>
+                )
+            )}
+        </Draggable>
     );
 };
 

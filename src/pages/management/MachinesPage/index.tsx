@@ -59,6 +59,7 @@ const MachinesPage:FC = () => {
     useEffect(() => {
         fetchMachines();
     }, [fetchMachines]);
+
     return (
         <>
             <Header leftChild={<ArrowBack/>} centerText={"기기 관리"}/>

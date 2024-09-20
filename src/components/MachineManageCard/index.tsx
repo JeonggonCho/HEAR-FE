@@ -10,6 +10,7 @@ import MachineListItem from "@components/MachineListItem";
 import ErrorContent from "@components/ErrorContent";
 import NewMachineContent from "@components/NewMachineContent";
 import InputWithLabel from "@components/InputWithLabel";
+import TimesContent from "@components/TimesContent";
 
 import {IMachineManageCardProps} from "@/types/componentProps.ts";
 import {IHeats, ILasers, IPrinters} from "@/types/machine.ts";
@@ -18,7 +19,15 @@ import useToggle from "@hooks/useToggle.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {updateHeatCountSchema} from "@schemata/machineSchema.ts";
 
-import {BtnsWrapper, Container, CountWrapper, IconWrapper, MachineListWrapper, MoreWrapper} from "./style.ts";
+import {
+    BtnsWrapper,
+    Container,
+    CountWrapper,
+    IconWrapper,
+    MachineListWrapper,
+    MoreWrapper,
+    NoMachines
+} from "./style.ts";
 
 import more from "@assets/icons/arrow_down.svg";
 
@@ -144,6 +153,15 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
                                 {...(printer as IPrinters)}
                             />
                         ))
+                    }
+
+                    {machineData.length === 0 &&
+                        <NoMachines>기기 목록이 없습니다</NoMachines>
+                    }
+
+                    {/*레이저 커팅기 시간 목록*/}
+                    {machineType === "laser" &&
+                        <TimesContent/>
                     }
 
                     {/*열선 개수 조절*/}

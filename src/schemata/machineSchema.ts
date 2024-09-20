@@ -14,20 +14,7 @@ export const timeRangeSchema = z.object({
     path: ["endTime"],
 });
 
-export const newLaserSchema = z.object({
-    name: z
-        .string()
-        .trim()
-        .min(1, "기기명을 입력해주세요"),
-    times: z.array(z.object({
-        startTime: z.string().min(1, '시작 시간을 입력해주세요'),
-        endTime: z.string().min(1, '종료 시간을 입력해주세요')
-    })).nonempty({
-        message: "시간 목록을 입력해주세요"
-    })
-});
-
-export const newPrinterSchema = z.object({
+export const newMachineSchema = z.object({
     name: z
         .string()
         .trim()
@@ -35,7 +22,10 @@ export const newPrinterSchema = z.object({
 });
 
 export const updateHeatCountSchema = z.object({
-    count: z.number().int().min(0).max(15),
+    count: z
+        .number()
+        .int()
+        .min(0).max(15),
 });
 
 export const cncHeatSchema = z.object({

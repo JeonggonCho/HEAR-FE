@@ -31,65 +31,10 @@ export const Container = styled.div`
             border-radius: 50%;
             background-color: ${({theme}) => theme.colors.button.second};
             cursor: pointer;
-        }
-    }
-`;
-
-export const TimeListWrapper = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    
-    label {
-        margin-left: 6px;
-        color: ${({theme}) => theme.colors.font.sub};
-    }
-    
-    & > div:first-of-type {
-        width: 100%;
-        border-radius: 8px;
-        background-color: ${({theme}) => theme.colors.bg.sub};
-        padding: 8px;
-
-        & > div:first-of-type {
-            max-height: 200px;
-            overflow: auto;
             
-            & > p:first-of-type {
-                text-align: center;
-                color: ${({theme}) => theme.colors.font.sub};
+            svg {
+                padding-top: 2px;
             }
         }
     }
-`;
-
-export const TimeSelectsWrapper = styled.div`
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 8px;
-    margin-top: 32px;
-    margin-bottom: 8px;
-    
-    div {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        
-        select {
-            width: 100%;
-            height: 32px;
-            font-size: 18px;
-            border-radius: 6px;
-            padding: 4px;
-        }
-    }
-`;
-
-export const ErrorMessage = styled.p`
-    font-size: 14px;
-    color: ${({theme}) => theme.colors.font.danger};
-    margin-left: 4px;
 `;

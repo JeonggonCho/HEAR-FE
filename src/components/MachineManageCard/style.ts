@@ -189,3 +189,10 @@ export const CountWrapper = styled.div<{rangeValue: number}>`
         margin-top: 32px;
     }
 `;
+
+export const NoMachines = styled.p`
+    text-align: center;
+    border-top: 1px solid ${({theme}) => theme.colors.line.main};
+    margin: 0;
+    padding: 16px;
+`;

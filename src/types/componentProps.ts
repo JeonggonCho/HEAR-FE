@@ -247,6 +247,8 @@ export interface INewMachineContentProps {
 }
 
 export interface ITimeListItemProps {
+    index: number;
+    id: string;
     startTime: string;
     endTime: string;
     onDelete: () => void;

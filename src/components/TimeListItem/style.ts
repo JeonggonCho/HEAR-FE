@@ -1,29 +1,45 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.div`
+export const Container = styled.div<{ isDragging: boolean }>`
     width: 100%;
-    padding: 12px;
+    padding: 12px 16px 12px 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
+    box-shadow: ${({ isDragging }) => (isDragging ? "0 2px 8px rgba(0,0,0,0.2)" : "none")};
+    background-color: ${({ isDragging, theme }) => (isDragging ? theme.colors.bg.sub : theme.colors.bg.main)};
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+
     span {
         font-size: 18px;
     }
     
-    button {
-        width: 28px;
-        height: 28px;
+    & > div:first-of-type {
         display: flex;
         align-items: center;
-        justify-content: center;
+        gap: 12px;
+        
+        & > div:first-of-type {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         
         svg {
-            margin-top: 4px;
+            fill: ${({theme}) => theme.colors.icon.fill};
         }
     }
-    
-    & + & {
-        border-top: 1px solid ${({theme}) => theme.colors.line.main};
+
+    svg {
+        fill: ${({theme}) => theme.colors.icon.fill};
+        margin-top: 4px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out 0s;
+        
+        &:hover {
+            fill: ${({theme}) => theme.colors.font.main};
+        }
     }
 `;
