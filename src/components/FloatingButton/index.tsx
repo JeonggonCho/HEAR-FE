@@ -1,13 +1,13 @@
 import {FC} from 'react';
 import {ReactSVG} from "react-svg";
 
-import {ICreateBtnProps} from "@/types/componentProps.ts";
+import {IFloatingButtonProps} from "@/types/componentProps.ts";
 
 import {Container} from "./style.ts";
 
 import write from "@assets/icons/write.svg";
 
-const CreateBtn:FC<ICreateBtnProps> = ({to}) => {
+const FloatingButton:FC<IFloatingButtonProps> = ({to}) => {
     return (
         <Container to={to}>
             <ReactSVG src={write}/>
@@ -15,4 +15,4 @@ const CreateBtn:FC<ICreateBtnProps> = ({to}) => {
     );
 };
 
-export default CreateBtn;
+export default FloatingButton;

@@ -8,7 +8,7 @@ import Modal from "@components/Modal";
 import ErrorContent from "@components/ErrorContent";
 
 import useRequest from "@hooks/useRequest.ts";
-import {ICommonMachine, IHeats, ILasers, IPrinters} from "@/types/machine.ts";
+import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
 
 import laser_icon from "@assets/images/laser_icon.png";
 import printer_icon from "@assets/images/printer_icon.png";
@@ -24,10 +24,11 @@ const MachinesPage:FC = () => {
     const [saws, setSaws] = useState<ICommonMachine[]>([]);
     const [vacuums, setVacuums] = useState<ICommonMachine[]>([]);
     const [cncs, setCncs] = useState<ICommonMachine[]>([]);
+    const [timeList, setTimeList] = useState<ILaserTimes[]>([]);
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
-    // 기기 정보들 조회하기
+    // 기기 정보들 정보 조회하기
     const fetchMachines = useCallback(async () => {
         try {
             const {data: {lasers}} = await sendRequest({url: "/machines/lasers",});
@@ -37,7 +38,10 @@ const MachinesPage:FC = () => {
             const {data: {vacuums}} = await sendRequest({url: "/machines/vacuums"});
             const {data: {cncs}} = await sendRequest({url: "/machines/cncs"});
 
-            // 각 기기 데이터에 업데이트 url 생성하기
+            // 레이저 커팅기 시간 목록 조회하기
+            const {data: {laserTimes}} = await sendRequest({url: "/machines/lasers/times"});
+
+            // 각 기기 데이터에 업데이트, 삭제 url 생성하기
             lasers.map((l:ILasers) => l.url = `/machines/lasers/${l._id}`);
             printers.map((p:IPrinters) => p.url = `/machines/printers/${p._id}`);
             heats.map((h:IHeats) => h.url = `/machines/heats/${h._id}`);
@@ -51,6 +55,11 @@ const MachinesPage:FC = () => {
             setSaws(saws);
             setVacuums(vacuums);
             setCncs(cncs);
+
+            // 각 시간 데이터에 업데이트, 삭제 url 생성하기
+            laserTimes.map((t: ILaserTimes) => t.url = `/machines/lasers/times/${t.id}`);
+
+            setTimeList(laserTimes);
         } catch (err) {
             console.error("기기 조회 중 에러: ", err);
         }
@@ -75,6 +84,8 @@ const MachinesPage:FC = () => {
                           machineType={"laser"}
                           machineData={lasers}
                           setMachines={setLasers}
+                          timeData={timeList}
+                          setTimes={setTimeList}
                         />
                         <MachineManageCard
                           name={"3D 프린터"}

@@ -10,10 +10,10 @@ import MachineListItem from "@components/MachineListItem";
 import ErrorContent from "@components/ErrorContent";
 import NewMachineContent from "@components/NewMachineContent";
 import InputWithLabel from "@components/InputWithLabel";
-import TimesContent from "@components/TimesContent";
+import TimeListContent from "@components/TimeListContent";
 
 import {IMachineManageCardProps} from "@/types/componentProps.ts";
-import {IHeats, ILasers, IPrinters} from "@/types/machine.ts";
+import {IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
 import useListCollapse from "@hooks/useListCollapse.ts";
 import useToggle from "@hooks/useToggle.ts";
 import useRequest from "@hooks/useRequest.ts";
@@ -31,14 +31,14 @@ import {
 
 import more from "@assets/icons/arrow_down.svg";
 
-const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, machineType, setMachines}) => {
+const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, machineType, setMachines, timeData, setTimes}) => {
     const [showEdit, setShowEdit] = useState<boolean>(false);
     const [newLaserModal, setNewLaserModal] = useState<boolean>(false);
     const [newPrinterModal, setNewPrinterModal] = useState<boolean>(false);
     const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(null);
     const [rangeValue, setRangeValue] = useState<number | undefined>(machineType === "heat" ? (machineData[0] as IHeats)?.count : undefined);
 
-    const {isOpen, listRef, maxHeight, handleList} = useListCollapse(machineData.length);
+    const {isOpen, listRef, maxHeight, handleList} = useListCollapse(machineData.length, timeData?.length || 0);
 
     const {sendRequest, errorText, clearError} = useRequest();
 
@@ -161,7 +161,10 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
 
                     {/*레이저 커팅기 시간 목록*/}
                     {machineType === "laser" &&
-                        <TimesContent/>
+                      <TimeListContent
+                        timeList={timeData || []}
+                        setTimeList={setTimes}
+                      />
                     }
 
                     {/*열선 개수 조절*/}

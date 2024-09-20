@@ -1,6 +1,6 @@
 import {FC, useCallback, useEffect, useState} from "react";
 
-import CreateBtn from "@components/CreateBtn";
+import FloatingButton from "@components/FloatingButton";
 import Empty from "@components/Empty";
 import NoticeListItem from "@components/NoticeListItem";
 import Modal from "@components/Modal";
@@ -52,7 +52,9 @@ const NoticePage:FC = () => {
                         <Empty title={"작성된 공지사항이 없습니다"}/>
                     }
 
-                    {userData?.role === "manager" && <CreateBtn to={"/communication/notice/new"}/>}
+                    {userData?.role === "manager" &&
+                      <FloatingButton to={"/communication/notice/new"}/>
+                    }
                 </>
             }
 

@@ -1,4 +1,4 @@
-import {FC, useState} from "react";
+import {FC} from "react";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 import {z} from "zod";
@@ -7,16 +7,18 @@ import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 
 import TimeListItem from "@components/TimeListItem";
 import Button from "@components/Button";
+import Modal from "@components/Modal";
+import ErrorContent from "@components/ErrorContent";
 
 import {timeRangeSchema} from "@schemata/machineSchema.ts";
+import {ITimeListContentProps} from "@/types/componentProps.ts";
+import useRequest from "@hooks/useRequest.ts";
 
 import {Container, TimeSelectsWrapper, ErrorMessage,} from "./style.ts";
 
 
-const TimesContent:FC = () => {
-    const [startTime, setStartTime] = useState<string>("");
-    const [endTime, setEndTime] = useState<string>("");
-    const [timeList, setTimeList] = useState<{id: string; startTime: string; endTime: string}[]>([]);
+const TimeListContent:FC<ITimeListContentProps> = ({timeList, setTimeList}) => {
+    const {errorText, sendRequest, clearError} = useRequest();
 
     type TimeFormData = z.infer<typeof timeRangeSchema>;
 
@@ -25,6 +27,7 @@ const TimesContent:FC = () => {
         register: timeRegister,
         handleSubmit: timeHandleSubmit,
         formState:{errors: timeErrors},
+        setValue,
     } = useForm<TimeFormData>({
         resolver: zodResolver(timeRangeSchema),
         defaultValues: {
@@ -34,31 +37,70 @@ const TimesContent:FC = () => {
     })
 
     // 목록에 시간 추가
-    const addTime = (data: any) => {
-        if (data.startTime && data.endTime) {
-            const validationResult = timeRangeSchema.safeParse({ startTime, endTime });
-            if (validationResult.success) {
-                setTimeList(prevState => [...prevState, {id: uuidv4(), startTime, endTime }]);
-                setStartTime("");
-                setEndTime("");
-            } else {
-                console.error(validationResult.error.format());
+    const addTime = async (data: TimeFormData) => {
+        const validationResult = timeRangeSchema.safeParse(data);
+        if (validationResult.success) {
+            try {
+                const id = uuidv4();
+                const response = await sendRequest({
+                   url: "/machines/lasers/times",
+                   method: "post",
+                   data: {id, ...data},
+                });
+                if (response.data) {
+                    const {laserTime} = response.data;
+                    setTimeList && setTimeList(prevState => [...prevState, {...laserTime}]);
+                } else {
+                    console.error("레이저 커팅기 시간 목록 추가 중 서버 오류 발생: ", response.data?.message || response.statusText);
+                }
+            } catch (err) {
+                console.error("레이저 커팅기 시간 목록 추가 중 에러 발생: ", err);
             }
+        } else {
+            console.error(validationResult.error.format());
         }
     };
 
     // 시간 삭제
-    const removeTime = (id: string) => {
-        setTimeList(prevState => prevState.filter(time => time.id !== id));
+    const removeTime = async (id: string) => {
+        try {
+            await sendRequest({
+                url: `/machines/lasers/times/${id}`,
+                method: "delete",
+            });
+            setTimeList && setTimeList(prevState => prevState.filter(time => time.id !== id));
+        } catch (err) {
+            console.error("레이저 커팅기 시간 목록 삭제 중 에러 발생: ", err)
+        }
     };
 
     // 목록을 드래그 앤 드롭 시 순서 변경
-    const onDragEnd = (result: any) => {
+    const onDragEnd = async (result: any) => {
+        // 영역 이외의 곳으로 드래그앤드롭 시, 적용 안 됨
         if (!result.destination) return;
+        // 새로운 시간 목록 생성하기
         const newTimeList = Array.from(timeList);
+        // 드래그한 항목 제거 후, 새로운 위치에 삽입하기
         const [removed] = newTimeList.splice(result.source.index, 1);
         newTimeList.splice(result.destination.index, 0, removed);
-        setTimeList(newTimeList);
+
+        setTimeList && setTimeList(newTimeList);
+        try {
+            await sendRequest({
+                url: "/machines/lasers/times",
+                method: "patch",
+                data: newTimeList.map((t) => (
+                    {
+                        id: t.id,
+                        startTime: t.startTime,
+                        endTime: t.endTime
+                    }
+                )),
+            });
+        } catch (err) {
+            console.error("레이저 커팅기 시간 목록 수정 중 에러 발생: ", err);
+            setTimeList && setTimeList(timeList);
+        }
     };
 
     return (
@@ -69,9 +111,7 @@ const TimesContent:FC = () => {
                 <div>
                     <select
                         {...timeRegister("startTime")}
-                        value={startTime}
-                        id={"laser-start-time"}
-                        onChange={(e) => setStartTime(e.target.value)}
+                        onChange={(e) => setValue("startTime", e.target.value)}
                     >
                         <option value={""}>시작 시간</option>
                         <option value={"08:00"}>08:00</option>
@@ -96,9 +136,7 @@ const TimesContent:FC = () => {
                 <div>
                     <select
                         {...timeRegister("endTime")}
-                        value={endTime}
-                        id={"laser-end-time"}
-                        onChange={(e) => setEndTime(e.target.value)}
+                        onChange={(e) => setValue("endTime", e.target.value)}
                     >
                         <option value={""}>종료 시간</option>
                         <option value={"08:00"}>08:00</option>
@@ -161,8 +199,16 @@ const TimesContent:FC = () => {
                 :
                 <p>시간 목록이 없습니다</p>
             }
+
+            {errorText &&
+                <Modal
+                  content={<ErrorContent text={errorText} closeModal={clearError}/>}
+                  setModal={clearError}
+                  type={"popup"}
+                />
+            }
         </Container>
     );
 };
 
-export default TimesContent;
+export default TimeListContent;

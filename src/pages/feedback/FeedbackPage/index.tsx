@@ -1,7 +1,7 @@
 import {FC, useCallback, useEffect, useState} from "react";
 
 import InquiryFeedbackListItem from "@components/InquiryFeedbackListItem";
-import CreateBtn from "@components/CreateBtn";
+import FloatingButton from "@components/FloatingButton";
 import Empty from "@components/Empty";
 import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
@@ -53,7 +53,7 @@ const FeedbackPage:FC = () => {
                         />
                     }
 
-                    <CreateBtn to={"/communication/feedback/new"}/>
+                    <FloatingButton to={"/communication/feedback/new"}/>
                 </>
             }
 

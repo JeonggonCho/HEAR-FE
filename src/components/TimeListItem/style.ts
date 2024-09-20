@@ -6,6 +6,7 @@ export const Container = styled.div<{ isDragging: boolean }>`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-radius: 12px;
     box-shadow: ${({ isDragging }) => (isDragging ? "0 2px 8px rgba(0,0,0,0.2)" : "none")};
     background-color: ${({ isDragging, theme }) => (isDragging ? theme.colors.bg.sub : theme.colors.bg.main)};
     transition: background-color 0.2s ease, box-shadow 0.2s ease;
@@ -33,7 +34,7 @@ export const Container = styled.div<{ isDragging: boolean }>`
     }
 
     svg {
-        fill: ${({theme}) => theme.colors.icon.fill};
+        fill: ${({theme}) => theme.colors.font.sub};
         margin-top: 4px;
         cursor: pointer;
         transition: all 0.2s ease-in-out 0s;

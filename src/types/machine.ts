@@ -22,3 +22,10 @@ export interface IPrinters extends ICommonMachine {
 export interface IHeats extends ICommonMachine {
     count: number;
 }
+
+export interface ILaserTimes {
+    id: string;
+    startTime: string;
+    endTime: string;
+    url: string;
+}

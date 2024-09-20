@@ -2,7 +2,7 @@ import React, {ChangeEvent, ReactElement, ReactNode} from "react";
 import {To} from "react-router-dom";
 import {ITab} from "@/types/tab.ts";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
-import {ICommonMachine, IHeats, ILasers, IPrinters} from "@/types/machine.ts";
+import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
 
 
 // 버튼(Button) props
@@ -176,8 +176,8 @@ export interface INotice {
 }
 
 
-// 생성 버튼(CreateBtn) props
-export interface ICreateBtnProps {
+// 플로팅 버튼(FloatingButton) props
+export interface IFloatingButtonProps {
     to:To;
 }
 
@@ -227,6 +227,8 @@ export interface IMachineManageCardProps {
     machineData: ILasers[] | IPrinters[] | IHeats[] | ICommonMachine[];
     machineType: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc";
     setMachines?: React.Dispatch<React.SetStateAction<ILasers[]>> | React.Dispatch<React.SetStateAction<IPrinters[]>>;
+    timeData?: ILaserTimes[];
+    setTimes?: React.Dispatch<React.SetStateAction<ILaserTimes[]>>;
 }
 
 
@@ -246,6 +248,15 @@ export interface INewMachineContentProps {
     setMachines: React.Dispatch<React.SetStateAction<ILasers[]>> | React.Dispatch<React.SetStateAction<IPrinters[]>>
 }
 
+
+// 레이저 커팅기 시간 목록(TimeListContent) props
+export interface ITimeListContentProps {
+    timeList: ILaserTimes[];
+    setTimeList?: React.Dispatch<React.SetStateAction<ILaserTimes[]>>;
+}
+
+
+// 시간 목록 아이템(TimeListItem) props
 export interface ITimeListItemProps {
     index: number;
     id: string;
