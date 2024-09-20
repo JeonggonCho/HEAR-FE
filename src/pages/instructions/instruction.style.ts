@@ -24,7 +24,7 @@ export const Container = styled.div`
     h3 {
         color: ${({theme}) => theme.colors.font.primary};
         font-size: 20px;
-        font-weight: bold;
+        font-weight: 600;
     }
 
     h4 {
@@ -36,7 +36,7 @@ export const Container = styled.div`
 
     p {
         color: ${({theme}) => theme.colors.font.main};
-        font-weight: bold;
+        font-weight: 600;
         line-height: 1.5;
         margin: 0 0 20px;
         font-size: 18px;

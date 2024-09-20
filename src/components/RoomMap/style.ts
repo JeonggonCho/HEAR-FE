@@ -14,7 +14,7 @@ export const Container = styled.div`
     & > p:first-of-type {
         color: ${({theme}) => theme.colors.font.main};
         margin: 0 0 24px;
-        font-weight: bolder;
+        font-weight: 600;
     }
 `;
 

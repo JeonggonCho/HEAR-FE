@@ -17,7 +17,7 @@ export const Container = styled.div`
         word-break: keep-all;
         text-wrap: balance;
         font-size: 18px;
-        font-weight: bold;
+        font-weight: 600;
         margin: 20px 0 32px;
         line-height: 1.5;
         

@@ -27,7 +27,7 @@ export const Container = styled.div`
     }
     
     & > p:last-of-type {
-        font-weight: bold;
+        font-weight: 600;
         font-size: 18px;
         
         span {

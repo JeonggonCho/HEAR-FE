@@ -16,7 +16,7 @@ export const CalendarMonthWrapper = styled.div`
     h4 {
         color: ${({theme}) => theme.colors.font.main};
         margin: 0;
-        font-weight: bold;
+        font-weight: 600;
         font-size: 18px;
     }
 
@@ -40,7 +40,7 @@ export const DaysOfWeekWrapper = styled.div`
     grid-template-columns: repeat(7, 1fr);
     column-gap: clamp(3px, 2vw, 30px);
     text-align: center;
-    font-weight: bold;
+    font-weight: 600;
     margin-bottom: 20px;
 
     span {

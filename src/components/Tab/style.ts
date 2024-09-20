@@ -71,7 +71,7 @@ export const LineTap = styled(Link)<{active: string, tabcount: number}>`
     display: block;
     text-align: center;
     font-size: 18px;
-    font-weight: ${({active}) => active === "true" ? "bolder" : "normal"};
+    font-weight: ${({active}) => active === "true" ? "600" : "normal"};
     border-bottom: ${({active}) => active === "true" ? "2" : "0"}px solid ${({theme}) => {
         const {isDarkMode} = useThemeStore();
         return isDarkMode ? darken(0.1, theme.colors.font.sub) : darken(0.1, theme.colors.font.sub);

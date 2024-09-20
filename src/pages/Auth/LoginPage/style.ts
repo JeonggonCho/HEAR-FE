@@ -29,7 +29,7 @@ export const Container = styled.div`
         
         h3 {
             font-size: 24px;
-            font-weight: bold;
+            font-weight: 600;
             color: ${({theme}) => theme.colors.font.primary};
             margin: 0;
         }

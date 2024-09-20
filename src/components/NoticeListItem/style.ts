@@ -20,7 +20,7 @@ export const Container = styled(Link)`
         color: ${({theme}) => theme.colors.font.main};
         margin: 0;
         font-size: 18px;
-        font-weight: bold;
+        font-weight: 600;
         line-height: 1.2;
         overflow: hidden;
         text-overflow: ellipsis;

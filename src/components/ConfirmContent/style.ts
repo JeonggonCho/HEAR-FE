@@ -6,7 +6,7 @@ export const Container = styled.div`
     & > p:first-of-type {
         text-align: center;
         font-size: 20px;
-        font-weight: bold;
+        font-weight: 600;
         margin: 28px 0 32px;
     }
 
