@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const Container = styled.div<{ isDragging: boolean }>`
     width: 100%;
-    padding: 12px 16px 12px 8px;
+    padding: 12px 16px 12px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -20,8 +20,8 @@ export const Container = styled.div<{ isDragging: boolean }>`
         gap: 12px;
         
         & > div:first-of-type {
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;

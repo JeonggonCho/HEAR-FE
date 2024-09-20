@@ -9,31 +9,21 @@ export const Container = styled.div`
     label {
         padding-left: 8px;
         color: ${({theme}) => theme.colors.font.sub};
-    }
-    
-    & > div:first-of-type {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        margin-bottom: 12px;
     }
 
     & > div:last-of-type {
         margin-top: 8px;
-        
-        p {
-            padding: 24px 0;
-            text-align: center;
-        }
+    }
+
+    p {
+        padding: 12px 0;
+        text-align: center;
     }
     
     button {
         margin-top: 8px;
     }
-`;
-
-export const TimesWrapper = styled.div<{ isOpen: boolean; maxHeight: string }>`
-    max-height: ${(props) => (props.isOpen ? props.maxHeight : "0")};
-    transition: max-height 0.3s ease-in-out;
 `;
 
 export const TimeSelectsWrapper = styled.div`
@@ -42,7 +32,7 @@ export const TimeSelectsWrapper = styled.div`
     justify-content: space-between;
     gap: 8px;
     border-top: 1px solid ${({theme}) => theme.colors.line.main};
-    margin-bottom: 12px;
+    margin-bottom: 6px;
     
     div {
         width: 100%;
