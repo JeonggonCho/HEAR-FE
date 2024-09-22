@@ -21,15 +21,16 @@ export const Container = styled.div`
         font-size: 16px;
         font-family: Pretendard, Helvetica, sans-serif;
         cursor: pointer;
+
+        &::placeholder {
+            color: ${({theme}) => theme.colors.font.placeholder};
+        }
         
-        &:disabled {
+        &:disabled,
+        &:disabled::placeholder {
             cursor: auto;
             background-color: ${({theme}) => theme.colors.bg.sub};
             color: ${({theme}) => theme.colors.font.sub};
-        }
-        
-        &::placeholder {
-            color: ${({theme}) => theme.colors.font.placeholder};
         }
 
         &:focus {

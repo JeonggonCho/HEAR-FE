@@ -13,13 +13,11 @@ export const Container = styled.div`
     background-color: ${({theme}) => theme.colors.bg.sub};
     position: fixed;
     top: 0;
-    left: calc((100vw - 615px) / 2);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
     padding: 0 24px;
     z-index: 3;
-
-    @media (max-width: 600px) {
-        left: 0;
-    }
 
     & > div:first-of-type {
         display: flex;
