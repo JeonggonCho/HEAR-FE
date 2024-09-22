@@ -25,6 +25,7 @@ export const ButtonTap = styled.div<{active: string}>`
     justify-content: center;
     color: ${({active, theme}) => active === "true" ? theme.colors.font.main : theme.colors.font.sub};
     font-size: 18px;
+    font-weight: ${({active}) => active === "true" ? "500" : "400"};
     letter-spacing: 0.5px;
     cursor: pointer;
     transition: color 0.2s ease-in-out;
@@ -58,22 +59,19 @@ export const LineTapWrapper = styled.div`
     position: sticky;
     top: 80px;
     margin-left: -24px;
-    background-color: ${({theme}) => theme.colors.bg.sub};
+    background-color: ${({theme}) => theme.colors.bg.main};
     display: flex;
     align-items: center;
     z-index: 1;
 `;
 
 export const LineTap = styled(Link)<{active: string, tabcount: number}>`
-    color: ${({theme, active}) => active === "true" ? theme.colors.font.main : theme.colors.font.sub};
+    color: ${({theme, active}) => active === "true" ? theme.colors.font.primary : theme.colors.font.sub};
     padding: 12px 0;
     width: calc(100% / ${({tabcount}) => tabcount});
     display: block;
     text-align: center;
     font-size: 18px;
-    font-weight: ${({active}) => active === "true" ? "600" : "normal"};
-    border-bottom: ${({active}) => active === "true" ? "2" : "0"}px solid ${({theme}) => {
-        const {isDarkMode} = useThemeStore();
-        return isDarkMode ? darken(0.1, theme.colors.font.sub) : darken(0.1, theme.colors.font.sub);
-    }};
+    font-weight: ${({active}) => active === "true" ? "500" : "400"};
+    border-bottom: ${({active}) => active === "true" ? "3" : "0"}px solid ${({theme}) => theme.colors.line.primary}};
 `;

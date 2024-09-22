@@ -24,19 +24,19 @@ export const Container = styled.div`
     h3 {
         color: ${({theme}) => theme.colors.font.primary};
         font-size: 20px;
-        font-weight: 600;
+        font-weight: 500;
     }
 
     h4 {
         font-size: 16px;
         color: ${({theme}) => theme.colors.font.sub};
         margin: 0 0 8px;
-        font-weight: lighter;
+        font-weight: 400;
     }
 
     p {
         color: ${({theme}) => theme.colors.font.main};
-        font-weight: 600;
+        font-weight: 500;
         line-height: 1.5;
         margin: 0 0 20px;
         font-size: 18px;

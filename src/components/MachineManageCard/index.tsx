@@ -9,11 +9,11 @@ import Modal from "@components/Modal";
 import MachineListItem from "@components/MachineListItem";
 import ErrorContent from "@components/ErrorContent";
 import NewMachineContent from "@components/NewMachineContent";
-import InputWithLabel from "@components/InputWithLabel";
+import Input from "@components/Input";
 import TimeListContent from "@components/TimeListContent";
 
 import {IMachineManageCardProps} from "@/types/componentProps.ts";
-import {IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
+import {IHeats, ILasers, IPrinters} from "@/types/machine.ts";
 import useListCollapse from "@hooks/useListCollapse.ts";
 import useToggle from "@hooks/useToggle.ts";
 import useRequest from "@hooks/useRequest.ts";
@@ -171,7 +171,7 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
                     {machineType === "heat" &&
                         <CountWrapper rangeValue={rangeValue as number}>
                             <div>
-                                <InputWithLabel
+                                <Input
                                     label={"개 수"}
                                     type={"range"}
                                     id={"heat-count"}
@@ -215,7 +215,6 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
                 type={"popup"}
               />
             }
-
 
             {/*에러 모달*/}
             {errorText &&

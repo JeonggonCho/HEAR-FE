@@ -6,7 +6,7 @@ import Tab from "@components/Tab";
 
 import {ITab} from "@/types/tab.ts";
 
-import {HeaderWrapper} from "./style.ts";
+import {Container, HeaderWrapper} from "./style.ts";
 
 import notice from "@assets/images/notice.png";
 
@@ -18,7 +18,7 @@ const tabs: ITab[] = [
 
 const CommunicationLayout:FC = () => {
     return (
-        <>
+        <Container>
             <Header leftChild={
                 <HeaderWrapper>
                     <img src={notice} alt="피드백"/>
@@ -29,7 +29,7 @@ const CommunicationLayout:FC = () => {
             <Tab type={"line"} tabs={tabs}/>
 
             <Outlet/>
-        </>
+        </Container>
     );
 };
 

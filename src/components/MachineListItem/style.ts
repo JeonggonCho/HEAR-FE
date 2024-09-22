@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.div`
+export const Container = styled.div<{isEdit: boolean, showEdit: boolean}>`
     width: 100%;
-    padding: 16px 0 16px 8px;
+    min-height: 72px;
+    padding-left: ${({isEdit, showEdit}) => isEdit && showEdit ? "1px" : "8px"};
     border-top: 1px solid ${({theme}) => theme.colors.line.main};
     display: flex;
     align-items: center;
@@ -17,13 +18,13 @@ export const Container = styled.div`
     & + & {
         margin-top: 0;
     }
-    
-    & > div:first-of-type {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        margin: 0;
-    }
+`;
+
+export const Buttons = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0;
 `;
 
 export const ControlWrapper = styled.div<{showEdit: boolean}>`
@@ -35,6 +36,7 @@ export const ControlWrapper = styled.div<{showEdit: boolean}>`
     transition: margin-right 0.2s ease-in-out 0s, opacity 0.4s ease-in-out 0s;
 
     button {
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;

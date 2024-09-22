@@ -62,7 +62,7 @@ const AccountPage:FC = () => {
     };
 
 
-    const AccountHeaderLeft:FC = () => <h2 style={{marginLeft: "6px"}}><UserName>{userInfo?.username}</UserName>님 안녕하세요</h2>;
+    const AccountHeaderLeft:FC = () => <h2 style={{marginLeft: "6px", fontWeight: "500"}}><UserName>{userInfo?.username}</UserName>님 안녕하세요</h2>;
 
     const AccountHeaderRight:FC = () => {
         return (
@@ -158,7 +158,7 @@ const AccountPage:FC = () => {
 
                     {(userData?.role === "manager" || userData?.role === "admin") && (
                         <>
-                            <LinkCard image={list} name={"예약 관리"} to={"/"} type={"linear"} />
+                            <LinkCard image={list} name={"예약 관리"} to={"/reservations"} type={"linear"} />
                             <LinkCard image={no_profile} name={"유저 관리"} to={"/users"} type={"linear"} />
                             <LinkCard image={machine} name={"기기 관리"} to={"/machines"} type={"linear"} />
                         </>

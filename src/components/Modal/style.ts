@@ -35,6 +35,10 @@ export const Container = styled.div`
     background: rgba(100, 100, 100, 0.5);
     backdrop-filter: blur(2px);
     z-index: 5;
+    
+    h3 {
+        font-weight: 500;
+    }
 `;
 
 export const PopupWrapper = styled.div`

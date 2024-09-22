@@ -13,6 +13,7 @@ export const Container = styled.div`
 
     h3 {
         font-size: 16px;
+        font-weight: 500;
     }
     
     & > div:first-of-type {

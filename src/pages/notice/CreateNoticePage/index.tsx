@@ -6,7 +6,7 @@ import {z} from "zod";
 
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
-import InputWithLabel from "@components/InputWithLabel";
+import Input from "@components/Input";
 import Textarea from "@components/Textarea";
 import Button from "@components/Button";
 import LoadingLoop from "@components/LoadingLoop";
@@ -55,7 +55,7 @@ const CreateNoticePage:FC = () => {
                 :
                 <>
                     <form onSubmit={handleSubmit(submitHandler)}>
-                        <InputWithLabel
+                        <Input
                             label={"제목"}
                             type={"text"}
                             id={"notice-title"}

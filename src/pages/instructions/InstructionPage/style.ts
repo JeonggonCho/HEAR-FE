@@ -6,6 +6,10 @@ export const HeaderWrapper = styled.div`
     gap: 12px;
     color: ${({theme}) => theme.colors.font.main};
     
+    h2 {
+        font-weight: 500;
+    }
+    
     img {
         width: 36px;
     }

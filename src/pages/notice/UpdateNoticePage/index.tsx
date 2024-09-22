@@ -6,7 +6,7 @@ import {SubmitHandler, useForm} from "react-hook-form";
 
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
-import InputWithLabel from "@components/InputWithLabel";
+import Input from "@components/Input";
 import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
 import ErrorContent from "@components/ErrorContent";
@@ -80,7 +80,7 @@ const UpdateNoticePage:FC = () => {
                 :
                 <>
                     <form onSubmit={handleSubmit(submitHandler)}>
-                        <InputWithLabel
+                        <Input
                             label={"제목"}
                             type={"text"}
                             id={"notice-title"}

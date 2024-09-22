@@ -14,7 +14,7 @@ import {IFeedbackProps} from "@/types/componentProps.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import {feedbackCategoriesValues} from "@constants/feedbackCategories.ts";
 
-import {Container} from "./style.ts";
+import {Container, FeedbackInfoWrapper} from "./style.ts";
 
 import F from "@assets/images/F.png";
 import {useUserInfoStore} from "@store/useUserStore.ts";
@@ -53,27 +53,31 @@ const FeedbackDetailPage:FC = () => {
             <Header leftChild={<ArrowBack/>} centerText={"피드백"}/>
             {!isLoading && feedback ?
                 <>
-                    <span>{feedbackCategoriesValues[feedback.category]}</span>
-                    <h2>{feedback.title}</h2>
-
-                    <div>
-                        <span>{feedback.creator}</span>
+                    <FeedbackInfoWrapper>
                         <div>
-                            <span>{timeStamp}</span>
-                            {feedbackId && feedback.creatorId === userInfo?.userId &&
-                              <Dropdown type={"feedback"} id={feedbackId}/>
-                            }
+                            <span>{feedbackCategoriesValues[feedback.category]}</span>
+                            <h2>{feedback.title}</h2>
                         </div>
-                    </div>
-                    <hr/>
+
+                        <div>
+                            <span>{feedback.creator}</span>
+                            <div>
+                                <span>{timeStamp}</span>
+                                {feedbackId && feedback.creatorId === userInfo?.userId &&
+                                  <Dropdown type={"feedback"} id={feedbackId}/>
+                                }
+                            </div>
+                        </div>
+                        <hr/>
+                    </FeedbackInfoWrapper>
                     <div>
                         {feedback.content &&
-                            <ChatBubble
-                                text={feedback.content}
-                                isMine={true}
-                                showProfile={true}
-                                profile={F}
-                            />
+                          <ChatBubble
+                            text={feedback.content}
+                            isMine={true}
+                            showProfile={true}
+                            profile={F}
+                          />
                         }
                     </div>
                     <div>

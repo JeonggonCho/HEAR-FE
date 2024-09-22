@@ -4,7 +4,7 @@ import {useForm} from "react-hook-form";
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import Button from "@components/Button";
-import InputWithLabel from "@components/InputWithLabel";
+import Input from "@components/Input";
 
 import {zodResolver} from "@hookform/resolvers/zod";
 import {cncHeatSchema} from "@schemata/machineSchema.ts";
@@ -32,7 +32,7 @@ const ReservationHeat:FC = () => {
             <form method={"post"} onSubmit={handleSubmit((data) => {
                 console.log(data);
             })}>
-                <InputWithLabel
+                <Input
                     label={"날 짜"}
                     type={"date"}
                     id={"heat-reservation-date"}

@@ -26,7 +26,7 @@ const ReservationPage:FC = () => {
             <p>예약하실 기기를 선택해주세요</p>
             <div>
                 {machineReservationCategories.map((machine, index) => (
-                    <LinkCard key={index} image={machine.image} name={machine.name} to={machine.link} type={"grid"}/>
+                    <LinkCard key={index} image={machine.image} name={machine.name} to={machine.link as string} type={"grid"}/>
                 ))}
             </div>
         </Container>

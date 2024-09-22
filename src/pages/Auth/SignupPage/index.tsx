@@ -7,7 +7,7 @@ import {AxiosResponse} from "axios";
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import Button from "@components/Button";
-import InputWithLabel from "@components/InputWithLabel";
+import Input from "@components/Input";
 import Link from "@components/Link";
 import Select from "@components/Select";
 import Modal from "@components/Modal";
@@ -75,7 +75,7 @@ const SignupPage:FC = () => {
                 :
                 <>
                     <form onSubmit={handleSubmit(submitHandler)}>
-                        <InputWithLabel
+                        <Input
                             label={"이름"}
                             type={"text"}
                             placeholder={"이름을 입력해주세요"}
@@ -85,7 +85,7 @@ const SignupPage:FC = () => {
                             errorMessage={errors.username?.message}
                         />
 
-                        <InputWithLabel
+                        <Input
                             label={"한양대학교 이메일 (아이디)"}
                             type={"text"}
                             placeholder={"이메일을 입력해주세요"}
@@ -95,7 +95,7 @@ const SignupPage:FC = () => {
                             errorMessage={errors.email?.message}
                         />
 
-                        <InputWithLabel
+                        <Input
                             label={"비밀번호"}
                             type={"password"}
                             placeholder={"비밀번호를 입력해주세요"}
@@ -106,7 +106,7 @@ const SignupPage:FC = () => {
                             visibleToggle={true}
                         />
 
-                        <InputWithLabel
+                        <Input
                             label={"비밀번호 확인"}
                             type={"password"}
                             placeholder={"비밀번호를 한번 더 입력해주세요"}
@@ -125,7 +125,7 @@ const SignupPage:FC = () => {
                             errorMessage={errors.year?.message}
                         />
 
-                        <InputWithLabel
+                        <Input
                             label={"학 번"}
                             type={"number"}
                             placeholder={"학번을 입력해주세요"}
@@ -135,7 +135,7 @@ const SignupPage:FC = () => {
                             errorMessage={errors.studentId?.message}
                         />
 
-                        <InputWithLabel
+                        <Input
                             label={"스튜디오 지도 교수님"}
                             type={"text"}
                             placeholder={"지도 교수님 이름을 입력해주세요"}
@@ -145,7 +145,7 @@ const SignupPage:FC = () => {
                             errorMessage={errors.studio?.message}
                         />
 
-                        <InputWithLabel
+                        <Input
                             label={"전화번호"}
                             type={"tel"}
                             placeholder={"전화번호를 입력해주세요"}

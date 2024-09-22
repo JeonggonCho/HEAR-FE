@@ -5,7 +5,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import RoomMap from "@components/RoomMap";
-import InputWithLabel from "@components/InputWithLabel";
+import Input from "@components/Input";
 import Button from "@components/Button";
 import Modal from "@components/Modal";
 import Calendar from "@components/Calendar";
@@ -35,7 +35,7 @@ const ReservationCnc:FC = () => {
             <form method={"post"} onSubmit={handleSubmit((data) => {
                 console.log(data);
             })}>
-                <InputWithLabel
+                <Input
                     label={"날 짜"}
                     type={"date"}
                     id={"cnc-reservation-date"}

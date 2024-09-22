@@ -24,6 +24,7 @@ export const Container = styled(Link)`
 
     h3 {
         color: ${({theme}) => theme.colors.font.main};
+        font-weight: 500;
         transition: all 0.2s ease-in-out 0s;
     }
 

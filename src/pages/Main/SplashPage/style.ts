@@ -53,7 +53,7 @@ export const Container = styled.div`
                 h1 {
                     margin: 0;
                     color: ${({theme}) => theme.colors.font.primary};
-                    font-weight: 600;
+                    font-weight: 500;
                     font-size: 40px;
                 }
             }

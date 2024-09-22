@@ -7,7 +7,7 @@ import {AxiosResponse} from "axios";
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import Button from "@components/Button";
-import InputWithLabel from "@components/InputWithLabel";
+import Input from "@components/Input";
 import Link from "@components/Link";
 import Modal from "@components/Modal";
 import LoadingLoop from "@components/LoadingLoop";
@@ -91,7 +91,7 @@ const LoginPage:FC = () => {
                     </div>
 
                     <form onSubmit={handleSubmit(submitHandler)}>
-                        <InputWithLabel
+                        <Input
                             label={"한양대학교 이메일"}
                             type={"text"}
                             placeholder={"이메일을 입력해주세요"}
@@ -101,7 +101,7 @@ const LoginPage:FC = () => {
                             errorMessage={errors.email?.message}
                         />
 
-                        <InputWithLabel
+                        <Input
                             label={"비밀번호"}
                             type={"password"}
                             placeholder={"비밀번호를 입력해주세요"}

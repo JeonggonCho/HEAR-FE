@@ -7,7 +7,7 @@ export const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 16px;
     color: ${({theme}) => theme.colors.font.main};
     background-color: ${({theme}) => theme.colors.bg.sub};
@@ -35,7 +35,7 @@ export const Container = styled.div`
         justify-content: center;
         text-align: center;
         font-size: 20px;
-        font-weight: 600;
+        font-weight: 500;
         text-wrap: nowrap;
     }
 

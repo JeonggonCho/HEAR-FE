@@ -4,14 +4,14 @@ import {FieldValues} from "react-hook-form";
 
 import InputError from "@components/InputError";
 
-import {IInputWithLabelProps} from "@/types/componentProps.ts";
+import {IInputProps} from "@/types/componentProps.ts";
 
 import {Container} from "./style.ts";
 
 import visible from "@assets/icons/visible.svg";
 import invisible from "@assets/icons/invisible.svg";
 
-const InputWithLabel = <TFieldValues extends FieldValues>(
+const Input = <TFieldValues extends FieldValues>(
     {
         label,
         type,
@@ -26,13 +26,13 @@ const InputWithLabel = <TFieldValues extends FieldValues>(
         visibleToggle,
         disabled,
         value,
-    }: IInputWithLabelProps<TFieldValues>
+    }: IInputProps<TFieldValues>
 ) => {
     const [inputType, setInputType] = useState<string>(type);
 
     return (
         <Container>
-            <label htmlFor={id}>{label}</label>
+            {label && <label htmlFor={id}>{label}</label>}
 
             {type === "range" ?
                 <>
@@ -78,4 +78,4 @@ const InputWithLabel = <TFieldValues extends FieldValues>(
     );
 };
 
-export default InputWithLabel;
+export default Input;

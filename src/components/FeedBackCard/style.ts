@@ -33,6 +33,7 @@ export const Container = styled(Link)`
     
     h3 {
         color: ${({theme}) => theme.colors.font.main};
+        font-weight: 500;
         line-height: 1.5;
         margin: 0;
     }

@@ -7,6 +7,7 @@ export const Container = styled.div`
     h3 {
         margin: 0;
         font-size: 20px;
+        font-weight: 500;
     }
     
     form {

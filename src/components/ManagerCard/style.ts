@@ -14,6 +14,7 @@ export const Container = styled.div`
     h3 {
         margin: 0;
         color: ${({theme}) => theme.colors.font.main};
+        font-weight: 500;
     }
     
     & > div:first-of-type {

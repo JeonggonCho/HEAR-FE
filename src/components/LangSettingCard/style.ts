@@ -28,6 +28,7 @@ export const Container = styled.div`
 
     h3 {
         color: ${({theme}) => theme.colors.font.main};
+        font-weight: 500;
         margin: 0 0 8px;
         transition: all 0.2s ease-in-out 0s;
     }
@@ -48,6 +49,7 @@ export const Container = styled.div`
     
     h4 {
         color: ${({theme}) => theme.colors.font.main};
+        font-weight: 500;
         margin: 0;
     }
     

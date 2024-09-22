@@ -11,7 +11,7 @@ import Modal from "@components/Modal";
 import ErrorContent from "@components/ErrorContent";
 import Textarea from "@components/Textarea";
 import Button from "@components/Button";
-import InputWithLabel from "@components/InputWithLabel";
+import Input from "@components/Input";
 import Select from "@components/Select";
 import ConfirmContent from "@components/ConfirmContent";
 
@@ -122,7 +122,7 @@ const UpdateInquiryPage:FC = () => {
                 :
                 <>
                     <form onSubmit={handleSubmit(submitHandler)}>
-                        <InputWithLabel
+                        <Input
                             label={"제 목"}
                             type={"text"}
                             placeholder={"제목을 입력해주세요"}

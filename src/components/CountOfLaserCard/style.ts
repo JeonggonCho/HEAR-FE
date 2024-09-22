@@ -27,7 +27,7 @@ export const Container = styled.div`
     }
     
     & > p:last-of-type {
-        font-weight: 600;
+        font-weight: 500;
         font-size: 18px;
         
         span {

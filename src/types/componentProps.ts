@@ -42,9 +42,9 @@ export interface IHeaderProps {
 }
 
 
-// 인풋(InputWithLabel) props
-export interface IInputWithLabelProps<TFieldValues extends FieldValues> {
-    label: string;
+// 인풋(Input) props
+export interface IInputProps<TFieldValues extends FieldValues> {
+    label?: string;
     type: string;
     id: string;
     name: FieldPath<TFieldValues>;

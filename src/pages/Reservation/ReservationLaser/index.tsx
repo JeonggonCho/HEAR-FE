@@ -7,7 +7,7 @@ import ArrowBack from "@components/ArrowBack";
 import RoomMap from "@components/RoomMap";
 import Button from "@components/Button";
 import Select from "@components/Select";
-import InputWithLabel from "@components/InputWithLabel";
+import Input from "@components/Input";
 
 import {laserSchema} from "@schemata/machineSchema.ts";
 import {machineType} from "@constants/machineCategories.ts";
@@ -47,7 +47,7 @@ const ReservationLaser:FC = () => {
                     errorMessage={errors.machine?.message}
                 />
 
-                <InputWithLabel
+                <Input
                     label={"날 짜 (다음날만 예약 가능)"}
                     type={"date"}
                     id={"laser-reservation-date"}
@@ -58,7 +58,7 @@ const ReservationLaser:FC = () => {
                     disabled={true}
                 />
 
-                <InputWithLabel
+                <Input
                     label={"시 간"}
                     type={"time"}
                     id={"laser-reservation-time"}

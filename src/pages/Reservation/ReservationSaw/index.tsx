@@ -5,7 +5,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import Button from "@components/Button";
-import InputWithLabel from "@components/InputWithLabel";
+import Input from "@components/Input";
 import Modal from "@components/Modal";
 import Calendar from "@components/Calendar";
 
@@ -35,7 +35,7 @@ const ReservationSaw:FC = () => {
             <form method={"post"} onSubmit={handleSubmit((data) => {
                 console.log(data);
             })}>
-                <InputWithLabel
+                <Input
                     label={"날 짜"}
                     type={"date"}
                     id={"saw-reservation-date"}
@@ -47,7 +47,7 @@ const ReservationSaw:FC = () => {
                     readonly
                 />
 
-                <InputWithLabel
+                <Input
                     label={"시 간"}
                     type={"time"}
                     id={"saw-reservation-time"}

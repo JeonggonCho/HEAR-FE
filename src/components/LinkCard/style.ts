@@ -18,6 +18,7 @@ export const LinearLinkCardWrapper = styled(Link)`
     h4 {
         margin: 0;
         color: ${({theme}) => theme.colors.font.main};
+        font-weight: 500;
     }
     
     svg {
@@ -86,6 +87,7 @@ export const GridLinkCardWrapper = styled(Link)`
     span {
         color: ${({theme}) => theme.colors.font.main};
         font-size: 16px;
+        font-weight: 500;
     }
 
     &:hover {

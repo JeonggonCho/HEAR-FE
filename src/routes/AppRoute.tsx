@@ -45,6 +45,7 @@ const QuizPage = lazy(() => import("@pages/quiz/QuizPage"));
 const NotFoundPage = lazy(() => import("@pages/main/NotFoundPage"));
 const MachinesPage = lazy(() => import("@pages/management/MachinesPage"));
 const UsersPage = lazy(() => import("@pages/management/UsersPage"));
+const ReservationsPage = lazy(() => import("@pages/management/ReservationsPage"));
 
 import {useAuthStore} from "@store/useAuthStore.ts";
 import isTokenValid from "@util/isTokenValid.ts";
@@ -110,9 +111,10 @@ const AppRoute = () => {
                             <Route path="reservation/vacuum" element={<ReservationVacuum/>}/>
                             <Route path="reservation/condition" element={<ConditionPage/>}/>
 
+
                             <Route path="machines" element={<MachinesPage/>}/>
                             <Route path="users" element={<UsersPage/>}/>
-                            <Route path="machine" element={<MachinesPage/>}/>
+                            <Route path="reservations" element={<ReservationsPage/>}/>
 
                             <Route path="alarm" element={<AlarmPage/>}/>
                             <Route path="quiz" element={<QuizPage/>}/>

@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom";
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import Select from "@components/Select";
-import InputWithLabel from "@components/InputWithLabel";
+import Input from "@components/Input";
 import Button from "@components/Button";
 import Modal from "@components/Modal";
 import ConfirmContent from "@components/ConfirmContent";
@@ -139,7 +139,7 @@ const UpdateAccountPage:FC = () => {
                 :
                 <>
                     <form onSubmit={handleSubmit(submitHandler)}>
-                        <InputWithLabel
+                        <Input
                             label={"이름"}
                             type={"text"}
                             placeholder={"이름을 입력해주세요"}
@@ -157,7 +157,7 @@ const UpdateAccountPage:FC = () => {
                             errorMessage={errors.year?.message}
                         />
 
-                        <InputWithLabel
+                        <Input
                             label={"학 번"}
                             type={"number"}
                             placeholder={"학번을 입력해주세요"}
@@ -167,7 +167,7 @@ const UpdateAccountPage:FC = () => {
                             errorMessage={errors.studentId?.message}
                         />
 
-                        <InputWithLabel
+                        <Input
                             label={"스튜디오"}
                             type={"text"}
                             id={"studio"}
@@ -177,7 +177,7 @@ const UpdateAccountPage:FC = () => {
                             errorMessage={errors.studio?.message}
                         />
 
-                        <InputWithLabel
+                        <Input
                             label={"전화번호"}
                             type={"tel"}
                             placeholder={"전화번호를 입력해주세요"}

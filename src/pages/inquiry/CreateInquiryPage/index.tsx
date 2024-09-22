@@ -9,7 +9,7 @@ import ArrowBack from "@components/ArrowBack";
 import Button from "@components/Button";
 import Textarea from "@components/Textarea";
 import Select from "@components/Select";
-import InputWithLabel from "@components/InputWithLabel";
+import Input from "@components/Input";
 import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
 import ErrorContent from "@components/ErrorContent";
@@ -63,7 +63,7 @@ const CreateInquiryPage:FC = () => {
                     </p>
 
                     <form onSubmit={handleSubmit(submitHandler)}>
-                        <InputWithLabel
+                        <Input
                             label={"제 목"}
                             type={"text"}
                             id={"inquiry-title"}

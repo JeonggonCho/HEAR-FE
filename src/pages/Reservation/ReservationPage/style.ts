@@ -4,6 +4,10 @@ export const HeaderWrapper = styled.div`
     display: flex;
     align-items: center;
     gap: 12px;
+
+    h2 {
+        font-weight: 500;
+    }
     
     img {
         width: 36px;

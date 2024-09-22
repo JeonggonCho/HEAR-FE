@@ -14,7 +14,7 @@ export const Container = styled.div`
     & > p:first-of-type {
         color: ${({theme}) => theme.colors.font.main};
         margin: 0 0 24px;
-        font-weight: 600;
+        font-weight: 500;
     }
 `;
 
@@ -51,26 +51,30 @@ export const MapWrapper = styled.div`
     }
 `;
 
-export const CncWrapper = styled.div<{machine: "cnc" | "laser" | "printer" | "vacuum"}>`
+export const CncWrapper = styled.span<{machine: "cnc" | "laser" | "printer" | "vacuum"}>`
     color: ${({machine, theme}) => machine === "cnc" ? theme.colors.font.primary : theme.colors.font.sub};
     background-color: ${({machine, theme}) => machine === "cnc" ? theme.colors.button.approval : theme.colors.button.third};
     border-radius: 8px;
     padding: 16px 18px;
     text-align: center;
     vertical-align: center;
+    width: 100%;
 `;
 
-export const LaserWrapper = styled.div<{machine: "cnc" | "laser" | "printer" | "vacuum"}>`
+export const LaserWrapper = styled.span<{machine: "cnc" | "laser" | "printer" | "vacuum"}>`
     color: ${({machine, theme}) => machine === "laser" ? theme.colors.font.primary : theme.colors.font.sub};
     background-color: ${({machine, theme}) => machine === "laser" ? theme.colors.button.approval : theme.colors.button.third};
     border-radius: 8px;
-    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    vertical-align: center;
     line-height: 1.2;
+    width: 100%;
+    flex-grow: 1;
 `;
 
-export const PrinterWrapper = styled.div<{machine: "cnc" | "laser" | "printer" | "vacuum"}>`
+export const PrinterWrapper = styled.span<{machine: "cnc" | "laser" | "printer" | "vacuum"}>`
     color: ${({machine, theme}) => machine === "printer" ? theme.colors.font.primary : theme.colors.font.sub};
     background-color: ${({machine, theme}) => machine === "printer" ? theme.colors.button.approval : theme.colors.button.third};
     border-radius: 8px;
@@ -78,9 +82,11 @@ export const PrinterWrapper = styled.div<{machine: "cnc" | "laser" | "printer" |
     text-align: center;
     vertical-align: center;
     line-height: 1.2;
+    width: 100%;
+    flex-grow: 1;
 `;
 
-export const VacuumWrapper = styled.div<{machine: "cnc" | "laser" | "printer" | "vacuum"}>`
+export const VacuumWrapper = styled.span<{machine: "cnc" | "laser" | "printer" | "vacuum"}>`
     color: ${({machine, theme}) => machine === "vacuum" ? theme.colors.font.primary : theme.colors.font.sub};
     background-color: ${({machine, theme}) => machine === "vacuum" ? theme.colors.button.approval : theme.colors.button.third};
     border-radius: 8px;
@@ -88,4 +94,6 @@ export const VacuumWrapper = styled.div<{machine: "cnc" | "laser" | "printer" | 
     text-align: center;
     vertical-align: center;
     line-height: 1.2;
+    width: 100%;
+    flex-grow: 1;
 `;

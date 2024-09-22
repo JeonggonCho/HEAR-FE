@@ -37,6 +37,7 @@ export const Container = styled.div`
 
         h3 {
             font-size: 18px;
+            font-weight: 500;
             margin: 0;
         }
     }

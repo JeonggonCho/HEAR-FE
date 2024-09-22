@@ -4,7 +4,7 @@ import {z} from "zod";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 
-import InputWithLabel from "@components/InputWithLabel";
+import Input from "@components/Input";
 import Button from "@components/Button";
 import Modal from "@components/Modal";
 import ErrorContent from "@components/ErrorContent";
@@ -81,7 +81,7 @@ const NewMachineContent:FC<INewMachineContentProps> = ({title, setModal, machine
 
             {(machine === "laser" || machine === "printer") &&
                 <form onSubmit={machine === "laser" ? machineHandleSubmit(submitLaserHandler) : machine === "printer" ? machineHandleSubmit(submitPrinterHandler) : undefined}>
-                    <InputWithLabel
+                    <Input
                         label={"기기명"}
                         type={"text"}
                         id={"laser-name"}

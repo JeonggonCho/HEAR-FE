@@ -45,7 +45,7 @@ export const TimeSelectsWrapper = styled.div`
             padding: 6px;
             font-size: 18px;
             border-radius: 6px;
-            border: 1px solid ${({theme}) => theme.colors.line.main};
+            border: 2px solid ${({theme}) => theme.colors.line.main};
             background-color: ${({theme}) => theme.colors.bg.main};
             color: ${({theme}) => theme.colors.font.main};
             

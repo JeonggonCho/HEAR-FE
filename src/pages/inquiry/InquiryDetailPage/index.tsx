@@ -14,7 +14,7 @@ import {IInquiryProps} from "@/types/componentProps.ts";
 import {inquiryCategoriesValues} from "@constants/inquiryCategories.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 
-import {Container} from "./style.ts";
+import {Container, InquiryInfoWrapper} from "./style.ts";
 
 import Q from "@assets/images/Q.png";
 import {useUserInfoStore} from "@store/useUserStore.ts";
@@ -52,29 +52,35 @@ const InquiryDetailPage:FC = () => {
             <Header leftChild={<ArrowBack/>} centerText={"문의"}/>
             {!isLoading && inquiry ?
                 <>
-                    <span>{inquiryCategoriesValues[inquiry.category]}</span>
-                    <h2>{inquiry.title}</h2>
+                    <InquiryInfoWrapper>
+                        <div>
+                            <span>{inquiryCategoriesValues[inquiry.category]}</span>
+                            <h2>{inquiry.title}</h2>
+                        </div>
+
+                        <div>
+                            <span>{inquiry.creator}</span>
+                            <div>
+                                <span>{timeStamp}</span>
+                                {inquiryId && inquiry.creatorId === userInfo?.userId &&
+                                  <Dropdown type={"inquiry"} id={inquiryId}/>
+                                }
+                            </div>
+                        </div>
+                        <hr/>
+                    </InquiryInfoWrapper>
 
                     <div>
-                        <span>{inquiry.creator}</span>
-                        <div>
-                            <span>{timeStamp}</span>
-                            {inquiryId && inquiry.creatorId === userInfo?.userId &&
-                                <Dropdown type={"inquiry"} id={inquiryId}/>
-                            }
-                        </div>
-                    </div>
-                    <hr/>
-                    <div>
                         {inquiry.content &&
-                            <ChatBubble
-                                text={inquiry.content}
-                                isMine={true}
-                                showProfile={true}
-                                profile={Q}
-                            />
+                          <ChatBubble
+                            text={inquiry.content}
+                            isMine={true}
+                            showProfile={true}
+                            profile={Q}
+                          />
                         }
                     </div>
+
                     <div>
                         작성된 답변이 없습니다
                     </div>

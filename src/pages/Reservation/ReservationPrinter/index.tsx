@@ -6,7 +6,7 @@ import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
 import RoomMap from "@components/RoomMap";
 import Button from "@components/Button";
-import InputWithLabel from "@components/InputWithLabel";
+import Input from "@components/Input";
 import Select from "@components/Select";
 import Modal from "@components/Modal";
 import Calendar from "@components/Calendar";
@@ -49,7 +49,7 @@ const ReservationPrinter:FC = () => {
                     errorMessage={errors.machine?.message}
                 />
 
-                <InputWithLabel
+                <Input
                     label={"날 짜"}
                     type={"date"}
                     id={"printer-reservation-date"}

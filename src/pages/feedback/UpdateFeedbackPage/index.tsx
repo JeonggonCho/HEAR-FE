@@ -9,7 +9,7 @@ import ArrowBack from "@components/ArrowBack";
 import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
 import ErrorContent from "@components/ErrorContent";
-import InputWithLabel from "@components/InputWithLabel";
+import Input from "@components/Input";
 import Button from "@components/Button";
 import Textarea from "@components/Textarea";
 import Select from "@components/Select";
@@ -122,7 +122,7 @@ const UpdateFeedbackPage:FC = () => {
                 :
                 <>
                     <form onSubmit={handleSubmit(submitHandler)}>
-                        <InputWithLabel
+                        <Input
                             label={"제 목"}
                             type={"text"}
                             placeholder={"제목을 입력해주세요"}

@@ -14,7 +14,7 @@ import getTimeStamp from "@util/getTimeStamp.ts";
 import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
 
-import {Container} from "./style.ts";
+import {Container, NoticeInfoWrapper} from "./style.ts";
 
 const NoticeDetailPage:FC = () => {
     const [notice, setNotice] = useState<INotice>();
@@ -53,15 +53,17 @@ const NoticeDetailPage:FC = () => {
             <Header leftChild={<ArrowBack/>} centerText={"공지사항"}/>
             {!isLoading && notice ?
                 <>
-                    <h2>{notice.title}</h2>
+                    <NoticeInfoWrapper>
+                        <h2>{notice.title}</h2>
 
-                    <div>
-                        <span>{timeStamp}</span>
-                        {userData?.role === "admin" || userData?.role === "manager" && noticeId &&
-                          <Dropdown type={"notice"} id={noticeId}/>
-                        }
-                    </div>
-                    <hr/>
+                        <div>
+                            <span>{timeStamp}</span>
+                            {userData?.role === "admin" || userData?.role === "manager" && noticeId &&
+                              <Dropdown type={"notice"} id={noticeId}/>
+                            }
+                        </div>
+                        <hr/>
+                    </NoticeInfoWrapper>
                     {notice.content &&
                       <p dangerouslySetInnerHTML={{__html: memoizedText}}/>
                     }

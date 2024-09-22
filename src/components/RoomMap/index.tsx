@@ -42,6 +42,10 @@ const RoomMap:FC<IRoomMapProps> = ({machine}) => {
                             3D 프린터<br/>
                             2호기
                         </PrinterWrapper>
+                        <PrinterWrapper machine={machine}>
+                            3D 프린터<br/>
+                            3호기
+                        </PrinterWrapper>
                         <VacuumWrapper machine={machine}>
                             사출<br/>
                             성형기
