@@ -3,32 +3,6 @@ import styled from "@emotion/styled";
 export const Container = styled.div`
     width: 100%;
 
-    & > div:first-of-type {
-        width: 32px;
-        height: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        background-color: ${({theme}) => theme.colors.bg.sub};
-        position: absolute;
-        right: 12px;
-        top: 12px;
-        cursor: pointer;
-
-        svg {
-            margin-top: 2px;
-            fill: ${({theme}) => theme.colors.icon.fill};
-            transition: all 0.2s ease-in-out 0s;
-        }
-
-        &:hover {
-            svg {
-                fill: ${({theme}) => theme.colors.font.main};
-            }
-        }
-    }
-
     & > div:nth-of-type(2) {
         width: 72px;
         height: 72px;
@@ -59,26 +33,53 @@ export const Container = styled.div`
     }
 `;
 
-export const FieldWrapper = styled.div`
+export const CloseButton = styled.div`
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: ${({theme}) => theme.colors.bg.sub};
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    cursor: pointer;
+
+    svg {
+        margin-top: 2px;
+        fill: ${({theme}) => theme.colors.icon.fill};
+        transition: all 0.2s ease-in-out 0s;
+    }
+
+    &:hover {
+        svg {
+            fill: ${({theme}) => theme.colors.font.main};
+        }
+    }
+`;
+
+export const FieldWrapper = styled.div`
+    display: flex;
+    height: 100%;
 
     & > div:first-of-type {
         width: 82px;
-        padding: 20px 16px 20px 10px;
+        min-width: 82px;
+        padding: 12px 16px 0 10px;
         background-color: ${({theme}) => theme.colors.bg.sub};
         font-size: 16px;
         color: ${({theme}) => theme.colors.font.sub};
+        text-wrap: nowrap;
     }
 
     & > span:first-of-type {
         font-size: 16px;
-        margin: 0 12px;
+        margin: 12px;
         word-break: break-all;
         text-wrap: wrap;
         color: ${({theme}) => theme.colors.font.main};
         line-height: 1.2;
-        flex-grow: 1;
     }
 
     & + & {
@@ -87,50 +88,81 @@ export const FieldWrapper = styled.div`
 `;
 
 export const WarningWrapper = styled.div`
+    height: 100%;
     display: flex;
-    align-items: center;
     border-top: 1px solid ${({theme}) => theme.colors.line.main};
     border-bottom: 1px solid ${({theme}) => theme.colors.line.main};
 
     & > div:first-of-type {
         width: 82px;
-        padding: 20px 16px 20px 10px;
+        min-width: 82px;
+        padding: 20px 16px 0 10px;
         background-color: ${({theme}) => theme.colors.bg.sub};
         font-size: 16px;
         color: ${({theme}) => theme.colors.font.sub};
         text-wrap: nowrap;
     }
-    
+
     & > div:nth-of-type(2) {
+        padding: 12px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & > span:first-of-type {
+            font-size: 16px;
+            word-break: break-all;
+            text-wrap: wrap;
+            color: ${({theme}) => theme.colors.font.main};
+            line-height: 1.2;
+            flex-grow: 1;
+        }
+    }
+
+    & > form:first-of-type {
+        padding: 12px;
+        width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 8px;
         
-        & > div:first-of-type {
-            display: flex;
-            align-items: center;
-            
-            & > span:first-of-type {
-                font-size: 16px;
-                margin-left: 12px;
-                word-break: break-all;
-                text-wrap: wrap;
-                color: ${({theme}) => theme.colors.font.main};
-                line-height: 1.2;
-                flex-grow: 1;
-            }
-        }
-        
-        & > form:first-of-type {
+        & > div:last-of-type {
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-left: 12px;
-            margin-right: 8px;
-            
-            & > input[type="text"] {
-                width: 10px;
-            }
+        }
+    }
+`;
+
+export const PassWrapper = styled.div`
+    height: 100%;
+    display: flex;
+
+    & > div:first-of-type {
+        width: 82px;
+        min-width: 82px;
+        padding: 20px 16px 0 10px;
+        background-color: ${({theme}) => theme.colors.bg.sub};
+        font-size: 16px;
+        color: ${({theme}) => theme.colors.font.sub};
+        text-wrap: nowrap;
+    }
+
+    & > div:nth-of-type(2) {
+        padding: 12px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & > span:first-of-type {
+            font-size: 16px;
+            word-break: break-all;
+            text-wrap: wrap;
+            color: ${({theme}) => theme.colors.font.main};
+            line-height: 1.2;
+            flex-grow: 1;
         }
     }
 `;
@@ -143,7 +175,6 @@ export const Buttons = styled.div`
     display: flex;
     align-items: center;
     gap: 6px;
-    margin-right: 8px;
     
     & > button {
         padding: 6px 12px;

@@ -15,7 +15,7 @@ import Empty from "@components/Empty";
 
 import useRequest from "@hooks/useRequest.ts";
 import {searchUserSchema} from "@schemata/authSchema.ts";
-import {IUserInfo} from "@/types/user.ts";
+import {IUserList} from "@/types/user.ts";
 
 import {Container} from "./style.ts";
 
@@ -23,23 +23,23 @@ import tune from "@assets/icons/tune.svg";
 import search from "@assets/icons/search.svg";
 
 const UsersPage:FC = () => {
-    const [userList, setUserList] = useState<IUserInfo[]>([]);
+    const [userList, setUserList] = useState<IUserList[]>([]);
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
-    type SeachFormData = z.infer<typeof searchUserSchema>;
+    type SearchFormData = z.infer<typeof searchUserSchema>;
 
     const {
         register:searchRegister,
         handleSubmit: searchHandleSubmit
-    } = useForm<SeachFormData>({
+    } = useForm<SearchFormData>({
         resolver: zodResolver(searchUserSchema),
         defaultValues: {
             username: "",
         }
     });
 
-    const submitHandler:SubmitHandler<SeachFormData> = useCallback(async () => {
+    const submitHandler:SubmitHandler<SearchFormData> = useCallback(async () => {
 
     }, []);
 

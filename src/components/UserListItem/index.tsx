@@ -2,14 +2,14 @@ import {FC, useState} from "react";
 
 import Modal from "@components/Modal";
 import UserInfoContent from "@components/UserInfoContent";
-import {IUserInfo} from "@/types/user.ts";
+import {IUserList} from "@/types/user.ts";
 
 import {Container} from "./style.ts";
 
-const UserListItem:FC<IUserInfo> = (props) => {
+const UserListItem:FC<IUserList> = (props) => {
     const [showUserInfoModal, setShowUserInfoModal] = useState<boolean>(false);
 
-    const {username, year, studentId, countOfWarning, passQuiz} = props;
+    const {userId, username, year, studentId, countOfWarning, passQuiz} = props;
 
     return (
         <Container
@@ -24,9 +24,9 @@ const UserListItem:FC<IUserInfo> = (props) => {
                 <span>{passQuiz ? "이수" : "미이수"}</span>
             </div>
 
-            {showUserInfoModal &&
+            {showUserInfoModal && userId &&
               <Modal
-                content={<UserInfoContent setModal={setShowUserInfoModal} {...props}/>}
+                content={<UserInfoContent userId={userId} setModal={setShowUserInfoModal}/>}
                 setModal={setShowUserInfoModal}
                 type={"popup"}
               />

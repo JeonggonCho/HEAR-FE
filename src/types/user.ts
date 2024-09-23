@@ -1,11 +1,14 @@
-export interface IUserInfo {
+export interface IUserList {
     userId: string;
     username: string;
-    email: string;
     year: "1" | "2" | "3" | "4" | "5";
     studentId: string;
-    studio: string;
     passQuiz: boolean;
     countOfWarning: number;
+}
+
+export interface IUserInfo extends IUserList {
+    email: string;
+    studio: string;
     tel: string;
 }

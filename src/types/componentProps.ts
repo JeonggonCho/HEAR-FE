@@ -3,7 +3,6 @@ import {To} from "react-router-dom";
 import {ITab} from "@/types/tab.ts";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
-import {IUserInfo} from "@/types/user.ts";
 
 // 버튼(Button) props
 export interface IButtonProps {
@@ -267,6 +266,15 @@ export interface ITimeListItemProps {
 
 
 // 유저 정보 모달(UserInfoContent) props
-export interface IUserInfoContentProps extends IUserInfo {
+export interface IUserInfoContentProps {
+    userId: string;
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+
+// 토스트(Toast) props
+export interface IToastProps {
+    text: string;
+    time: number;
+    setToast?: () => void;
 }
