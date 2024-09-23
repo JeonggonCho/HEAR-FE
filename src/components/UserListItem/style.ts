@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.div<{passQuiz: boolean}>`
+export const Container = styled.div<{pass: boolean}>`
     width: 100%;
     background-color: ${({theme}) => theme.colors.bg.main};
     border: 1px solid ${({theme}) => theme.colors.bg.main};
@@ -9,10 +9,10 @@ export const Container = styled.div<{passQuiz: boolean}>`
     display: flex;
     align-items: center;
     cursor: pointer;
-    transition: all 0.2s ease-in-out 0s;
+    transition: all 0.1s ease-in-out 0s;
     
     &:hover {
-        border: 1px solid ${({theme}) => theme.colors.line.primary};
+        box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
     }
 
     span {
@@ -43,10 +43,7 @@ export const Container = styled.div<{passQuiz: boolean}>`
         justify-content: center;
         
         span {
-            padding: 6px 12px;
-            border-radius: 6px;
-            color: ${({passQuiz, theme}) => passQuiz ? theme.colors.font.primary : theme.colors.font.danger};
-            background-color: ${({passQuiz, theme}) => passQuiz ? theme.colors.button.approval : theme.colors.button.danger};
+            color: ${({pass, theme}) => pass ? theme.colors.font.primary : theme.colors.font.danger};
         }
     }
     

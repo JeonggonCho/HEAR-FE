@@ -45,7 +45,7 @@ export const PopupWrapper = styled.div`
     padding: 12px;
     height: auto;
     max-width: 80%;
-    min-width: 60%;
+    min-width: 55%;
     border-radius: 16px;
     background-color: ${({theme}) => theme.colors.bg.main};
     color: ${({theme}) => theme.colors.font.main};

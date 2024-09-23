@@ -28,15 +28,16 @@ export const InquiryInfoWrapper = styled.div`
 
     & > div:first-of-type {
         display: flex;
-        align-items: center;
+        flex-direction: column;
         gap: 12px;
         margin-bottom: 24px;
+        margin-right: 24px;
+        margin-left: 24px;
 
         & > span {
             display: block;
             width: fit-content;
             font-size: 14px;
-            margin-left: 24px;
             padding: 6px 8px;
             text-wrap: nowrap;
             background-color: ${({theme}) => {
@@ -53,6 +54,9 @@ export const InquiryInfoWrapper = styled.div`
         h2 {
             margin: 0;
             font-weight: 500;
+            text-wrap: wrap;
+            word-break: break-all;
+            line-height: 1.2;
         }
     }
 

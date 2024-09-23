@@ -22,7 +22,6 @@ interface IUserInfoState {
     userInfo: IUserInfo | null;
     setUserInfo: (userInfo: IUserInfo) => void;
     clearUserInfo: () => void;
-
 }
 
 interface IUserDataState {

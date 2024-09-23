@@ -40,9 +40,9 @@ export const NoticeInfoWrapper = styled.div`
     h2 {
         font-size: 24px;
         font-weight: 500;
-        line-height: 1.5;
+        line-height: 1.2;
         color: ${({theme}) => theme.colors.font.main};
-        margin: 0 0 4px 24px;
+        margin: 0 24px 12px 24px;
         word-break: keep-all;
         white-space: normal;
         overflow-wrap: break-word;

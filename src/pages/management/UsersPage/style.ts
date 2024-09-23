@@ -7,31 +7,77 @@ export const Container = styled.div`
     position: relative;
     
     & > div:nth-of-type(2) {
+        width: calc(100% + 48px);
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 8px;
+        padding: 8px 28px;
+        margin-left: -24px;
+        position: sticky;
+        top: 80px;
+        background-color: ${({theme}) => theme.colors.bg.sub};
+        z-index: 3;
         
         & > span:first-of-type {
-            margin-left: 4px;
-            font-size: 18px;
+            font-size: 16px;
         }
         
-        & > div:first-of-type {
+        & > form:first-of-type {
             display: flex;
             align-items: center;
-            gap: 4px;
-        }
-        
-        select {
-            padding: 6px;
-            border-radius: 6px;
-            background-color: ${({theme}) => theme.colors.bg.sub};
-            border: 2px solid ${({theme}) => theme.colors.line.main};
-            color: ${({theme}) => theme.colors.font.main};
+            gap: 8px;
+            
+            & > div:first-of-type {
+                width: 156px;
+                position: relative;
+                display: flex;
+                align-items: center;
+                border: 1px solid ${({theme}) => theme.colors.line.main};
+                background-color: ${({theme}) => theme.colors.bg.main};
+                border-radius: 8px;
+                
+                input {
+                    border: none;
+                    height: 36px;
+                    width: 120px;
+                    
+                    &:focus {
+                        outline: none;
+                    }
+                }
+                
+                svg {
+                    width: 28px;
+                    height: 28px;
+                    fill: ${({theme}) => theme.colors.font.sub};
+                    position: absolute;
+                    top: 4px;
+                    right: 4px;
+                    cursor: pointer;
+                    transition: all 0.2s ease-in-out 0s;
+                    background-color: ${({theme}) => theme.colors.bg.sub};
+                    padding: 2px;
+                    border-radius: 4px;
 
-            &:focus {
-                outline: ${({theme}) => theme.colors.line.primary};
+                    &:hover {
+                        fill: ${({theme}) => theme.colors.font.main};
+                    }
+                }
+            }
+            
+            & > div:last-of-type {
+                cursor: pointer;
+                
+                svg {
+                    width: 28px;
+                    height: 28px;
+                    fill: ${({theme}) => theme.colors.font.sub};
+                    transition: all 0.2s ease-in-out 0s;
+                    
+                    &:hover {
+                        fill: ${({theme}) => theme.colors.font.main};
+                    }
+                }
             }
         }
     }
@@ -46,9 +92,10 @@ export const Container = styled.div`
         }};        
         padding: 12px 16px;
         border-radius: 8px;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         position: sticky;
-        top: 72px;
+        //top: 72px;
+        top: 134px;
         color: ${({theme}) => theme.colors.font.sub};
         z-index: 3;
         

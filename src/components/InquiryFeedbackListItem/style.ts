@@ -10,14 +10,27 @@ export const Container = styled(Link)`
     transition: all 0.2s ease-in-out 0s;
 
     h3 {
+        width: 400px;
         color: ${({theme}) => theme.colors.font.main};
         margin: 0;
         font-size: 18px;
-        font-weight: 500;
+        font-weight: 400;
         line-height: 1.2;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        
+        @media (max-width: 600px) {
+            width: 300px;
+        }
+
+        @media (max-width: 500px) {
+            width: 220px;
+        }
+
+        @media (max-width: 400px) {
+            width: 180px;
+        }
     }
     
     & + & {

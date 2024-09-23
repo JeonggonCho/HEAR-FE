@@ -87,3 +87,9 @@ export const findPasswordSchema = z.object({
         .string()
         .regex(STUDENTID_REGEX, "학번은 10자리의 숫자여야 합니다"),
 });
+
+export const searchUserSchema = z.object({
+    username: z
+        .string()
+        .min(1, "학생 이름을 입력해주세요"),
+})

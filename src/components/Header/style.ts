@@ -17,6 +17,8 @@ export const Container = styled.div`
     right: 0;
     margin: 0 auto;
     padding: 0 24px;
+    border-left: 1px solid ${({theme}) => theme.colors.line.main};
+    border-right: 1px solid ${({theme}) => theme.colors.line.main};
     z-index: 3;
 
     & > div:first-of-type {

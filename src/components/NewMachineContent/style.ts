@@ -30,11 +30,22 @@ export const Container = styled.div`
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            background-color: ${({theme}) => theme.colors.button.second};
+            background-color: ${({theme}) => theme.colors.bg.sub};
+            position: absolute;
+            right: 12px;
+            top: 12px;
             cursor: pointer;
-            
+
             svg {
-                padding-top: 2px;
+                margin-top: 2px;
+                fill: ${({theme}) => theme.colors.icon.fill};
+                transition: all 0.2s ease-in-out 0s;
+            }
+
+            &:hover {
+                svg {
+                    fill: ${({theme}) => theme.colors.font.main};
+                }
             }
         }
     }

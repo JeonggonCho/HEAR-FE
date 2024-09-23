@@ -9,7 +9,6 @@ import {Container} from "./style.ts";
 
 import error from "@assets/icons/error.svg";
 
-
 const ErrorContent:FC<IErrorContentProps> = ({text, closeModal}) => {
     return (
         <Container>

@@ -3,7 +3,7 @@ import {To} from "react-router-dom";
 import {ITab} from "@/types/tab.ts";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
-
+import {IUserInfo} from "@/types/user.ts";
 
 // 버튼(Button) props
 export interface IButtonProps {
@@ -53,9 +53,9 @@ export interface IInputProps<TFieldValues extends FieldValues> {
     onClick?: () => void;
     register: UseFormRegister<TFieldValues>;
     errorMessage?: string;
-    readonly ?: boolean;
-    visibleToggle ?: boolean;
-    disabled ?: boolean;
+    readonly?: boolean;
+    visibleToggle?: boolean;
+    disabled?: boolean;
     value?: any;
 }
 
@@ -263,4 +263,10 @@ export interface ITimeListItemProps {
     startTime: string;
     endTime: string;
     onDelete: () => void;
+}
+
+
+// 유저 정보 모달(UserInfoContent) props
+export interface IUserInfoContentProps extends IUserInfo {
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }

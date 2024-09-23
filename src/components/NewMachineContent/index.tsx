@@ -74,7 +74,10 @@ const NewMachineContent:FC<INewMachineContentProps> = ({title, setModal, machine
         <Container>
             <div>
                 <h3>{title}</h3>
-                <div onClick={() => {setModal(false)}}>
+                <div onClick={(e) => {
+                    e.stopPropagation();
+                    setModal(false)
+                }}>
                     <ReactSVG src={close}/>
                 </div>
             </div>
