@@ -24,6 +24,7 @@ import search from "@assets/icons/search.svg";
 
 const UsersPage:FC = () => {
     const [userList, setUserList] = useState<IUserList[]>([]);
+    const [showFilter, setShowFilter] = useState<boolean>(false);
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
@@ -81,7 +82,7 @@ const UsersPage:FC = () => {
                                 <ReactSVG src={search}/>
                             </div>
 
-                            <div onClick={() => {}}>
+                            <div onClick={() => setShowFilter(true)}>
                                 <ReactSVG src={tune}/>
                             </div>
                         </form>
@@ -102,6 +103,14 @@ const UsersPage:FC = () => {
                         <UserListItem key={index} {...user}/>
                     ))}
                 </>
+            }
+
+            {showFilter &&
+                <Modal
+                  content={<div>필터</div>}
+                  setModal={setShowFilter}
+                  type={"bottomSheet"}
+                />
             }
 
             {errorText &&

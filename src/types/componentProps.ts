@@ -3,6 +3,7 @@ import {To} from "react-router-dom";
 import {ITab} from "@/types/tab.ts";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
+import {IUserInfo} from "@/types/user.ts";
 
 // 버튼(Button) props
 export interface IButtonProps {
@@ -269,6 +270,7 @@ export interface ITimeListItemProps {
 export interface IUserInfoContentProps {
     userId: string;
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
+    onUserInfoUpdate?: (updatedUser: IUserInfo) => void;
 }
 
 

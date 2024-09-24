@@ -66,7 +66,7 @@ export const FieldWrapper = styled.div`
     & > div:first-of-type {
         width: 82px;
         min-width: 82px;
-        padding: 12px 16px 0 10px;
+        padding: 14px 16px 0 12px;
         background-color: ${({theme}) => theme.colors.bg.sub};
         font-size: 16px;
         color: ${({theme}) => theme.colors.font.sub};
@@ -96,7 +96,7 @@ export const WarningWrapper = styled.div`
     & > div:first-of-type {
         width: 82px;
         min-width: 82px;
-        padding: 20px 16px 0 10px;
+        padding: 20px 16px 0 12px;
         background-color: ${({theme}) => theme.colors.bg.sub};
         font-size: 16px;
         color: ${({theme}) => theme.colors.font.sub};
@@ -142,7 +142,7 @@ export const PassWrapper = styled.div`
     & > div:first-of-type {
         width: 82px;
         min-width: 82px;
-        padding: 20px 16px 0 10px;
+        padding: 20px 16px 0 12px;
         background-color: ${({theme}) => theme.colors.bg.sub};
         font-size: 16px;
         color: ${({theme}) => theme.colors.font.sub};

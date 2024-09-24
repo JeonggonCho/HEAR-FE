@@ -1,37 +1,54 @@
-import {FC, useState} from "react";
-
+import { FC, useState } from "react";
 import Modal from "@components/Modal";
 import UserInfoContent from "@components/UserInfoContent";
-import {IUserList} from "@/types/user.ts";
+import { IUserInfo, IUserList } from "@/types/user.ts";
+import { Container } from "./style.ts";
 
-import {Container} from "./style.ts";
-
-const UserListItem:FC<IUserList> = (props) => {
+const UserListItem: FC<IUserList> = (props) => {
     const [showUserInfoModal, setShowUserInfoModal] = useState<boolean>(false);
+    const [userInfo, setUserInfo] = useState<IUserInfo | null>(null);
 
-    const {userId, username, year, studentId, countOfWarning, passQuiz} = props;
+    const handleUserInfoUpdate = (updatedUser: IUserInfo) => {
+        setUserInfo(updatedUser);
+    };
+
+    const renderContainer = () => {
+        const currentUserInfo = userInfo || props;
+
+        return (
+            <Container
+                pass={currentUserInfo.passQuiz}
+                onClick={() => setShowUserInfoModal(true)}
+            >
+                <span>{currentUserInfo.username}</span>
+                <span>{currentUserInfo.year}</span>
+                <span>{currentUserInfo.studentId}</span>
+                <span>{currentUserInfo.countOfWarning}</span>
+                <div>
+                    <span>{currentUserInfo.passQuiz ? "이수" : "미이수"}</span>
+                </div>
+            </Container>
+        );
+    };
 
     return (
-        <Container
-            pass={passQuiz}
-            onClick={() => setShowUserInfoModal(true)}
-        >
-            <span>{username}</span>
-            <span>{year}</span>
-            <span>{studentId}</span>
-            <span>{countOfWarning}</span>
-            <div>
-                <span>{passQuiz ? "이수" : "미이수"}</span>
-            </div>
+        <>
+            {renderContainer()}
 
-            {showUserInfoModal && userId &&
-              <Modal
-                content={<UserInfoContent userId={userId} setModal={setShowUserInfoModal}/>}
-                setModal={setShowUserInfoModal}
-                type={"popup"}
-              />
-            }
-        </Container>
+            {showUserInfoModal && props.userId && (
+                <Modal
+                    content={
+                        <UserInfoContent
+                            userId={props.userId}
+                            setModal={setShowUserInfoModal}
+                            onUserInfoUpdate={handleUserInfoUpdate}
+                        />
+                    }
+                    setModal={setShowUserInfoModal}
+                    type={"popup"}
+                />
+            )}
+        </>
     );
 };
 

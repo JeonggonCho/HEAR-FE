@@ -10,6 +10,7 @@ export const Container = styled.div<{pass: boolean}>`
     align-items: center;
     cursor: pointer;
     transition: all 0.1s ease-in-out 0s;
+    margin-top: 8px;
     
     &:hover {
         box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
@@ -45,9 +46,5 @@ export const Container = styled.div<{pass: boolean}>`
         span {
             color: ${({pass, theme}) => pass ? theme.colors.font.primary : theme.colors.font.danger};
         }
-    }
-    
-    & + & {
-        margin-top: 8px;
     }
 `;

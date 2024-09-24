@@ -18,7 +18,7 @@ import {Buttons, CloseButton, Container, FieldWrapper, PassTag, PassWrapper, War
 import userIcon from "@assets/images/no_profile.png";
 import close from "@assets/icons/close.svg";
 
-const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal}) => {
+const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfoUpdate}) => {
     const [user, setUser] = useState<IUserInfo>();
     const [showWarning, setShowWarning] = useState<boolean>(false);
 
@@ -62,16 +62,15 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal}) => {
                 method: "patch",
                 data: {...data, countOfWarning: user?.countOfWarning},
             });
-            if (response.data) {
-                setUser((prevState) => {
-                    if (!prevState) return prevState;
-                    return {...prevState, countOfWarning: response.data};
-                });
+            if (!isLoading && response.data) {
+                const updatedUser = {...user, countOfWarning: response.data};
+                setUser(updatedUser as IUserInfo);
+                onUserInfoUpdate && onUserInfoUpdate(updatedUser as IUserInfo);
             }
         } catch (err) {
             console.error("경고 차감 중 에러 발생: ", err);
         }
-    }, [sendRequest, userId]);
+    }, [sendRequest, userId, user, onUserInfoUpdate]);
 
     // 경고 차감하기
     const handleMinusWarning = useCallback(async () => {
@@ -81,54 +80,59 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal}) => {
                 method: "patch",
                 data: {countOfWarning: user?.countOfWarning},
             });
-            if (response.data) {
-                setUser((prevState) => {
-                    if (!prevState) return prevState;
-                    return {...prevState, countOfWarning: response.data};
-                });
+            if (!isLoading && response.data) {
+                const updatedUser = {...user, countOfWarning: response.data};
+                setUser(updatedUser as IUserInfo);
+                onUserInfoUpdate && onUserInfoUpdate(updatedUser as IUserInfo);
             }
         } catch (err) {
             console.error("경고 부과 중 에러 발생: ", err);
         }
-    }, [sendRequest, userId]);
+    }, [sendRequest, userId, user, onUserInfoUpdate]);
 
     // 교육 이수 처리하기
     const handlePassQuiz = useCallback(async () => {
+        if (user?.passQuiz === true) {
+            console.error("이미 교육 이수가 완료된 상태입니다.");
+            return;
+        }
         try {
             const response = await sendRequest({
                 url: `/users/quiz/pass/${userId}`,
                 method: "patch",
-                data: {passQuiz: user?.passQuiz},
+                data: {passQuiz: false},
             });
-            if (response.data) {
-                setUser((prevState) => {
-                    if (!prevState) return prevState;
-                    return {...prevState, passQuiz: response.data};
-                });
+            if (!isLoading && response.data === true) {
+                const updatedUser = {...user, passQuiz: response.data};
+                setUser(updatedUser as IUserInfo);
+                onUserInfoUpdate && onUserInfoUpdate(updatedUser as IUserInfo);
             }
         } catch (err) {
             console.error("교육 이수 처리 중 에러 발생: ", err);
         }
-    }, [sendRequest, userId]);
+    }, [sendRequest, userId, user, onUserInfoUpdate]);
 
     // 교육 미이수 처리하기
-    const handleResetPassQuiz = useCallback(async () => {
+    const handleResetQuiz = useCallback(async () => {
+        if (user?.passQuiz === false) {
+            console.error("이미 교육 미이수가 완료된 상태입니다.");
+            return;
+        }
         try {
             const response = await sendRequest({
                 url: `/users/quiz/reset/${userId}`,
                 method: "patch",
-                data: {passQuiz: user?.passQuiz},
+                data: {passQuiz: true},
             });
-            if (response.data) {
-                setUser((prevState) => {
-                    if (!prevState) return prevState;
-                    return {...prevState, passQuiz: response.data};
-                });
+            if (!isLoading && response.data === false) {
+                const updatedUser = {...user, passQuiz: response.data};
+                setUser(updatedUser as IUserInfo);
+                onUserInfoUpdate && onUserInfoUpdate(updatedUser as IUserInfo);
             }
         } catch (err) {
             console.error("교육 미이수 처리 중 에러 발생: ", err);
         }
-    }, [sendRequest, userId]);
+    }, [sendRequest, userId, user, onUserInfoUpdate]);
 
     return (
         <Container>
@@ -237,16 +241,7 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal}) => {
                             <div>
                                 <PassTag pass={user?.passQuiz || false}>{user?.passQuiz ? "이수" : "미이수"}</PassTag>
                                 <Buttons>
-                                    {user?.passQuiz ?
-                                        <Button
-                                            type={"button"}
-                                            content={"미이수 처리"}
-                                            width={"fit"}
-                                            color={"third"}
-                                            scale={"small"}
-                                            onClick={handleResetPassQuiz}
-                                        />
-                                        :
+                                    {!user?.passQuiz && (
                                         <Button
                                             type={"button"}
                                             content={"이수 처리"}
@@ -255,7 +250,17 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal}) => {
                                             scale={"small"}
                                             onClick={handlePassQuiz}
                                         />
-                                    }
+                                    )}
+                                    {user?.passQuiz && (
+                                        <Button
+                                            type={"button"}
+                                            content={"미이수 처리"}
+                                            width={"fit"}
+                                            color={"third"}
+                                            scale={"small"}
+                                            onClick={handleResetQuiz}
+                                        />
+                                    )}
                                 </Buttons>
                             </div>
                         </PassWrapper>
