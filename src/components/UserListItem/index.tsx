@@ -5,8 +5,8 @@ import { IUserInfo, IUserList } from "@/types/user.ts";
 import { Container } from "./style.ts";
 
 const UserListItem: FC<IUserList> = (props) => {
-    const [showUserInfoModal, setShowUserInfoModal] = useState<boolean>(false);
     const [userInfo, setUserInfo] = useState<IUserInfo | null>(null);
+    const [showUserInfoModal, setShowUserInfoModal] = useState<boolean>(false);
 
     const handleUserInfoUpdate = (updatedUser: IUserInfo) => {
         setUserInfo(updatedUser);

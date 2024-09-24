@@ -63,12 +63,15 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                 data: {...data, countOfWarning: user?.countOfWarning},
             });
             if (!isLoading && response.data) {
-                const updatedUser = {...user, countOfWarning: response.data};
+                const updatedUser = {...user, countOfWarning: response.data.countOfWarning as number};
                 setUser(updatedUser as IUserInfo);
                 onUserInfoUpdate && onUserInfoUpdate(updatedUser as IUserInfo);
             }
         } catch (err) {
-            console.error("경고 차감 중 에러 발생: ", err);
+            console.error("경고 부과 중 에러 발생: ", err);
+        } finally {
+            setShowWarning(false);
+            reset({message: "",});
         }
     }, [sendRequest, userId, user, onUserInfoUpdate]);
 
@@ -81,12 +84,14 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                 data: {countOfWarning: user?.countOfWarning},
             });
             if (!isLoading && response.data) {
-                const updatedUser = {...user, countOfWarning: response.data};
+                const updatedUser = {...user, countOfWarning: response.data.countOfWarning as number};
                 setUser(updatedUser as IUserInfo);
                 onUserInfoUpdate && onUserInfoUpdate(updatedUser as IUserInfo);
             }
         } catch (err) {
-            console.error("경고 부과 중 에러 발생: ", err);
+            console.error("경고 차감 중 에러 발생: ", err);
+        } finally {
+            setShowWarning(false);
         }
     }, [sendRequest, userId, user, onUserInfoUpdate]);
 
@@ -102,8 +107,8 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                 method: "patch",
                 data: {passQuiz: false},
             });
-            if (!isLoading && response.data === true) {
-                const updatedUser = {...user, passQuiz: response.data};
+            if (!isLoading && response.data.passQuiz === true) {
+                const updatedUser = {...user, passQuiz: response.data.passQuiz as boolean};
                 setUser(updatedUser as IUserInfo);
                 onUserInfoUpdate && onUserInfoUpdate(updatedUser as IUserInfo);
             }
@@ -124,8 +129,8 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                 method: "patch",
                 data: {passQuiz: true},
             });
-            if (!isLoading && response.data === false) {
-                const updatedUser = {...user, passQuiz: response.data};
+            if (!isLoading && response.data.passQuiz === false) {
+                const updatedUser = {...user, passQuiz: response.data.passQuiz as boolean};
                 setUser(updatedUser as IUserInfo);
                 onUserInfoUpdate && onUserInfoUpdate(updatedUser as IUserInfo);
             }
@@ -136,135 +141,137 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
 
     return (
         <Container>
-            {(isLoading || !user) ?
-                <div>로딩중...</div>
-                :
+            {user &&
                 <>
-                    <CloseButton onClick={(e) => {
-                        e.stopPropagation();
-                        setModal(false)
-                    }}>
-                        <ReactSVG src={close}/>
-                    </CloseButton>
+                  <CloseButton onClick={(e) => {
+                      e.stopPropagation();
+                      setModal(false)
+                  }}>
+                    <ReactSVG src={close}/>
+                  </CloseButton>
 
-                    <div>
-                        <img src={userIcon} alt={"no_profile"}/>
-                    </div>
+                  <div>
+                    <img src={userIcon} alt={"no_profile"}/>
+                  </div>
 
-                    <h3>{user?.username}</h3>
+                  <h3>{user?.username}</h3>
 
-                    <div>
-                        <FieldWrapper>
-                            <div>학 년</div>
-                            <span>{user?.year}학년</span>
-                        </FieldWrapper>
+                  <div>
+                    <FieldWrapper>
+                      <div>학 년</div>
+                      <span>{user?.year}학년</span>
+                    </FieldWrapper>
 
-                        <FieldWrapper>
-                            <div>학 번</div>
-                            <span>{user?.studentId}</span>
-                        </FieldWrapper>
+                    <FieldWrapper>
+                      <div>학 번</div>
+                      <span>{user?.studentId}</span>
+                    </FieldWrapper>
 
-                        <FieldWrapper>
-                            <div>이메일</div>
-                            <span>{user?.email}</span>
-                        </FieldWrapper>
+                    <FieldWrapper>
+                      <div>이메일</div>
+                      <span>{user?.email}</span>
+                    </FieldWrapper>
 
-                        <FieldWrapper>
-                            <div>전화번호</div>
-                            <span>{user?.tel}</span>
-                        </FieldWrapper>
+                    <FieldWrapper>
+                      <div>전화번호</div>
+                      <span>{user?.tel}</span>
+                    </FieldWrapper>
 
-                        <WarningWrapper>
-                            <div>경 고</div>
-                            {showWarning ?
-                                <form onSubmit={handleSubmit(handleAddWarning)}>
-                                    <Input
-                                        type={"text"}
-                                        id={"warning-message"}
-                                        name={"message"}
-                                        register={register}
-                                        placeholder={"경고 사유 입력"}
-                                        errorMessage={errors.message?.message}
-                                    />
-                                    <div>
-                                        <Button
-                                            type={"button"}
-                                            content={"취소"}
-                                            width={"full"}
-                                            color={"third"}
-                                            scale={"small"}
-                                            onClick={() => {
-                                                setShowWarning(false);
-                                                reset({message: "",});
-                                            }}
-                                        />
-                                        <Button
-                                            type={"submit"}
-                                            content={"경고 부과"}
-                                            width={"full"}
-                                            color={"danger"}
-                                            scale={"small"}
-                                        />
-                                    </div>
-                                </form>
-                                :
+                    <WarningWrapper>
+                      <div>경 고</div>
+                        {showWarning ?
+                            <form onSubmit={handleSubmit(handleAddWarning)}>
+                                <Input
+                                    type={"text"}
+                                    id={"warning-message"}
+                                    name={"message"}
+                                    register={register}
+                                    placeholder={"경고 사유 입력"}
+                                    errorMessage={errors.message?.message}
+                                />
                                 <div>
-                                    <span>{user?.countOfWarning} 회</span>
-                                    <Buttons>
-                                        {(user?.countOfWarning > 0) &&
-                                          <Button
-                                            type={"button"}
-                                            content={"차감"}
-                                            width={"fit"}
-                                            color={"third"}
-                                            scale={"small"}
-                                            onClick={handleMinusWarning}
-                                          />
-                                        }
-                                        {(user?.countOfWarning < 2) &&
-                                          <Button
-                                            type={"button"}
-                                            content={"부과"}
-                                            width={"fit"}
-                                            color={"danger"}
-                                            scale={"small"}
-                                            onClick={handleShowWarning}
-                                          />
-                                        }
-                                    </Buttons>
+                                    <Button
+                                        type={"button"}
+                                        content={"취소"}
+                                        width={"full"}
+                                        color={"third"}
+                                        scale={"small"}
+                                        onClick={() => {
+                                            setShowWarning(false);
+                                            reset({message: "",});
+                                        }}
+                                    />
+                                    <Button
+                                        type={"submit"}
+                                        content={"경고 부과"}
+                                        width={"full"}
+                                        color={"danger"}
+                                        scale={"small"}
+                                    />
                                 </div>
-                            }
-                        </WarningWrapper>
-
-                        <PassWrapper>
-                            <div>교 육</div>
+                            </form>
+                            :
                             <div>
-                                <PassTag pass={user?.passQuiz || false}>{user?.passQuiz ? "이수" : "미이수"}</PassTag>
+                                <span>{user?.countOfWarning} 회</span>
                                 <Buttons>
-                                    {!user?.passQuiz && (
-                                        <Button
-                                            type={"button"}
-                                            content={"이수 처리"}
-                                            width={"fit"}
-                                            color={"third"}
-                                            scale={"small"}
-                                            onClick={handlePassQuiz}
-                                        />
-                                    )}
-                                    {user?.passQuiz && (
-                                        <Button
-                                            type={"button"}
-                                            content={"미이수 처리"}
-                                            width={"fit"}
-                                            color={"third"}
-                                            scale={"small"}
-                                            onClick={handleResetQuiz}
-                                        />
-                                    )}
+                                    {(user?.countOfWarning > 0) &&
+                                      <Button
+                                        type={"button"}
+                                        content={"차감"}
+                                        width={"fit"}
+                                        color={"third"}
+                                        scale={"small"}
+                                        onClick={handleMinusWarning}
+                                      />
+                                    }
+                                    {(user?.countOfWarning < 2) &&
+                                      <Button
+                                        type={"button"}
+                                        content={"부과"}
+                                        width={"fit"}
+                                        color={"danger"}
+                                        scale={"small"}
+                                        onClick={handleShowWarning}
+                                      />
+                                    }
                                 </Buttons>
                             </div>
-                        </PassWrapper>
-                    </div>
+                        }
+                    </WarningWrapper>
+
+                    <PassWrapper>
+                      <div>교 육</div>
+                      <div>
+                        <PassTag
+                          pass={user?.passQuiz || false}
+                        >
+                            {user?.passQuiz ? "이수" : "미이수"}
+                        </PassTag>
+                        <Buttons>
+                            {!user?.passQuiz && (
+                                <Button
+                                    type={"button"}
+                                    content={"이수 처리"}
+                                    width={"fit"}
+                                    color={"third"}
+                                    scale={"small"}
+                                    onClick={handlePassQuiz}
+                                />
+                            )}
+                            {user?.passQuiz && (
+                                <Button
+                                    type={"button"}
+                                    content={"미이수 처리"}
+                                    width={"fit"}
+                                    color={"third"}
+                                    scale={"small"}
+                                    onClick={handleResetQuiz}
+                                />
+                            )}
+                        </Buttons>
+                      </div>
+                    </PassWrapper>
+                  </div>
                 </>
             }
 
