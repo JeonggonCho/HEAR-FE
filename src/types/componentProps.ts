@@ -121,6 +121,9 @@ export interface ISelectWithLabelProps {
         value: string;
         id: string;
     }[];
+    type: "radio" | "checkbox";
+    defaultValues?: any[];
+    onSelectChange: (e:any) => void;
 }
 
 
@@ -279,4 +282,10 @@ export interface IToastProps {
     text: string;
     time: number;
     setToast?: () => void;
+}
+
+
+// 필터 내용(FilterContent) props
+export interface IFilterContentProps {
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }

@@ -14,13 +14,14 @@ import ErrorContent from "@components/ErrorContent";
 import Empty from "@components/Empty";
 
 import useRequest from "@hooks/useRequest.ts";
-import {searchUserSchema} from "@schemata/authSchema.ts";
+import {searchUserSchema} from "@schemata/userSchema.ts";
 import {IUserList} from "@/types/user.ts";
 
 import {Container} from "./style.ts";
 
 import tune from "@assets/icons/tune.svg";
 import search from "@assets/icons/search.svg";
+import FilterContent from "@components/FilterContent";
 
 const UsersPage:FC = () => {
     const [userList, setUserList] = useState<IUserList[]>([]);
@@ -40,10 +41,6 @@ const UsersPage:FC = () => {
         }
     });
 
-    const submitHandler:SubmitHandler<SearchFormData> = useCallback(async () => {
-
-    }, []);
-
     const fetchUserList = useCallback(async () => {
         try {
             const response = await sendRequest({
@@ -58,6 +55,10 @@ const UsersPage:FC = () => {
     useEffect(() => {
         fetchUserList();
     }, [fetchUserList]);
+
+    const submitHandler:SubmitHandler<SearchFormData> = useCallback(async () => {
+
+    }, []);
 
     return (
         <Container>
@@ -107,7 +108,8 @@ const UsersPage:FC = () => {
 
             {showFilter &&
                 <Modal
-                  content={<div>필터</div>}
+                  title={"유저 필터"}
+                  content={<FilterContent setModal={setShowFilter}/>}
                   setModal={setShowFilter}
                   type={"bottomSheet"}
                 />

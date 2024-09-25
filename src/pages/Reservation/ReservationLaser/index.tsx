@@ -45,6 +45,7 @@ const ReservationLaser:FC = () => {
                     name={"machine"}
                     register={register}
                     errorMessage={errors.machine?.message}
+                    type={"radio"}
                 />
 
                 <Input

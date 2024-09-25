@@ -78,6 +78,7 @@ const CreateInquiryPage:FC = () => {
                             name={"category"}
                             register={register}
                             errorMessage={errors.category?.message}
+                            type={"radio"}
                         />
 
                         <Textarea

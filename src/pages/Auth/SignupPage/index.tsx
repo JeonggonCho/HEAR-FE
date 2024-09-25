@@ -15,7 +15,7 @@ import LoadingLoop from "@components/LoadingLoop";
 import ErrorContent from "@components/ErrorContent";
 
 import {yearCategories} from "@constants/yearCategories.ts";
-import {signupSchema} from "@schemata/authSchema.ts";
+import {signupSchema} from "@schemata/userSchema.ts";
 import {zodResolver} from "@hookform/resolvers/zod";
 import useRequest from "@hooks/useRequest.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
@@ -123,6 +123,7 @@ const SignupPage:FC = () => {
                             name={"year"}
                             register={register}
                             errorMessage={errors.year?.message}
+                            type={"radio"}
                         />
 
                         <Input

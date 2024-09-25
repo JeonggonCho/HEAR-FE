@@ -7,7 +7,7 @@ import ArrowBack from "@components/ArrowBack";
 import Input from "@components/Input";
 import Button from "@components/Button";
 
-import {findPasswordSchema} from "@schemata/authSchema.ts";
+import {findPasswordSchema} from "@schemata/userSchema.ts";
 
 import {Container} from "./style.ts";
 

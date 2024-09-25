@@ -16,7 +16,7 @@ import ErrorContent from "@components/ErrorContent";
 import {yearCategories} from "@constants/yearCategories.ts";
 import {zodResolver} from "@hookform/resolvers/zod";
 import useRequest from "@hooks/useRequest.ts";
-import {updateAccountSchema} from "@schemata/authSchema.ts";
+import {updateAccountSchema} from "@schemata/userSchema.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 
 import {Container} from "./style.ts";
@@ -155,6 +155,7 @@ const UpdateAccountPage:FC = () => {
                             name={"year"}
                             register={register}
                             errorMessage={errors.year?.message}
+                            type={"radio"}
                         />
 
                         <Input
