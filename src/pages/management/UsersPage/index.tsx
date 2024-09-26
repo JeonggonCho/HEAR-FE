@@ -1,7 +1,4 @@
 import {FC, useCallback, useEffect, useState} from "react";
-import {z} from "zod";
-import {SubmitHandler, useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
 import {ReactSVG} from "react-svg";
 
 import Header from "@components/Header";
@@ -12,53 +9,38 @@ import LoadingLoop from "@components/LoadingLoop";
 import Modal from "@components/Modal";
 import ErrorContent from "@components/ErrorContent";
 import Empty from "@components/Empty";
+import UsersFilterContent from "@components/UsersFilterContent";
 
 import useRequest from "@hooks/useRequest.ts";
-import {searchUserSchema} from "@schemata/userSchema.ts";
-import {IUserList} from "@/types/user.ts";
+import {IUserFilter, IUserList} from "@/types/user.ts";
 
 import {Container} from "./style.ts";
 
 import tune from "@assets/icons/tune.svg";
 import search from "@assets/icons/search.svg";
-import FilterContent from "@components/FilterContent";
 
 const UsersPage:FC = () => {
     const [userList, setUserList] = useState<IUserList[]>([]);
     const [showFilter, setShowFilter] = useState<boolean>(false);
+    const [filter, setFilter] = useState<IUserFilter>({year: ["all"], passQuiz: ["all"], countOfWarning:["all"]});
+    const [username, setUsername] = useState<string>("");
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
-
-    type SearchFormData = z.infer<typeof searchUserSchema>;
-
-    const {
-        register:searchRegister,
-        handleSubmit: searchHandleSubmit
-    } = useForm<SearchFormData>({
-        resolver: zodResolver(searchUserSchema),
-        defaultValues: {
-            username: "",
-        }
-    });
 
     const fetchUserList = useCallback(async () => {
         try {
             const response = await sendRequest({
-                url: "users/all",
+                url: `users/all?year=${filter.year.join(",")}&passQuiz=${filter.passQuiz.join(",")}&countOfWarning=${filter.countOfWarning.join(",")}`,
             });
             setUserList(response.data);
         } catch (err) {
             console.error("유저 목록 조회 중 에러 발생: ", err);
         }
-    },[sendRequest, setUserList]);
+    },[sendRequest, setUserList, filter, username]);
 
     useEffect(() => {
         fetchUserList();
     }, [fetchUserList]);
-
-    const submitHandler:SubmitHandler<SearchFormData> = useCallback(async () => {
-
-    }, []);
 
     return (
         <Container>
@@ -70,13 +52,12 @@ const UsersPage:FC = () => {
                     <div>
                         <span>학생 수 {userList.length}명</span>
 
-                        <form onSubmit={searchHandleSubmit(submitHandler)}>
+                        <form>
                             <div>
                                 <Input
                                     type={"text"}
                                     id={"username-input"}
                                     name={"username"}
-                                    register={searchRegister}
                                     placeholder={"학생 이름 검색"}
                                 />
 
@@ -109,7 +90,7 @@ const UsersPage:FC = () => {
             {showFilter &&
                 <Modal
                   title={"유저 필터"}
-                  content={<FilterContent setModal={setShowFilter}/>}
+                  content={<UsersFilterContent filter={filter} setFilter={setFilter} setModal={setShowFilter}/>}
                   setModal={setShowFilter}
                   type={"bottomSheet"}
                 />

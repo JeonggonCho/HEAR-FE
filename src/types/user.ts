@@ -12,3 +12,9 @@ export interface IUserInfo extends IUserList {
     studio: string;
     tel: string;
 }
+
+export interface IUserFilter {
+    year: Array<"all" | "1" | "2" | "3" | "4" | "5">;
+    passQuiz: Array<"all" | "pass" | "fail">;
+    countOfWarning: Array<"all" | "0" | "1" | "2">;
+}

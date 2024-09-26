@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 import {ReactSVG} from "react-svg";
 
 import InputError from "@components/InputError";
@@ -16,7 +16,7 @@ import {
 
 import check from "@assets/icons/check.svg";
 
-const Select:FC<ISelectWithLabelProps> = ({label, categories, register, name, errorMessage, type, defaultValues, onSelectChange}) => {
+const Select:FC<ISelectWithLabelProps> = ({label, categories, register, name, errorMessage, type, onSelectChange, values}) => {
     return (
         <Container>
             <label>{label}</label>
@@ -30,7 +30,7 @@ const Select:FC<ISelectWithLabelProps> = ({label, categories, register, name, er
                                   type="radio"
                                   value={category.value}
                                   id={category.id}
-                                  {...register(name)}
+                                  {...register ? register(name) : null}
                               />
                               <LabelWrapper htmlFor={category.id}>{category.label}</LabelWrapper>
                           </RadioWrapper>
@@ -48,16 +48,11 @@ const Select:FC<ISelectWithLabelProps> = ({label, categories, register, name, er
                                     type="checkbox"
                                     id={category.id}
                                     value={category.value}
-                                    checked={defaultValues?.includes(category.value)}
-                                    {...register(name, {
-                                        onChange: (e) => onSelectChange(e.target.value)
-                                    })}
+                                    onChange={() => onSelectChange ? onSelectChange(category.value, categories) : null}
+                                    checked={values?.includes(category.value)}
                                 />
                                 <label htmlFor={category.id}>
-                                    <div>
-                                        <ReactSVG src={check}/>
-                                    </div>
-                                    {category.label}
+                                    <div><ReactSVG src={check}/></div> {category.label}
                                 </label>
                             </CheckboxWrapper>
                         );
@@ -70,4 +65,4 @@ const Select:FC<ISelectWithLabelProps> = ({label, categories, register, name, er
     );
 };
 
-export default Select;
+export default React.memo(Select);

@@ -51,7 +51,7 @@ export interface IInputProps<TFieldValues extends FieldValues> {
     placeholder?: string;
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     onClick?: () => void;
-    register: UseFormRegister<TFieldValues>;
+    register?: UseFormRegister<TFieldValues>;
     errorMessage?: string;
     readonly?: boolean;
     visibleToggle?: boolean;
@@ -112,18 +112,18 @@ export interface IRoomMapProps {
 
 // 선택(Select) props
 export interface ISelectWithLabelProps {
-    register: UseFormRegister<any>;
+    register?: UseFormRegister<any>;
     name: string;
     errorMessage?: string;
     label?: string;
     categories: {
         label: string;
-        value: string;
+        value: any;
         id: string;
     }[];
     type: "radio" | "checkbox";
-    defaultValues?: any[];
-    onSelectChange: (e:any) => void;
+    onSelectChange?: (selectedValue: any, categories: any) => void;
+    values?: any[];
 }
 
 
@@ -287,5 +287,7 @@ export interface IToastProps {
 
 // 필터 내용(FilterContent) props
 export interface IFilterContentProps {
-    setModal: React.Dispatch<React.SetStateAction<boolean>>;
+    filter: any;
+    setFilter: React.Dispatch<React.SetStateAction<any>>;
+    setModal: React.Dispatch<React.SetStateAction<boolean>>
 }

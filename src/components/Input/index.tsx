@@ -37,7 +37,7 @@ const Input = <TFieldValues extends FieldValues>(
             {type === "range" ?
                 <>
                     <input
-                        {...register(name, {onChange})}
+                        {...register ? register(name, {onChange}) : null}
                         type={inputType}
                         id={id}
                         min={0}
@@ -47,7 +47,7 @@ const Input = <TFieldValues extends FieldValues>(
                 </>
                 :
                 <input
-                    {...register(name)}
+                    {...register ? register(name) : null}
                     type={inputType}
                     id={id}
                     placeholder={placeholder}
