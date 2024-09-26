@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {darken, lighten} from "polished";
 
-export const Container = styled.div`
+export const Container = styled.div<{usernameInputText: string}>`
     width: 100%;
     position: relative;
     
@@ -27,8 +27,8 @@ export const Container = styled.div`
             align-items: center;
             gap: 8px;
             
+            // 유저 이름 검색 관련
             & > div:first-of-type {
-                width: 156px;
                 position: relative;
                 display: flex;
                 align-items: center;
@@ -39,38 +39,58 @@ export const Container = styled.div`
                 input {
                     border: none;
                     height: 36px;
-                    width: 120px;
+                    width: 110px;
                     
                     &:focus {
                         outline: none;
                     }
                 }
-                
-                svg {
-                    width: 28px;
-                    height: 28px;
-                    fill: ${({theme}) => theme.colors.font.sub};
-                    position: absolute;
-                    top: 4px;
-                    right: 4px;
-                    cursor: pointer;
-                    transition: all 0.2s ease-in-out 0s;
-                    background-color: ${({theme}) => theme.colors.bg.sub};
-                    padding: 2px;
-                    border-radius: 4px;
 
-                    &:hover {
-                        fill: ${({theme}) => theme.colors.font.main};
+                & > div:last-of-type {
+                    width: 24px;
+                    height: 24px;
+                    visibility: ${({usernameInputText}) => usernameInputText !== "" ? "block" : "hidden"};
+                    
+                    svg {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        fill: ${({theme}) => theme.colors.font.placeholder};
+                        cursor: pointer;
+                        transition: all 0.2s ease-in-out 0s;
+
+                        &:hover {
+                            fill: ${({theme}) => theme.colors.font.main};
+                        }
+                    }
+                }
+                
+                button {
+                    width: 36px;
+                    height: 36px;
+                    background-color: ${({theme}) => theme.colors.bg.main};
+                    padding: 5px;
+
+                    svg {
+                        fill: ${({theme}) => theme.colors.font.sub};
+                        cursor: pointer;
+                        transition: all 0.2s ease-in-out 0s;
+
+                        &:hover {
+                            fill: ${({theme}) => theme.colors.font.main};
+                        }
                     }
                 }
             }
-            
+
+            // 필터 관련
             & > div:last-of-type {
                 cursor: pointer;
+                position: relative;
                 
                 svg {
-                    width: 28px;
-                    height: 28px;
+                    width: 32px;
+                    height: 32px;
                     fill: ${({theme}) => theme.colors.font.sub};
                     transition: all 0.2s ease-in-out 0s;
                     
@@ -123,4 +143,16 @@ export const Container = styled.div`
             width: 20%;
         }
     }
+`;
+
+export const Badge = styled.div`
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-color: ${({theme}) => theme.colors.font.primary};
+    border-radius: 50%;
+    border: 2px solid ${({theme}) => theme.colors.bg.main};
+    right: -4px;
+    top: -4px;
+    z-index: 2;
 `;

@@ -10,40 +10,48 @@ import Modal from "@components/Modal";
 import ErrorContent from "@components/ErrorContent";
 import Empty from "@components/Empty";
 import UsersFilterContent from "@components/UsersFilterContent";
+import Button from "@components/Button";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IUserFilter, IUserList} from "@/types/user.ts";
 
-import {Container} from "./style.ts";
+import {Badge, Container} from "./style.ts";
 
 import tune from "@assets/icons/tune.svg";
 import search from "@assets/icons/search.svg";
+import close from "@assets/icons/close.svg";
 
 const UsersPage:FC = () => {
     const [userList, setUserList] = useState<IUserList[]>([]);
     const [showFilter, setShowFilter] = useState<boolean>(false);
     const [filter, setFilter] = useState<IUserFilter>({year: ["all"], passQuiz: ["all"], countOfWarning:["all"]});
-    const [username, setUsername] = useState<string>("");
+    const [usernameInputText, setUsernameInputText] = useState<string>("");
+    const [username, setUsername] = useState<string>(usernameInputText.trim());
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     const fetchUserList = useCallback(async () => {
         try {
             const response = await sendRequest({
-                url: `users/all?year=${filter.year.join(",")}&passQuiz=${filter.passQuiz.join(",")}&countOfWarning=${filter.countOfWarning.join(",")}`,
+                url: `users/all?year=${filter.year.join(",")}&passQuiz=${filter.passQuiz.join(",")}&countOfWarning=${filter.countOfWarning.join(",")}&username=${username}`,
             });
             setUserList(response.data);
         } catch (err) {
             console.error("유저 목록 조회 중 에러 발생: ", err);
         }
-    },[sendRequest, setUserList, filter, username]);
+    },[sendRequest, setUserList, filter, username, setUsername]);
 
     useEffect(() => {
         fetchUserList();
     }, [fetchUserList]);
 
+    const handleSearchUsername = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setUsername(usernameInputText.trim());
+    };
+
     return (
-        <Container>
+        <Container usernameInputText={usernameInputText}>
             <Header leftChild={<ArrowBack/>} centerText={"유저 관리"}/>
             {isLoading ?
                 <LoadingLoop/>
@@ -52,19 +60,34 @@ const UsersPage:FC = () => {
                     <div>
                         <span>학생 수 {userList.length}명</span>
 
-                        <form>
+                        <form onSubmit={handleSearchUsername}>
                             <div>
                                 <Input
                                     type={"text"}
                                     id={"username-input"}
                                     name={"username"}
                                     placeholder={"학생 이름 검색"}
+                                    value={usernameInputText}
+                                    onChange={(e) => setUsernameInputText(e.target.value)}
                                 />
 
-                                <ReactSVG src={search}/>
+                                <div onClick={() => setUsernameInputText("")}>
+                                    <ReactSVG src={close}/>
+                                </div>
+
+                                <Button
+                                    type={"submit"}
+                                    content={<ReactSVG src={search}/>}
+                                    width={"fit"}
+                                    color={"second"}
+                                    scale={"small"}
+                                />
                             </div>
 
                             <div onClick={() => setShowFilter(true)}>
+                                {!(filter.year.includes("all") && filter.countOfWarning.includes("all") && filter.passQuiz.includes("all")) &&
+                                  <Badge/>
+                                }
                                 <ReactSVG src={tune}/>
                             </div>
                         </form>

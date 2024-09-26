@@ -15,7 +15,7 @@ const Button:FC<IButtonProps> = ({type = "button", to, content, width, color, sc
         );
     } else if (type === "submit") {
         return (
-            <SubmitWrapper type="submit" width={width} color={color} value={content as string} scale={scale} onClick={onClick} disabled={disabled}/>
+            <SubmitWrapper type="submit" width={width} color={color} scale={scale} onClick={onClick} disabled={disabled}>{content}</SubmitWrapper>
         );
     } else {
         return null;

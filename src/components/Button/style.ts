@@ -78,4 +78,4 @@ const BaseComponent = styled.div<{
 
 export const ButtonWrapper = BaseComponent.withComponent("button");
 export const LinkWrapper = BaseComponent.withComponent(Link);
-export const SubmitWrapper = BaseComponent.withComponent("input");
+export const SubmitWrapper = BaseComponent.withComponent("button");
