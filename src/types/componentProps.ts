@@ -92,6 +92,7 @@ export interface ILinkCardProps {
     name: string;
     to: string;
     type: "linear" | "grid";
+    isDisabled?: boolean;
 }
 
 
@@ -107,6 +108,7 @@ export interface IModalProps {
 // 모형제작실 약도(RoomMap) props
 export interface IRoomMapProps {
     machine : "cnc" | "laser" | "printer" | "vacuum";
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 

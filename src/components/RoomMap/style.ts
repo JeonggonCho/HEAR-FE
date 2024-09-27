@@ -1,27 +1,50 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-    width: 100%;
-    background-color: ${({theme}) => theme.colors.bg.main};
-    padding: 20px;
-    border-radius: 16px;
-    border: 1px solid ${({theme}) => theme.colors.bg.main};
-    box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
+    padding: 8px;
     text-wrap: nowrap;
-    margin-bottom: 28px;
-    margin-top: 10px;
 
-    & > p:first-of-type {
+    h3 {
+        margin: 0 0 32px;
         color: ${({theme}) => theme.colors.font.main};
-        margin: 0 0 24px;
         font-weight: 500;
+        font-size: 16px;
+    }
+
+    & > div:first-of-type {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & > div {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: ${({theme}) => theme.colors.bg.sub};
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            cursor: pointer;
+
+            svg {
+                margin-top: 2px;
+                fill: ${({theme}) => theme.colors.icon.fill};
+                transition: all 0.2s ease-in-out 0s;
+            }
+
+            &:hover {
+                svg {
+                    fill: ${({theme}) => theme.colors.font.main};
+                }
+            }
+        }
     }
 `;
 
 export const MapWrapper = styled.div`
-    max-width: 340px;
-    margin: auto;
-
     & > div:first-of-type {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
@@ -78,7 +101,7 @@ export const PrinterWrapper = styled.span<{machine: "cnc" | "laser" | "printer" 
     color: ${({machine, theme}) => machine === "printer" ? theme.colors.font.primary : theme.colors.font.sub};
     background-color: ${({machine, theme}) => machine === "printer" ? theme.colors.button.approval : theme.colors.button.third};
     border-radius: 8px;
-    padding: 10px 12px;
+    padding: 8px 12px;
     text-align: center;
     vertical-align: center;
     line-height: 1.2;
@@ -90,7 +113,7 @@ export const VacuumWrapper = styled.span<{machine: "cnc" | "laser" | "printer" |
     color: ${({machine, theme}) => machine === "vacuum" ? theme.colors.font.primary : theme.colors.font.sub};
     background-color: ${({machine, theme}) => machine === "vacuum" ? theme.colors.button.approval : theme.colors.button.third};
     border-radius: 8px;
-    padding: 10px 12px;
+    padding: 8px 12px;
     text-align: center;
     vertical-align: center;
     line-height: 1.2;

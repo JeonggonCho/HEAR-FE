@@ -11,7 +11,7 @@ export const Container = styled.div<{usernameInputText: string}>`
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 8px 28px;
+        padding: 8px 28px 8px 32px;
         margin-left: -24px;
         position: sticky;
         top: 80px;
@@ -147,12 +147,12 @@ export const Container = styled.div<{usernameInputText: string}>`
 
 export const Badge = styled.div`
     position: absolute;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     background-color: ${({theme}) => theme.colors.font.primary};
     border-radius: 50%;
-    border: 2px solid ${({theme}) => theme.colors.bg.main};
-    right: -4px;
+    border: 3px solid ${({theme}) => theme.colors.bg.sub};
+    right: -6px;
     top: -4px;
     z-index: 2;
 `;

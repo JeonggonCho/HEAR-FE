@@ -12,10 +12,13 @@ import Calendar from "@components/Calendar";
 
 import {cncHeatSchema} from "@schemata/machineSchema.ts";
 
-import {Container} from "./style.ts";
+import {Container, ImageWrapper} from "./style.ts";
+
+import cnc from "@assets/images/cnc.png";
 
 const ReservationCnc:FC = () => {
     const [isOpenCalendar, setIsOpenCalendar] = useState<boolean>(false);
+    const [showMap, setShowMap] = useState<boolean>(false);
 
     const {register, handleSubmit, formState: {errors}, setValue} = useForm({
         resolver: zodResolver(cncHeatSchema),
@@ -30,8 +33,21 @@ const ReservationCnc:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"CNC 예약"}/>
-            <RoomMap machine={"cnc"}/>
+            <Header
+                leftChild={<ArrowBack/>}
+                centerText={"CNC 예약"}
+                rightChild={<Button
+                    type={"button"}
+                    content={"약 도"}
+                    width={"fit"}
+                    scale={"small"}
+                    color={"second"}
+                    onClick={() => setShowMap(true)}
+                />}
+            />
+            <ImageWrapper>
+                <img src={cnc} alt={"cnc"}/>
+            </ImageWrapper>
             <form method={"post"} onSubmit={handleSubmit((data) => {
                 console.log(data);
             })}>
@@ -57,6 +73,14 @@ const ReservationCnc:FC = () => {
                 setModal={setIsOpenCalendar}
                 type={"bottomSheet"}
               />
+            }
+
+            {showMap &&
+                <Modal
+                  content={<RoomMap machine={"cnc"} setModal={setShowMap}/>}
+                  setModal={setShowMap}
+                  type={"popup"}
+                />
             }
         </Container>
     );

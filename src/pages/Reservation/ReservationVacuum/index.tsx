@@ -12,10 +12,13 @@ import Calendar from "@components/Calendar";
 
 import {sawVacuumSchema} from "@schemata/machineSchema.ts";
 
-import {Container} from "./style.ts";
+import {Container, ImageWrapper} from "./style.ts";
+
+import vacuum from "@assets/images/vacuum.png";
 
 const ReservationVacuum:FC = () => {
     const [isOpenCalendar, setIsOpenCalendar] = useState<boolean>(false);
+    const [showMap, setShowMap] = useState<boolean>(false);
 
     const {register, handleSubmit, formState: {errors}, setValue} = useForm({
         resolver: zodResolver(sawVacuumSchema),
@@ -31,10 +34,20 @@ const ReservationVacuum:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"사출 성형기 예약"}/>
-
-            <RoomMap machine={"vacuum"}/>
-
+            <Header
+                leftChild={<ArrowBack/>}
+                centerText={"사출 성형기 예약"}
+                rightChild={<Button
+                    type={"button"}
+                    content={"약 도"}
+                    scale={"small"}
+                    width={"fit"}
+                    color={"second"}
+                    onClick={() => setShowMap(true)}/>
+            }/>
+            <ImageWrapper>
+                <img src={vacuum} alt={"사출성형기"}/>
+            </ImageWrapper>
             <form method={"post"} onSubmit={handleSubmit((data) => {
                 console.log(data);
             })}>
@@ -70,6 +83,14 @@ const ReservationVacuum:FC = () => {
                 setModal={setIsOpenCalendar}
                 type={"bottomSheet"}
               />
+            }
+
+            {showMap &&
+                <Modal
+                  content={<RoomMap machine={"vacuum"} setModal={setShowMap}/>}
+                  setModal={setShowMap}
+                  type={"popup"}
+                />
             }
         </Container>
     );

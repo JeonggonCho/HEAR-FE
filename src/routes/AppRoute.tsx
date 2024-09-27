@@ -112,9 +112,9 @@ const AppRoute = () => {
                             <Route path="reservation/condition" element={<ConditionPage/>}/>
 
 
-                            <Route path="machines" element={<MachinesPage/>}/>
-                            <Route path="users" element={<UsersPage/>}/>
-                            <Route path="reservations" element={<ReservationsPage/>}/>
+                            <Route path="management/machines" element={<MachinesPage/>}/>
+                            <Route path="management/users" element={<UsersPage/>}/>
+                            <Route path="management/reservations" element={<ReservationsPage/>}/>
 
                             <Route path="alarm" element={<AlarmPage/>}/>
                             <Route path="quiz" element={<QuizPage/>}/>

@@ -6,11 +6,11 @@ import {darken, lighten} from "polished";
 export const Container = styled.nav`
     width: 100%;
     max-width: 600px;
-    height: 80px;
+    height: 92px;
     border-top: 1px solid ${({theme}) => theme.colors.line.main};
     border-left: 1px solid ${({theme}) => theme.colors.line.main};
     border-right: 1px solid ${({theme}) => theme.colors.line.main};
-    padding: 0 20px;
+    padding: 4px 20px 20px 20px;
     border-radius: 24px 24px 0 0;
     display: flex;
     align-items: center;

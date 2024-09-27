@@ -11,7 +11,9 @@ import Calendar from "@components/Calendar";
 
 import {sawVacuumSchema} from "@schemata/machineSchema.ts";
 
-import {Container} from "./style.ts";
+import {Container, ImageWrapper} from "./style.ts";
+
+import saw from "@assets/images/saw.png";
 
 const ReservationSaw:FC = () => {
     const [isOpenCalendar, setIsOpenCalendar] = useState<boolean>(false);
@@ -31,7 +33,9 @@ const ReservationSaw:FC = () => {
     return (
         <Container>
             <Header leftChild={<ArrowBack/>} centerText={"톱 예약"}/>
-
+            <ImageWrapper>
+                <img src={saw} alt={"톱"}/>
+            </ImageWrapper>
             <form method={"post"} onSubmit={handleSubmit((data) => {
                 console.log(data);
             })}>

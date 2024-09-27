@@ -14,10 +14,13 @@ import Calendar from "@components/Calendar";
 import {machineType} from "@constants/machineCategories.ts";
 import {printerSchema} from "@schemata/machineSchema.ts";
 
-import {Container} from "./style.ts";
+import {Container, ImageWrapper} from "./style.ts";
+
+import printer from "@assets/images/3d_printer.png";
 
 const ReservationPrinter:FC = () => {
     const [isOpenCalendar, setIsOpenCalendar] = useState<boolean>(false);
+    const [showMap, setShowMap] = useState<boolean>(false);
 
     const {register, handleSubmit, formState: {errors}, setValue} = useForm({
         resolver: zodResolver(printerSchema),
@@ -34,10 +37,21 @@ const ReservationPrinter:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"3D 프린터 예약"}/>
-
-            <RoomMap machine={"printer"}/>
-
+            <Header
+                leftChild={<ArrowBack/>}
+                centerText={"3D 프린터 예약"}
+                rightChild={<Button
+                    type={"button"}
+                    content={"약 도"}
+                    color={"second"}
+                    scale={"small"}
+                    width={"fit"}
+                    onClick={() => setShowMap(true)}
+                />}
+            />
+            <ImageWrapper>
+                <img src={printer} alt={"3d 프린터"}/>
+            </ImageWrapper>
             <form method={"post"} onSubmit={handleSubmit((data) => {
                 console.log(data);
             })}>
@@ -68,10 +82,23 @@ const ReservationPrinter:FC = () => {
             {isOpenCalendar &&
               <Modal
                 title={"날 짜"}
-                content={<Calendar setModal={setIsOpenCalendar} onSelectDate={handleDateSelect}/>}
+                content={
+                    <Calendar
+                        setModal={setIsOpenCalendar}
+                        onSelectDate={handleDateSelect}
+                    />
+                }
                 setModal={setIsOpenCalendar}
                 type={"bottomSheet"}
               />
+            }
+
+            {showMap &&
+                <Modal
+                  content={<RoomMap machine={"printer"} setModal={setShowMap}/>}
+                  setModal={setShowMap}
+                  type={"popup"}
+                />
             }
         </Container>
     );

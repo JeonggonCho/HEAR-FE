@@ -9,7 +9,9 @@ import Input from "@components/Input";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {cncHeatSchema} from "@schemata/machineSchema.ts";
 
-import {Container} from "./style.ts";
+import {Container, ImageWrapper} from "./style.ts";
+
+import heat from "@assets/images/heat_cutter.png";
 
 const ReservationHeat:FC = () => {
     const {register, handleSubmit, formState: {errors}, setValue} = useForm({
@@ -28,7 +30,9 @@ const ReservationHeat:FC = () => {
     return (
         <Container>
             <Header leftChild={<ArrowBack/>} centerText={"열선 예약"}/>
-
+            <ImageWrapper>
+                <img src={heat} alt={"열선"}/>
+            </ImageWrapper>
             <form method={"post"} onSubmit={handleSubmit((data) => {
                 console.log(data);
             })}>

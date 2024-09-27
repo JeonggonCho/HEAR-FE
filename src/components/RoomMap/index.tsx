@@ -1,13 +1,25 @@
 import {FC} from "react";
+import {ReactSVG} from "react-svg";
 
 import {IRoomMapProps} from "@/types/componentProps.ts";
 
 import {CncWrapper, Container, LaserWrapper, MapWrapper, PrinterWrapper, VacuumWrapper} from "./style.ts";
 
-const RoomMap:FC<IRoomMapProps> = ({machine}) => {
+import close from "@assets/icons/close.svg";
+
+const RoomMap:FC<IRoomMapProps> = ({machine, setModal}) => {
     return (
         <Container>
-            <p>디지털 모형제작실(301호)</p>
+            <div>
+                <h3>디지털 모형제작실(301호) 약도</h3>
+
+                <div onClick={(e) => {
+                    e.stopPropagation();
+                    setModal(false)
+                }}>
+                    <ReactSVG src={close}/>
+                </div>
+            </div>
 
             <MapWrapper>
                 <div>
