@@ -1,6 +1,5 @@
 import {FC, useCallback, useEffect, useState} from "react";
-import {useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
+import {ReactSVG} from "react-svg";
 
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
@@ -8,34 +7,21 @@ import RoomMap from "@components/RoomMap";
 import Button from "@components/Button";
 import Input from "@components/Input";
 import Modal from "@components/Modal";
-import Empty from "@components/Empty";
 import LoadingLoop from "@components/LoadingLoop";
 import ErrorContent from "@components/ErrorContent";
 
-import {laserSchema} from "@schemata/machineSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
 
-import {Container, ImageWrapper, LaserSelectContentWrapper} from "./style.ts";
+import {Container, ImageWrapper, LaserSelectContentWrapper, MapIcon} from "./style.ts";
 
 import laser from "@assets/images/laser_cut.png";
+import mapIcon from "@assets/icons/map.svg";
 
 const LaserSelectContent:FC = () => {
 
-    const year = new Date().getFullYear();
-    const month = (new Date().getMonth() + 1).toString().padStart(2, '0');
-    const day = (new Date().getDate() + 1).toString().padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day}`;
-
     return (
         <LaserSelectContentWrapper>
-            <Input
-                label={"날 짜 (다음날만 예약 가능)"}
-                type={"date"}
-                id={"laser-reservation-date"}
-                name={"date"}
-                placeholder={"날짜를 선택해주세요"}
-                disabled={true}
-            />
+
             <div>
                 <label>기기 선택</label>
             </div>
@@ -49,6 +35,11 @@ const ReservationLaser:FC = () => {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [showMap, setShowMap] = useState<boolean>(false);
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
+
+    const year = new Date().getFullYear();
+    const month = (new Date().getMonth() + 1).toString().padStart(2, '0');
+    const day = (new Date().getDate() + 1).toString().padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
 
     const fetchLaserStatus = useCallback(async () => {
         try {
@@ -70,14 +61,11 @@ const ReservationLaser:FC = () => {
             <Header
                 leftChild={<ArrowBack/>}
                 centerText={"레이저 커팅기 예약"}
-                rightChild={<Button
-                    type={"button"}
-                    content={"약 도"}
-                    width={"fit"}
-                    color={"second"}
-                    scale={"small"}
-                    onClick={() => setShowMap(true)}
-                />}
+                rightChild={
+                    <MapIcon onClick={() => setShowMap(true)}>
+                        <ReactSVG src={mapIcon}/>
+                    </MapIcon>
+                }
             />
             <ImageWrapper>
                 <img src={laser} alt={"레이저 커팅기"}/>
@@ -86,20 +74,30 @@ const ReservationLaser:FC = () => {
                 <LoadingLoop/>
                 :
                 <form>
+                    <Input
+                        label={"날 짜 (다음날만 예약 가능)"}
+                        type={"date"}
+                        id={"laser-reservation-date"}
+                        value={formattedDate}
+                        name={"date"}
+                        placeholder={"날짜를 선택해주세요"}
+                        disabled={true}
+                    />
+
                     <div>
-                        <label>시간 및 기기</label>
+                        <label>기기 및 시간</label>
                         <div>
                             <Button
                                 type={"button"}
                                 content={"+ 기기 및 시간 선택"}
                                 width={"full"}
-                                color={"third"}
+                                color={"approval"}
                                 scale={"normal"}
                                 onClick={() => setShowModal(true)}
                             />
 
                             {reservationList.length === 0 ?
-                                <Empty title={"선택된 기기 및 시간이 없습니다"}/>
+                                <p>선택된 기기 및 시간이 없습니다</p>
                                 :
                                 <>
                                     {reservationList.map((reservation, index) =>
@@ -109,7 +107,6 @@ const ReservationLaser:FC = () => {
                             }
                         </div>
                     </div>
-
                     <Button type={"submit"} content={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>
                 </form>
             }
@@ -123,19 +120,19 @@ const ReservationLaser:FC = () => {
             }
 
             {showMap &&
-                <Modal
-                  content={<RoomMap machine={"laser"} setModal={setShowMap}/>}
-                  setModal={setShowMap}
-                  type={"popup"}
-                />
+              <Modal
+                content={<RoomMap machine={"laser"} setModal={setShowMap}/>}
+                setModal={setShowMap}
+                type={"popup"}
+              />
             }
 
             {errorText &&
-                <Modal
-                  content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                  setModal={clearError}
-                  type={"popup"}
-                />
+              <Modal
+                content={<ErrorContent text={errorText} closeModal={clearError}/>}
+                setModal={clearError}
+                type={"popup"}
+              />
             }
         </Container>
     );

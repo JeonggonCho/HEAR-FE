@@ -1,6 +1,7 @@
 import {FC, useState} from "react";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {ReactSVG} from "react-svg";
 
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
@@ -12,9 +13,10 @@ import Calendar from "@components/Calendar";
 
 import {cncHeatSchema} from "@schemata/machineSchema.ts";
 
-import {Container, ImageWrapper} from "./style.ts";
+import {Container, ImageWrapper, MapIcon} from "./style.ts";
 
 import cnc from "@assets/images/cnc.png";
+import mapIcon from "@assets/icons/map.svg";
 
 const ReservationCnc:FC = () => {
     const [isOpenCalendar, setIsOpenCalendar] = useState<boolean>(false);
@@ -36,14 +38,11 @@ const ReservationCnc:FC = () => {
             <Header
                 leftChild={<ArrowBack/>}
                 centerText={"CNC 예약"}
-                rightChild={<Button
-                    type={"button"}
-                    content={"약 도"}
-                    width={"fit"}
-                    scale={"small"}
-                    color={"second"}
-                    onClick={() => setShowMap(true)}
-                />}
+                rightChild={
+                    <MapIcon onClick={() => setShowMap(true)}>
+                        <ReactSVG src={mapIcon}/>
+                    </MapIcon>
+                }
             />
             <ImageWrapper>
                 <img src={cnc} alt={"cnc"}/>

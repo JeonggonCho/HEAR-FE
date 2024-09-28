@@ -1,6 +1,7 @@
 import {FC, useState} from "react";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {ReactSVG} from "react-svg";
 
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
@@ -14,9 +15,10 @@ import Calendar from "@components/Calendar";
 import {machineType} from "@constants/machineCategories.ts";
 import {printerSchema} from "@schemata/machineSchema.ts";
 
-import {Container, ImageWrapper} from "./style.ts";
+import {Container, ImageWrapper, MapIcon} from "./style.ts";
 
 import printer from "@assets/images/3d_printer.png";
+import mapIcon from "@assets/icons/map.svg";
 
 const ReservationPrinter:FC = () => {
     const [isOpenCalendar, setIsOpenCalendar] = useState<boolean>(false);
@@ -40,14 +42,11 @@ const ReservationPrinter:FC = () => {
             <Header
                 leftChild={<ArrowBack/>}
                 centerText={"3D 프린터 예약"}
-                rightChild={<Button
-                    type={"button"}
-                    content={"약 도"}
-                    color={"second"}
-                    scale={"small"}
-                    width={"fit"}
-                    onClick={() => setShowMap(true)}
-                />}
+                rightChild={
+                    <MapIcon onClick={() => setShowMap(true)}>
+                        <ReactSVG src={mapIcon}/>
+                    </MapIcon>
+                }
             />
             <ImageWrapper>
                 <img src={printer} alt={"3d 프린터"}/>

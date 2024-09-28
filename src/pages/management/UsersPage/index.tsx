@@ -15,7 +15,7 @@ import Button from "@components/Button";
 import useRequest from "@hooks/useRequest.ts";
 import {IUserFilter, IUserList} from "@/types/user.ts";
 
-import {Badge, Container} from "./style.ts";
+import {Badge, Container, UserControlWrapper} from "./style.ts";
 
 import tune from "@assets/icons/tune.svg";
 import search from "@assets/icons/search.svg";
@@ -51,13 +51,13 @@ const UsersPage:FC = () => {
     };
 
     return (
-        <Container usernameInputText={usernameInputText}>
+        <Container>
             <Header leftChild={<ArrowBack/>} centerText={"유저 관리"}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
                 <>
-                    <div>
+                    <UserControlWrapper usernameInputText={usernameInputText}>
                         <span>학생 수 {userList.length}명</span>
 
                         <form onSubmit={handleSearchUsername}>
@@ -91,7 +91,7 @@ const UsersPage:FC = () => {
                                 <ReactSVG src={tune}/>
                             </div>
                         </form>
-                    </div>
+                    </UserControlWrapper>
 
                     <div>
                         <span>이름</span>

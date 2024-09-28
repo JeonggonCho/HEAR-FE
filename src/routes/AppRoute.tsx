@@ -1,6 +1,9 @@
 import {lazy, Suspense, useEffect} from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
 
+import {useAuthStore} from "@store/useAuthStore.ts";
+import isTokenValid from "@util/isTokenValid.ts";
+
 const Layout = lazy(() => import("@layouts/Layout"));
 const CommunicationLayout = lazy(() => import("@layouts/CommunicationLayout"));
 
@@ -47,9 +50,6 @@ const MachinesPage = lazy(() => import("@pages/management/MachinesPage"));
 const UsersPage = lazy(() => import("@pages/management/UsersPage"));
 const ReservationsPage = lazy(() => import("@pages/management/ReservationsPage"));
 
-import {useAuthStore} from "@store/useAuthStore.ts";
-import isTokenValid from "@util/isTokenValid.ts";
-
 const AppRoute = () => {
     const {isLoggedIn, accessToken, logout} = useAuthStore();
 
@@ -60,7 +60,7 @@ const AppRoute = () => {
     }, [isLoggedIn, accessToken, logout]);
 
     return (
-        <Suspense fallback={<div>suspense 로딩중...</div>}>
+        <Suspense fallback={<></>}>
             <Routes>
                 <Route path="/" element={<Layout showNav={isLoggedIn}/>}>
                     <Route index element={<Navigate to={isLoggedIn ? "/main" : "/login"}/>}/>

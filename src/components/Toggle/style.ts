@@ -18,6 +18,7 @@ export const Container = styled.button<{status: boolean}>`
                                 : null;
     }};
     cursor: pointer;
+    overflow: hidden;
     transition: all 0.2s ease-in-out;
 
     & > div:first-of-type {
@@ -26,7 +27,7 @@ export const Container = styled.button<{status: boolean}>`
         border-radius: 50%;
         background-color: white;
         margin-left: ${({status}) => status === true ? "24px": "0px"};
-        box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
+        box-shadow: 0 0 5px ${({theme}) => theme.colors.bg.shadow};
         transition: all 0.2s ease-in-out;
     }
 `;

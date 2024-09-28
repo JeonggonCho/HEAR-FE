@@ -1,10 +1,12 @@
 import {FC} from "react";
 
-import {Container} from "./style.ts";
+import {Container, Ring} from "./style.ts";
 
 const LoadingLoop:FC = () => {
     return (
-        <Container>로딩중...</Container>
+        <Container>
+            <Ring/>
+        </Container>
     );
 };
 

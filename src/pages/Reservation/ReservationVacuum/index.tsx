@@ -1,6 +1,7 @@
 import {FC, useState} from "react";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {ReactSVG} from "react-svg";
 
 import Header from "@components/Header";
 import ArrowBack from "@components/ArrowBack";
@@ -12,9 +13,10 @@ import Calendar from "@components/Calendar";
 
 import {sawVacuumSchema} from "@schemata/machineSchema.ts";
 
-import {Container, ImageWrapper} from "./style.ts";
+import {Container, ImageWrapper, MapIcon} from "./style.ts";
 
 import vacuum from "@assets/images/vacuum.png";
+import mapIcon from "@assets/icons/map.svg";
 
 const ReservationVacuum:FC = () => {
     const [isOpenCalendar, setIsOpenCalendar] = useState<boolean>(false);
@@ -37,14 +39,12 @@ const ReservationVacuum:FC = () => {
             <Header
                 leftChild={<ArrowBack/>}
                 centerText={"사출 성형기 예약"}
-                rightChild={<Button
-                    type={"button"}
-                    content={"약 도"}
-                    scale={"small"}
-                    width={"fit"}
-                    color={"second"}
-                    onClick={() => setShowMap(true)}/>
-            }/>
+                rightChild={
+                    <MapIcon onClick={() => setShowMap(true)}>
+                        <ReactSVG src={mapIcon}/>
+                    </MapIcon>
+                }
+            />
             <ImageWrapper>
                 <img src={vacuum} alt={"사출성형기"}/>
             </ImageWrapper>

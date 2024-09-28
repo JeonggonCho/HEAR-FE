@@ -8,6 +8,8 @@ interface IRequestProps {
     header?: any;
 }
 
+const MIN_LOADING_TIME = 500;
+
 const useRequest = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [errorText, setErrorText] = useState<string | null>(null);
@@ -15,6 +17,7 @@ const useRequest = () => {
     const sendRequest = useCallback(
         async ({url, method = "get", data = null, header = {}}: IRequestProps) => {
             setIsLoading(true);
+            const startTime = Date.now();
 
             try {
                 let response;
@@ -41,11 +44,15 @@ const useRequest = () => {
                         throw new Error("지원하지 않는 메서드입니다.");
                 }
 
+                const elapsedTime = Date.now() - startTime;
+
                 if (response.status < 200 || response.status >= 300) {
                     throw new Error(`HTTP 오류 발생: ${response.status}`);
                 }
 
-                setIsLoading(false);
+                setTimeout(() => {
+                    setIsLoading(false);
+                }, Math.max(0, MIN_LOADING_TIME - elapsedTime));
                 return response;
             } catch (err: any) {
                 setErrorText(err.message);

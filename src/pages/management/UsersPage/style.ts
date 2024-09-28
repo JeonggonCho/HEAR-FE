@@ -2,12 +2,54 @@ import styled from "@emotion/styled";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {darken, lighten} from "polished";
 
-export const Container = styled.div<{usernameInputText: string}>`
+export const Container = styled.div`
     width: 100%;
-    position: relative;
+    height: 100%;
     
-    & > div:nth-of-type(2) {
-        width: calc(100% + 48px);
+    & > div:nth-of-type(3) {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        background-color: ${({theme}) => {
+            const {isDarkMode} = useThemeStore();
+            return isDarkMode ? lighten(0.05, theme.colors.button.third) : darken(0.05, theme.colors.button.third);
+        }};        
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        position: sticky;
+        top: 134px;
+        color: ${({theme}) => theme.colors.font.sub};
+        z-index: 3;
+        
+        span {
+            text-align: center;
+        }
+        
+        & > span:first-of-type {
+            width: 20%;
+        }
+        
+        & > span:nth-of-type(2) {
+            width: 15%;
+        }
+        
+        & > span:nth-of-type(3) {
+            width: 35%;
+        }
+
+        & > span:nth-of-type(4) {
+            width: 15%;
+        }
+
+        & > span:nth-of-type(5) {
+            width: 20%;
+        }
+    }
+`;
+
+export const UserControlWrapper = styled.div<{usernameInputText: string}>`
+      width: calc(100% + 48px);
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -100,49 +142,6 @@ export const Container = styled.div<{usernameInputText: string}>`
                 }
             }
         }
-    }
-    
-    & > div:nth-of-type(3) {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        background-color: ${({theme}) => {
-            const {isDarkMode} = useThemeStore();
-            return isDarkMode ? lighten(0.05, theme.colors.button.third) : darken(0.05, theme.colors.button.third);
-        }};        
-        padding: 12px 16px;
-        border-radius: 8px;
-        margin-bottom: 8px;
-        position: sticky;
-        //top: 72px;
-        top: 134px;
-        color: ${({theme}) => theme.colors.font.sub};
-        z-index: 3;
-        
-        span {
-            text-align: center;
-        }
-        
-        & > span:first-of-type {
-            width: 20%;
-        }
-        
-        & > span:nth-of-type(2) {
-            width: 15%;
-        }
-        
-        & > span:nth-of-type(3) {
-            width: 35%;
-        }
-
-        & > span:nth-of-type(4) {
-            width: 15%;
-        }
-
-        & > span:nth-of-type(5) {
-            width: 20%;
-        }
-    }
 `;
 
 export const Badge = styled.div`
