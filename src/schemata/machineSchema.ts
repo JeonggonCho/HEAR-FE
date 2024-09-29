@@ -66,7 +66,13 @@ export const sawVacuumSchema = z.object({
         .string()
         .min(1, "날짜를 선택해주세요")
         .regex(DATE_REGEX, "날짜 형식은 YYYY-MM-DD이어야 합니다"),
-    time: z
-        .string()
-        .min(1, "시간을 선택해주세요"),
+    startTime: z.string().regex(timeRegex, "시작 시간이 유효한 시간 형식이 아닙니다."),
+    endTime: z.string().regex(timeRegex, "종료 시간이 유효한 시간 형식이 아닙니다."),
+}).refine((data) => {
+    const startHour = Number(data.startTime.split(":")[0]);
+    const endHour = Number(data.endTime.split(":")[0]);
+    return startHour < endHour;
+}, {
+    message: "시작 시간은 종료 시간보다 이전이여야 합니다",
+    path: ["endTime"],
 });

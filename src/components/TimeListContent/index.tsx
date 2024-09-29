@@ -3,7 +3,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 import {z} from "zod";
 import {v4 as uuidv4} from "uuid";
-import {DragDropContext, Droppable} from 'react-beautiful-dnd';
+import {DragDropContext, Droppable} from '@hello-pangea/dnd';
 
 import TimeListItem from "@components/TimeListItem";
 import Button from "@components/Button";

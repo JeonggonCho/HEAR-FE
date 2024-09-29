@@ -43,7 +43,7 @@ export const TimeSelectsWrapper = styled.div`
         select {
             width: 100%;
             padding: 6px;
-            font-size: 1.15rem;
+            font-size: 1rem;
             border-radius: 6px;
             border: 2px solid ${({theme}) => theme.colors.line.main};
             background-color: ${({theme}) => theme.colors.bg.main};
@@ -69,22 +69,5 @@ export const ErrorMessage = styled.span`
     
     & + & {
         margin-bottom: 8px;
-    }
-`;
-
-export const MoreWrapper = styled.div<{isOpen: boolean}>`
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: rotate(${({isOpen}) => isOpen ? "180deg" : "0deg"});
-    transition: transform 0.3s ease-in-out 0s;
-    
-    svg {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        fill: ${({theme}) => theme.colors.font.sub};
     }
 `;
