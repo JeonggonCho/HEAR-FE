@@ -49,9 +49,9 @@ const BaseComponent = styled.div<{
     
     width: ${({ width }) => (width === "full" ? "100%" : "fit-content")};
     font-size: ${({ scale }) => ({
-        small: "16px", 
-        normal: "18px", 
-        big: "20px"
+        small: "1rem", 
+        normal: "1.15rem", 
+        big: "1.25rem"
     }[scale])};
     
     padding: ${({ scale }) => ({

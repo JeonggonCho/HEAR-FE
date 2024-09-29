@@ -12,7 +12,7 @@ export const Container = styled.div`
     flex-direction: column;
 
     h3 {
-        font-size: 16px;
+        font-size: 1rem;
         font-weight: 500;
     }
     
@@ -95,7 +95,7 @@ export const BtnsWrapper = styled.div`
             border: none;
             color: ${({theme}) => theme.colors.font.sub};
             transition: all 0.2s ease-in-out 0s;
-            font-size: 16px;
+            font-size: 1rem;
             cursor: pointer;
             
             &:hover {
@@ -179,7 +179,7 @@ export const CountWrapper = styled.div<{rangeValue: number}>`
             align-items: center;
             justify-content: center;
             margin-top: 32px;
-            font-size: 18px;
+            font-size: 1.15rem;
             color: ${({theme}) => theme.colors.font.sub};
             border-radius: 8px;
             background-color: ${({theme}) => theme.colors.bg.sub};

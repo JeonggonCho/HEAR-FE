@@ -37,7 +37,7 @@ export const Container = styled.div`
             span {
                 color: ${({theme}) => theme.colors.font.main};
                 line-height: 1.5;
-                font-size: 18px;
+                font-size: 1.15rem;
             }
 
             div {
@@ -54,7 +54,7 @@ export const Container = styled.div`
                     margin: 0;
                     color: ${({theme}) => theme.colors.font.primary};
                     font-weight: 500;
-                    font-size: 40px;
+                    font-size: 2.5rem;
                 }
             }
         }
@@ -66,7 +66,7 @@ export const Container = styled.div`
             position: absolute;
             bottom: 50px;
             left: 50%;
-            font-size: 14px;
+            font-size: 0.9rem;
             transform: translateX(-50%);
         }
     }

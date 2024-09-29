@@ -1,7 +1,17 @@
 import styled from "@emotion/styled";
 
-export const UserName = styled.span`
-    color: ${({theme}) => theme.colors.font.primary};
+export const HeaderWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    h2 {
+        font-weight: 500;
+    }
+    
+    img {
+        width: 36px;
+    }
 `;
 
 export const Container = styled.div`

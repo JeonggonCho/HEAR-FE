@@ -16,7 +16,7 @@ export const Container = styled.div`
         text-align: center;
         word-break: keep-all;
         text-wrap: balance;
-        font-size: 18px;
+        font-size: 1.15rem;
         font-weight: 500;
         margin: 20px 0 32px;
         line-height: 1.5;

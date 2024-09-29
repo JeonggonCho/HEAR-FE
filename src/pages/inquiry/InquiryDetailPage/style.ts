@@ -37,7 +37,7 @@ export const InquiryInfoWrapper = styled.div`
         & > span {
             display: block;
             width: fit-content;
-            font-size: 14px;
+            font-size: 0.9rem;
             padding: 6px 8px;
             text-wrap: nowrap;
             background-color: ${({theme}) => {

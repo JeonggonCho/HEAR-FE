@@ -63,7 +63,7 @@ export const CheckboxWrapper = styled.div`
         align-items: center;
         border-radius: 8px;
         width: 100%;
-        font-size: 18px;
+        font-size: 1.15rem;
         padding: 8px 8px 8px 32px;
         color: ${({theme}) => theme.colors.font.sub};
         cursor: pointer;

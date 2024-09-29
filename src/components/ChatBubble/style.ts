@@ -47,7 +47,7 @@ export const Container = styled.div<{isMine: boolean}>`
         padding: 14px 18px;
         margin: 0;
         border-radius: 12px;
-        font-size: 18px;
+        font-size: 1.15rem;
         color: ${({theme}) => {
             const {isDarkMode} = useThemeStore();
             return isDarkMode ? lighten(0.2, theme.colors.font.sub) : darken(0.2, theme.colors.font.sub);

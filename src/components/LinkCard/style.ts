@@ -90,7 +90,7 @@ export const GridLinkCardWrapper = styled(Link)<{disabled: boolean}>`
 
     span {
         color: ${({theme, disabled}) => disabled ? theme.colors.font.sub : theme.colors.font.main};
-        font-size: 16px;
+        font-size: 1rem;
         font-weight: 500;
     }
 

@@ -19,7 +19,7 @@ export const Container = styled(Link)`
     h3 {
         color: ${({theme}) => theme.colors.font.main};
         margin: 0;
-        font-size: 18px;
+        font-size: 1.15rem;
         font-weight: 400;
         line-height: 1.2;
         overflow: hidden;
@@ -28,7 +28,7 @@ export const Container = styled(Link)`
     }
     
     span {
-        font-size: 14px;
+        font-size: 0.9rem;
         color: ${({theme}) => theme.colors.font.sub};
     }
     

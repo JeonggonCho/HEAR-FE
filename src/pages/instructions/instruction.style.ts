@@ -23,12 +23,12 @@ export const Container = styled.div`
 
     h3 {
         color: ${({theme}) => theme.colors.font.primary};
-        font-size: 20px;
+        font-size: 1.25rem;
         font-weight: 500;
     }
 
     h4 {
-        font-size: 16px;
+        font-size: 1rem;
         color: ${({theme}) => theme.colors.font.sub};
         margin: 0 0 8px;
         font-weight: 400;
@@ -39,7 +39,7 @@ export const Container = styled.div`
         font-weight: 500;
         line-height: 1.5;
         margin: 0 0 20px;
-        font-size: 18px;
+        font-size: 1.15rem;
         word-break: keep-all;
     }
 
@@ -54,7 +54,7 @@ export const Container = styled.div`
         color: ${({theme}) => theme.colors.font.primary};
         text-decoration: underline;
         margin: 0 18px;
-        font-size: 16px;
+        font-size: 1rem;
     }
 `;
 

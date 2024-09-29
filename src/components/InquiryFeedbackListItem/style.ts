@@ -13,7 +13,7 @@ export const Container = styled(Link)`
         width: 400px;
         color: ${({theme}) => theme.colors.font.main};
         margin: 0;
-        font-size: 18px;
+        font-size: 1.15rem;
         font-weight: 400;
         line-height: 1.2;
         overflow: hidden;
@@ -57,7 +57,7 @@ export const Container = styled(Link)`
             gap: 8px;
             
             & > span {
-                font-size: 14px;
+                font-size: 0.9rem;
                 padding: 6px 8px;
                 text-wrap: nowrap;
                 background-color: ${({theme}) => {
@@ -79,13 +79,13 @@ export const Container = styled(Link)`
         justify-content: space-between;
         
         & > span:first-of-type {
-            font-size: 16px;
+            font-size: 1rem;
             color: ${({theme}) => theme.colors.font.sub};
             margin-left: 4px;
         }
         
         & > span:last-of-type {
-            font-size: 14px;
+            font-size: 0.9rem;
             color: ${({theme}) => theme.colors.font.sub};
         }
     }

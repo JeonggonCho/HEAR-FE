@@ -11,7 +11,7 @@ export const Container = styled.div`
     }
 
     p {
-        font-size: 18px;
+        font-size: 1.15rem;
         color: ${({theme}) => {
             const {isDarkMode} = useThemeStore();
             return isDarkMode ? lighten(0.2, theme.colors.font.sub) : darken(0.2, theme.colors.font.sub);
@@ -38,7 +38,7 @@ export const NoticeInfoWrapper = styled.div`
     background-color: ${({theme}) => theme.colors.bg.main};
 
     h2 {
-        font-size: 24px;
+        font-size: 1.5rem;
         font-weight: 500;
         line-height: 1.2;
         color: ${({theme}) => theme.colors.font.main};
@@ -57,7 +57,7 @@ export const NoticeInfoWrapper = styled.div`
         margin-right: 24px;
 
         span {
-            font-size: 16px;
+            font-size: 1rem;
             color: ${({theme}) => theme.colors.font.sub};
         }
     }

@@ -18,12 +18,12 @@ import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
 import useRequest from "@hooks/useRequest.ts";
 
-import {Container, UserName} from "./style.ts";
+import {Container, HeaderWrapper} from "./style.ts";
 
 import no_profile from "@assets/images/no_profile.png";
 import machine from "@assets/images/machine.png";
 import list from "@assets/images/list.png";
-
+import myPage from "@assets/images/manager.png";
 
 const AccountPage:FC = () => {
     const [logoutModal, setLogoutModal] = useState<boolean>(false);
@@ -32,7 +32,7 @@ const AccountPage:FC = () => {
 
     const navigate = useNavigate();
 
-    const {userInfo, setUserInfo, clearUserInfo} = useUserInfoStore();
+    const {setUserInfo, clearUserInfo} = useUserInfoStore();
     const {userData, setUserData, clearUserData} = useUserDataStore();
     const {logout} = useAuthStore();
 
@@ -61,7 +61,12 @@ const AccountPage:FC = () => {
         navigate("/login");
     };
 
-    const AccountHeaderLeft:FC = () => <h2 style={{marginLeft: "6px", fontWeight: "500"}}><UserName>{userInfo?.username}</UserName>님 안녕하세요</h2>;
+    const AccountHeaderLeft:FC = () => (
+        <HeaderWrapper>
+            <img src={myPage} alt={"내정보"}/>
+            <h2>내 정보</h2>
+        </HeaderWrapper>
+    );
 
     const AccountHeaderRight:FC = () => {
         return (

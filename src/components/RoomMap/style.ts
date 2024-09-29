@@ -8,7 +8,7 @@ export const Container = styled.div`
         margin: 0 0 32px;
         color: ${({theme}) => theme.colors.font.main};
         font-weight: 500;
-        font-size: 16px;
+        font-size: 1rem;
     }
 
     & > div:first-of-type {
@@ -54,9 +54,9 @@ export const MapWrapper = styled.div`
     & > div:last-of-type {
         width: 100%;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: repeat(3, 1fr);
         color: ${({theme}) => theme.colors.font.sub};
-
+        
         div {
             width: 100%;
             display: flex;
@@ -88,6 +88,7 @@ export const LaserWrapper = styled.span<{machine: "cnc" | "laser" | "printer" | 
     color: ${({machine, theme}) => machine === "laser" ? theme.colors.font.primary : theme.colors.font.sub};
     background-color: ${({machine, theme}) => machine === "laser" ? theme.colors.button.approval : theme.colors.button.third};
     border-radius: 8px;
+    padding: 8px 12px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -101,7 +102,7 @@ export const PrinterWrapper = styled.span<{machine: "cnc" | "laser" | "printer" 
     color: ${({machine, theme}) => machine === "printer" ? theme.colors.font.primary : theme.colors.font.sub};
     background-color: ${({machine, theme}) => machine === "printer" ? theme.colors.button.approval : theme.colors.button.third};
     border-radius: 8px;
-    padding: 8px 12px;
+    padding: 8px 0;
     text-align: center;
     vertical-align: center;
     line-height: 1.2;
@@ -113,7 +114,7 @@ export const VacuumWrapper = styled.span<{machine: "cnc" | "laser" | "printer" |
     color: ${({machine, theme}) => machine === "vacuum" ? theme.colors.font.primary : theme.colors.font.sub};
     background-color: ${({machine, theme}) => machine === "vacuum" ? theme.colors.button.approval : theme.colors.button.third};
     border-radius: 8px;
-    padding: 8px 12px;
+    padding: 8px 0;
     text-align: center;
     vertical-align: center;
     line-height: 1.2;

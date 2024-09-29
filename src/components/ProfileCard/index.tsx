@@ -12,6 +12,10 @@ const ProfileCard:FC = () => {
     return (
         <Container>
             <div>
+                <span>이름 </span>
+                <span>{userInfo?.username}</span>
+            </div>
+            <div>
                 <span>아이디</span>
                 <span>{userInfo?.email}</span>
             </div>

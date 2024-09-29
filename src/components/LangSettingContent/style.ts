@@ -29,7 +29,7 @@ export const Container = styled.div`
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 1.25rem;
             border: 1px solid ${({theme}) => theme.colors.line.main};
             border-radius: 8px;
             padding: 0 16px;

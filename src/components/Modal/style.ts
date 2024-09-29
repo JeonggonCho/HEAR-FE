@@ -88,7 +88,7 @@ export const BottomSheetWrapper = styled.div`
         color: ${({theme}) => theme.colors.font.main};
         width: 100%;
         text-align: center;
-        font-size: 18px;
+        font-size: 1.15rem;
         margin-bottom: 8px;
         padding-bottom: 12px;
         border-bottom: 1px solid ${({theme}) => theme.colors.line.main};

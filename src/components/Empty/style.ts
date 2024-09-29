@@ -16,6 +16,6 @@ export const Container = styled.div`
     }
 
     & > p:first-of-type {
-        font-size: 18px;
+        font-size: 1.15rem;
     }
 `;

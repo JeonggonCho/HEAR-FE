@@ -42,7 +42,7 @@ export const Container = styled.div`
             }
             
             & > span:last-of-type {
-                font-size: 14px;
+                font-size: 0.9rem;
                 color: ${({theme}) => theme.colors.font.sub};
                 margin-bottom: 5px;
             }

@@ -12,7 +12,7 @@ export const Container = styled.div<{ isDragging: boolean }>`
     transition: background-color 0.2s ease, box-shadow 0.2s ease;
 
     span {
-        font-size: 18px;
+        font-size: 1.15rem;
     }
     
     & > div:first-of-type {

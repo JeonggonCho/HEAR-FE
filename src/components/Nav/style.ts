@@ -31,7 +31,8 @@ export const NavButton = styled(NavLink)<{ active: string }>`
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    font-size: 14px;
+    font-size: 0.9rem;
+    text-wrap: nowrap;
     color: ${({active, theme}) => active === "true" ? theme.colors.font.primary : theme.colors.font.sub};
     transition: all 0.2s ease-in-out 0s;
     

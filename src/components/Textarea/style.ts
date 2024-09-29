@@ -15,7 +15,7 @@ export const Container = styled.div`
         border: 1px solid ${({theme}) => theme.colors.line.main};
         line-height: 1.5;
         resize: none;
-        font-size: 16px;
+        font-size: 1rem;
         font-family: Pretendard, Helvetica, sans-serif;
 
 

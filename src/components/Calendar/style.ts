@@ -17,7 +17,7 @@ export const CalendarMonthWrapper = styled.div`
         color: ${({theme}) => theme.colors.font.main};
         margin: 0;
         font-weight: 500;
-        font-size: 18px;
+        font-size: 1.15rem;
     }
 
     div {
@@ -71,7 +71,7 @@ export const DayButton = styled.button<{selected: boolean | null}>`
     border-radius: 10px;
     background: ${({selected, theme}) => selected ? theme.colors.button.primary : "none"};
     color: ${({selected, theme}) => selected ? "white" : theme.colors.font.main};
-    font-size: 18px;
+    font-size: 1.15rem;
     text-align: center;
     cursor: pointer;
     transition: all 0.1s ease-in-out 0s;

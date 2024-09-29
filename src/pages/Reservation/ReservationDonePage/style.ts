@@ -8,7 +8,7 @@ export const Container = styled.div`
         color: ${({theme}) => theme.colors.font.main};
         text-align: center;
         margin: 0 0 124px;
-        font-size: 20px;
+        font-size: 1.25rem;
         font-weight: 500;
     }
     

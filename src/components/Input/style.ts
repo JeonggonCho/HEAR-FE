@@ -18,7 +18,7 @@ export const Container = styled.div`
         border: 1px solid ${({theme}) => theme.colors.line.main};
         padding: 8px;
         background-color: ${({theme}) => theme.colors.bg.main};
-        font-size: 16px;
+        font-size: 1rem;
         font-family: Pretendard, Helvetica, sans-serif;
         cursor: pointer;
 

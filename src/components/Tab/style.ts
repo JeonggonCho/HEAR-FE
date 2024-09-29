@@ -24,7 +24,7 @@ export const ButtonTap = styled.div<{active: string}>`
     align-items: center;
     justify-content: center;
     color: ${({active, theme}) => active === "true" ? theme.colors.font.main : theme.colors.font.sub};
-    font-size: 18px;
+    font-size: 1.15rem;
     font-weight: ${({active}) => active === "true" ? "500" : "400"};
     letter-spacing: 0.5px;
     cursor: pointer;
@@ -71,7 +71,7 @@ export const LineTap = styled(Link)<{active: string, tabcount: number}>`
     width: calc(100% / ${({tabcount}) => tabcount});
     display: block;
     text-align: center;
-    font-size: 18px;
+    font-size: 1.15rem;
     font-weight: ${({active}) => active === "true" ? "500" : "400"};
     border-bottom: ${({active}) => active === "true" ? "3" : "0"}px solid ${({theme}) => theme.colors.line.primary}};
 `;

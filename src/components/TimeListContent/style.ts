@@ -43,7 +43,7 @@ export const TimeSelectsWrapper = styled.div`
         select {
             width: 100%;
             padding: 6px;
-            font-size: 18px;
+            font-size: 1.15rem;
             border-radius: 6px;
             border: 2px solid ${({theme}) => theme.colors.line.main};
             background-color: ${({theme}) => theme.colors.bg.main};
@@ -61,7 +61,7 @@ export const TimeSelectsWrapper = styled.div`
 `;
 
 export const ErrorMessage = styled.span`
-    font-size: 14px;
+    font-size: 0.9rem;
     display: inline-block;
     color: ${({theme}) => theme.colors.font.danger};
     margin-left: 4px;

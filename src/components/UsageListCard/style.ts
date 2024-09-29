@@ -54,7 +54,7 @@ export const Usage = styled(Link)`
     }
 
     & > span:last-of-type {
-        font-size: 14px;
+        font-size: 0.9rem;
         color: ${({theme}) => theme.colors.font.sub};
     }
 `;

@@ -15,7 +15,7 @@ export const Container = styled.div`
             
             & > label {
                 margin-left: 6px;
-                font-size: 16px;
+                font-size: 1rem;
                 color: ${({theme}) => theme.colors.font.sub};
             }
 
@@ -34,7 +34,7 @@ export const Container = styled.div`
                     text-align: center;
                     height: 80px;
                     color: ${({theme}) => theme.colors.font.sub};
-                    font-size: 16px;
+                    font-size: 1rem;
                 }
             }
         }

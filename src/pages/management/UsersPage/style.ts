@@ -61,7 +61,7 @@ export const UserControlWrapper = styled.div<{usernameInputText: string}>`
         z-index: 3;
         
         & > span:first-of-type {
-            font-size: 16px;
+            font-size: 1rem;
         }
         
         & > form:first-of-type {

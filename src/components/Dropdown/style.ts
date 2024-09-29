@@ -37,7 +37,8 @@ export const DropdownWrapper = styled.div`
         padding: 10px 16px;
         transition: all 0.1s ease-in-out 0s;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 1rem;
+        text-wrap: nowrap;
         color: ${({theme}) => theme.colors.font.sub};
         
         &:hover {

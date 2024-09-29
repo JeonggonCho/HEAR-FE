@@ -29,6 +29,9 @@ export const updateHeatCountSchema = z.object({
 });
 
 export const cncHeatSchema = z.object({
+    check: z
+        .boolean()
+        .refine(val => val, {message: "해당 항목에 체크가 되어야 합니다"}),
     date: z
         .string()
         .min(1, "날짜를 선택해주세요")

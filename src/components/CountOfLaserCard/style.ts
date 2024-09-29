@@ -28,7 +28,7 @@ export const Container = styled.div`
     
     & > p:last-of-type {
         font-weight: 500;
-        font-size: 18px;
+        font-size: 1.15rem;
         
         span {
             color: ${({theme}) => theme.colors.font.primary};

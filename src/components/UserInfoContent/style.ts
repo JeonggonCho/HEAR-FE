@@ -68,13 +68,13 @@ export const FieldWrapper = styled.div`
         min-width: 82px;
         padding: 14px 16px 0 12px;
         background-color: ${({theme}) => theme.colors.bg.sub};
-        font-size: 16px;
+        font-size: 1rem;
         color: ${({theme}) => theme.colors.font.sub};
         text-wrap: nowrap;
     }
 
     & > span:first-of-type {
-        font-size: 16px;
+        font-size: 1rem;
         margin: 12px;
         word-break: break-all;
         text-wrap: wrap;
@@ -98,7 +98,7 @@ export const WarningWrapper = styled.div`
         min-width: 82px;
         padding: 20px 16px 0 12px;
         background-color: ${({theme}) => theme.colors.bg.sub};
-        font-size: 16px;
+        font-size: 1rem;
         color: ${({theme}) => theme.colors.font.sub};
         text-wrap: nowrap;
     }
@@ -111,7 +111,7 @@ export const WarningWrapper = styled.div`
         justify-content: space-between;
 
         & > span:first-of-type {
-            font-size: 16px;
+            font-size: 1rem;
             word-break: break-all;
             text-wrap: wrap;
             color: ${({theme}) => theme.colors.font.main};
@@ -144,7 +144,7 @@ export const PassWrapper = styled.div`
         min-width: 82px;
         padding: 20px 16px 0 12px;
         background-color: ${({theme}) => theme.colors.bg.sub};
-        font-size: 16px;
+        font-size: 1rem;
         color: ${({theme}) => theme.colors.font.sub};
         text-wrap: nowrap;
     }
@@ -157,7 +157,7 @@ export const PassWrapper = styled.div`
         justify-content: space-between;
 
         & > span:first-of-type {
-            font-size: 16px;
+            font-size: 1rem;
             word-break: break-all;
             text-wrap: wrap;
             color: ${({theme}) => theme.colors.font.main};
