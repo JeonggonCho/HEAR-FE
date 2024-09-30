@@ -2,10 +2,10 @@ import {FC} from "react";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 
-import Header from "@components/Header";
-import ArrowBack from "@components/ArrowBack";
-import Input from "@components/Input";
-import Button from "@components/Button";
+import Header from "@components/common/Header";
+import ArrowBack from "@components/common/ArrowBack";
+import Input from "@components/common/Input";
+import Button from "@components/common/Button";
 
 import {findPasswordSchema} from "@schemata/userSchema.ts";
 

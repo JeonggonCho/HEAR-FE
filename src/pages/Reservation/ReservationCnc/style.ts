@@ -1,7 +1,17 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
+    & > div:first-of-type {
+        background-color: ${({theme}) => theme.colors.bg.main} !important;
+    }
+    
     form {
+        width: calc(100% + 48px);
+        margin-left: -24px;
+        padding: 24px;
+        min-height: calc(100vh - 260px);
+        margin-bottom: -200px;
+        background-color: ${({theme}) => theme.colors.bg.main};
         display: flex;
         flex-direction: column;
         gap: 32px;
@@ -33,12 +43,12 @@ export const ImageWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 24px;
-    
+
     img {
         width: 120px;
-        height: auto;
+        height: 120px;
         object-fit: cover;
+        margin: 24px 0;
     }
 `;
 
@@ -46,9 +56,9 @@ export const CncCheckWrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-bottom: 32px;
 
     & > div:first-of-type {
+        width: fit-content;
         margin-left: 4px;
 
         & > input {
@@ -70,7 +80,7 @@ export const CncCheckWrapper = styled.div`
                 width: 24px;
                 height: 24px;
                 border-radius: 4px;
-                border: 1px solid ${({theme}) => theme.colors.line.main};
+                border: 1px solid ${({theme}) => theme.colors.font.sub};
 
                 svg {
                     margin-top: 2px;
@@ -81,7 +91,7 @@ export const CncCheckWrapper = styled.div`
         }
 
         & > input[type="checkbox"]:checked + label > div:first-of-type {
-            border-color: ${({theme}) => theme.colors.line.primary};
+            border: 2px solid ${({theme}) => theme.colors.font.primary};
             background-color: ${({theme}) => theme.colors.button.approval};
             
             svg {
@@ -96,7 +106,7 @@ export const CncCheckWrapper = styled.div`
         gap: 12px;
         width: 100%;
         padding: 16px;
-        background-color: ${({theme}) => theme.colors.bg.main};
+        border: 1px solid ${({theme}) => theme.colors.line.main};
         border-radius: 12px;
 
         & > span {

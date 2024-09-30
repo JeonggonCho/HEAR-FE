@@ -4,15 +4,15 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import {zodResolver} from "@hookform/resolvers/zod";
 
-import Header from "@components/Header";
-import ArrowBack from "@components/ArrowBack";
-import Textarea from "@components/Textarea";
-import Button from "@components/Button";
-import Select from "@components/Select";
-import Input from "@components/Input";
-import LoadingLoop from "@components/LoadingLoop";
-import Modal from "@components/Modal";
-import ErrorContent from "@components/ErrorContent";
+import Header from "@components/common/Header";
+import ArrowBack from "@components/common/ArrowBack";
+import Textarea from "@components/common/Textarea";
+import Button from "@components/common/Button";
+import Select from "@components/common/Select";
+import Input from "@components/common/Input";
+import LoadingLoop from "@components/common/LoadingLoop";
+import Modal from "@components/common/Modal";
+import ErrorContent from "@components/content/ErrorContent";
 
 import {feedbackCategories} from "@constants/feedbackCategories.ts";
 import {feedbackSchema} from "@schemata/qnaSchema.ts";

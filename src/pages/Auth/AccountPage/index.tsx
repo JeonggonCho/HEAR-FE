@@ -1,18 +1,18 @@
 import {FC, useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
-import Header from "@components/Header";
-import ProfileCard from "@components/ProfileCard";
-import Button from "@components/Button";
-import StatusCard from "@components/StatusCard";
-import CountOfLaserCard from "@components/CountOfLaserCard";
-import ReservationListCard from "@components/ReservationListCard";
-import UsageListCard from "@components/UsageListCard";
-import Modal from "@components/Modal";
-import ConfirmContent from "@components/ConfirmContent";
-import LoadingLoop from "@components/LoadingLoop";
-import ErrorContent from "@components/ErrorContent";
-import LinkCard from "@components/LinkCard";
+import Header from "@components/common/Header";
+import ProfileCard from "@components/account/ProfileCard";
+import Button from "@components/common/Button";
+import StatusCard from "@components/account/StatusCard";
+import CountOfLaserCard from "@components/account/CountOfLaserCard";
+import ReservationListCard from "@components/account/ReservationListCard";
+import UsageListCard from "@components/account/UsageListCard";
+import Modal from "@components/common/Modal";
+import ConfirmContent from "@components/content/ConfirmContent";
+import LoadingLoop from "@components/common/LoadingLoop";
+import ErrorContent from "@components/content/ErrorContent";
+import LinkCard from "@components/common/LinkCard";
 
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";

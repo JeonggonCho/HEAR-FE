@@ -4,15 +4,15 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
 
-import Header from "@components/Header";
-import ArrowBack from "@components/ArrowBack";
-import RoomMap from "@components/RoomMap";
-import Button from "@components/Button";
-import Input from "@components/Input";
-import Modal from "@components/Modal";
-import Calendar from "@components/Calendar";
-import LoadingLoop from "@components/LoadingLoop";
-import ErrorContent from "@components/ErrorContent";
+import Header from "@components/common/Header";
+import ArrowBack from "@components/common/ArrowBack";
+import RoomMap from "@components/content/RoomMap";
+import Button from "@components/common/Button";
+import Input from "@components/common/Input";
+import Modal from "@components/common/Modal";
+import Calendar from "@components/common/Calendar";
+import LoadingLoop from "@components/common/LoadingLoop";
+import ErrorContent from "@components/content/ErrorContent";
 
 import {sawVacuumSchema} from "@schemata/machineSchema.ts";
 import useRequest from "@hooks/useRequest.ts";

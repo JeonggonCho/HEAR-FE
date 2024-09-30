@@ -1,8 +1,8 @@
 import React, {useState, useEffect, FC} from "react";
 
-import Header from "@components/Header";
-import ArrowBack from "@components/ArrowBack";
-import Tab from "@components/Tab";
+import Header from "@components/common/Header";
+import ArrowBack from "@components/common/ArrowBack";
+import Tab from "@components/common/Tab";
 
 import {ITab} from "@/types/tab.ts";
 

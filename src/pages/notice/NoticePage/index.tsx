@@ -1,11 +1,11 @@
 import {FC, useCallback, useEffect, useState} from "react";
 
-import FloatingButton from "@components/FloatingButton";
-import Empty from "@components/Empty";
-import NoticeListItem from "@components/NoticeListItem";
-import Modal from "@components/Modal";
-import LoadingLoop from "@components/LoadingLoop";
-import ErrorContent from "@components/ErrorContent";
+import FloatingButton from "@components/common/FloatingButton";
+import Empty from "@components/common/Empty";
+import NoticeListItem from "@components/communication/NoticeListItem";
+import Modal from "@components/common/Modal";
+import LoadingLoop from "@components/common/LoadingLoop";
+import ErrorContent from "@components/content/ErrorContent";
 
 import {useUserDataStore} from "@store/useUserStore.ts";
 import useRequest from "@hooks/useRequest.ts";

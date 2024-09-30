@@ -1,13 +1,13 @@
 import {FC, useCallback, useEffect, useMemo, useState} from "react";
 import {useParams} from "react-router-dom";
 
-import Header from "@components/Header";
-import ArrowBack from "@components/ArrowBack";
-import LoadingLoop from "@components/LoadingLoop";
-import Modal from "@components/Modal";
-import ErrorContent from "@components/ErrorContent";
-import Dropdown from "@components/Dropdown";
-import ChatBubble from "@components/ChatBubble";
+import Header from "@components/common/Header";
+import ArrowBack from "@components/common/ArrowBack";
+import LoadingLoop from "@components/common/LoadingLoop";
+import Modal from "@components/common/Modal";
+import ErrorContent from "@components/content/ErrorContent";
+import Dropdown from "@components/common/Dropdown";
+import ChatBubble from "@components/common/ChatBubble";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IInquiryProps} from "@/types/componentProps.ts";

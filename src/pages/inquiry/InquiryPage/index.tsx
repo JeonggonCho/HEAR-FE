@@ -1,17 +1,17 @@
 import React, {FC, useCallback, useEffect, useState} from "react";
 
-import InquiryFeedbackListItem from "@components/InquiryFeedbackListItem";
-import FloatingButton from "@components/FloatingButton";
-import Empty from "@components/Empty";
-import LoadingLoop from "@components/LoadingLoop";
-import Modal from "@components/Modal";
-import ErrorContent from "@components/ErrorContent";
+import InquiryFeedbackListItem from "@components/communication/InquiryFeedbackListItem";
+import FloatingButton from "@components/common/FloatingButton";
+import Empty from "@components/common/Empty";
+import LoadingLoop from "@components/common/LoadingLoop";
+import Modal from "@components/common/Modal";
+import ErrorContent from "@components/content/ErrorContent";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IInquiryProps} from "@/types/componentProps.ts";
+import {useUserDataStore} from "@store/useUserStore.ts";
 
 import {Container} from "./style.ts";
-import {useUserDataStore} from "@store/useUserStore.ts";
 
 const InquiryPage:FC = () => {
     const [inquiries, setInquiries] = useState<IInquiryProps[]>([]);

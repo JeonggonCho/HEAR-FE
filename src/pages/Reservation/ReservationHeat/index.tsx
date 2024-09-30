@@ -5,16 +5,17 @@ import {ReactSVG} from "react-svg";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useNavigate} from "react-router-dom";
 
-import Header from "@components/Header";
-import ArrowBack from "@components/ArrowBack";
-import Button from "@components/Button";
-import Input from "@components/Input";
-import LoadingLoop from "@components/LoadingLoop";
-import Modal from "@components/Modal";
-import ErrorContent from "@components/ErrorContent";
+import Header from "@components/common/Header";
+import ArrowBack from "@components/common/ArrowBack";
+import Button from "@components/common/Button";
+import Input from "@components/common/Input";
+import LoadingLoop from "@components/common/LoadingLoop";
+import Modal from "@components/common/Modal";
+import ErrorContent from "@components/content/ErrorContent";
 
 import {cncHeatSchema} from "@schemata/machineSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
+import {getTomorrowDate, getAfterWeekDate} from "@util/calculateDate.ts";
 
 import {Container, HeatCheckWrapper, ImageWrapper, ReturnDateWrapper} from "./style.ts";
 
@@ -28,10 +29,8 @@ const ReservationHeat:FC = () => {
 
     type HeatFormData = z.infer<typeof cncHeatSchema>;
 
-    const year = new Date().getFullYear();
-    const month = (new Date().getMonth() + 1).toString().padStart(2, '0');
-    const day = (new Date().getDate() + 1).toString().padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day}`;
+    const formattedDate = getTomorrowDate();
+    const formattedReturnDate = getAfterWeekDate();
 
     const {register, handleSubmit, formState: {errors}, reset, setValue, getValues} = useForm<HeatFormData>({
         resolver: zodResolver(cncHeatSchema),
@@ -42,20 +41,8 @@ const ReservationHeat:FC = () => {
     });
 
     useEffect(() => {
-        reset({
-            check: false,
-            date: formattedDate,
-        })
-    }, [reset]);
-
-    // 일주일 후의 날짜 계산
-    const oneWeekLater = new Date();
-    oneWeekLater.setDate(oneWeekLater.getDate() + 8);
-
-    const returnYear = oneWeekLater.getFullYear();
-    const returnMonth = (oneWeekLater.getMonth() + 1).toString().padStart(2, '0');
-    const returnDay = oneWeekLater.getDate().toString().padStart(2, '0');
-    const formattedReturnDate = `${returnYear}-${returnMonth}-${returnDay}`;
+        setValue("date", formattedDate);
+    }, []);
 
     const submitHandler:SubmitHandler<HeatFormData> = useCallback(async (data) => {
         console.log(data)

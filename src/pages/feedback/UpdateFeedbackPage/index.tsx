@@ -4,22 +4,22 @@ import {z} from "zod";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 
-import Header from "@components/Header";
-import ArrowBack from "@components/ArrowBack";
-import LoadingLoop from "@components/LoadingLoop";
-import Modal from "@components/Modal";
-import ErrorContent from "@components/ErrorContent";
-import Input from "@components/Input";
-import Button from "@components/Button";
-import Textarea from "@components/Textarea";
-import Select from "@components/Select";
+import Header from "@components/common/Header";
+import ArrowBack from "@components/common/ArrowBack";
+import LoadingLoop from "@components/common/LoadingLoop";
+import Modal from "@components/common/Modal";
+import ErrorContent from "@components/content/ErrorContent";
+import Input from "@components/common/Input";
+import Button from "@components/common/Button";
+import Textarea from "@components/common/Textarea";
+import Select from "@components/common/Select";
+import ConfirmContent from "@components/content/ConfirmContent";
 
 import useRequest from "@hooks/useRequest.ts";
 import {feedbackSchema} from "@schemata/qnaSchema.ts";
 import {feedbackCategories} from "@constants/feedbackCategories.ts";
 
 import {Container} from "./style.ts";
-import ConfirmContent from "@components/ConfirmContent";
 
 const UpdateFeedbackPage:FC = () => {
     const [feedback, setFeedback] = useState<any>();

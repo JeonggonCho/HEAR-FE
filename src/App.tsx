@@ -2,9 +2,9 @@ import {useEffect, useState} from "react";
 import {Global, ThemeProvider} from "@emotion/react";
 import {global} from "@styles/global.ts";
 
-import SplashPage from "@pages/main/SplashPage";
+import SplashPage from "@pages/home/SplashPage";
 import AppRoute from "@routes/AppRoute.tsx";
-import ScrollToTop from "@components/ScrollToTop";
+import ScrollToTop from "@components/common/ScrollToTop";
 
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {darkTheme, lightTheme} from "@styles/theme.ts";

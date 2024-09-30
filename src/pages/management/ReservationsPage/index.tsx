@@ -1,6 +1,7 @@
 import {FC} from "react";
-import Header from "@components/Header";
-import ArrowBack from "@components/ArrowBack";
+
+import Header from "@components/common/Header";
+import ArrowBack from "@components/common/ArrowBack";
 
 const ReservationsPage:FC = () => {
     return (

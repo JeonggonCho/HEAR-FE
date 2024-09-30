@@ -4,16 +4,16 @@ import {z} from "zod";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 
-import Header from "@components/Header";
-import ArrowBack from "@components/ArrowBack";
-import LoadingLoop from "@components/LoadingLoop";
-import Modal from "@components/Modal";
-import ErrorContent from "@components/ErrorContent";
-import Textarea from "@components/Textarea";
-import Button from "@components/Button";
-import Input from "@components/Input";
-import Select from "@components/Select";
-import ConfirmContent from "@components/ConfirmContent";
+import Header from "@components/common/Header";
+import ArrowBack from "@components/common/ArrowBack";
+import LoadingLoop from "@components/common/LoadingLoop";
+import Modal from "@components/common/Modal";
+import ErrorContent from "@components/content/ErrorContent";
+import Textarea from "@components/common/Textarea";
+import Button from "@components/common/Button";
+import Input from "@components/common/Input";
+import Select from "@components/common/Select";
+import ConfirmContent from "@components/content/ConfirmContent";
 
 import useRequest from "@hooks/useRequest.ts";
 import {inquirySchema} from "@schemata/qnaSchema.ts";

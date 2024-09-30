@@ -1,11 +1,11 @@
 import {FC, useCallback, useEffect, useState} from "react";
 
-import Header from "@components/Header";
-import ArrowBack from "@components/ArrowBack";
-import MachineManageCard from "@components/MachineManageCard";
-import LoadingLoop from "@components/LoadingLoop";
-import Modal from "@components/Modal";
-import ErrorContent from "@components/ErrorContent";
+import Header from "@components/common/Header";
+import ArrowBack from "@components/common/ArrowBack";
+import MachineManageCard from "@components/management/MachineManageCard";
+import LoadingLoop from "@components/common/LoadingLoop";
+import Modal from "@components/common/Modal";
+import ErrorContent from "@components/content/ErrorContent";
 
 import useRequest from "@hooks/useRequest.ts";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";

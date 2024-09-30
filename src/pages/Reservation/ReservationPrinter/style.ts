@@ -1,7 +1,17 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
+    & > div:first-of-type {
+        background-color: ${({theme}) => theme.colors.bg.main} !important;
+    }
+    
     form {
+        width: calc(100% + 48px);
+        margin-left: -24px;
+        padding: 24px;
+        min-height: calc(100vh - 260px);
+        margin-bottom: -200px;
+        background-color: ${({theme}) => theme.colors.bg.main};
         display: flex;
         flex-direction: column;
         gap: 32px;
@@ -33,11 +43,12 @@ export const ImageWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 24px;
 
     img {
         width: 120px;
         height: 120px;
         object-fit: cover;
+        margin: 24px 0;
+
     }
 `;

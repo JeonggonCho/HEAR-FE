@@ -1,7 +1,7 @@
 import {FC} from "react";
 
-import Header from "@components/Header";
-import LinkCard from "@components/LinkCard";
+import Header from "@components/common/Header";
+import LinkCard from "@components/common/LinkCard";
 
 import {Container, HeaderWrapper} from "./style.ts";
 

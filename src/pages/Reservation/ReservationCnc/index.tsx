@@ -5,15 +5,15 @@ import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {useNavigate} from "react-router-dom";
 
-import Header from "@components/Header";
-import ArrowBack from "@components/ArrowBack";
-import RoomMap from "@components/RoomMap";
-import Input from "@components/Input";
-import Button from "@components/Button";
-import Modal from "@components/Modal";
-import Calendar from "@components/Calendar";
-import LoadingLoop from "@components/LoadingLoop";
-import ErrorContent from "@components/ErrorContent";
+import Header from "@components/common/Header";
+import ArrowBack from "@components/common/ArrowBack";
+import RoomMap from "@components/content/RoomMap";
+import Input from "@components/common/Input";
+import Button from "@components/common/Button";
+import Modal from "@components/common/Modal";
+import Calendar from "@components/common/Calendar";
+import LoadingLoop from "@components/common/LoadingLoop";
+import ErrorContent from "@components/content/ErrorContent";
 
 import {cncHeatSchema} from "@schemata/machineSchema.ts";
 import useRequest from "@hooks/useRequest.ts";

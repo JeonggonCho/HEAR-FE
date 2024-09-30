@@ -1,10 +1,10 @@
 import {FC, useCallback, useEffect, useState} from "react";
 
-import Header from "@components/Header";
-import LinkCard from "@components/LinkCard";
-import LoadingLoop from "@components/LoadingLoop";
-import Modal from "@components/Modal";
-import ErrorContent from "@components/ErrorContent";
+import Header from "@components/common/Header";
+import LinkCard from "@components/common/LinkCard";
+import LoadingLoop from "@components/common/LoadingLoop";
+import Modal from "@components/common/Modal";
+import ErrorContent from "@components/content/ErrorContent";
 
 import {machineReservationCategories} from "@constants/machineCategories.ts";
 import {Container, HeaderWrapper} from "./style.ts";

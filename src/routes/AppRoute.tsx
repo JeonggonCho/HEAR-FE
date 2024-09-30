@@ -7,8 +7,8 @@ import isTokenValid from "@util/isTokenValid.ts";
 const Layout = lazy(() => import("@layouts/Layout"));
 const CommunicationLayout = lazy(() => import("@layouts/CommunicationLayout"));
 
-const MainPage = lazy(() => import("@pages/main/MainPage"));
-const AlarmPage = lazy(() => import("@pages/main/AlarmPage"));
+const HomePage = lazy(() => import("@pages/home/HomePage"));
+const AlarmPage = lazy(() => import("@pages/home/AlarmPage"));
 const InquiryPage = lazy(() => import("@pages/inquiry/InquiryPage"));
 const InquiryDetailPage = lazy(() => import("@pages/inquiry/InquiryDetailPage"));
 const CreateInquiryPage = lazy(() => import("@pages/inquiry/CreateInquiryPage"));
@@ -45,7 +45,7 @@ const ReservationSaw = lazy(() => import("@pages/reservation/ReservationSaw"));
 const ReservationVacuum = lazy(() => import("@pages/reservation/ReservationVacuum"));
 const ConditionPage = lazy(() => import("@pages/reservation/ConditionPage"));
 const QuizPage = lazy(() => import("@pages/quiz/QuizPage"));
-const NotFoundPage = lazy(() => import("@pages/main/NotFoundPage"));
+const NotFoundPage = lazy(() => import("@pages/home/NotFoundPage"));
 const MachinesPage = lazy(() => import("@pages/management/MachinesPage"));
 const UsersPage = lazy(() => import("@pages/management/UsersPage"));
 const ReservationsPage = lazy(() => import("@pages/management/ReservationsPage"));
@@ -63,11 +63,11 @@ const AppRoute = () => {
         <Suspense fallback={<></>}>
             <Routes>
                 <Route path="/" element={<Layout showNav={isLoggedIn}/>}>
-                    <Route index element={<Navigate to={isLoggedIn ? "/main" : "/login"}/>}/>
+                    <Route index element={<Navigate to={isLoggedIn ? "/home" : "/login"}/>}/>
                     {isLoggedIn ?
                         <>
                             {/*로그인 유저 라우트*/}
-                            <Route path="main" element={<MainPage/>}/>
+                            <Route path="home" element={<HomePage/>}/>
                             <Route path="signup/done" element={<SignupDonePage/>}/>
                             <Route path="account" element={<AccountPage/>}/>
                             <Route path="account/update" element={<UpdateAccountPage/>}/>

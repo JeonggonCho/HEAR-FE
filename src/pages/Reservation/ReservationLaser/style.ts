@@ -1,9 +1,17 @@
 import styled from "@emotion/styled";
-import {useThemeStore} from "@store/useThemeStore.ts";
-import {darken, lighten} from "polished";
 
 export const Container = styled.div`
+    & > div:first-of-type {
+        background-color: ${({theme}) => theme.colors.bg.main} !important;
+    }
+    
     form {
+        width: calc(100% + 48px);
+        margin-left: -24px;
+        padding: 24px;
+        min-height: calc(100vh - 260px);
+        margin-bottom: -200px;
+        background-color: ${({theme}) => theme.colors.bg.main};
         display: flex;
         flex-direction: column;
         gap: 32px;
@@ -21,10 +29,7 @@ export const Container = styled.div`
 
             & > div:last-of-type {
                 padding: 8px;
-                background-color: ${({theme}) => {
-                    const {isDarkMode} = useThemeStore();
-                    return isDarkMode ? darken(0.01, theme.colors.bg.main) : lighten(0.05, theme.colors.bg.sub)
-                }};
+                border: 1px solid ${({theme}) => theme.colors.line.main};
                 border-radius: 12px;
                 
                 & > p {
@@ -66,12 +71,13 @@ export const ImageWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 24px;
 
     img {
         width: 120px;
         height: 120px;
         object-fit: cover;
+        margin: 24px 0;
+
     }
 `;
 

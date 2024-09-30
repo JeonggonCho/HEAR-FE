@@ -1,8 +1,8 @@
 import {FC} from "react";
 import {Outlet} from "react-router-dom";
 
-import Header from "@components/Header";
-import Tab from "@components/Tab";
+import Header from "@components/common/Header";
+import Tab from "@components/common/Tab";
 
 import {ITab} from "@/types/tab.ts";
 

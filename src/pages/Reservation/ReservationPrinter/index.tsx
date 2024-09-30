@@ -3,14 +3,14 @@ import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {ReactSVG} from "react-svg";
 
-import Header from "@components/Header";
-import ArrowBack from "@components/ArrowBack";
-import RoomMap from "@components/RoomMap";
-import Button from "@components/Button";
-import Input from "@components/Input";
-import Select from "@components/Select";
-import Modal from "@components/Modal";
-import Calendar from "@components/Calendar";
+import Header from "@components/common/Header";
+import ArrowBack from "@components/common/ArrowBack";
+import RoomMap from "@components/content/RoomMap";
+import Button from "@components/common/Button";
+import Input from "@components/common/Input";
+import Select from "@components/common/Select";
+import Modal from "@components/common/Modal";
+import Calendar from "@components/common/Calendar";
 
 import {machineType} from "@constants/machineCategories.ts";
 import {printerSchema} from "@schemata/machineSchema.ts";

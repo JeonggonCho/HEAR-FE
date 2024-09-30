@@ -2,15 +2,16 @@ import {FC, useCallback, useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
+import {ReactSVG} from "react-svg";
 
-import Header from "@components/Header";
-import ArrowBack from "@components/ArrowBack";
-import Button from "@components/Button";
-import Input from "@components/Input";
-import Modal from "@components/Modal";
-import Calendar from "@components/Calendar";
-import LoadingLoop from "@components/LoadingLoop";
-import ErrorContent from "@components/ErrorContent";
+import Header from "@components/common/Header";
+import ArrowBack from "@components/common/ArrowBack";
+import Button from "@components/common/Button";
+import Input from "@components/common/Input";
+import Modal from "@components/common/Modal";
+import Calendar from "@components/common/Calendar";
+import LoadingLoop from "@components/common/LoadingLoop";
+import ErrorContent from "@components/content/ErrorContent";
 
 import {sawVacuumSchema} from "@schemata/machineSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
@@ -18,7 +19,6 @@ import useRequest from "@hooks/useRequest.ts";
 import {Container, ErrorMessage, ImageWrapper, TimeWrapper} from "./style.ts";
 
 import saw from "@assets/images/saw.png";
-import {ReactSVG} from "react-svg";
 import close from "@assets/icons/close.svg";
 
 const ReservationSaw:FC = () => {

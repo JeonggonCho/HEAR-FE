@@ -4,14 +4,14 @@ import { z } from "zod";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {AxiosResponse} from "axios";
 
-import Header from "@components/Header";
-import ArrowBack from "@components/ArrowBack";
-import Button from "@components/Button";
-import Input from "@components/Input";
-import Link from "@components/Link";
-import Modal from "@components/Modal";
-import LoadingLoop from "@components/LoadingLoop";
-import ErrorContent from "@components/ErrorContent";
+import Header from "@components/common/Header";
+import ArrowBack from "@components/common/ArrowBack";
+import Button from "@components/common/Button";
+import Input from "@components/common/Input";
+import Link from "@components/common/Link";
+import Modal from "@components/common/Modal";
+import LoadingLoop from "@components/common/LoadingLoop";
+import ErrorContent from "@components/content/ErrorContent";
 
 import {loginSchema} from "@schemata/userSchema.ts";
 import {zodResolver} from "@hookform/resolvers/zod";

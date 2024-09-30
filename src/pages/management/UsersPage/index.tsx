@@ -1,16 +1,16 @@
 import {FC, useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
 
-import Header from "@components/Header";
-import ArrowBack from "@components/ArrowBack";
-import UserListItem from "@components/UserListItem";
-import Input from "@components/Input";
-import LoadingLoop from "@components/LoadingLoop";
-import Modal from "@components/Modal";
-import ErrorContent from "@components/ErrorContent";
-import Empty from "@components/Empty";
-import UsersFilterContent from "@components/UsersFilterContent";
-import Button from "@components/Button";
+import Header from "@components/common/Header";
+import ArrowBack from "@components/common/ArrowBack";
+import UserListItem from "@components/management/UserListItem";
+import Input from "@components/common/Input";
+import LoadingLoop from "@components/common/LoadingLoop";
+import Modal from "@components/common/Modal";
+import ErrorContent from "@components/content/ErrorContent";
+import Empty from "@components/common/Empty";
+import UsersFilterContent from "@components/content/UsersFilterContent";
+import Button from "@components/common/Button";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IUserFilter, IUserList} from "@/types/user.ts";

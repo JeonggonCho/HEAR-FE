@@ -1,6 +1,6 @@
 import {FC} from 'react';
 import {Outlet} from "react-router-dom";
-import Nav from "@components/Nav";
+import Nav from "@components/common/Nav";
 import {Container, OutletWrapper} from "./style.ts";
 import {ILayoutProps} from "@/types/layoutProps.ts";
 
