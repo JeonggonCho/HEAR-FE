@@ -6,7 +6,7 @@ export const Container = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
     
     & > label:first-of-type {
         color: ${({theme}) => theme.colors.font.sub};
@@ -45,6 +45,12 @@ export const RadioWrapper = styled.div`
         border: 1px solid ${({theme}) => theme.colors.line.primary};
         background-color: ${({theme}) => theme.colors.button.approval};
         color: ${({theme}) => theme.colors.font.primary};
+    }
+    
+    input[type='radio']:disabled + label {
+        background-color: ${({theme}) => theme.colors.bg.sub};
+        color: ${({theme}) => theme.colors.font.sub};
+        cursor: not-allowed;
     }
 `;
 
@@ -96,6 +102,16 @@ export const CheckboxWrapper = styled.div`
             svg {
                 display: block;
             }
+        }
+    }
+    
+    input[type='checkbox']:disabled + label {
+        cursor: not-allowed;
+        color: ${({theme}) => theme.colors.font.placeholder};
+
+        & > div {
+            border: 1px solid ${({theme}) => theme.colors.line.main};
+            background-color: ${({theme}) => theme.colors.bg.sub};
         }
     }
 `;

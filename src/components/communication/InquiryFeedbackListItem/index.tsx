@@ -1,6 +1,6 @@
 import {FC, useMemo} from 'react';
 
-import {IFeedbackProps, IInquiryProps} from "@types/componentProps.ts";
+import {IFeedbackProps, IInquiryProps} from "@/types/componentProps.ts";
 import {inquiryCategoriesValues} from "@constants/inquiryCategories.ts";
 import {feedbackCategoriesValues} from "@constants/feedbackCategories.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";

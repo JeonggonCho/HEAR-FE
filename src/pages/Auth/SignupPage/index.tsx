@@ -55,11 +55,11 @@ const SignupPage:FC = () => {
                 method: "post",
                 data: data
             });
-            const {userId, email, username, studentId, year, studio, passQuiz, countOfLaser, countOfWarning, tel, role, accessToken, refreshToken} = response.data;
+            const {userId, email, username, studentId, year, studio, passQuiz, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role, accessToken, refreshToken} = response.data;
 
             login(accessToken, refreshToken);
             setUserInfo({userId, email, username, studentId});
-            setUserData({year, studio, passQuiz, countOfLaser, countOfWarning, tel, role});
+            setUserData({year, studio, passQuiz, countOfLaserPerDay, countOfLaserPerWeek, countOfWarning, tel, role});
 
             navigate("/signup/done", { replace: true });
         } catch (err) {

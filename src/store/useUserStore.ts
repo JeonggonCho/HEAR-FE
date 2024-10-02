@@ -13,7 +13,8 @@ interface IUserData {
     studio: string;
     passQuiz: boolean;
     countOfWarning: number;
-    countOfLaser: number;
+    countOfLaserPerWeek: number;
+    countOfLaserPerDay: number;
     tel: string;
     role: "student" | "manager" | "admin";
 }

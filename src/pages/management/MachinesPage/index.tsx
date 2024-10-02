@@ -10,6 +10,8 @@ import ErrorContent from "@components/content/ErrorContent";
 import useRequest from "@hooks/useRequest.ts";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
 
+import {Container} from "./style.ts";
+
 import laser_icon from "@assets/images/laser_icon.png";
 import printer_icon from "@assets/images/printer_icon.png";
 import heat_icon from "@assets/images/heat_icon.png";
@@ -70,7 +72,7 @@ const MachinesPage:FC = () => {
     }, [fetchMachines]);
 
     return (
-        <>
+        <Container>
             <Header leftChild={<ArrowBack/>} centerText={"기기 관리"}/>
             {isLoading?
                 <LoadingLoop/>
@@ -130,7 +132,7 @@ const MachinesPage:FC = () => {
                   type={"popup"}
                 />
             }
-        </>
+        </Container>
     );
 };
 

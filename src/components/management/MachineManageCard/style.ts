@@ -4,10 +4,9 @@ import {lighten} from "polished";
 
 export const Container = styled.div`
     width: calc(100% + 48px);
-    margin-left: -24px;
     padding: 12px 24px;
     background-color: ${({theme}) => theme.colors.bg.main};
-    margin-bottom: 16px;
+    margin: 8px 0 8px -24px;
     display: flex;
     flex-direction: column;
 
@@ -15,18 +14,18 @@ export const Container = styled.div`
         font-size: 1rem;
         font-weight: 500;
     }
-    
+
     & > div:first-of-type {
         display: flex;
         align-items: center;
         justify-content: space-between;
         cursor: pointer;
-        
+
         svg {
             margin-top: 4px;
             fill: ${({theme}) => theme.colors.font.sub};
         }
-        
+
         & > div {
             display: flex;
             align-items: center;

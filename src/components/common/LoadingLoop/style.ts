@@ -22,17 +22,22 @@ export const Container = styled.div`
 `;
 
 export const Ring = styled.div`
+    position: relative;
     width: 64px;
     height: 64px;
-    
+    border-radius: 50%;
+    border: 5px solid ${({theme}) => theme.colors.font.placeholder};
+
     &:after {
+        position: absolute;
+        top: -5px;
+        left: -5px;
         content: ' ';
-        display: block;
-        width: 46px;
-        height: 46px;
+        width: 54px;
+        height: 54px;
         border-radius: 50%;
-        border: 5px solid ${({theme}) => theme.colors.font.placeholder};
-        border-color: ${({theme}) => theme.colors.font.placeholder} transparent ${({theme}) => theme.colors.font.placeholder} transparent;
-        animation: ${spin} 0.8s linear infinite;
+        border: 5px solid;
+        border-color: ${({theme}) => theme.colors.font.primary} transparent transparent transparent;
+        animation: ${spin} 0.4s linear infinite;
     }
 `;

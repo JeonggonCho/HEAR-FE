@@ -1,7 +1,7 @@
 import React, {FC, useMemo} from 'react';
 import {useLocation} from "react-router-dom";
 
-import {ITabProps} from "@types/componentProps.ts";
+import {ITabProps} from "@/types/componentProps.ts";
 
 import {ButtonTapWrapper, ButtonTap, Background, LineTapWrapper, LineTap} from "./style.ts";
 

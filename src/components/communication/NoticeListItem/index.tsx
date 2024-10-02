@@ -2,7 +2,7 @@ import {FC, useMemo} from "react";
 
 import ArrowForward from "@components/common/ArrowForward";
 
-import {INotice} from "@types/componentProps.ts";
+import {INotice} from "@/types/componentProps.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 
 import {Container} from "./style.ts";

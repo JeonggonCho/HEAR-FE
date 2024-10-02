@@ -2,7 +2,7 @@ import {FC, useState} from "react";
 
 import Button from "@components/common/Button";
 
-import {ILangSettingContentProps} from "@types/componentProps.ts";
+import {ILangSettingContentProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";

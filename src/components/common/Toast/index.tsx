@@ -1,7 +1,7 @@
 import {FC, useEffect, useState} from "react";
 import ReactDOM from "react-dom";
 
-import {IToastProps} from "@types/componentProps.ts";
+import {IToastProps} from "@/types/componentProps.ts";
 
 import {Container} from "./style.ts";
 

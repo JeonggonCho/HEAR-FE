@@ -2,7 +2,7 @@ import {FC} from 'react';
 
 import ArrowForward from "@components/common/ArrowForward";
 
-import {ILangSettingCardProps} from "@types/componentProps.ts";
+import {ILangSettingCardProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {langCategories} from "@constants/themeCategories.ts";
 

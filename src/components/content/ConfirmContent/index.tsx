@@ -1,6 +1,6 @@
 import {FC} from "react";
 
-import {IConfirmContentProps} from "@types/componentProps.ts";
+import {IConfirmContentProps} from "@/types/componentProps.ts";
 
 import {Container} from "./style.ts";
 

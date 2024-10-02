@@ -1,6 +1,6 @@
 import {FC} from 'react';
 
-import {ILinkProps} from "@types/componentProps.ts";
+import {ILinkProps} from "@/types/componentProps.ts";
 
 import {Container, LinkWrapper} from "./style.ts";
 

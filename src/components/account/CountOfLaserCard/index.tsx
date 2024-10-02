@@ -16,7 +16,7 @@ const CountOfLaserCard:FC = () => {
                 <p>레이저 커팅기<br/>예약 가능 횟수</p>
             </div>
 
-            <p><span>{typeof userData?.countOfLaser === "number" && userData.countOfLaser > 0 ? userData.countOfLaser : 0}</span> 번 / 일주일</p>
+            <p><span>{typeof userData?.countOfLaserPerWeek === "number" && userData.countOfLaserPerWeek > 0 ? userData.countOfLaserPerWeek : 0}</span> 번 / 일주일</p>
         </Container>
     );
 };

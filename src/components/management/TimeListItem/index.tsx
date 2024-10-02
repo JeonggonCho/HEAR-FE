@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import {ReactSVG} from "react-svg";
 import {Draggable} from "@hello-pangea/dnd";
 
-import {ITimeListItemProps} from "@types/componentProps.ts";
+import {ITimeListItemProps} from "@/types/componentProps.ts";
 
 import {Container} from "./style.ts";
 

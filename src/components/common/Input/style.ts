@@ -4,7 +4,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
-    gap: 6px;
+    gap: 8px;
     
     label {
         color: ${({theme}) => theme.colors.font.sub};

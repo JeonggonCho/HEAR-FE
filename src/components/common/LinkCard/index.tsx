@@ -2,7 +2,7 @@ import {FC} from 'react';
 
 import ArrowForward from "@components/common/ArrowForward";
 
-import {ILinkCardProps} from "@types/componentProps.ts";
+import {ILinkCardProps} from "@/types/componentProps.ts";
 
 import {LinearLinkCardWrapper, GridLinkCardWrapper, LinearImgWrapper, GridImgWrapper} from "./style.ts";
 

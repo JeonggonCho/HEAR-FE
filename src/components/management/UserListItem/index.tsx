@@ -3,7 +3,7 @@ import { FC, useState } from "react";
 import Modal from "@components/common/Modal";
 import UserInfoContent from "@components/content/UserInfoContent";
 
-import { IUserInfo, IUserList } from "@types/user.ts";
+import { IUserInfo, IUserList } from "@/types/user.ts";
 
 import { Container } from "./style.ts";
 

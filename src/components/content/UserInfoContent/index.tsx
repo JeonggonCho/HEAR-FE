@@ -9,8 +9,8 @@ import Input from "@components/common/Input";
 import Toast from "@components/common/Toast";
 
 import useRequest from "@hooks/useRequest.ts";
-import {IUserInfoContentProps} from "@types/componentProps.ts";
-import {IUserInfo} from "@types/user.ts";
+import {IUserInfoContentProps} from "@/types/componentProps.ts";
+import {IUserInfo} from "@/types/user.ts";
 import {warningSchema} from "@schemata/warningSchema.ts";
 
 import {Buttons, CloseButton, Container, FieldWrapper, PassTag, PassWrapper, WarningWrapper} from "./style.ts";
@@ -56,13 +56,14 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
 
     // 경고 부과하기
     const handleAddWarning = useCallback(async (data: WarningFormData) => {
+        if (isLoading) return;
         try {
             const response = await sendRequest({
                 url: `/users/warning/add/${userId}`,
                 method: "patch",
                 data: {...data, countOfWarning: user?.countOfWarning},
             });
-            if (!isLoading && response.data) {
+            if (response.data) {
                 const updatedUser = {...user, countOfWarning: response.data.countOfWarning as number};
                 setUser(updatedUser as IUserInfo);
                 onUserInfoUpdate && onUserInfoUpdate(updatedUser as IUserInfo);
@@ -73,17 +74,18 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
             setShowWarning(false);
             reset({message: "",});
         }
-    }, [sendRequest, userId, user, onUserInfoUpdate]);
+    }, [isLoading, sendRequest, userId, user, onUserInfoUpdate]);
 
     // 경고 차감하기
     const handleMinusWarning = useCallback(async () => {
+        if (isLoading) return;
         try {
             const response = await sendRequest({
                 url: `/users/warning/minus/${userId}`,
                 method: "patch",
                 data: {countOfWarning: user?.countOfWarning},
             });
-            if (!isLoading && response.data) {
+            if (response.data) {
                 const updatedUser = {...user, countOfWarning: response.data.countOfWarning as number};
                 setUser(updatedUser as IUserInfo);
                 onUserInfoUpdate && onUserInfoUpdate(updatedUser as IUserInfo);
@@ -93,10 +95,11 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
         } finally {
             setShowWarning(false);
         }
-    }, [sendRequest, userId, user, onUserInfoUpdate]);
+    }, [isLoading, sendRequest, userId, user, onUserInfoUpdate]);
 
     // 교육 이수 처리하기
     const handlePassQuiz = useCallback(async () => {
+        if (isLoading) return;
         if (user?.passQuiz === true) {
             console.error("이미 교육 이수가 완료된 상태입니다.");
             return;
@@ -107,7 +110,7 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                 method: "patch",
                 data: {passQuiz: false},
             });
-            if (!isLoading && response.data.passQuiz === true) {
+            if (response.data.passQuiz === true) {
                 const updatedUser = {...user, passQuiz: response.data.passQuiz as boolean};
                 setUser(updatedUser as IUserInfo);
                 onUserInfoUpdate && onUserInfoUpdate(updatedUser as IUserInfo);
@@ -115,10 +118,11 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
         } catch (err) {
             console.error("교육 이수 처리 중 에러 발생: ", err);
         }
-    }, [sendRequest, userId, user, onUserInfoUpdate]);
+    }, [isLoading, sendRequest, userId, user, onUserInfoUpdate]);
 
     // 교육 미이수 처리하기
     const handleResetQuiz = useCallback(async () => {
+        if (isLoading) return;
         if (user?.passQuiz === false) {
             console.error("이미 교육 미이수가 완료된 상태입니다.");
             return;
@@ -129,7 +133,7 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                 method: "patch",
                 data: {passQuiz: true},
             });
-            if (!isLoading && response.data.passQuiz === false) {
+            if (response.data.passQuiz === false) {
                 const updatedUser = {...user, passQuiz: response.data.passQuiz as boolean};
                 setUser(updatedUser as IUserInfo);
                 onUserInfoUpdate && onUserInfoUpdate(updatedUser as IUserInfo);
@@ -137,7 +141,7 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
         } catch (err) {
             console.error("교육 미이수 처리 중 에러 발생: ", err);
         }
-    }, [sendRequest, userId, user, onUserInfoUpdate]);
+    }, [isLoading, sendRequest, userId, user, onUserInfoUpdate]);
 
     return (
         <Container>

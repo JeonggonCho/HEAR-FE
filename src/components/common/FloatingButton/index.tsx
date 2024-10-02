@@ -1,7 +1,7 @@
 import {FC} from 'react';
 import {ReactSVG} from "react-svg";
 
-import {IFloatingButtonProps} from "@types/componentProps.ts";
+import {IFloatingButtonProps} from "@/types/componentProps.ts";
 
 import {Container} from "./style.ts";
 

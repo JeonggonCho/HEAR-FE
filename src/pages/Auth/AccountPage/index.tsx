@@ -41,8 +41,8 @@ const AccountPage:FC = () => {
             const response = await sendRequest({
                 url: "/users",
             });
-            const {userId, username, email, year, studentId, studio, passQuiz, countOfLaser, countOfWarning, tel, role} = response.data;
-            setUserData({year, studio, passQuiz, countOfLaser, countOfWarning, tel, role});
+            const {userId, username, email, year, studentId, studio, passQuiz, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role} = response.data;
+            setUserData({year, studio, passQuiz, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role});
             setUserInfo({userId, username, email, studentId});
         } catch (err) {
             console.error("유저 정보 조회 에러: ", err);

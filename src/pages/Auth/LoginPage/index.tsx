@@ -57,7 +57,8 @@ const LoginPage:FC = () => {
                 year,
                 studio,
                 passQuiz,
-                countOfLaser,
+                countOfLaserPerWeek,
+                countOfLaserPerDay,
                 countOfWarning,
                 tel,
                 role,
@@ -67,7 +68,7 @@ const LoginPage:FC = () => {
 
             login(accessToken, refreshToken);
             setUserInfo({userId, email, username, studentId});
-            setUserData({year, studio, passQuiz, countOfLaser, countOfWarning, tel, role});
+            setUserData({year, studio, passQuiz, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role});
 
             navigate("/");
         } catch (err) {

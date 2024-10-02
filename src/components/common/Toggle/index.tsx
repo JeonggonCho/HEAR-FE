@@ -1,6 +1,6 @@
 import {FC} from "react";
 
-import {IToggleProps} from "@types/componentProps.ts";
+import {IToggleProps} from "@/types/componentProps.ts";
 
 import {Container} from "./style.ts";
 

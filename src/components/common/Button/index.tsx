@@ -1,6 +1,6 @@
 import {FC} from "react";
 
-import {IButtonProps} from "@types/componentProps.ts";
+import {IButtonProps} from "@/types/componentProps.ts";
 
 import {ButtonWrapper, LinkWrapper, SubmitWrapper} from "./style.ts";
 

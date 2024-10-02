@@ -4,6 +4,7 @@ import {ITab} from "@/types/tab.ts";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
 import {IUserInfo} from "@/types/user.ts";
+import {ILaserInfo, ILaserReservation} from "@/types/reservation.ts";
 
 // 버튼(Button) props
 export interface IButtonProps {
@@ -113,7 +114,7 @@ export interface IRoomMapProps {
 
 
 // 선택(Select) props
-export interface ISelectWithLabelProps {
+export interface ISelectProps {
     register?: UseFormRegister<any>;
     name: string;
     errorMessage?: string;
@@ -122,6 +123,7 @@ export interface ISelectWithLabelProps {
         label: string;
         value: any;
         id: string;
+        status?: boolean;
     }[];
     type: "radio" | "checkbox";
     onSelectChange?: (selectedValue: any, categories: any) => void;
@@ -292,4 +294,12 @@ export interface IFilterContentProps {
     filter: any;
     setFilter: React.Dispatch<React.SetStateAction<any>>;
     setModal: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+
+// 레이저 커팅기 기기 및 시간 선택(LaserSelectContent) props
+export interface ILaserSelectContentProps {
+    laserInfo: ILaserInfo[];
+    reservationList: ILaserReservation[];
+    setReservationList: React.Dispatch<React.SetStateAction<ILaserReservation[]>>;
 }

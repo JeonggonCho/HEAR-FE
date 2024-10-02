@@ -4,7 +4,7 @@ import Select from "@components/common/Select";
 import Button from "@components/common/Button";
 
 import {passQuizFilterCategories, warningFilterCategories, yearFilterCategories} from "@constants/filterCategories.ts";
-import {IFilterContentProps} from "@types/componentProps.ts";
+import {IFilterContentProps} from "@/types/componentProps.ts";
 import useCheckbox from "@hooks/useCheckbox.ts";
 
 import {Container} from "./style.ts";

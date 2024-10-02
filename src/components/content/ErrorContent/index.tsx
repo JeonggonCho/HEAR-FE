@@ -3,7 +3,7 @@ import {ReactSVG} from "react-svg";
 
 import Button from "@components/common/Button";
 
-import {IErrorContentProps} from "@types/componentProps.ts";
+import {IErrorContentProps} from "@/types/componentProps.ts";
 
 import {Container} from "./style.ts";
 

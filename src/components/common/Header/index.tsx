@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 
-import {IHeaderProps} from "@types/componentProps.ts";
+import {IHeaderProps} from "@/types/componentProps.ts";
 
 import {Container} from "./style.ts";
 

@@ -1,7 +1,7 @@
 import {FC, useEffect, useRef} from "react";
 import ReactDOM from "react-dom";
 
-import {IModalProps} from "@types/componentProps.ts";
+import {IModalProps} from "@/types/componentProps.ts";
 
 import {Container, BottomSheetWrapper, PopupWrapper} from "./style.ts";
 

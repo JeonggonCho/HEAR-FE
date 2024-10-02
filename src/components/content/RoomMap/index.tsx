@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {ReactSVG} from "react-svg";
 
-import {IRoomMapProps} from "@types/componentProps.ts";
+import {IRoomMapProps} from "@/types/componentProps.ts";
 
 import {CncWrapper, Container, LaserWrapper, MapWrapper, PrinterWrapper, VacuumWrapper} from "./style.ts";
 

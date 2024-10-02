@@ -3,7 +3,7 @@ import {ReactSVG} from "react-svg";
 
 import InputError from "@components/common/InputError";
 
-import {ISelectWithLabelProps} from "@/types/componentProps.ts";
+import {ISelectProps} from "@/types/componentProps.ts";
 
 import {
     CheckboxListWrapper,
@@ -16,7 +16,7 @@ import {
 
 import check from "@assets/icons/check.svg";
 
-const Select:FC<ISelectWithLabelProps> = ({label, categories, register, name, errorMessage, type, onSelectChange, values}) => {
+const Select:FC<ISelectProps> = ({label, categories, register, name, errorMessage, type="radio", onSelectChange, values=[]}) => {
     return (
         <Container>
             <label>{label}</label>
@@ -31,6 +31,7 @@ const Select:FC<ISelectWithLabelProps> = ({label, categories, register, name, er
                                   value={category.value}
                                   id={category.id}
                                   {...register ? register(name) : null}
+                                  disabled={category.status}
                               />
                               <LabelWrapper htmlFor={category.id}>{category.label}</LabelWrapper>
                           </RadioWrapper>
@@ -50,6 +51,7 @@ const Select:FC<ISelectWithLabelProps> = ({label, categories, register, name, er
                                     value={category.value}
                                     onChange={() => onSelectChange ? onSelectChange(category.value, categories) : null}
                                     checked={values?.includes(category.value)}
+                                    disabled={category.status}
                                 />
                                 <label htmlFor={category.id}>
                                     <div><ReactSVG src={check}/></div> {category.label}

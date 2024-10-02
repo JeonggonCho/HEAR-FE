@@ -1,6 +1,6 @@
 import {FC} from 'react';
 
-import {IEmptyProps} from "@types/componentProps.ts";
+import {IEmptyProps} from "@/types/componentProps.ts";
 
 import {Container} from "./style.ts";
 

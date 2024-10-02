@@ -76,3 +76,13 @@ export const sawVacuumSchema = z.object({
     message: "시작 시간은 종료 시간보다 이전이여야 합니다",
     path: ["endTime"],
 });
+
+export const laserTimeSchema = z.object({
+    laser: z
+        .string()
+        .min(1, "레이저 커팅기를 선택해주세요"),
+    times: z
+        .array(z.string())
+        .min(1, "시간을 최소 1개 이상 선택해주세요")
+        .max(2, "최대 예약 가능 횟수만큼 시간 선택이 가능합니다"),
+});

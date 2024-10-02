@@ -119,7 +119,7 @@ const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate}) => {
                 type={"button"}
                 content={`${selectedDate ? selectedDate.toLocaleDateString('default', { month: 'long', day: 'numeric' }) : ""} 선택완료`}
                 width={"full"}
-                color={"approval"}
+                color={"primary"}
                 scale={"big"}
                 disabled={selectedDate === null}
                 onClick={() => selectedDate !== null ? handleRegisterDate(selectedDate) : null}
