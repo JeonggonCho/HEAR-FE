@@ -32,6 +32,9 @@ export const Container = styled(Link)`
     }
     
     h3 {
+        font-size: 1.15rem;
+        text-wrap: wrap;
+        word-break: keep-all;
         color: ${({theme}) => theme.colors.font.main};
         font-weight: 500;
         line-height: 1.5;

@@ -35,7 +35,6 @@ const InstructionHeat = lazy(() => import("@pages/instructions/heat/InstructionH
 const InstructionCnc = lazy(() => import("@pages/instructions/cnc/InstructionCnc"));
 const InstructionSaw = lazy(() => import("@pages/instructions/saw/InstructionSaw"));
 const InstructionVacuum = lazy(() => import("@pages/instructions/vacuum/InstructionVacuum"));
-const ReservationPage = lazy(() => import("@pages/reservation/ReservationPage"));
 const ReservationDonePage = lazy(() => import("@pages/reservation/ReservationDonePage"));
 const ReservationPrinter = lazy(() => import("@pages/reservation/ReservationPrinter"));
 const ReservationLaser = lazy(() => import("@pages/reservation/ReservationLaser"));
@@ -43,7 +42,6 @@ const ReservationHeat = lazy(() => import("@pages/reservation/ReservationHeat"))
 const ReservationCnc = lazy(() => import("@pages/reservation/ReservationCnc"));
 const ReservationSaw = lazy(() => import("@pages/reservation/ReservationSaw"));
 const ReservationVacuum = lazy(() => import("@pages/reservation/ReservationVacuum"));
-const ConditionPage = lazy(() => import("@pages/reservation/ConditionPage"));
 const QuizPage = lazy(() => import("@pages/quiz/QuizPage"));
 const NotFoundPage = lazy(() => import("@pages/home/NotFoundPage"));
 const MachinesPage = lazy(() => import("@pages/management/MachinesPage"));
@@ -101,7 +99,6 @@ const AppRoute = () => {
                             <Route path="instruction/saw" element={<InstructionSaw/>}/>
                             <Route path="instruction/vacuum" element={<InstructionVacuum/>}/>
 
-                            <Route path="reservation" element={<ReservationPage/>}/>
                             <Route path="reservation/done" element={<ReservationDonePage/>}/>
                             <Route path="reservation/3d-printer" element={<ReservationPrinter/>}/>
                             <Route path="reservation/laser" element={<ReservationLaser/>}/>
@@ -109,8 +106,6 @@ const AppRoute = () => {
                             <Route path="reservation/cnc" element={<ReservationCnc/>}/>
                             <Route path="reservation/saw" element={<ReservationSaw/>}/>
                             <Route path="reservation/vacuum" element={<ReservationVacuum/>}/>
-                            <Route path="reservation/condition" element={<ConditionPage/>}/>
-
 
                             <Route path="management/machines" element={<MachinesPage/>}/>
                             <Route path="management/users" element={<UsersPage/>}/>

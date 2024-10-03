@@ -8,8 +8,7 @@ const FeedBackCard:FC = () => {
     return (
         <Container to={"/communication/feedback/new"}>
             <h3>
-                어플리케이션<br/>
-                피드백
+                어플리케이션 피드백
             </h3>
 
             <div>

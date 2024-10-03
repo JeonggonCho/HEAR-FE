@@ -25,3 +25,14 @@ export const Container = styled.div`
         gap: 10px;
     }
 `;
+
+export const UpdateButtonWrapper = styled.div`
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    
+    & > a {
+        text-wrap: nowrap;
+        padding-left: 0;
+        padding-right: 0;
+    }
+`;

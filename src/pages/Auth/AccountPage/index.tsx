@@ -18,7 +18,7 @@ import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
 import useRequest from "@hooks/useRequest.ts";
 
-import {Container, HeaderWrapper} from "./style.ts";
+import {Container, HeaderWrapper, UpdateButtonWrapper} from "./style.ts";
 
 import no_profile from "@assets/images/no_profile.png";
 import machine from "@assets/images/machine.png";
@@ -146,10 +146,10 @@ const AccountPage:FC = () => {
                 <>
                     <ProfileCard/>
 
-                    <div>
+                    <UpdateButtonWrapper>
                         <Button type={"link"} content={"내정보 수정"} width={"full"} color={"second"} scale={"normal"} to={"/account/update"}/>
                         <Button type={"link"} content={"비밀번호 변경"} width={"full"} color={"second"} scale={"normal"} to={"/password/update"}/>
-                    </div>
+                    </UpdateButtonWrapper>
 
                     {userData?.role === "student" &&
                         <>

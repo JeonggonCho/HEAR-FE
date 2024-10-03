@@ -19,6 +19,7 @@ export const Container = styled.div`
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
+    z-index: 3;
 `;
 
 export const Ring = styled.div`

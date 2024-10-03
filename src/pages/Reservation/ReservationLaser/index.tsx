@@ -20,6 +20,7 @@ import {Container, ImageWrapper, MapIcon, SelectedItemWrapper} from "./style.ts"
 import laser from "@assets/images/laser_cut.png";
 import mapIcon from "@assets/icons/map.svg";
 import close from "@assets/icons/close.svg";
+import {useNavigate} from "react-router-dom";
 
 const ReservationLaser: FC = () => {
     const [reservationList, setReservationList] = useState<ILaserReservation[]>([]);
@@ -27,11 +28,16 @@ const ReservationLaser: FC = () => {
     const [laserTimesInfo, setLaserTimesInfo] = useState<ILaserTimesinfo[]>([]);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [showMap, setShowMap] = useState<boolean>(false);
+    const [showEmptyError, setShowEmptyError] = useState<boolean>(false);
 
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
+    const navigate = useNavigate();
+
+    // 레이저 커팅기 이용 날짜인 내일 날짜 계산
     const formattedDate = getTomorrowDate();
 
+    // 레이저 커팅기 기기 및 시간의 상태 정보 조회
     const fetchValidLaserInfo = useCallback(async () => {
         try {
             const response = await sendRequest({
@@ -50,11 +56,38 @@ const ReservationLaser: FC = () => {
         fetchValidLaserInfo();
     }, [fetchValidLaserInfo]);
 
+    // 레이저 커팅기 기기 및 시간 선택 아이템 삭제
     const handleRemoveReservationItem = (reservation:ILaserReservation) => {
         setReservationList(prevState => prevState.filter(value =>
             !(value.laserId === reservation.laserId && value.timeId === reservation.timeId)
         ));
     };
+
+    const submitHandler = useCallback(async (e:any) => {
+        e.preventDefault();
+        if (reservationList.length === 0) {
+            setShowEmptyError(true); // 선택한 기기 및 시간이 없을 경우, 에러 모달 띄우기
+            return;
+        }
+        try {
+            const response = await sendRequest({
+                url: "/reservations/laser",
+                method: "post",
+                data: reservationList.map((value) => ({
+                    date: formattedDate,
+                    machineId: value.laserId,
+                    timeId: value.timeId,
+                })),
+            });
+            if (response.data) {
+                setTimeout(() => {
+                    navigate("/reservation/done", {replace:true});
+                }, 300);
+            }
+        } catch (err) {
+            console.error("레이저 커팅기 예약 중 에러 발생: ", err);
+        }
+    }, [sendRequest, reservationList]);
 
     return (
         <Container>
@@ -73,7 +106,7 @@ const ReservationLaser: FC = () => {
             {isLoading ?
                 <LoadingLoop/>
                 :
-                <form onSubmit={(e) => e.preventDefault()}>
+                <form onSubmit={submitHandler}>
                     <Input
                         label={"날 짜 (다음날만 예약 가능)"}
                         type={"date"}
@@ -95,7 +128,7 @@ const ReservationLaser: FC = () => {
                                         const selectedLaserInfo = laserInfo.filter(value => value.laserId === reservation.laserId)[0];
                                         const selectedLaserTimeInfo = laserTimesInfo.filter(value => value.timeId === reservation.timeId)[0];
                                         return (
-                                            <SelectedItemWrapper key={`${reservation.laserId}-${reservation.timeId}`}>
+                                            <SelectedItemWrapper key={`${reservation.laserId} ${reservation.timeId}`}>
                                                 <span>{selectedLaserInfo.laserName}</span>
                                                 <span>{selectedLaserTimeInfo.timeContent}</span>
                                                 <div onClick={() => handleRemoveReservationItem(reservation)}>
@@ -153,6 +186,14 @@ const ReservationLaser: FC = () => {
                 setModal={clearError}
                 type={"popup"}
               />
+            }
+
+            {showEmptyError &&
+                <Modal
+                  content={<ErrorContent text={"선택된 기기 및 시간이 없습니다. 선택해주세요."} closeModal={() => setShowEmptyError(false)}/>}
+                  setModal={setShowEmptyError}
+                  type={"popup"}
+                />
             }
         </Container>
     );

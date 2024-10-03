@@ -9,6 +9,7 @@ import LangSettingCard from "@components/home/LangSettingCard";
 import FeedBackCard from "@components/home/FeedBackCard";
 import Modal from "@components/common/Modal";
 import LangSettingContent from "@components/content/LangSettingContent";
+import ReservationCard from "@components/home/ReservationCard";
 
 import {useThemeStore} from "@store/useThemeStore.ts";
 
@@ -52,12 +53,9 @@ const HomePage = () => {
     return (
         <Container>
             <Header leftChild={<HomeHeaderLeft/>} rightChild={<HomeHeaderRight/>}/>
-            <p>
-                한양대학교 에리카 건축학부<br/>
-                모형제작실 사용 및 예약 애플리케이션
-            </p>
-            <NoticeCard/>
             <SituationCard/>
+            <ReservationCard/>
+            <NoticeCard/>
             <ManagerCard/>
             <div>
                 <LangSettingCard setModal={setLangModal}/>

@@ -72,19 +72,19 @@ export const ThemeWrapper = styled.div`
 `;
 
 export const Container = styled.div`
-    p {
-        line-height: 1.5;
-        margin: 0 0 24px 6px;
-        color: ${({theme}) => theme.colors.font.main};
+    & > div:first-of-type {
+        background-color: ${({theme}) => theme.colors.bg.main} !important;
     }
-
+    
+    & > div:first-of-type,
     & > div:nth-of-type(2),
     & > div:nth-of-type(3),
-    & > a:nth-of-type(1) {
-        margin-bottom: 16px;
+    & > div:nth-of-type(4),
+    & > div:nth-of-type(5) {
+        margin-bottom: 16px !important;
     }
 
-    & > div:nth-of-type(4) {
+    & > div:last-of-type {
         display: grid;
         grid-gap: 16px;
         grid-template-columns: 1fr 1fr;

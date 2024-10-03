@@ -8,10 +8,6 @@ export const Container = styled.div`
     padding: 18px;
     transition: all 0.2s ease-in-out 0s;
     border: 1px solid ${({theme}) => theme.colors.bg.main};
-    
-    &:hover {
-        box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
-    }
 
     & > div:first-of-type {
         display: flex;

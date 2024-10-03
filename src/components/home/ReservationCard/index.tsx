@@ -1,29 +1,16 @@
 import {FC, useCallback, useEffect, useState} from "react";
 
-import Header from "@components/common/Header";
 import LinkCard from "@components/common/LinkCard";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
 
 import {machineReservationCategories} from "@constants/machineCategories.ts";
-import {Container, HeaderWrapper} from "./style.ts";
 import useRequest from "@hooks/useRequest.ts";
 
-import reservation from "@assets/images/reservation.png";
+import {Container} from "./style.ts";
 
-
-const ReservationHeaderLeft = () => {
-    return (
-        <HeaderWrapper>
-            <img src={reservation} alt="예약"/>
-            <h2>예약</h2>
-        </HeaderWrapper>
-
-    );
-};
-
-const ReservationPage:FC = () => {
+const ReservationCard:FC = () => {
     const [machineStatus, setMachineStatus] = useState({laser: false, printer: false, heat: false, saw: false, vacuum: false, cnc: false});
 
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
@@ -47,8 +34,6 @@ const ReservationPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ReservationHeaderLeft/>}/>
-            <p>예약하실 기기를 선택해주세요</p>
             {isLoading ?
                 <LoadingLoop/>
                 :
@@ -77,4 +62,4 @@ const ReservationPage:FC = () => {
     );
 };
 
-export default ReservationPage;
+export default ReservationCard;

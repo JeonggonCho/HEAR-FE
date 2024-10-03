@@ -7,9 +7,8 @@ export const Container = styled.div`
     padding: 12px 24px;
 
     & > div:first-of-type {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
         gap: 8px;
         margin-bottom: 20px;
 
@@ -30,9 +29,9 @@ export const Container = styled.div`
             align-items: center;
             justify-content: center;
             font-size: 1.25rem;
+            text-wrap: nowrap;
             border: 1px solid ${({theme}) => theme.colors.line.main};
             border-radius: 8px;
-            padding: 0 16px;
             cursor: pointer;
             color: ${({theme}) => theme.colors.font.sub};
             transition: all 0.2s ease-in-out 0s;
