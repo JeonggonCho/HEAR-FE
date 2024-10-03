@@ -1,8 +1,5 @@
-import {FC, useCallback, useEffect, useMemo, useState} from "react";
+import {FC, useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
-import {SubmitHandler, useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {z} from "zod";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
@@ -12,153 +9,22 @@ import Input from "@components/common/Input";
 import Modal from "@components/common/Modal";
 import LoadingLoop from "@components/common/LoadingLoop";
 import ErrorContent from "@components/content/ErrorContent";
-import Select from "@components/common/Select";
+import LaserSelectContent from "@components/content/LaserSelectContent";
 
 import useRequest from "@hooks/useRequest.ts";
 import {getTomorrowDate} from "@util/calculateDate.ts";
-import {ILaserSelectContentProps} from "@/types/componentProps.ts";
-import {ILaserInfo, ILaserReservation} from "@/types/reservation.ts";
-import {useUserDataStore} from "@store/useUserStore.ts";
-import {laserTimeSchema} from "@schemata/machineSchema.ts";
+import {ILaserInfo, ILaserReservation, ILaserTimesinfo} from "@/types/reservation.ts";
 
-import {
-    Container,
-    CountOfLaserPerDayWrapper, CountOfLaserPerWeekWrapper,
-    CountOfLaserWrapper,
-    ImageWrapper,
-    LaserSelectContentWrapper,
-    MapIcon
-} from "./style.ts";
+import {Container, ImageWrapper, MapIcon, SelectedItemWrapper} from "./style.ts";
 
 import laser from "@assets/images/laser_cut.png";
 import mapIcon from "@assets/icons/map.svg";
+import close from "@assets/icons/close.svg";
 
-
-
-// 레이저 커팅기 기기 및 시간 선택 모달 내용 컴포넌트
-const LaserSelectContent:FC<ILaserSelectContentProps> = ({laserInfo, reservationList, setReservationList}) => {
-    const {userData} = useUserDataStore();
-
-    const [countOfLaserPerWeek, setCountOfLaserPerWeek] = useState<number>(userData?.countOfLaserPerWeek || 0);
-    const [countOfLaserPerDay, setCountOfLaserPerDay] = useState<number>(userData?.countOfLaserPerDay || 0);
-
-    type LaserTimeFormData = z.infer<typeof laserTimeSchema>;
-
-    const {register, handleSubmit, formState:{errors}, getValues, setValue, watch} = useForm<LaserTimeFormData>({
-        resolver: zodResolver(laserTimeSchema),
-        defaultValues: {
-            laser: "",
-            times: [],
-        }
-    });
-
-    // 레이저 커팅기 기기 목록
-    const laserCategories = useMemo(() => laserInfo.map((value:any) => (
-        {
-            label: value.laserName,
-            value: value.laserId,
-            id: value.laserId,
-            status: !value.laserStatus,
-        }
-    )), [laserInfo]);
-
-    // 선택 된 레이저 커팅기와 시간 목록
-    const selectedLaser = watch("laser");
-    const selectedTimes = watch("times");
-
-    // 선택된 레이저 커팅기의 시간목록 가져오기
-    const laserTimes = laserInfo.filter((value) => value.laserId === selectedLaser)[0]?.laserTimes || [];
-
-    // 시간 목록
-    const timeCategories = laserTimes.map((value) => (
-        {
-            label: value.time,
-            value: value.timeId,
-            id: value.timeId,
-            status: !value.timeStatus,
-        }
-    ));
-
-    // 시간 선택 핸들러
-    const handleTimeChange = (timeId: string) => {
-        const currentTimes = getValues("times") || [];
-
-        if (currentTimes.includes(timeId)) {
-            setValue("times", currentTimes.filter((id: string) => id !== timeId));
-            setCountOfLaserPerWeek(prevState => prevState + 1);
-            setCountOfLaserPerDay(prevState => prevState + 1);
-        } else {
-            if (currentTimes.length <= Math.min(countOfLaserPerWeek, countOfLaserPerDay)) {
-                setValue("times", [...currentTimes, timeId]);
-                setCountOfLaserPerWeek(prevState => prevState - 1);
-                setCountOfLaserPerDay(prevState => prevState - 1);
-            } else {
-                return;
-            }
-        }
-    };
-
-    // submit 핸들러
-    const submitHandler:SubmitHandler<LaserTimeFormData> = useCallback(async (data) => {
-        console.log(data);
-    }, []);
-
-    return (
-        <LaserSelectContentWrapper onSubmit={handleSubmit(submitHandler)}>
-            <CountOfLaserWrapper>
-                <label>예약 가능 횟수</label>
-                <div>
-                    <CountOfLaserPerDayWrapper count={countOfLaserPerDay}>
-                        <span>오늘</span>
-                        <span>{countOfLaserPerDay}</span>
-                    </CountOfLaserPerDayWrapper>
-                    <CountOfLaserPerWeekWrapper count={countOfLaserPerWeek}>
-                        <span>이번 주</span>
-                        <span>{countOfLaserPerWeek}</span>
-                    </CountOfLaserPerWeekWrapper>
-                </div>
-            </CountOfLaserWrapper>
-
-            <Select
-                label={"기기 선택"}
-                type={"radio"}
-                name={"laser"}
-                categories={laserCategories}
-                register={register}
-                errorMessage={errors.laser?.message}
-            />
-
-            {/*선택된 레이저 커팅기가 있을 경우 시간목록 보이게 하기*/}
-            {selectedLaser &&
-              <Select
-                label={"시간 선택"}
-                type={"checkbox"}
-                name={"times"}
-                register={register}
-                categories={timeCategories}
-                values={selectedTimes}
-                onSelectChange={handleTimeChange}
-                errorMessage={errors.times?.message}
-              />
-            }
-
-            <Button
-                type={"submit"}
-                content={"추가하기"}
-                width={"full"}
-                color={"primary"}
-                scale={"normal"}
-            />
-        </LaserSelectContentWrapper>
-    );
-};
-
-
-
-// 레이저 커팅기 예약 페이지
 const ReservationLaser: FC = () => {
     const [reservationList, setReservationList] = useState<ILaserReservation[]>([]);
     const [laserInfo, setLaserInfo] = useState<ILaserInfo[]>([]);
+    const [laserTimesInfo, setLaserTimesInfo] = useState<ILaserTimesinfo[]>([]);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [showMap, setShowMap] = useState<boolean>(false);
 
@@ -172,7 +38,8 @@ const ReservationLaser: FC = () => {
                 url: "/machines/lasers/info",
             });
             if (response.data) {
-                setLaserInfo(response.data);
+                setLaserInfo(response.data.laserInfo);
+                setLaserTimesInfo(response.data.laserTimesInfo);
             }
         } catch (err) {
             console.error("레이저 커팅기 시간 정보 조회 중 에러 발생: ", err);
@@ -182,6 +49,12 @@ const ReservationLaser: FC = () => {
     useEffect(() => {
         fetchValidLaserInfo();
     }, [fetchValidLaserInfo]);
+
+    const handleRemoveReservationItem = (reservation:ILaserReservation) => {
+        setReservationList(prevState => prevState.filter(value =>
+            !(value.laserId === reservation.laserId && value.timeId === reservation.timeId)
+        ));
+    };
 
     return (
         <Container>
@@ -218,22 +91,30 @@ const ReservationLaser: FC = () => {
                                 <p>선택된 기기 및 시간이 없습니다</p>
                                 :
                                 <>
-                                    {reservationList.map((reservation, index) =>
-                                        <div key={index}>{reservation.laserId}</div>
-                                    )}
+                                    {reservationList.map((reservation) => {
+                                        const selectedLaserInfo = laserInfo.filter(value => value.laserId === reservation.laserId)[0];
+                                        const selectedLaserTimeInfo = laserTimesInfo.filter(value => value.timeId === reservation.timeId)[0];
+                                        return (
+                                            <SelectedItemWrapper key={`${reservation.laserId}-${reservation.timeId}`}>
+                                                <span>{selectedLaserInfo.laserName}</span>
+                                                <span>{selectedLaserTimeInfo.timeContent}</span>
+                                                <div onClick={() => handleRemoveReservationItem(reservation)}>
+                                                    <ReactSVG src={close}/>
+                                                </div>
+                                            </SelectedItemWrapper>
+                                        );
+                                    })}
                                 </>
                             }
 
-                            {reservationList.length < 2 &&
-                              <Button
+                            <Button
                                 type={"button"}
                                 content={"+ 기기 및 시간 선택"}
                                 width={"full"}
                                 color={"approval"}
                                 scale={"normal"}
                                 onClick={() => setShowModal(true)}
-                              />
-                            }
+                            />
                         </div>
                     </div>
 
@@ -247,8 +128,10 @@ const ReservationLaser: FC = () => {
                 content={
                     <LaserSelectContent
                         laserInfo={laserInfo}
+                        laserTimesInfo={laserTimesInfo}
                         reservationList={reservationList}
                         setReservationList={setReservationList}
+                        setShowModal={setShowModal}
                     />
                 }
                 setModal={setShowModal}

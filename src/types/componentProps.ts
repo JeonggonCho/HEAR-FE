@@ -4,7 +4,7 @@ import {ITab} from "@/types/tab.ts";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
 import {IUserInfo} from "@/types/user.ts";
-import {ILaserInfo, ILaserReservation} from "@/types/reservation.ts";
+import {ILaserInfo, ILaserReservation, ILaserTimesinfo} from "@/types/reservation.ts";
 
 // 버튼(Button) props
 export interface IButtonProps {
@@ -300,6 +300,8 @@ export interface IFilterContentProps {
 // 레이저 커팅기 기기 및 시간 선택(LaserSelectContent) props
 export interface ILaserSelectContentProps {
     laserInfo: ILaserInfo[];
+    laserTimesInfo: ILaserTimesinfo[];
     reservationList: ILaserReservation[];
     setReservationList: React.Dispatch<React.SetStateAction<ILaserReservation[]>>;
+    setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 }

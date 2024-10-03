@@ -31,6 +31,9 @@ export const Container = styled.div`
                 padding: 8px;
                 border: 1px solid ${({theme}) => theme.colors.line.main};
                 border-radius: 12px;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
                 
                 & > p {
                     display: flex;
@@ -77,92 +80,44 @@ export const ImageWrapper = styled.div`
         height: 120px;
         object-fit: cover;
         margin: 24px 0;
-
     }
 `;
 
-export const LaserSelectContentWrapper = styled.form`
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    
-    label {
-        color: ${({theme}) => theme.colors.font.main};
-    }
-`;
-
-export const CountOfLaserWrapper = styled.div`
+export const SelectedItemWrapper = styled.div`
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
-    color: ${({theme}) => theme.colors.font.main};
-
-    & > label {
-        margin: 0 0 0 6px;
-        font-size: 1rem;
-        font-weight: 400;
-        color: ${({theme}) => theme.colors.font.sub};
-        line-height: 1.5;
+    gap: 56px;
+    
+    & > span {
+        text-wrap: nowrap;
     }
-
+    
+    & > span:first-of-type {
+        font-weight: 500;
+    }
+    
+    & > span:nth-of-type(2) {
+        flex-grow: 1;
+    }
+    
     & > div:first-of-type {
-        width: fit-content;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-`;
-
-export const CountOfLaserPerDayWrapper = styled.div<{count: number}>`
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px;
-    overflow: hidden;
-
-    & > span:first-of-type {
-        display: inline-block;
-        text-wrap: nowrap;
-    }
-
-    & > span:last-of-type {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: -2px;
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
-        background-color: ${({theme, count}) => count > 0 ? theme.colors.button.approval : theme.colors.button.danger};
-        color: ${({theme, count}) => count > 0 ? theme.colors.font.primary : theme.colors.font.danger};
-        font-size: 1.15rem;
-    }
-`;
-
-export const CountOfLaserPerWeekWrapper = styled.div<{count: number}>`
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px;
-    overflow: hidden;
-
-    & > span:first-of-type {
-        display: inline-block;
-        text-wrap: nowrap;
-    }
-
-    & > span:last-of-type {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: -2px;
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
-        background-color: ${({theme, count}) => count > 0 ? theme.colors.button.approval : theme.colors.button.danger};
-        color: ${({theme, count}) => count > 0 ? theme.colors.font.primary : theme.colors.font.danger};
-        font-size: 1.15rem;
+        cursor: pointer;
+        
+        &:hover {
+            svg {
+                fill: ${({theme}) => theme.colors.font.main};
+            }
+        }
+        
+        svg {
+            margin-top: 2px;
+            transition: all 0.2s ease-in-out 0s;
+            fill: ${({theme}) => theme.colors.font.sub};
+        }
     }
 `;
