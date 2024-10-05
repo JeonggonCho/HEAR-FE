@@ -131,5 +131,9 @@ export const LabelWrapper = styled.label`
     border: 1px solid ${({theme}) => theme.colors.line.main};
     cursor: pointer;
     transition: all 0.2s ease-in-out 0s;
+    font-size: ${() => {
+        const {lang} = useThemeStore();
+        return lang === "en" ? "0.9rem" : "1rem";
+    }};
 `;
 

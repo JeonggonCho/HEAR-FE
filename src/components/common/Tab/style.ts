@@ -24,7 +24,10 @@ export const ButtonTap = styled.div<{active: string}>`
     align-items: center;
     justify-content: center;
     color: ${({active, theme}) => active === "true" ? theme.colors.font.main : theme.colors.font.sub};
-    font-size: 1.15rem;
+    font-size: ${() => {
+        const {lang} = useThemeStore();
+        return lang === "en" ? "0.9rem" : "1.15rem";
+    }};
     font-weight: ${({active}) => active === "true" ? "500" : "400"};
     letter-spacing: 0.5px;
     cursor: pointer;

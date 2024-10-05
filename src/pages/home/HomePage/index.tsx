@@ -4,7 +4,7 @@ import {ReactSVG} from "react-svg";
 import Header from "@components/common/Header";
 import ManagerCard from "@components/home/ManagerCard";
 import NoticeCard from "@components/home/NoticeCard";
-import SituationCard from "@components/home/ConditionCard";
+import ReservationConditionCard from "@components/home/ReservationConditionCard";
 import LangSettingCard from "@components/home/LangSettingCard";
 import FeedBackCard from "@components/home/FeedBackCard";
 import Modal from "@components/common/Modal";
@@ -19,6 +19,7 @@ import logo from "@assets/logo.svg";
 import alarm from "@assets/icons/alarm.svg";
 import dark from "@assets/icons/dark.svg";
 import light from "@assets/icons/light.svg";
+import {buttonLabels} from "@constants/langCategories.ts";
 
 const HomeHeaderLeft:FC = () => {
     return (
@@ -50,10 +51,12 @@ const HomeHeaderRight:FC = () => {
 const HomePage = () => {
     const [langModal, setLangModal] = useState<boolean>(false);
 
+    const {lang} = useThemeStore();
+
     return (
         <Container>
             <Header leftChild={<HomeHeaderLeft/>} rightChild={<HomeHeaderRight/>}/>
-            <SituationCard/>
+            <ReservationConditionCard/>
             <ReservationCard/>
             <NoticeCard/>
             <ManagerCard/>
@@ -64,7 +67,7 @@ const HomePage = () => {
 
             {langModal &&
               <Modal
-                title={"언어설정"}
+                title={buttonLabels.languageSetting[lang]}
                 setModal={setLangModal}
                 content={<LangSettingContent setModal={setLangModal}/>}
                 type={"bottomSheet"}

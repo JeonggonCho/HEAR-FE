@@ -27,7 +27,7 @@ const Textarea:FC<ITextareaProps> = ({register, name, errorMessage}) => {
                 maxLength={400}
             />
             {errorMessage && <InputError errorMessage={errorMessage}/> }
-            <p><span>{countOfText}</span> / 400자</p>
+            <p><span>{countOfText}</span> / 400</p>
         </Container>
     );
 };

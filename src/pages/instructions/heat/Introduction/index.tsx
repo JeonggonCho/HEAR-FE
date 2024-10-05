@@ -1,13 +1,18 @@
 import {FC} from "react";
 
+import {heatInstruction} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+
 import {Container, ImageWrapper} from "../../instruction.style.ts";
 
 import heatMachine from "@assets/instruction_images/heat/heat_machine.jpg";
 
 const Introduction:FC = () => {
+    const {lang} = useThemeStore();
+
     return (
         <Container>
-            <h3>1. 열선 기기</h3>
+            <h3>{heatInstruction.introduction.heatMachine[lang]}</h3>
 
             <ImageWrapper>
                 <img src={heatMachine} alt="열선 기기"/>
@@ -15,42 +20,42 @@ const Introduction:FC = () => {
 
             <section>
                 <div>
-                    <h4>모델명</h4>
-                    <p>MANIX 스탠드열선커터기</p>
+                    <h4>{heatInstruction.introduction.modelName[lang]}</h4>
+                    <p>{heatInstruction.introduction.detailName[lang]}</p>
                 </div>
                 <div>
-                    <h4>크기</h4>
+                    <h4>{heatInstruction.introduction.size[lang]}</h4>
                     <p>560 x 315 mm</p>
                 </div>
                 <div>
-                    <h4>열선 높이</h4>
+                    <h4>{heatInstruction.introduction.heightSize[lang]}</h4>
                     <p>210 mm</p>
                 </div>
                 <div>
-                    <h4>사용 가능 재료</h4>
-                    <p>스티로폼, 우드락, 아이소핑크 등의 폼 재료</p>
+                    <h4>{heatInstruction.introduction.validMaterial[lang]}</h4>
+                    <p>{heatInstruction.introduction.materials[lang]}</p>
                 </div>
             </section>
 
-            <h3>2. 규칙</h3>
+            <h3>{heatInstruction.introduction.rule[lang]}</h3>
 
             <section>
                 <div>
-                    <h4>대여</h4>
-                    <p>설계 스튜디오 당 1대 제한</p>
+                    <h4>{heatInstruction.introduction.rental[lang]}</h4>
+                    <p>{heatInstruction.introduction.unitLimit[lang]}</p>
                 </div>
                 <div>
-                    <h4>사용기간</h4>
-                    <p>1주일</p>
-                    <span>* 기간 내에 반납이 안될 경우, 스튜디오 전체 인원 경고 1회</span>
+                    <h4>{heatInstruction.introduction.period[lang]}</h4>
+                    <p>{heatInstruction.introduction.week[lang]}</p>
+                    <span>{heatInstruction.introduction.warning[lang]}</span>
                 </div>
                 <div>
-                    <h4>대여 절차</h4>
-                    <p>스튜디오 반장(대표자)이 조교에게 연락 → 방문 후 신분증 확인 → 열선 수령 → 사용 → 반납</p>
+                    <h4>{heatInstruction.introduction.procedure[lang]}</h4>
+                    <p>{heatInstruction.introduction.detailProcedure[lang]}</p>
                 </div>
                 <div>
-                    <h4>열선 와이어</h4>
-                    <p>열선 와이어는 개인이 별도로 구매해야 함</p>
+                    <h4>{heatInstruction.introduction.wire[lang]}</h4>
+                    <p>{heatInstruction.introduction.wireWarning[lang]}</p>
                 </div>
             </section>
         </Container>

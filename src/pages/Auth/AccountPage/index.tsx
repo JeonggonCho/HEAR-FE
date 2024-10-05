@@ -5,7 +5,6 @@ import Header from "@components/common/Header";
 import ProfileCard from "@components/account/ProfileCard";
 import Button from "@components/common/Button";
 import StatusCard from "@components/account/StatusCard";
-import CountOfLaserCard from "@components/account/CountOfLaserCard";
 import ReservationListCard from "@components/account/ReservationListCard";
 import UsageListCard from "@components/account/UsageListCard";
 import Modal from "@components/common/Modal";
@@ -17,6 +16,7 @@ import LinkCard from "@components/common/LinkCard";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
 import useRequest from "@hooks/useRequest.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container, HeaderWrapper, UpdateButtonWrapper} from "./style.ts";
 
@@ -24,6 +24,7 @@ import no_profile from "@assets/images/no_profile.png";
 import machine from "@assets/images/machine.png";
 import list from "@assets/images/list.png";
 import myPage from "@assets/images/manager.png";
+import {buttonLabels, message, navLabels} from "@constants/langCategories.ts";
 
 const AccountPage:FC = () => {
     const [logoutModal, setLogoutModal] = useState<boolean>(false);
@@ -35,6 +36,7 @@ const AccountPage:FC = () => {
     const {setUserInfo, clearUserInfo} = useUserInfoStore();
     const {userData, setUserData, clearUserData} = useUserDataStore();
     const {logout} = useAuthStore();
+    const {lang} = useThemeStore();
 
     const fetchUser = useCallback(async () => {
         try {
@@ -64,15 +66,16 @@ const AccountPage:FC = () => {
     const AccountHeaderLeft:FC = () => (
         <HeaderWrapper>
             <img src={myPage} alt={"내정보"}/>
-            <h2>내 정보</h2>
+            <h2>{navLabels.account[lang]}</h2>
         </HeaderWrapper>
     );
 
     const AccountHeaderRight:FC = () => {
+        const {lang} = useThemeStore();
         return (
             <Button
                 type={"button"}
-                content={"로그아웃"}
+                content={buttonLabels.signOut[lang]}
                 width={"fit"}
                 color={"second"}
                 scale={"small"}
@@ -85,7 +88,7 @@ const AccountPage:FC = () => {
         const leftBtn = (
             <Button
                 type={"button"}
-                content={"닫 기"}
+                content={buttonLabels.close[lang]}
                 width={"full"}
                 color={"third"}
                 scale={"normal"}
@@ -95,7 +98,7 @@ const AccountPage:FC = () => {
         const rightBtn = (
             <Button
                 type={"submit"}
-                content={"로그아웃"}
+                content={buttonLabels.signOut[lang]}
                 width={"full"}
                 color={"danger"}
                 scale={"normal"}
@@ -103,7 +106,7 @@ const AccountPage:FC = () => {
             />
         );
         return (
-            <ConfirmContent text={"로그아웃 하시겠습니까?"} leftBtn={leftBtn} rightBtn={rightBtn}/>
+            <ConfirmContent text={message.signOut[lang]} leftBtn={leftBtn} rightBtn={rightBtn}/>
         );
     };
 
@@ -111,7 +114,7 @@ const AccountPage:FC = () => {
         const leftBtn = (
             <Button
                 type={"button"}
-                content={"닫 기"}
+                content={buttonLabels.close[lang]}
                 width={"full"}
                 color={"third"}
                 scale={"normal"}
@@ -121,7 +124,7 @@ const AccountPage:FC = () => {
         const rightBtn = (
             <Button
                 type={"submit"}
-                content={"탈 퇴"}
+                content={buttonLabels.accountDeletion[lang]}
                 width={"full"}
                 color={"danger"}
                 scale={"normal"}
@@ -129,8 +132,8 @@ const AccountPage:FC = () => {
         );
         return (
             <ConfirmContent
-                text={"탈퇴 하시겠습니까?"}
-                description={"탈퇴 시, 유저의 모든 정보가 삭제됩니다"}
+                text={message.accountDeletion[lang]}
+                description={message.ifDeletingAccount[lang]}
                 leftBtn={leftBtn}
                 rightBtn={rightBtn}
             />
@@ -147,14 +150,13 @@ const AccountPage:FC = () => {
                     <ProfileCard/>
 
                     <UpdateButtonWrapper>
-                        <Button type={"link"} content={"내정보 수정"} width={"full"} color={"second"} scale={"normal"} to={"/account/update"}/>
-                        <Button type={"link"} content={"비밀번호 변경"} width={"full"} color={"second"} scale={"normal"} to={"/password/update"}/>
+                        <Button type={"link"} content={buttonLabels.profileUpdate[lang]} width={"full"} color={"second"} scale={"normal"} to={"/account/update"}/>
+                        <Button type={"link"} content={buttonLabels.passwordChange[lang]} width={"full"} color={"second"} scale={"normal"} to={"/password/update"}/>
                     </UpdateButtonWrapper>
 
                     {userData?.role === "student" &&
                         <>
                           <StatusCard/>
-                          <CountOfLaserCard/>
                           <ReservationListCard/>
                           <UsageListCard/>
                         </>
@@ -162,15 +164,15 @@ const AccountPage:FC = () => {
 
                     {(userData?.role === "manager" || userData?.role === "admin") && (
                         <>
-                            <LinkCard image={list} name={"예약 관리"} to={"/management/reservations"} type={"linear"} />
-                            <LinkCard image={no_profile} name={"유저 관리"} to={"/management/users"} type={"linear"} />
-                            <LinkCard image={machine} name={"기기 관리"} to={"/management/machines"} type={"linear"} />
+                            <LinkCard image={list} name={buttonLabels.reservationManagement[lang]} to={"/management/reservations"} type={"linear"} />
+                            <LinkCard image={no_profile} name={buttonLabels.userManagement[lang]} to={"/management/users"} type={"linear"} />
+                            <LinkCard image={machine} name={buttonLabels.machineManagement[lang]} to={"/management/machines"} type={"linear"} />
                         </>
                     )}
 
                     <Button
                         type={"button"}
-                        content={"탈퇴하기"}
+                        content={buttonLabels.accountDeletion[lang]}
                         width={"full"}
                         color={"second"}
                         scale={"big"}

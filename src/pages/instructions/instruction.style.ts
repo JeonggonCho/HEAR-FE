@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 export const Container = styled.div`
     div + div {
@@ -40,7 +41,11 @@ export const Container = styled.div`
         line-height: 1.5;
         margin: 0 0 20px;
         font-size: 1.15rem;
-        word-break: keep-all;
+        text-wrap: wrap;
+        word-break: ${() => {
+            const {lang} = useThemeStore();
+            return lang === "ch" ? "break-all" : "keep-all";
+        }};
     }
 
     span {     

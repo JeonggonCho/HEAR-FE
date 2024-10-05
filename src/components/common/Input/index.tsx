@@ -62,6 +62,7 @@ const Input = <TFieldValues extends FieldValues>(
             }
 
             {errorMessage && <InputError errorMessage={errorMessage}/>}
+
             {visibleToggle && inputType === "password"
                 ? <ReactSVG
                     src={visible}

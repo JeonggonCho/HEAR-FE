@@ -14,6 +14,8 @@ import Calendar from "@components/common/Calendar";
 
 import {machineType} from "@constants/machineCategories.ts";
 import {printerSchema} from "@schemata/machineSchema.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {buttonLabels, headerTitle, inputLabels} from "@constants/langCategories.ts";
 
 import {Container, ImageWrapper, MapIcon} from "./style.ts";
 
@@ -23,6 +25,8 @@ import mapIcon from "@assets/icons/map.svg";
 const ReservationPrinter:FC = () => {
     const [isOpenCalendar, setIsOpenCalendar] = useState<boolean>(false);
     const [showMap, setShowMap] = useState<boolean>(false);
+
+    const {lang} = useThemeStore();
 
     const {register, handleSubmit, formState: {errors}, setValue} = useForm({
         resolver: zodResolver(printerSchema),
@@ -41,7 +45,7 @@ const ReservationPrinter:FC = () => {
         <Container>
             <Header
                 leftChild={<ArrowBack/>}
-                centerText={"3D 프린터 예약"}
+                centerText={headerTitle.printerReservationHeader[lang]}
                 rightChild={
                     <MapIcon onClick={() => setShowMap(true)}>
                         <ReactSVG src={mapIcon}/>
@@ -55,7 +59,7 @@ const ReservationPrinter:FC = () => {
                 console.log(data);
             })}>
                 <Select
-                    label={"기기 선택"}
+                    label={inputLabels.selectMachine[lang]}
                     categories={machineType}
                     name={"machine"}
                     register={register}
@@ -64,7 +68,7 @@ const ReservationPrinter:FC = () => {
                 />
 
                 <Input
-                    label={"날 짜"}
+                    label={inputLabels.date[lang]}
                     type={"date"}
                     id={"printer-reservation-date"}
                     name={"date"}
@@ -75,12 +79,12 @@ const ReservationPrinter:FC = () => {
                     readonly
                 />
 
-                <Button type={"submit"} content={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>
+                <Button type={"submit"} content={buttonLabels.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
             </form>
 
             {isOpenCalendar &&
               <Modal
-                title={"날 짜"}
+                title={inputLabels.date[lang]}
                 content={
                     <Calendar
                         setModal={setIsOpenCalendar}

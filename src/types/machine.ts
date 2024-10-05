@@ -1,5 +1,4 @@
 export interface IMachine {
-    name: string;
     image: string;
     link?: string;
     type: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc";
@@ -30,3 +29,11 @@ export interface ILaserTimes {
     endTime: string;
     url: string;
 }
+
+export type MachineNameType = {
+    [key in 'laser' | 'printer' | 'heat' | 'saw' | 'vacuum' | 'cnc']: {
+        ko: string;
+        en: string;
+        ch: string;
+    };
+};

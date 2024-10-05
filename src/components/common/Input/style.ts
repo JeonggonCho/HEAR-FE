@@ -9,6 +9,7 @@ export const Container = styled.div`
     label {
         color: ${({theme}) => theme.colors.font.sub};
         margin-left: 6px;
+        line-height: 1.5;
     }
     
     input {
@@ -42,7 +43,7 @@ export const Container = styled.div`
         fill: ${({theme}) => theme.colors.icon.fill};
         position: absolute;
         right: 12px;
-        top: 30px;
+        top: 40px;
         cursor: pointer;
     }
 

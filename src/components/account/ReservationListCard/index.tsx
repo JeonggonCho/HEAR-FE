@@ -1,15 +1,20 @@
 import {FC} from 'react';
 
+import {cardLabels} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+
 import {Container, Reservation} from "./style.ts";
 
 import myReservation from "@assets/images/my_reservation.png";
 
 const ReservationListCard:FC = () => {
+    const {lang} = useThemeStore();
+
     return (
         <Container>
             <div>
                 <img src={myReservation} alt="나의 예약"/>
-                <h3>나의 예약</h3>
+                <h3>{cardLabels.myReservation[lang]}</h3>
             </div>
 
             <div>

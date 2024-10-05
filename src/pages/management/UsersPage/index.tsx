@@ -14,6 +14,8 @@ import Button from "@components/common/Button";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IUserFilter, IUserList} from "@/types/user.ts";
+import {headerTitle} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Badge, Container, UserControlWrapper} from "./style.ts";
 
@@ -27,6 +29,8 @@ const UsersPage:FC = () => {
     const [filter, setFilter] = useState<IUserFilter>({year: ["all"], passQuiz: ["all"], countOfWarning:["all"]});
     const [usernameInputText, setUsernameInputText] = useState<string>("");
     const [username, setUsername] = useState<string>(usernameInputText.trim());
+
+    const {lang} = useThemeStore();
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
@@ -52,7 +56,7 @@ const UsersPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"유저 관리"}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerTitle.userManagementHeader[lang]}/>
             {isLoading ?
                 <LoadingLoop/>
                 :

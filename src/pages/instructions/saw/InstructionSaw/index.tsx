@@ -5,6 +5,8 @@ import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
 
 import {ITab} from "@/types/tab.ts";
+import {machineName, sawTabType} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Content} from "../../printer/InstructionPrinter/style.ts";
 import {MachineImgWrapper} from "./style.ts";
@@ -14,13 +16,15 @@ import saw from "@assets/images/saw.png";
 import Warning from "../Warning";
 import After from "../After";
 
-const tabs: ITab[] = [
-    { name: "주의사항", content: <Warning/>, },
-    { name: "사용후", content: <After/>, },
-];
-
 const InstructionSaw:FC = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
+
+    const {lang} = useThemeStore();
+
+    const tabs: ITab[] = [
+        { name: sawTabType.precaution[lang], content: <Warning/>, },
+        { name: sawTabType.after[lang], content: <After/>, },
+    ];
 
     useEffect(() => {
         window.scrollTo({top: 0, behavior: "smooth"});
@@ -28,7 +32,7 @@ const InstructionSaw:FC = () => {
 
     return (
         <div>
-            <Header leftChild={<ArrowBack/>} centerText={"톱"}/>
+            <Header leftChild={<ArrowBack/>} centerText={machineName.saw[lang]}/>
             <MachineImgWrapper>
                 <img src={saw} alt="톱"/>
             </MachineImgWrapper>

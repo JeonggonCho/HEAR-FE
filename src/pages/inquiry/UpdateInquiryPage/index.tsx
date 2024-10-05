@@ -17,7 +17,8 @@ import ConfirmContent from "@components/content/ConfirmContent";
 
 import useRequest from "@hooks/useRequest.ts";
 import {inquirySchema} from "@schemata/qnaSchema.ts";
-import {inquiryCategories} from "@constants/inquiryCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {buttonLabels, headerTitle, inputLabels, inquiryType, placeholders} from "@constants/langCategories.ts";
 
 import {Container} from "./style.ts";
 
@@ -30,6 +31,15 @@ const UpdateInquiryPage:FC = () => {
     const {inquiryId} = useParams();
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
+
+    const {lang} = useThemeStore();
+
+    const inquiryCategories = [
+        {label: inquiryType.machine[lang], value: "machine", id: "radio-1"},
+        {label: inquiryType.reservation[lang], value: "reservation", id: "radio-2"},
+        {label: inquiryType.studio[lang], value: "room", id: "radio-3"},
+        {label: inquiryType.etc[lang], value: "etc", id: "radio-4"},
+    ];
 
     const fetchInquiry = useCallback(async () => {
         try {
@@ -88,7 +98,7 @@ const UpdateInquiryPage:FC = () => {
         const leftBtn = (
             <Button
                 type={"button"}
-                content={"닫기"}
+                content={buttonLabels.close[lang]}
                 width={"full"}
                 color={"third"}
                 scale={"normal"}
@@ -98,7 +108,7 @@ const UpdateInquiryPage:FC = () => {
         const rightBtn = (
             <Button
                 type={"submit"}
-                content={"수정하기"}
+                content={buttonLabels.edit[lang]}
                 width={"full"}
                 color={"approval"}
                 scale={"normal"}
@@ -116,16 +126,16 @@ const UpdateInquiryPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"문의 수정"}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerTitle.editInquiry[lang]}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
                 <>
                     <form onSubmit={handleSubmit(submitHandler)}>
                         <Input
-                            label={"제 목"}
+                            label={inputLabels.title[lang]}
                             type={"text"}
-                            placeholder={"제목을 입력해주세요"}
+                            placeholder={placeholders.title[lang]}
                             id={"inquiry-title"}
                             name={"title"}
                             register={register}
@@ -146,7 +156,7 @@ const UpdateInquiryPage:FC = () => {
                             errorMessage={errors.content?.message}
                         />
 
-                        <Button type={"submit"} content={"문의 수정하기"} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={buttonLabels.edit[lang]} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
 
                     {updateInquiryModal &&

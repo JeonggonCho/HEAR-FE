@@ -21,6 +21,8 @@ import useRequest from "@hooks/useRequest.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {IAuthResponseData} from "@/types/authResponse.ts";
+import {buttonLabels, headerTitle, inputLabels, placeholders} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
 
@@ -30,6 +32,8 @@ const SignupPage:FC = () => {
     const {login} = useAuthStore();
     const {setUserInfo} = useUserInfoStore();
     const {setUserData} = useUserDataStore();
+    const {lang} = useThemeStore();
+
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     type SignupFormData = z.infer<typeof signupSchema>;
@@ -69,16 +73,16 @@ const SignupPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"회원가입"}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerTitle.signUp[lang]}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
                 <>
                     <form onSubmit={handleSubmit(submitHandler)}>
                         <Input
-                            label={"이름"}
+                            label={inputLabels.username[lang]}
                             type={"text"}
-                            placeholder={"이름을 입력해주세요"}
+                            placeholder={placeholders.username[lang]}
                             id={"username"}
                             name={"username"}
                             register={register}
@@ -86,9 +90,9 @@ const SignupPage:FC = () => {
                         />
 
                         <Input
-                            label={"한양대학교 이메일 (아이디)"}
+                            label={inputLabels.hyuEmail[lang]}
                             type={"text"}
-                            placeholder={"이메일을 입력해주세요"}
+                            placeholder={placeholders.email[lang]}
                             id={"email"}
                             name={"email"}
                             register={register}
@@ -96,9 +100,9 @@ const SignupPage:FC = () => {
                         />
 
                         <Input
-                            label={"비밀번호"}
+                            label={inputLabels.password[lang]}
                             type={"password"}
-                            placeholder={"비밀번호를 입력해주세요"}
+                            placeholder={placeholders.password[lang]}
                             id={"password"}
                             name={"password"}
                             register={register}
@@ -107,9 +111,9 @@ const SignupPage:FC = () => {
                         />
 
                         <Input
-                            label={"비밀번호 확인"}
+                            label={inputLabels.confirmPassword[lang]}
                             type={"password"}
-                            placeholder={"비밀번호를 한번 더 입력해주세요"}
+                            placeholder={placeholders.confirmPassword[lang]}
                             id={"confirm-password"}
                             name={"confirmPassword"}
                             register={register}
@@ -118,7 +122,7 @@ const SignupPage:FC = () => {
                         />
 
                         <Select
-                            label={"학 년"}
+                            label={inputLabels.year[lang]}
                             categories={yearCategories}
                             name={"year"}
                             register={register}
@@ -127,9 +131,9 @@ const SignupPage:FC = () => {
                         />
 
                         <Input
-                            label={"학 번"}
+                            label={inputLabels.studentId[lang]}
                             type={"number"}
-                            placeholder={"학번을 입력해주세요"}
+                            placeholder={placeholders.studentId[lang]}
                             id={"student-id"}
                             name={"studentId"}
                             register={register}
@@ -137,9 +141,9 @@ const SignupPage:FC = () => {
                         />
 
                         <Input
-                            label={"스튜디오 지도 교수님"}
+                            label={inputLabels.studio[lang]}
                             type={"text"}
-                            placeholder={"지도 교수님 이름을 입력해주세요"}
+                            placeholder={placeholders.studio[lang]}
                             id={"studio"}
                             name={"studio"}
                             register={register}
@@ -147,18 +151,18 @@ const SignupPage:FC = () => {
                         />
 
                         <Input
-                            label={"전화번호"}
+                            label={inputLabels.tel[lang]}
                             type={"tel"}
-                            placeholder={"전화번호를 입력해주세요"}
+                            placeholder={placeholders.tel[lang]}
                             id={"tel"}
                             name={"tel"}
                             register={register}
                             errorMessage={errors.tel?.message}
                         />
 
-                        <Button type={"submit"} content={"회원가입"} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={buttonLabels.signUp[lang]} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
-                    <Link text={"로그인"} to={"/login"} color={"primary"}/>
+                    <Link text={buttonLabels.signIn[lang]} to={"/login"} color={"primary"}/>
                 </>
             }
 

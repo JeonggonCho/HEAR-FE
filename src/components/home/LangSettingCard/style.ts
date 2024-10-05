@@ -32,6 +32,7 @@ export const Container = styled.div`
         font-weight: 500;
         margin: 0 0 8px;
         transition: all 0.2s ease-in-out 0s;
+        line-height: 1.5;
     }
 
     &:active {

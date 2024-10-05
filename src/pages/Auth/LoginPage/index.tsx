@@ -19,6 +19,8 @@ import useRequest from "@hooks/useRequest.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {IAuthResponseData} from "@/types/authResponse.ts";
+import {buttonLabels, headerTitle, inputLabels, placeholders} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
 
@@ -30,6 +32,8 @@ const LoginPage:FC = () => {
     const {login} = useAuthStore();
     const {setUserInfo} = useUserInfoStore();
     const {setUserData} = useUserDataStore();
+    const {lang} = useThemeStore();
+
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     type LoginFormData = z.infer<typeof loginSchema>;
@@ -78,7 +82,7 @@ const LoginPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"로그인"}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerTitle.signIn[lang]}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
@@ -93,9 +97,9 @@ const LoginPage:FC = () => {
 
                     <form onSubmit={handleSubmit(submitHandler)}>
                         <Input
-                            label={"한양대학교 이메일"}
+                            label={inputLabels.hyuEmail[lang]}
                             type={"text"}
-                            placeholder={"이메일을 입력해주세요"}
+                            placeholder={placeholders.email[lang]}
                             id={"email"}
                             name={"email"}
                             register={register}
@@ -103,9 +107,9 @@ const LoginPage:FC = () => {
                         />
 
                         <Input
-                            label={"비밀번호"}
+                            label={inputLabels.password[lang]}
                             type={"password"}
-                            placeholder={"비밀번호를 입력해주세요"}
+                            placeholder={placeholders.password[lang]}
                             id={"password"}
                             name={"password"}
                             register={register}
@@ -115,15 +119,15 @@ const LoginPage:FC = () => {
 
                         <Button
                             type={"submit"}
-                            content={"로그인"}
+                            content={buttonLabels.signIn[lang]}
                             width={"full"}
                             color={"primary"}
                             scale={"big"}
                         />
                     </form>
 
-                    <Link text={"회원가입"} to={"/signup"} color={"primary"}/>
-                    <Link text={"비밀번호 찾기"} to={"/password/reset"} color={"second"}/>
+                    <Link text={buttonLabels.signUp[lang]} to={"/signup"} color={"primary"}/>
+                    <Link text={buttonLabels.findPassword[lang]} to={"/password/reset"} color={"second"}/>
                 </>
             }
 

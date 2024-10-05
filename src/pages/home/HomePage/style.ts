@@ -72,10 +72,6 @@ export const ThemeWrapper = styled.div`
 `;
 
 export const Container = styled.div`
-    & > div:first-of-type {
-        background-color: ${({theme}) => theme.colors.bg.main} !important;
-    }
-    
     & > div:first-of-type,
     & > div:nth-of-type(2),
     & > div:nth-of-type(3),

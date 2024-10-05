@@ -10,12 +10,16 @@ import ErrorContent from "@components/content/ErrorContent";
 import {useUserDataStore} from "@store/useUserStore.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {INotice} from "@/types/componentProps.ts";
+import {message} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
 
 const NoticePage:FC = () => {
     const [notices, setNotices] = useState<INotice[]>([]);
+
     const {userData} = useUserDataStore();
+    const {lang} = useThemeStore();
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
@@ -49,7 +53,7 @@ const NoticePage:FC = () => {
                             />
                         ))
                         :
-                        <Empty title={"작성된 공지사항이 없습니다"}/>
+                        <Empty title={message.emptyNotice[lang]}/>
                     }
 
                     {userData?.role === "manager" &&

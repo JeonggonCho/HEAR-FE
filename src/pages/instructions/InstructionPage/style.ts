@@ -18,6 +18,7 @@ export const HeaderWrapper = styled.div`
 export const Container = styled.div`
     p {
         margin: 0 0 24px 6px;
+        line-height: 1.5;
         color: ${({theme}) => theme.colors.font.main};
     }
 

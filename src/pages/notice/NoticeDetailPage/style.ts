@@ -38,9 +38,9 @@ export const NoticeInfoWrapper = styled.div`
     background-color: ${({theme}) => theme.colors.bg.main};
 
     h2 {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         font-weight: 500;
-        line-height: 1.2;
+        line-height: 1.5;
         color: ${({theme}) => theme.colors.font.main};
         margin: 0 24px 12px 24px;
         word-break: keep-all;

@@ -9,6 +9,8 @@ import ErrorContent from "@components/content/ErrorContent";
 
 import {IDropdownProps} from "@/types/componentProps.ts";
 import useRequest from "@hooks/useRequest.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {buttonLabels, message} from "@constants/langCategories.ts";
 
 import {Container, DropdownWrapper} from "./style.ts";
 
@@ -19,6 +21,8 @@ import more from "@assets/icons/more.svg";
 const Dropdown:FC<IDropdownProps> = ({type, id}) => {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
+
+    const {lang} = useThemeStore();
 
     const navigate = useNavigate();
 
@@ -79,14 +83,14 @@ const Dropdown:FC<IDropdownProps> = ({type, id}) => {
             {showDropdown &&
                 <DropdownWrapper>
                     <div onClick={updateLinkHandler}>
-                        <ReactSVG src={editIcon}/> 수정하기
+                        <ReactSVG src={editIcon}/> {buttonLabels.edit[lang]}
                     </div>
 
                     <div onClick={() => {
                         setShowModal(true);
                         setShowDropdown(false);
                     }}>
-                        <ReactSVG src={deleteIcon}/> 삭제하기
+                        <ReactSVG src={deleteIcon}/> {buttonLabels.delete[lang]}
                     </div>
                 </DropdownWrapper>
             }
@@ -94,9 +98,9 @@ const Dropdown:FC<IDropdownProps> = ({type, id}) => {
             {showModal &&
                 <Modal
                     content={<ConfirmContent
-                        text={"삭제 하시겠습니까?"}
-                        leftBtn={<Button type={"button"} content={"닫 기"} color={"third"} scale={"normal"} width={"full"} onClick={() => setShowModal(false)}/> }
-                        rightBtn={<Button type={"submit"} content={"삭 제"} color={"danger"} scale={"normal"} width={"full"} onClick={deleteHandler}/>}
+                        text={message.delete[lang]}
+                        leftBtn={<Button type={"button"} content={buttonLabels.close[lang]} color={"third"} scale={"normal"} width={"full"} onClick={() => setShowModal(false)}/> }
+                        rightBtn={<Button type={"submit"} content={buttonLabels.delete[lang]} color={"danger"} scale={"normal"} width={"full"} onClick={deleteHandler}/>}
                     />}
                     setModal={setShowModal}
                     type={"popup"}

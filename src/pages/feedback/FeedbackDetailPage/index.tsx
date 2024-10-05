@@ -13,12 +13,13 @@ import useRequest from "@hooks/useRequest.ts";
 import {IFeedbackProps} from "@/types/componentProps.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import {feedbackCategoriesValues} from "@constants/feedbackCategories.ts";
+import {useUserInfoStore} from "@store/useUserStore.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {headerTitle} from "@constants/langCategories.ts";
 
 import {Container, FeedbackInfoWrapper} from "./style.ts";
 
 import F from "@assets/images/F.png";
-import {useUserInfoStore} from "@store/useUserStore.ts";
-
 
 const FeedbackDetailPage:FC = () => {
     const [feedback, setFeedback] = useState<IFeedbackProps>();
@@ -26,6 +27,7 @@ const FeedbackDetailPage:FC = () => {
     const {feedbackId} = useParams();
 
     const {userInfo} = useUserInfoStore();
+    const {lang} = useThemeStore();
 
     const timeStamp = useMemo(() => {
         return feedback?.createdAt ? getTimeStamp(feedback.createdAt) : '';
@@ -50,7 +52,7 @@ const FeedbackDetailPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"피드백"}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerTitle.feedbackDetail[lang]}/>
             {!isLoading && feedback ?
                 <>
                     <FeedbackInfoWrapper>

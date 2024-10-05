@@ -8,10 +8,14 @@ import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 
 import {findPasswordSchema} from "@schemata/userSchema.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {buttonLabels, headerTitle, inputLabels, placeholders} from "@constants/langCategories.ts";
 
 import {Container} from "./style.ts";
 
 const FindPasswordPage:FC = () => {
+    const {lang} = useThemeStore();
+
     const {register, handleSubmit, formState:{errors}} = useForm({
         resolver: zodResolver(findPasswordSchema),
         defaultValues: {
@@ -23,14 +27,14 @@ const FindPasswordPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"비밀번호 찾기"}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerTitle.findPassword[lang]}/>
             <form method={"post"} onSubmit={handleSubmit((data) => {
                 console.log(data);
             })}>
                 <Input
-                    label={"이 름"}
+                    label={inputLabels.username[lang]}
                     type={"text"}
-                    placeholder={"이름을 입력해주세요"}
+                    placeholder={placeholders.username[lang]}
                     name={"username"}
                     id={"username"}
                     register={register}
@@ -38,9 +42,9 @@ const FindPasswordPage:FC = () => {
                 />
 
                 <Input
-                    label={"한양대학교 이메일 (아이디)"}
+                    label={inputLabels.hyuEmail[lang]}
                     type={"text"}
-                    placeholder={"이메일을 입력해주세요"}
+                    placeholder={placeholders.email[lang]}
                     name={"email"}
                     id={"email"}
                     register={register}
@@ -48,16 +52,16 @@ const FindPasswordPage:FC = () => {
                 />
 
                 <Input
-                    label={"학 번"}
+                    label={inputLabels.studentId[lang]}
                     type={"number"}
-                    placeholder={"학번을 입력해주세요"}
+                    placeholder={placeholders.studentId[lang]}
                     name={"studentId"}
                     id={"student-id"}
                     register={register}
                     errorMessage={errors.studentId?.message}
                 />
 
-                <Button type={"submit"} content={"비밀번호 찾기"} width={"full"} color={"primary"} scale={"big"}/>
+                <Button type={"submit"} content={buttonLabels.findPassword[lang]} width={"full"} color={"primary"} scale={"big"}/>
             </form>
         </Container>
     );

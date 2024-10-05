@@ -5,6 +5,7 @@ import ArrowForward from "@components/common/ArrowForward";
 import {ILangSettingCardProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {langCategories} from "@constants/themeCategories.ts";
+import {buttonLabels} from "@constants/langCategories.ts";
 
 import {Container} from "./style.ts";
 
@@ -14,8 +15,8 @@ const LangSettingCard:FC<ILangSettingCardProps> = ({setModal}) => {
     return (
         <Container onClick={() => setModal(true)}>
             <div>
-                <h3>언어설정</h3>
-                <span>Language</span>
+                <h3>{buttonLabels.languageSetting[lang]}</h3>
+                {lang !== "en" && <span>Language</span>}
             </div>
             <div>
                 <h4>{langCategories[lang]}</h4>

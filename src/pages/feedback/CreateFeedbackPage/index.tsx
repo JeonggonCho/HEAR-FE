@@ -14,14 +14,31 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
 
-import {feedbackCategories} from "@constants/feedbackCategories.ts";
 import {feedbackSchema} from "@schemata/qnaSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
+import {
+    buttonLabels,
+    feedbackType,
+    headerTitle,
+    inputLabels,
+    pageIntroduction,
+    placeholders
+} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
 
 const CreateFeedbackPage:FC = () => {
     const navigate = useNavigate();
+
+    const {lang} = useThemeStore();
+
+    const feedbackCategories = [
+        {label: feedbackType.good[lang], value: "good", id: "radio-1"},
+        {label: feedbackType.bad[lang], value: "bad", id: "radio-2"},
+        {label: feedbackType.suggest[lang], value: "suggest", id: "radio-3"},
+        {label: feedbackType.etc[lang], value: "etc", id: "radio-4"},
+    ];
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
@@ -52,23 +69,20 @@ const CreateFeedbackPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"어플리케이션 피드백"}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerTitle.feedback[lang]}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
                 <>
-                    <p>
-                        어플리케이션의 좋은점, 개선점 등<br/>
-                        여러분의 피드백을 보내주세요
-                    </p>
+                    <p>{pageIntroduction.createFeedback[lang]}</p>
 
                     <form onSubmit={handleSubmit(submitHandler)}>
                         <Input
-                            label={"제 목"}
+                            label={inputLabels.title[lang]}
                             type={"text"}
                             id={"inquiry-title"}
                             name={"title"}
-                            placeholder={"제목을 입력해주세요"}
+                            placeholder={placeholders.title[lang]}
                             register={register}
                             errorMessage={errors.title?.message}
                         />
@@ -87,7 +101,7 @@ const CreateFeedbackPage:FC = () => {
                             errorMessage={errors.content?.message}
                         />
 
-                        <Button type={"submit"} content={"피드백 보내기"} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={buttonLabels.sendFeedback[lang]} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
                 </>
             }

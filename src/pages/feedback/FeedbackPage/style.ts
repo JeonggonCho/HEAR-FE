@@ -7,6 +7,6 @@ export const Container = styled.div`
     p {
         color: ${({theme}) => theme.colors.font.sub};
         line-height: 1.5;
-        margin: 12px 0 12px 6px;
+        margin: 28px 0 16px 6px;
     }
 `;

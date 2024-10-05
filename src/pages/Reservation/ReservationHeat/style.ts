@@ -9,8 +9,6 @@ export const Container = styled.div`
         width: calc(100% + 48px);
         margin-left: -24px;
         padding: 24px;
-        min-height: calc(100vh - 260px);
-        margin-bottom: -200px;
         background-color: ${({theme}) => theme.colors.bg.main};
         display: flex;
         flex-direction: column;
@@ -116,6 +114,7 @@ export const ReturnDateWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 12px;
     background-color: ${({theme}) => theme.colors.button.approval};
     border-radius: 12px;
     font-size: 1rem;
@@ -123,6 +122,7 @@ export const ReturnDateWrapper = styled.div`
     margin-top: -24px;
 
     & > span {
+        display: inline-block;
         color: ${({theme}) => theme.colors.font.primary};
         margin-right: 8px;
     }

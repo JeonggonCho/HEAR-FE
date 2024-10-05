@@ -9,11 +9,16 @@ import ErrorContent from "@components/content/ErrorContent";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IFeedbackProps} from "@/types/componentProps.ts";
+import {message, pageIntroduction} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
 
+
 const FeedbackPage:FC = () => {
     const [feedback, setFeedback] = useState<IFeedbackProps[]>([]);
+
+    const {lang} = useThemeStore();
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
@@ -38,18 +43,15 @@ const FeedbackPage:FC = () => {
                 <LoadingLoop/>
                 :
                 <>
-                    <p>
-                        피드백은 애플리케이션 개발자에게 전달되며,<br/>
-                        해당 앱 업데이트에 도움이 됩니다
-                    </p>
+                    <p>{pageIntroduction.feedback[lang]}</p>
 
                     {feedback.length !== 0 ? feedback.map((value, idx) => (
                             <InquiryFeedbackListItem key={idx} type={"feedback"} {...value}/>
                         ))
                         :
                         <Empty
-                            title={"작성하신 피드백이 아직 없어요"}
-                            message={"서비스에 대한 여러분의 피드백을 남겨주세요"}
+                            title={message.emptyFeedback[lang]}
+                            message={message.makeFeedback[lang]}
                         />
                     }
 

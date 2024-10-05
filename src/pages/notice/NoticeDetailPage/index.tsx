@@ -13,8 +13,11 @@ import {INotice} from "@/types/componentProps.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {headerTitle} from "@constants/langCategories.ts";
 
 import {Container, NoticeInfoWrapper} from "./style.ts";
+
 
 const NoticeDetailPage:FC = () => {
     const [notice, setNotice] = useState<INotice>();
@@ -22,6 +25,7 @@ const NoticeDetailPage:FC = () => {
     const {noticeId} = useParams();
 
     const {userData} = useUserDataStore();
+    const {lang} = useThemeStore();
 
     const timeStamp = useMemo(() => {
         return notice?.createdAt ? getTimeStamp(notice.createdAt): '';
@@ -50,7 +54,7 @@ const NoticeDetailPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"공지사항"}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerTitle.noticeDetail[lang]}/>
             {!isLoading && notice ?
                 <>
                     <NoticeInfoWrapper>

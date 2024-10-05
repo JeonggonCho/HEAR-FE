@@ -1,14 +1,12 @@
 import styled from "@emotion/styled";
-import {useThemeStore} from "@store/useThemeStore.ts";
-import {lighten} from "polished";
 
 export const Container = styled.div`
     width: calc(100% + 48px);
     margin-left: -24px;
     padding: 8px 0;
-    background-color: ${({theme}) => theme.colors.bg.main};
 
     // 캐로젤 영역
+
     & > div:first-of-type {
         // 캐로젤 컨텐츠 영역
 
@@ -16,21 +14,24 @@ export const Container = styled.div`
             height: 100%;
             margin-top: 12px;
             margin-bottom: 36px;
+            display: flex;
+            align-items: center;
 
             // 각각의 컨텐츠
+
             & > div {
-                width: 80% !important;
-                padding: 20px;
+                min-height: 250px;
+                width: 80%;
+                padding: 20px 40px;
                 border-radius: 20px;
+                cursor: grab;
                 background-color: ${({theme}) => theme.colors.bg.main};
-                border: 1px solid ${({theme}) => {
-                    const {isDarkMode} = useThemeStore();
-                    return isDarkMode ? theme.colors.line.main : lighten(0.02, theme.colors.line.main);
-                }};
-                box-shadow: 0 0 10px ${({theme}) => {
-                    const {isDarkMode} = useThemeStore();
-                    return isDarkMode ? theme.colors.bg.shadow : lighten(0.5, theme.colors.bg.shadow);
-                }};
+                box-shadow: 0 0 1px ${({theme}) => theme.colors.bg.shadow};
+                
+                @media (max-width: 500px) {
+                    padding: 20px;
+                    width: 85%;
+                }
             }
         }
 
@@ -39,7 +40,7 @@ export const Container = styled.div`
         & > div:nth-of-type(2) {
             height: 100%;
             margin-left: -4px;
-            top: 0 !important;
+            top: 8px !important;
             color: ${({theme}) => theme.colors.font.sub};
             transition: all 0.2s ease-in-out 0s;
 
@@ -66,7 +67,7 @@ export const Container = styled.div`
         & > div:nth-of-type(3) {
             height: 100%;
             margin-right: -4px;
-            top: 0 !important;
+            top: 8px !important;
             color: ${({theme}) => theme.colors.font.sub};
             transition: all 0.2s ease-in-out 0s;
 
@@ -92,7 +93,14 @@ export const Container = styled.div`
 
         & > div:nth-of-type(4) {
             & > span {
+                margin: 0 6px;
+                transition: all 0.2s ease-in-out 0s;
                 background-color: ${({theme}) => theme.colors.font.sub};
+            }
+
+            span[class="swiper-pagination-bullet swiper-pagination-bullet-active"] {
+                width: 20px;
+                border-radius: 4px;
             }
         }
     }

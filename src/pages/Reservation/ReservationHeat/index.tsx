@@ -16,6 +16,8 @@ import ErrorContent from "@components/content/ErrorContent";
 import {cncHeatSchema} from "@schemata/machineSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {getTomorrowDate, getAfterWeekDate} from "@util/calculateDate.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {buttonLabels, cardLabels, headerTitle, inputLabels, message} from "@constants/langCategories.ts";
 
 import {Container, HeatCheckWrapper, ImageWrapper, ReturnDateWrapper} from "./style.ts";
 
@@ -26,6 +28,8 @@ const ReservationHeat:FC = () => {
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
     const navigate = useNavigate();
+
+    const {lang} = useThemeStore();
 
     type HeatFormData = z.infer<typeof cncHeatSchema>;
 
@@ -61,7 +65,7 @@ const ReservationHeat:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"열선 예약"}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerTitle.heatReservationHeader[lang]}/>
             <ImageWrapper>
                 <img src={heat} alt={"열선"}/>
             </ImageWrapper>
@@ -78,13 +82,13 @@ const ReservationHeat:FC = () => {
                             />
                             <label htmlFor={"heatWarning"}>
                                 <div><ReactSVG src={check}/></div>
-                                아래 내용을 확인하였습니다
+                                {inputLabels.check[lang]}
                             </label>
                         </div>
 
                         <div>
-                            <span>[열선 이용 규정]</span>
-                            <p>열선 기기는 설계 스튜디오당 1대만 대여할 수 있으며, 사용 기간은 1주일로 제한됩니다. 이 기간 내에 반납하지 않을 경우, 스튜디오 전체 인원에게 경고가 1회씩 부과됩니다.</p>
+                            <span>{message.heatRule[lang]}</span>
+                            <p>{message.heatDescription[lang]}</p>
                         </div>
 
                         {errors.check?.message &&
@@ -93,7 +97,7 @@ const ReservationHeat:FC = () => {
                     </HeatCheckWrapper>
 
                     <Input
-                        label={"대여 날짜 (다음날만 대여 가능)"}
+                        label={inputLabels.tomorrowRentalDate[lang]}
                         type={"date"}
                         id={"heat-reservation-date"}
                         name={"date"}
@@ -104,10 +108,10 @@ const ReservationHeat:FC = () => {
                     />
 
                     <ReturnDateWrapper>
-                        <span>{formattedReturnDate.split("-").join(". ")}</span>까지 반납
+                        {cardLabels.return[lang]} <span>{formattedReturnDate.split("-").join(". ")}</span>
                     </ReturnDateWrapper>
 
-                    <Button type={"submit"} content={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>
+                    <Button type={"submit"} content={buttonLabels.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
                 </form>
             }
 

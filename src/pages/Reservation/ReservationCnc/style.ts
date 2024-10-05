@@ -9,8 +9,6 @@ export const Container = styled.div`
         width: calc(100% + 48px);
         margin-left: -24px;
         padding: 24px;
-        min-height: calc(100vh - 260px);
-        margin-bottom: -200px;
         background-color: ${({theme}) => theme.colors.bg.main};
         display: flex;
         flex-direction: column;

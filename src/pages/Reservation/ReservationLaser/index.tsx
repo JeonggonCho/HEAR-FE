@@ -1,5 +1,6 @@
 import {FC, useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
+import {useNavigate} from "react-router-dom";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
@@ -14,13 +15,15 @@ import LaserSelectContent from "@components/content/LaserSelectContent";
 import useRequest from "@hooks/useRequest.ts";
 import {getTomorrowDate} from "@util/calculateDate.ts";
 import {ILaserInfo, ILaserReservation, ILaserTimesinfo} from "@/types/reservation.ts";
+import {useUserDataStore} from "@store/useUserStore.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {buttonLabels, headerTitle, inputLabels, message} from "@constants/langCategories.ts";
 
 import {Container, ImageWrapper, MapIcon, SelectedItemWrapper} from "./style.ts";
 
 import laser from "@assets/images/laser_cut.png";
 import mapIcon from "@assets/icons/map.svg";
 import close from "@assets/icons/close.svg";
-import {useNavigate} from "react-router-dom";
 
 const ReservationLaser: FC = () => {
     const [reservationList, setReservationList] = useState<ILaserReservation[]>([]);
@@ -33,6 +36,9 @@ const ReservationLaser: FC = () => {
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
     const navigate = useNavigate();
+
+    const {userData, setUserData} = useUserDataStore();
+    const {lang} = useThemeStore();
 
     // 레이저 커팅기 이용 날짜인 내일 날짜 계산
     const formattedDate = getTomorrowDate();
@@ -79,7 +85,16 @@ const ReservationLaser: FC = () => {
                     timeId: value.timeId,
                 })),
             });
-            if (response.data) {
+            if (response.data && userData) {
+                // 레이저 커팅기 예약 가능 일주일 횟수와 오늘 횟수 차감하기
+                const updatedUserData = {
+                    ...userData,
+                    countOfLaserPerWeek: (userData?.countOfLaserPerWeek as number) - reservationList.length,
+                    countOfLaserPerDay: (userData?.countOfLaserPerDay as number) - reservationList.length
+                };
+                setUserData(updatedUserData);
+
+                // 예약 완료 페이지로 이동
                 setTimeout(() => {
                     navigate("/reservation/done", {replace:true});
                 }, 300);
@@ -93,7 +108,7 @@ const ReservationLaser: FC = () => {
         <Container>
             <Header
                 leftChild={<ArrowBack/>}
-                centerText={"레이저 커팅기 예약"}
+                centerText={headerTitle.laserReservationHeader[lang]}
                 rightChild={
                     <MapIcon onClick={() => setShowMap(true)}>
                         <ReactSVG src={mapIcon}/>
@@ -108,7 +123,7 @@ const ReservationLaser: FC = () => {
                 :
                 <form onSubmit={submitHandler}>
                     <Input
-                        label={"날 짜 (다음날만 예약 가능)"}
+                        label={inputLabels.tomorrowDate[lang]}
                         type={"date"}
                         id={"laser-reservation-date"}
                         value={formattedDate}
@@ -118,10 +133,10 @@ const ReservationLaser: FC = () => {
                     />
 
                     <div>
-                        <label>기기 및 시간</label>
+                        <label>{inputLabels.machineAndTime[lang]}</label>
                         <div>
                             {reservationList.length === 0 ?
-                                <p>선택된 기기 및 시간이 없습니다</p>
+                                <p>{message.emptyMachineAndTime[lang]}</p>
                                 :
                                 <>
                                     {reservationList.map((reservation) => {
@@ -142,7 +157,7 @@ const ReservationLaser: FC = () => {
 
                             <Button
                                 type={"button"}
-                                content={"+ 기기 및 시간 선택"}
+                                content={buttonLabels.selectMachineAndTime[lang]}
                                 width={"full"}
                                 color={"approval"}
                                 scale={"normal"}
@@ -151,13 +166,13 @@ const ReservationLaser: FC = () => {
                         </div>
                     </div>
 
-                    <Button type={"submit"} content={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>
+                    <Button type={"submit"} content={buttonLabels.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
                 </form>
             }
 
             {showModal &&
               <Modal
-                title={"기기 및 시간 선택"}
+                title={buttonLabels.selectMachineAndTime[lang]}
                 content={
                     <LaserSelectContent
                         laserInfo={laserInfo}

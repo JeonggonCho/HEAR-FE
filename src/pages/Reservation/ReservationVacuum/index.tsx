@@ -3,6 +3,7 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
+import {useNavigate} from "react-router-dom";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
@@ -16,6 +17,8 @@ import ErrorContent from "@components/content/ErrorContent";
 
 import {sawVacuumSchema} from "@schemata/machineSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {buttonLabels, headerTitle, inputLabels, message, placeholders} from "@constants/langCategories.ts";
 
 import {Container, ErrorMessage, ImageWrapper, MapIcon, TimeWrapper} from "./style.ts";
 
@@ -30,9 +33,13 @@ const ReservationVacuum:FC = () => {
 
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
+    const {lang} = useThemeStore();
+
+    const navigate = useNavigate();
+
     type VacuumFormData = z.infer<typeof sawVacuumSchema>;
 
-    const {register, handleSubmit, formState: {errors}, setValue} = useForm<VacuumFormData>({
+    const {register, handleSubmit, formState: {errors}, setValue, reset} = useForm<VacuumFormData>({
         resolver: zodResolver(sawVacuumSchema),
         defaultValues: {
             date: "",
@@ -47,9 +54,20 @@ const ReservationVacuum:FC = () => {
 
     const submitHandler:SubmitHandler<VacuumFormData> = useCallback(async (data) => {
         try {
-            console.log(data);
+            const response = await sendRequest({
+                url: "/reservations/vacuum",
+                method: "post",
+                data: data,
+            });
+            if (response.data) {
+                // 예약 완료 페이지로 이동
+                setTimeout(() => {
+                    navigate("/reservation/done", {replace:true});
+                }, 300);
+            }
         } catch (err) {
             console.error("사출성형기 예약 요청 중 에러 발생: ", err);
+            reset();
         }
     }, [sendRequest])
 
@@ -57,7 +75,7 @@ const ReservationVacuum:FC = () => {
         <Container tooltip={showTooltip}>
             <Header
                 leftChild={<ArrowBack/>}
-                centerText={"사출 성형기 예약"}
+                centerText={headerTitle.vacuumReservationHeader[lang]}
                 rightChild={
                     <MapIcon onClick={() => setShowMap(true)}>
                         <ReactSVG src={mapIcon}/>
@@ -72,7 +90,7 @@ const ReservationVacuum:FC = () => {
                 :
                 <form onSubmit={handleSubmit(submitHandler)}>
                     <Input
-                        label={"날 짜"}
+                        label={inputLabels.date[lang]}
                         type={"date"}
                         id={"vacuum-reservation-date"}
                         name={"date"}
@@ -85,10 +103,10 @@ const ReservationVacuum:FC = () => {
 
                     <TimeWrapper tooltip={showTooltip}>
                         <div>
-                            <label>희망 시간설정</label>
+                            <label>{inputLabels.wantedTime[lang]}</label>
                             {showTooltip &&
                               <div>
-                                <span>해당 시간은 조교의 사정에 따라 변경될 수 있습니다</span>
+                                <span>{message.changeTime[lang]}</span>
                                 <ReactSVG src={close} onClick={() => setShowTooltip(false)}/>
                               </div>
                             }
@@ -98,7 +116,7 @@ const ReservationVacuum:FC = () => {
                             <select
                                 onChange={(e) => setValue("startTime", e.target.value)}
                             >
-                                <option value={""}>시작 시간</option>
+                                <option value={""}>{placeholders.startTime[lang]}</option>
                                 <option value={"10:00"}>10:00</option>
                                 <option value={"11:00"}>11:00</option>
                                 <option value={"12:00"}>12:00</option>
@@ -111,7 +129,7 @@ const ReservationVacuum:FC = () => {
                             <select
                                 onChange={(e) => setValue("endTime", e.target.value)}
                             >
-                                <option value={""}>종료 시간</option>
+                                <option value={""}>{placeholders.endTime[lang]}</option>
                                 <option value={"11:00"}>11:00</option>
                                 <option value={"12:00"}>12:00</option>
                                 <option value={"13:00"}>13:00</option>
@@ -126,7 +144,7 @@ const ReservationVacuum:FC = () => {
                         {errors.endTime?.message && <ErrorMessage>{errors.endTime?.message}</ErrorMessage>}
                     </TimeWrapper>
 
-                    <Button type={"submit"} content={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>
+                    <Button type={"submit"} content={buttonLabels.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
                 </form>
             }
 

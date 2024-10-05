@@ -6,6 +6,7 @@ import {ILangSettingContentProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
+import {buttonLabels} from "@constants/langCategories.ts";
 
 const LangSettingContent:FC<ILangSettingContentProps> = ({setModal}) => {
     const {lang, setLang} = useThemeStore();
@@ -57,7 +58,7 @@ const LangSettingContent:FC<ILangSettingContentProps> = ({setModal}) => {
 
             <Button
                 type={"button"}
-                content={"선택 완료"}
+                content={buttonLabels.select[lang]}
                 width={"full"}
                 color={"approval"}
                 scale={"big"}

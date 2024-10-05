@@ -17,7 +17,7 @@ export const Container = styled.div`
         color: ${({theme}) => theme.colors.font.main};
 
         & > span:first-of-type {
-            width: 60px;
+            width: 80px;
             color: ${({theme}) => theme.colors.font.sub};
         }
     }

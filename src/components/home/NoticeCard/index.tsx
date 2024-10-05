@@ -1,34 +1,73 @@
-import {FC} from "react";
+import {FC, useCallback, useEffect, useState} from "react";
 
 import ArrowForward from "@components/common/ArrowForward";
+import Modal from "@components/common/Modal";
+import ErrorContent from "@components/content/ErrorContent";
 
-import {Container, More, Notice} from "./style.ts";
+import useRequest from "@hooks/useRequest.ts";
+import {buttonLabels} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+
+import {Container, EmptyNotice, ImgWrapper, More, Notice, NoticesWrapper} from "./style.ts";
 
 import notice from "@assets/images/notice.png";
 
 const NoticeCard:FC = () => {
+    const [latestNotices, setLatestNotices] = useState<{noticeId: string, title: string}[]>([]);
+
+    const {lang} = useThemeStore();
+
+    const {sendRequest, errorText, clearError} = useRequest();
+
+    const fetchLatestNotices = useCallback(async () => {
+        try {
+            const response = await sendRequest({
+                url: "/notices/latest"
+            });
+            if (response.data) {
+                setLatestNotices(response.data);
+            }
+        } catch (err) {
+            console.error("최신 공지사항 목록 조회 중 에러 발생: ", err);
+        }
+    }, [sendRequest, setLatestNotices]);
+
+    useEffect(() => {
+        fetchLatestNotices();
+    }, [fetchLatestNotices]);
+
     return (
         <Container>
-            <div>
-                <div>
-                    <img src={notice} alt="공지사항"/>
-                    <h3>공지사항</h3>
-                </div>
-                <More to={"/communication/notice"}>
-                    <ArrowForward/>
-                </More>
-            </div>
+            <ImgWrapper valid={latestNotices.length > 0}>
+                <img src={notice} alt="공지사항"/>
+            </ImgWrapper>
 
-            <div>
-                <Notice to={"/communication/notice/1"}>
-                    <span>매우 중요) 모형제작실 교육 안내</span>
-                    <span>2024.07.30</span>
-                </Notice>
-                <Notice to={"/communication/notice/1"}>
-                    <span>이용 후, 모형제작실 청소 주의 안할 경우 경고 조치</span>
-                    <span>2024.07.30</span>
-                </Notice>
-            </div>
+            {latestNotices.length > 0 ?
+                <>
+                    <NoticesWrapper>
+                        {latestNotices.map(value => {
+                            return (
+                                <Notice key={value.noticeId} to={`/communication/notice/${value.noticeId}`}>
+                                    <span>{value.title}</span>
+                                </Notice>
+                            );
+                        })}
+                    </NoticesWrapper>
+                    <More to={"/communication/notice"}>
+                        {buttonLabels.more[lang]} <ArrowForward/>
+                    </More>
+                </>
+                :
+                <EmptyNotice>공지사항이 없습니다</EmptyNotice>
+            }
+
+            {errorText &&
+              <Modal
+                content={<ErrorContent text={errorText} closeModal={clearError}/>}
+                setModal={clearError}
+                type={"popup"}
+                />
+            }
         </Container>
     );
 };

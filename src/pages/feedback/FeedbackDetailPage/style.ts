@@ -52,11 +52,12 @@ export const FeedbackInfoWrapper = styled.div`
         }
 
         h2 {
+            font-size: 1.25rem;
             font-weight: 500;
             margin: 0;
             text-wrap: wrap;
             word-break: break-all;
-            line-height: 1.2;
+            line-height: 1.5;
         }
     }
 

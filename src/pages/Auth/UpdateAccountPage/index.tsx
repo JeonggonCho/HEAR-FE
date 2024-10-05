@@ -18,6 +18,9 @@ import {yearCategories} from "@constants/yearCategories.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {updateAccountSchema} from "@schemata/userSchema.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
+import {buttonLabels, headerTitle, placeholders} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {inputLabels} from "@constants/langCategories.ts";
 
 import {Container} from "./style.ts";
 
@@ -27,6 +30,8 @@ const UpdateAccountPage:FC = () => {
 
     const {userInfo, setUserInfo} = useUserInfoStore();
     const {userData, setUserData} = useUserDataStore();
+    const {lang} = useThemeStore();
+
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     const navigate = useNavigate();
@@ -133,16 +138,16 @@ const UpdateAccountPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"내 정보 수정"}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerTitle.profileUpdate[lang]}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
                 <>
                     <form onSubmit={handleSubmit(submitHandler)}>
                         <Input
-                            label={"이름"}
+                            label={inputLabels.username[lang]}
                             type={"text"}
-                            placeholder={"이름을 입력해주세요"}
+                            placeholder={placeholders.username[lang]}
                             id={"username"}
                             name={"username"}
                             register={register}
@@ -151,7 +156,7 @@ const UpdateAccountPage:FC = () => {
 
                         <Select
                             categories={yearCategories}
-                            label={"학 년"}
+                            label={inputLabels.year[lang]}
                             name={"year"}
                             register={register}
                             errorMessage={errors.year?.message}
@@ -159,9 +164,9 @@ const UpdateAccountPage:FC = () => {
                         />
 
                         <Input
-                            label={"학 번"}
+                            label={inputLabels.studentId[lang]}
                             type={"number"}
-                            placeholder={"학번을 입력해주세요"}
+                            placeholder={placeholders.studentId[lang]}
                             id={"student-id"}
                             name={"studentId"}
                             register={register}
@@ -169,19 +174,19 @@ const UpdateAccountPage:FC = () => {
                         />
 
                         <Input
-                            label={"스튜디오"}
+                            label={inputLabels.studio[lang]}
                             type={"text"}
                             id={"studio"}
                             name={"studio"}
-                            placeholder={"스튜디오 교수님 이름을 입력해주세요"}
+                            placeholder={placeholders.studio[lang]}
                             register={register}
                             errorMessage={errors.studio?.message}
                         />
 
                         <Input
-                            label={"전화번호"}
+                            label={inputLabels.tel[lang]}
                             type={"tel"}
-                            placeholder={"전화번호를 입력해주세요"}
+                            placeholder={placeholders.tel[lang]}
                             id={"tel"}
                             name={"tel"}
                             register={register}
@@ -190,7 +195,7 @@ const UpdateAccountPage:FC = () => {
 
                         <Button
                             type={"submit"}
-                            content={"내 정보 수정"}
+                            content={buttonLabels.profileUpdate[lang]}
                             width={"full"}
                             color={"primary"}
                             scale={"big"}

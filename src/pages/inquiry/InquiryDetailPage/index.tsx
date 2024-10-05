@@ -13,11 +13,13 @@ import useRequest from "@hooks/useRequest.ts";
 import {IInquiryProps} from "@/types/componentProps.ts";
 import {inquiryCategoriesValues} from "@constants/inquiryCategories.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
+import {useUserInfoStore} from "@store/useUserStore.ts";
+import {headerTitle} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container, InquiryInfoWrapper} from "./style.ts";
 
 import Q from "@assets/images/Q.png";
-import {useUserInfoStore} from "@store/useUserStore.ts";
 
 const InquiryDetailPage:FC = () => {
     const [inquiry, setInquiry] = useState<IInquiryProps>();
@@ -25,6 +27,7 @@ const InquiryDetailPage:FC = () => {
     const {inquiryId} = useParams();
 
     const {userInfo} = useUserInfoStore();
+    const {lang} = useThemeStore();
 
     const timeStamp = useMemo(() => {
         return inquiry?.createdAt ? getTimeStamp(inquiry.createdAt) : '';
@@ -49,7 +52,7 @@ const InquiryDetailPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"문의"}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerTitle.inquiryDetail[lang]}/>
             {!isLoading && inquiry ?
                 <>
                     <InquiryInfoWrapper>

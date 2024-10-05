@@ -1,17 +1,22 @@
 import {FC} from 'react';
 
+import {vacuumInstruction} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+
 import {Container, ImageWrapper} from "../../instruction.style.ts";
 
 import mould from "@assets/instruction_images/vacuum/vacuum_mould.jpg";
 import mould2 from "@assets/instruction_images/vacuum/vacuum_mould2.jpg";
 
 const Preparation:FC = () => {
+    const {lang} = useThemeStore();
+
     return (
         <Container>
             <section>
-                <p>거푸집</p>
-                <span>찍어낼 거푸집 틀이 필요하며, 3D 프린팅을 이용하여 거푸집 모형을 만들 수 있음</span>
-                <span>* 거푸집의 최대 높이는 약 15cm</span>
+                <p>{vacuumInstruction.preparation.mold[lang]}</p>
+                <span>{vacuumInstruction.preparation.moldDescription[lang]}</span>
+                <span>{vacuumInstruction.preparation.heightLimit[lang]}</span>
                 <ImageWrapper>
                     <img src={mould} alt="거푸집"/>
                 </ImageWrapper>

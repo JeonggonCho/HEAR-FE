@@ -6,6 +6,8 @@ import Button from "@components/common/Button";
 import {ICalendarProps} from "@/types/componentProps.ts";
 import {daysOfWeek} from "@constants/calendar.ts";
 import generateCalendar from "@util/generateCalendar.ts";
+import {buttonLabels} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {
     Container,
@@ -18,9 +20,12 @@ import {
 import arrowBack from "@assets/icons/arrow_back_small.svg";
 import arrowForward from "@assets/icons/arrow_forward_small.svg";
 
+
 const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate}) => {
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+    const {lang} = useThemeStore();
 
     const days = useMemo(() => generateCalendar(currentDate), [currentDate]);
 
@@ -117,7 +122,7 @@ const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate}) => {
 
             <Button
                 type={"button"}
-                content={`${selectedDate ? selectedDate.toLocaleDateString('default', { month: 'long', day: 'numeric' }) : ""} 선택완료`}
+                content={`${selectedDate ? selectedDate.toLocaleDateString('default', { month: 'long', day: 'numeric' }) : ""} ${buttonLabels.select[lang]}`}
                 width={"full"}
                 color={"primary"}
                 scale={"big"}

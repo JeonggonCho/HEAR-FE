@@ -9,6 +9,8 @@ import ErrorContent from "@components/content/ErrorContent";
 
 import useRequest from "@hooks/useRequest.ts";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
+import {headerTitle} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
 
@@ -27,6 +29,8 @@ const MachinesPage:FC = () => {
     const [vacuums, setVacuums] = useState<ICommonMachine[]>([]);
     const [cncs, setCncs] = useState<ICommonMachine[]>([]);
     const [timeList, setTimeList] = useState<ILaserTimes[]>([]);
+
+    const {lang} = useThemeStore();
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
@@ -73,7 +77,7 @@ const MachinesPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"기기 관리"}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerTitle.machineManagementHeader[lang]}/>
             {isLoading?
                 <LoadingLoop/>
                 :

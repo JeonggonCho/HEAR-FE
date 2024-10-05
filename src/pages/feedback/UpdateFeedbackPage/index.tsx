@@ -17,13 +17,23 @@ import ConfirmContent from "@components/content/ConfirmContent";
 
 import useRequest from "@hooks/useRequest.ts";
 import {feedbackSchema} from "@schemata/qnaSchema.ts";
-import {feedbackCategories} from "@constants/feedbackCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {buttonLabels, feedbackType, headerTitle, inputLabels, placeholders} from "@constants/langCategories.ts";
 
 import {Container} from "./style.ts";
 
 const UpdateFeedbackPage:FC = () => {
     const [feedback, setFeedback] = useState<any>();
     const [updateFeedbackModal, setUpdateFeedbackModal] = useState<boolean>(false);
+
+    const {lang} = useThemeStore();
+
+    const feedbackCategories = [
+        {label: feedbackType.good[lang], value: "good", id: "radio-1"},
+        {label: feedbackType.bad[lang], value: "bad", id: "radio-2"},
+        {label: feedbackType.suggest[lang], value: "suggest", id: "radio-3"},
+        {label: feedbackType.etc[lang], value: "etc", id: "radio-4"},
+    ];
 
     const navigate = useNavigate();
 
@@ -116,16 +126,16 @@ const UpdateFeedbackPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"피드백 수정"}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerTitle.editFeedback[lang]}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
                 <>
                     <form onSubmit={handleSubmit(submitHandler)}>
                         <Input
-                            label={"제 목"}
+                            label={inputLabels.title[lang]}
                             type={"text"}
-                            placeholder={"제목을 입력해주세요"}
+                            placeholder={placeholders.title[lang]}
                             id={"feedback-title"}
                             name={"title"}
                             register={register}
@@ -146,7 +156,7 @@ const UpdateFeedbackPage:FC = () => {
                             errorMessage={errors.content?.message}
                         />
 
-                        <Button type={"submit"} content={"피드백 수정하기"} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={buttonLabels.edit[lang]} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
 
                     {updateFeedbackModal &&

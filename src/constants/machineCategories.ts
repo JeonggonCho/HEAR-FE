@@ -12,10 +12,10 @@ export const machineType = [
 ];
 
 export const machineReservationCategories:IMachine[] = [
-    {name: "레이저 커팅기", image: laser, link: "/reservation/laser", type: "laser"},
-    {name: "3D 프린터", image: printer, link: "/reservation/3d-printer", type: "printer"},
-    {name: "열 선", image: heat, link: "/reservation/heat", type: "heat"},
-    {name: "톱", image: saw, link: "/reservation/saw", type: "saw"},
-    {name: "사출 성형기", image: vacuum, link: "/reservation/vacuum", type: "vacuum"},
-    {name: "CNC", image: cnc, link: "/reservation/cnc", type: "cnc"},
+    {image: laser, link: "/reservation/laser", type: "laser"},
+    {image: printer, link: "/reservation/3d-printer", type: "printer"},
+    {image: heat, link: "/reservation/heat", type: "heat"},
+    {image: saw, link: "/reservation/saw", type: "saw"},
+    {image: vacuum, link: "/reservation/vacuum", type: "vacuum"},
+    {image: cnc, link: "/reservation/cnc", type: "cnc"},
 ];

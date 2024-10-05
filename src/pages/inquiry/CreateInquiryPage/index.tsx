@@ -14,14 +14,25 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
 
-import {inquiryCategories} from "@constants/inquiryCategories.ts";
 import {inquirySchema} from "@schemata/qnaSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
+import {inquiryType} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {buttonLabels, headerTitle, inputLabels, pageIntroduction, placeholders} from "@constants/langCategories.ts";
 
 import {Container} from "./style.ts";
 
 const CreateInquiryPage:FC = () => {
     const navigate = useNavigate();
+
+    const {lang} = useThemeStore();
+
+    const inquiryCategories = [
+        {label: inquiryType.machine[lang], value: "machine", id: "radio-1"},
+        {label: inquiryType.reservation[lang], value: "reservation", id: "radio-2"},
+        {label: inquiryType.studio[lang], value: "room", id: "radio-3"},
+        {label: inquiryType.etc[lang], value: "etc", id: "radio-4"},
+    ];
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
@@ -52,23 +63,20 @@ const CreateInquiryPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"문의하기"}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerTitle.inquiry[lang]}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
                 <>
-                    <p>
-                        모형제작실과 관련된 문제점, 궁금한 점 등<br/>
-                        문의사항을 보내주세요
-                    </p>
+                    <p>{pageIntroduction.createInquiry[lang]}</p>
 
                     <form onSubmit={handleSubmit(submitHandler)}>
                         <Input
-                            label={"제 목"}
+                            label={inputLabels.title[lang]}
                             type={"text"}
                             id={"inquiry-title"}
                             name={"title"}
-                            placeholder={"제목을 입력해주세요"}
+                            placeholder={placeholders.title[lang]}
                             register={register}
                             errorMessage={errors.title?.message}
                         />
@@ -87,7 +95,7 @@ const CreateInquiryPage:FC = () => {
                             errorMessage={errors.content?.message}
                         />
 
-                        <Button type={"submit"} content={"문의하기"} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={buttonLabels.sendInquiry[lang]} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
                 </>
             }

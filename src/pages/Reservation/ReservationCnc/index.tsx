@@ -17,6 +17,8 @@ import ErrorContent from "@components/content/ErrorContent";
 
 import {cncHeatSchema} from "@schemata/machineSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {buttonLabels, headerTitle, inputLabels, message} from "@constants/langCategories.ts";
 
 import {CncCheckWrapper, Container, ImageWrapper, MapIcon} from "./style.ts";
 
@@ -32,9 +34,11 @@ const ReservationCnc:FC = () => {
 
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
+    const {lang} = useThemeStore();
+
     type CncFormData = z.infer<typeof cncHeatSchema>;
 
-    const {register, handleSubmit, formState: {errors}, setValue, getValues} = useForm<CncFormData>({
+    const {register, handleSubmit, formState: {errors}, setValue, getValues, reset} = useForm<CncFormData>({
         resolver: zodResolver(cncHeatSchema),
         defaultValues: {
             check: false,
@@ -53,11 +57,15 @@ const ReservationCnc:FC = () => {
                 method: "post",
                 data: data,
             });
-            if (response.status === 201) {
-                navigate("/reservation/done", {replace: true});
+            if (response.data) {
+                // 예약 완료 페이지로 이동
+                setTimeout(() => {
+                    navigate("/reservation/done", {replace:true});
+                }, 300);
             }
         } catch (err) {
             console.error("CNC 예약 요청 중 에러 발생: ", err);
+            reset();
         }
     }, [sendRequest]);
 
@@ -65,7 +73,7 @@ const ReservationCnc:FC = () => {
         <Container>
             <Header
                 leftChild={<ArrowBack/>}
-                centerText={"CNC 예약"}
+                centerText={headerTitle.cncReservationHeader[lang]}
                 rightChild={
                     <MapIcon onClick={() => setShowMap(true)}>
                         <ReactSVG src={mapIcon}/>
@@ -88,13 +96,13 @@ const ReservationCnc:FC = () => {
                             />
                             <label htmlFor={"cncWarning"}>
                                 <div><ReactSVG src={check}/></div>
-                                아래 내용을 확인하였습니다
+                                {inputLabels.check[lang]}
                             </label>
                         </div>
 
                         <div>
-                            <span>[CNC 이용 권한]</span>
-                            <p>CNC 기기는 4학년 이상 학생 중 교육을 이수하고 교수님과 조교의 허락을 받은 경우에만 사용이 가능합니다</p>
+                            <span>{message.cncRule[lang]}</span>
+                            <p>{message.cncDescription[lang]}</p>
                         </div>
 
                         {errors.check?.message &&
@@ -103,7 +111,7 @@ const ReservationCnc:FC = () => {
                     </CncCheckWrapper>
 
                     <Input
-                        label={"날 짜 (사용 날짜 이틀 전부터 예약 가능)"}
+                        label={inputLabels.twoDayLaterDate[lang]}
                         type={"date"}
                         id={"cnc-reservation-date"}
                         name={"date"}
@@ -114,7 +122,7 @@ const ReservationCnc:FC = () => {
                         readonly
                     />
 
-                    <Button type={"submit"} content={"예약하기"} width={"full"} color={"primary"} scale={"big"}/>
+                    <Button type={"submit"} content={buttonLabels.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
                 </form>
             }
 

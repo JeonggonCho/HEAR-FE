@@ -1,13 +1,18 @@
 import {FC} from 'react';
 
+import {vacuumInstruction} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+
 import {Container, ImageWrapper} from "../../instruction.style.ts";
 
 import vacuumMachine from "@assets/instruction_images/vacuum/vacuum_machine.jpg";
 
 const Introduction:FC = () => {
+    const {lang} = useThemeStore();
+
     return (
         <Container>
-            <h3>1. 사출 성형기 기기</h3>
+            <h3>{vacuumInstruction.introduction.vacuumMachine[lang]}</h3>
 
             <ImageWrapper>
                 <img src={vacuumMachine} alt="사출 성형기 기기"/>
@@ -15,26 +20,26 @@ const Introduction:FC = () => {
 
             <section>
                 <div>
-                    <h4>모델명</h4>
+                    <h4>{vacuumInstruction.introduction.modelName[lang]}</h4>
                     <p>CR Clarke Vacuum Former 725FLB</p>
                 </div>
                 <div>
-                    <h4>최대 거푸집 높이</h4>
+                    <h4>{vacuumInstruction.introduction.heightLimit[lang]}</h4>
                     <p>152 mm</p>
                 </div>
                 <div>
-                    <h4>권장 재료</h4>
-                    <p>조작과 성형이 용이한 PVC 필름, 아크릴 (3 ~ 5 mm)를 사용하는 것을 권장</p>
-                    <span>* 아크릴 중, 연질 아크릴은 경화되기에 사용하지 않도록 함</span>
+                    <h4>{vacuumInstruction.introduction.validMaterial[lang]}</h4>
+                    <p>{vacuumInstruction.introduction.materials[lang]}</p>
+                    <span>{vacuumInstruction.introduction.materialWarning[lang]}</span>
                 </div>
                 <div>
-                    <h4>재료 규격</h4>
-                    <p>- 장변 : 450 ~ 500 mm</p>
-                    <p>- 단변 : 300 ~ 350 mm</p>
+                    <h4>{vacuumInstruction.introduction.materialSize[lang]}</h4>
+                    <p>{vacuumInstruction.introduction.longSideLength[lang]}</p>
+                    <p>{vacuumInstruction.introduction.shortSideLength[lang]}</p>
                 </div>
                 <div>
-                    <h4>운용 기기 대수</h4>
-                    <p>1대</p>
+                    <h4>{vacuumInstruction.introduction.countOfMachine[lang]}</h4>
+                    <p>{vacuumInstruction.introduction.oneMachine[lang]}</p>
                 </div>
             </section>
         </Container>

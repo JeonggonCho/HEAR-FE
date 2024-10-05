@@ -5,6 +5,8 @@ import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
 
 import {ITab} from "@/types/tab.ts";
+import {laserTabType, machineName} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {MachineImgWrapper} from "./style.ts";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
@@ -16,12 +18,6 @@ import Usage from "../Usage";
 import After from "../After";
 import Preparation from "../Preparation";
 
-const tabs: ITab[] = [
-    { name: "소개", content: <Introduction/>, },
-    { name: "준비", content: <Preparation/>, },
-    { name: "사용", content: <Usage/>, },
-    { name: "사용후", content: <After/>, },
-];
 
 const LaserImage = React.memo(() => (
     <MachineImgWrapper>
@@ -32,13 +28,22 @@ const LaserImage = React.memo(() => (
 const InstructionLaser:FC = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
+    const {lang} = useThemeStore();
+
+    const tabs: ITab[] = [
+        { name: laserTabType.introduction[lang], content: <Introduction/>, },
+        { name: laserTabType.preparation[lang], content: <Preparation/>, },
+        { name: laserTabType.usage[lang], content: <Usage/>, },
+        { name: laserTabType.after[lang], content: <After/>, },
+    ];
+
     useEffect(() => {
         window.scrollTo({top: 0, behavior: "smooth"});
     }, [activeIndex]);
 
     return (
         <div>
-            <Header leftChild={<ArrowBack/>} centerText={"레이저 커팅기"}/>
+            <Header leftChild={<ArrowBack/>} centerText={machineName.laser[lang]}/>
             <LaserImage/>
             <Tab type={"button"} tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
             <Content>{tabs[activeIndex].content}</Content>

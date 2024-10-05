@@ -54,9 +54,10 @@ export const InquiryInfoWrapper = styled.div`
         h2 {
             margin: 0;
             font-weight: 500;
+            font-size: 1.25rem;
             text-wrap: wrap;
             word-break: break-all;
-            line-height: 1.2;
+            line-height: 1.5;
         }
     }
 

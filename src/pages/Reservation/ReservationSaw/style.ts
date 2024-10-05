@@ -9,8 +9,6 @@ export const Container = styled.div<{tooltip: boolean}>`
         width: calc(100% + 48px);
         margin-left: -24px;
         padding: 24px;
-        min-height: calc(100vh - 260px);
-        margin-bottom: -200px;
         background-color: ${({theme}) => theme.colors.bg.main};
         display: flex;
         flex-direction: column;
@@ -36,7 +34,8 @@ export const TimeWrapper = styled.div<{tooltip: boolean}>`
     flex-direction: column;
     gap: 6px;
     margin-bottom: ${({tooltip}) => tooltip ? "-16px" : "0"};
-
+    margin-top: ${({tooltip}) => tooltip ? "48px" : "0"};
+    
     & > div:first-of-type {
         position: relative;
 
@@ -46,30 +45,31 @@ export const TimeWrapper = styled.div<{tooltip: boolean}>`
         }
 
         & > div:first-of-type {
-            width: 220px;
+            width: 260px;
             display: flex;
+            gap: 8px;
             position: absolute;
-            padding: 4px 8px;
+            padding: 8px;
             border-radius: 8px;
-            bottom: 0;
-            left: 110px;
+            bottom: 36px;
+            left: 10px;
             background-color: ${({theme}) => theme.colors.button.approval};
             z-index: 2;
 
             &:after {
                 position: absolute;
                 content: "";
-                border-top: 8px solid transparent;
+                border-top: 12px solid ${({theme}) => theme.colors.button.approval};
                 border-left: 8px solid transparent;
-                border-bottom: 8px solid ${({theme}) => theme.colors.button.approval};
-                border-right: 8px solid ${({theme}) => theme.colors.button.approval};
-                bottom: 8px;
-                left: -10px;
+                border-bottom: 8px solid transparent;
+                border-right: 8px solid transparent;
+                bottom: -18px;
+                left: 30px;
             }
 
             & > span:first-of-type {
                 text-wrap: wrap;
-                word-break: keep-all;
+                word-break: manual;
                 font-size: 0.9rem;
                 line-height: 1.5;
                 color: ${({theme}) => theme.colors.font.primary};

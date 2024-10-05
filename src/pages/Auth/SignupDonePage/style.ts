@@ -11,10 +11,6 @@ export const Container = styled.div`
         font-size: 1.25rem;
         font-weight: 500;
     }
-    
-    span {
-        color: ${({theme}) => theme.colors.font.primary};
-    }
 `;
 
 export const LottieWrapper = styled(Lottie)`

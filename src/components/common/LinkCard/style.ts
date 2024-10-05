@@ -72,11 +72,9 @@ export const LinearImgWrapper = styled.div`
 `;
 
 export const GridLinkCardWrapper = styled(Link)<{disabled: boolean}>`
-    margin: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: 12px;
     transition: all 0.2s ease-in-out 0s;
     cursor: ${({disabled}) => disabled ? "not-allowed" : "pointer"};
@@ -85,7 +83,11 @@ export const GridLinkCardWrapper = styled(Link)<{disabled: boolean}>`
         color: ${({theme, disabled}) => disabled ? theme.colors.font.sub : theme.colors.font.main};
         font-size: 0.85rem;
         font-weight: 400;
-        text-wrap: nowrap;
+        text-wrap: wrap;
+        word-break: keep-all;
+        text-align: center;
+        line-height: 1.5;
+        transition: all 0.2s ease-in-out 0s;
     }
 
     &:hover {

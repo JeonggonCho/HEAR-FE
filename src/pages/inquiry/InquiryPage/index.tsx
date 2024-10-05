@@ -10,6 +10,8 @@ import ErrorContent from "@components/content/ErrorContent";
 import useRequest from "@hooks/useRequest.ts";
 import {IInquiryProps} from "@/types/componentProps.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
+import {message, pageIntroduction} from "@constants/langCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
 
@@ -17,6 +19,7 @@ const InquiryPage:FC = () => {
     const [inquiries, setInquiries] = useState<IInquiryProps[]>([]);
 
     const {userData} = useUserDataStore();
+    const {lang} = useThemeStore();
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
@@ -39,18 +42,15 @@ const InquiryPage:FC = () => {
                 <LoadingLoop/>
                 :
                 <>
-                    <p>
-                        문의사항은 모형제작실 조교에게 전달되며,<br/>
-                        답변을 받는 데 시간이 소요될 수 있습니다
-                    </p>
+                    <p>{pageIntroduction.inquiry[lang]}</p>
 
                     {inquiries.length !== 0 ? inquiries.map((value, idx) => (
                             <InquiryFeedbackListItem key={idx} type={"inquiry"} {...value}/>
                         ))
                         :
                         <Empty
-                            title={"작성하신 문의가 아직 없어요"}
-                            message={"모형제작실에 관해서 궁금한 점에 대해 문의 주세요"}
+                            title={message.emptyInquiry[lang]}
+                            message={message.makeInquiry[lang]}
                         />
                     }
 

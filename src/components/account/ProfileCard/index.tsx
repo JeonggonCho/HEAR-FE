@@ -1,43 +1,47 @@
 import {FC} from "react";
 
 import {useUserInfoStore, useUserDataStore} from "@store/useUserStore.ts";
+import {userRole} from "@constants/userRole.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
-import {userRole} from "@constants/userRole.ts";
+import {cardLabels} from "@constants/langCategories.ts";
+
 
 const ProfileCard:FC = () => {
     const {userInfo} = useUserInfoStore();
     const {userData} = useUserDataStore();
+    const {lang} = useThemeStore();
 
     return (
         <Container>
             <div>
-                <span>이름 </span>
+                <span>{cardLabels.username[lang]}</span>
                 <span>{userInfo?.username}</span>
             </div>
             <div>
-                <span>아이디</span>
+                <span>{cardLabels.email[lang]}</span>
                 <span>{userInfo?.email}</span>
             </div>
             {userData?.role === "student" &&
               <>
                 <div>
-                  <span>학 번</span>
+                  <span>{cardLabels.studentId[lang]}</span>
                   <span>{userInfo?.studentId}</span>
                 </div>
                 <div>
-                  <span>학 년</span>
+                  <span>{cardLabels.year[lang]}</span>
                   <span>{userData?.year}학년</span>
                 </div>
                 <div>
-                  <span>스튜디오</span>
+                  <span>{cardLabels.studio[lang]}</span>
                   <span>{userData?.studio} 교수님</span>
                 </div>
               </>
             }
             {userData?.role &&
               <div>
-                <span>역 할</span>
+                <span>{cardLabels.role[lang]}</span>
                 <span>{userRole[userData?.role]}</span>
               </div>
             }

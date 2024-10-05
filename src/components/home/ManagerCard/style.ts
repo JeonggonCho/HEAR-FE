@@ -7,45 +7,51 @@ export const Container = styled.div`
     padding: 18px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
     border: 1px solid ${({theme}) => theme.colors.bg.main};
     transition: all 0.2s ease-in-out 0s;
+`;
 
-    h3 {
+export const ManagerCardTitleWrapper = styled.div<{valid: boolean}>`
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    
+    & > h3 {
         margin: 0;
-        color: ${({theme}) => theme.colors.font.main};
         font-weight: 500;
+        color: ${({valid, theme}) => valid ? theme.colors.font.main : theme.colors.font.placeholder};
     }
+
+    img {
+        width: 28px;
+        filter: ${({valid}) => valid ? "grayscale(0)" : "grayscale(1)"};
+        opacity: ${({valid}) => valid ? "1" : "0.5"};
+    }
+`;
+
+export const ManagerInfoWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
     
     & > div:first-of-type {
         display: flex;
-        align-items: center;
-        gap: 10px;
-        
-        img {
-            width: 28px;
-        }
-    }
-    
-    & > div:last-of-type {
-        display: flex;
-        justify-content: space-between;
-        
-        div {
-            display: flex;
-            align-items: end;
-            gap: 8px;
+        align-items: end;
+        gap: 8px;
 
-            span {
-                margin-bottom: 4px;
-                color: ${({theme}) => theme.colors.font.main};
-            }
-            
-            & > span:last-of-type {
-                font-size: 0.9rem;
-                color: ${({theme}) => theme.colors.font.sub};
-                margin-bottom: 5px;
-            }
+        span {
+            margin-bottom: 4px;
+            color: ${({theme}) => theme.colors.font.main};
+        }
+
+        & > span:last-of-type {
+            font-size: 0.9rem;
+            color: ${({theme}) => theme.colors.font.sub};
+            margin-bottom: 5px;
         }
     }
+`;
+
+export const EmptyManagerInfo = styled.div`
+    color: ${({theme}) => theme.colors.font.placeholder};
 `;

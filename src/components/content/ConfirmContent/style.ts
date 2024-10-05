@@ -8,6 +8,7 @@ export const Container = styled.div`
         font-size: 1.25rem;
         font-weight: 500;
         margin: 28px 0 32px;
+        line-height: 1.5;
     }
 
     & > p:nth-of-type(2) {
