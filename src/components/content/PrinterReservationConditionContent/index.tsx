@@ -1,7 +1,7 @@
 import {FC} from "react";
 
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {cardLabels} from "@constants/langCategories.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
 
 import {Container} from "./style.ts";
 
@@ -16,7 +16,7 @@ const PrinterReservationConditionContent: FC = () => {
                 <div>
                     <img src={printer} alt={"3D 프린터 이미지"}/>
                 </div>
-                <h4>{cardLabels.printerReservationCondition[lang]}</h4>
+                <h4>{cardCategories.printerReservationCondition[lang]}</h4>
             </div>
             <div>
 

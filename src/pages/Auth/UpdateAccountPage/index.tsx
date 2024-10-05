@@ -18,9 +18,11 @@ import {yearCategories} from "@constants/yearCategories.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {updateAccountSchema} from "@schemata/userSchema.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
-import {buttonLabels, headerTitle, placeholders} from "@constants/langCategories.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {inputLabels} from "@constants/langCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
 
 import {Container} from "./style.ts";
 
@@ -138,16 +140,16 @@ const UpdateAccountPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={headerTitle.profileUpdate[lang]}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerCategories.profileUpdate[lang]}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
                 <>
                     <form onSubmit={handleSubmit(submitHandler)}>
                         <Input
-                            label={inputLabels.username[lang]}
+                            label={inputCategories.username[lang]}
                             type={"text"}
-                            placeholder={placeholders.username[lang]}
+                            placeholder={placeholderCategories.username[lang]}
                             id={"username"}
                             name={"username"}
                             register={register}
@@ -156,7 +158,7 @@ const UpdateAccountPage:FC = () => {
 
                         <Select
                             categories={yearCategories}
-                            label={inputLabels.year[lang]}
+                            label={inputCategories.year[lang]}
                             name={"year"}
                             register={register}
                             errorMessage={errors.year?.message}
@@ -164,9 +166,9 @@ const UpdateAccountPage:FC = () => {
                         />
 
                         <Input
-                            label={inputLabels.studentId[lang]}
+                            label={inputCategories.studentId[lang]}
                             type={"number"}
-                            placeholder={placeholders.studentId[lang]}
+                            placeholder={placeholderCategories.studentId[lang]}
                             id={"student-id"}
                             name={"studentId"}
                             register={register}
@@ -174,19 +176,19 @@ const UpdateAccountPage:FC = () => {
                         />
 
                         <Input
-                            label={inputLabels.studio[lang]}
+                            label={inputCategories.studio[lang]}
                             type={"text"}
                             id={"studio"}
                             name={"studio"}
-                            placeholder={placeholders.studio[lang]}
+                            placeholder={placeholderCategories.studio[lang]}
                             register={register}
                             errorMessage={errors.studio?.message}
                         />
 
                         <Input
-                            label={inputLabels.tel[lang]}
+                            label={inputCategories.tel[lang]}
                             type={"tel"}
-                            placeholder={placeholders.tel[lang]}
+                            placeholder={placeholderCategories.tel[lang]}
                             id={"tel"}
                             name={"tel"}
                             register={register}
@@ -195,7 +197,7 @@ const UpdateAccountPage:FC = () => {
 
                         <Button
                             type={"submit"}
-                            content={buttonLabels.profileUpdate[lang]}
+                            content={buttonCategories.profileUpdate[lang]}
                             width={"full"}
                             color={"primary"}
                             scale={"big"}

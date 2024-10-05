@@ -1,6 +1,6 @@
 import {FC} from 'react';
 
-import {vacuumInstruction} from "@constants/langCategories.ts";
+import {vacuumInstruction} from "@constants/instruction/vacuumInstruction.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container, ImageWrapper} from "../../instruction.style.ts";

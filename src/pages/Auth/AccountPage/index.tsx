@@ -17,6 +17,9 @@ import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {navCategories} from "@constants/navCategories.ts";
 
 import {Container, HeaderWrapper, UpdateButtonWrapper} from "./style.ts";
 
@@ -24,7 +27,6 @@ import no_profile from "@assets/images/no_profile.png";
 import machine from "@assets/images/machine.png";
 import list from "@assets/images/list.png";
 import myPage from "@assets/images/manager.png";
-import {buttonLabels, message, navLabels} from "@constants/langCategories.ts";
 
 const AccountPage:FC = () => {
     const [logoutModal, setLogoutModal] = useState<boolean>(false);
@@ -66,7 +68,7 @@ const AccountPage:FC = () => {
     const AccountHeaderLeft:FC = () => (
         <HeaderWrapper>
             <img src={myPage} alt={"내정보"}/>
-            <h2>{navLabels.account[lang]}</h2>
+            <h2>{navCategories.account[lang]}</h2>
         </HeaderWrapper>
     );
 
@@ -75,7 +77,7 @@ const AccountPage:FC = () => {
         return (
             <Button
                 type={"button"}
-                content={buttonLabels.signOut[lang]}
+                content={buttonCategories.signOut[lang]}
                 width={"fit"}
                 color={"second"}
                 scale={"small"}
@@ -88,7 +90,7 @@ const AccountPage:FC = () => {
         const leftBtn = (
             <Button
                 type={"button"}
-                content={buttonLabels.close[lang]}
+                content={buttonCategories.close[lang]}
                 width={"full"}
                 color={"third"}
                 scale={"normal"}
@@ -98,7 +100,7 @@ const AccountPage:FC = () => {
         const rightBtn = (
             <Button
                 type={"submit"}
-                content={buttonLabels.signOut[lang]}
+                content={buttonCategories.signOut[lang]}
                 width={"full"}
                 color={"danger"}
                 scale={"normal"}
@@ -106,7 +108,7 @@ const AccountPage:FC = () => {
             />
         );
         return (
-            <ConfirmContent text={message.signOut[lang]} leftBtn={leftBtn} rightBtn={rightBtn}/>
+            <ConfirmContent text={messageCategories.signOut[lang]} leftBtn={leftBtn} rightBtn={rightBtn}/>
         );
     };
 
@@ -114,7 +116,7 @@ const AccountPage:FC = () => {
         const leftBtn = (
             <Button
                 type={"button"}
-                content={buttonLabels.close[lang]}
+                content={buttonCategories.close[lang]}
                 width={"full"}
                 color={"third"}
                 scale={"normal"}
@@ -124,7 +126,7 @@ const AccountPage:FC = () => {
         const rightBtn = (
             <Button
                 type={"submit"}
-                content={buttonLabels.accountDeletion[lang]}
+                content={buttonCategories.accountDeletion[lang]}
                 width={"full"}
                 color={"danger"}
                 scale={"normal"}
@@ -132,8 +134,8 @@ const AccountPage:FC = () => {
         );
         return (
             <ConfirmContent
-                text={message.accountDeletion[lang]}
-                description={message.ifDeletingAccount[lang]}
+                text={messageCategories.accountDeletion[lang]}
+                description={messageCategories.ifDeletingAccount[lang]}
                 leftBtn={leftBtn}
                 rightBtn={rightBtn}
             />
@@ -150,8 +152,8 @@ const AccountPage:FC = () => {
                     <ProfileCard/>
 
                     <UpdateButtonWrapper>
-                        <Button type={"link"} content={buttonLabels.profileUpdate[lang]} width={"full"} color={"second"} scale={"normal"} to={"/account/update"}/>
-                        <Button type={"link"} content={buttonLabels.passwordChange[lang]} width={"full"} color={"second"} scale={"normal"} to={"/password/update"}/>
+                        <Button type={"link"} content={buttonCategories.profileUpdate[lang]} width={"full"} color={"second"} scale={"normal"} to={"/account/update"}/>
+                        <Button type={"link"} content={buttonCategories.passwordChange[lang]} width={"full"} color={"second"} scale={"normal"} to={"/password/update"}/>
                     </UpdateButtonWrapper>
 
                     {userData?.role === "student" &&
@@ -164,15 +166,15 @@ const AccountPage:FC = () => {
 
                     {(userData?.role === "manager" || userData?.role === "admin") && (
                         <>
-                            <LinkCard image={list} name={buttonLabels.reservationManagement[lang]} to={"/management/reservations"} type={"linear"} />
-                            <LinkCard image={no_profile} name={buttonLabels.userManagement[lang]} to={"/management/users"} type={"linear"} />
-                            <LinkCard image={machine} name={buttonLabels.machineManagement[lang]} to={"/management/machines"} type={"linear"} />
+                            <LinkCard image={list} name={buttonCategories.reservationManagement[lang]} to={"/management/reservations"} type={"linear"} />
+                            <LinkCard image={no_profile} name={buttonCategories.userManagement[lang]} to={"/management/users"} type={"linear"} />
+                            <LinkCard image={machine} name={buttonCategories.machineManagement[lang]} to={"/management/machines"} type={"linear"} />
                         </>
                     )}
 
                     <Button
                         type={"button"}
-                        content={buttonLabels.accountDeletion[lang]}
+                        content={buttonCategories.accountDeletion[lang]}
                         width={"full"}
                         color={"second"}
                         scale={"big"}

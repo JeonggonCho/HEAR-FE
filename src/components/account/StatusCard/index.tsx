@@ -1,7 +1,7 @@
 import {FC} from "react";
 
 import {useUserDataStore} from "@store/useUserStore.ts";
-import {cardLabels} from "@constants/langCategories.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container, PassStatus, WarningStatus} from "./style.ts";
@@ -13,16 +13,16 @@ const StatusCard:FC = () => {
     return (
         <Container>
             <div>
-                <p>{cardLabels.passQuiz[lang]}</p>
-                <span>{cardLabels.quizMessage[lang]}</span>
+                <p>{cardCategories.passQuiz[lang]}</p>
+                <span>{cardCategories.quizMessage[lang]}</span>
                 <PassStatus pass={userData?.passQuiz as boolean}>
-                    {userData?.passQuiz ? cardLabels.pass[lang] : cardLabels.notCompleted[lang]}
+                    {userData?.passQuiz ? cardCategories.pass[lang] : cardCategories.notCompleted[lang]}
                 </PassStatus>
             </div>
             <div/>
             <div>
-                <p>{cardLabels.countOfWarning[lang]}</p>
-                <span>{cardLabels.warningMessage[lang]}</span>
+                <p>{cardCategories.countOfWarning[lang]}</p>
+                <span>{cardCategories.warningMessage[lang]}</span>
                 <WarningStatus warning={userData?.countOfWarning as number}>
                     {typeof userData?.countOfWarning === "number" && userData.countOfWarning > 0 ? userData.countOfWarning : 0}
                 </WarningStatus>

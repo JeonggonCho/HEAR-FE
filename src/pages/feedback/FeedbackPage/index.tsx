@@ -9,7 +9,8 @@ import ErrorContent from "@components/content/ErrorContent";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IFeedbackProps} from "@/types/componentProps.ts";
-import {message, pageIntroduction} from "@constants/langCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
+import {pageDescriptionCategories} from "@constants/pageDescriptionCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
@@ -43,15 +44,15 @@ const FeedbackPage:FC = () => {
                 <LoadingLoop/>
                 :
                 <>
-                    <p>{pageIntroduction.feedback[lang]}</p>
+                    <p>{pageDescriptionCategories.feedback[lang]}</p>
 
                     {feedback.length !== 0 ? feedback.map((value, idx) => (
                             <InquiryFeedbackListItem key={idx} type={"feedback"} {...value}/>
                         ))
                         :
                         <Empty
-                            title={message.emptyFeedback[lang]}
-                            message={message.makeFeedback[lang]}
+                            title={messageCategories.emptyFeedback[lang]}
+                            message={messageCategories.makeFeedback[lang]}
                         />
                     }
 

@@ -14,7 +14,7 @@ import {IInquiryProps} from "@/types/componentProps.ts";
 import {inquiryCategoriesValues} from "@constants/inquiryCategories.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import {useUserInfoStore} from "@store/useUserStore.ts";
-import {headerTitle} from "@constants/langCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container, InquiryInfoWrapper} from "./style.ts";
@@ -52,7 +52,7 @@ const InquiryDetailPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={headerTitle.inquiryDetail[lang]}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerCategories.inquiryDetail[lang]}/>
             {!isLoading && inquiry ?
                 <>
                     <InquiryInfoWrapper>

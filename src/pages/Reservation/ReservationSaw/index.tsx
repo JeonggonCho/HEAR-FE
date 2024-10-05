@@ -17,7 +17,11 @@ import ErrorContent from "@components/content/ErrorContent";
 import {sawVacuumSchema} from "@schemata/machineSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {buttonLabels, headerTitle, inputLabels, message, placeholders} from "@constants/langCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container, ErrorMessage, ImageWrapper, TimeWrapper} from "./style.ts";
 
@@ -70,7 +74,7 @@ const ReservationSaw:FC = () => {
 
     return (
         <Container tooltip={showTooltip}>
-            <Header leftChild={<ArrowBack/>} centerText={headerTitle.sawReservationHeader[lang]}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerCategories.sawReservationHeader[lang]}/>
             <ImageWrapper>
                 <img src={saw} alt={"톱"}/>
             </ImageWrapper>
@@ -79,7 +83,7 @@ const ReservationSaw:FC = () => {
                 :
                 <form onSubmit={handleSubmit(submitHandler)}>
                     <Input
-                        label={inputLabels.date[lang]}
+                        label={inputCategories.date[lang]}
                         type={"date"}
                         id={"saw-reservation-date"}
                         name={"date"}
@@ -92,10 +96,10 @@ const ReservationSaw:FC = () => {
 
                     <TimeWrapper tooltip={showTooltip}>
                         <div>
-                            <label>{inputLabels.wantedTime[lang]}</label>
+                            <label>{inputCategories.wantedTime[lang]}</label>
                             {showTooltip &&
                               <div>
-                                <span>{message.changeTime[lang]}</span>
+                                <span>{messageCategories.changeTime[lang]}</span>
                                 <ReactSVG src={close} onClick={() => setShowTooltip(false)}/>
                               </div>
                             }
@@ -105,7 +109,7 @@ const ReservationSaw:FC = () => {
                             <select
                                 onChange={(e) => setValue("startTime", e.target.value)}
                             >
-                                <option value={""}>{placeholders.startTime[lang]}</option>
+                                <option value={""}>{placeholderCategories.startTime[lang]}</option>
                                 <option value={"10:00"}>10:00</option>
                                 <option value={"11:00"}>11:00</option>
                                 <option value={"12:00"}>12:00</option>
@@ -118,7 +122,7 @@ const ReservationSaw:FC = () => {
                             <select
                                 onChange={(e) => setValue("endTime", e.target.value)}
                             >
-                                <option value={""}>{placeholders.endTime[lang]}</option>
+                                <option value={""}>{placeholderCategories.endTime[lang]}</option>
                                 <option value={"11:00"}>11:00</option>
                                 <option value={"12:00"}>12:00</option>
                                 <option value={"13:00"}>13:00</option>
@@ -133,7 +137,7 @@ const ReservationSaw:FC = () => {
                         {errors.endTime?.message && <ErrorMessage>{errors.endTime?.message}</ErrorMessage>}
                     </TimeWrapper>
 
-                    <Button type={"submit"} content={buttonLabels.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                    <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
                 </form>
             }
 

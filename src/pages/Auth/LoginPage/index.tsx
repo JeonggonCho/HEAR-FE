@@ -19,7 +19,10 @@ import useRequest from "@hooks/useRequest.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {IAuthResponseData} from "@/types/authResponse.ts";
-import {buttonLabels, headerTitle, inputLabels, placeholders} from "@constants/langCategories.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
@@ -82,7 +85,7 @@ const LoginPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={headerTitle.signIn[lang]}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerCategories.signIn[lang]}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
@@ -97,9 +100,9 @@ const LoginPage:FC = () => {
 
                     <form onSubmit={handleSubmit(submitHandler)}>
                         <Input
-                            label={inputLabels.hyuEmail[lang]}
+                            label={inputCategories.hyuEmail[lang]}
                             type={"text"}
-                            placeholder={placeholders.email[lang]}
+                            placeholder={placeholderCategories.email[lang]}
                             id={"email"}
                             name={"email"}
                             register={register}
@@ -107,9 +110,9 @@ const LoginPage:FC = () => {
                         />
 
                         <Input
-                            label={inputLabels.password[lang]}
+                            label={inputCategories.password[lang]}
                             type={"password"}
-                            placeholder={placeholders.password[lang]}
+                            placeholder={placeholderCategories.password[lang]}
                             id={"password"}
                             name={"password"}
                             register={register}
@@ -119,15 +122,15 @@ const LoginPage:FC = () => {
 
                         <Button
                             type={"submit"}
-                            content={buttonLabels.signIn[lang]}
+                            content={buttonCategories.signIn[lang]}
                             width={"full"}
                             color={"primary"}
                             scale={"big"}
                         />
                     </form>
 
-                    <Link text={buttonLabels.signUp[lang]} to={"/signup"} color={"primary"}/>
-                    <Link text={buttonLabels.findPassword[lang]} to={"/password/reset"} color={"second"}/>
+                    <Link text={buttonCategories.signUp[lang]} to={"/signup"} color={"primary"}/>
+                    <Link text={buttonCategories.findPassword[lang]} to={"/password/reset"} color={"second"}/>
                 </>
             }
 

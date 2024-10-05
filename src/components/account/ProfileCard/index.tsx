@@ -1,11 +1,11 @@
 import {FC} from "react";
 
 import {useUserInfoStore, useUserDataStore} from "@store/useUserStore.ts";
-import {userRole} from "@constants/userRole.ts";
+import {roleCategories} from "@constants/userCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
-import {cardLabels} from "@constants/langCategories.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
 
 
 const ProfileCard:FC = () => {
@@ -16,33 +16,33 @@ const ProfileCard:FC = () => {
     return (
         <Container>
             <div>
-                <span>{cardLabels.username[lang]}</span>
+                <span>{cardCategories.username[lang]}</span>
                 <span>{userInfo?.username}</span>
             </div>
             <div>
-                <span>{cardLabels.email[lang]}</span>
+                <span>{cardCategories.email[lang]}</span>
                 <span>{userInfo?.email}</span>
             </div>
             {userData?.role === "student" &&
               <>
                 <div>
-                  <span>{cardLabels.studentId[lang]}</span>
+                  <span>{cardCategories.studentId[lang]}</span>
                   <span>{userInfo?.studentId}</span>
                 </div>
                 <div>
-                  <span>{cardLabels.year[lang]}</span>
+                  <span>{cardCategories.year[lang]}</span>
                   <span>{userData?.year}학년</span>
                 </div>
                 <div>
-                  <span>{cardLabels.studio[lang]}</span>
+                  <span>{cardCategories.studio[lang]}</span>
                   <span>{userData?.studio} 교수님</span>
                 </div>
               </>
             }
             {userData?.role &&
               <div>
-                <span>{cardLabels.role[lang]}</span>
-                <span>{userRole[userData?.role]}</span>
+                <span>{cardCategories.role[lang]}</span>
+                <span>{roleCategories[userData?.role]}</span>
               </div>
             }
         </Container>

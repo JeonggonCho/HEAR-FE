@@ -4,7 +4,7 @@ import Header from "@components/common/Header";
 
 import {HeaderWrapper} from "@layouts/CommunicationLayout/style.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {navLabels} from "@constants/langCategories.ts";
+import {navCategories} from "@constants/navCategories.ts";
 
 import {Container} from "./style.ts";
 
@@ -16,7 +16,7 @@ const QuizHeaderLeft = () => {
     return (
         <HeaderWrapper>
             <img src={test} alt="모형제작실 교육"/>
-            <h2>{navLabels.quiz[lang]}</h2>
+            <h2>{navCategories.quiz[lang]}</h2>
         </HeaderWrapper>
     );
 };

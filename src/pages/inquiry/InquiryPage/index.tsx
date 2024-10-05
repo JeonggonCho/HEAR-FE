@@ -10,7 +10,8 @@ import ErrorContent from "@components/content/ErrorContent";
 import useRequest from "@hooks/useRequest.ts";
 import {IInquiryProps} from "@/types/componentProps.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
-import {message, pageIntroduction} from "@constants/langCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
+import {pageDescriptionCategories} from "@constants/pageDescriptionCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
@@ -42,15 +43,15 @@ const InquiryPage:FC = () => {
                 <LoadingLoop/>
                 :
                 <>
-                    <p>{pageIntroduction.inquiry[lang]}</p>
+                    <p>{pageDescriptionCategories.inquiry[lang]}</p>
 
                     {inquiries.length !== 0 ? inquiries.map((value, idx) => (
                             <InquiryFeedbackListItem key={idx} type={"inquiry"} {...value}/>
                         ))
                         :
                         <Empty
-                            title={message.emptyInquiry[lang]}
-                            message={message.makeInquiry[lang]}
+                            title={messageCategories.emptyInquiry[lang]}
+                            message={messageCategories.makeInquiry[lang]}
                         />
                     }
 

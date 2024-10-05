@@ -5,7 +5,8 @@ import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
 
 import {ITab} from "@/types/tab.ts";
-import {machineName, printerTabType} from "@constants/langCategories.ts";
+import {machineInstructionTabCategories} from "@constants/machineCategories.ts";
+import {machineName} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Content, MachineImgWrapper} from "./style.ts";
@@ -29,10 +30,10 @@ const InstructionPrinter:FC = () => {
     const {lang} = useThemeStore();
 
     const tabs: ITab[] = [
-        { name: printerTabType.introduction[lang], content: <Introduction/>, },
-        { name: printerTabType.preparation[lang], content: <Preparation/>, },
-        { name: printerTabType.usage[lang], content: <Usage/>, },
-        { name: printerTabType.after[lang], content: <After/>, },
+        { name: machineInstructionTabCategories.introduction[lang], content: <Introduction/>, },
+        { name: machineInstructionTabCategories.preparation[lang], content: <Preparation/>, },
+        { name: machineInstructionTabCategories.usage[lang], content: <Usage/>, },
+        { name: machineInstructionTabCategories.after[lang], content: <After/>, },
     ];
 
     useEffect(() => {

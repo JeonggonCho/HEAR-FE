@@ -1,6 +1,6 @@
 import {FC} from "react";
 
-import {sawInstruction} from "@constants/langCategories.ts";
+import {sawInstruction} from "@constants/instruction/sawInstruction.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container, ImageWrapper} from "../../instruction.style.ts";

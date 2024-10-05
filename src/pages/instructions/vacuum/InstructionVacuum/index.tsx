@@ -5,7 +5,7 @@ import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
 
 import {ITab} from "@/types/tab.ts";
-import {machineName, vacuumTabType} from "@constants/langCategories.ts";
+import {machineName, machineInstructionTabCategories} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {MachineImgWrapper} from "./style.ts";
@@ -29,9 +29,9 @@ const InstructionVacuum:FC = () => {
     const {lang} = useThemeStore();
 
     const tabs: ITab[] = [
-        { name: vacuumTabType.introduction[lang], content: <Introduction/>, },
-        { name: vacuumTabType.preparation[lang], content: <Preparation/>, },
-        { name: vacuumTabType.usage[lang], content: <Usage/>, },
+        { name: machineInstructionTabCategories.introduction[lang], content: <Introduction/>, },
+        { name: machineInstructionTabCategories.preparation[lang], content: <Preparation/>, },
+        { name: machineInstructionTabCategories.usage[lang], content: <Usage/>, },
     ];
 
     useEffect(() => {

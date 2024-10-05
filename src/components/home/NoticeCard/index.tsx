@@ -5,7 +5,7 @@ import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
 
 import useRequest from "@hooks/useRequest.ts";
-import {buttonLabels} from "@constants/langCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container, EmptyNotice, ImgWrapper, More, Notice, NoticesWrapper} from "./style.ts";
@@ -54,7 +54,7 @@ const NoticeCard:FC = () => {
                         })}
                     </NoticesWrapper>
                     <More to={"/communication/notice"}>
-                        {buttonLabels.more[lang]} <ArrowForward/>
+                        {buttonCategories.more[lang]} <ArrowForward/>
                     </More>
                 </>
                 :

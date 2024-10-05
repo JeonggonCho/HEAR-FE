@@ -4,9 +4,9 @@ import {ReactSVG} from "react-svg";
 import Button from "@components/common/Button";
 
 import {ICalendarProps} from "@/types/componentProps.ts";
-import {daysOfWeek} from "@constants/calendar.ts";
+import {daysOfWeek} from "@constants/calendarCategories.ts";
 import generateCalendar from "@util/generateCalendar.ts";
-import {buttonLabels} from "@constants/langCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {
@@ -122,7 +122,7 @@ const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate}) => {
 
             <Button
                 type={"button"}
-                content={`${selectedDate ? selectedDate.toLocaleDateString('default', { month: 'long', day: 'numeric' }) : ""} ${buttonLabels.select[lang]}`}
+                content={`${selectedDate ? selectedDate.toLocaleDateString('default', { month: 'long', day: 'numeric' }) : ""} ${buttonCategories.select[lang]}`}
                 width={"full"}
                 color={"primary"}
                 scale={"big"}

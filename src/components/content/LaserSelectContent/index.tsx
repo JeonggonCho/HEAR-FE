@@ -9,7 +9,8 @@ import Button from "@components/common/Button";
 import {ILaserSelectContentProps} from "@/types/componentProps.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
 import {laserTimeSchema} from "@schemata/machineSchema.ts";
-import {buttonLabels, inputLabels} from "@constants/langCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 
 import {Container, CountOfLaserPerDayWrapper, CountOfLaserPerWeekWrapper, CountOfLaserWrapper} from "./style.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
@@ -108,21 +109,21 @@ const LaserSelectContent:FC<ILaserSelectContentProps> = ({laserInfo, laserTimesI
     return (
         <Container onSubmit={handleSubmit(submitHandler)}>
             <CountOfLaserWrapper>
-                <label>{inputLabels.countOfLaser[lang]}</label>
+                <label>{inputCategories.countOfLaser[lang]}</label>
                 <div>
                     <CountOfLaserPerDayWrapper count={countOfLaserPerDay}>
-                        <span>{inputLabels.today[lang]}</span>
+                        <span>{inputCategories.today[lang]}</span>
                         <span>{countOfLaserPerDay}</span>
                     </CountOfLaserPerDayWrapper>
                     <CountOfLaserPerWeekWrapper count={countOfLaserPerWeek}>
-                        <span>{inputLabels.week[lang]}</span>
+                        <span>{inputCategories.week[lang]}</span>
                         <span>{countOfLaserPerWeek}</span>
                     </CountOfLaserPerWeekWrapper>
                 </div>
             </CountOfLaserWrapper>
 
             <Select
-                label={inputLabels.selectMachine[lang]}
+                label={inputCategories.selectMachine[lang]}
                 type={"radio"}
                 name={"laser"}
                 categories={laserCategories}
@@ -133,7 +134,7 @@ const LaserSelectContent:FC<ILaserSelectContentProps> = ({laserInfo, laserTimesI
             {/*선택된 레이저 커팅기가 있을 경우 시간목록 보이게 하기*/}
             {selectedLaser &&
               <Select
-                label={inputLabels.selectTime[lang]}
+                label={inputCategories.selectTime[lang]}
                 type={"checkbox"}
                 name={"times"}
                 register={register}
@@ -146,7 +147,7 @@ const LaserSelectContent:FC<ILaserSelectContentProps> = ({laserInfo, laserTimesI
 
             <Button
                 type={"submit"}
-                content={buttonLabels.add[lang]}
+                content={buttonCategories.add[lang]}
                 width={"full"}
                 color={"primary"}
                 scale={"normal"}

@@ -16,14 +16,12 @@ import ErrorContent from "@components/content/ErrorContent";
 
 import {feedbackSchema} from "@schemata/qnaSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
-import {
-    buttonLabels,
-    feedbackType,
-    headerTitle,
-    inputLabels,
-    pageIntroduction,
-    placeholders
-} from "@constants/langCategories.ts";
+import {feedbackCategories} from "@constants/feedbackCategories.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {pageDescriptionCategories} from "@constants/pageDescriptionCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
@@ -33,11 +31,11 @@ const CreateFeedbackPage:FC = () => {
 
     const {lang} = useThemeStore();
 
-    const feedbackCategories = [
-        {label: feedbackType.good[lang], value: "good", id: "radio-1"},
-        {label: feedbackType.bad[lang], value: "bad", id: "radio-2"},
-        {label: feedbackType.suggest[lang], value: "suggest", id: "radio-3"},
-        {label: feedbackType.etc[lang], value: "etc", id: "radio-4"},
+    const feedbackInfoCategories = [
+        {label: feedbackCategories.good[lang], value: "good", id: "radio-1"},
+        {label: feedbackCategories.bad[lang], value: "bad", id: "radio-2"},
+        {label: feedbackCategories.suggest[lang], value: "suggest", id: "radio-3"},
+        {label: feedbackCategories.etc[lang], value: "etc", id: "radio-4"},
     ];
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
@@ -69,26 +67,26 @@ const CreateFeedbackPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={headerTitle.feedback[lang]}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerCategories.feedback[lang]}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
                 <>
-                    <p>{pageIntroduction.createFeedback[lang]}</p>
+                    <p>{pageDescriptionCategories.createFeedback[lang]}</p>
 
                     <form onSubmit={handleSubmit(submitHandler)}>
                         <Input
-                            label={inputLabels.title[lang]}
+                            label={inputCategories.title[lang]}
                             type={"text"}
                             id={"inquiry-title"}
                             name={"title"}
-                            placeholder={placeholders.title[lang]}
+                            placeholder={placeholderCategories.title[lang]}
                             register={register}
                             errorMessage={errors.title?.message}
                         />
 
                         <Select
-                            categories={feedbackCategories}
+                            categories={feedbackInfoCategories}
                             name={"category"}
                             register={register}
                             errorMessage={errors.category?.message}
@@ -101,7 +99,7 @@ const CreateFeedbackPage:FC = () => {
                             errorMessage={errors.content?.message}
                         />
 
-                        <Button type={"submit"} content={buttonLabels.sendFeedback[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={buttonCategories.sendFeedback[lang]} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
                 </>
             }

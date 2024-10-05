@@ -6,7 +6,8 @@ import Tab from "@components/common/Tab";
 
 import {ITab} from "@/types/tab.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {buttonLabels, navLabels} from "@constants/langCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {navCategories} from '@constants/navCategories.ts';
 
 import {Container, HeaderWrapper} from "./style.ts";
 
@@ -16,9 +17,9 @@ const CommunicationLayout:FC = () => {
     const {lang} = useThemeStore();
 
     const tabs: ITab[] = [
-        { name: buttonLabels.notice[lang], path: "/communication/notice", },
-        { name: buttonLabels.inquiry[lang], path: "/communication/inquiry", },
-        { name: buttonLabels.feedback[lang], path: "/communication/feedback", },
+        { name: buttonCategories.notice[lang], path: "/communication/notice", },
+        { name: buttonCategories.inquiry[lang], path: "/communication/inquiry", },
+        { name: buttonCategories.feedback[lang], path: "/communication/feedback", },
     ];
 
     return (
@@ -26,7 +27,7 @@ const CommunicationLayout:FC = () => {
             <Header leftChild={
                 <HeaderWrapper>
                     <img src={notice} alt="피드백"/>
-                    <h2>{navLabels.communication[lang]}</h2>
+                    <h2>{navCategories.communication[lang]}</h2>
                 </HeaderWrapper>
             }/>
 

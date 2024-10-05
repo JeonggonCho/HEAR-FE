@@ -17,7 +17,10 @@ import {getTomorrowDate} from "@util/calculateDate.ts";
 import {ILaserInfo, ILaserReservation, ILaserTimesinfo} from "@/types/reservation.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {buttonLabels, headerTitle, inputLabels, message} from "@constants/langCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container, ImageWrapper, MapIcon, SelectedItemWrapper} from "./style.ts";
 
@@ -108,7 +111,7 @@ const ReservationLaser: FC = () => {
         <Container>
             <Header
                 leftChild={<ArrowBack/>}
-                centerText={headerTitle.laserReservationHeader[lang]}
+                centerText={headerCategories.laserReservationHeader[lang]}
                 rightChild={
                     <MapIcon onClick={() => setShowMap(true)}>
                         <ReactSVG src={mapIcon}/>
@@ -123,7 +126,7 @@ const ReservationLaser: FC = () => {
                 :
                 <form onSubmit={submitHandler}>
                     <Input
-                        label={inputLabels.tomorrowDate[lang]}
+                        label={inputCategories.tomorrowDate[lang]}
                         type={"date"}
                         id={"laser-reservation-date"}
                         value={formattedDate}
@@ -133,10 +136,10 @@ const ReservationLaser: FC = () => {
                     />
 
                     <div>
-                        <label>{inputLabels.machineAndTime[lang]}</label>
+                        <label>{inputCategories.machineAndTime[lang]}</label>
                         <div>
                             {reservationList.length === 0 ?
-                                <p>{message.emptyMachineAndTime[lang]}</p>
+                                <p>{messageCategories.emptyMachineAndTime[lang]}</p>
                                 :
                                 <>
                                     {reservationList.map((reservation) => {
@@ -157,7 +160,7 @@ const ReservationLaser: FC = () => {
 
                             <Button
                                 type={"button"}
-                                content={buttonLabels.selectMachineAndTime[lang]}
+                                content={buttonCategories.selectMachineAndTime[lang]}
                                 width={"full"}
                                 color={"approval"}
                                 scale={"normal"}
@@ -166,13 +169,13 @@ const ReservationLaser: FC = () => {
                         </div>
                     </div>
 
-                    <Button type={"submit"} content={buttonLabels.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                    <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
                 </form>
             }
 
             {showModal &&
               <Modal
-                title={buttonLabels.selectMachineAndTime[lang]}
+                title={buttonCategories.selectMachineAndTime[lang]}
                 content={
                     <LaserSelectContent
                         laserInfo={laserInfo}

@@ -15,7 +15,9 @@ import Calendar from "@components/common/Calendar";
 import {machineType} from "@constants/machineCategories.ts";
 import {printerSchema} from "@schemata/machineSchema.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {buttonLabels, headerTitle, inputLabels} from "@constants/langCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container, ImageWrapper, MapIcon} from "./style.ts";
 
@@ -45,7 +47,7 @@ const ReservationPrinter:FC = () => {
         <Container>
             <Header
                 leftChild={<ArrowBack/>}
-                centerText={headerTitle.printerReservationHeader[lang]}
+                centerText={headerCategories.printerReservationHeader[lang]}
                 rightChild={
                     <MapIcon onClick={() => setShowMap(true)}>
                         <ReactSVG src={mapIcon}/>
@@ -59,7 +61,7 @@ const ReservationPrinter:FC = () => {
                 console.log(data);
             })}>
                 <Select
-                    label={inputLabels.selectMachine[lang]}
+                    label={inputCategories.selectMachine[lang]}
                     categories={machineType}
                     name={"machine"}
                     register={register}
@@ -68,7 +70,7 @@ const ReservationPrinter:FC = () => {
                 />
 
                 <Input
-                    label={inputLabels.date[lang]}
+                    label={inputCategories.date[lang]}
                     type={"date"}
                     id={"printer-reservation-date"}
                     name={"date"}
@@ -79,12 +81,12 @@ const ReservationPrinter:FC = () => {
                     readonly
                 />
 
-                <Button type={"submit"} content={buttonLabels.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
             </form>
 
             {isOpenCalendar &&
               <Modal
-                title={inputLabels.date[lang]}
+                title={inputCategories.date[lang]}
                 content={
                     <Calendar
                         setModal={setIsOpenCalendar}

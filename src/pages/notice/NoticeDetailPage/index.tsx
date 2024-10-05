@@ -14,7 +14,7 @@ import getTimeStamp from "@util/getTimeStamp.ts";
 import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {headerTitle} from "@constants/langCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container, NoticeInfoWrapper} from "./style.ts";
 
@@ -54,7 +54,7 @@ const NoticeDetailPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={headerTitle.noticeDetail[lang]}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerCategories.noticeDetail[lang]}/>
             {!isLoading && notice ?
                 <>
                     <NoticeInfoWrapper>

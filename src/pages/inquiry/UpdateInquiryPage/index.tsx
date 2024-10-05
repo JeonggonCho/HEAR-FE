@@ -18,7 +18,11 @@ import ConfirmContent from "@components/content/ConfirmContent";
 import useRequest from "@hooks/useRequest.ts";
 import {inquirySchema} from "@schemata/qnaSchema.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {buttonLabels, headerTitle, inputLabels, inquiryType, placeholders} from "@constants/langCategories.ts";
+import {inquiryCategories} from "@constants/inquiryCategories.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container} from "./style.ts";
 
@@ -34,11 +38,11 @@ const UpdateInquiryPage:FC = () => {
 
     const {lang} = useThemeStore();
 
-    const inquiryCategories = [
-        {label: inquiryType.machine[lang], value: "machine", id: "radio-1"},
-        {label: inquiryType.reservation[lang], value: "reservation", id: "radio-2"},
-        {label: inquiryType.studio[lang], value: "room", id: "radio-3"},
-        {label: inquiryType.etc[lang], value: "etc", id: "radio-4"},
+    const inquiryInfoCategories = [
+        {label: inquiryCategories.machine[lang], value: "machine", id: "radio-1"},
+        {label: inquiryCategories.reservation[lang], value: "reservation", id: "radio-2"},
+        {label: inquiryCategories.studio[lang], value: "room", id: "radio-3"},
+        {label: inquiryCategories.etc[lang], value: "etc", id: "radio-4"},
     ];
 
     const fetchInquiry = useCallback(async () => {
@@ -98,7 +102,7 @@ const UpdateInquiryPage:FC = () => {
         const leftBtn = (
             <Button
                 type={"button"}
-                content={buttonLabels.close[lang]}
+                content={buttonCategories.close[lang]}
                 width={"full"}
                 color={"third"}
                 scale={"normal"}
@@ -108,7 +112,7 @@ const UpdateInquiryPage:FC = () => {
         const rightBtn = (
             <Button
                 type={"submit"}
-                content={buttonLabels.edit[lang]}
+                content={buttonCategories.edit[lang]}
                 width={"full"}
                 color={"approval"}
                 scale={"normal"}
@@ -126,16 +130,16 @@ const UpdateInquiryPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={headerTitle.editInquiry[lang]}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerCategories.editInquiry[lang]}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
                 <>
                     <form onSubmit={handleSubmit(submitHandler)}>
                         <Input
-                            label={inputLabels.title[lang]}
+                            label={inputCategories.title[lang]}
                             type={"text"}
-                            placeholder={placeholders.title[lang]}
+                            placeholder={placeholderCategories.title[lang]}
                             id={"inquiry-title"}
                             name={"title"}
                             register={register}
@@ -143,7 +147,7 @@ const UpdateInquiryPage:FC = () => {
                         />
 
                         <Select
-                            categories={inquiryCategories}
+                            categories={inquiryInfoCategories}
                             name={"category"}
                             register={register}
                             errorMessage={errors.category?.message}
@@ -156,7 +160,7 @@ const UpdateInquiryPage:FC = () => {
                             errorMessage={errors.content?.message}
                         />
 
-                        <Button type={"submit"} content={buttonLabels.edit[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={buttonCategories.edit[lang]} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
 
                     {updateInquiryModal &&

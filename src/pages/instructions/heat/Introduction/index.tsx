@@ -1,6 +1,6 @@
 import {FC} from "react";
 
-import {heatInstruction} from "@constants/langCategories.ts";
+import {heatInstruction} from "@constants/instruction/heatInstruction.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container, ImageWrapper} from "../../instruction.style.ts";

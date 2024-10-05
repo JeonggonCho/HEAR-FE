@@ -1,6 +1,7 @@
 import {FC} from 'react';
 
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {vacuumInstruction} from "@constants/instruction/vacuumInstruction.ts";
 
 import {Container, ImageWrapper} from "../../instruction.style.ts";
 
@@ -21,7 +22,6 @@ import pressure from "@assets/instruction_images/vacuum/vacuum_pressure.jpg";
 import mouldUp from "@assets/instruction_images/vacuum/vacuum_mould_up.jpg";
 import remove from "@assets/instruction_images/vacuum/vacuum_remove.jpg";
 import finish from "@assets/instruction_images/vacuum/vacuum_finish.jpg";
-import {vacuumInstruction} from "@constants/langCategories.ts";
 
 const Usage:FC = () => {
     const {lang} = useThemeStore();

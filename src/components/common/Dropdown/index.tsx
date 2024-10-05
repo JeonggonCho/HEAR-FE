@@ -10,7 +10,8 @@ import ErrorContent from "@components/content/ErrorContent";
 import {IDropdownProps} from "@/types/componentProps.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {buttonLabels, message} from "@constants/langCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 
 import {Container, DropdownWrapper} from "./style.ts";
 
@@ -83,14 +84,14 @@ const Dropdown:FC<IDropdownProps> = ({type, id}) => {
             {showDropdown &&
                 <DropdownWrapper>
                     <div onClick={updateLinkHandler}>
-                        <ReactSVG src={editIcon}/> {buttonLabels.edit[lang]}
+                        <ReactSVG src={editIcon}/> {buttonCategories.edit[lang]}
                     </div>
 
                     <div onClick={() => {
                         setShowModal(true);
                         setShowDropdown(false);
                     }}>
-                        <ReactSVG src={deleteIcon}/> {buttonLabels.delete[lang]}
+                        <ReactSVG src={deleteIcon}/> {buttonCategories.delete[lang]}
                     </div>
                 </DropdownWrapper>
             }
@@ -98,9 +99,9 @@ const Dropdown:FC<IDropdownProps> = ({type, id}) => {
             {showModal &&
                 <Modal
                     content={<ConfirmContent
-                        text={message.delete[lang]}
-                        leftBtn={<Button type={"button"} content={buttonLabels.close[lang]} color={"third"} scale={"normal"} width={"full"} onClick={() => setShowModal(false)}/> }
-                        rightBtn={<Button type={"submit"} content={buttonLabels.delete[lang]} color={"danger"} scale={"normal"} width={"full"} onClick={deleteHandler}/>}
+                        text={messageCategories.delete[lang]}
+                        leftBtn={<Button type={"button"} content={buttonCategories.close[lang]} color={"third"} scale={"normal"} width={"full"} onClick={() => setShowModal(false)}/> }
+                        rightBtn={<Button type={"submit"} content={buttonCategories.delete[lang]} color={"danger"} scale={"normal"} width={"full"} onClick={deleteHandler}/>}
                     />}
                     setModal={setShowModal}
                     type={"popup"}

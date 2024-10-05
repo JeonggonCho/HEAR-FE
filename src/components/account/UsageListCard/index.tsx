@@ -1,6 +1,6 @@
 import {FC} from 'react';
 
-import {cardLabels} from "@constants/langCategories.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container, Usage} from "./style.ts";
@@ -15,7 +15,7 @@ const UsageListCard:FC = () => {
         <Container>
             <div>
                 <img src={history} alt="최근 사용 기록"/>
-                <h3>{cardLabels.usage[lang]}</h3>
+                <h3>{cardCategories.usage[lang]}</h3>
             </div>
 
             <div>

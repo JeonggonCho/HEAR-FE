@@ -17,7 +17,11 @@ import {cncHeatSchema} from "@schemata/machineSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {getTomorrowDate, getAfterWeekDate} from "@util/calculateDate.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {buttonLabels, cardLabels, headerTitle, inputLabels, message} from "@constants/langCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container, HeatCheckWrapper, ImageWrapper, ReturnDateWrapper} from "./style.ts";
 
@@ -65,7 +69,7 @@ const ReservationHeat:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={headerTitle.heatReservationHeader[lang]}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerCategories.heatReservationHeader[lang]}/>
             <ImageWrapper>
                 <img src={heat} alt={"열선"}/>
             </ImageWrapper>
@@ -82,13 +86,13 @@ const ReservationHeat:FC = () => {
                             />
                             <label htmlFor={"heatWarning"}>
                                 <div><ReactSVG src={check}/></div>
-                                {inputLabels.check[lang]}
+                                {inputCategories.check[lang]}
                             </label>
                         </div>
 
                         <div>
-                            <span>{message.heatRule[lang]}</span>
-                            <p>{message.heatDescription[lang]}</p>
+                            <span>{messageCategories.heatRule[lang]}</span>
+                            <p>{messageCategories.heatDescription[lang]}</p>
                         </div>
 
                         {errors.check?.message &&
@@ -97,7 +101,7 @@ const ReservationHeat:FC = () => {
                     </HeatCheckWrapper>
 
                     <Input
-                        label={inputLabels.tomorrowRentalDate[lang]}
+                        label={inputCategories.tomorrowRentalDate[lang]}
                         type={"date"}
                         id={"heat-reservation-date"}
                         name={"date"}
@@ -108,10 +112,10 @@ const ReservationHeat:FC = () => {
                     />
 
                     <ReturnDateWrapper>
-                        {cardLabels.return[lang]} <span>{formattedReturnDate.split("-").join(". ")}</span>
+                        {cardCategories.return[lang]} <span>{formattedReturnDate.split("-").join(". ")}</span>
                     </ReturnDateWrapper>
 
-                    <Button type={"submit"} content={buttonLabels.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                    <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
                 </form>
             }
 

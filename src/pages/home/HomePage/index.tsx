@@ -19,7 +19,7 @@ import logo from "@assets/logo.svg";
 import alarm from "@assets/icons/alarm.svg";
 import dark from "@assets/icons/dark.svg";
 import light from "@assets/icons/light.svg";
-import {buttonLabels} from "@constants/langCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 
 const HomeHeaderLeft:FC = () => {
     return (
@@ -67,7 +67,7 @@ const HomePage = () => {
 
             {langModal &&
               <Modal
-                title={buttonLabels.languageSetting[lang]}
+                title={buttonCategories.languageSetting[lang]}
                 setModal={setLangModal}
                 content={<LangSettingContent setModal={setLangModal}/>}
                 type={"bottomSheet"}

@@ -4,7 +4,9 @@ import Header from "@components/common/Header";
 import Button from "@components/common/Button";
 
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {buttonLabels, headerTitle, message} from "@constants/langCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container, LottieWrapper} from "./style.ts";
 
@@ -15,10 +17,10 @@ const ReservationDonePage:FC = () => {
 
     return (
         <Container>
-            <Header centerText={headerTitle.doneReservation[lang]}/>
+            <Header centerText={headerCategories.doneReservation[lang]}/>
             <LottieWrapper animationData={done}/>
-            <p>{message.doneReservation[lang]}</p>
-            <Button type={"link"} to={"/"} content={buttonLabels.goHome[lang]} width={"full"} color={"primary"} scale={"big"}/>
+            <p>{messageCategories.doneReservation[lang]}</p>
+            <Button type={"link"} to={"/"} content={buttonCategories.goHome[lang]} width={"full"} color={"primary"} scale={"big"}/>
         </Container>
     );
 };

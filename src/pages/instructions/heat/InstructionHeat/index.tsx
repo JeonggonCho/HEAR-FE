@@ -5,7 +5,7 @@ import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
 
 import {ITab} from "@/types/tab.ts";
-import {heatTabType, machineName} from "@constants/langCategories.ts";
+import {machineName, machineInstructionTabCategories} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {MachineImgWrapper} from "./style.ts";
@@ -21,7 +21,7 @@ const InstructionHeat:FC = () => {
     const {lang} = useThemeStore();
 
     const tabs: ITab[] = [
-        { name: heatTabType.introduction[lang], content: <Introduction/>, },
+        { name: machineInstructionTabCategories.introduction[lang], content: <Introduction/>, },
     ];
 
     useEffect(() => {

@@ -5,7 +5,7 @@ import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
 
 import {ITab} from "@/types/tab.ts";
-import {machineName, sawTabType} from "@constants/langCategories.ts";
+import {machineName, machineInstructionTabCategories} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Content} from "../../printer/InstructionPrinter/style.ts";
@@ -22,8 +22,8 @@ const InstructionSaw:FC = () => {
     const {lang} = useThemeStore();
 
     const tabs: ITab[] = [
-        { name: sawTabType.precaution[lang], content: <Warning/>, },
-        { name: sawTabType.after[lang], content: <After/>, },
+        { name: machineInstructionTabCategories.precaution[lang], content: <Warning/>, },
+        { name: machineInstructionTabCategories.after[lang], content: <After/>, },
     ];
 
     useEffect(() => {

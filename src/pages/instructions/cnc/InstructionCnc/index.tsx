@@ -5,7 +5,7 @@ import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
 
 import {ITab} from "@/types/tab.ts";
-import {cncTabType, machineName} from "@constants/langCategories.ts";
+import {machineName, machineInstructionTabCategories} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {MachineImgWrapper} from "./style.ts";
@@ -22,8 +22,8 @@ const InstructionCnc:FC = () => {
     const {lang} = useThemeStore();
 
     const tabs: ITab[] = [
-        { name: cncTabType.introduction[lang], content: <Introduction/>, },
-        { name: cncTabType.work[lang], content: <Work/>, },
+        { name: machineInstructionTabCategories.introduction[lang], content: <Introduction/>, },
+        { name: machineInstructionTabCategories.work[lang], content: <Work/>, },
     ];
 
     useEffect(() => {

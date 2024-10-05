@@ -9,7 +9,10 @@ import Button from "@components/common/Button";
 
 import {findPasswordSchema} from "@schemata/userSchema.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {buttonLabels, headerTitle, inputLabels, placeholders} from "@constants/langCategories.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container} from "./style.ts";
 
@@ -27,14 +30,14 @@ const FindPasswordPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={headerTitle.findPassword[lang]}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerCategories.findPassword[lang]}/>
             <form method={"post"} onSubmit={handleSubmit((data) => {
                 console.log(data);
             })}>
                 <Input
-                    label={inputLabels.username[lang]}
+                    label={inputCategories.username[lang]}
                     type={"text"}
-                    placeholder={placeholders.username[lang]}
+                    placeholder={placeholderCategories.username[lang]}
                     name={"username"}
                     id={"username"}
                     register={register}
@@ -42,9 +45,9 @@ const FindPasswordPage:FC = () => {
                 />
 
                 <Input
-                    label={inputLabels.hyuEmail[lang]}
+                    label={inputCategories.hyuEmail[lang]}
                     type={"text"}
-                    placeholder={placeholders.email[lang]}
+                    placeholder={placeholderCategories.email[lang]}
                     name={"email"}
                     id={"email"}
                     register={register}
@@ -52,16 +55,16 @@ const FindPasswordPage:FC = () => {
                 />
 
                 <Input
-                    label={inputLabels.studentId[lang]}
+                    label={inputCategories.studentId[lang]}
                     type={"number"}
-                    placeholder={placeholders.studentId[lang]}
+                    placeholder={placeholderCategories.studentId[lang]}
                     name={"studentId"}
                     id={"student-id"}
                     register={register}
                     errorMessage={errors.studentId?.message}
                 />
 
-                <Button type={"submit"} content={buttonLabels.findPassword[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                <Button type={"submit"} content={buttonCategories.findPassword[lang]} width={"full"} color={"primary"} scale={"big"}/>
             </form>
         </Container>
     );

@@ -1,7 +1,7 @@
 import {FC} from "react";
 
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {cardLabels} from "@constants/langCategories.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
 
 import {Container} from "./style.ts";
 
@@ -16,7 +16,7 @@ const VacuumReservationConditionContent: FC = () => {
                 <div>
                     <img src={vacuum} alt={"사출 성형기 이미지"}/>
                 </div>
-                <h4>{cardLabels.vacuumReservationCondition[lang]}</h4>
+                <h4>{cardCategories.vacuumReservationCondition[lang]}</h4>
             </div>
             <div>
 

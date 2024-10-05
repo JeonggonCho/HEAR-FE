@@ -1,7 +1,7 @@
 import {FC} from "react";
 
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {laserInstruction} from "@constants/langCategories.ts";
+import {laserInstruction} from "@constants/instruction/laserInstruction.ts";
 
 import {Container, ImageWrapper} from "../../instruction.style.ts";
 

@@ -15,7 +15,7 @@ import getTimeStamp from "@util/getTimeStamp.ts";
 import {feedbackCategoriesValues} from "@constants/feedbackCategories.ts";
 import {useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {headerTitle} from "@constants/langCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container, FeedbackInfoWrapper} from "./style.ts";
 
@@ -52,7 +52,7 @@ const FeedbackDetailPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={headerTitle.feedbackDetail[lang]}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerCategories.feedbackDetail[lang]}/>
             {!isLoading && feedback ?
                 <>
                     <FeedbackInfoWrapper>

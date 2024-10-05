@@ -1,7 +1,7 @@
 import {FC} from "react";
 
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {cardLabels} from "@constants/langCategories.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
 
 import {Container} from "./style.ts";
 
@@ -16,7 +16,7 @@ const CncReservationConditionContent: FC = () => {
                 <div>
                     <img src={cnc} alt={"cnc 이미지"}/>
                 </div>
-                <h4>{cardLabels.cncReservationCondition[lang]}</h4>
+                <h4>{cardCategories.cncReservationCondition[lang]}</h4>
             </div>
             <div>
 

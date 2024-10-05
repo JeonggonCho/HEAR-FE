@@ -14,7 +14,7 @@ import Button from "@components/common/Button";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IUserFilter, IUserList} from "@/types/user.ts";
-import {headerTitle} from "@constants/langCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Badge, Container, UserControlWrapper} from "./style.ts";
@@ -56,7 +56,7 @@ const UsersPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={headerTitle.userManagementHeader[lang]}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerCategories.userManagementHeader[lang]}/>
             {isLoading ?
                 <LoadingLoop/>
                 :

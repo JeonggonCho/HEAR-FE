@@ -6,7 +6,8 @@ import ErrorContent from "@components/content/ErrorContent";
 
 import {useUserDataStore} from "@store/useUserStore.ts";
 import useRequest from "@hooks/useRequest.ts";
-import {buttonLabels, cardLabels} from "@constants/langCategories.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container, EmptyManagerInfo, ManagerCardTitleWrapper, ManagerInfoWrapper} from "./style.ts";
@@ -42,7 +43,7 @@ const ManagerCard:FC = () => {
         <Container>
             <ManagerCardTitleWrapper valid={!!managerInfo}>
                 <img src={manager} alt="관리 조교"/>
-                <h3>{cardLabels.manager[lang]}</h3>
+                <h3>{cardCategories.manager[lang]}</h3>
             </ManagerCardTitleWrapper>
 
             {managerInfo ?
@@ -53,7 +54,7 @@ const ManagerCard:FC = () => {
                     </div>
 
                     {userData?.role !== "manager" &&
-                      <Button type={"link"} to={"/communication/inquiry/new"} content={buttonLabels.sendInquiry[lang]} width={"fit"}
+                      <Button type={"link"} to={"/communication/inquiry/new"} content={buttonCategories.sendInquiry[lang]} width={"fit"}
                               color={"third"} scale={"small"}/>
                     }
                 </ManagerInfoWrapper>

@@ -1,6 +1,6 @@
 import {FC} from "react";
 
-import {cncInstruction} from "@constants/langCategories.ts";
+import {cncInstruction} from "@constants/instruction/cncInstruction.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container, ImageWrapper} from "../../instruction.style.ts";

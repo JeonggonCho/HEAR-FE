@@ -3,8 +3,11 @@ import {FC} from "react";
 import Header from "@components/common/Header";
 import LinkCard from "@components/common/LinkCard";
 
-import {machineName, navLabels, pageIntroduction} from "@constants/langCategories.ts";
+import {pageDescriptionCategories} from "@constants/pageDescriptionCategories.ts";
+import {machineName} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {MachineNameType} from "@/types/machine.ts";
+import {navCategories} from '@constants/navCategories.ts';
 
 import {Container, HeaderWrapper} from "./style.ts";
 
@@ -15,7 +18,6 @@ import heat from "@assets/images/heat_icon.png"
 import cnc from "@assets/images/cnc_icon.png";
 import saw from "@assets/images/saw_icon.png";
 import vacuum from "@assets/images/vacuum_icon.png"
-import {MachineNameType} from "@/types/machine.ts";
 
 interface IMachine {
     name: string;
@@ -38,7 +40,7 @@ const InstructionHeaderLeft = () => {
     return (
         <HeaderWrapper>
             <img src={instruction} alt="사용법"/>
-            <h2>{navLabels.instruction[lang]}</h2>
+            <h2>{navCategories.instruction[lang]}</h2>
         </HeaderWrapper>
 
     );
@@ -50,7 +52,7 @@ const InstructionPage:FC = () => {
     return (
         <Container>
             <Header leftChild={<InstructionHeaderLeft/>}/>
-            <p>{pageIntroduction.instruction[lang]}</p>
+            <p>{pageDescriptionCategories.instruction[lang]}</p>
             <div>
                 {machines.map((machine, index) => {
                     const nameKey = machine.name as keyof MachineNameType;

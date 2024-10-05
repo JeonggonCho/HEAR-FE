@@ -9,7 +9,7 @@ import ErrorContent from "@components/content/ErrorContent";
 
 import useRequest from "@hooks/useRequest.ts";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
-import {headerTitle} from "@constants/langCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
@@ -77,7 +77,7 @@ const MachinesPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={headerTitle.machineManagementHeader[lang]}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerCategories.machineManagementHeader[lang]}/>
             {isLoading?
                 <LoadingLoop/>
                 :

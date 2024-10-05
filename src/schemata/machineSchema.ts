@@ -1,5 +1,5 @@
 import {z} from "zod";
-import {DATE_REGEX} from "@constants/reservationRegex.ts";
+import {DATE_REGEX} from "@constants/regex.ts";
 import {timeRegex} from "@constants/regex.ts";
 
 export const timeRangeSchema = z.object({

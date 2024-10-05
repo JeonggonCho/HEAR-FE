@@ -6,7 +6,7 @@ import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container, NavButton} from "./style.ts";
 import {ICategory} from "@/types/navCategory.ts";
-import {navLabels} from "@constants/langCategories.ts";
+import {navCategories} from "@constants/navCategories.ts";
 
 import home from "@assets/icons/home.svg";
 import note from "@assets/icons/note.svg";
@@ -18,17 +18,17 @@ const Nav:FC = () => {
     const {pathname} = useLocation();
     const {lang} = useThemeStore();
 
-    const navCategories: ICategory[] = [
-        { label: navLabels.home[lang], icon: home, path: "/home" },
-        { label: navLabels.instruction[lang], icon: note, path: "/instruction" },
-        { label: navLabels.quiz[lang], icon: quiz, path: "/quiz" },
-        { label: navLabels.communication[lang], icon: inquiry, path: "/communication" },
-        { label: navLabels.account[lang], icon: account, path: "/account" },
+    const navInfoCategories: ICategory[] = [
+        { label: navCategories.home[lang], icon: home, path: "/home" },
+        { label: navCategories.instruction[lang], icon: note, path: "/instruction" },
+        { label: navCategories.quiz[lang], icon: quiz, path: "/quiz" },
+        { label: navCategories.communication[lang], icon: inquiry, path: "/communication" },
+        { label: navCategories.account[lang], icon: account, path: "/account" },
     ];
 
     return (
         <Container>
-            {navCategories.map((category, index) => (
+            {navInfoCategories.map((category, index) => (
                 <NavButton
                     to={category.path}
                     key={index}

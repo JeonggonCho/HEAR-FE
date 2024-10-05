@@ -18,7 +18,10 @@ import ErrorContent from "@components/content/ErrorContent";
 import {cncHeatSchema} from "@schemata/machineSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {buttonLabels, headerTitle, inputLabels, message} from "@constants/langCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 
 import {CncCheckWrapper, Container, ImageWrapper, MapIcon} from "./style.ts";
 
@@ -73,7 +76,7 @@ const ReservationCnc:FC = () => {
         <Container>
             <Header
                 leftChild={<ArrowBack/>}
-                centerText={headerTitle.cncReservationHeader[lang]}
+                centerText={headerCategories.cncReservationHeader[lang]}
                 rightChild={
                     <MapIcon onClick={() => setShowMap(true)}>
                         <ReactSVG src={mapIcon}/>
@@ -96,13 +99,13 @@ const ReservationCnc:FC = () => {
                             />
                             <label htmlFor={"cncWarning"}>
                                 <div><ReactSVG src={check}/></div>
-                                {inputLabels.check[lang]}
+                                {inputCategories.check[lang]}
                             </label>
                         </div>
 
                         <div>
-                            <span>{message.cncRule[lang]}</span>
-                            <p>{message.cncDescription[lang]}</p>
+                            <span>{messageCategories.cncRule[lang]}</span>
+                            <p>{messageCategories.cncDescription[lang]}</p>
                         </div>
 
                         {errors.check?.message &&
@@ -111,7 +114,7 @@ const ReservationCnc:FC = () => {
                     </CncCheckWrapper>
 
                     <Input
-                        label={inputLabels.twoDayLaterDate[lang]}
+                        label={inputCategories.twoDayLaterDate[lang]}
                         type={"date"}
                         id={"cnc-reservation-date"}
                         name={"date"}
@@ -122,7 +125,7 @@ const ReservationCnc:FC = () => {
                         readonly
                     />
 
-                    <Button type={"submit"} content={buttonLabels.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                    <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
                 </form>
             }
 

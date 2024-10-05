@@ -8,7 +8,7 @@ import ErrorContent from "@components/content/ErrorContent";
 import {machineReservationCategories} from "@constants/machineCategories.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {machineName} from "@constants/langCategories.ts";
+import {machineName} from "@constants/machineCategories.ts";
 import {MachineNameType} from "@/types/machine.ts";
 
 import {Container} from "./style.ts";

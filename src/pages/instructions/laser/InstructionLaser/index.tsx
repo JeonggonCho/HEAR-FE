@@ -5,7 +5,8 @@ import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
 
 import {ITab} from "@/types/tab.ts";
-import {laserTabType, machineName} from "@constants/langCategories.ts";
+import {machineInstructionTabCategories} from "@constants/machineCategories.ts";
+import {machineName} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {MachineImgWrapper} from "./style.ts";
@@ -31,10 +32,10 @@ const InstructionLaser:FC = () => {
     const {lang} = useThemeStore();
 
     const tabs: ITab[] = [
-        { name: laserTabType.introduction[lang], content: <Introduction/>, },
-        { name: laserTabType.preparation[lang], content: <Preparation/>, },
-        { name: laserTabType.usage[lang], content: <Usage/>, },
-        { name: laserTabType.after[lang], content: <After/>, },
+        { name: machineInstructionTabCategories.introduction[lang], content: <Introduction/>, },
+        { name: machineInstructionTabCategories.preparation[lang], content: <Preparation/>, },
+        { name: machineInstructionTabCategories.usage[lang], content: <Usage/>, },
+        { name: machineInstructionTabCategories.after[lang], content: <After/>, },
     ];
 
     useEffect(() => {

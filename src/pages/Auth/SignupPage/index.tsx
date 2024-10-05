@@ -21,7 +21,10 @@ import useRequest from "@hooks/useRequest.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {IAuthResponseData} from "@/types/authResponse.ts";
-import {buttonLabels, headerTitle, inputLabels, placeholders} from "@constants/langCategories.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
@@ -73,16 +76,16 @@ const SignupPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={headerTitle.signUp[lang]}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerCategories.signUp[lang]}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
                 <>
                     <form onSubmit={handleSubmit(submitHandler)}>
                         <Input
-                            label={inputLabels.username[lang]}
+                            label={inputCategories.username[lang]}
                             type={"text"}
-                            placeholder={placeholders.username[lang]}
+                            placeholder={placeholderCategories.username[lang]}
                             id={"username"}
                             name={"username"}
                             register={register}
@@ -90,9 +93,9 @@ const SignupPage:FC = () => {
                         />
 
                         <Input
-                            label={inputLabels.hyuEmail[lang]}
+                            label={inputCategories.hyuEmail[lang]}
                             type={"text"}
-                            placeholder={placeholders.email[lang]}
+                            placeholder={placeholderCategories.email[lang]}
                             id={"email"}
                             name={"email"}
                             register={register}
@@ -100,9 +103,9 @@ const SignupPage:FC = () => {
                         />
 
                         <Input
-                            label={inputLabels.password[lang]}
+                            label={inputCategories.password[lang]}
                             type={"password"}
-                            placeholder={placeholders.password[lang]}
+                            placeholder={placeholderCategories.password[lang]}
                             id={"password"}
                             name={"password"}
                             register={register}
@@ -111,9 +114,9 @@ const SignupPage:FC = () => {
                         />
 
                         <Input
-                            label={inputLabels.confirmPassword[lang]}
+                            label={inputCategories.confirmPassword[lang]}
                             type={"password"}
-                            placeholder={placeholders.confirmPassword[lang]}
+                            placeholder={placeholderCategories.confirmPassword[lang]}
                             id={"confirm-password"}
                             name={"confirmPassword"}
                             register={register}
@@ -122,7 +125,7 @@ const SignupPage:FC = () => {
                         />
 
                         <Select
-                            label={inputLabels.year[lang]}
+                            label={inputCategories.year[lang]}
                             categories={yearCategories}
                             name={"year"}
                             register={register}
@@ -131,9 +134,9 @@ const SignupPage:FC = () => {
                         />
 
                         <Input
-                            label={inputLabels.studentId[lang]}
+                            label={inputCategories.studentId[lang]}
                             type={"number"}
-                            placeholder={placeholders.studentId[lang]}
+                            placeholder={placeholderCategories.studentId[lang]}
                             id={"student-id"}
                             name={"studentId"}
                             register={register}
@@ -141,9 +144,9 @@ const SignupPage:FC = () => {
                         />
 
                         <Input
-                            label={inputLabels.studio[lang]}
+                            label={inputCategories.studio[lang]}
                             type={"text"}
-                            placeholder={placeholders.studio[lang]}
+                            placeholder={placeholderCategories.studio[lang]}
                             id={"studio"}
                             name={"studio"}
                             register={register}
@@ -151,18 +154,18 @@ const SignupPage:FC = () => {
                         />
 
                         <Input
-                            label={inputLabels.tel[lang]}
+                            label={inputCategories.tel[lang]}
                             type={"tel"}
-                            placeholder={placeholders.tel[lang]}
+                            placeholder={placeholderCategories.tel[lang]}
                             id={"tel"}
                             name={"tel"}
                             register={register}
                             errorMessage={errors.tel?.message}
                         />
 
-                        <Button type={"submit"} content={buttonLabels.signUp[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={buttonCategories.signUp[lang]} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
-                    <Link text={buttonLabels.signIn[lang]} to={"/login"} color={"primary"}/>
+                    <Link text={buttonCategories.signIn[lang]} to={"/login"} color={"primary"}/>
                 </>
             }
 

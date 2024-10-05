@@ -3,7 +3,7 @@ import {FC} from "react";
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 
-import {headerTitle} from "@constants/langCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 const ReservationsPage:FC = () => {
@@ -11,7 +11,7 @@ const ReservationsPage:FC = () => {
 
     return (
         <>
-            <Header leftChild={<ArrowBack/>} centerText={headerTitle.reservationManagementHeader[lang]}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerCategories.reservationManagementHeader[lang]}/>
         </>
     );
 };

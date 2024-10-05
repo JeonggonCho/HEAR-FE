@@ -1,6 +1,6 @@
 import {FC} from 'react';
 
-import {cardLabels} from "@constants/langCategories.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container, Reservation} from "./style.ts";
@@ -14,7 +14,7 @@ const ReservationListCard:FC = () => {
         <Container>
             <div>
                 <img src={myReservation} alt="나의 예약"/>
-                <h3>{cardLabels.myReservation[lang]}</h3>
+                <h3>{cardCategories.myReservation[lang]}</h3>
             </div>
 
             <div>
