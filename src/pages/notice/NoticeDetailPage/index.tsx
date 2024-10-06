@@ -28,7 +28,7 @@ const NoticeDetailPage:FC = () => {
     const {lang} = useThemeStore();
 
     const timeStamp = useMemo(() => {
-        return notice?.createdAt ? getTimeStamp(notice.createdAt): '';
+        return notice?.createdAt ? getTimeStamp(notice.createdAt, lang): '';
     },[notice?.createdAt]);
 
     const memoizedText = useMemo(() => {

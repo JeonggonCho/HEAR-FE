@@ -91,7 +91,7 @@ export const TimeWrapper = styled.div<{tooltip: boolean}>`
 
             & > span:first-of-type {
                 text-wrap: wrap;
-                word-break: keep-all;
+                word-break: manual;
                 font-size: 0.9rem;
                 line-height: 1.5;
                 color: ${({theme}) => theme.colors.font.primary};

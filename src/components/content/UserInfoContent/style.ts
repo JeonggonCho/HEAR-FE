@@ -64,13 +64,14 @@ export const FieldWrapper = styled.div`
     height: 100%;
 
     & > div:first-of-type {
-        width: 82px;
-        min-width: 82px;
-        padding: 14px 16px 0 12px;
+        width: 82px !important;
+        min-width: 82px !important;
+        padding: 14px 16px 14px 10px;
         background-color: ${({theme}) => theme.colors.bg.sub};
         font-size: 1rem;
+        line-height: 1.3;
         color: ${({theme}) => theme.colors.font.sub};
-        text-wrap: nowrap;
+        text-wrap: wrap;
     }
 
     & > span:first-of-type {
@@ -109,6 +110,7 @@ export const WarningWrapper = styled.div`
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 20px;
 
         & > span:first-of-type {
             font-size: 1rem;

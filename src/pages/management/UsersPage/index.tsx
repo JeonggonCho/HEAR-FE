@@ -16,6 +16,9 @@ import useRequest from "@hooks/useRequest.ts";
 import {IUserFilter, IUserList} from "@/types/user.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
 
 import {Badge, Container, UserControlWrapper} from "./style.ts";
 
@@ -62,7 +65,7 @@ const UsersPage:FC = () => {
                 :
                 <>
                     <UserControlWrapper usernameInputText={usernameInputText}>
-                        <span>학생 수 {userList.length}명</span>
+                        <span>{userList.length} {inputCategories.userUnit[lang]}</span>
 
                         <form onSubmit={handleSearchUsername}>
                             <div>
@@ -70,7 +73,7 @@ const UsersPage:FC = () => {
                                     type={"text"}
                                     id={"username-input"}
                                     name={"username"}
-                                    placeholder={"학생 이름 검색"}
+                                    placeholder={placeholderCategories.studentName[lang]}
                                     value={usernameInputText}
                                     onChange={(e) => setUsernameInputText(e.target.value)}
                                 />
@@ -98,15 +101,15 @@ const UsersPage:FC = () => {
                     </UserControlWrapper>
 
                     <div>
-                        <span>이름</span>
-                        <span>학년</span>
-                        <span>학번</span>
-                        <span>경고</span>
-                        <span>교육</span>
+                        <span>{inputCategories.username[lang]}</span>
+                        <span>{inputCategories.year[lang]}</span>
+                        <span>{inputCategories.studentId[lang]}</span>
+                        <span>{inputCategories.warning[lang]}</span>
+                        <span>{inputCategories.status[lang]}</span>
                     </div>
 
                     {userList.length === 0 ?
-                        <Empty title={"유저 목록이 없습니다"}/>
+                        <Empty title={messageCategories.emptyUsers[lang]}/>
                         :
                         userList.map((user, index) => (
                         <UserListItem key={index} {...user}/>
@@ -116,7 +119,7 @@ const UsersPage:FC = () => {
 
             {showFilter &&
                 <Modal
-                  title={"유저 필터"}
+                  title={headerCategories.userFilter[lang]}
                   content={<UsersFilterContent filter={filter} setFilter={setFilter} setModal={setShowFilter}/>}
                   setModal={setShowFilter}
                   type={"bottomSheet"}

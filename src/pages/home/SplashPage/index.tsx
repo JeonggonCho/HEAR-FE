@@ -2,6 +2,9 @@ import {FC} from "react";
 import ReactDOM from "react-dom";
 import {ReactSVG} from "react-svg";
 
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
+
 import {Container} from "./style.ts";
 
 import logo from "@assets/logo.svg";
@@ -9,13 +12,15 @@ import logo from "@assets/logo.svg";
 const SplashPage:FC = () => {
     const splashRoot = document.getElementById("splash-hook");
 
+    const {lang} = useThemeStore();
+
     if (!splashRoot) return null;
 
     const splash = (
         <Container>
             <div>
                 <div>
-                    <span>한양대 에리카 건축학부<br/>모형제작실 예약은 여기!</span>
+                    <span>{messageCategories.school[lang]}<br/>{messageCategories.splashMessage[lang]}</span>
                     <div>
                         <ReactSVG src={logo}/>
                         <h1>HEAR</h1>

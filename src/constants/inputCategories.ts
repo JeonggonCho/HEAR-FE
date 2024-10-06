@@ -1,6 +1,6 @@
 export const inputCategories = {
     title: {
-        ko: "제 목",
+        ko: "제목",
         en: "Subject",
         ch: "主题",
     },
@@ -10,12 +10,12 @@ export const inputCategories = {
         ch: "汉阳大学电子邮件",
     },
     username: {
-        ko: "이 름",
+        ko: "이름",
         en: "Name",
         ch: "名字",
     },
     studentId: {
-        ko: "학 번",
+        ko: "학번",
         en: "Student ID",
         ch: "学号",
     },
@@ -40,17 +40,17 @@ export const inputCategories = {
         ch: "电话号码",
     },
     year: {
-        ko: "학 년",
-        en: "Academic Year",
+        ko: "학년",
+        en: "Year",
         ch: "学年",
     },
     tomorrowDate: {
-        ko: "날 짜 (다음날만 예약 가능)",
+        ko: "날짜 (다음날만 예약 가능)",
         en: "Date (Reservations can only be made for the next day)",
         ch: "日期（只能预约明天）",
     },
     date: {
-        ko: "날 짜",
+        ko: "날짜",
         en: "Date",
         ch: "日期",
     },
@@ -100,8 +100,83 @@ export const inputCategories = {
         ch: "租赁日期（仅可租赁明天）",
     },
     twoDayLaterDate: {
-        ko: "날 짜 (사용 날짜 이틀 전 예약 가능)",
+        ko: "날짜 (사용 날짜 이틀 전 예약 가능)",
         en: "Date (Reservation available two days before usage date)",
-        ch: "日期（使用日期前两天可预约）"
+        ch: "日期（使用日期前两天可预约）",
+    },
+    machineName: {
+        ko: "기기명",
+        en: "Machine Name",
+        ch: "机器名称",
+    },
+    timeList: {
+        ko: "시간 목록",
+        en: "Time List",
+        ch: "时间列表",
+    },
+    count: {
+        ko: "개수",
+        en: "Count",
+        ch: "数量",
+    },
+    machineUnit: {
+        ko: "개",
+        en: "Units",
+        ch: "个",
+    },
+    userUnit: {
+        ko: "명",
+        en: "People",
+        ch: "名",
+    },
+    warning: {
+        ko: "경고",
+        en: "Warning",
+        ch: "警告",
+    },
+    status: {
+        ko: "교육",
+        en: "Status",
+        ch: "培训",
+    },
+    selectYear: {
+        ko: "학년 선택",
+        en: "Select Year",
+        ch: "选择年级",
+    },
+    selectWarning: {
+        ko: "경고 횟수 선택",
+        en: "Select Warning Count",
+        ch: "选择警告次数",
+    },
+    selectPass: {
+        ko: "교육 이수 여부 선택",
+        en: "Select Completion Status",
+        ch: "选择完成状态",
+    },
+    first: {
+        ko: "1학년",
+        en: "Year 1",
+        ch: "一年级",
+    },
+    second: {
+        ko: "2학년",
+        en: "Year 2",
+        ch: "二年级",
+    },
+    third: {
+        ko: "3학년",
+        en: "Year 3",
+        ch: "三年级",
+    },
+    fourth: {
+        ko: "4학년",
+        en: "Year 4",
+        ch: "四年级",
+    },
+    fifth: {
+        ko: "5학년",
+        en: "Year 5",
+        ch: "五年级",
     },
 };

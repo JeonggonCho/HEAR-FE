@@ -1,21 +1,57 @@
-export const yearFilterCategories = [
-    {label: "전 체", value: "all", id: "year-all"},
-    {label: "1학년", value: "1", id: "year-1"},
-    {label: "2학년", value: "2", id: "year-2"},
-    {label: "3학년", value: "3", id: "year-3"},
-    {label: "4학년", value: "4", id: "year-4"},
-    {label: "5학년", value: "5", id: "year-5"},
-];
-
-export const warningFilterCategories = [
-    {label: "전 체", value: "all", id: "warning-all"},
-    {label: "0회", value: 0, id: "warning-0"},
-    {label: "1회", value: 1, id: "warning-1"},
-    {label: "2회", value: 2, id: "warning-2"},
-];
-
-export const passQuizFilterCategories = [
-    {label: "전 체", value: "all", id: "quiz-all"},
-    {label: "이 수", value: true, id: "quiz-pass"},
-    {label: "미이수", value: false, id: "quiz-fail"},
-];
+export const filterCategories = {
+    all: {
+        ko: "전 체",
+        en: "All",
+        ch: "全部",
+    },
+    first: {
+        ko: "1학년",
+        en: "Year 1",
+        ch: "一年级",
+    },
+    second: {
+        ko: "2학년",
+        en: "Year 2",
+        ch: "二年级",
+    },
+    third: {
+        ko: "3학년",
+        en: "Year 3",
+        ch: "三年级",
+    },
+    fourth: {
+        ko: "4학년",
+        en: "Year 4",
+        ch: "四年级",
+    },
+    fifth: {
+        ko: "5학년",
+        en: "Year 5",
+        ch: "五年级",
+    },
+    pass: {
+        ko: "이수",
+        en: "Pass",
+        ch: "通过",
+    },
+    fail: {
+        ko: "미이수",
+        en: "Fail",
+        ch: "未通过",
+    },
+    zero: {
+        ko: "0회",
+        en: "0 times",
+        ch: "0次",
+    },
+    one: {
+        ko: "1회",
+        en: "1 time",
+        ch: "1次",
+    },
+    two: {
+        ko: "2회",
+        en: "2 times",
+        ch: "2次",
+    },
+};

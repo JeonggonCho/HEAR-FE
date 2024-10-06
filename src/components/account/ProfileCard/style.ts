@@ -12,13 +12,19 @@ export const Container = styled.div`
     
     & > div {
         display: flex;
-        align-items: center;
         gap: 12px;
         color: ${({theme}) => theme.colors.font.main};
 
         & > span:first-of-type {
             width: 80px;
+            min-width: 80px;
             color: ${({theme}) => theme.colors.font.sub};
+        }
+        
+        & > span:last-of-type {
+            text-wrap: wrap;
+            line-height: 1.3;
+            word-break: break-all;
         }
     }
 `;

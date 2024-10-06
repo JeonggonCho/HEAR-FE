@@ -8,7 +8,7 @@ const Layout = lazy(() => import("@layouts/Layout"));
 const CommunicationLayout = lazy(() => import("@layouts/CommunicationLayout"));
 
 const HomePage = lazy(() => import("@pages/home/HomePage"));
-const AlarmPage = lazy(() => import("@pages/home/AlarmPage"));
+const NotificationPage = lazy(() => import("@pages/home/NotificationPage"));
 const InquiryPage = lazy(() => import("@pages/inquiry/InquiryPage"));
 const InquiryDetailPage = lazy(() => import("@pages/inquiry/InquiryDetailPage"));
 const CreateInquiryPage = lazy(() => import("@pages/inquiry/CreateInquiryPage"));
@@ -111,7 +111,7 @@ const AppRoute = () => {
                             <Route path="management/users" element={<UsersPage/>}/>
                             <Route path="management/reservations" element={<ReservationsPage/>}/>
 
-                            <Route path="alarm" element={<AlarmPage/>}/>
+                            <Route path="alarm" element={<NotificationPage/>}/>
                             <Route path="quiz" element={<QuizPage/>}/>
                         </>
                     :

@@ -38,6 +38,8 @@ export const Container = styled.div`
                 color: ${({theme}) => theme.colors.font.main};
                 line-height: 1.5;
                 font-size: 1.15rem;
+                text-wrap: wrap;
+                word-break: keep-all;
             }
 
             div {

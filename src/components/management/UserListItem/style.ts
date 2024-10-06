@@ -26,7 +26,7 @@ export const Container = styled.div<{pass: boolean}>`
     }
 
     & > span:nth-of-type(2) {
-        width: 15%;
+        width: 20%;
     }
 
     & > span:nth-of-type(3) {
@@ -34,7 +34,7 @@ export const Container = styled.div<{pass: boolean}>`
     }
 
     & > span:nth-of-type(4) {
-        width: 15%;
+        width: 25%;
     }
 
     & > div:first-of-type {

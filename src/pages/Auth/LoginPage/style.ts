@@ -35,3 +35,13 @@ export const Container = styled.div`
         }
     }
 `;
+
+export const LinkWrapper = styled.div`
+    margin: auto;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    text-wrap: nowrap;
+    padding-right: 4px;
+    gap: 20px;
+`;

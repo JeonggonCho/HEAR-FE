@@ -16,7 +16,7 @@ const StatusCard:FC = () => {
                 <p>{cardCategories.passQuiz[lang]}</p>
                 <span>{cardCategories.quizMessage[lang]}</span>
                 <PassStatus pass={userData?.passQuiz as boolean}>
-                    {userData?.passQuiz ? cardCategories.pass[lang] : cardCategories.notCompleted[lang]}
+                    {userData?.passQuiz ? cardCategories.pass[lang] : cardCategories.fail[lang]}
                 </PassStatus>
             </div>
             <div/>

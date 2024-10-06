@@ -60,7 +60,7 @@ const LangSettingContent:FC<ILangSettingContentProps> = ({setModal}) => {
                 type={"button"}
                 content={buttonCategories.select[lang]}
                 width={"full"}
-                color={"approval"}
+                color={"primary"}
                 scale={"big"}
                 onClick={handleComplete}
             />

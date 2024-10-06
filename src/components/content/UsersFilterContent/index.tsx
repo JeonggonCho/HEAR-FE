@@ -3,13 +3,40 @@ import {FC, FormEvent} from "react";
 import Select from "@components/common/Select";
 import Button from "@components/common/Button";
 
-import {passQuizFilterCategories, warningFilterCategories, yearFilterCategories} from "@constants/filterCategories.ts";
 import {IFilterContentProps} from "@/types/componentProps.ts";
 import useCheckbox from "@hooks/useCheckbox.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {filterCategories} from "@constants/filterCategories.ts";
 
 import {Container} from "./style.ts";
 
 const UsersFilterContent:FC<IFilterContentProps> = ({filter, setFilter, setModal}) => {
+    const {lang} = useThemeStore();
+
+    const yearFilterCategories = [
+        {label: filterCategories.all[lang], value: "all", id: "year-all"},
+        {label: filterCategories.first[lang], value: "1", id: "year-1"},
+        {label: filterCategories.second[lang], value: "2", id: "year-2"},
+        {label: filterCategories.third[lang], value: "3", id: "year-3"},
+        {label: filterCategories.fourth[lang], value: "4", id: "year-4"},
+        {label: filterCategories.fifth[lang], value: "5", id: "year-5"},
+    ];
+
+    const warningFilterCategories = [
+        {label: filterCategories.all[lang], value: "all", id: "warning-all"},
+        {label: filterCategories.zero[lang], value: 0, id: "warning-0"},
+        {label: filterCategories.one[lang], value: 1, id: "warning-1"},
+        {label: filterCategories.two[lang], value: 2, id: "warning-2"},
+    ];
+
+    const passQuizFilterCategories = [
+        {label: filterCategories.all[lang], value: "all", id: "quiz-all"},
+        {label: filterCategories.pass[lang], value: true, id: "quiz-pass"},
+        {label: filterCategories.fail[lang], value: false, id: "quiz-fail"},
+    ];
+
     const {values: year, handleCheck: handleYears} = useCheckbox(filter.year || ["all"]);
     const {values: countOfWarning, handleCheck: handleWarnings} = useCheckbox(filter.countOfWarning || ["all"]);
     const {values: passQuiz, handleCheck: handlePassQuiz} = useCheckbox(filter.passQuiz || ["all"]);
@@ -23,7 +50,7 @@ const UsersFilterContent:FC<IFilterContentProps> = ({filter, setFilter, setModal
     return (
         <Container onSubmit={handleSubmit}>
             <Select
-                label={"학년 선택"}
+                label={inputCategories.selectYear[lang]}
                 name={"years"}
                 categories={yearFilterCategories}
                 type={"checkbox"}
@@ -31,7 +58,7 @@ const UsersFilterContent:FC<IFilterContentProps> = ({filter, setFilter, setModal
                 values={year}
             />
             <Select
-                label={"경고 횟수 선택"}
+                label={inputCategories.selectWarning[lang]}
                 name={"warnings"}
                 categories={warningFilterCategories}
                 type={"checkbox"}
@@ -39,7 +66,7 @@ const UsersFilterContent:FC<IFilterContentProps> = ({filter, setFilter, setModal
                 values={countOfWarning}
             />
             <Select
-                label={"교육 이수 여부 선택"}
+                label={inputCategories.selectPass[lang]}
                 name={"passQuiz"}
                 categories={passQuizFilterCategories}
                 type={"checkbox"}
@@ -48,7 +75,7 @@ const UsersFilterContent:FC<IFilterContentProps> = ({filter, setFilter, setModal
             />
             <Button
                 type={"submit"}
-                content={"적용하기"}
+                content={buttonCategories.apply[lang]}
                 width={"full"}
                 color={"primary"}
                 scale={"big"}

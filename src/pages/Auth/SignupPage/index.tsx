@@ -14,7 +14,6 @@ import Modal from "@components/common/Modal";
 import LoadingLoop from "@components/common/LoadingLoop";
 import ErrorContent from "@components/content/ErrorContent";
 
-import {yearCategories} from "@constants/yearCategories.ts";
 import {signupSchema} from "@schemata/userSchema.ts";
 import {zodResolver} from "@hookform/resolvers/zod";
 import useRequest from "@hooks/useRequest.ts";
@@ -36,6 +35,14 @@ const SignupPage:FC = () => {
     const {setUserInfo} = useUserInfoStore();
     const {setUserData} = useUserDataStore();
     const {lang} = useThemeStore();
+
+    const yearCategories = [
+        {label: inputCategories.first[lang], value: "1", id: "select-1"},
+        {label: inputCategories.second[lang], value: "2", id: "select-2"},
+        {label: inputCategories.third[lang], value: "3", id: "select-3"},
+        {label: inputCategories.fourth[lang], value: "4", id: "select-4"},
+        {label: inputCategories.fifth[lang], value: "5", id: "select-5"},
+    ];
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 

@@ -10,7 +10,6 @@ export const Container = styled(Link)`
     transition: all 0.2s ease-in-out 0s;
 
     h3 {
-        width: 400px;
         color: ${({theme}) => theme.colors.font.main};
         margin: 0;
         font-size: 1.15rem;
@@ -19,18 +18,6 @@ export const Container = styled(Link)`
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        
-        @media (max-width: 600px) {
-            width: 300px;
-        }
-
-        @media (max-width: 500px) {
-            width: 220px;
-        }
-
-        @media (max-width: 400px) {
-            width: 180px;
-        }
     }
     
     & + & {
@@ -41,35 +28,39 @@ export const Container = styled(Link)`
         transform: translateY(-4px);
         
         h3 {
+            width: 100%;
             color: ${({theme}) => theme.colors.font.primary};
         }
     }
     
     & > div:first-of-type {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 12px;
+        flex-direction: column;
+        margin-bottom: 24px;
+
+        & > span {
+            margin-left: -4px;
+            margin-bottom: 8px;
+            width: fit-content;
+            font-size: 0.9rem;
+            padding: 6px 8px;
+            text-wrap: nowrap;
+            background-color: ${({theme}) => {
+                const {isDarkMode} = useThemeStore();
+                return isDarkMode ? theme.colors.button.third : lighten(0.1, theme.colors.button.second);
+            }};
+            border-radius: 6px;
+            color: ${({theme}) => {
+                const {isDarkMode} = useThemeStore();
+                return isDarkMode ? lighten(0.1, theme.colors.font.sub) : darken(0.1, theme.colors.font.sub);
+            }};
+        }
         
         div {
+            width: 100%;
             display: flex;
             align-items: center;
-            gap: 8px;
-            
-            & > span {
-                font-size: 0.9rem;
-                padding: 6px 8px;
-                text-wrap: nowrap;
-                background-color: ${({theme}) => {
-                    const {isDarkMode} = useThemeStore();
-                    return isDarkMode ? theme.colors.button.third : lighten(0.1, theme.colors.button.second);
-                }};
-                border-radius: 6px;
-                color: ${({theme}) => {
-                    const {isDarkMode} = useThemeStore();
-                    return isDarkMode ? lighten(0.1, theme.colors.font.sub) : darken(0.1, theme.colors.font.sub);
-                }};
-            }
+            gap: 24px;
         }
     }
     
@@ -81,7 +72,6 @@ export const Container = styled(Link)`
         & > span:first-of-type {
             font-size: 1rem;
             color: ${({theme}) => theme.colors.font.sub};
-            margin-left: 4px;
         }
         
         & > span:last-of-type {

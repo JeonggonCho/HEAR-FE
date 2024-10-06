@@ -5,10 +5,14 @@ export const Container = styled.div`
     text-wrap: nowrap;
 
     h3 {
+        width: 70%;
         margin: 0 0 32px;
         color: ${({theme}) => theme.colors.font.main};
         font-weight: 500;
         font-size: 1rem;
+        text-wrap: wrap;
+        word-break: keep-all;
+        line-height: 1.3;
     }
 
     & > div:first-of-type {
@@ -93,7 +97,9 @@ export const LaserWrapper = styled.span<{machine: "cnc" | "laser" | "printer" | 
     align-items: center;
     justify-content: center;
     text-align: center;
-    line-height: 1.2;
+    text-wrap: wrap;
+    word-break: keep-all;
+    line-height: 1.5;
     width: 100%;
     flex-grow: 1;
 `;
@@ -105,7 +111,9 @@ export const PrinterWrapper = styled.span<{machine: "cnc" | "laser" | "printer" 
     padding: 8px 0;
     text-align: center;
     vertical-align: center;
-    line-height: 1.2;
+    line-height: 1.5;
+    text-wrap: wrap;
+    word-break: keep-all;
     width: 100%;
     flex-grow: 1;
 `;
@@ -117,7 +125,9 @@ export const VacuumWrapper = styled.span<{machine: "cnc" | "laser" | "printer" |
     padding: 8px 0;
     text-align: center;
     vertical-align: center;
-    line-height: 1.2;
+    text-wrap: wrap;
+    word-break: keep-all;
+    line-height: 1.5;
     width: 100%;
     flex-grow: 1;
 `;

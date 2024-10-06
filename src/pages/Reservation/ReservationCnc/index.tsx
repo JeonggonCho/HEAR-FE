@@ -131,8 +131,13 @@ const ReservationCnc:FC = () => {
 
             {isOpenCalendar &&
               <Modal
-                title={"날 짜"}
-                content={<Calendar setModal={setIsOpenCalendar} onSelectDate={handleDateSelect}/>}
+                title={headerCategories.date[lang]}
+                content={<Calendar
+                    setModal={setIsOpenCalendar}
+                    onSelectDate={handleDateSelect}
+                    date={getValues("date")}
+                    machine={"cnc"}
+                />}
                 setModal={setIsOpenCalendar}
                 type={"bottomSheet"}
               />

@@ -2,14 +2,17 @@ import styled from "@emotion/styled";
 
 export const Container = styled.div`
     width: 100%;
-    height: 100%;
+    min-height: 580px;
     padding: 12px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `;
 
 export const CalendarMonthWrapper = styled.div`
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 12px;
     margin-bottom: 28px;
 
@@ -35,10 +38,9 @@ export const CalendarMonthWrapper = styled.div`
     }
 `;
 
-export const DaysOfWeekWrapper = styled.div`
+export const DayWrapper = styled.div`
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    column-gap: clamp(3px, 2vw, 30px);
     text-align: center;
     font-weight: 500;
     margin-bottom: 20px;
@@ -54,25 +56,42 @@ export const DaysOfWeekWrapper = styled.div`
     }
 `;
 
-export const CalendarDayWrapper = styled.div`
+export const CalendarDateWrapper = styled.div`
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    column-gap: clamp(1px, 1vw, 30px);
-    row-gap: 4px;
     text-align: center;
     margin-bottom: 24px;
 `;
 
-export const DayButton = styled.button<{selected: boolean | null}>`
-    width: 40px;
-    height: 40px;
-    margin: auto;
+export const DateButtonWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 12px;
+    
+    & > div:last-of-type {
+        min-height: 14px;
+    }
+`;
+
+export const HolidayName = styled.div`
+    color: ${({theme}) => theme.colors.font.sub};
+    font-size: 0.85rem;
+    line-height: 1.3;
+`;
+
+export const DateButton = styled.button<{selected: boolean | null, disabled: boolean, today: boolean, holiday: boolean}>`
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 32px;
+    height: 32px;
     border: none;
-    border-radius: 10px;
-    background: ${({selected, theme}) => selected ? theme.colors.button.primary : "none"};
-    color: ${({selected, theme}) => selected ? "white" : theme.colors.font.main};
+    border-radius: ${({today}) => today ? "50%" : "10px"};
+    background: ${({selected, theme, today}) => selected ? theme.colors.button.primary : today ? theme.colors.font.danger : "none"};
+    color: ${({selected, theme, disabled, holiday}) => holiday ? theme.colors.font.danger : disabled ? theme.colors.font.placeholder : selected ? "white" : theme.colors.font.main};
     font-size: 1.15rem;
     text-align: center;
-    cursor: pointer;
+    cursor: ${({disabled, holiday}) => disabled || holiday ? "not-allowed" : "pointer"};
     transition: all 0.1s ease-in-out 0s;
 `;

@@ -30,7 +30,7 @@ const ReservationPrinter:FC = () => {
 
     const {lang} = useThemeStore();
 
-    const {register, handleSubmit, formState: {errors}, setValue} = useForm({
+    const {register, handleSubmit, formState: {errors}, setValue, getValues} = useForm({
         resolver: zodResolver(printerSchema),
         defaultValues: {
             machine: "",
@@ -86,13 +86,13 @@ const ReservationPrinter:FC = () => {
 
             {isOpenCalendar &&
               <Modal
-                title={inputCategories.date[lang]}
-                content={
-                    <Calendar
+                title={headerCategories.date[lang]}
+                content={<Calendar
                         setModal={setIsOpenCalendar}
                         onSelectDate={handleDateSelect}
-                    />
-                }
+                        date={getValues("date")}
+                        machine={"printer"}
+                />}
                 setModal={setIsOpenCalendar}
                 type={"bottomSheet"}
               />

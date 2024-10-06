@@ -95,7 +95,7 @@ export const buttonCategories = {
         ch: "发送询问",
     },
     edit: {
-        ko: "수정하기",
+        ko: "수정",
         en: "Edit",
         ch: "编辑",
     },
@@ -110,9 +110,9 @@ export const buttonCategories = {
         ch: "更多",
     },
     select: {
-        ko: "선택 완료",
-        en: "Selection Complete",
-        ch: "选择完成",
+        ko: "선택",
+        en: "Select",
+        ch: "选择",
     },
     goHome: {
         ko: "홈으로 이동",
@@ -125,8 +125,53 @@ export const buttonCategories = {
         ch: "选择设备和时间",
     },
     add: {
-        ko: "추가하기",
+        ko: "추가",
         en: "Add",
         ch: "添加",
+    },
+    cancel: {
+        ko: "취소",
+        en: "Cancel",
+        ch: "取消",
+    },
+    complete: {
+        ko: "완료",
+        en: "Done",
+        ch: "完成",
+    },
+    deletion: {
+        ko: "삭제",
+        en: "Delete",
+        ch: "删除",
+    },
+    imposition: {
+        ko: "부과",
+        en: "Imposition",
+        ch: "征收",
+    },
+    deduction: {
+        ko: "차감",
+        en: "Deduction",
+        ch: "扣除",
+    },
+    pass: {
+        ko: "이수",
+        en: "Pass",
+        ch: "通过",
+    },
+    fail: {
+        ko: "미이수",
+        en: "Fail",
+        ch: "未通过",
+    },
+    apply: {
+        ko: "적용하기",
+        en: "Apply",
+        ch: "应用",
+    },
+    createNotice: {
+        ko: "공지하기",
+        en: "Create Notice",
+        ch: "发布通知",
     },
 };

@@ -49,4 +49,19 @@ export const placeholderCategories = {
         en: "End Time",
         ch: "结束时间",
     },
+    machineName: {
+        ko: "기기명을 입력해주세요",
+        en: "Please enter the machine name",
+        ch: "请输入机器名称",
+    },
+    studentName: {
+        ko: "학생 이름 검색",
+        en: "Student Name",
+        ch: "搜索学生姓名",
+    },
+    reason: {
+        ko: "경고 사유 입력",
+        en: "Enter Reason for Warning",
+        ch: "输入警告原因",
+    },
 };

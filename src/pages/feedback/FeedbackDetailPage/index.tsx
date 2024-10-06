@@ -12,7 +12,7 @@ import ChatBubble from "@components/common/ChatBubble";
 import useRequest from "@hooks/useRequest.ts";
 import {IFeedbackProps} from "@/types/componentProps.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
-import {feedbackCategoriesValues} from "@constants/feedbackCategories.ts";
+import {feedbackCategories} from "@constants/feedbackCategories.ts";
 import {useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
@@ -30,7 +30,7 @@ const FeedbackDetailPage:FC = () => {
     const {lang} = useThemeStore();
 
     const timeStamp = useMemo(() => {
-        return feedback?.createdAt ? getTimeStamp(feedback.createdAt) : '';
+        return feedback?.createdAt ? getTimeStamp(feedback.createdAt, lang) : '';
     }, [feedback?.createdAt]);
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
@@ -57,7 +57,7 @@ const FeedbackDetailPage:FC = () => {
                 <>
                     <FeedbackInfoWrapper>
                         <div>
-                            <span>{feedbackCategoriesValues[feedback.category]}</span>
+                            <span>{feedbackCategories[feedback.category][lang]}</span>
                             <h2>{feedback.title}</h2>
                         </div>
 

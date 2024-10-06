@@ -18,6 +18,8 @@ import useListCollapse from "@hooks/useListCollapse.ts";
 import useToggle from "@hooks/useToggle.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {updateHeatCountSchema} from "@schemata/machineSchema.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {
     BtnsWrapper,
@@ -30,6 +32,9 @@ import {
 } from "./style.ts";
 
 import more from "@assets/icons/arrow_down.svg";
+import {headerCategories} from "@constants/headerCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
 
 const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, machineType, setMachines, timeData, setTimes}) => {
     const [showEdit, setShowEdit] = useState<boolean>(false);
@@ -37,6 +42,8 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
     const [newPrinterModal, setNewPrinterModal] = useState<boolean>(false);
     const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(null);
     const [rangeValue, setRangeValue] = useState<number | undefined>(machineType === "heat" ? (machineData[0] as IHeats)?.count : undefined);
+
+    const {lang} = useThemeStore();
 
     const {isOpen, listRef, maxHeight, handleList} = useListCollapse(machineData.length, timeData?.length || 0);
 
@@ -117,17 +124,17 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
                 <>
                     {(machineType === "laser" || machineType === "printer") &&
                       <BtnsWrapper>
-                        <span>{machineData.length}개</span>
+                        <span>{machineData.length} {inputCategories.machineUnit[lang]}</span>
 
                         <div>
                           <button
                             onClick={() => setShowEdit(prevState => !prevState)}
-                          >편집</button>
+                          >{buttonCategories.edit[lang]}</button>
                           <button
                             onClick={() => machineType === "laser" ? setNewLaserModal(true)
                                 : machineType === "printer" ? setNewPrinterModal(true)
                                     : null}
-                          >추가</button>
+                          >{buttonCategories.add[lang]}</button>
                         </div>
                       </BtnsWrapper>
                     }
@@ -156,7 +163,7 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
                     }
 
                     {machineData.length === 0 &&
-                        <NoMachines>기기 목록이 없습니다</NoMachines>
+                        <NoMachines>{messageCategories.emptyMachine[lang]}</NoMachines>
                     }
 
                     {/*레이저 커팅기 시간 목록*/}
@@ -172,7 +179,7 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
                         <CountWrapper rangeValue={rangeValue as number}>
                             <div>
                                 <Input
-                                    label={"개 수"}
+                                    label={inputCategories.count[lang]}
                                     type={"range"}
                                     id={"heat-count"}
                                     name={"count"}
@@ -192,7 +199,7 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
             {newLaserModal &&
               <Modal
                 content={<NewMachineContent
-                    title={"레이저 커팅기 추가"}
+                    title={headerCategories.addLaser[lang]}
                     setModal={setNewLaserModal}
                     machine={"laser"}
                     setMachines={setMachines as React.Dispatch<React.SetStateAction<ILasers[]>>}
@@ -206,7 +213,7 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
             {newPrinterModal &&
               <Modal
                 content={<NewMachineContent
-                    title={"3D 프린터 추가"}
+                    title={headerCategories.addPrinter[lang]}
                     setModal={setNewPrinterModal}
                     machine={"printer"}
                     setMachines={setMachines as React.Dispatch<React.SetStateAction<IPrinters[]>>}

@@ -4,11 +4,14 @@ import ArrowForward from "@components/common/ArrowForward";
 
 import {INotice} from "@/types/componentProps.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
 
 const NoticeListItem:FC<INotice> = (props) => {
-    const timeStamp = useMemo(() => getTimeStamp(props.createdAt), [props.createdAt]);
+    const {lang} = useThemeStore();
+
+    const timeStamp = useMemo(() => getTimeStamp(props.createdAt, lang), [props.createdAt]);
 
     return (
         <Container to={`/communication/notice/${props._id}`}>

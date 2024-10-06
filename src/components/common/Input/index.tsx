@@ -35,16 +35,14 @@ const Input = <TFieldValues extends FieldValues>(
             {label && <label htmlFor={id}>{label}</label>}
 
             {type === "range" ?
-                <>
-                    <input
-                        {...register ? register(name, {onChange}) : null}
-                        type={inputType}
-                        id={id}
-                        min={0}
-                        max={15}
-                        value={value}
-                    />
-                </>
+                <input
+                    {...register ? register(name, {onChange}) : null}
+                    type={inputType}
+                    id={id}
+                    min={0}
+                    max={15}
+                    value={value}
+                />
                 :
                 <input
                     {...register ? register(name) : null}

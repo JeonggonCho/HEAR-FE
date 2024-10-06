@@ -1,20 +1,23 @@
 import {FC, useMemo} from 'react';
 
 import {IFeedbackProps, IInquiryProps} from "@/types/componentProps.ts";
-import {inquiryCategoriesValues} from "@constants/inquiryCategories.ts";
-import {feedbackCategoriesValues} from "@constants/feedbackCategories.ts";
+import {inquiryCategories} from "@constants/inquiryCategories.ts";
+import {feedbackCategories} from "@constants/feedbackCategories.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
 
 const InquiryFeedbackListItem:FC<IFeedbackProps | IInquiryProps> = (props) => {
-    const timeStamp = useMemo(() => getTimeStamp(props.createdAt), [props.createdAt]);
+    const {lang} = useThemeStore();
+
+    const timeStamp = useMemo(() => getTimeStamp(props.createdAt, lang), [props.createdAt]);
 
     const categoryLabel = useMemo(() => {
-        if (props.type === "inquiry" && inquiryCategoriesValues.hasOwnProperty(props.category)) {
-            return inquiryCategoriesValues[props.category as "machine" | "reservation" | "room" | "etc"];
-        } else if (props.type === "feedback" && feedbackCategoriesValues.hasOwnProperty(props.category)) {
-            return feedbackCategoriesValues[props.category as "good" | "bad" | "suggest" | "etc"];
+        if (props.type === "inquiry" && inquiryCategories.hasOwnProperty(props.category)) {
+            return inquiryCategories[props.category as "machine" | "reservation" | "room" | "etc"][lang];
+        } else if (props.type === "feedback" && feedbackCategories.hasOwnProperty(props.category)) {
+            return feedbackCategories[props.category as "good" | "bad" | "suggest" | "etc"][lang];
         }
         return null;
     }, [props.type, props.category]);
@@ -26,16 +29,16 @@ const InquiryFeedbackListItem:FC<IFeedbackProps | IInquiryProps> = (props) => {
                     : "/"}
         >
             <div>
+                <span>{categoryLabel}</span>
                 <div>
-                    <span>{categoryLabel}</span>
                     <h3>{props.title}</h3>
+                    {props.answer &&
+                      <span>{props.answer && "답변완료"}</span>
+                    }
                 </div>
-                {props.answer &&
-                  <span>{props.answer && "답변완료"}</span>
-                }
             </div>
             <div>
-                <span>{props.creator}</span>
+            <span>{props.creator}</span>
                 <span>{timeStamp}</span>
             </div>
         </Container>

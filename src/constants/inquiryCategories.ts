@@ -1,10 +1,3 @@
-export const inquiryCategoriesValues = {
-    "machine": "기기",
-    "reservation": "예약",
-    "room": "제작실",
-    "etc": "기타",
-};
-
 export const inquiryCategories = {
     machine: {
         ko: "기기",
@@ -16,9 +9,9 @@ export const inquiryCategories = {
         en: "Reservation",
         ch: "预约",
     },
-    studio: {
+    room: {
         ko: "제작실",
-        en: "Studio",
+        en: "Room",
         ch: "制作室",
     },
     etc: {

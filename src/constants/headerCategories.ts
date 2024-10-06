@@ -112,6 +112,41 @@ export const headerCategories = {
     editFeedback: {
         ko: "피드백 수정",
         en: "Edit Feedback",
-        ch: "编辑反馈"
+        ch: "编辑反馈",
+    },
+    addLaser: {
+        ko: "레이저 커팅기 추가",
+        en: "Add Laser Cutter",
+        ch: "添加激光切割机",
+    },
+    addPrinter: {
+        ko: "3D 프린터 추가",
+        en: "Add 3D Printer",
+        ch: "添加3D打印机",
+    },
+    userFilter: {
+        ko: "유저 필터",
+        en: "User Filter",
+        ch: "用户筛选",
+    },
+    createNotice: {
+        ko: "공지사항 작성",
+        en: "Create Notice",
+        ch: "撰写通知",
+    },
+    updateNotice: {
+        ko: "공지사항 수정",
+        en: "Edit Notice",
+        ch: "编辑通知",
+    },
+    date: {
+        ko: "날 짜",
+        en: "Date",
+        ch: "日期",
+    },
+    notification: {
+        ko: "알 림",
+        en: "Notification",
+        ch: "通知",
     },
 };

@@ -50,14 +50,14 @@ export const cardCategories = {
         ch: "警告次数",
     },
     pass: {
-        ko: "이수 완료",
-        en: "Completion",
-        ch: "完成",
+        ko: "이수",
+        en: "Pass",
+        ch: "通过",
     },
-    notCompleted: {
+    fail: {
         ko: "미이수",
-        en: "Not Completed",
-        ch: "未完成",
+        en: "Fail",
+        ch: "未通过",
     },
     quizMessage: {
         ko: "(미이수 시, 사용제한)",
@@ -108,5 +108,10 @@ export const cardCategories = {
         ko: "CNC 예약 현황",
         en: "CNC Reservation Status",
         ch: "CNC 铣床预约现状",
+    },
+    mapTitle: {
+        ko: "디지털 모형제작실 (301호) 약도",
+        en: "Map of Digital Modeling Studio (Room 301)",
+        ch: "数字模型制作室（301号）地图",
     },
 };

@@ -76,12 +76,14 @@ export interface ILangSettingContentProps {
 export interface ICalendarProps {
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
     onSelectDate: (date:string) => void;
+    date?: string;
+    machine: "printer" | "saw" | "vacuum" | "cnc";
 }
 
 
 // 링크(Link) props
 export interface ILinkProps {
-    text: String;
+    text: string;
     to: To;
     color: "primary" | "second";
 }

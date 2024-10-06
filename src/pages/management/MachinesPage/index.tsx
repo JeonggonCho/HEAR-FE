@@ -11,6 +11,7 @@ import useRequest from "@hooks/useRequest.ts";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {machineName} from "@constants/machineCategories.ts";
 
 import {Container} from "./style.ts";
 
@@ -85,7 +86,7 @@ const MachinesPage:FC = () => {
                     {lasers && printers && heats && saws && vacuums && cncs &&
                       <>
                         <MachineManageCard
-                          name={"레이저 커팅기"}
+                          name={machineName.laser[lang]}
                           img={laser_icon}
                           machineType={"laser"}
                           machineData={lasers}
@@ -94,32 +95,32 @@ const MachinesPage:FC = () => {
                           setTimes={setTimeList}
                         />
                         <MachineManageCard
-                          name={"3D 프린터"}
+                          name={machineName.printer[lang]}
                           img={printer_icon}
                           machineType={"printer"}
                           machineData={printers}
                           setMachines={setPrinters}
                         />
                         <MachineManageCard
-                          name={"열 선"}
+                          name={machineName.heat[lang]}
                           img={heat_icon}
                           machineType={"heat"}
                           machineData={heats}
                         />
                         <MachineManageCard
-                          name={"톱"}
+                          name={machineName.saw[lang]}
                           img={saw_icon}
                           machineType={"saw"}
                           machineData={saws}
                         />
                         <MachineManageCard
-                          name={"사출 성형기"}
+                          name={machineName.vacuum[lang]}
                           img={vacuum_icon}
                           machineType={"vacuum"}
                           machineData={vacuums}
                         />
                         <MachineManageCard
-                          name={"CNC"}
+                          name={machineName.cnc[lang]}
                           img={cnc_icon}
                           machineType={"cnc"}
                           machineData={cncs}

@@ -12,6 +12,11 @@ import useRequest from "@hooks/useRequest.ts";
 import {IUserInfoContentProps} from "@/types/componentProps.ts";
 import {IUserInfo} from "@/types/user.ts";
 import {warningSchema} from "@schemata/warningSchema.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
 
 import {Buttons, CloseButton, Container, FieldWrapper, PassTag, PassWrapper, WarningWrapper} from "./style.ts";
 
@@ -21,6 +26,8 @@ import close from "@assets/icons/close.svg";
 const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfoUpdate}) => {
     const [user, setUser] = useState<IUserInfo>();
     const [showWarning, setShowWarning] = useState<boolean>(false);
+
+    const {lang} = useThemeStore();
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
@@ -162,27 +169,27 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
 
                   <div>
                     <FieldWrapper>
-                      <div>학 년</div>
+                      <div>{inputCategories.year[lang]}</div>
                       <span>{user?.year}학년</span>
                     </FieldWrapper>
 
                     <FieldWrapper>
-                      <div>학 번</div>
+                      <div>{inputCategories.studentId[lang]}</div>
                       <span>{user?.studentId}</span>
                     </FieldWrapper>
 
                     <FieldWrapper>
-                      <div>이메일</div>
+                      <div>{cardCategories.email[lang]}</div>
                       <span>{user?.email}</span>
                     </FieldWrapper>
 
                     <FieldWrapper>
-                      <div>전화번호</div>
+                      <div>{inputCategories.tel[lang]}</div>
                       <span>{user?.tel}</span>
                     </FieldWrapper>
 
                     <WarningWrapper>
-                      <div>경 고</div>
+                      <div>{inputCategories.warning[lang]}</div>
                         {showWarning ?
                             <form onSubmit={handleSubmit(handleAddWarning)}>
                                 <Input
@@ -190,13 +197,13 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                                     id={"warning-message"}
                                     name={"message"}
                                     register={register}
-                                    placeholder={"경고 사유 입력"}
+                                    placeholder={placeholderCategories.reason[lang]}
                                     errorMessage={errors.message?.message}
                                 />
                                 <div>
                                     <Button
                                         type={"button"}
-                                        content={"취소"}
+                                        content={buttonCategories.cancel[lang]}
                                         width={"full"}
                                         color={"third"}
                                         scale={"small"}
@@ -207,7 +214,7 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                                     />
                                     <Button
                                         type={"submit"}
-                                        content={"경고 부과"}
+                                        content={buttonCategories.imposition[lang]}
                                         width={"full"}
                                         color={"danger"}
                                         scale={"small"}
@@ -216,12 +223,12 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                             </form>
                             :
                             <div>
-                                <span>{user?.countOfWarning} 회</span>
+                                <span>{user?.countOfWarning}</span>
                                 <Buttons>
                                     {(user?.countOfWarning > 0) &&
                                       <Button
                                         type={"button"}
-                                        content={"차감"}
+                                        content={buttonCategories.deduction[lang]}
                                         width={"fit"}
                                         color={"third"}
                                         scale={"small"}
@@ -231,7 +238,7 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                                     {(user?.countOfWarning < 2) &&
                                       <Button
                                         type={"button"}
-                                        content={"부과"}
+                                        content={buttonCategories.imposition[lang]}
                                         width={"fit"}
                                         color={"danger"}
                                         scale={"small"}
@@ -244,18 +251,18 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                     </WarningWrapper>
 
                     <PassWrapper>
-                      <div>교 육</div>
+                      <div>{inputCategories.status[lang]}</div>
                       <div>
                         <PassTag
                           pass={user?.passQuiz || false}
                         >
-                            {user?.passQuiz ? "이수" : "미이수"}
+                            {user?.passQuiz ? cardCategories.pass[lang] : cardCategories.fail[lang]}
                         </PassTag>
                         <Buttons>
                             {!user?.passQuiz && (
                                 <Button
                                     type={"button"}
-                                    content={"이수 처리"}
+                                    content={buttonCategories.pass[lang]}
                                     width={"fit"}
                                     color={"third"}
                                     scale={"small"}
@@ -265,7 +272,7 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                             {user?.passQuiz && (
                                 <Button
                                     type={"button"}
-                                    content={"미이수 처리"}
+                                    content={buttonCategories.fail[lang]}
                                     width={"fit"}
                                     color={"third"}
                                     scale={"small"}

@@ -14,10 +14,16 @@ import {ILasers, IPrinters} from "@/types/machine.ts";
 import useToggle from "@hooks/useToggle.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {newMachineSchema} from "@schemata/machineSchema.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 
 import {Buttons, Container, ControlWrapper} from "./style.ts";
 
 const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines: React.Dispatch<React.SetStateAction<ILasers[]>> | React.Dispatch<React.SetStateAction<IPrinters[]>>}> = (props) => {
+    const {lang} = useThemeStore();
+
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const [isEdit, setIsEdit] = useState<boolean>(false);
 
@@ -99,7 +105,7 @@ const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines
                     id={"machine-name"}
                     name={"name"}
                     register={register}
-                    placeholder={"기기명을 입력해주세요"}
+                    placeholder={placeholderCategories.machineName[lang]}
                     errorMessage={errors.name?.message}
                 />
                 : "name" in props && <h3>{props.name}</h3>
@@ -119,7 +125,7 @@ const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines
                         <>
                             <Button
                                 type={"button"}
-                                content={"취소"}
+                                content={buttonCategories.cancel[lang]}
                                 width={"fit"}
                                 color={"third"}
                                 scale={"small"}
@@ -127,7 +133,7 @@ const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines
                             />
                             <Button
                                 type={"button"}
-                                content={"완료"}
+                                content={buttonCategories.complete[lang]}
                                 width={"fit"}
                                 color={"primary"}
                                 scale={"small"}
@@ -138,7 +144,7 @@ const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines
                         <>
                             <Button
                                 type={"button"}
-                                content={"수정"}
+                                content={buttonCategories.edit[lang]}
                                 width={"fit"}
                                 color={"third"}
                                 scale={"small"}
@@ -146,7 +152,7 @@ const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines
                             />
                             <Button
                                 type={"button"}
-                                content={"삭제"}
+                                content={buttonCategories.deletion[lang]}
                                 width={"fit"}
                                 color={"danger"}
                                 scale={"small"}
@@ -160,10 +166,10 @@ const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines
             {showDeleteModal &&
               <Modal
                 content={<ConfirmContent
-                    text={"기기를 삭제 하시겠습니까?"}
+                    text={messageCategories.machineDelete[lang]}
                     leftBtn={<Button
                         type={"button"}
-                        content={"닫 기"}
+                        content={buttonCategories.close[lang]}
                         color={"third"}
                         width={"full"}
                         scale={"normal"}
@@ -174,7 +180,7 @@ const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines
                         scale={"normal"}
                         color={"danger"}
                         width={"full"}
-                        content={"삭 제"}
+                        content={buttonCategories.deletion[lang]}
                         onClick={handleDelete}
                     />}
                 />}

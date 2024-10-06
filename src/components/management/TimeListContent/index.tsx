@@ -13,10 +13,16 @@ import ErrorContent from "@components/content/ErrorContent";
 import {timeRangeSchema} from "@schemata/machineSchema.ts";
 import {ITimeListContentProps} from "@/types/componentProps.ts";
 import useRequest from "@hooks/useRequest.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 
 import {Container, TimeSelectsWrapper, ErrorMessage,} from "./style.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
 
 const TimeListContent:FC<ITimeListContentProps> = ({timeList, setTimeList}) => {
+    const {lang} = useThemeStore();
+
     const {errorText, sendRequest, clearError} = useRequest();
 
     type TimeFormData = z.infer<typeof timeRangeSchema>;
@@ -104,7 +110,7 @@ const TimeListContent:FC<ITimeListContentProps> = ({timeList, setTimeList}) => {
 
     return (
         <Container>
-            <label>시간 목록</label>
+            <label>{inputCategories.timeList[lang]}</label>
 
             <TimeSelectsWrapper>
                 <div>
@@ -112,7 +118,7 @@ const TimeListContent:FC<ITimeListContentProps> = ({timeList, setTimeList}) => {
                         {...timeRegister("startTime")}
                         onChange={(e) => setValue("startTime", e.target.value)}
                     >
-                        <option value={""}>시작 시간</option>
+                        <option value={""}>{placeholderCategories.startTime[lang]}</option>
                         <option value={"08:00"}>08:00</option>
                         <option value={"09:00"}>09:00</option>
                         <option value={"10:00"}>10:00</option>
@@ -137,7 +143,7 @@ const TimeListContent:FC<ITimeListContentProps> = ({timeList, setTimeList}) => {
                         {...timeRegister("endTime")}
                         onChange={(e) => setValue("endTime", e.target.value)}
                     >
-                        <option value={""}>종료 시간</option>
+                        <option value={""}>{placeholderCategories.endTime[lang]}</option>
                         <option value={"08:00"}>08:00</option>
                         <option value={"09:00"}>09:00</option>
                         <option value={"10:00"}>10:00</option>
@@ -159,7 +165,7 @@ const TimeListContent:FC<ITimeListContentProps> = ({timeList, setTimeList}) => {
 
                 <Button
                     type={"button"}
-                    content={"추가"}
+                    content={buttonCategories.add[lang]}
                     width={"full"}
                     color={"approval"}
                     scale={"small"}

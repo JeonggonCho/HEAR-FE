@@ -25,7 +25,7 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
-import {Container} from "./style.ts";
+import {Container, LinkWrapper} from "./style.ts";
 
 import logo from "@assets/logo.svg";
 
@@ -129,8 +129,10 @@ const LoginPage:FC = () => {
                         />
                     </form>
 
-                    <Link text={buttonCategories.signUp[lang]} to={"/signup"} color={"primary"}/>
-                    <Link text={buttonCategories.findPassword[lang]} to={"/password/reset"} color={"second"}/>
+                    <LinkWrapper>
+                        <Link text={buttonCategories.signUp[lang]} to={"/signup"} color={"primary"}/>
+                        <Link text={buttonCategories.findPassword[lang]} to={"/password/reset"} color={"second"}/>
+                    </LinkWrapper>
                 </>
             }
 

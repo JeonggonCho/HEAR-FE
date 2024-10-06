@@ -15,11 +15,18 @@ import Button from "@components/common/Button";
 
 import useRequest from "@hooks/useRequest.ts";
 import {noticeSchema} from "@schemata/qnaSchema.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container} from "./style.ts";
 
 const UpdateNoticePage:FC = () => {
     const [notice, setNotice] = useState<{title: string, content: string}>();
+
+    const {lang} = useThemeStore();
 
     const navigate = useNavigate();
 
@@ -74,18 +81,18 @@ const UpdateNoticePage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"공지사항 수정"}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerCategories.updateNotice[lang]}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
                 <>
                     <form onSubmit={handleSubmit(submitHandler)}>
                         <Input
-                            label={"제목"}
+                            label={inputCategories.title[lang]}
                             type={"text"}
                             id={"notice-title"}
                             name={"title"}
-                            placeholder={"공지사항 제목을 입력해주세요"}
+                            placeholder={placeholderCategories.title[lang]}
                             register={register}
                             errorMessage={errors.title?.message}
                         />
@@ -96,7 +103,7 @@ const UpdateNoticePage:FC = () => {
                             errorMessage={errors.content?.message}
                         />
 
-                        <Button type={"submit"} content={"공지 수정하기"} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={buttonCategories.edit[lang]} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
                 </>
             }

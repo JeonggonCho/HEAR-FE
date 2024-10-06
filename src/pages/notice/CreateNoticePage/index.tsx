@@ -15,11 +15,18 @@ import ErrorContent from "@components/content/ErrorContent";
 
 import {noticeSchema} from "@schemata/qnaSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 
 import {Container} from "./style.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 
 const CreateNoticePage:FC = () => {
     const navigate = useNavigate();
+
+    const {lang} = useThemeStore();
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
@@ -49,18 +56,18 @@ const CreateNoticePage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"공지사항 작성"}/>
+            <Header leftChild={<ArrowBack/>} centerText={headerCategories.createNotice[lang]}/>
             {isLoading ?
                 <LoadingLoop/>
                 :
                 <>
                     <form onSubmit={handleSubmit(submitHandler)}>
                         <Input
-                            label={"제목"}
+                            label={inputCategories.title[lang]}
                             type={"text"}
                             id={"notice-title"}
                             name={"title"}
-                            placeholder={"공지사항 제목을 입력해주세요"}
+                            placeholder={placeholderCategories.title[lang]}
                             register={register}
                             errorMessage={errors.title?.message}
                         />
@@ -71,7 +78,7 @@ const CreateNoticePage:FC = () => {
                             errorMessage={errors.content?.message}
                         />
 
-                        <Button type={"submit"} content={"공지하기"} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={buttonCategories.createNotice[lang]} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
                 </>
             }

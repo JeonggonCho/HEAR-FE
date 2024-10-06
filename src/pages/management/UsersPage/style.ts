@@ -31,7 +31,7 @@ export const Container = styled.div`
         }
         
         & > span:nth-of-type(2) {
-            width: 15%;
+            width: 20%;
         }
         
         & > span:nth-of-type(3) {
@@ -39,7 +39,7 @@ export const Container = styled.div`
         }
 
         & > span:nth-of-type(4) {
-            width: 15%;
+            width: 25%;
         }
 
         & > span:nth-of-type(5) {
@@ -81,7 +81,7 @@ export const UserControlWrapper = styled.div<{usernameInputText: string}>`
                 input {
                     border: none;
                     height: 36px;
-                    width: 110px;
+                    width: 128px;
                     
                     &:focus {
                         outline: none;

@@ -12,13 +12,19 @@ import ErrorContent from "@components/content/ErrorContent";
 import {INewMachineContentProps} from "@/types/componentProps.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {newMachineSchema} from "@schemata/machineSchema.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
 
 import close from "@assets/icons/close.svg";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
 
 const NewMachineContent:FC<INewMachineContentProps> = ({title, setModal, machine, setMachines}) => {
     const {sendRequest, errorText, clearError} = useRequest();
+
+    const {lang} = useThemeStore();
 
     type MachineFormData = z.infer<typeof newMachineSchema>;
 
@@ -85,18 +91,18 @@ const NewMachineContent:FC<INewMachineContentProps> = ({title, setModal, machine
             {(machine === "laser" || machine === "printer") &&
                 <form onSubmit={machine === "laser" ? machineHandleSubmit(submitLaserHandler) : machine === "printer" ? machineHandleSubmit(submitPrinterHandler) : undefined}>
                     <Input
-                        label={"기기명"}
+                        label={inputCategories.machineName[lang]}
                         type={"text"}
                         id={"laser-name"}
                         name={"name"}
-                        placeholder={"기기명을 입력해주세요"}
+                        placeholder={placeholderCategories.machineName[lang]}
                         register={machineRegister}
                         errorMessage={machineErrors.name?.message}
                     />
 
                     <Button
                         type={"submit"}
-                        content={"생성하기"}
+                        content={buttonCategories.add[lang]}
                         width={"full"}
                         color={"primary"}
                         scale={"big"}

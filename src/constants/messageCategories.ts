@@ -72,7 +72,7 @@ export const messageCategories = {
     heatDescription: {
         ko: "열선 기기는 설계 스튜디오당 1대만 대여할 수 있으며, 사용 기간은 1주일로 제한됩니다. 이 기간 내에 반납하지 않을 경우, 스튜디오 전체 인원에게 경고가 1회씩 부과됩니다.",
         en: "Only one Hot Wire Cutter can be rented per design studio, and the rental period is limited to one week. If it is not returned within this period, a warning will be issued to each member of the studio.",
-        ch: "每个设计工作室只能租借一台热丝切割机，租用期限制为一周。如果在此期间未归还，将对工作室的每位成员发出一次警告。"
+        ch: "每个设计工作室只能租借一台热丝切割机，租用期限制为一周。如果在此期间未归还，将对工作室的每位成员发出一次警告。",
     },
     cncRule: {
         ko: "[CNC 이용 권한]",
@@ -83,5 +83,30 @@ export const messageCategories = {
         ko: "CNC 기기는 4학년 이상 학생 중 교육을 이수하고 교수님과 조교의 허락을 받은 경우에만 사용이 가능합니다.",
         en: "CNC machines can only be used by students in their 4th year or above who have completed training and obtained permission from the professor and teaching assistant.",
         ch: "CNC 机只能由大四及以上的学生在完成培训并获得教授和助教的许可后使用。",
+    },
+    emptyMachine: {
+        ko: "기기 목록이 없습니다",
+        en: "There are no machines listed",
+        ch: "没有机器列表",
+    },
+    machineDelete: {
+        ko: "기기를 삭제 하시겠습니까?",
+        en: "Do you want to delete the machine?",
+        ch: "您确定要删除该机器吗？",
+    },
+    emptyUsers: {
+        ko: "유저 목록이 없습니다",
+        en: "There are no users listed",
+        ch: "没有用户列表",
+    },
+    school: {
+        ko: "한양대 에리카 건축학부",
+        en: "Hanyang University ERICA Architecture",
+        ch: "Hanyang University ERICA Architecture",
+    },
+    splashMessage: {
+        ko: "모형 제작실 예약은 여기!",
+        en: "Book the Model making studio here!",
+        ch: "在这里预定模型制作工作室！",
     },
 };

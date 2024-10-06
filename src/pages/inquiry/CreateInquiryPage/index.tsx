@@ -34,7 +34,7 @@ const CreateInquiryPage:FC = () => {
     const inquiryInfoCategories = [
         {label: inquiryCategories.machine[lang], value: "machine", id: "radio-1"},
         {label: inquiryCategories.reservation[lang], value: "reservation", id: "radio-2"},
-        {label: inquiryCategories.studio[lang], value: "room", id: "radio-3"},
+        {label: inquiryCategories.room[lang], value: "room", id: "radio-3"},
         {label: inquiryCategories.etc[lang], value: "etc", id: "radio-4"},
     ];
 

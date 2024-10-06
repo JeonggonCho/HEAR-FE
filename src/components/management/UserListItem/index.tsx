@@ -4,12 +4,16 @@ import Modal from "@components/common/Modal";
 import UserInfoContent from "@components/content/UserInfoContent";
 
 import { IUserInfo, IUserList } from "@/types/user.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import { Container } from "./style.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
 
 const UserListItem: FC<IUserList> = (props) => {
     const [userInfo, setUserInfo] = useState<IUserInfo | null>(null);
     const [showUserInfoModal, setShowUserInfoModal] = useState<boolean>(false);
+
+    const {lang} = useThemeStore();
 
     const handleUserInfoUpdate = (updatedUser: IUserInfo) => {
         setUserInfo(updatedUser);
@@ -28,7 +32,7 @@ const UserListItem: FC<IUserList> = (props) => {
                 <span>{currentUserInfo.studentId}</span>
                 <span>{currentUserInfo.countOfWarning}</span>
                 <div>
-                    <span>{currentUserInfo.passQuiz ? "이수" : "미이수"}</span>
+                    <span>{currentUserInfo.passQuiz ? cardCategories.pass[lang] : cardCategories.fail[lang]}</span>
                 </div>
             </Container>
         );

@@ -40,7 +40,7 @@ const ReservationSaw:FC = () => {
 
     type SawFormData = z.infer<typeof sawVacuumSchema>;
 
-    const {register, handleSubmit, formState: {errors}, setValue, reset} = useForm<SawFormData>({
+    const {register, handleSubmit, formState: {errors}, setValue, reset, getValues} = useForm<SawFormData>({
         resolver: zodResolver(sawVacuumSchema),
         defaultValues: {
             date: "",
@@ -143,8 +143,13 @@ const ReservationSaw:FC = () => {
 
             {isOpenCalendar &&
               <Modal
-                title={"날 짜"}
-                content={<Calendar setModal={setIsOpenCalendar} onSelectDate={handleDateSelect}/>}
+                title={headerCategories.date[lang]}
+                content={<Calendar
+                    setModal={setIsOpenCalendar}
+                    onSelectDate={handleDateSelect}
+                    date={getValues("date")}
+                    machine={"saw"}
+                />}
                 setModal={setIsOpenCalendar}
                 type={"bottomSheet"}
               />

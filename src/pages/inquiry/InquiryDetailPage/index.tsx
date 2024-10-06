@@ -11,7 +11,7 @@ import ChatBubble from "@components/common/ChatBubble";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IInquiryProps} from "@/types/componentProps.ts";
-import {inquiryCategoriesValues} from "@constants/inquiryCategories.ts";
+import {inquiryCategories} from "@constants/inquiryCategories.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import {useUserInfoStore} from "@store/useUserStore.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
@@ -30,7 +30,7 @@ const InquiryDetailPage:FC = () => {
     const {lang} = useThemeStore();
 
     const timeStamp = useMemo(() => {
-        return inquiry?.createdAt ? getTimeStamp(inquiry.createdAt) : '';
+        return inquiry?.createdAt ? getTimeStamp(inquiry.createdAt, lang) : '';
     }, [inquiry?.createdAt]);
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
@@ -57,7 +57,7 @@ const InquiryDetailPage:FC = () => {
                 <>
                     <InquiryInfoWrapper>
                         <div>
-                            <span>{inquiryCategoriesValues[inquiry.category]}</span>
+                            <span>{inquiryCategories[inquiry.category][lang]}</span>
                             <h2>{inquiry.title}</h2>
                         </div>
 
