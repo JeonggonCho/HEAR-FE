@@ -20,6 +20,7 @@ import {headerCategories} from "@constants/headerCategories.ts";
 import {Container, FeedbackInfoWrapper} from "./style.ts";
 
 import F from "@assets/images/F.png";
+import {TagWrapper} from "@components/communication/InquiryFeedbackListItem/style.ts";
 
 const FeedbackDetailPage:FC = () => {
     const [feedback, setFeedback] = useState<IFeedbackProps>();
@@ -57,7 +58,7 @@ const FeedbackDetailPage:FC = () => {
                 <>
                     <FeedbackInfoWrapper>
                         <div>
-                            <span>{feedbackCategories[feedback.category][lang]}</span>
+                            <TagWrapper tag={feedback.category}>{feedbackCategories[feedback.category][lang]}</TagWrapper>
                             <h2>{feedback.title}</h2>
                         </div>
 

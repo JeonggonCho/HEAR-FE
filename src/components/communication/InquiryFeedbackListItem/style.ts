@@ -1,15 +1,18 @@
 import styled from "@emotion/styled";
 import {Link} from "react-router-dom";
-import {useThemeStore} from "@store/useThemeStore.ts";
 import {darken, lighten} from "polished";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 export const Container = styled(Link)`
     width: 100%;
     display: inline-block;
-    padding: 20px 8px;
+    padding: 12px;
     transition: all 0.2s ease-in-out 0s;
+    background-color: ${({theme}) => theme.colors.bg.main};
+    border-radius: 12px;
 
     h3 {
+        width: 100%;
         color: ${({theme}) => theme.colors.font.main};
         margin: 0;
         font-size: 1.15rem;
@@ -18,65 +21,122 @@ export const Container = styled(Link)`
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        transition: all 0.2s ease-in-out 0s;
     }
-    
+
     & + & {
-        border-top: 1px solid ${({theme}) => theme.colors.line.main};
+        margin-top: 12px;
+            //border-top: 1px solid ${({theme}) => theme.colors.line.main};
     }
-    
+
     &:hover {
-        transform: translateY(-4px);
-        
         h3 {
-            width: 100%;
             color: ${({theme}) => theme.colors.font.primary};
         }
     }
-    
-    & > div:first-of-type {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 24px;
 
-        & > span {
-            margin-left: -4px;
-            margin-bottom: 8px;
-            width: fit-content;
-            font-size: 0.9rem;
-            padding: 6px 8px;
-            text-wrap: nowrap;
-            background-color: ${({theme}) => {
-                const {isDarkMode} = useThemeStore();
-                return isDarkMode ? theme.colors.button.third : lighten(0.1, theme.colors.button.second);
-            }};
-            border-radius: 6px;
-            color: ${({theme}) => {
-                const {isDarkMode} = useThemeStore();
-                return isDarkMode ? lighten(0.1, theme.colors.font.sub) : darken(0.1, theme.colors.font.sub);
-            }};
-        }
-        
-        div {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
+    & > div:first-of-type {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        margin-bottom: 16px;
     }
-    
+
     & > div:last-of-type {
         display: flex;
         align-items: center;
         justify-content: space-between;
         
-        & > span:first-of-type {
-            font-size: 1rem;
-            color: ${({theme}) => theme.colors.font.sub};
-        }
-        
-        & > span:last-of-type {
-            font-size: 0.9rem;
-            color: ${({theme}) => theme.colors.font.sub};
+        & > div:last-of-type {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            
+            & > span:first-of-type {
+                font-size: 0.9rem;
+                color: ${({theme}) => theme.colors.font.sub};
+            }
+
+            & > span:last-of-type {
+                font-size: 0.85rem;
+                color: ${({theme}) => theme.colors.font.sub};
+            }
         }
     }
+`;
+
+export const TagWrapper = styled.span<{tag: "good" | "bad" | "suggest" | "machine" | "reservation" | "room" | "etc"}>`
+    width: fit-content;
+    font-size: 0.9rem;
+    padding: 6px 8px;
+    text-wrap: nowrap;
+    text-align: center;
+    border-radius: 6px;
+    opacity: ${({tag}) => (tag === "suggest" || tag === "room") ? 0.8 : 1};
+    background-color: ${({theme, tag}) => {
+        const {isDarkMode} = useThemeStore();
+        
+        let bgColor;
+        switch (tag) {
+            case "good":
+                bgColor = theme.colors.button.approval;
+                break;
+            case "reservation":
+                bgColor = theme.colors.button.approval;
+                break;
+            case "bad":
+                bgColor = theme.colors.button.danger;
+                break;
+            case "machine":
+                bgColor = theme.colors.button.danger;
+                break;
+            case "suggest":
+                bgColor = isDarkMode ? darken(0.3, theme.colors.button.green) : lighten(0.4, theme.colors.button.green);
+                break;
+            case "room":
+                bgColor = isDarkMode ? darken(0.3, theme.colors.button.green) : lighten(0.4, theme.colors.button.green);
+                break;
+            case "etc":
+                bgColor = theme.colors.button.third;
+                break;
+            default:
+                bgColor = theme.colors.button.third;
+        }
+        return bgColor;
+    }};
+    color: ${({theme, tag}) => {
+        const {isDarkMode} = useThemeStore();
+        if (isDarkMode) {
+            return theme.colors.font.sub;
+        }
+        
+        let fontColor;
+        switch (tag) {
+            case "good":
+                fontColor = theme.colors.font.primary;
+                break;
+            case "reservation":
+                fontColor = theme.colors.font.primary;
+                break;
+            case "bad":
+                fontColor = theme.colors.font.danger;
+                break;
+            case "machine":
+                fontColor = theme.colors.font.danger;
+                break;
+            case "suggest":
+                fontColor = darken(0.15, theme.colors.button.green);
+                break;
+            case "room":
+                fontColor = darken(0.15, theme.colors.button.green);
+                break;
+            case "etc":
+                fontColor = theme.colors.font.sub;
+                break;
+            default:
+                fontColor = theme.colors.font.sub;
+        }
+        return fontColor;
+    }};
 `;

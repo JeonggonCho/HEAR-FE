@@ -40,7 +40,7 @@ const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate, date, machine}) =>
     // 다음 달로 이동 제한하기 (다음 달까지만)
     const isNextMonthDisabled = useMemo(() => (
         currentDate.getFullYear() === new Date().getFullYear() &&
-        currentDate.getMonth() === new Date().getMonth() + 10
+        currentDate.getMonth() === new Date().getMonth() + 1
     ), [currentDate]);
 
 

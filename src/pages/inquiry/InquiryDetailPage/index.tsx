@@ -18,6 +18,7 @@ import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container, InquiryInfoWrapper} from "./style.ts";
+import {TagWrapper} from "@components/communication/InquiryFeedbackListItem/style.ts";
 
 import Q from "@assets/images/Q.png";
 
@@ -57,7 +58,7 @@ const InquiryDetailPage:FC = () => {
                 <>
                     <InquiryInfoWrapper>
                         <div>
-                            <span>{inquiryCategories[inquiry.category][lang]}</span>
+                            <TagWrapper tag={inquiry.category}>{inquiryCategories[inquiry.category][lang]}</TagWrapper>
                             <h2>{inquiry.title}</h2>
                         </div>
 

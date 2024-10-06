@@ -6,7 +6,7 @@ import {feedbackCategories} from "@constants/feedbackCategories.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
-import {Container} from "./style.ts";
+import {Container, TagWrapper} from "./style.ts";
 
 const InquiryFeedbackListItem:FC<IFeedbackProps | IInquiryProps> = (props) => {
     const {lang} = useThemeStore();
@@ -29,17 +29,18 @@ const InquiryFeedbackListItem:FC<IFeedbackProps | IInquiryProps> = (props) => {
                     : "/"}
         >
             <div>
-                <span>{categoryLabel}</span>
-                <div>
-                    <h3>{props.title}</h3>
-                    {props.answer &&
-                      <span>{props.answer && "답변완료"}</span>
-                    }
-                </div>
+                <h3>{props.title}</h3>
+                {props.answer &&
+                  <span>{props.answer && "답변완료"}</span>
+                }
+                <TagWrapper tag={props.category}>{categoryLabel}</TagWrapper>
             </div>
             <div>
-            <span>{props.creator}</span>
-                <span>{timeStamp}</span>
+
+                <div>
+                    <span>{props.creator}</span>
+                    <span>{timeStamp}</span>
+                </div>
             </div>
         </Container>
     );

@@ -1,6 +1,4 @@
 import styled from "@emotion/styled";
-import {useThemeStore} from "@store/useThemeStore.ts";
-import {darken, lighten} from "polished";
 
 export const Container = styled.div`
     width: 100%;
@@ -33,23 +31,6 @@ export const FeedbackInfoWrapper = styled.div`
         margin-bottom: 24px;
         margin-left: 24px;
         margin-right: 24px;
-
-        & > span {
-            display: block;
-            width: fit-content;
-            font-size: 0.9rem;
-            padding: 6px 8px;
-            text-wrap: nowrap;
-            background-color: ${({theme}) => {
-                const {isDarkMode} = useThemeStore();
-                return isDarkMode ? theme.colors.button.third : lighten(0.1, theme.colors.button.second);
-            }};
-            border-radius: 6px;
-            color: ${({theme}) => {
-                const {isDarkMode} = useThemeStore();
-                return isDarkMode ? lighten(0.1, theme.colors.font.sub) : darken(0.1, theme.colors.font.sub);
-            }};
-        }
 
         h2 {
             font-size: 1.25rem;
