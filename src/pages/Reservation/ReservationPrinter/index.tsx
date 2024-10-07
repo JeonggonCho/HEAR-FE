@@ -18,6 +18,7 @@ import {useThemeStore} from "@store/useThemeStore.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 
 import {Container, ImageWrapper, MapIcon} from "./style.ts";
 
@@ -57,7 +58,7 @@ const ReservationPrinter:FC = () => {
             <ImageWrapper>
                 <img src={printer} alt={"3d 프린터"}/>
             </ImageWrapper>
-            <form method={"post"} onSubmit={handleSubmit((data) => {
+            <form onSubmit={handleSubmit((data) => {
                 console.log(data);
             })}>
                 <Select
@@ -71,6 +72,7 @@ const ReservationPrinter:FC = () => {
 
                 <Input
                     label={inputCategories.date[lang]}
+                    subLabel={messageCategories.noWeekendAndHoliday[lang]}
                     type={"date"}
                     id={"printer-reservation-date"}
                     name={"date"}
@@ -80,6 +82,13 @@ const ReservationPrinter:FC = () => {
                     onClick={() => setIsOpenCalendar(true)}
                     readonly
                 />
+
+                <div>
+                    <label>날짜 및 기기 선택</label>
+                    <div>
+                        {}
+                    </div>
+                </div>
 
                 <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
             </form>

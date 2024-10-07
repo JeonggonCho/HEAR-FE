@@ -70,11 +70,11 @@ export const LineTapWrapper = styled.div`
 
 export const LineTap = styled(Link)<{active: string, tabcount: number}>`
     color: ${({theme, active}) => active === "true" ? theme.colors.font.primary : theme.colors.font.sub};
-    padding: 12px 0;
+    padding: 8px 0;
     width: calc(100% / ${({tabcount}) => tabcount});
     display: block;
     text-align: center;
     font-size: 1.15rem;
     font-weight: ${({active}) => active === "true" ? "500" : "400"};
-    border-bottom: ${({active}) => active === "true" ? "3" : "0"}px solid ${({theme}) => theme.colors.line.primary}};
+    border-bottom: 3px solid ${({theme, active}) => active === "true" ? theme.colors.line.primary : theme.colors.bg.main};
 `;

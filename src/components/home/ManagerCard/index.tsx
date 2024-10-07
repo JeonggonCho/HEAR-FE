@@ -3,12 +3,14 @@ import {FC, useCallback, useEffect, useState} from "react";
 import Button from "@components/common/Button";
 import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
+import CardLoading from "@components/skeleton/CardLoading";
 
 import {useUserDataStore} from "@store/useUserStore.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 
 import {Container, EmptyManagerInfo, ManagerCardTitleWrapper, ManagerInfoWrapper} from "./style.ts";
 
@@ -20,7 +22,7 @@ const ManagerCard:FC = () => {
 
     const [managerInfo, setManagerInfo] = useState<{username: string, lab: string}>();
 
-    const {sendRequest, errorText, clearError} = useRequest();
+    const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
     const fetchManageInfo = useCallback(async () => {
         try {
@@ -39,6 +41,10 @@ const ManagerCard:FC = () => {
         fetchManageInfo();
     }, [fetchManageInfo]);
 
+    if (isLoading) {
+        return <CardLoading heightValue={"120px"}/>;
+    }
+
     return (
         <Container>
             <ManagerCardTitleWrapper valid={!!managerInfo}>
@@ -54,13 +60,18 @@ const ManagerCard:FC = () => {
                     </div>
 
                     {userData?.role !== "manager" &&
-                      <Button type={"link"} to={"/communication/inquiry/new"} content={buttonCategories.sendInquiry[lang]} width={"fit"}
-                              color={"third"} scale={"small"}/>
+                      <Button
+                        type={"link"} to={"/communication/inquiry/new"}
+                        content={buttonCategories.inquiry[lang]}
+                        width={"fit"}
+                        color={"third"}
+                        scale={"small"}
+                      />
                     }
                 </ManagerInfoWrapper>
                 :
                 <EmptyManagerInfo>
-                    조교 정보가 없습니다
+                    {messageCategories.emptyManagerInfo[lang]}
                 </EmptyManagerInfo>
             }
 

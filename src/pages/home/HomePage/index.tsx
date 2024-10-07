@@ -20,6 +20,7 @@ import alarm from "@assets/icons/alarm.svg";
 import dark from "@assets/icons/dark.svg";
 import light from "@assets/icons/light.svg";
 import {buttonCategories} from "@constants/buttonCategories.ts";
+import CafeSiteCard from "@components/home/CafeSiteCard";
 
 const HomeHeaderLeft:FC = () => {
     return (
@@ -59,7 +60,10 @@ const HomePage = () => {
             <ReservationConditionCard/>
             <ReservationCard/>
             <NoticeCard/>
-            <ManagerCard/>
+            <div>
+                <ManagerCard/>
+                <CafeSiteCard/>
+            </div>
             <div>
                 <LangSettingCard setModal={setLangModal}/>
                 <FeedBackCard/>

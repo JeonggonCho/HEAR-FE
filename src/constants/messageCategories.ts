@@ -109,4 +109,14 @@ export const messageCategories = {
         en: "Book the Model making studio here!",
         ch: "在这里预定模型制作工作室！",
     },
+    emptyManagerInfo: {
+        ko: "조교 정보가 없습니다",
+        en: "No assistant instructor information available",
+        ch: "没有助教信息",
+    },
+    noWeekendAndHoliday: {
+        ko: "* 주말 및 공휴일은 제외",
+        en: "* Exclude weekends and holidays",
+        ch: "* 不包括周末和节假日",
+    },
 };

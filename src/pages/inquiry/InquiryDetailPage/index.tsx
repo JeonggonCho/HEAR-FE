@@ -1,5 +1,6 @@
 import {FC, useCallback, useEffect, useMemo, useState} from "react";
 import {useParams} from "react-router-dom";
+import {ReactSVG} from "react-svg";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
@@ -18,9 +19,10 @@ import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container, InquiryInfoWrapper} from "./style.ts";
-import {TagWrapper} from "@components/communication/InquiryFeedbackListItem/style.ts";
+import {TagWrapper, WriterWrapper} from "@components/communication/InquiryFeedbackListItem/style.ts";
 
 import Q from "@assets/images/Q.png";
+import noProfile from "@assets/icons/no_profile.svg";
 
 const InquiryDetailPage:FC = () => {
     const [inquiry, setInquiry] = useState<IInquiryProps>();
@@ -63,9 +65,14 @@ const InquiryDetailPage:FC = () => {
                         </div>
 
                         <div>
-                            <span>{inquiry.creator}</span>
+                            <WriterWrapper>
+                                <div>
+                                    <ReactSVG src={noProfile}/>
+                                </div>
+                                <span>{inquiry.creator}</span>
+                            </WriterWrapper>
                             <div>
-                                <span>{timeStamp}</span>
+                            <span>{timeStamp}</span>
                                 {inquiryId && inquiry.creatorId === userInfo?.userId &&
                                   <Dropdown type={"inquiry"} id={inquiryId}/>
                                 }

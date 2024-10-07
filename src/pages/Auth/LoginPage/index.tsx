@@ -83,65 +83,64 @@ const LoginPage:FC = () => {
         }
     };
 
+    if (isLoading) {
+        return <LoadingLoop/>
+    }
+
     return (
         <Container>
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.signIn[lang]}/>
-            {isLoading ?
-                <LoadingLoop/>
-                :
-                <>
-                    <div>
-                        <div>
-                            <img src={logo} alt="로고"/>
-                        </div>
 
-                        <h3>HEAR</h3>
-                    </div>
+            <div>
+                <div>
+                    <img src={logo} alt="로고"/>
+                </div>
 
-                    <form onSubmit={handleSubmit(submitHandler)}>
-                        <Input
-                            label={inputCategories.hyuEmail[lang]}
-                            type={"text"}
-                            placeholder={placeholderCategories.email[lang]}
-                            id={"email"}
-                            name={"email"}
-                            register={register}
-                            errorMessage={errors.email?.message}
-                        />
+                <h3>HEAR</h3>
+            </div>
 
-                        <Input
-                            label={inputCategories.password[lang]}
-                            type={"password"}
-                            placeholder={placeholderCategories.password[lang]}
-                            id={"password"}
-                            name={"password"}
-                            register={register}
-                            errorMessage={errors.password?.message}
-                            visibleToggle={true}
-                        />
+            <form onSubmit={handleSubmit(submitHandler)}>
+                <Input
+                    label={inputCategories.hyuEmail[lang]}
+                    type={"text"}
+                    placeholder={placeholderCategories.email[lang]}
+                    id={"email"}
+                    name={"email"}
+                    register={register}
+                    errorMessage={errors.email?.message}
+                />
 
-                        <Button
-                            type={"submit"}
-                            content={buttonCategories.signIn[lang]}
-                            width={"full"}
-                            color={"primary"}
-                            scale={"big"}
-                        />
-                    </form>
+                <Input
+                    label={inputCategories.password[lang]}
+                    type={"password"}
+                    placeholder={placeholderCategories.password[lang]}
+                    id={"password"}
+                    name={"password"}
+                    register={register}
+                    errorMessage={errors.password?.message}
+                    visibleToggle={true}
+                />
 
-                    <LinkWrapper>
-                        <Link text={buttonCategories.signUp[lang]} to={"/signup"} color={"primary"}/>
-                        <Link text={buttonCategories.findPassword[lang]} to={"/password/reset"} color={"second"}/>
-                    </LinkWrapper>
-                </>
-            }
+                <Button
+                    type={"submit"}
+                    content={buttonCategories.signIn[lang]}
+                    width={"full"}
+                    color={"primary"}
+                    scale={"big"}
+                />
+            </form>
+
+            <LinkWrapper>
+                <Link text={buttonCategories.signUp[lang]} to={"/signup"} color={"primary"}/>
+                <Link text={buttonCategories.findPassword[lang]} to={"/password/reset"} color={"second"}/>
+            </LinkWrapper>
 
             {errorText &&
-                <Modal
-                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                    setModal={clearError}
-                    type={"popup"}
-                />
+              <Modal
+                content={<ErrorContent text={errorText} closeModal={clearError}/>}
+                setModal={clearError}
+                type={"popup"}
+              />
             }
         </Container>
     );

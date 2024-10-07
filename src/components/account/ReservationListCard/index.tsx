@@ -1,5 +1,7 @@
 import {FC} from 'react';
 
+import CardLoading from "@components/skeleton/CardLoading";
+
 import {cardCategories} from "@constants/cardCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
@@ -7,8 +9,12 @@ import {Container, Reservation} from "./style.ts";
 
 import myReservation from "@assets/images/my_reservation.png";
 
-const ReservationListCard:FC = () => {
+const ReservationListCard:FC<{isLoading: boolean}> = ({isLoading}) => {
     const {lang} = useThemeStore();
+
+    if (isLoading) {
+        return <CardLoading heightValue={"120px"}/>
+    }
 
     return (
         <Container>

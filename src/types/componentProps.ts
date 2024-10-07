@@ -46,6 +46,7 @@ export interface IHeaderProps {
 // 인풋(Input) props
 export interface IInputProps<TFieldValues extends FieldValues> {
     label?: string;
+    subLabel?: string;
     type: string;
     id: string;
     name: FieldPath<TFieldValues>;
@@ -96,6 +97,7 @@ export interface ILinkCardProps {
     to: string;
     type: "linear" | "grid";
     isDisabled?: boolean;
+    isLoading?: boolean;
 }
 
 
@@ -306,4 +308,12 @@ export interface ILaserSelectContentProps {
     reservationList: ILaserReservation[];
     setReservationList: React.Dispatch<React.SetStateAction<ILaserReservation[]>>;
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+
+// 카드 로딩 스켈레톤(CardLoading) Props
+export interface ICardLoadingProps {
+    bgColor?: "dark" | "light";
+    widthValue?: string;
+    heightValue?: string;
 }

@@ -2,6 +2,16 @@ import styled from "@emotion/styled";
 import {Link} from "react-router-dom";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {darken, lighten} from "polished";
+import {css, keyframes} from "@emotion/react";
+
+const skeletonWave = keyframes`
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+`;
 
 export const LinearLinkCardWrapper = styled(Link)`
     width: 100%;
@@ -71,7 +81,7 @@ export const LinearImgWrapper = styled.div`
     }
 `;
 
-export const GridLinkCardWrapper = styled(Link)<{disabled: boolean}>`
+export const GridLinkCardWrapper = styled(Link)<{disabled: boolean, loading:string}>`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -88,6 +98,7 @@ export const GridLinkCardWrapper = styled(Link)<{disabled: boolean}>`
         text-align: center;
         line-height: 1.5;
         transition: all 0.2s ease-in-out 0s;
+        visibility: ${({loading}) => loading === "true" ? "hidden" : "visible"};
     }
 
     &:hover {
@@ -105,16 +116,22 @@ export const GridLinkCardWrapper = styled(Link)<{disabled: boolean}>`
     }
 `;
 
-export const GridImgWrapper = styled.div<{disabled: boolean}>`
+export const GridImgWrapper = styled.div<{disabled: boolean, loading: string}>`
     width: 60px;
     height: 60px;
     padding: 14px;
-    background-color: ${({theme}) => theme.colors.bg.main};
+    background: ${({theme, loading}) =>
+            loading === "true" ? `linear-gradient(90deg, ${theme.colors.bg.main} 0%, ${theme.colors.bg.sub} 15%, ${theme.colors.bg.main} 45%, ${theme.colors.bg.main} 100%)`
+                    : theme.colors.bg.main};
+    background-size: 200% 100%;
     border-radius: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease-in-out 0s;
+    animation: ${({loading}) => 
+            loading === "true" ? css`${skeletonWave} 2s infinite ease-in-out` 
+                    : "none"};
     
     img {
         width: 100%;
@@ -122,5 +139,6 @@ export const GridImgWrapper = styled.div<{disabled: boolean}>`
         object-fit: cover;
         filter: grayscale(${({disabled}) => disabled ? "1" : "0"});
         opacity: ${({disabled}) => disabled ? "0.2" : "1"};
+        display: ${({loading}) => loading === "true" ? "none" : "block"};
     }
 `;

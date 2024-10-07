@@ -1,4 +1,5 @@
 import {FC, useMemo} from 'react';
+import {ReactSVG} from "react-svg";
 
 import {IFeedbackProps, IInquiryProps} from "@/types/componentProps.ts";
 import {inquiryCategories} from "@constants/inquiryCategories.ts";
@@ -6,7 +7,9 @@ import {feedbackCategories} from "@constants/feedbackCategories.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
-import {Container, TagWrapper} from "./style.ts";
+import {Container, TagWrapper, WriterWrapper} from "./style.ts";
+
+import noProfile from "@assets/icons/no_profile.svg";
 
 const InquiryFeedbackListItem:FC<IFeedbackProps | IInquiryProps> = (props) => {
     const {lang} = useThemeStore();
@@ -38,7 +41,12 @@ const InquiryFeedbackListItem:FC<IFeedbackProps | IInquiryProps> = (props) => {
             <div>
 
                 <div>
-                    <span>{props.creator}</span>
+                    <WriterWrapper>
+                        <div>
+                            <ReactSVG src={noProfile}/>
+                        </div>
+                        <span>{props.creator}</span>
+                    </WriterWrapper>
                     <span>{timeStamp}</span>
                 </div>
             </div>

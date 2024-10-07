@@ -33,7 +33,7 @@ const Modal:FC<IModalProps> = ({title, content, setModal, type}) => {
                 : <BottomSheetWrapper ref={modalRef}>
                     <div onClick={(e) => {
                         e.stopPropagation();
-                        setModal(false)
+                        setModal(false);
                     }}/>
                     <h3>{title}</h3>
                     {content}

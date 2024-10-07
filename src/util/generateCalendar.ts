@@ -31,6 +31,12 @@ const generateCalendar = ({currentDate, lang, machine}:IGenerateCalendar) => { /
         // 주말인지 확인
         const isWeekend = [0, 6].includes(day.getDay());
 
+        // 토요일인지 확인
+        const isSaturday = day.getDay() === 6;
+
+        // 일요일인지 확인
+        const isSunday = day.getDay() === 0;
+
         // 년도, 월, 일 기준으로 현재 날짜인지 확인
         const isToday = day.getFullYear() === today.getFullYear() &&
             day.getMonth() === today.getMonth() &&
@@ -53,6 +59,8 @@ const generateCalendar = ({currentDate, lang, machine}:IGenerateCalendar) => { /
             date: new Date(day),
             reservations: [],
             disabled: isWeekend || beforeDate || invalidMachine || false,
+            saturday: isSaturday,
+            sunday: isSunday,
             today: isToday,
             holidayInfo: {status: !!holiday, name: holiday?.name[lang]},
         });

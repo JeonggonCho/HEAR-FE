@@ -114,4 +114,14 @@ export const cardCategories = {
         en: "Map of Digital Modeling Studio (Room 301)",
         ch: "数字模型制作室（301号）地图",
     },
+    cafe: {
+        ko: "불꽃건축 카페",
+        en: "Architecture Website",
+        ch: "建筑网站",
+    },
+    currentLang: {
+        "ko" : "Korean",
+        "en" : "English",
+        "ch" : "Chinese",
+    }
 };

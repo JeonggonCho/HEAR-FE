@@ -146,7 +146,7 @@ export const headerCategories = {
     },
     notification: {
         ko: "알 림",
-        en: "Notification",
+        en: "Notifications",
         ch: "通知",
     },
 };

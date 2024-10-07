@@ -32,7 +32,7 @@ export const Container = styled.div`
 
     & > div:nth-of-type(2) {
         min-height: 60px;
-        border-left: 1px solid ${({theme}) => theme.colors.font.sub};
+        border-left: 1px solid ${({theme}) => theme.colors.font.placeholder};
     }
 `;
 

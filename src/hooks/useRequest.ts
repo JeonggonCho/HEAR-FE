@@ -8,7 +8,7 @@ interface IRequestProps {
     header?: any;
 }
 
-const MIN_LOADING_TIME = 500;
+const MIN_LOADING_TIME = 1000;
 
 const useRequest = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);

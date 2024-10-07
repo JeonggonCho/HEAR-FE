@@ -1,14 +1,20 @@
 import {FC} from "react";
 
+import CardLoading from "@components/skeleton/CardLoading";
+
 import {useUserDataStore} from "@store/useUserStore.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container, PassStatus, WarningStatus} from "./style.ts";
 
-const StatusCard:FC = () => {
+const StatusCard:FC<{isLoading: boolean}> = ({isLoading}) => {
     const {userData} = useUserDataStore();
     const {lang} = useThemeStore();
+
+    if (isLoading) {
+        return <CardLoading heightValue={"100px"}/>
+    }
 
     return (
         <Container>

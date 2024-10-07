@@ -38,7 +38,7 @@ const ReservationHeat:FC = () => {
     type HeatFormData = z.infer<typeof cncHeatSchema>;
 
     const formattedDate = getTomorrowDate();
-    const formattedReturnDate = getAfterWeekDate();
+    const formattedReturnDate = getAfterWeekDate(false);
 
     const {register, handleSubmit, formState: {errors}, reset, setValue, getValues} = useForm<HeatFormData>({
         resolver: zodResolver(cncHeatSchema),
@@ -102,6 +102,7 @@ const ReservationHeat:FC = () => {
 
                     <Input
                         label={inputCategories.tomorrowRentalDate[lang]}
+                        subLabel={messageCategories.noWeekendAndHoliday[lang]}
                         type={"date"}
                         id={"heat-reservation-date"}
                         name={"date"}

@@ -9,7 +9,6 @@ import ReservationListCard from "@components/account/ReservationListCard";
 import UsageListCard from "@components/account/UsageListCard";
 import Modal from "@components/common/Modal";
 import ConfirmContent from "@components/content/ConfirmContent";
-import LoadingLoop from "@components/common/LoadingLoop";
 import ErrorContent from "@components/content/ErrorContent";
 import LinkCard from "@components/common/LinkCard";
 
@@ -27,10 +26,12 @@ import no_profile from "@assets/images/no_profile.png";
 import machine from "@assets/images/machine.png";
 import list from "@assets/images/list.png";
 import myPage from "@assets/images/manager.png";
+import CardLoading from "@components/skeleton/CardLoading";
 
 const AccountPage:FC = () => {
     const [logoutModal, setLogoutModal] = useState<boolean>(false);
     const [unregisterModal, setUnregisterModal] = useState<boolean>(false);
+
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     const navigate = useNavigate();
@@ -145,58 +146,60 @@ const AccountPage:FC = () => {
     return (
         <Container>
             <Header leftChild={<AccountHeaderLeft/>} rightChild={<AccountHeaderRight/>}/>
-            {isLoading ?
-                <LoadingLoop/>
-                :
-                <>
-                    <ProfileCard/>
 
-                    <UpdateButtonWrapper>
-                        <Button type={"link"} content={buttonCategories.profileUpdate[lang]} width={"full"} color={"second"} scale={"normal"} to={"/account/update"}/>
-                        <Button type={"link"} content={buttonCategories.passwordChange[lang]} width={"full"} color={"second"} scale={"normal"} to={"/password/update"}/>
-                    </UpdateButtonWrapper>
+            <ProfileCard isLoading={isLoading}/>
 
-                    {userData?.role === "student" &&
-                        <>
-                          <StatusCard/>
-                          <ReservationListCard/>
-                          <UsageListCard/>
-                        </>
-                    }
+            <UpdateButtonWrapper>
+                <Button type={"link"} content={buttonCategories.profileUpdate[lang]} width={"full"} color={"second"} scale={"normal"} to={"/account/update"}/>
+                <Button type={"link"} content={buttonCategories.passwordChange[lang]} width={"full"} color={"second"} scale={"normal"} to={"/password/update"}/>
+            </UpdateButtonWrapper>
 
-                    {(userData?.role === "manager" || userData?.role === "admin") && (
-                        <>
-                            <LinkCard image={list} name={buttonCategories.reservationManagement[lang]} to={"/management/reservations"} type={"linear"} />
-                            <LinkCard image={no_profile} name={buttonCategories.userManagement[lang]} to={"/management/users"} type={"linear"} />
-                            <LinkCard image={machine} name={buttonCategories.machineManagement[lang]} to={"/management/machines"} type={"linear"} />
-                        </>
-                    )}
+            {userData?.role === "student" &&
+              <>
+                <StatusCard isLoading={isLoading}/>
+                <ReservationListCard isLoading={isLoading}/>
+                <UsageListCard isLoading={isLoading}/>
+              </>
+            }
 
-                    <Button
-                        type={"button"}
-                        content={buttonCategories.accountDeletion[lang]}
-                        width={"full"}
-                        color={"second"}
-                        scale={"big"}
-                        onClick={() => setUnregisterModal(true)}
-                    />
+            {(userData?.role === "manager" || userData?.role === "admin") && (
+                isLoading ?
+                    <>
+                        <CardLoading heightValue={"85px"}/>
+                        <CardLoading heightValue={"85px"}/>
+                        <CardLoading heightValue={"85px"}/>
+                    </>
+                    :
+                    <>
+                        <LinkCard image={list} name={buttonCategories.reservationManagement[lang]} to={"/management/reservations"} type={"linear"} />
+                        <LinkCard image={no_profile} name={buttonCategories.userManagement[lang]} to={"/management/users"} type={"linear"} />
+                        <LinkCard image={machine} name={buttonCategories.machineManagement[lang]} to={"/management/machines"} type={"linear"} />
+                    </>
+            )}
 
-                    {logoutModal &&
-                      <Modal
-                        content={<LogoutContent/>}
-                        setModal={setLogoutModal}
-                        type={"popup"}
-                      />
-                    }
+            <Button
+                type={"button"}
+                content={buttonCategories.accountDeletion[lang]}
+                width={"full"}
+                color={"second"}
+                scale={"big"}
+                onClick={() => setUnregisterModal(true)}
+            />
 
-                    {unregisterModal &&
-                      <Modal
-                        content={<UnregisterContent/>}
-                        setModal={setUnregisterModal}
-                        type={"popup"}
-                      />
-                    }
-                </>
+            {logoutModal &&
+              <Modal
+                content={<LogoutContent/>}
+                setModal={setLogoutModal}
+                type={"popup"}
+              />
+            }
+
+            {unregisterModal &&
+              <Modal
+                content={<UnregisterContent/>}
+                setModal={setUnregisterModal}
+                type={"popup"}
+              />
             }
 
             {errorText &&

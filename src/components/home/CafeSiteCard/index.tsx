@@ -1,22 +1,20 @@
-import {FC, useEffect, useState} from 'react';
-import {ReactSVG} from "react-svg";
+import {FC, useEffect, useState} from "react";
 
 import ArrowForward from "@components/common/ArrowForward";
 import CardLoading from "@components/skeleton/CardLoading";
 
-import {ILangSettingCardProps} from "@/types/componentProps.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
-import {cardCategories} from "@constants/cardCategories.ts";
 
 import {Container} from "./style.ts";
 
-import langLogo from "@assets/icons/lang.svg";
+import cafeLogo from "@assets/cafe_logo.png";
 
-const LangSettingCard:FC<ILangSettingCardProps> = ({setModal}) => {
+const CafeSiteCard:FC = () => {
     const [isLoading, setIsLoading] = useState(true);
 
-    const {lang} = useThemeStore()
+    const {lang} = useThemeStore();
 
     useEffect(() => {
         setTimeout(() => {
@@ -29,17 +27,17 @@ const LangSettingCard:FC<ILangSettingCardProps> = ({setModal}) => {
     }
 
     return (
-        <Container onClick={() => setModal(true)}>
+        <Container to={"https://cafe.daum.net/archihanyang"} target={"_blank"}>
             <div>
-                <ReactSVG src={langLogo}/>
-                <h3>{buttonCategories.languageSetting[lang]}</h3>
+                <img src={cafeLogo} alt={"불꽃건축 로고"}/>
+                <h3>{cardCategories.cafe[lang]}</h3>
             </div>
+
             <div>
-                <h4>{cardCategories.currentLang[lang]}</h4>
-                <ArrowForward/>
+                {buttonCategories.move[lang]} <ArrowForward/>
             </div>
         </Container>
     );
 };
 
-export default LangSettingCard;
+export default CafeSiteCard;

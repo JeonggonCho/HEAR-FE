@@ -12,6 +12,13 @@ export const Container = styled.div`
         line-height: 1.5;
     }
     
+    & > span:first-of-type {
+        font-size: 0.85rem;
+        color: ${({theme}) => theme.colors.font.sub};
+        margin-left: 6px;
+        line-height: 1.5;
+    }
+    
     input {
         color: ${({theme}) => theme.colors.font.main};
         height: 40px;

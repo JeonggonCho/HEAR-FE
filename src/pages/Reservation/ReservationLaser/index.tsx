@@ -127,6 +127,7 @@ const ReservationLaser: FC = () => {
                 <form onSubmit={submitHandler}>
                     <Input
                         label={inputCategories.tomorrowDate[lang]}
+                        subLabel={messageCategories.noWeekendAndHoliday[lang]}
                         type={"date"}
                         id={"laser-reservation-date"}
                         value={formattedDate}

@@ -32,6 +32,7 @@ export const InquiryInfoWrapper = styled.div`
         margin-right: 24px;
         margin-left: 24px;
 
+        // 제목
         h2 {
             margin: 0;
             font-weight: 500;
@@ -41,7 +42,7 @@ export const InquiryInfoWrapper = styled.div`
             line-height: 1.5;
         }
     }
-
+    
     & > div:last-of-type {
         display: flex;
         align-items: center;
@@ -53,6 +54,13 @@ export const InquiryInfoWrapper = styled.div`
             display: flex;
             align-items: center;
             gap: 12px;
+        }
+
+        & > div:last-of-type {
+            // 작성일
+            span {
+                font-size: 0.9rem;
+            }
         }
     }
 

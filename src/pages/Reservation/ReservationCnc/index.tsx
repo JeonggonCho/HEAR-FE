@@ -115,6 +115,7 @@ const ReservationCnc:FC = () => {
 
                     <Input
                         label={inputCategories.twoDayLaterDate[lang]}
+                        subLabel={messageCategories.noWeekendAndHoliday[lang]}
                         type={"date"}
                         id={"cnc-reservation-date"}
                         name={"date"}

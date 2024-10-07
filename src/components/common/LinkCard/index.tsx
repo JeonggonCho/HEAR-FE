@@ -6,7 +6,7 @@ import {ILinkCardProps} from "@/types/componentProps.ts";
 
 import {LinearLinkCardWrapper, GridLinkCardWrapper, LinearImgWrapper, GridImgWrapper} from "./style.ts";
 
-const LinkCard:FC<ILinkCardProps> = ({image, name, to, type, isDisabled}) => {
+const LinkCard:FC<ILinkCardProps> = ({image, name, to, type, isDisabled, isLoading}) => {
     switch (type) {
         case "linear":
             return (
@@ -24,9 +24,9 @@ const LinkCard:FC<ILinkCardProps> = ({image, name, to, type, isDisabled}) => {
             );
         case "grid":
             return (
-                <GridLinkCardWrapper to={isDisabled ? "" : to} disabled={isDisabled as boolean}>
+                <GridLinkCardWrapper to={isDisabled ? "" : to} disabled={isDisabled as boolean} loading={isLoading ? "true" : "false"}>
                     {image &&
-                      <GridImgWrapper disabled={isDisabled as boolean}>
+                      <GridImgWrapper disabled={isDisabled as boolean} loading={isLoading ? "true" : "false"}>
                         <img src={image} alt={name}/>
                       </GridImgWrapper>
                     }

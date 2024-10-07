@@ -60,14 +60,14 @@ export const buttonCategories = {
         ch: "找回密码",
     },
     languageSetting: {
-        ko: "언어설정",
+        ko: "언어 설정",
         en: "Language",
         ch: "语言设置",
     },
     appFeedback: {
-        ko: "어플리케이션 피드백",
-        en: "Application Feedback",
-        ch: "应用反馈",
+        ko: "피드백 작성",
+        en: "Making Feedback",
+        ch: "撰写反馈",
     },
     sendFeedback: {
         ko: "피드백 보내기",
@@ -174,4 +174,9 @@ export const buttonCategories = {
         en: "Create Notice",
         ch: "发布通知",
     },
+    move: {
+        ko: "바로가기",
+        en: "Go to",
+        ch: "前往",
+    }
 };

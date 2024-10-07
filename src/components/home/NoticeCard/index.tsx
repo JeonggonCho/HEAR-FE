@@ -11,13 +11,14 @@ import {useThemeStore} from "@store/useThemeStore.ts";
 import {Container, EmptyNotice, ImgWrapper, More, Notice, NoticesWrapper} from "./style.ts";
 
 import notice from "@assets/images/notice.png";
+import CardLoading from "@components/skeleton/CardLoading";
 
 const NoticeCard:FC = () => {
     const [latestNotices, setLatestNotices] = useState<{noticeId: string, title: string}[]>([]);
 
     const {lang} = useThemeStore();
 
-    const {sendRequest, errorText, clearError} = useRequest();
+    const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
     const fetchLatestNotices = useCallback(async () => {
         try {
@@ -35,6 +36,11 @@ const NoticeCard:FC = () => {
     useEffect(() => {
         fetchLatestNotices();
     }, [fetchLatestNotices]);
+
+    // 로딩중인 경우, 스켈레톤 렌더링
+    if (isLoading) {
+        return <CardLoading heightValue={"55px"}/>
+    }
 
     return (
         <Container>

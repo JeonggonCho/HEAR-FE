@@ -6,7 +6,7 @@ import {useThemeStore} from "@store/useThemeStore.ts";
 export const Container = styled(Link)`
     width: 100%;
     display: inline-block;
-    padding: 12px;
+    padding: 14px;
     transition: all 0.2s ease-in-out 0s;
     background-color: ${({theme}) => theme.colors.bg.main};
     border-radius: 12px;
@@ -21,7 +21,6 @@ export const Container = styled(Link)`
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        transition: all 0.2s ease-in-out 0s;
     }
 
     & + & {
@@ -53,12 +52,9 @@ export const Container = styled(Link)`
             align-items: center;
             gap: 12px;
             
+            
+            // 작성일
             & > span:first-of-type {
-                font-size: 0.9rem;
-                color: ${({theme}) => theme.colors.font.sub};
-            }
-
-            & > span:last-of-type {
                 font-size: 0.85rem;
                 color: ${({theme}) => theme.colors.font.sub};
             }
@@ -139,4 +135,37 @@ export const TagWrapper = styled.span<{tag: "good" | "bad" | "suggest" | "machin
         }
         return fontColor;
     }};
+`;
+
+export const WriterWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    & > div:first-of-type {
+        width: 28px;
+        height: 28px;
+        overflow: hidden;
+        border-radius: 50%;
+        background-color: ${({theme}) => theme.colors.bg.sub};
+        border: 1px solid ${({theme}) => theme.colors.line.main};
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        svg {
+            fill: ${({theme}) => theme.colors.icon.fill};
+        }
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    
+    & > span:first-of-type {
+        font-size: 0.9rem;
+        color: ${({theme}) => theme.colors.font.sub};
+    }
 `;

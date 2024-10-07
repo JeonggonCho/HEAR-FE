@@ -84,6 +84,7 @@ const ReservationSaw:FC = () => {
                 <form onSubmit={handleSubmit(submitHandler)}>
                     <Input
                         label={inputCategories.date[lang]}
+                        subLabel={messageCategories.noWeekendAndHoliday[lang]}
                         type={"date"}
                         id={"saw-reservation-date"}
                         name={"date"}

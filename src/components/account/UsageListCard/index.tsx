@@ -1,5 +1,7 @@
 import {FC} from 'react';
 
+import CardLoading from "@components/skeleton/CardLoading";
+
 import {cardCategories} from "@constants/cardCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
@@ -7,9 +9,12 @@ import {Container, Usage} from "./style.ts";
 
 import history from "@assets/images/history.png";
 
-
-const UsageListCard:FC = () => {
+const UsageListCard:FC<{isLoading: boolean}> = ({isLoading}) => {
     const {lang} = useThemeStore();
+
+    if (isLoading) {
+        return <CardLoading heightValue={"120px"}/>
+    }
 
     return (
         <Container>

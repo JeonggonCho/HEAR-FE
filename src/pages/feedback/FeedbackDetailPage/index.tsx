@@ -18,9 +18,11 @@ import {useThemeStore} from "@store/useThemeStore.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container, FeedbackInfoWrapper} from "./style.ts";
+import {TagWrapper, WriterWrapper} from "@components/communication/InquiryFeedbackListItem/style.ts";
 
 import F from "@assets/images/F.png";
-import {TagWrapper} from "@components/communication/InquiryFeedbackListItem/style.ts";
+import noProfile from "@assets/icons/no_profile.svg";
+import {ReactSVG} from "react-svg";
 
 const FeedbackDetailPage:FC = () => {
     const [feedback, setFeedback] = useState<IFeedbackProps>();
@@ -63,7 +65,12 @@ const FeedbackDetailPage:FC = () => {
                         </div>
 
                         <div>
-                            <span>{feedback.creator}</span>
+                            <WriterWrapper>
+                                <div>
+                                    <ReactSVG src={noProfile}/>
+                                </div>
+                                <span>{feedback.creator}</span>
+                            </WriterWrapper>
                             <div>
                                 <span>{timeStamp}</span>
                                 {feedbackId && feedback.creatorId === userInfo?.userId &&

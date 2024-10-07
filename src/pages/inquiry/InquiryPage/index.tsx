@@ -3,9 +3,9 @@ import React, {FC, useCallback, useEffect, useState} from "react";
 import InquiryFeedbackListItem from "@components/communication/InquiryFeedbackListItem";
 import FloatingButton from "@components/common/FloatingButton";
 import Empty from "@components/common/Empty";
-import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
+import CardLoading from "@components/skeleton/CardLoading";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IInquiryProps} from "@/types/componentProps.ts";
@@ -39,12 +39,17 @@ const InquiryPage:FC = () => {
 
     return (
         <Container>
+            <p>{pageDescriptionCategories.inquiry[lang]}</p>
+
             {isLoading ?
-                <LoadingLoop/>
+                <div style={{display: "flex", flexDirection: "column", gap: 16}}>
+                    <CardLoading heightValue={"90px"}/>
+                    <CardLoading heightValue={"90px"}/>
+                    <CardLoading heightValue={"90px"}/>
+                    <CardLoading heightValue={"90px"}/>
+                </div>
                 :
                 <>
-                    <p>{pageDescriptionCategories.inquiry[lang]}</p>
-
                     {inquiries.length !== 0 ? inquiries.map((value, idx) => (
                             <InquiryFeedbackListItem key={idx} type={"inquiry"} {...value}/>
                         ))
@@ -54,11 +59,11 @@ const InquiryPage:FC = () => {
                             message={messageCategories.makeInquiry[lang]}
                         />
                     }
-
-                    {userData?.role !== "manager" &&
-                        <FloatingButton to={"/communication/inquiry/new"}/>
-                    }
                 </>
+            }
+
+            {userData?.role !== "manager" &&
+              <FloatingButton to={"/communication/inquiry/new"}/>
             }
 
             {errorText &&

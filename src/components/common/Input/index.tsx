@@ -14,6 +14,7 @@ import invisible from "@assets/icons/invisible.svg";
 const Input = <TFieldValues extends FieldValues>(
     {
         label,
+        subLabel,
         type,
         id,
         name,
@@ -33,6 +34,8 @@ const Input = <TFieldValues extends FieldValues>(
     return (
         <Container>
             {label && <label htmlFor={id}>{label}</label>}
+
+            {subLabel && <span>{subLabel}</span>}
 
             {type === "range" ?
                 <input

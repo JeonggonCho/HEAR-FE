@@ -6,7 +6,7 @@ export const Container = styled.div`
     width: calc(100% + 48px);
     padding: 12px 24px;
     background-color: ${({theme}) => theme.colors.bg.main};
-    margin: 8px 0 8px -24px;
+    margin: 16px 0 16px -24px;
     display: flex;
     flex-direction: column;
 

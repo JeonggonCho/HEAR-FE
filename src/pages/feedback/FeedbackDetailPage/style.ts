@@ -32,6 +32,7 @@ export const FeedbackInfoWrapper = styled.div`
         margin-left: 24px;
         margin-right: 24px;
 
+        // 제목
         h2 {
             font-size: 1.25rem;
             font-weight: 500;
@@ -53,6 +54,13 @@ export const FeedbackInfoWrapper = styled.div`
             display: flex;
             align-items: center;
             gap: 12px;
+        }
+        
+        & > div:last-of-type {
+            // 작성일
+            span {
+                font-size: 0.9rem;
+            }
         }
     }
 

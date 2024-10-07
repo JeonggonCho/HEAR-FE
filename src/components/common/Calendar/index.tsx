@@ -87,7 +87,7 @@ const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate, date, machine}) =>
                             scale={"small"}
                             onClick={handlePrevMonth}
                         />
-                        <h4>{`${currentDate.getFullYear()}.${(currentDate.getMonth() + 1).toString().padStart(2, '0')}`}</h4>
+                        <h4>{`${currentDate.getFullYear()}. ${(currentDate.getMonth() + 1).toString().padStart(2, '0')}`}</h4>
                         <Button
                             type={"button"}
                             content={<ReactSVG src={arrowForward}/>}
@@ -109,12 +109,15 @@ const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate, date, machine}) =>
                 {/*날짜 버튼 부분*/}
                 <CalendarDateWrapper>
                     {dateList.map((d, idx) => (
-                        <DateButtonWrapper>
+                        <DateButtonWrapper
+                            key={`${idx} ${d.date}`}
+                        >
                             <DateButton
-                                key={idx}
                                 onClick={() => handleSelectDay(d.date)}
                                 selected={selectedDate && d.date.toDateString() === selectedDate.toDateString()}
                                 disabled={d.holidayInfo.status || d.disabled}
+                                sunday={d.sunday}
+                                saturday={d.saturday}
                                 today={d.today}
                                 holiday={d.holidayInfo.status}
                             >

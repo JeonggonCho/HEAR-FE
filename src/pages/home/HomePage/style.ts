@@ -79,6 +79,16 @@ export const Container = styled.div`
     & > div:nth-of-type(5) {
         margin-bottom: 16px !important;
     }
+    
+    & > div:nth-of-type(5) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 16px;
+        
+        @media (max-width: 600px) {
+            grid-template-columns: 1fr;
+        }
+    }
 
     & > div:last-of-type {
         display: grid;

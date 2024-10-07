@@ -3,7 +3,6 @@ import {FC, useCallback, useEffect, useState} from "react";
 import InquiryFeedbackListItem from "@components/communication/InquiryFeedbackListItem";
 import FloatingButton from "@components/common/FloatingButton";
 import Empty from "@components/common/Empty";
-import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
 
@@ -14,6 +13,7 @@ import {pageDescriptionCategories} from "@constants/pageDescriptionCategories.ts
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
+import CardLoading from "@components/skeleton/CardLoading";
 
 
 const FeedbackPage:FC = () => {
@@ -40,12 +40,17 @@ const FeedbackPage:FC = () => {
 
     return (
         <Container>
+            <p>{pageDescriptionCategories.feedback[lang]}</p>
+
             {isLoading ?
-                <LoadingLoop/>
+                <div style={{display: "flex", flexDirection: "column", gap: 16}}>
+                    <CardLoading heightValue={"90px"}/>
+                    <CardLoading heightValue={"90px"}/>
+                    <CardLoading heightValue={"90px"}/>
+                    <CardLoading heightValue={"90px"}/>
+                </div>
                 :
                 <>
-                    <p>{pageDescriptionCategories.feedback[lang]}</p>
-
                     {feedback.length !== 0 ? feedback.map((value, idx) => (
                             <InquiryFeedbackListItem key={idx} type={"feedback"} {...value}/>
                         ))
@@ -55,17 +60,17 @@ const FeedbackPage:FC = () => {
                             message={messageCategories.makeFeedback[lang]}
                         />
                     }
-
-                    <FloatingButton to={"/communication/feedback/new"}/>
                 </>
             }
 
+            <FloatingButton to={"/communication/feedback/new"}/>
+
             {errorText &&
-                <Modal
-                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                    setModal={clearError}
-                    type={"popup"}
-                />
+              <Modal
+                content={<ErrorContent text={errorText} closeModal={clearError}/>}
+                setModal={clearError}
+                type={"popup"}
+              />
             }
         </Container>
     );

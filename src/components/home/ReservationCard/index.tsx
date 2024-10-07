@@ -1,7 +1,6 @@
 import {FC, useCallback, useEffect, useState} from "react";
 
 import LinkCard from "@components/common/LinkCard";
-import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
 
@@ -39,35 +38,32 @@ const ReservationCard:FC = () => {
 
     return (
         <Container>
-            {isLoading ?
-                <LoadingLoop/>
-                :
-                <div>
-                    {machineReservationCategories.map((machine, index) => {
-                        const nameKey = machine.type as keyof MachineNameType;
-                        const machineNameEntry = machineName[nameKey];
-                        const nameText = machineNameEntry ? machineNameEntry[lang] : undefined;
+            <div>
+                {machineReservationCategories.map((machine, index) => {
+                    const nameKey = machine.type as keyof MachineNameType;
+                    const machineNameEntry = machineName[nameKey];
+                    const nameText = machineNameEntry ? machineNameEntry[lang] : undefined;
 
-                        return (
-                            <LinkCard
-                                key={index}
-                                image={machine.image}
-                                name={nameText || "알 수 없음"}
-                                to={machine.link as string}
-                                type={"grid"}
-                                isDisabled={!machineStatus[machine.type]}
-                            />
-                        );
-                    })}
-                </div>
-            }
+                    return (
+                        <LinkCard
+                            key={index}
+                            image={machine.image}
+                            name={nameText || "알 수 없음"}
+                            to={machine.link as string}
+                            type={"grid"}
+                            isDisabled={!machineStatus[machine.type]}
+                            isLoading={isLoading}
+                        />
+                    );
+                })}
+            </div>
 
             {errorText &&
-                <Modal
-                  content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                  setModal={clearError}
-                  type={"popup"}
-                />
+              <Modal
+                content={<ErrorContent text={errorText} closeModal={clearError}/>}
+                setModal={clearError}
+                type={"popup"}
+              />
             }
         </Container>
     );

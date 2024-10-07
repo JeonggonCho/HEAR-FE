@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 export const Container = styled.form`
     padding: 24px;
@@ -83,5 +84,30 @@ export const CountOfLaserWrapper = styled.div`
         display: flex;
         align-items: center;
         gap: 8px;
+    }
+    
+    @media (max-width: 500px) {
+        align-items: ${() => {
+            const {lang} = useThemeStore();
+            return lang === "en" ? "start" : "center";
+        }};
+        
+        & > label:first-of-type {
+            margin-top: ${() => {
+                const {lang} = useThemeStore();
+                return lang === "en" ? "4px" : "0";
+            }};
+        }
+        
+        & > div:first-of-type {
+            flex-direction: ${() => {
+                const {lang} = useThemeStore();
+                return lang === "en" ? "column" : "row";
+            }};
+            align-items: ${() => {
+                const {lang} = useThemeStore();
+                return lang === "en" ? "end" : "center";
+            }};
+        }
     }
 `;

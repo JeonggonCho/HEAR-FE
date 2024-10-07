@@ -65,10 +65,13 @@ export const Container = styled.div`
 
 export const ImageWrapper = styled.div`
     width: 100%;
-    height: auto;
+    height: 100%;
     border-radius: 12px;
     overflow: hidden;
     margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
     & + & {
         margin-top: 0;
