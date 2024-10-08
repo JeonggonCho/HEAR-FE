@@ -14,8 +14,8 @@ export const Container = styled.div`
         font-size: 1.15rem;
         color: ${({theme}) => {
             const {isDarkMode} = useThemeStore();
-            return isDarkMode ? lighten(0.2, theme.colors.font.sub) : darken(0.2, theme.colors.font.sub);
-        }});
+            return isDarkMode ? lighten(0.2, theme.colors.font.sub) : darken(0.3, theme.colors.font.sub);
+        }};
         line-height: 1.5;
         word-break: keep-all;
         white-space: normal;

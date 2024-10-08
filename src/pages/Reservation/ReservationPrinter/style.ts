@@ -50,3 +50,37 @@ export const ImageWrapper = styled.div`
 
     }
 `;
+
+export const DateMachineSelectWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    
+    & > label {
+        color: ${({theme}) => theme.colors.font.sub};
+        margin-left: 6px;
+    }
+    
+    & > span:first-of-type {
+        color: ${({theme}) => theme.colors.font.sub};
+        font-size: 0.85rem;
+        margin-left: 6px;
+    }
+    
+    & > div:first-of-type {
+        width: 100%;
+        border: 1px solid ${({theme}) => theme.colors.line.main};
+        padding: 8px;
+        border-radius: 12px;
+    }
+`;
+
+export const EmptyMessage = styled.p`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 40px;
+    color: ${({theme}) => theme.colors.font.sub};
+    font-size: 1rem;
+`;

@@ -31,7 +31,7 @@ import mapIcon from "@assets/icons/map.svg";
 import close from "@assets/icons/close.svg";
 
 const ReservationVacuum:FC = () => {
-    const [isOpenCalendar, setIsOpenCalendar] = useState<boolean>(false);
+    const [showCalendar, setShowCalendar] = useState<boolean>(false);
     const [showMap, setShowMap] = useState<boolean>(false);
     const [showTooltip, setShowTooltip] = useState<boolean>(true);
 
@@ -54,6 +54,7 @@ const ReservationVacuum:FC = () => {
 
     const handleDateSelect = (date: string) => {
         setValue("date", date);
+        setShowCalendar(false);
     };
 
     const submitHandler:SubmitHandler<VacuumFormData> = useCallback(async (data) => {
@@ -102,7 +103,7 @@ const ReservationVacuum:FC = () => {
                         placeholder={"날짜를 선택해주세요"}
                         register={register}
                         errorMessage={errors.date?.message}
-                        onClick={() => setIsOpenCalendar(true)}
+                        onClick={() => setShowCalendar(true)}
                         readonly
                     />
 
@@ -153,16 +154,16 @@ const ReservationVacuum:FC = () => {
                 </form>
             }
 
-            {isOpenCalendar &&
+            {showCalendar &&
               <Modal
                 title={headerCategories.date[lang]}
                 content={<Calendar
-                    setModal={setIsOpenCalendar}
+                    setModal={setShowCalendar}
                     onSelectDate={handleDateSelect}
                     date={getValues("date")}
                     machine={"vacuum"}
                 />}
-                setModal={setIsOpenCalendar}
+                setModal={setShowCalendar}
                 type={"bottomSheet"}
               />
             }

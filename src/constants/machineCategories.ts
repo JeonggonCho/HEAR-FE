@@ -7,11 +7,6 @@ import cnc from "@assets/images/cnc_icon.png";
 import saw from "@assets/images/saw_icon.png";
 import vacuum from "@assets/images/vacuum_icon.png";
 
-export const machineType = [
-    {label: "1호기", value: "1", id: "radio-1"},
-    {label: "2호기", value: "2", id: "radio-2"},
-];
-
 export const machineReservationCategories:IMachine[] = [
     {image: laser, link: "/reservation/laser", type: "laser"},
     {image: printer, link: "/reservation/3d-printer", type: "printer"},

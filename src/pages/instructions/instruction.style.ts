@@ -1,7 +1,13 @@
 import styled from "@emotion/styled";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {darken, lighten} from "polished";
 
 export const Container = styled.div`
+    color: ${({theme}) => {
+        const {isDarkMode} = useThemeStore();
+        return isDarkMode ? lighten(0.35, theme.colors.font.sub) : darken(0.3, theme.colors.font.sub);
+    }};
+    
     div + div {
         margin-top: 48px;
     }
@@ -36,7 +42,6 @@ export const Container = styled.div`
     }
 
     p {
-        color: ${({theme}) => theme.colors.font.main};
         font-weight: 500;
         line-height: 1.5;
         margin: 0 0 20px;
@@ -49,7 +54,6 @@ export const Container = styled.div`
     }
 
     span {     
-        color: ${({theme}) => theme.colors.font.main};
         display: block;
         line-height: 1.5;
         margin: 8px 0;

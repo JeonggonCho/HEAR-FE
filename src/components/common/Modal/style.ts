@@ -69,6 +69,7 @@ export const BottomSheetWrapper = styled.div`
     transform: translateX(-50%);
     left: 50%;
     bottom: -68px;
+    overflow: hidden;
     animation: ${moveUp} 0.4s;
 
     @media (max-width: 600px) {

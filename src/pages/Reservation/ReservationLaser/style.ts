@@ -32,16 +32,6 @@ export const Container = styled.div`
                 display: flex;
                 flex-direction: column;
                 gap: 12px;
-                
-                & > p {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    text-align: center;
-                    height: 80px;
-                    color: ${({theme}) => theme.colors.font.sub};
-                    font-size: 1rem;
-                }
             }
         }
     }
@@ -118,4 +108,14 @@ export const SelectedItemWrapper = styled.div`
             fill: ${({theme}) => theme.colors.font.sub};
         }
     }
+`;
+
+export const EmptyMessage = styled.p`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 80px;
+    color: ${({theme}) => theme.colors.font.sub};
+    font-size: 1rem;
 `;

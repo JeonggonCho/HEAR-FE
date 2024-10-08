@@ -30,7 +30,7 @@ import mapIcon from "@assets/icons/map.svg";
 import check from "@assets/icons/check.svg";
 
 const ReservationCnc:FC = () => {
-    const [isOpenCalendar, setIsOpenCalendar] = useState<boolean>(false);
+    const [showCalendar, setShowCalendar] = useState<boolean>(false);
     const [showMap, setShowMap] = useState<boolean>(false);
 
     const navigate = useNavigate();
@@ -51,6 +51,7 @@ const ReservationCnc:FC = () => {
 
     const handleDateSelect = (date: string) => {
         setValue("date", date);
+        setShowCalendar(false);
     };
 
     const submitHandler:SubmitHandler<CncFormData> = useCallback(async (data) => {
@@ -122,7 +123,7 @@ const ReservationCnc:FC = () => {
                         placeholder={"날짜를 선택해주세요"}
                         register={register}
                         errorMessage={errors.date?.message}
-                        onClick={() => setIsOpenCalendar(true)}
+                        onClick={() => setShowCalendar(true)}
                         readonly
                     />
 
@@ -130,16 +131,16 @@ const ReservationCnc:FC = () => {
                 </form>
             }
 
-            {isOpenCalendar &&
+            {showCalendar &&
               <Modal
                 title={headerCategories.date[lang]}
                 content={<Calendar
-                    setModal={setIsOpenCalendar}
+                    setModal={setShowCalendar}
                     onSelectDate={handleDateSelect}
                     date={getValues("date")}
                     machine={"cnc"}
                 />}
-                setModal={setIsOpenCalendar}
+                setModal={setShowCalendar}
                 type={"bottomSheet"}
               />
             }

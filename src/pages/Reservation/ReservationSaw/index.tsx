@@ -29,7 +29,7 @@ import saw from "@assets/images/saw.png";
 import close from "@assets/icons/close.svg";
 
 const ReservationSaw:FC = () => {
-    const [isOpenCalendar, setIsOpenCalendar] = useState<boolean>(false);
+    const [showCalendar, setShowCalendar] = useState<boolean>(false);
     const [showTooltip, setShowTooltip] = useState<boolean>(true);
 
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
@@ -51,6 +51,7 @@ const ReservationSaw:FC = () => {
 
     const handleDateSelect = (date: string) => {
         setValue("date", date);
+        setShowCalendar(false);
     };
 
     const submitHandler:SubmitHandler<SawFormData> = useCallback(async (data) => {
@@ -91,7 +92,7 @@ const ReservationSaw:FC = () => {
                         placeholder={"날짜를 선택해주세요"}
                         register={register}
                         errorMessage={errors.date?.message}
-                        onClick={() => setIsOpenCalendar(true)}
+                        onClick={() => setShowCalendar(true)}
                         readonly
                     />
 
@@ -142,16 +143,16 @@ const ReservationSaw:FC = () => {
                 </form>
             }
 
-            {isOpenCalendar &&
+            {showCalendar &&
               <Modal
                 title={headerCategories.date[lang]}
                 content={<Calendar
-                    setModal={setIsOpenCalendar}
+                    setModal={setShowCalendar}
                     onSelectDate={handleDateSelect}
                     date={getValues("date")}
                     machine={"saw"}
                 />}
-                setModal={setIsOpenCalendar}
+                setModal={setShowCalendar}
                 type={"bottomSheet"}
               />
             }

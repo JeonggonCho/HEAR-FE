@@ -149,4 +149,9 @@ export const headerCategories = {
         en: "Notifications",
         ch: "通知",
     },
+    dateAndMachine: {
+        ko: "날짜 및 기기 선택",
+        en: "Select Date and Machine",
+        ch: "选择日期和机器",
+    }
 };

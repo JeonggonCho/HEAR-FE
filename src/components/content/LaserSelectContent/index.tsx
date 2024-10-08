@@ -15,7 +15,7 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import {Container, CountOfLaserPerDayWrapper, CountOfLaserPerWeekWrapper, CountOfLaserWrapper} from "./style.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
-const LaserSelectContent:FC<ILaserSelectContentProps> = ({laserInfo, laserTimesInfo, reservationList, setReservationList, setShowModal}) => {
+const LaserSelectContent:FC<ILaserSelectContentProps> = ({laserInfo, laserTimesInfo, reservationList, setReservationList, setModal}) => {
     const {userData} = useUserDataStore();
     const {lang} = useThemeStore();
 
@@ -35,7 +35,7 @@ const LaserSelectContent:FC<ILaserSelectContentProps> = ({laserInfo, laserTimesI
     // `reservationList`에 있는 시간들을 미리 체크된 상태로 추가하기
     useEffect(() => {
         if (reservationList.length > 0) {
-            const reservedTimes = reservationList.map(reservation => `${reservation.laserId} ${reservation.timeId}`);
+            const reservedTimes = reservationList.map(reservation => `${reservation.laserId} ${reservation.startTime} ${reservation.endTime}`);
             setValue("times", reservedTimes);  // 예약된 시간들을 기본값으로 설정
         }
     }, [reservationList, setValue]);
@@ -63,12 +63,12 @@ const LaserSelectContent:FC<ILaserSelectContentProps> = ({laserInfo, laserTimesI
         const maxAllowedTimes = Math.min(countOfLaserPerWeek, countOfLaserPerDay); // 오늘 횟수와 이번 주 횟수 중 작은 것 선택
 
         return laserTimes.map((value) => {
-            const isTimeSelected = currentTimes.includes(`${value.laserId} ${value.timeId}`); // 현재 선택되어있는지 확인
+            const isTimeSelected = currentTimes.includes(`${value.laserId} ${value.startTime} ${value.endTime}`); // 현재 선택되어있는지 확인
             const isDisabled = !isTimeSelected && (maxAllowedTimes <= 0); // 선택 안 되었고, 현재 시간 선택 가능 횟수가 0 이하이면, disabled
             return {
-                label: value.timeContent,
-                value: `${value.laserId} ${value.timeId}`,
-                id: `${value.laserId} ${value.timeId}`,
+                label: `${value.startTime} - ${value.endTime}`,
+                value: `${value.laserId} ${value.startTime} ${value.endTime}`,
+                id: `${value.laserId} ${value.startTime} ${value.endTime}`,
                 status: !value.timeStatus || isDisabled,
             };
         });
@@ -96,15 +96,16 @@ const LaserSelectContent:FC<ILaserSelectContentProps> = ({laserInfo, laserTimesI
         // 선택된 레이저 커팅기 및 시간 가져오기
         const selectedInfo = data.times.map(value => ({
             laserId: value.split(" ")[0],
-            timeId: value.split(" ")[1],
+            startTime: value.split(" ")[1],
+            endTime: value.split(" ")[2],
         }));
 
         // 기존 예약 목록에 추가
         setReservationList(selectedInfo);
 
         // 모달 닫기
-        setShowModal(false);
-    }, [laserInfo, setReservationList, setShowModal]);
+        setModal(false);
+    }, [laserInfo, setReservationList, setModal]);
 
     return (
         <Container onSubmit={handleSubmit(submitHandler)}>

@@ -7,9 +7,13 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    
+    & > p:first-of-type {
+        margin-bottom: 24px;
+    }
 `;
 
-export const CalendarMonthWrapper = styled.div`
+export const CalendarMonthWrapper = styled.div<{preventPrevBtn: boolean, preventNextBtn:boolean}>`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -31,6 +35,14 @@ export const CalendarMonthWrapper = styled.div`
             padding: 6px;
         }
         
+        & > button:first-of-type {
+            visibility: ${({preventPrevBtn}) => preventPrevBtn && "hidden"};
+        }
+        
+        & > button:last-of-type {
+            visibility: ${({preventNextBtn}) => preventNextBtn && "hidden"};
+        }
+        
         svg {
             fill: ${({theme}) => theme.colors.font.sub};
         }
@@ -42,7 +54,8 @@ export const DayWrapper = styled.div`
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
     font-weight: 500;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid ${({theme}) => theme.colors.line.main};
 
     span {
         color: ${({theme}) => theme.colors.font.main};
@@ -61,7 +74,7 @@ export const DayWrapper = styled.div`
 
 export const CalendarDateWrapper = styled.div`
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
     text-align: center;
     margin-bottom: 24px;
 `;
@@ -72,7 +85,8 @@ export const DateButtonWrapper = styled.div`
     flex-direction: column;
     gap: 4px;
     padding: 6px 0 10px;
-    border-bottom: 1px solid ${({theme}) => theme.colors.font.placeholder};
+    border-bottom: 1px solid ${({theme}) => theme.colors.line.main};
+    width: 100%;
 
     & > div:last-of-type {
         min-height: 14px;
@@ -81,8 +95,11 @@ export const DateButtonWrapper = styled.div`
 
 export const HolidayName = styled.div`
     color: ${({theme}) => theme.colors.font.sub};
+    text-align: center;
     font-size: 0.85rem;
     line-height: 1.3;
+    text-wrap: wrap;
+    word-wrap: break-word;
 `;
 
 export const DateButton = styled.button<{selected: boolean | null, disabled: boolean, today: boolean, holiday: boolean, saturday: boolean, sunday: boolean}>`

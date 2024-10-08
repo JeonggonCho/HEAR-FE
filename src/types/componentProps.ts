@@ -4,7 +4,7 @@ import {ITab} from "@/types/tab.ts";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
 import {IUserInfo} from "@/types/user.ts";
-import {ILaserInfo, ILaserReservation, ILaserTimesinfo} from "@/types/reservation.ts";
+import {ILaserInfo, ILaserReservation, ILaserTimesinfo, IPrinterReservation} from "@/types/reservation.ts";
 
 // 버튼(Button) props
 export interface IButtonProps {
@@ -105,7 +105,7 @@ export interface ILinkCardProps {
 export interface IModalProps {
     title?: string;
     content: React.ReactElement;
-    setModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setModal: (() => void) | React.Dispatch<React.SetStateAction<boolean>>;
     type: "popup" | "bottomSheet";
 }
 
@@ -307,7 +307,7 @@ export interface ILaserSelectContentProps {
     laserTimesInfo: ILaserTimesinfo[];
     reservationList: ILaserReservation[];
     setReservationList: React.Dispatch<React.SetStateAction<ILaserReservation[]>>;
-    setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
@@ -316,4 +316,23 @@ export interface ICardLoadingProps {
     bgColor?: "dark" | "light";
     widthValue?: string;
     heightValue?: string;
+}
+
+
+// 3D 프린터 날짜 및 기기 선택(PrinterSelectContent) props
+export interface IPrinterSelectContentProps {
+    setModal: () => void;
+    onSelectDate: (date: string) => void;
+    selectedDate: string | undefined;
+    selectMachineMode: boolean;
+    setSelectMachineMode: React.Dispatch<React.SetStateAction<boolean>>;
+    selectedMachine: string;
+    setReservation: React.Dispatch<React.SetStateAction<IPrinterReservation | undefined>>;
+    setSelectedMachine: React.Dispatch<React.SetStateAction<string>>;
+}
+
+
+// 뒤로가기 (ArrowBack) props
+export interface IArrowBack {
+    action?: () => void;
 }

@@ -128,7 +128,10 @@ export const LabelWrapper = styled.label`
         return isDarkMode ? lighten(0.5, theme.colors.font.sub) : theme.colors.font.sub;
     }};
     border-radius: 8px;
-    border: 1px solid ${({theme}) => theme.colors.line.main};
+    border: 1px solid ${({theme}) => {
+        const {isDarkMode} = useThemeStore();
+        return isDarkMode ? lighten(0.1, theme.colors.line.main) : theme.colors.line.main;
+    }};
     cursor: pointer;
     transition: all 0.2s ease-in-out 0s;
     font-size: ${() => {

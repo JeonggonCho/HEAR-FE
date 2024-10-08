@@ -1,4 +1,6 @@
 import styled from "@emotion/styled";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {darken, lighten} from "polished";
 
 export const Container = styled.div`
     width: 100%;
@@ -28,7 +30,7 @@ export const InquiryInfoWrapper = styled.div`
         display: flex;
         flex-direction: column;
         gap: 12px;
-        margin-bottom: 24px;
+        margin-bottom: 12px;
         margin-right: 24px;
         margin-left: 24px;
 
@@ -68,5 +70,21 @@ export const InquiryInfoWrapper = styled.div`
         border: none;
         border-top: 1px solid ${({theme}) => theme.colors.line.main};
         margin: 24px 0;
+    }
+`;
+
+export const ContentWrapper = styled.div`
+    width: 100%;
+    
+    & > p:first-of-type {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.8;
+        text-wrap: wrap;
+        word-break: manual;
+        color: ${({theme}) => {
+            const {isDarkMode} = useThemeStore();
+            return isDarkMode ? lighten(0.2, theme.colors.font.sub) : darken(0.3, theme.colors.font.sub);
+        }};
     }
 `;

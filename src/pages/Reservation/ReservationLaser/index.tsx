@@ -22,7 +22,7 @@ import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 
-import {Container, ImageWrapper, MapIcon, SelectedItemWrapper} from "./style.ts";
+import {Container, EmptyMessage, ImageWrapper, MapIcon, SelectedItemWrapper} from "./style.ts";
 
 import laser from "@assets/images/laser_cut.png";
 import mapIcon from "@assets/icons/map.svg";
@@ -59,7 +59,7 @@ const ReservationLaser: FC = () => {
         } catch (err) {
             console.error("레이저 커팅기 시간 정보 조회 중 에러 발생: ", err);
         }
-    }, [sendRequest, setLaserInfo]);
+    }, [sendRequest, setLaserInfo, setLaserTimesInfo]);
 
     useEffect(() => {
         fetchValidLaserInfo();
@@ -68,7 +68,7 @@ const ReservationLaser: FC = () => {
     // 레이저 커팅기 기기 및 시간 선택 아이템 삭제
     const handleRemoveReservationItem = (reservation:ILaserReservation) => {
         setReservationList(prevState => prevState.filter(value =>
-            !(value.laserId === reservation.laserId && value.timeId === reservation.timeId)
+            !(value.laserId === reservation.laserId && value.startTime === reservation.startTime && value.endTime === reservation.endTime)
         ));
     };
 
@@ -85,7 +85,8 @@ const ReservationLaser: FC = () => {
                 data: reservationList.map((value) => ({
                     date: formattedDate,
                     machineId: value.laserId,
-                    timeId: value.timeId,
+                    startTime: value.startTime,
+                    endTime: value.endTime,
                 })),
             });
             if (response.data && userData) {
@@ -140,16 +141,16 @@ const ReservationLaser: FC = () => {
                         <label>{inputCategories.machineAndTime[lang]}</label>
                         <div>
                             {reservationList.length === 0 ?
-                                <p>{messageCategories.emptyMachineAndTime[lang]}</p>
+                                <EmptyMessage>{messageCategories.emptyMachineAndTime[lang]}</EmptyMessage>
                                 :
                                 <>
                                     {reservationList.map((reservation) => {
                                         const selectedLaserInfo = laserInfo.filter(value => value.laserId === reservation.laserId)[0];
-                                        const selectedLaserTimeInfo = laserTimesInfo.filter(value => value.timeId === reservation.timeId)[0];
+                                        const selectedLaserTimeInfo = laserTimesInfo.filter(value => value.startTime === reservation.startTime && value.endTime === reservation.endTime)[0];
                                         return (
-                                            <SelectedItemWrapper key={`${reservation.laserId} ${reservation.timeId}`}>
+                                            <SelectedItemWrapper key={`${reservation.laserId} ${reservation.startTime} ${reservation.endTime}`}>
                                                 <span>{selectedLaserInfo.laserName}</span>
-                                                <span>{selectedLaserTimeInfo.timeContent}</span>
+                                                <span>{`${selectedLaserTimeInfo.startTime} - ${selectedLaserTimeInfo.endTime}`}</span>
                                                 <div onClick={() => handleRemoveReservationItem(reservation)}>
                                                     <ReactSVG src={close}/>
                                                 </div>
@@ -183,7 +184,7 @@ const ReservationLaser: FC = () => {
                         laserTimesInfo={laserTimesInfo}
                         reservationList={reservationList}
                         setReservationList={setReservationList}
-                        setShowModal={setShowModal}
+                        setModal={setShowModal}
                     />
                 }
                 setModal={setShowModal}
@@ -209,7 +210,7 @@ const ReservationLaser: FC = () => {
 
             {showEmptyError &&
                 <Modal
-                  content={<ErrorContent text={"선택된 기기 및 시간이 없습니다. 선택해주세요."} closeModal={() => setShowEmptyError(false)}/>}
+                  content={<ErrorContent text={messageCategories.emptyMachineAndTime[lang]} closeModal={() => setShowEmptyError(false)}/>}
                   setModal={setShowEmptyError}
                   type={"popup"}
                 />

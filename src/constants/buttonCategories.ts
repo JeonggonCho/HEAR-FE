@@ -178,5 +178,15 @@ export const buttonCategories = {
         ko: "바로가기",
         en: "Go to",
         ch: "前往",
+    },
+    selectDateAndMachine: {
+        ko: "날짜 및 기기 선택",
+        en: "Select Date and Device",
+        ch: "选择日期和设备",
+    },
+    change: {
+        ko: "변경하기",
+        en: "Change",
+        ch: "更改",
     }
 };

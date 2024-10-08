@@ -2,12 +2,14 @@ import {FC, useMemo, useState} from "react";
 import {ReactSVG} from "react-svg";
 
 import Button from "@components/common/Button";
+import InputError from "@components/common/InputError";
 
 import {ICalendarProps} from "@/types/componentProps.ts";
 import {days} from "@constants/calendarCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import generateCalendar from "@util/generateCalendar.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 
 import {
     Container,
@@ -16,16 +18,18 @@ import {
     CalendarDateWrapper,
     DateButtonWrapper,
     DateButton,
-    DayWrapper
+    DayWrapper,
 } from "./style.ts";
 
 import arrowBack from "@assets/icons/arrow_back_small.svg";
 import arrowForward from "@assets/icons/arrow_forward_small.svg";
 
 
-const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate, date, machine}) => {
+
+const Calendar:FC<ICalendarProps> = ({onSelectDate, date, machine}) => {
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
     const [selectedDate, setSelectedDate] = useState<Date | null>(date ? new Date(date) : null);
+    const [isEmpty, setIsEmpty] = useState<boolean>(false);
 
     const {lang} = useThemeStore();
 
@@ -70,14 +74,14 @@ const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate, date, machine}) =>
         const day = date.getDate().toString().padStart(2, '0');
         const formattedDate = `${year}-${month}-${day}`;
         onSelectDate(formattedDate);
-        setModal(false);
+        setIsEmpty(false);
     };
 
     return (
         <Container>
             <div>
                 {/*달력 월 조작 부분*/}
-                <CalendarMonthWrapper>
+                <CalendarMonthWrapper preventPrevBtn={isPrevMonthDisabled} preventNextBtn={isNextMonthDisabled}>
                     <div>
                         <Button
                             type={"button"}
@@ -131,6 +135,9 @@ const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate, date, machine}) =>
                 </CalendarDateWrapper>
             </div>
 
+            {isEmpty && <InputError errorMessage={messageCategories.emptyDate[lang]}/>}
+
+
             {/*날짜 선택 완료 부분*/}
             <Button
                 type={"button"}
@@ -138,8 +145,7 @@ const Calendar:FC<ICalendarProps> = ({setModal, onSelectDate, date, machine}) =>
                 width={"full"}
                 color={"primary"}
                 scale={"big"}
-                disabled={selectedDate === null}
-                onClick={() => selectedDate !== null ? handleRegisterDate(selectedDate) : null}
+                onClick={() => !selectedDate ? setIsEmpty(true) : handleRegisterDate(selectedDate)}
             />
         </Container>
     );

@@ -179,4 +179,9 @@ export const inputCategories = {
         en: "Year 5",
         ch: "五年级",
     },
+    selectDateAndMachine: {
+        ko: "날짜 및 기기 선택",
+        en: "Select Date and Device",
+        ch: "选择日期和设备",
+    }
 };

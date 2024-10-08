@@ -1,6 +1,7 @@
 export interface ILaserReservation {
     laserId: string;
-    timeId: string;
+    startTime: string;
+    endTime: string;
 }
 
 export interface ILaserInfo {
@@ -11,7 +12,12 @@ export interface ILaserInfo {
 
 export interface ILaserTimesinfo {
     laserId: string;
-    timeId: string;
-    timeContent: string;
+    startTime: string;
+    endTime: string;
     timeStatus: boolean;
+}
+
+export interface IPrinterReservation {
+    printerId: string;
+    date: string;
 }

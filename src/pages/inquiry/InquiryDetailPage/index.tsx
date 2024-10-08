@@ -8,7 +8,6 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
 import Dropdown from "@components/common/Dropdown";
-import ChatBubble from "@components/common/ChatBubble";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IInquiryProps} from "@/types/componentProps.ts";
@@ -18,10 +17,9 @@ import {useUserInfoStore} from "@store/useUserStore.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
-import {Container, InquiryInfoWrapper} from "./style.ts";
+import {Container, ContentWrapper, InquiryInfoWrapper} from "./style.ts";
 import {TagWrapper, WriterWrapper} from "@components/communication/InquiryFeedbackListItem/style.ts";
 
-import Q from "@assets/images/Q.png";
 import noProfile from "@assets/icons/no_profile.svg";
 
 const InquiryDetailPage:FC = () => {
@@ -81,16 +79,9 @@ const InquiryDetailPage:FC = () => {
                         <hr/>
                     </InquiryInfoWrapper>
 
-                    <div>
-                        {inquiry.content &&
-                          <ChatBubble
-                            text={inquiry.content}
-                            isMine={true}
-                            showProfile={true}
-                            profile={Q}
-                          />
-                        }
-                    </div>
+                    <ContentWrapper>
+                        <p>{inquiry.content}</p>
+                    </ContentWrapper>
 
                     <div>
                         작성된 답변이 없습니다

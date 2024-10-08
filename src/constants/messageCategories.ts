@@ -119,4 +119,14 @@ export const messageCategories = {
         en: "* Exclude weekends and holidays",
         ch: "* 不包括周末和节假日",
     },
+    emptyDateAndMachine: {
+        ko: "선택된 날짜 및 기기가 없습니다",
+        en: "No date or device has been selected.",
+        ch: "未选择日期和设备。",
+    },
+    emptyDate: {
+        ko: "선택된 날짜가 없습니다",
+        en: "No date selected",
+        ch: "没有选择日期",
+    }
 };

@@ -1,48 +1,92 @@
-import {FC, useState} from "react";
-import {useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
+import {FC, useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
-
+import {useNavigate} from "react-router-dom";
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import RoomMap from "@components/content/RoomMap";
 import Button from "@components/common/Button";
-import Input from "@components/common/Input";
-import Select from "@components/common/Select";
 import Modal from "@components/common/Modal";
-import Calendar from "@components/common/Calendar";
+import ErrorContent from "@components/content/ErrorContent";
+import PrinterSelectContent from "@components/content/PrinterSelectContent";
+import LoadingLoop from "@components/common/LoadingLoop";
 
-import {machineType} from "@constants/machineCategories.ts";
-import {printerSchema} from "@schemata/machineSchema.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
+import {IPrinterReservation} from "@/types/reservation.ts";
+import useRequest from "@hooks/useRequest.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
 
-import {Container, ImageWrapper, MapIcon} from "./style.ts";
+import {Container, DateMachineSelectWrapper, EmptyMessage, ImageWrapper, MapIcon} from "./style.ts";
 
 import printer from "@assets/images/3d_printer.png";
 import mapIcon from "@assets/icons/map.svg";
 
 const ReservationPrinter:FC = () => {
-    const [isOpenCalendar, setIsOpenCalendar] = useState<boolean>(false);
+    const [reservation, setReservation] = useState<IPrinterReservation>();
+    const [selectedDate, setSelectedDate] = useState<string>();
+    const [selectMachineMode, setSelectMachineMode] = useState<boolean>(false);
+    const [selectedMachine, setSelectedMachine] = useState<string>("");
+    const [showSelectModal, setShowSelectModal] = useState<boolean>(false);
     const [showMap, setShowMap] = useState<boolean>(false);
+    const [showEmptyError, setShowEmptyError] = useState<boolean>(false);
 
     const {lang} = useThemeStore();
 
-    const {register, handleSubmit, formState: {errors}, setValue, getValues} = useForm({
-        resolver: zodResolver(printerSchema),
-        defaultValues: {
-            machine: "",
-            date: "",
-            time: "",
-        },
-    });
+    const {isLoading, sendRequest, errorText, clearError} = useRequest();
+
+    const navigate = useNavigate();
+
+    const fetchValidPrinterInfo = useCallback(async () => {
+        try {
+            const response = await sendRequest({
+                url: "/machines/printer/info"
+            });
+            if (response.data) {
+                console.log(response.data)
+            }
+        } catch (err) {
+            console.error("3D 프린터 정보 조회 중 에러 발생: ", err);
+        }
+    }, [sendRequest]);
+
+    useEffect(() => {
+        fetchValidPrinterInfo();
+    }, [fetchValidPrinterInfo]);
 
     const handleDateSelect = (date: string) => {
-        setValue("date", date);
+        setSelectedDate(date);
+        setSelectMachineMode(true);
     };
+
+    const handleCloseModal = () => {
+        setShowSelectModal(false);
+        setSelectMachineMode(false);
+        setSelectedDate("");
+    };
+
+    const submitHandler = useCallback(async (e: any) => {
+        e.preventDefault();
+        if (!reservation) {
+            setShowEmptyError(true);
+            return;
+        }
+        try {
+            const response = await sendRequest({
+                url: "/reservations/printer",
+                method: "post",
+                data: reservation,
+            });
+            if (response.data) {
+                setTimeout(() => {
+                    navigate("/reservation/done", {replace:true});
+                }, 300);
+            }
+        } catch (err) {
+            console.error("3D 프린터 예약 중 에러 발생: ", err);
+        }
+    }, [sendRequest, reservation]);
 
     return (
         <Container>
@@ -58,59 +102,78 @@ const ReservationPrinter:FC = () => {
             <ImageWrapper>
                 <img src={printer} alt={"3d 프린터"}/>
             </ImageWrapper>
-            <form onSubmit={handleSubmit((data) => {
-                console.log(data);
-            })}>
-                <Select
-                    label={inputCategories.selectMachine[lang]}
-                    categories={machineType}
-                    name={"machine"}
-                    register={register}
-                    errorMessage={errors.machine?.message}
-                    type={"radio"}
-                />
+            {isLoading ?
+                <LoadingLoop/>
+                :
+                <form onSubmit={submitHandler}>
+                    <DateMachineSelectWrapper>
+                        <label>{inputCategories.selectDateAndMachine[lang]}</label>
+                        <span>{messageCategories.noWeekendAndHoliday[lang]}</span>
+                        <div>
+                            {!reservation ?
+                                <EmptyMessage>{messageCategories.emptyDateAndMachine[lang]}</EmptyMessage>
+                                :
+                                <div>
+                                </div>
+                            }
 
-                <Input
-                    label={inputCategories.date[lang]}
-                    subLabel={messageCategories.noWeekendAndHoliday[lang]}
-                    type={"date"}
-                    id={"printer-reservation-date"}
-                    name={"date"}
-                    placeholder={"날짜를 선택해주세요"}
-                    register={register}
-                    errorMessage={errors.date?.message}
-                    onClick={() => setIsOpenCalendar(true)}
-                    readonly
-                />
+                            <Button
+                                type={"button"}
+                                content={reservation ? `${buttonCategories.change[lang]}` : `${buttonCategories.selectDateAndMachine[lang]}`}
+                                width={"full"}
+                                color={"approval"}
+                                scale={"normal"}
+                                onClick={() => setShowSelectModal(true)}
+                            />
+                        </div>
+                    </DateMachineSelectWrapper>
 
-                <div>
-                    <label>날짜 및 기기 선택</label>
-                    <div>
-                        {}
-                    </div>
-                </div>
+                    <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"}
+                            color={"primary"} scale={"big"}/>
+                </form>
+            }
 
-                <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
-            </form>
-
-            {isOpenCalendar &&
+            {showSelectModal &&
               <Modal
-                title={headerCategories.date[lang]}
-                content={<Calendar
-                        setModal={setIsOpenCalendar}
-                        onSelectDate={handleDateSelect}
-                        date={getValues("date")}
-                        machine={"printer"}
+                title={headerCategories.dateAndMachine[lang]}
+                content={<PrinterSelectContent
+                    setModal={handleCloseModal}
+                    onSelectDate={handleDateSelect}
+                    selectedDate={selectedDate}
+                    selectMachineMode={selectMachineMode}
+                    setSelectMachineMode={setSelectMachineMode}
+                    selectedMachine={selectedMachine}
+                    setSelectedMachine={setSelectedMachine}
+                    setReservation={setReservation}
                 />}
-                setModal={setIsOpenCalendar}
+                setModal={handleCloseModal}
                 type={"bottomSheet"}
               />
             }
 
             {showMap &&
+              <Modal
+                content={<RoomMap machine={"printer"} setModal={setShowMap}/>}
+                setModal={setShowMap}
+                type={"popup"}
+              />
+            }
+
+            {showEmptyError &&
+              <Modal
+                content={<ErrorContent
+                    text={messageCategories.emptyDateAndMachine[lang]}
+                    closeModal={() => setShowEmptyError(false)}
+                />}
+                setModal={setShowEmptyError}
+                type={"popup"}
+              />
+            }
+
+            {errorText &&
                 <Modal
-                  content={<RoomMap machine={"printer"} setModal={setShowMap}/>}
-                  setModal={setShowMap}
+                  content={<ErrorContent text={errorText} closeModal={clearError}/>}
+                  setModal={clearError}
                   type={"popup"}
                 />
             }
