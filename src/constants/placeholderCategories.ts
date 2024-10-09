@@ -64,4 +64,9 @@ export const placeholderCategories = {
         en: "Enter Reason for Warning",
         ch: "输入警告原因",
     },
+    date: {
+        ko: "날짜를 선택해주세요",
+        en: "Please select a date",
+        ch: "请选择日期",
+    },
 };

@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 export const Container = styled.div`
     width: 100%;
-    min-height: 580px;
+    
     padding: 12px 24px;
     display: flex;
     flex-direction: column;
@@ -10,6 +11,33 @@ export const Container = styled.div`
     
     & > p:first-of-type {
         margin-bottom: 24px;
+    }
+    
+    & > div:first-of-type {
+        margin-bottom: 12px;
+        position: relative;
+        
+        // date 날짜 선택 부분
+        & > div:last-of-type {
+            height: 55vh;
+            width: calc(100% + 16px);
+            overflow-y: auto;
+            padding-right: 16px;
+
+            &::-webkit-scrollbar {
+                width: 6px;
+                right: 100px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: ${({theme}) => theme.colors.font.placeholder};
+                border-radius: 10px;
+            }
+            
+            @media (max-width: 500px) {
+                max-height: 50vh;
+            }
+        }
     }
 `;
 
@@ -56,6 +84,9 @@ export const DayWrapper = styled.div`
     font-weight: 500;
     padding-bottom: 20px;
     border-bottom: 1px solid ${({theme}) => theme.colors.line.main};
+    position: sticky;
+    background-color: ${({theme}) => theme.colors.bg.main};
+    top: 0;
 
     span {
         color: ${({theme}) => theme.colors.font.main};
@@ -74,32 +105,46 @@ export const DayWrapper = styled.div`
 
 export const CalendarDateWrapper = styled.div`
     display: grid;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-columns: repeat(7, 1fr);
     text-align: center;
     margin-bottom: 24px;
 `;
 
 export const DateButtonWrapper = styled.div`
-    height: 74px;
+    min-height: 72px;
     display: flex;
     flex-direction: column;
     gap: 4px;
-    padding: 6px 0 10px;
+    padding: 6px 0 12px;
     border-bottom: 1px solid ${({theme}) => theme.colors.line.main};
     width: 100%;
 
     & > div:last-of-type {
         min-height: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        
+        // 예약 유무 마크
+        & > span {
+            width: 8px;
+            height: 8px;
+            background-color: ${({theme}) => theme.colors.font.placeholder};
+            border-radius: 50%;
+        }
     }
 `;
 
 export const HolidayName = styled.div`
     color: ${({theme}) => theme.colors.font.sub};
     text-align: center;
-    font-size: 0.85rem;
+    font-size: ${() => {
+      const {lang} = useThemeStore();
+      return lang === "en" ? "0.7rem" : "0.85rem";
+    }};
     line-height: 1.3;
     text-wrap: wrap;
-    word-wrap: break-word;
 `;
 
 export const DateButton = styled.button<{selected: boolean | null, disabled: boolean, today: boolean, holiday: boolean, saturday: boolean, sunday: boolean}>`

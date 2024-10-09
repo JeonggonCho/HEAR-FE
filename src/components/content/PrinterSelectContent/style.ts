@@ -14,19 +14,61 @@ export const SelectPrinterWrapper = styled.div`
     display: flex;
     flex-direction: column;
     
-    & > div:first-of-type {
-        display: flex;
-        align-items: center;
-        gap: 12px;
+    // 기기 선택 부분
+    & > div:nth-of-type(2) {
+        height: 100px;
+        width: calc(100% + 16px);
+        padding-right: 16px;
+        overflow-y: auto;
+        flex-grow: 1;
         margin-bottom: 24px;
-        
-        & > h3 {
-            margin: 0;
-            padding: 0;
-            width: fit-content;
-            border: none;
-            font-size: 1.15rem;
-            font-weight: 500;
+
+        &::-webkit-scrollbar {
+            width: 6px;
+            right: 100px;
         }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: ${({theme}) => theme.colors.font.placeholder};
+            border-radius: 10px;
+        }
+
+        & > div {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+
+            label {
+                height: 80px;
+            }
+
+            @media (max-width: 500px) {
+                grid-template-columns: repeat(1, 1fr);
+
+                label {
+                    font-size: 1.15rem;
+                }
+            }
+        }
+    }
+`;
+
+export const DateTag = styled.div`
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    color: ${({theme}) => theme.colors.font.sub};
+    margin-bottom: 12px;
+    
+    svg {
+        margin-top: 2px;
+        margin-right: 4px;
+        fill: ${({theme}) => theme.colors.icon.fill};
+    }
+    
+    & > p:first-of-type {
+        color: ${({theme}) => theme.colors.font.main};
+        margin: 0;
+        margin-left: 16px;
     }
 `;

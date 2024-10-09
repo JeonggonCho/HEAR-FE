@@ -170,7 +170,7 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                   <div>
                     <FieldWrapper>
                       <div>{inputCategories.year[lang]}</div>
-                      <span>{user?.year}학년</span>
+                      <span>{user?.year}</span>
                     </FieldWrapper>
 
                     <FieldWrapper>

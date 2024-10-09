@@ -22,6 +22,7 @@ import {cardCategories} from "@constants/cardCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
 
 import {Container, HeatCheckWrapper, ImageWrapper, ReturnDateWrapper} from "./style.ts";
 
@@ -56,7 +57,7 @@ const ReservationHeat:FC = () => {
         console.log(data)
         try {
             await sendRequest({
-                url: "/reservations/heat",
+                url: "/reservations/heats",
                 method: "post",
                 data: data,
             });
@@ -103,17 +104,17 @@ const ReservationHeat:FC = () => {
                     <Input
                         label={inputCategories.tomorrowRentalDate[lang]}
                         subLabel={messageCategories.noWeekendAndHoliday[lang]}
-                        type={"date"}
+                        type={"text"}
                         id={"heat-reservation-date"}
                         name={"date"}
-                        placeholder={"날짜를 선택해주세요"}
+                        placeholder={placeholderCategories.date[lang]}
                         register={register}
                         errorMessage={errors.date?.message}
                         disabled={true}
                     />
 
                     <ReturnDateWrapper>
-                        {cardCategories.return[lang]} <span>{formattedReturnDate.split("-").join(". ")}</span>
+                        {cardCategories.return[lang]} <span>{formattedReturnDate}</span>
                     </ReturnDateWrapper>
 
                     <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>

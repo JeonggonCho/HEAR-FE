@@ -24,8 +24,8 @@ export const Container = styled.div`
 
 export const Ring = styled.div`
     position: relative;
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: 5px solid ${({theme}) => theme.colors.font.placeholder};
 
@@ -33,9 +33,9 @@ export const Ring = styled.div`
         position: absolute;
         top: -5px;
         left: -5px;
-        content: ' ';
-        width: 38px;
-        height: 38px;
+        content: '';
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
         border: 5px solid;
         border-color: ${({theme}) => theme.colors.font.sub} transparent transparent transparent;

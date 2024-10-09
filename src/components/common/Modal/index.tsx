@@ -1,7 +1,10 @@
 import {FC, useEffect, useRef} from "react";
 import ReactDOM from "react-dom";
+import {ReactSVG} from "react-svg";
 
 import {IModalProps} from "@/types/componentProps.ts";
+
+import close from "@assets/icons/close.svg";
 
 import {Container, BottomSheetWrapper, PopupWrapper} from "./style.ts";
 
@@ -35,7 +38,12 @@ const Modal:FC<IModalProps> = ({title, content, setModal, type}) => {
                         e.stopPropagation();
                         setModal(false);
                     }}/>
-                    <h3>{title}</h3>
+                    <div>
+                        <h3>{title}</h3>
+                        <div onClick={() => setModal(false)}>
+                            <ReactSVG src={close}/>
+                        </div>
+                    </div>
                     {content}
                 </BottomSheetWrapper>
             }

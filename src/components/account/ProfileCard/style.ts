@@ -9,6 +9,7 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 12px;
     border: 1px solid ${({theme}) => theme.colors.bg.main};
+    margin-top: 8px;
     
     & > div {
         display: flex;

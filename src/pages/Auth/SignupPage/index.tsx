@@ -172,7 +172,12 @@ const SignupPage:FC = () => {
 
                         <Button type={"submit"} content={buttonCategories.signUp[lang]} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
-                    <Link text={buttonCategories.signIn[lang]} to={"/login"} color={"primary"}/>
+                    <Link
+                        type={"text"}
+                        name={buttonCategories.signIn[lang]}
+                        to={"/login"}
+                        color={"primary"}
+                    />
                 </>
             }
 

@@ -76,6 +76,7 @@ export const BottomSheetWrapper = styled.div`
         max-width: 100vw;
     }
 
+    // bottom sheet 그랩 바
     & > div:first-of-type {
         width: 40px;
         height: 6px;
@@ -85,13 +86,46 @@ export const BottomSheetWrapper = styled.div`
         cursor: pointer;
     }
     
-    h3 {
-        color: ${({theme}) => theme.colors.font.main};
+    // 타이틀 및 닫기 버튼 부분
+    & > div:nth-of-type(2) {
         width: 100%;
-        text-align: center;
-        font-size: 1.15rem;
         margin-bottom: 8px;
-        padding-bottom: 12px;
+        padding-bottom: 20px;
+        padding-left: 28px;
+        padding-right: 28px;
         border-bottom: 1px solid ${({theme}) => theme.colors.line.main};
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        h3 {
+            margin: 0;
+            color: ${({theme}) => theme.colors.font.main};
+            font-size: 1.25rem;
+        }
+        
+        // 닫기
+        & > div:last-of-type {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: ${({theme}) => theme.colors.button.third};
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            &:hover {
+                svg {
+                    fill: ${({theme}) => theme.colors.font.main};
+                }
+            }
+            
+            svg {
+                margin-top: 2px;
+                fill: ${({theme}) => theme.colors.icon.fill};
+                transition: all 0.2s ease-in-out 0s;
+            }
+        }
     }
 `;

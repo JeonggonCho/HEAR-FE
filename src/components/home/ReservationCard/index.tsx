@@ -1,6 +1,6 @@
 import {FC, useCallback, useEffect, useState} from "react";
 
-import LinkCard from "@components/common/LinkCard";
+import Link from "@components/common/Link";
 import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
 
@@ -45,12 +45,12 @@ const ReservationCard:FC = () => {
                     const nameText = machineNameEntry ? machineNameEntry[lang] : undefined;
 
                     return (
-                        <LinkCard
+                        <Link
                             key={index}
                             image={machine.image}
                             name={nameText || "알 수 없음"}
                             to={machine.link as string}
-                            type={"grid"}
+                            type={"button"}
                             isDisabled={!machineStatus[machine.type]}
                             isLoading={isLoading}
                         />

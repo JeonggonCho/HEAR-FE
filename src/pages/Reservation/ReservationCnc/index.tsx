@@ -1,4 +1,4 @@
-import {FC, useCallback, useState} from "react";
+import {FC, useCallback, useEffect, useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {ReactSVG} from "react-svg";
@@ -28,8 +28,10 @@ import {CncCheckWrapper, Container, ImageWrapper, MapIcon} from "./style.ts";
 import cnc from "@assets/images/cnc.png";
 import mapIcon from "@assets/icons/map.svg";
 import check from "@assets/icons/check.svg";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
 
 const ReservationCnc:FC = () => {
+    const [condition, setCondition] = useState([]);
     const [showCalendar, setShowCalendar] = useState<boolean>(false);
     const [showMap, setShowMap] = useState<boolean>(false);
 
@@ -38,6 +40,23 @@ const ReservationCnc:FC = () => {
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
     const {lang} = useThemeStore();
+
+    const fetchAllCncReservationInfo = useCallback(async () => {
+        try {
+            const response = await sendRequest({
+                url: "/reservations/cncs",
+            });
+            if (response.data) {
+                setCondition(response.data);
+            }
+        } catch (err) {
+            console.error("cnc 예약 현황 조회 중 에러 발생: ", err);
+        }
+    }, [sendRequest]);
+
+    useEffect(() => {
+        fetchAllCncReservationInfo();
+    }, [fetchAllCncReservationInfo]);
 
     type CncFormData = z.infer<typeof cncHeatSchema>;
 
@@ -57,7 +76,7 @@ const ReservationCnc:FC = () => {
     const submitHandler:SubmitHandler<CncFormData> = useCallback(async (data) => {
         try {
             const response = await sendRequest({
-                url: "/reservations/cnc",
+                url: "/reservations/cncs",
                 method: "post",
                 data: data,
             });
@@ -117,10 +136,10 @@ const ReservationCnc:FC = () => {
                     <Input
                         label={inputCategories.twoDayLaterDate[lang]}
                         subLabel={messageCategories.noWeekendAndHoliday[lang]}
-                        type={"date"}
+                        type={"text"}
                         id={"cnc-reservation-date"}
                         name={"date"}
-                        placeholder={"날짜를 선택해주세요"}
+                        placeholder={placeholderCategories.date[lang]}
                         register={register}
                         errorMessage={errors.date?.message}
                         onClick={() => setShowCalendar(true)}
@@ -139,6 +158,7 @@ const ReservationCnc:FC = () => {
                     onSelectDate={handleDateSelect}
                     date={getValues("date")}
                     machine={"cnc"}
+                    condition={condition}
                 />}
                 setModal={setShowCalendar}
                 type={"bottomSheet"}

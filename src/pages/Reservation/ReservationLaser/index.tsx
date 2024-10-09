@@ -21,6 +21,7 @@ import {messageCategories} from "@constants/messageCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
 
 import {Container, EmptyMessage, ImageWrapper, MapIcon, SelectedItemWrapper} from "./style.ts";
 
@@ -50,7 +51,7 @@ const ReservationLaser: FC = () => {
     const fetchValidLaserInfo = useCallback(async () => {
         try {
             const response = await sendRequest({
-                url: "/machines/lasers/info",
+                url: "/reservations/lasers",
             });
             if (response.data) {
                 setLaserInfo(response.data.laserInfo);
@@ -80,7 +81,7 @@ const ReservationLaser: FC = () => {
         }
         try {
             const response = await sendRequest({
-                url: "/reservations/laser",
+                url: "/reservations/lasers",
                 method: "post",
                 data: reservationList.map((value) => ({
                     date: formattedDate,
@@ -129,11 +130,11 @@ const ReservationLaser: FC = () => {
                     <Input
                         label={inputCategories.tomorrowDate[lang]}
                         subLabel={messageCategories.noWeekendAndHoliday[lang]}
-                        type={"date"}
+                        type={"text"}
                         id={"laser-reservation-date"}
                         value={formattedDate}
                         name={"date"}
-                        placeholder={"날짜를 선택해주세요"}
+                        placeholder={placeholderCategories.date[lang]}
                         disabled={true}
                     />
 

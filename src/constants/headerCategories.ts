@@ -140,9 +140,9 @@ export const headerCategories = {
         ch: "编辑通知",
     },
     date: {
-        ko: "날 짜",
-        en: "Date",
-        ch: "日期",
+        ko: "날짜 선택",
+        en: "Select Date",
+        ch: "选择日期",
     },
     notification: {
         ko: "알 림",

@@ -13,7 +13,6 @@ export const Container = styled.div`
         & > div:first-of-type {
             height: 100%;
             margin-top: 12px;
-            margin-bottom: 36px;
             display: flex;
             align-items: center;
 
@@ -22,12 +21,12 @@ export const Container = styled.div`
             & > div {
                 min-height: 250px;
                 width: 80%;
-                padding: 20px 40px;
+                padding: 20px 40px 32px;
                 border-radius: 20px;
                 cursor: grab;
                 background-color: ${({theme}) => theme.colors.bg.main};
                 box-shadow: 0 0 1px ${({theme}) => theme.colors.bg.shadow};
-                
+
                 @media (max-width: 500px) {
                     padding: 20px;
                     width: 85%;
@@ -38,9 +37,7 @@ export const Container = styled.div`
         // 왼쪽 화살표 버튼
 
         & > div:nth-of-type(2) {
-            height: 100%;
             margin-left: -4px;
-            top: 8px !important;
             color: ${({theme}) => theme.colors.font.sub};
             transition: all 0.2s ease-in-out 0s;
 
@@ -65,9 +62,7 @@ export const Container = styled.div`
         // 오른쪽 화살표 버튼
 
         & > div:nth-of-type(3) {
-            height: 100%;
             margin-right: -4px;
-            top: 8px !important;
             color: ${({theme}) => theme.colors.font.sub};
             transition: all 0.2s ease-in-out 0s;
 
@@ -92,6 +87,8 @@ export const Container = styled.div`
         // 페이지네이션 영역
 
         & > div:nth-of-type(4) {
+            bottom: 16px;
+
             & > span {
                 margin: 0 6px;
                 transition: all 0.2s ease-in-out 0s;

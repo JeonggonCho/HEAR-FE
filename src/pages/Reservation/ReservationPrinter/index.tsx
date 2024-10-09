@@ -41,10 +41,10 @@ const ReservationPrinter:FC = () => {
     const fetchValidPrinterInfo = useCallback(async () => {
         try {
             const response = await sendRequest({
-                url: "/machines/printer/info"
+                url: "/reservations/printers"
             });
             if (response.data) {
-                console.log(response.data)
+                console.log(response.data);
             }
         } catch (err) {
             console.error("3D 프린터 정보 조회 중 에러 발생: ", err);
@@ -74,7 +74,7 @@ const ReservationPrinter:FC = () => {
         }
         try {
             const response = await sendRequest({
-                url: "/reservations/printer",
+                url: "/reservations/printers",
                 method: "post",
                 data: reservation,
             });
@@ -135,7 +135,12 @@ const ReservationPrinter:FC = () => {
 
             {showSelectModal &&
               <Modal
-                title={headerCategories.dateAndMachine[lang]}
+                title={selectMachineMode ? (
+                    <div style={{display:"flex", alignItems:"center", gap:"16px"}}>
+                        <ArrowBack action={() => setSelectMachineMode(false)}/>
+                        <h3>{inputCategories.selectMachine[lang]}</h3>
+                    </div>
+                ) : headerCategories.date[lang]}
                 content={<PrinterSelectContent
                     setModal={handleCloseModal}
                     onSelectDate={handleDateSelect}

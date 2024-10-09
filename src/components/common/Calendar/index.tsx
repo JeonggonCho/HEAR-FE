@@ -26,14 +26,14 @@ import arrowForward from "@assets/icons/arrow_forward_small.svg";
 
 
 
-const Calendar:FC<ICalendarProps> = ({onSelectDate, date, machine}) => {
+const Calendar:FC<ICalendarProps> = ({onSelectDate, date, machine, condition}) => {
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
     const [selectedDate, setSelectedDate] = useState<Date | null>(date ? new Date(date) : null);
     const [isEmpty, setIsEmpty] = useState<boolean>(false);
 
     const {lang} = useThemeStore();
 
-    const dateList = useMemo(() => generateCalendar({currentDate, lang, machine}), [currentDate, lang, machine]);
+    const dateList = useMemo(() => generateCalendar({currentDate, lang, machine, condition}), [currentDate, lang, machine, condition]);
 
     // 이전 달로 이동 제한하기 (이번 달까지만)
     const isPrevMonthDisabled = useMemo(() => (
@@ -103,36 +103,39 @@ const Calendar:FC<ICalendarProps> = ({onSelectDate, date, machine}) => {
                     </div>
                 </CalendarMonthWrapper>
 
-                {/*요일 부분*/}
-                <DayWrapper>
-                    {days[lang].map((day, idx) => (
-                        <span key={idx}>{day}</span>
-                    ))}
-                </DayWrapper>
+                <div>
+                    {/*요일 부분*/}
+                    <DayWrapper>
+                        {days[lang].map((day, idx) => (
+                            <span key={idx}>{day}</span>
+                        ))}
+                    </DayWrapper>
 
-                {/*날짜 버튼 부분*/}
-                <CalendarDateWrapper>
-                    {dateList.map((d, idx) => (
-                        <DateButtonWrapper
-                            key={`${idx} ${d.date}`}
-                        >
-                            <DateButton
-                                onClick={() => handleSelectDay(d.date)}
-                                selected={selectedDate && d.date.toDateString() === selectedDate.toDateString()}
-                                disabled={d.holidayInfo.status || d.disabled}
-                                sunday={d.sunday}
-                                saturday={d.saturday}
-                                today={d.today}
-                                holiday={d.holidayInfo.status}
+                    {/*날짜 버튼 부분*/}
+                    <CalendarDateWrapper>
+                        {dateList.map((d, idx) => (
+                            <DateButtonWrapper
+                                key={`${idx} ${d.date}`}
                             >
-                                {d.date.getDate()}
-                            </DateButton>
-                            <div>
-                                {d.holidayInfo.name && <HolidayName>{d.holidayInfo.name}</HolidayName>}
-                            </div>
-                        </DateButtonWrapper>
-                    ))}
-                </CalendarDateWrapper>
+                                <DateButton
+                                    onClick={() => handleSelectDay(d.date)}
+                                    selected={selectedDate && d.date.toDateString() === selectedDate.toDateString()}
+                                    disabled={d.holidayInfo.status || d.disabled}
+                                    sunday={d.sunday}
+                                    saturday={d.saturday}
+                                    today={d.today}
+                                    holiday={d.holidayInfo.status}
+                                >
+                                    {d.date.getDate()}
+                                </DateButton>
+                                <div>
+                                    {d.holidayInfo.name && <HolidayName>{d.holidayInfo.name}</HolidayName>}
+                                    {d.isReserved && <span/>}
+                                </div>
+                            </DateButtonWrapper>
+                        ))}
+                    </CalendarDateWrapper>
+                </div>
             </div>
 
             {isEmpty && <InputError errorMessage={messageCategories.emptyDate[lang]}/>}
@@ -141,7 +144,7 @@ const Calendar:FC<ICalendarProps> = ({onSelectDate, date, machine}) => {
             {/*날짜 선택 완료 부분*/}
             <Button
                 type={"button"}
-                content={`${selectedDate ? selectedDate.toLocaleDateString('default', { month: "2-digit", day: 'numeric' }) : ""} ${buttonCategories.select[lang]}`}
+                content={`${selectedDate ? selectedDate.toLocaleDateString('default', {year: "numeric", month: "numeric", day: 'numeric'}) : ""} ${buttonCategories.select[lang]}`}
                 width={"full"}
                 color={"primary"}
                 scale={"big"}

@@ -69,7 +69,7 @@ export const InquiryInfoWrapper = styled.div`
     hr {
         border: none;
         border-top: 1px solid ${({theme}) => theme.colors.line.main};
-        margin: 24px 0;
+        margin: 12px 0;
     }
 `;
 

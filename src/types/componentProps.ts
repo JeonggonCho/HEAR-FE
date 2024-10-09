@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ReactElement, ReactNode} from "react";
+import React, {ChangeEvent, JSX, ReactElement, ReactNode} from "react";
 import {To} from "react-router-dom";
 import {ITab} from "@/types/tab.ts";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
@@ -79,23 +79,17 @@ export interface ICalendarProps {
     onSelectDate: (date:string) => void;
     date?: string;
     machine: "printer" | "saw" | "vacuum" | "cnc";
+    condition?: any[];
 }
 
 
 // 링크(Link) props
 export interface ILinkProps {
-    text: string;
-    to: To;
-    color: "primary" | "second";
-}
-
-
-// 링크 카드(LinkCard) props
-export interface ILinkCardProps {
-    image?: string;
+    type: "text" | "card" | "button";
     name: string;
-    to: string;
-    type: "linear" | "grid";
+    to: To;
+    image?: string;
+    color?: "primary" | "second";
     isDisabled?: boolean;
     isLoading?: boolean;
 }
@@ -103,7 +97,7 @@ export interface ILinkCardProps {
 
 // 모달 (Modal) props
 export interface IModalProps {
-    title?: string;
+    title?: string | React.ReactElement;
     content: React.ReactElement;
     setModal: (() => void) | React.Dispatch<React.SetStateAction<boolean>>;
     type: "popup" | "bottomSheet";
@@ -335,4 +329,10 @@ export interface IPrinterSelectContentProps {
 // 뒤로가기 (ArrowBack) props
 export interface IArrowBack {
     action?: () => void;
+}
+
+
+// 캐로젤 (Carousel) props
+export interface ICarouselProps {
+    contents: JSX.Element[];
 }

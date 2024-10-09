@@ -6,11 +6,10 @@ import ProfileCard from "@components/account/ProfileCard";
 import Button from "@components/common/Button";
 import StatusCard from "@components/account/StatusCard";
 import ReservationListCard from "@components/account/ReservationListCard";
-import UsageListCard from "@components/account/UsageListCard";
 import Modal from "@components/common/Modal";
 import ConfirmContent from "@components/content/ConfirmContent";
 import ErrorContent from "@components/content/ErrorContent";
-import LinkCard from "@components/common/LinkCard";
+import Link from "@components/common/Link";
 
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
@@ -158,7 +157,7 @@ const AccountPage:FC = () => {
               <>
                 <StatusCard isLoading={isLoading}/>
                 <ReservationListCard isLoading={isLoading}/>
-                <UsageListCard isLoading={isLoading}/>
+                {/*<UsageListCard isLoading={isLoading}/>*/}
               </>
             }
 
@@ -171,9 +170,9 @@ const AccountPage:FC = () => {
                     </>
                     :
                     <>
-                        <LinkCard image={list} name={buttonCategories.reservationManagement[lang]} to={"/management/reservations"} type={"linear"} />
-                        <LinkCard image={no_profile} name={buttonCategories.userManagement[lang]} to={"/management/users"} type={"linear"} />
-                        <LinkCard image={machine} name={buttonCategories.machineManagement[lang]} to={"/management/machines"} type={"linear"} />
+                        <Link image={list} name={buttonCategories.reservationManagement[lang]} to={"/management/reservations"} type={"card"} />
+                        <Link image={no_profile} name={buttonCategories.userManagement[lang]} to={"/management/users"} type={"card"} />
+                        <Link image={machine} name={buttonCategories.machineManagement[lang]} to={"/management/machines"} type={"card"} />
                     </>
             )}
 

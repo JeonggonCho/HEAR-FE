@@ -15,8 +15,8 @@ import Calendar from "@components/common/Calendar";
 import LoadingLoop from "@components/common/LoadingLoop";
 import ErrorContent from "@components/content/ErrorContent";
 
-import {sawVacuumSchema} from "@schemata/machineSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
+import {sawVacuumSchema} from "@schemata/machineSchema.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
@@ -60,7 +60,7 @@ const ReservationVacuum:FC = () => {
     const submitHandler:SubmitHandler<VacuumFormData> = useCallback(async (data) => {
         try {
             const response = await sendRequest({
-                url: "/reservations/vacuum",
+                url: "/reservations/vacuums",
                 method: "post",
                 data: data,
             });
@@ -97,10 +97,10 @@ const ReservationVacuum:FC = () => {
                     <Input
                         label={inputCategories.date[lang]}
                         subLabel={messageCategories.noWeekendAndHoliday[lang]}
-                        type={"date"}
+                        type={"text"}
                         id={"vacuum-reservation-date"}
                         name={"date"}
-                        placeholder={"날짜를 선택해주세요"}
+                        placeholder={placeholderCategories.date[lang]}
                         register={register}
                         errorMessage={errors.date?.message}
                         onClick={() => setShowCalendar(true)}

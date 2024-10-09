@@ -1,7 +1,7 @@
 export const buttonCategories = {
     reservation: {
         ko: "예약하기",
-        en: "Reservation",
+        en: "Make a Reservation",
         ch: "预订",
     },
     signIn: {
@@ -80,9 +80,9 @@ export const buttonCategories = {
         ch: "通知",
     },
     inquiry: {
-        ko: "문의",
-        en: "Inquiry",
-        ch: "咨询",
+        ko: "내 문의",
+        en: "My Inquiry",
+        ch: "我的询问",
     },
     feedback: {
         ko: "피드백",
@@ -188,5 +188,5 @@ export const buttonCategories = {
         ko: "변경하기",
         en: "Change",
         ch: "更改",
-    }
+    },
 };

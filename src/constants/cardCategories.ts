@@ -120,8 +120,28 @@ export const cardCategories = {
         ch: "建筑网站",
     },
     currentLang: {
-        "ko" : "Korean",
-        "en" : "English",
-        "ch" : "Chinese",
-    }
+        ko : "Korean",
+        en : "English",
+        ch : "Chinese",
+    },
+    selectedDate: {
+        ko : "선택 날짜",
+        en : "Selected Date",
+        ch : "选择的日期",
+    },
+    student: {
+        ko : "학생",
+        en : "Student",
+        ch : "学生",
+    },
+    admin: {
+        ko : "운영자",
+        en : "Admin",
+        ch : "管理员",
+    },
+    professor: {
+        ko : "교수님",
+        en : "Professor",
+        ch : "教授",
+    },
 };

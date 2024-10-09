@@ -131,8 +131,18 @@ const LoginPage:FC = () => {
             </form>
 
             <LinkWrapper>
-                <Link text={buttonCategories.signUp[lang]} to={"/signup"} color={"primary"}/>
-                <Link text={buttonCategories.findPassword[lang]} to={"/password/reset"} color={"second"}/>
+                <Link
+                    type={"text"}
+                    name={buttonCategories.signUp[lang]}
+                    to={"/signup"}
+                    color={"primary"}
+                />
+                <Link
+                    type={"text"}
+                    name={buttonCategories.findPassword[lang]}
+                    to={"/password/reset"}
+                    color={"second"}
+                />
             </LinkWrapper>
 
             {errorText &&

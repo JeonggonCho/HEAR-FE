@@ -3,7 +3,6 @@ import {FC} from "react";
 import CardLoading from "@components/skeleton/CardLoading";
 
 import {useUserInfoStore, useUserDataStore} from "@store/useUserStore.ts";
-import {roleCategories} from "@constants/userCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 
@@ -66,7 +65,7 @@ const ProfileCard:FC<{isLoading: boolean}> = ({isLoading}) => {
                         :
                         <>
                             <span>{cardCategories.year[lang]}</span>
-                            <span>{userData?.year}학년</span>
+                            <span>{userData?.year}</span>
                         </>
                     }
                 </div>
@@ -79,7 +78,7 @@ const ProfileCard:FC<{isLoading: boolean}> = ({isLoading}) => {
                         :
                         <>
                             <span>{cardCategories.studio[lang]}</span>
-                            <span>{userData?.studio} 교수님</span>
+                            <span>{userData?.studio} {cardCategories.professor[lang]}</span>
                         </>
                     }
                 </div>
@@ -95,7 +94,7 @@ const ProfileCard:FC<{isLoading: boolean}> = ({isLoading}) => {
                       :
                       <>
                           <span>{cardCategories.role[lang]}</span>
-                          <span>{roleCategories[userData?.role]}</span>
+                          <span>{cardCategories[userData?.role][lang]}</span>
                       </>
                   }
               </div>

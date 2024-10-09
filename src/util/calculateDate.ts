@@ -1,7 +1,14 @@
 import {solarHolidays} from "@constants/calendarCategories.ts";
 
+// 같은 날인지 비교하는 함수
+export const isSameDay = (date1: Date, date2: Date) => {
+    return date1.getFullYear() === date2.getFullYear() &&
+        date1.getMonth() === date2.getMonth() &&
+        date1.getDate() === date2.getDate();
+};
+
 // 공휴일인지 확인하는 함수
-const isHoliday = (date: Date) => {
+export const isHoliday = (date: Date) => {
     return solarHolidays.some(holiday =>
         holiday.month === date.getMonth() && holiday.day === date.getDate()
     );

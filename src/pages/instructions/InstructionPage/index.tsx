@@ -1,7 +1,7 @@
 import {FC} from "react";
 
 import Header from "@components/common/Header";
-import LinkCard from "@components/common/LinkCard";
+import Link from "@components/common/Link";
 
 import {pageDescriptionCategories} from "@constants/pageDescriptionCategories.ts";
 import {machineName} from "@constants/machineCategories.ts";
@@ -60,12 +60,12 @@ const InstructionPage:FC = () => {
                     const nameText = machineNameEntry ? machineNameEntry[lang] : undefined;
 
                     return (
-                        <LinkCard
+                        <Link
                             key={index}
                             image={machine.image}
                             name={nameText || "알 수 없음"}
                             to={machine.link}
-                            type={"linear"}
+                            type={"card"}
                         />
                     );
                 })}
