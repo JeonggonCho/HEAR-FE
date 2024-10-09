@@ -7,7 +7,7 @@ import {ButtonWrapper, LinkWrapper, SubmitWrapper} from "./style.ts";
 const Button:FC<IButtonProps> = ({type = "button", to, content, width, color, scale, onClick, disabled}) => {
     if (type === "button") {
         return (
-            <ButtonWrapper type="button" width={width} color={color} scale={scale} onClick={onClick} disabled={disabled}>{content}</ButtonWrapper>
+            <ButtonWrapper type="button" width={width} color={color} scale={scale} onClick={onClick} disabled={disabled} aria-disabled={disabled}>{content}</ButtonWrapper>
         );
     } else if (type === "link" && to) {
         return (

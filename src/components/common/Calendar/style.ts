@@ -44,7 +44,8 @@ export const Container = styled.div`
 export const CalendarMonthWrapper = styled.div<{preventPrevBtn: boolean, preventNextBtn:boolean}>`
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0 6px;
     margin-bottom: 28px;
 
     h4 {
@@ -54,25 +55,57 @@ export const CalendarMonthWrapper = styled.div<{preventPrevBtn: boolean, prevent
         font-size: 1.15rem;
     }
 
-    div {
+    & > div:first-of-type {
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: 12px;
         
         button {
-            padding: 6px;
+            padding: 6px !important;
+        }
+        
+        div {
+            margin: 0;
+            padding: 0;
+            width: fit-content;
+            height: 24px;
         }
         
         & > button:first-of-type {
-            visibility: ${({preventPrevBtn}) => preventPrevBtn && "hidden"};
+            opacity: ${({preventPrevBtn}) => preventPrevBtn && "0.5"};
+            cursor: ${({preventPrevBtn}) => preventPrevBtn && "not-allowed"};
         }
         
         & > button:last-of-type {
-            visibility: ${({preventNextBtn}) => preventNextBtn && "hidden"};
+            opacity: ${({preventNextBtn}) => preventNextBtn && "0.5"};
+            cursor: ${({preventNextBtn}) => preventNextBtn && "not-allowed"};
         }
         
         svg {
             fill: ${({theme}) => theme.colors.font.sub};
+            margin: 0;
+        }
+    }
+    
+    // 달력 표시 정보
+    & > div:last-of-type {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        
+        & > span:first-of-type {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: ${({theme}) => theme.colors.font.placeholder};
+        }
+        
+        & > span:last-of-type {
+            color: ${({theme}) => theme.colors.font.sub};
+            font-size: 0.87rem;
+            line-height: 1.3;
+            text-wrap: wrap;
+            word-break: keep-all;
         }
     }
 `;
@@ -137,7 +170,7 @@ export const DateButtonWrapper = styled.div`
 `;
 
 export const HolidayName = styled.div`
-    color: ${({theme}) => theme.colors.font.sub};
+    color: ${({theme}) => theme.colors.font.danger};
     text-align: center;
     font-size: ${() => {
       const {lang} = useThemeStore();

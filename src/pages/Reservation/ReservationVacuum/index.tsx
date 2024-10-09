@@ -1,4 +1,4 @@
-import {FC, useCallback, useState} from "react";
+import {FC, useCallback, useEffect, useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {ReactSVG} from "react-svg";
@@ -31,6 +31,7 @@ import mapIcon from "@assets/icons/map.svg";
 import close from "@assets/icons/close.svg";
 
 const ReservationVacuum:FC = () => {
+    const [condition, setCondition] = useState([]);
     const [showCalendar, setShowCalendar] = useState<boolean>(false);
     const [showMap, setShowMap] = useState<boolean>(false);
     const [showTooltip, setShowTooltip] = useState<boolean>(true);
@@ -40,6 +41,23 @@ const ReservationVacuum:FC = () => {
     const {lang} = useThemeStore();
 
     const navigate = useNavigate();
+
+    const fetchAllVacuumReservationInfo = useCallback(async () => {
+        try {
+            const response = await sendRequest({
+                url: "/reservations/vacuums"
+            });
+            if (response.data) {
+                setCondition(response.data);
+            }
+        } catch (err) {
+            console.error("사출 성형기 예약 현황 조회 중 에러 발생: ", err)
+        }
+    }, [sendRequest, setCondition]);
+
+    useEffect(() => {
+        fetchAllVacuumReservationInfo();
+    }, [fetchAllVacuumReservationInfo]);
 
     type VacuumFormData = z.infer<typeof sawVacuumSchema>;
 
@@ -162,6 +180,7 @@ const ReservationVacuum:FC = () => {
                     onSelectDate={handleDateSelect}
                     date={getValues("date")}
                     machine={"vacuum"}
+                    condition={condition}
                 />}
                 setModal={setShowCalendar}
                 type={"bottomSheet"}

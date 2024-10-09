@@ -1,4 +1,4 @@
-import {FC, useCallback, useState} from "react";
+import {FC, useCallback, useEffect, useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
@@ -29,6 +29,7 @@ import saw from "@assets/images/saw.png";
 import close from "@assets/icons/close.svg";
 
 const ReservationSaw:FC = () => {
+    const [condition, setCondition] = useState([]);
     const [showCalendar, setShowCalendar] = useState<boolean>(false);
     const [showTooltip, setShowTooltip] = useState<boolean>(true);
 
@@ -37,6 +38,23 @@ const ReservationSaw:FC = () => {
     const {lang} = useThemeStore();
 
     const navigate = useNavigate();
+
+    const fetchAllSawReservationInfo = useCallback(async () => {
+        try {
+            const response = await sendRequest({
+                url: "/reservations/saws",
+            });
+            if (response.data) {
+                setCondition(response.data);
+            }
+        } catch (err) {
+            console.error("톱 예약 현황 조회 중 에러 발생: ", err);
+        }
+    }, [sendRequest, setCondition]);
+
+    useEffect(() => {
+        fetchAllSawReservationInfo();
+    }, [fetchAllSawReservationInfo]);
 
     type SawFormData = z.infer<typeof sawVacuumSchema>;
 
@@ -151,6 +169,7 @@ const ReservationSaw:FC = () => {
                     onSelectDate={handleDateSelect}
                     date={getValues("date")}
                     machine={"saw"}
+                    condition={condition}
                 />}
                 setModal={setShowCalendar}
                 type={"bottomSheet"}

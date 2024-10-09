@@ -52,7 +52,7 @@ const ReservationCnc:FC = () => {
         } catch (err) {
             console.error("cnc 예약 현황 조회 중 에러 발생: ", err);
         }
-    }, [sendRequest]);
+    }, [sendRequest, setCondition]);
 
     useEffect(() => {
         fetchAllCncReservationInfo();

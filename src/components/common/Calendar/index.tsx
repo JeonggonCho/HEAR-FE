@@ -5,7 +5,7 @@ import Button from "@components/common/Button";
 import InputError from "@components/common/InputError";
 
 import {ICalendarProps} from "@/types/componentProps.ts";
-import {days} from "@constants/calendarCategories.ts";
+import {calendarInformation, days} from "@constants/calendarCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import generateCalendar from "@util/generateCalendar.ts";
@@ -24,8 +24,6 @@ import {
 import arrowBack from "@assets/icons/arrow_back_small.svg";
 import arrowForward from "@assets/icons/arrow_forward_small.svg";
 
-
-
 const Calendar:FC<ICalendarProps> = ({onSelectDate, date, machine, condition}) => {
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
     const [selectedDate, setSelectedDate] = useState<Date | null>(date ? new Date(date) : null);
@@ -33,7 +31,8 @@ const Calendar:FC<ICalendarProps> = ({onSelectDate, date, machine, condition}) =
 
     const {lang} = useThemeStore();
 
-    const dateList = useMemo(() => generateCalendar({currentDate, lang, machine, condition}), [currentDate, lang, machine, condition]);
+    const dateList = useMemo(() =>
+        generateCalendar({currentDate, lang, machine, condition}), [currentDate, lang, machine, condition]);
 
     // 이전 달로 이동 제한하기 (이번 달까지만)
     const isPrevMonthDisabled = useMemo(() => (
@@ -90,6 +89,7 @@ const Calendar:FC<ICalendarProps> = ({onSelectDate, date, machine, condition}) =
                             color={"third"}
                             scale={"small"}
                             onClick={handlePrevMonth}
+                            disabled={isPrevMonthDisabled}
                         />
                         <h4>{`${currentDate.getFullYear()}. ${(currentDate.getMonth() + 1).toString().padStart(2, '0')}`}</h4>
                         <Button
@@ -99,7 +99,14 @@ const Calendar:FC<ICalendarProps> = ({onSelectDate, date, machine, condition}) =
                             color={"third"}
                             scale={"small"}
                             onClick={handleNextMonth}
+                            disabled={isNextMonthDisabled}
                         />
+                    </div>
+
+                    {/*달력 표시 정보*/}
+                    <div>
+                        <span/>
+                        <span>{calendarInformation.reservation[lang]}</span>
                     </div>
                 </CalendarMonthWrapper>
 

@@ -70,14 +70,15 @@ const generateCalendar = ({currentDate, lang, machine, condition}:IGenerateCalen
         }
 
         days.push({
-            date: new Date(day),
+            date: new Date(day), // 날짜
+            today: isToday, // 오늘 체크
+            saturday: isSaturday, // 토요일 체크
+            sunday: isSunday, // 일요일 체크
+            holidayInfo: {status: !!holiday, name: holiday?.name[lang]}, // 공휴일 체크 및 공휴일이면 기념일 명까지 전달
             isReserved: reservationList && reservationList?.length > 0, // 예약 유무 체크
-            disabled: isWeekend || beforeDate || invalidMachine || isFull || false,
-            saturday: isSaturday,
-            sunday: isSunday,
-            today: isToday,
-            holidayInfo: {status: !!holiday, name: holiday?.name[lang]},
+            disabled: isWeekend || beforeDate || invalidMachine || isFull || false, // 비활성화 체크
         });
+
         day.setDate(day.getDate() + 1); // 하루 증가시키기
     }
 

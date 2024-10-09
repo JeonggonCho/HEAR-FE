@@ -14,3 +14,11 @@ export const solarHolidays = [
     {name: {ko: "한글날", en: "Hangeul Day", ch: "韩文日"}, month: 9, day: 9},
     {name: {ko: "성탄절", en: "Christmas", ch: "圣诞节"}, month: 11, day: 25},
 ];
+
+export const calendarInformation = {
+    reservation: {
+        ko: "예약 유무",
+        en: "Reservation Status",
+        ch: "预约状态",
+    },
+};
