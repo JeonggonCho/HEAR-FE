@@ -29,7 +29,7 @@ const CommunicationLayout:FC = () => {
                     <img src={notice} alt="피드백"/>
                     <h2>{navCategories.communication[lang]}</h2>
                 </HeaderWrapper>
-            }/>
+            } type={"flex"}/>
 
             <Tab type={"line"} tabs={tabs}/>
 

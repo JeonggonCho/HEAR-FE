@@ -8,6 +8,7 @@ export const Container = styled.div`
         margin: 0 0 24px 6px;
         text-wrap: wrap;
         word-break: keep-all;
+        font-size: 0.9rem;
     }
     
     form {

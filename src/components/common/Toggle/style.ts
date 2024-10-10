@@ -3,7 +3,7 @@ import {useThemeStore} from "@store/useThemeStore.ts";
 import {lighten} from "polished";
 
 export const Container = styled.button<{status: boolean}>`
-    width: 56px;
+    width: 52px;
     height: 32px;
     padding: 2px;
     display: flex;
@@ -26,7 +26,7 @@ export const Container = styled.button<{status: boolean}>`
         height: 28px;
         border-radius: 50%;
         background-color: white;
-        margin-left: ${({status}) => status === true ? "24px": "0px"};
+        margin-left: ${({status}) => status === true ? "20px": "0px"};
         box-shadow: 0 0 5px ${({theme}) => theme.colors.bg.shadow};
         transition: all 0.2s ease-in-out;
     }

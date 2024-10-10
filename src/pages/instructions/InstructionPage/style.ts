@@ -8,6 +8,7 @@ export const HeaderWrapper = styled.div`
     
     h2 {
         font-weight: 500;
+        font-size: 1.25rem;
     }
     
     img {
@@ -17,9 +18,13 @@ export const HeaderWrapper = styled.div`
 
 export const Container = styled.div`
     p {
+        width: 80%;
         margin: 0 0 24px 6px;
         line-height: 1.5;
-        color: ${({theme}) => theme.colors.font.main};
+        color: ${({theme}) => theme.colors.font.sub};
+        text-wrap: wrap;
+        word-break: manual;
+        font-size: 0.9rem;
     }
 
     & > div:nth-of-type(2) {

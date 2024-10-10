@@ -24,6 +24,11 @@ export const cardCategories = {
         en: "Studio",
         ch: "工作室教授",
     },
+    lab: {
+        ko: "연구실",
+        en: "Lab",
+        ch: "实验室",
+    },
     role: {
         ko: "역 할",
         en: "Role",

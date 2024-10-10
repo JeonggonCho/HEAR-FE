@@ -84,7 +84,7 @@ const HomePage = () => {
 
     return (
         <Container>
-            <Header leftChild={<HomeHeaderLeft/>} rightChild={<HomeHeaderRight/>}/>
+            <Header leftChild={<HomeHeaderLeft/>} rightChild={<HomeHeaderRight/>} type={"flex"}/>
 
             {isLoading ?
                 <CardLoading heightValue={"278px"}/>

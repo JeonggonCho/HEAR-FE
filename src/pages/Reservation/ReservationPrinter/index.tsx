@@ -136,7 +136,7 @@ const ReservationPrinter:FC = () => {
             {showSelectModal &&
               <Modal
                 title={selectMachineMode ? (
-                    <div style={{display:"flex", alignItems:"center", gap:"16px"}}>
+                    <div style={{display:"flex", alignItems:"center"}}>
                         <ArrowBack action={() => setSelectMachineMode(false)}/>
                         <h3>{inputCategories.selectMachine[lang]}</h3>
                     </div>

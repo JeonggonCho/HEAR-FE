@@ -31,7 +31,14 @@ export const lightTheme:Theme = {
             third: "#F2F3F5",
             danger: "#FFEAEA",
             green: "#2ED058",
-        }
+        },
+        chart: {
+            primary: "#2B65FC",
+            green: "#2ED058",
+            danger: "#FF3D3D",
+            orange: "#FFA500",
+            purple: "#9B59B6",
+        },
     },
 };
 
@@ -66,6 +73,13 @@ export const darkTheme:Theme = {
             third: "#2C2C35",
             danger: "#492F2F",
             green: "#2CAD4E",
-        }
+        },
+        chart: {
+            primary: "#1949C6",
+            green: "#2CAD4E",
+            danger: "#FF6F61",
+            orange: "#FF8C00",
+            purple: "#6A5ACD",
+        },
     },
 };

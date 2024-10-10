@@ -1,16 +1,46 @@
 import styled from "@emotion/styled";
 
 export const HeaderWrapper = styled.div`
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-grow: 1;
 
-    h2 {
-        font-weight: 500;
+    & > div:first-of-type {
+        min-width: 44px;
+        width: 44px;
+        height: 44px;
+        overflow: hidden;
+        border-radius: 50%;
+        border: 1px solid ${({theme}) => theme.colors.line.main};
+        background-color: ${({theme}) => theme.colors.bg.main};
+
+        svg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            fill: ${({theme}) => theme.colors.icon.fill};
+        }
     }
     
-    img {
-        width: 36px;
+    & > div:last-of-type {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        
+        & > p {
+            width: fit-content;
+            margin: 0;
+            font-size: 1.15rem;
+        }
+        
+        & > span {
+            text-wrap: wrap;
+            word-break: break-all;
+            font-size: 0.87rem;
+            color: ${({theme}) => theme.colors.font.sub};
+        }
     }
 `;
 

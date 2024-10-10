@@ -81,32 +81,33 @@ const Calendar:FC<ICalendarProps> = ({onSelectDate, date, machine, condition}) =
             <div>
                 {/*달력 월 조작 부분*/}
                 <CalendarMonthWrapper preventPrevBtn={isPrevMonthDisabled} preventNextBtn={isNextMonthDisabled}>
-                    <div>
-                        <Button
-                            type={"button"}
-                            content={<ReactSVG src={arrowBack}/>}
-                            width={"fit"}
-                            color={"third"}
-                            scale={"small"}
-                            onClick={handlePrevMonth}
-                            disabled={isPrevMonthDisabled}
-                        />
-                        <h4>{`${currentDate.getFullYear()}. ${(currentDate.getMonth() + 1).toString().padStart(2, '0')}`}</h4>
-                        <Button
-                            type={"button"}
-                            content={<ReactSVG src={arrowForward}/>}
-                            width={"fit"}
-                            color={"third"}
-                            scale={"small"}
-                            onClick={handleNextMonth}
-                            disabled={isNextMonthDisabled}
-                        />
-                    </div>
+                    <h4>{`${currentDate.getFullYear()}. ${(currentDate.getMonth() + 1).toString().padStart(2, '0')}`}</h4>
 
-                    {/*달력 표시 정보*/}
                     <div>
-                        <span/>
-                        <span>{calendarInformation.reservation[lang]}</span>
+                        <div>
+                            <Button
+                                type={"button"}
+                                content={<ReactSVG src={arrowBack}/>}
+                                width={"fit"}
+                                color={"third"}
+                                scale={"small"}
+                                onClick={handlePrevMonth}
+                                disabled={isPrevMonthDisabled}
+                            />
+                            <Button
+                                type={"button"}
+                                content={<ReactSVG src={arrowForward}/>}
+                                width={"fit"}
+                                color={"third"}
+                                scale={"small"}
+                                onClick={handleNextMonth}
+                                disabled={isNextMonthDisabled}
+                            />
+                        </div>
+                        <div>
+                            <span/>
+                            <span>{calendarInformation.reservation[lang]}</span>
+                        </div>
                     </div>
                 </CalendarMonthWrapper>
 
@@ -135,8 +136,10 @@ const Calendar:FC<ICalendarProps> = ({onSelectDate, date, machine, condition}) =
                                 >
                                     {d.date.getDate()}
                                 </DateButton>
+
                                 <div>
-                                    {d.holidayInfo.name && <HolidayName>{d.holidayInfo.name}</HolidayName>}
+                                    {d.holidayInfo.name &&
+                                      <HolidayName>{d.holidayInfo.name}</HolidayName>}
                                     {d.isReserved && <span/>}
                                 </div>
                             </DateButtonWrapper>

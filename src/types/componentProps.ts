@@ -40,6 +40,7 @@ export interface IHeaderProps {
     leftChild?: ReactNode;
     centerText?: string;
     rightChild?: ReactNode;
+    type?: "grid" | "flex";
 }
 
 
@@ -78,7 +79,7 @@ export interface ICalendarProps {
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
     onSelectDate: (date:string) => void;
     date?: string;
-    machine: "printer" | "saw" | "vacuum" | "cnc";
+    machine?: "printer" | "saw" | "vacuum" | "cnc";
     condition?: any[];
 }
 
@@ -335,4 +336,19 @@ export interface IArrowBack {
 // 캐로젤 (Carousel) props
 export interface ICarouselProps {
     contents: JSX.Element[];
+}
+
+
+// 차트 (Chart) props
+export interface IChartProps {
+    containerWidth?: string;
+    containerHeight?: string;
+    colors?: ("primary" | "green" | "danger" | "orange" | "purple")[];
+    labels: string[];
+    values: number[];
+    type: "radialBar" | "line" | "bar" | "area" | "rangeArea" | "rangeBar" | "pie" | "donut" | "scatter" | "bubble" | "heatmap" | "candlestick" | "boxPlot" | "radar" | "polarArea" | "treemap" | undefined;
+    startAngle?: number;
+    endAngle?: number;
+    labelOffset?: number;
+    valueOffset?: number;
 }

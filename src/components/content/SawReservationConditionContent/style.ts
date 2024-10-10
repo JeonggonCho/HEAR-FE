@@ -16,7 +16,6 @@ export const Container = styled.div`
         justify-content: center;
         margin-left: -32px;
         gap: 12px;
-        margin-bottom: 24px;
 
         & > div:first-of-type {
             width: 48px;

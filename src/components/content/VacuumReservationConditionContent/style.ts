@@ -23,7 +23,6 @@ export const Container = styled.div`
             return lang === "ch" ? "60px" : "36px";
         }};
         gap: 12px;
-        margin-bottom: 24px;
 
         & > div:first-of-type {
             width: 48px;

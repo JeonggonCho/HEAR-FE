@@ -1,5 +1,6 @@
 import {FC, useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {ReactSVG} from "react-svg";
 
 import Header from "@components/common/Header";
 import ProfileCard from "@components/account/ProfileCard";
@@ -10,22 +11,21 @@ import Modal from "@components/common/Modal";
 import ConfirmContent from "@components/content/ConfirmContent";
 import ErrorContent from "@components/content/ErrorContent";
 import Link from "@components/common/Link";
+import CardLoading from "@components/skeleton/CardLoading";
 
+import useRequest from "@hooks/useRequest.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
-import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
-import {navCategories} from "@constants/navCategories.ts";
 
 import {Container, HeaderWrapper, UpdateButtonWrapper} from "./style.ts";
 
 import no_profile from "@assets/images/no_profile.png";
 import machine from "@assets/images/machine.png";
 import list from "@assets/images/list.png";
-import myPage from "@assets/images/manager.png";
-import CardLoading from "@components/skeleton/CardLoading";
+import noProfile from "@assets/icons/no_profile.svg";
 
 const AccountPage:FC = () => {
     const [logoutModal, setLogoutModal] = useState<boolean>(false);
@@ -35,7 +35,7 @@ const AccountPage:FC = () => {
 
     const navigate = useNavigate();
 
-    const {setUserInfo, clearUserInfo} = useUserInfoStore();
+    const {userInfo, setUserInfo, clearUserInfo} = useUserInfoStore();
     const {userData, setUserData, clearUserData} = useUserDataStore();
     const {logout} = useAuthStore();
     const {lang} = useThemeStore();
@@ -45,8 +45,8 @@ const AccountPage:FC = () => {
             const response = await sendRequest({
                 url: "/users",
             });
-            const {userId, username, email, year, studentId, studio, passQuiz, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role} = response.data;
-            setUserData({year, studio, passQuiz, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role});
+            const {userId, username, email, year, studentId, studio, passQuiz, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role, lab} = response.data;
+            setUserData({year, studio, passQuiz, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role, lab});
             setUserInfo({userId, username, email, studentId});
         } catch (err) {
             console.error("유저 정보 조회 에러: ", err);
@@ -67,8 +67,13 @@ const AccountPage:FC = () => {
 
     const AccountHeaderLeft:FC = () => (
         <HeaderWrapper>
-            <img src={myPage} alt={"내정보"}/>
-            <h2>{navCategories.account[lang]}</h2>
+            <div>
+                <ReactSVG src={noProfile}/>
+            </div>
+            <div>
+                <p>{userInfo?.username}</p>
+                <span>{userInfo?.email.split("@")[0]}</span>
+            </div>
         </HeaderWrapper>
     );
 
@@ -144,7 +149,7 @@ const AccountPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<AccountHeaderLeft/>} rightChild={<AccountHeaderRight/>}/>
+            <Header leftChild={<AccountHeaderLeft/>} rightChild={<AccountHeaderRight/>} type={"flex"}/>
 
             <ProfileCard isLoading={isLoading}/>
 

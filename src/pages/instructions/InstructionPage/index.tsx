@@ -51,7 +51,7 @@ const InstructionPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<InstructionHeaderLeft/>}/>
+            <Header leftChild={<InstructionHeaderLeft/>} type={"flex"}/>
             <p>{pageDescriptionCategories.instruction[lang]}</p>
             <div>
                 {machines.map((machine, index) => {

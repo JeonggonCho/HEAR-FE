@@ -23,39 +23,14 @@ const ProfileCard:FC<{isLoading: boolean}> = ({isLoading}) => {
                     </>
                     :
                     <>
-                        <span>{cardCategories.username[lang]}</span>
-                        <span>{userInfo?.username}</span>
+                        <span>{cardCategories.studentId[lang]}</span>
+                        <span>{userInfo?.studentId}</span>
                     </>
                 }
             </div>
-            <div>
-                {isLoading ?
-                    <>
-                        <CardLoading bgColor={"dark"} widthValue={"60px"} heightValue={"20px"}/>
-                        <CardLoading bgColor={"dark"} widthValue={"150px"} heightValue={"20px"}/>
-                    </>
-                    :
-                    <>
-                        <span>{cardCategories.email[lang]}</span>
-                        <span>{userInfo?.email}</span>
-                    </>
-                }
-            </div>
+
             {userData?.role === "student" &&
               <>
-                <div>
-                    {isLoading ?
-                        <>
-                            <CardLoading bgColor={"dark"} widthValue={"60px"} heightValue={"20px"}/>
-                            <CardLoading bgColor={"dark"} widthValue={"150px"} heightValue={"20px"}/>
-                        </>
-                        :
-                        <>
-                            <span>{cardCategories.studentId[lang]}</span>
-                            <span>{userInfo?.studentId}</span>
-                        </>
-                    }
-                </div>
                 <div>
                     {isLoading ?
                         <>
@@ -84,6 +59,23 @@ const ProfileCard:FC<{isLoading: boolean}> = ({isLoading}) => {
                 </div>
               </>
             }
+
+            {userData?.role === "manager" &&
+              <div>
+                  {isLoading ?
+                      <>
+                          <CardLoading bgColor={"dark"} widthValue={"60px"} heightValue={"20px"}/>
+                          <CardLoading bgColor={"dark"} widthValue={"150px"} heightValue={"20px"}/>
+                      </>
+                      :
+                      <>
+                          <span>{cardCategories.lab[lang]}</span>
+                          <span>{userData?.lab}</span>
+                      </>
+                  }
+              </div>
+            }
+
             {userData?.role &&
               <div>
                   {isLoading ?

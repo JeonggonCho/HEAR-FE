@@ -13,4 +13,5 @@ export interface IAuthResponseData {
     role: "student" | "manager" | "admin";
     accessToken: string;
     refreshToken: string;
+    lab?: string;
 }

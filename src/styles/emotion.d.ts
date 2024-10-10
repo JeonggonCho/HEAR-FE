@@ -32,7 +32,14 @@ declare module "@emotion/react" {
                 third: string,
                 danger: string,
                 green: string,
-            }
+            },
+            chart: {
+                primary: string,
+                green: string,
+                danger: string,
+                orange: string,
+                purple: string,
+            },
         };
     }
 }

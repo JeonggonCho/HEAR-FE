@@ -80,9 +80,9 @@ export const buttonCategories = {
         ch: "通知",
     },
     inquiry: {
-        ko: "내 문의",
-        en: "My Inquiry",
-        ch: "我的询问",
+        ko: "문의",
+        en: "Inquiry",
+        ch: "咨询",
     },
     feedback: {
         ko: "피드백",

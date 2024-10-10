@@ -5,6 +5,11 @@ export const HeaderWrapper = styled.div`
     align-items: center;
     gap: 12px;
 
+    h2 {
+        font-weight: 500;
+        font-size: 1.25rem;
+    }
+
     img {
         width: 36px;
     }

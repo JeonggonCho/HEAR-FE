@@ -2,14 +2,14 @@ import React, {FC} from "react";
 
 import {IHeaderProps} from "@/types/componentProps.ts";
 
-import {Container} from "./style.ts";
+import {CenterTextWrapper, Container, LeftChildWrapper, RightChildWrapper} from "./style.ts";
 
-const Header: FC<IHeaderProps> = ({leftChild, centerText, rightChild}) => {
+const Header: FC<IHeaderProps> = ({leftChild, centerText, rightChild, type="grid"}) => {
     return (
-        <Container>
-            <div>{leftChild}</div>
-            <div>{centerText}</div>
-            <div>{rightChild}</div>
+        <Container type={type}>
+            {leftChild && <LeftChildWrapper>{leftChild}</LeftChildWrapper>}
+            {centerText && <CenterTextWrapper>{centerText}</CenterTextWrapper>}
+            {rightChild && <RightChildWrapper>{rightChild}</RightChildWrapper>}
         </Container>
     );
 };

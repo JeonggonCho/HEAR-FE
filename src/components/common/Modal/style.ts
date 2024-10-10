@@ -81,7 +81,7 @@ export const BottomSheetWrapper = styled.div`
         width: 40px;
         height: 6px;
         background-color: ${({theme}) => theme.colors.line.main};
-        margin: auto auto 20px auto;
+        margin: auto auto 8px auto;
         border-radius: 3px;
         cursor: pointer;
     }
@@ -90,7 +90,7 @@ export const BottomSheetWrapper = styled.div`
     & > div:nth-of-type(2) {
         width: 100%;
         margin-bottom: 8px;
-        padding-bottom: 20px;
+        padding-bottom: 12px;
         padding-left: 28px;
         padding-right: 28px;
         border-bottom: 1px solid ${({theme}) => theme.colors.line.main};

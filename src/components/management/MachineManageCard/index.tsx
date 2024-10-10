@@ -20,6 +20,9 @@ import useRequest from "@hooks/useRequest.ts";
 import {updateHeatCountSchema} from "@schemata/machineSchema.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
 
 import {
     BtnsWrapper,
@@ -32,9 +35,6 @@ import {
 } from "./style.ts";
 
 import more from "@assets/icons/arrow_down.svg";
-import {headerCategories} from "@constants/headerCategories.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
-import {inputCategories} from "@constants/inputCategories.ts";
 
 const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, machineType, setMachines, timeData, setTimes}) => {
     const [showEdit, setShowEdit] = useState<boolean>(false);
@@ -45,7 +45,7 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
 
     const {lang} = useThemeStore();
 
-    const {isOpen, listRef, maxHeight, handleList} = useListCollapse(machineData.length, timeData?.length || 0);
+    const {isOpen, listRef, maxHeight, handleList} = useListCollapse({dataLength: machineData.length, timeLength: timeData?.length});
 
     const {sendRequest, errorText, clearError} = useRequest();
 

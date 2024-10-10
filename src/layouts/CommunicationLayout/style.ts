@@ -15,6 +15,7 @@ export const HeaderWrapper = styled.div`
 
     h2 {
         font-weight: 500;
+        font-size: 1.25rem;
     }
     
     img {

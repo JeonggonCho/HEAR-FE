@@ -7,7 +7,7 @@ export const Container = styled.div`
     & > div:first-of-type {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
-        grid-gap: 24px;
+        grid-gap: 12px;
 
         @media (max-width: 600px) {
             grid-template-columns: repeat(4, 1fr);

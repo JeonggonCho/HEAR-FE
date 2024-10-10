@@ -64,7 +64,7 @@ export const CardLinkCardWrapper = styled(Link)`
     }
     
     &:active {
-        transform: scale(0.8);
+        transform: scale(0.95);
     }
     
     & > div:first-of-type {
@@ -122,7 +122,7 @@ export const ButtonLinkCardWrapper = styled(Link)<{disabled: boolean, loading:st
     }
 
     &:active {
-        transform: scale(${({disabled}) => disabled ? "1" : "0.8"});
+        transform: scale(${({disabled}) => disabled ? "1" : "0.95"});
     }
 `;
 

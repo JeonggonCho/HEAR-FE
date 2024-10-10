@@ -21,7 +21,7 @@ export const Logo = styled.img`
 `;
 
 export const Title = styled.h1`
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: 500;
     color: ${({theme}) => theme.colors.font.primary};
 `;

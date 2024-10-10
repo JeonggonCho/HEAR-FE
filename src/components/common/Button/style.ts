@@ -11,6 +11,7 @@ const commonBtnStyle = `
     cursor: pointer;
     line-height: 1.4;
     border: none;
+    text-wrap: nowrap;
 `;
 
 const getBackgroundColor = (theme: any, color: "primary" | "approval" | "second" | "third" | "danger", isDarkMode:boolean) => {

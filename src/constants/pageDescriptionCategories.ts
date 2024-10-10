@@ -5,9 +5,9 @@ export const pageDescriptionCategories = {
         ch: "请选择您想了解使用说明和注意事项的设备。",
     },
     inquiry: {
-        ko: "문의사항은 모형제작실 조교에게 전달되며, 답변을 받는 데 시간이 소요될 수 있습니다",
-        en: "Inquiries will be forwarded to the model-making studio assistant, and it may take some time to receive a response.",
-        ch: "咨询将转发给模型制作室助理，您可能需要一些时间才能收到回复。",
+        ko: "문의사항은 다른 유저에게 공유되지 않고 모형제작실 조교에게 전달되며, 답변을 받는 데 시간이 소요될 수 있습니다",
+        en: "Inquiries are not shared with other users and are forwarded to the lab assistant in the model-making studio. It may take some time to receive a response.",
+        ch: "咨询不会与其他用户共享，并会转交给模型制作室的助教，回复可能需要一些时间。",
     },
     feedback: {
         ko: "피드백은 애플리케이션 개발자에게 전달되며, 해당 앱 업데이트에 도움이 됩니다",

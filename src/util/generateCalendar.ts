@@ -4,7 +4,7 @@ import {isSameDay} from "@util/calculateDate.ts";
 interface IGenerateCalendar {
     currentDate: Date;
     lang: "ko" | "en" | "ch";
-    machine: "printer" | "saw" | "vacuum" | "cnc";
+    machine: "printer" | "saw" | "vacuum" | "cnc" | undefined;
     condition?: any[];
 }
 

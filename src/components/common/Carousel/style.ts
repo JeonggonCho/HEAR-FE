@@ -8,10 +8,11 @@ export const Container = styled.div`
     // 캐로젤 영역
 
     & > div:first-of-type {
+        padding-bottom: 32px;
+        
         // 캐로젤 컨텐츠 영역
 
         & > div:first-of-type {
-            height: 100%;
             margin-top: 12px;
             display: flex;
             align-items: center;
@@ -19,16 +20,14 @@ export const Container = styled.div`
             // 각각의 컨텐츠
 
             & > div {
-                min-height: 250px;
                 width: 80%;
-                padding: 20px 40px 32px;
+                padding: 16px;
                 border-radius: 20px;
                 cursor: grab;
                 background-color: ${({theme}) => theme.colors.bg.main};
                 box-shadow: 0 0 1px ${({theme}) => theme.colors.bg.shadow};
 
                 @media (max-width: 500px) {
-                    padding: 20px;
                     width: 85%;
                 }
             }
@@ -38,6 +37,7 @@ export const Container = styled.div`
 
         & > div:nth-of-type(2) {
             margin-left: -4px;
+            margin-top: -32px;
             color: ${({theme}) => theme.colors.font.sub};
             transition: all 0.2s ease-in-out 0s;
 
@@ -63,6 +63,7 @@ export const Container = styled.div`
 
         & > div:nth-of-type(3) {
             margin-right: -4px;
+            margin-top: -32px;
             color: ${({theme}) => theme.colors.font.sub};
             transition: all 0.2s ease-in-out 0s;
 
@@ -87,8 +88,7 @@ export const Container = styled.div`
         // 페이지네이션 영역
 
         & > div:nth-of-type(4) {
-            bottom: 16px;
-
+            bottom: 0;
             & > span {
                 margin: 0 6px;
                 transition: all 0.2s ease-in-out 0s;

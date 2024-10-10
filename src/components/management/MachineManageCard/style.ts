@@ -110,6 +110,7 @@ export const CountWrapper = styled.div<{rangeValue: number}>`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 5px;
     
     & > div:first-of-type {
         width: 70%;
@@ -117,9 +118,13 @@ export const CountWrapper = styled.div<{rangeValue: number}>`
         align-items: center;
         gap: 12px;
         
+        @media (max-width: 500px) {
+            width: 60%;
+        }
+        
         & > div:first-of-type {
             width: 100%;
-            gap: 16px;
+            gap: 10px;
             
             input[type=range] {
                 position: relative;
@@ -135,15 +140,15 @@ export const CountWrapper = styled.div<{rangeValue: number}>`
 
                 &:after {
                     position: absolute;
-                    top: -3px;
+                    top: -1px;
                     left: 0;
                     content: "";
                     width: calc((100% - 16px) * (${({rangeValue}) => rangeValue} / 15));
-                    height: 6px;
-                    border-radius: 3px;
+                    height: 3px;
+                    border-radius: 4px;
                     background-color: ${({theme}) => {
                         const {isDarkMode} = useThemeStore();
-                        return isDarkMode ? theme.colors.button.primary : lighten(0.1, theme.colors.button.primary); 
+                        return isDarkMode ? theme.colors.button.primary : lighten(0.05, theme.colors.button.primary); 
                     }};
                     z-index: 0;
                 }
@@ -154,17 +159,21 @@ export const CountWrapper = styled.div<{rangeValue: number}>`
                 position: relative;
                 background: white;
                 cursor: pointer;
-                border: 1px solid ${({theme}) => theme.colors.line.main};
+                border: 1px solid ${({theme}) => {
+                    const {isDarkMode} = useThemeStore();
+                    return isDarkMode ? theme.colors.line.main : lighten(0.05, theme.colors.line.main);
+                }};
                 height: 24px; 
                 width: 24px;
                 margin-top: -9px;
                 border-radius: 50%;
+                box-shadow: 0 0 5px ${({theme}) => theme.colors.bg.shadow};
                 z-index: 3;
             }
             
             input[type=range]::-webkit-slider-runnable-track {
                 width: 100%; 
-                height: 6px;
+                height: 4px;
                 cursor: pointer;
                 background: ${({theme}) => theme.colors.font.placeholder};
                 border-radius: 3px;
@@ -177,7 +186,7 @@ export const CountWrapper = styled.div<{rangeValue: number}>`
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 32px;
+            margin-bottom: -32px;
             font-size: 1.15rem;
             color: ${({theme}) => theme.colors.font.sub};
             border-radius: 8px;
