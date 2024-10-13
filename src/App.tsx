@@ -10,12 +10,14 @@ import {useThemeStore} from "@store/useThemeStore.ts";
 import {darkTheme, lightTheme} from "@styles/theme.ts";
 
 import './App.css';
+import {Helmet} from "react-helmet-async";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     // 다크모드 라이트모드 테마 생성
     const {isDarkMode} = useThemeStore();
+
     const theme = isDarkMode ? darkTheme : lightTheme;
 
     // 스플래쉬 페이지 설정
@@ -36,6 +38,10 @@ const App = () => {
 
     return (
         <div className="app">
+            <Helmet>
+                <title>HEAR</title>
+            </Helmet>
+
             <ThemeProvider theme={theme}>
                 <Global styles={global(theme)}/>
                 <ScrollToTop/>

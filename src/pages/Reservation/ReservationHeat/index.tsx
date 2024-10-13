@@ -12,10 +12,11 @@ import Input from "@components/common/Input";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
+import HeadTag from "@components/common/HeadTag";
 
-import {cncHeatSchema} from "@schemata/machineSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {getTomorrowDate, getAfterWeekDate} from "@util/calculateDate.ts";
+import {cncHeatSchema} from "@schemata/machineSchema.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
@@ -54,7 +55,6 @@ const ReservationHeat:FC = () => {
     }, []);
 
     const submitHandler:SubmitHandler<HeatFormData> = useCallback(async (data) => {
-        console.log(data)
         try {
             await sendRequest({
                 url: "/reservations/heats",
@@ -70,6 +70,8 @@ const ReservationHeat:FC = () => {
 
     return (
         <Container>
+            <HeadTag title={headerCategories.heatReservationHeader[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.heatReservationHeader[lang]}/>
             <ImageWrapper>
                 <img src={heat} alt={"열선"}/>

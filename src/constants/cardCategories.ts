@@ -149,4 +149,9 @@ export const cardCategories = {
         en : "Professor",
         ch : "教授",
     },
+    reservationRate: {
+        ko : "예약률",
+        en : "Reservation Rate",
+        ch : "预订率",
+    },
 };

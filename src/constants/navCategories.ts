@@ -14,7 +14,7 @@ export const navCategories = {
         en: "Quiz",
         ch: "测验",
     },
-    communication: {
+    board: {
         ko: "소통",
         en: "Board",
         ch: "沟通",

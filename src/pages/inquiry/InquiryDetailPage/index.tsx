@@ -8,6 +8,7 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
 import Dropdown from "@components/common/Dropdown";
+import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IInquiryProps} from "@/types/componentProps.ts";
@@ -18,7 +19,7 @@ import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container, ContentWrapper, InquiryInfoWrapper} from "./style.ts";
-import {TagWrapper, WriterWrapper} from "@components/communication/InquiryFeedbackListItem/style.ts";
+import {TagWrapper, WriterWrapper} from "@components/board/InquiryFeedbackListItem/style.ts";
 
 import noProfile from "@assets/icons/no_profile.svg";
 
@@ -53,6 +54,8 @@ const InquiryDetailPage:FC = () => {
 
     return (
         <Container>
+            <HeadTag title={inquiry?.title || headerCategories.inquiryDetail[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.inquiryDetail[lang]}/>
             {!isLoading && inquiry ?
                 <>
@@ -76,7 +79,6 @@ const InquiryDetailPage:FC = () => {
                                 }
                             </div>
                         </div>
-                        <hr/>
                     </InquiryInfoWrapper>
 
                     <ContentWrapper>

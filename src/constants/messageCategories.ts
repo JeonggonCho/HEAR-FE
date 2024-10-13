@@ -40,9 +40,9 @@ export const messageCategories = {
         ch: "请留下您对应用程序的反馈。",
     },
     emptyInquiry: {
-        ko: "작성하신 문의가 아직 없어요",
-        en: "You have not submitted any inquiries yet.",
-        ch: "您尚未提交任何咨询。",
+        ko: "작성 된 문의가 아직 없어요",
+        en: "No inquiries have been made yet.",
+        ch: "尚未有任何咨询。",
     },
     makeInquiry: {
         ko: "궁금한 점에 대해 모형제작실 조교에게 문의 주세요",
@@ -128,5 +128,10 @@ export const messageCategories = {
         ko: "선택된 날짜가 없습니다",
         en: "No date selected",
         ch: "没有选择日期",
-    }
+    },
+    emptyPage: {
+        ko: "해당 페이지를 찾을 수 없습니다",
+        en: "The page cannot be found",
+        ch: "无法找到该页面",
+    },
 };

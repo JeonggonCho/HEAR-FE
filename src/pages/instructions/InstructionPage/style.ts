@@ -19,7 +19,7 @@ export const HeaderWrapper = styled.div`
 export const Container = styled.div`
     p {
         width: 80%;
-        margin: 0 0 24px 6px;
+        margin: 0 0 24px 30px;
         line-height: 1.5;
         color: ${({theme}) => theme.colors.font.sub};
         text-wrap: wrap;
@@ -30,6 +30,7 @@ export const Container = styled.div`
     & > div:nth-of-type(2) {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 12px;
+        margin: 0 24px;
     }
 `;

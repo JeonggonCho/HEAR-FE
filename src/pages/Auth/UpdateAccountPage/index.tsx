@@ -13,6 +13,7 @@ import Modal from "@components/common/Modal";
 import ConfirmContent from "@components/content/ConfirmContent";
 import LoadingLoop from "@components/common/LoadingLoop";
 import ErrorContent from "@components/content/ErrorContent";
+import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import {updateAccountSchema} from "@schemata/userSchema.ts";
@@ -147,6 +148,8 @@ const UpdateAccountPage:FC = () => {
 
     return (
         <Container>
+            <HeadTag title={headerCategories.profileUpdate[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.profileUpdate[lang]}/>
             {isLoading ?
                 <LoadingLoop/>

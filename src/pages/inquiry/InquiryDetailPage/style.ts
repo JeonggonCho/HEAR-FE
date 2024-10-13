@@ -9,36 +9,23 @@ export const Container = styled.div`
         width: 100%;
         background-color: ${({theme}) => theme.colors.bg.main} !important;
     }
-    
-    & > div:nth-of-type(3) {
-        width: 100%;
-        height: 100%;
-        padding: 8px 0 56px 0;
-        display: flex;
-        flex-direction: column;
-        gap: 32px;
-    }
 `;
 
 export const InquiryInfoWrapper = styled.div`
-    width: calc(100% + 48px);
-    margin-left: -24px;
-    padding-top: 12px;
+    padding: 12px 24px;
     background-color: ${({theme}) => theme.colors.bg.main};
+    border-bottom: 1px solid ${({theme}) => theme.colors.line.main};
 
     & > div:first-of-type {
         display: flex;
         flex-direction: column;
         gap: 12px;
-        margin-bottom: 12px;
-        margin-right: 24px;
-        margin-left: 24px;
 
         // 제목
         h2 {
-            margin: 0;
-            font-weight: 500;
             font-size: 1.25rem;
+            font-weight: 500;
+            margin: 0 0 12px;
             text-wrap: wrap;
             word-break: break-all;
             line-height: 1.5;
@@ -49,7 +36,6 @@ export const InquiryInfoWrapper = styled.div`
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin: 0 24px;
         color: ${({theme}) => theme.colors.font.sub};
 
         & > div {
@@ -65,17 +51,12 @@ export const InquiryInfoWrapper = styled.div`
             }
         }
     }
-
-    hr {
-        border: none;
-        border-top: 1px solid ${({theme}) => theme.colors.line.main};
-        margin: 12px 0;
-    }
 `;
 
 export const ContentWrapper = styled.div`
     width: 100%;
-    
+    padding: 24px;
+
     & > p:first-of-type {
         margin: 0;
         font-size: 1rem;

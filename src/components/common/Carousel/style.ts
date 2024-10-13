@@ -26,6 +26,7 @@ export const Container = styled.div`
                 cursor: grab;
                 background-color: ${({theme}) => theme.colors.bg.main};
                 box-shadow: 0 0 1px ${({theme}) => theme.colors.bg.shadow};
+                border: 1px solid ${({theme}) => theme.colors.bg.main};
 
                 @media (max-width: 500px) {
                     width: 85%;

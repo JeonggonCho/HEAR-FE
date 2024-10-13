@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 export const ButtonTapWrapper = styled.div`
-    width: 100%;
     height: 44px;
     background-color: ${({theme}) => theme.colors.bg.main};
     padding: 2px;
@@ -55,13 +54,12 @@ export const Background = styled.div<{ activeIndex: number; tabCount: number }>`
 `;
 
 export const LineTapWrapper = styled.div`
-    width: calc(100% + 48px);
+    width: 100%;
     height: 100%;
     border-bottom: 1px solid ${({theme}) => theme.colors.line.main};
     padding: 0 24px;
     position: sticky;
-    top: 80px;
-    margin-left: -24px;
+    top: 72px;
     background-color: ${({theme}) => theme.colors.bg.main};
     display: flex;
     align-items: center;

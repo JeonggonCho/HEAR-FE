@@ -3,13 +3,14 @@ import React, {FC, useEffect, useState} from "react";
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
+import HeadTag from "@components/common/HeadTag";
 
 import {ITab} from "@/types/tab.ts";
 import {machineInstructionTabCategories} from "@constants/machineCategories.ts";
 import {machineName} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
-import {Content, MachineImgWrapper} from "./style.ts";
+import {Container, Content, MachineImgWrapper} from "./style.ts";
 
 import printer from "@assets/images/3d_printer.png";
 
@@ -41,12 +42,14 @@ const InstructionPrinter:FC = () => {
     }, [activeIndex]);
 
     return (
-        <div>
+        <Container>
+            <HeadTag title={machineName.printer[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={machineName.printer[lang]}/>
             <PrinterImage/>
             <Tab type={"button"} tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
             <Content>{tabs[activeIndex].content}</Content>
-        </div>
+        </Container>
     );
 };
 

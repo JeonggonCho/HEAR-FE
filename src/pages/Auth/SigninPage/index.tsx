@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import { z } from "zod";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {AxiosResponse} from "axios";
+import {zodResolver} from "@hookform/resolvers/zod";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
@@ -12,9 +13,9 @@ import Link from "@components/common/Link";
 import Modal from "@components/common/Modal";
 import LoadingLoop from "@components/common/LoadingLoop";
 import ErrorContent from "@components/content/ErrorContent";
+import HeadTag from "@components/common/HeadTag";
 
 import {loginSchema} from "@schemata/userSchema.ts";
-import {zodResolver} from "@hookform/resolvers/zod";
 import useRequest from "@hooks/useRequest.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
@@ -29,7 +30,7 @@ import {Container, LinkWrapper} from "./style.ts";
 
 import logo from "@assets/logo.svg";
 
-const LoginPage:FC = () => {
+const SigninPage:FC = () => {
     const navigate = useNavigate();
 
     const {login} = useAuthStore();
@@ -73,6 +74,8 @@ const LoginPage:FC = () => {
 
     return (
         <Container>
+            <HeadTag title={headerCategories.signIn[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.signIn[lang]}/>
 
             <div>
@@ -140,4 +143,4 @@ const LoginPage:FC = () => {
     );
 };
 
-export default LoginPage;
+export default SigninPage;

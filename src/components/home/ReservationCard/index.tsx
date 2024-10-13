@@ -1,40 +1,19 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {FC} from "react";
 
 import Link from "@components/common/Link";
-import Modal from "@components/common/Modal";
-import ErrorContent from "@components/content/ErrorContent";
+
 
 import {machineReservationCategories} from "@constants/machineCategories.ts";
-import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {machineName} from "@constants/machineCategories.ts";
 import {MachineNameType} from "@/types/machine.ts";
 
 import {Container} from "./style.ts";
 
-const ReservationCard:FC = () => {
-    const [machineStatus, setMachineStatus] = useState({laser: false, printer: false, heat: false, saw: false, vacuum: false, cnc: false});
-
+const ReservationCard:FC<{laser: boolean, printer: boolean, heat: boolean, saw: boolean, vacuum: boolean, cnc: boolean, isLoading: boolean}> = ({laser, printer, heat, saw, vacuum, cnc, isLoading}) => {
     const {lang} = useThemeStore();
 
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
-
-    const fetchMachineStatus = useCallback(async () => {
-        try {
-            const response = await sendRequest({
-                url: "/machines/status",
-            });
-            if (response.data) {
-                setMachineStatus(response.data);
-            }
-        } catch (err) {
-            console.error("기기 상태 조회 중 에러 발생: ", err);
-        }
-    }, [sendRequest]);
-
-    useEffect(() => {
-        fetchMachineStatus();
-    }, [fetchMachineStatus]);
+    const machineStatus = {laser, printer, heat, saw, vacuum, cnc};
 
     return (
         <Container>
@@ -57,14 +36,6 @@ const ReservationCard:FC = () => {
                     );
                 })}
             </div>
-
-            {errorText &&
-              <Modal
-                content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                setModal={clearError}
-                type={"popup"}
-              />
-            }
         </Container>
     );
 };

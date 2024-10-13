@@ -16,12 +16,11 @@ export const Container = styled.div`
 `;
 
 export const DropdownWrapper = styled.div`
-    min-width: 132px;
     position: absolute;
-    padding: 8px 0;
+    padding: 6px 0;
     top: 32px;
     right: 4px;
-    border-radius: 8px;
+    border-radius: 6px;
     background-color: ${({theme}) => {
         const {isDarkMode} = useThemeStore();
         return isDarkMode ? lighten(0.1, theme.colors.bg.main) : theme.colors.bg.main;
@@ -34,10 +33,10 @@ export const DropdownWrapper = styled.div`
         display: flex;
         align-items: center;
         gap: 8px;
-        padding: 10px 16px;
+        padding: 10px 18px 10px 12px;
         transition: all 0.1s ease-in-out 0s;
         cursor: pointer;
-        font-size: 1rem;
+        font-size: 0.9rem;
         text-wrap: nowrap;
         color: ${({theme}) => theme.colors.font.sub};
         
@@ -49,6 +48,8 @@ export const DropdownWrapper = styled.div`
         }
         
         svg {
+            width: 20px;
+            height: 20px;
             fill: ${({theme}) => {
                 const {isDarkMode} = useThemeStore();
                 return isDarkMode ? lighten(0.2, theme.colors.icon.fill) : theme.colors.icon.fill;

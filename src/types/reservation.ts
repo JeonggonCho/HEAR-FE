@@ -21,3 +21,11 @@ export interface IPrinterReservation {
     printerId: string;
     date: string;
 }
+
+export interface ILaserStatus {
+    name: string;
+    times: {
+        timeContent: string;
+        status: boolean;
+    }[]
+}

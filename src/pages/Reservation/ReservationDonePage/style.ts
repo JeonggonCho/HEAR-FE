@@ -4,12 +4,16 @@ import Lottie from "lottie-react";
 export const Container = styled.div`
     width: 100%;
 
-    p {
-        color: ${({theme}) => theme.colors.font.main};
-        text-align: center;
-        margin: 0 0 124px;
-        font-size: 1.25rem;
-        font-weight: 500;
+    & > div:last-of-type {
+        margin: 0 24px;
+
+        p {
+            color: ${({theme}) => theme.colors.font.main};
+            text-align: center;
+            margin: 0 0 124px;
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
     }
 `;
 

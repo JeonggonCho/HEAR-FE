@@ -6,6 +6,7 @@ import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
+import HeadTag from "@components/common/HeadTag";
 
 import {findPasswordSchema} from "@schemata/userSchema.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
@@ -30,6 +31,8 @@ const FindPasswordPage:FC = () => {
 
     return (
         <Container>
+            <HeadTag title={headerCategories.findPassword[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.findPassword[lang]}/>
             <form method={"post"} onSubmit={handleSubmit((data) => {
                 console.log(data);

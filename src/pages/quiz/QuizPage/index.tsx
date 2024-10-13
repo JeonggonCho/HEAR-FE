@@ -1,6 +1,7 @@
 import {FC} from "react";
 
 import Header from "@components/common/Header";
+import HeadTag from "@components/common/HeadTag";
 
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {navCategories} from "@constants/navCategories.ts";
@@ -21,8 +22,12 @@ const QuizHeaderLeft = () => {
 };
 
 const QuizPage:FC = () => {
+    const {lang} = useThemeStore();
+
     return (
         <Container>
+            <HeadTag title={navCategories.quiz[lang]}/>
+
             <Header leftChild={<QuizHeaderLeft/>} type={"flex"}/>
             교육
         </Container>

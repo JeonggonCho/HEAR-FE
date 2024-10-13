@@ -4,7 +4,13 @@ import {ITab} from "@/types/tab.ts";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
 import {IUserInfo} from "@/types/user.ts";
-import {ILaserInfo, ILaserReservation, ILaserTimesinfo, IPrinterReservation} from "@/types/reservation.ts";
+import {
+    ILaserInfo,
+    ILaserReservation,
+    ILaserStatus,
+    ILaserTimesinfo,
+    IPrinterReservation
+} from "@/types/reservation.ts";
 
 // 버튼(Button) props
 export interface IButtonProps {
@@ -41,6 +47,7 @@ export interface IHeaderProps {
     centerText?: string;
     rightChild?: ReactNode;
     type?: "grid" | "flex";
+    bgColor?: boolean;
 }
 
 
@@ -351,4 +358,12 @@ export interface IChartProps {
     endAngle?: number;
     labelOffset?: number;
     valueOffset?: number;
+}
+
+
+// 레이저 커팅기 예약 현황 내역(LaserReservationConditionContent) props
+export interface ILaserReservationConditionContentProps {
+    laserStatus: ILaserStatus[];
+    rate: number;
+    color: "primary" | "green" | "danger" | "orange" | "purple";
 }

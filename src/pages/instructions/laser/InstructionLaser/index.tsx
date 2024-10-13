@@ -3,13 +3,14 @@ import React, {FC, useEffect, useState} from "react";
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
+import HeadTag from "@components/common/HeadTag";
 
 import {ITab} from "@/types/tab.ts";
 import {machineInstructionTabCategories} from "@constants/machineCategories.ts";
 import {machineName} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
-import {MachineImgWrapper} from "./style.ts";
+import {MachineImgWrapper, Container} from "./style.ts";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
 
 import laser from "@assets/images/laser_cut.png";
@@ -43,12 +44,14 @@ const InstructionLaser:FC = () => {
     }, [activeIndex]);
 
     return (
-        <div>
+        <Container>
+            <HeadTag title={machineName.laser[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={machineName.laser[lang]}/>
             <LaserImage/>
             <Tab type={"button"} tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
             <Content>{tabs[activeIndex].content}</Content>
-        </div>
+        </Container>
     );
 };
 

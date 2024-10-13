@@ -11,7 +11,7 @@ export const Container = styled.div`
         margin: 0;
         font-weight: 400;
         font-size: 1rem;
-        color: ${({theme}) => theme.colors.font.sub};
+        color: ${({theme}) => theme.colors.font.main};
     }
 
     & > div:first-of-type {
@@ -23,6 +23,7 @@ export const Container = styled.div`
             return lang === "ko" ? "-12px" : lang === "en" ? "10px" : "0px";
         }};
         gap: 12px;
+        margin-bottom: 12px;
 
         & > div:first-of-type {
             width: 48px;

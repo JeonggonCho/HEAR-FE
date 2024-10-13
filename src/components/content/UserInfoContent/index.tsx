@@ -188,6 +188,11 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                       <span>{user?.tel}</span>
                     </FieldWrapper>
 
+                    <FieldWrapper>
+                      <div>{cardCategories.studio[lang]}</div>
+                      <span>{user?.studio}</span>
+                    </FieldWrapper>
+
                     <WarningWrapper>
                       <div>{inputCategories.warning[lang]}</div>
                         {showWarning ?

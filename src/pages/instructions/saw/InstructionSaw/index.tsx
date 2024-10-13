@@ -3,13 +3,14 @@ import React, {FC, useEffect, useState} from "react";
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
+import HeadTag from "@components/common/HeadTag";
 
 import {ITab} from "@/types/tab.ts";
 import {machineName, machineInstructionTabCategories} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Content} from "../../printer/InstructionPrinter/style.ts";
-import {MachineImgWrapper} from "./style.ts";
+import {MachineImgWrapper, Container} from "./style.ts";
 
 import saw from "@assets/images/saw.png";
 
@@ -31,14 +32,16 @@ const InstructionSaw:FC = () => {
     }, [activeIndex]);
 
     return (
-        <div>
+        <Container>
+            <HeadTag title={machineName.saw[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={machineName.saw[lang]}/>
             <MachineImgWrapper>
                 <img src={saw} alt="톱"/>
             </MachineImgWrapper>
             <Tab type={"button"} tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
             <Content>{tabs[activeIndex].content}</Content>
-        </div>
+        </Container>
     );
 };
 

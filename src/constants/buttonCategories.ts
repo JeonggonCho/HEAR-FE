@@ -189,4 +189,29 @@ export const buttonCategories = {
         en: "Change",
         ch: "更改",
     },
+    reservationStatus: {
+        ko: "예약 현황 보기",
+        en: "View Reservation Status",
+        ch: "查看预订状态",
+    },
+    myReservations: {
+        ko: "내 예약",
+        en: "My Reservations",
+        ch: "我的预约",
+    },
+    myUsage: {
+        ko: "이용 내역",
+        en: "Usage History",
+        ch: "使用记录",
+    },
+    myInquiries: {
+        ko: "문의 내역",
+        en: "Inquiry History",
+        ch: "咨询记录",
+    },
+    myWarning: {
+        ko: "경고 내역",
+        en: "Warning History",
+        ch: "警告记录",
+    },
 };

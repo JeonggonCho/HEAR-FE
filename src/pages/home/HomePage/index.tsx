@@ -1,4 +1,4 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {FC, useCallback, useEffect, useMemo, useState} from "react";
 import {ReactSVG} from "react-svg";
 
 import Header from "@components/common/Header";
@@ -20,12 +20,24 @@ import HeatReservationConditionContent from "@components/content/HeatReservation
 import SawReservationConditionContent from "@components/content/SawReservationConditionContent";
 import VacuumReservationConditionContent from "@components/content/VacuumReservationConditionContent";
 import CncReservationConditionContent from "@components/content/CncReservationConditionContent";
+import HeadTag from "@components/common/HeadTag";
 
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import useRequest from "@hooks/useRequest.ts";
+import {ILaserStatus} from "@/types/reservation.ts";
+import {getLaserReservationRate} from "@util/getReservationRate.ts";
 
-import {AlarmWrapper, Container, HeaderElementWrapper, Logo, LogoWrapper, ThemeWrapper, Title} from "./style.ts";
+import {
+    AlarmWrapper,
+    Container,
+    HeaderElementWrapper,
+    Logo,
+    LogoWrapper,
+    ManagerCafeWrapper,
+    ThemeWrapper,
+    Title
+} from "./style.ts";
 
 import logo from "@assets/logo.svg";
 import alarm from "@assets/icons/alarm.svg";
@@ -62,54 +74,104 @@ const HomeHeaderRight:FC = () => {
 
 const HomePage = () => {
     const [langModal, setLangModal] = useState<boolean>(false);
+    const [machineStatus, setMachineStatus] = useState({laser: false, printer: false, heat: false, saw: false, vacuum: false, cnc: false});
+    const [laserStatus, setLaserStatus] = useState<ILaserStatus[]>([]);
+    const [printerStatus, setPrinterStatus] = useState([]);
+    const [heatStatus, setHeatStatus] = useState([]);
+    const [sawStatus, setSawStatus] = useState([]);
+    const [vacuumStatus, setVacuumStatus] = useState([]);
+    const [cncStatus, setCncStatus] = useState([]);
 
     const {lang} = useThemeStore();
 
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
+
+    const {rate, color} = useMemo(() =>  getLaserReservationRate(laserStatus), [laserStatus]);
 
     const fetchAllReservations = useCallback(async () => {
         try {
             const response = await sendRequest({
                 url: "/reservations/all",
             });
-            console.log(response.data);
+            if (response.data) {
+                setLaserStatus(response.data.laserStatus);
+                setPrinterStatus(response.data.printerStatus);
+                setHeatStatus(response.data.heatStatus);
+                setSawStatus(response.data.sawStatus);
+                setVacuumStatus(response.data.vacuumStatus);
+                setCncStatus(response.data.cncStatus);
+            }
         } catch (err) {
             console.error("예약 현황 조회 중 에러 발생: ", err);
         }
     }, [sendRequest]);
 
+
+    const fetchMachineStatus = useCallback(async () => {
+        try {
+            const response = await sendRequest({
+                url: "/machines/status",
+            });
+            if (response.data) {
+                setMachineStatus(response.data);
+            }
+        } catch (err) {
+            console.error("기기 상태 조회 중 에러 발생: ", err);
+        }
+    }, [sendRequest]);
+
     useEffect(() => {
+        fetchMachineStatus();
         fetchAllReservations();
-    }, [fetchAllReservations]);
+    }, [fetchAllReservations, fetchMachineStatus]);
+
+    const carouselContents = [];
+    if (machineStatus.laser) carouselContents.push(<LaserReservationConditionContent laserStatus={laserStatus} rate={rate} color={color}/>);
+    if (machineStatus.printer) carouselContents.push(<PrinterReservationConditionContent/>);
+    if (machineStatus.heat) carouselContents.push(<HeatReservationConditionContent/>);
+    if (machineStatus.saw) carouselContents.push(<SawReservationConditionContent/>);
+    if (machineStatus.vacuum) carouselContents.push(<VacuumReservationConditionContent/>);
+    if (machineStatus.cnc) carouselContents.push(<CncReservationConditionContent/>);
+
 
     return (
         <Container>
-            <Header leftChild={<HomeHeaderLeft/>} rightChild={<HomeHeaderRight/>} type={"flex"}/>
+            <HeadTag title={"HEAR"}/>
 
-            {isLoading ?
-                <CardLoading heightValue={"278px"}/>
-                :
-                <Carousel contents={
-                    [
-                        <LaserReservationConditionContent/>,
-                        <PrinterReservationConditionContent/>,
-                        <HeatReservationConditionContent/>,
-                        <SawReservationConditionContent/>,
-                        <VacuumReservationConditionContent/>,
-                        <CncReservationConditionContent/>,
-                    ]
-                }/>
-            }
+            <Header
+                leftChild={<HomeHeaderLeft/>}
+                rightChild={<HomeHeaderRight/>}
+                type={"flex"}
+            />
 
-            <ReservationCard/>
-            <NoticeCard/>
             <div>
-                <ManagerCard/>
-                <CafeSiteCard/>
-            </div>
-            <div>
-                <LangSettingCard setModal={setLangModal}/>
-                <FeedBackCard/>
+                {isLoading ?
+                    <CardLoading heightValue={"300px"}/>
+                    :
+                    (machineStatus.laser || machineStatus.printer || machineStatus.heat || machineStatus.saw || machineStatus.vacuum || machineStatus.cnc) ?
+                        <Carousel contents={carouselContents}/>
+                        : null
+                }
+
+                <ReservationCard
+                    laser={machineStatus.laser}
+                    printer={machineStatus.printer}
+                    heat={machineStatus.heat}
+                    saw={machineStatus.saw}
+                    vacuum={machineStatus.vacuum}
+                    cnc={machineStatus.cnc}
+                    isLoading={isLoading}
+                />
+
+                <NoticeCard/>
+                <ManagerCafeWrapper>
+                    <ManagerCard/>
+                    <CafeSiteCard/>
+                </ManagerCafeWrapper>
+                <div>
+                    <LangSettingCard setModal={setLangModal}/>
+                    <FeedBackCard/>
+                </div>
             </div>
 
             {langModal &&

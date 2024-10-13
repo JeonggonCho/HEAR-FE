@@ -6,8 +6,6 @@ export const Container = styled.div<{tooltip: boolean}>`
     }
     
     form {
-        width: calc(100% + 48px);
-        margin-left: -24px;
         padding: 24px;
         background-color: ${({theme}) => theme.colors.bg.main};
         display: flex;
@@ -41,13 +39,13 @@ export const ImageWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: ${({theme}) => theme.colors.bg.sub};
     
     img {
         width: 120px;
         height: 120px;
         object-fit: cover;
         margin: 24px 0;
-
     }
 `;
 

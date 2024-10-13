@@ -1,14 +1,10 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-    width: 100%;
-    padding: 16px;
-    border-radius: 16px;
-    background-color: ${({theme}) => theme.colors.bg.main};
+    padding: 16px 24px;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    gap: 16px;
 
     & > div:first-of-type, & > div:last-of-type {
         text-align: center;

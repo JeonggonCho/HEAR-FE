@@ -5,7 +5,6 @@ import {useAuthStore} from "@store/useAuthStore.ts";
 import isTokenValid from "@util/isTokenValid.ts";
 
 const Layout = lazy(() => import("@layouts/Layout"));
-const CommunicationLayout = lazy(() => import("@layouts/CommunicationLayout"));
 
 const HomePage = lazy(() => import("@pages/home/HomePage"));
 const NotificationPage = lazy(() => import("@pages/home/NotificationPage"));
@@ -19,7 +18,7 @@ const CreateFeedbackPage = lazy(() => import("@pages/feedback/CreateFeedbackPage
 const UpdateFeedbackPage = lazy(() => import("@pages/feedback/UpdateFeedbackPage"));
 const AccountPage = lazy(() => import("@pages/auth/AccountPage"));
 const UpdateAccountPage = lazy(() => import("@pages/auth/UpdateAccountPage"));
-const LoginPage = lazy(() => import("@pages/auth/LoginPage"));
+const SigninPage = lazy(() => import("@pages/auth/SigninPage"));
 const SignupPage = lazy(() => import("@pages/auth/SignupPage"));
 const SignupDonePage = lazy(() => import("@pages/auth/SignupDonePage"));
 const FindPasswordPage = lazy(() => import("@pages/auth/FindPasswordPage"));
@@ -47,6 +46,10 @@ const NotFoundPage = lazy(() => import("@pages/home/NotFoundPage"));
 const MachinesPage = lazy(() => import("@pages/management/MachinesPage"));
 const UsersPage = lazy(() => import("@pages/management/UsersPage"));
 const ReservationsPage = lazy(() => import("@pages/management/ReservationsPage"));
+const MyReservationsPage = lazy(() => import("@pages/reservation/MyReservationsPage"));
+const MyUsagePage = lazy(() => import("@pages/reservation/MyUsagePage"));
+const MyInquiriesPage = lazy(() => import("@pages/inquiry/MyInquiriesPage"));
+const MyWarningPage = lazy(() => import("@pages/auth/MyWarningPage"));
 
 const AppRoute = () => {
     const {isLoggedIn, accessToken, logout} = useAuthStore();
@@ -72,24 +75,26 @@ const AppRoute = () => {
                             <Route path="password/reset" element={<FindPasswordPage/>}/>
                             <Route path="password/update" element={<UpdatePasswordPage/>}/>
 
-                            <Route path="/communication" element={<CommunicationLayout/>}>
-                                <Route index element={<Navigate to="notice" />} />
-                                <Route path="notice" element={<NoticePage/>}/>
-                                <Route path="inquiry" element={<InquiryPage/>}/>
-                                <Route path="feedback" element={<FeedbackPage/>}/>
-                            </Route>
+                            <Route path="my-reservations" element={<MyReservationsPage/>}/>
+                            <Route path="my-usage" element={<MyUsagePage/>}/>
+                            <Route path="my-inquiries" element={<MyInquiriesPage/>}/>
+                            <Route path="my-warning" element={<MyWarningPage/>}/>
 
-                            <Route path="communication/notice/new" element={<CreateNoticePage/>}/>
-                            <Route path="communication/notice/:noticeId" element={<NoticeDetailPage/>}/>
-                            <Route path="communication/notice/:noticeId/update" element={<UpdateNoticePage/>}/>
 
-                            <Route path="communication/inquiry/new" element={<CreateInquiryPage/>}/>
-                            <Route path="communication/inquiry/:inquiryId" element={<InquiryDetailPage/>}/>
-                            <Route path="communication/inquiry/:inquiryId/update" element={<UpdateInquiryPage/>}/>
+                            <Route path="board/notice" element={<NoticePage/>}/>
+                            <Route path="board/inquiry" element={<InquiryPage/>}/>
+                            <Route path="board/feedback" element={<FeedbackPage/>}/>
+                            <Route path="board/notice/new" element={<CreateNoticePage/>}/>
+                            <Route path="board/notice/:noticeId" element={<NoticeDetailPage/>}/>
+                            <Route path="board/notice/:noticeId/update" element={<UpdateNoticePage/>}/>
 
-                            <Route path="communication/feedback/new" element={<CreateFeedbackPage/>}/>
-                            <Route path="communication/feedback/:feedbackId" element={<FeedbackDetailPage/>}/>
-                            <Route path="communication/feedback/:feedbackId/update" element={<UpdateFeedbackPage/>}/>
+                            <Route path="board/inquiry/new" element={<CreateInquiryPage/>}/>
+                            <Route path="board/inquiry/:inquiryId" element={<InquiryDetailPage/>}/>
+                            <Route path="board/inquiry/:inquiryId/update" element={<UpdateInquiryPage/>}/>
+
+                            <Route path="board/feedback/new" element={<CreateFeedbackPage/>}/>
+                            <Route path="board/feedback/:feedbackId" element={<FeedbackDetailPage/>}/>
+                            <Route path="board/feedback/:feedbackId/update" element={<UpdateFeedbackPage/>}/>
 
                             <Route path="instruction" element={<InstructionPage/>}/>
                             <Route path="instruction/3d-printer" element={<InstructionPrinter/>}/>
@@ -118,7 +123,7 @@ const AppRoute = () => {
                         <>
                             {/*비로그인 유저 라우트*/}
                             <Route index element={<Navigate to="/login"/>}/>
-                            <Route path="login" element={<LoginPage/>}/>
+                            <Route path="login" element={<SigninPage/>}/>
                             <Route path="signup" element={<SignupPage/>}/>
                             <Route path="signup/done" element={<SignupDonePage/>}/>
                             <Route path="password/reset" element={<FindPasswordPage/>}/>

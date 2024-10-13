@@ -85,7 +85,7 @@ export const headerCategories = {
         ch: "编辑咨询",
     },
     inquiryDetail: {
-        ko: "문 의",
+        ko: "문의",
         en: "Inquiry",
         ch: "询问",
     },
@@ -145,7 +145,7 @@ export const headerCategories = {
         ch: "选择日期",
     },
     notification: {
-        ko: "알 림",
+        ko: "알림",
         en: "Notifications",
         ch: "通知",
     },
@@ -153,5 +153,25 @@ export const headerCategories = {
         ko: "날짜 및 기기 선택",
         en: "Select Date and Machine",
         ch: "选择日期和机器",
-    }
+    },
+    myReservations: {
+        ko: "내 예약",
+        en: "My Reservations",
+        ch: "我的预约",
+    },
+    myUsage: {
+        ko: "이용 내역",
+        en: "Usage History",
+        ch: "使用记录",
+    },
+    myInquiries: {
+        ko: "문의 내역",
+        en: "Inquiry History",
+        ch: "咨询记录",
+    },
+    myWarning: {
+        ko: "경고 내역",
+        en: "Warning History",
+        ch: "警告记录",
+    },
 };

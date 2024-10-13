@@ -20,6 +20,7 @@ export const Container = styled.div`
         word-break: keep-all;
         white-space: normal;
         overflow-wrap: break-word;
+        margin: 24px;
     }
 ;
 
@@ -32,17 +33,17 @@ export const Container = styled.div`
 `;
 
 export const NoticeInfoWrapper = styled.div`
-    width: calc(100% + 48px);
-    margin-left: -24px;
-    padding-top: 12px;
+    width: 100%;
+    padding: 12px 24px 24px 24px;
     background-color: ${({theme}) => theme.colors.bg.main};
+    border-bottom: 1px solid ${({theme}) => theme.colors.line.main};
 
     h2 {
         font-size: 1.25rem;
         font-weight: 500;
         line-height: 1.5;
         color: ${({theme}) => theme.colors.font.main};
-        margin: 0 24px 12px 24px;
+        margin: 0 0 12px;
         word-break: keep-all;
         white-space: normal;
         overflow-wrap: break-word;
@@ -53,20 +54,10 @@ export const NoticeInfoWrapper = styled.div`
         align-items: center;
         justify-content: space-between;
         position: relative;
-        margin-left: 24px;
-        margin-right: 24px;
 
         span {
-            font-size: 1rem;
+            font-size: 0.87rem;
             color: ${({theme}) => theme.colors.font.sub};
         }
-    }
-
-    hr {
-        width: 100%;
-        display: block;
-        margin-top: 14px;
-        border: none;
-        border-top: 1px solid ${({theme}) => theme.colors.line.main};
     }
 `;

@@ -7,7 +7,7 @@ export const Container = styled.div`
         margin: 0;
         font-weight: 400;
         font-size: 1rem;
-        color: ${({theme}) => theme.colors.font.sub};
+        color: ${({theme}) => theme.colors.font.main};
     }
 
     & > div:first-of-type {

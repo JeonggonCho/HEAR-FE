@@ -14,6 +14,7 @@ import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import Select from "@components/common/Select";
 import ConfirmContent from "@components/content/ConfirmContent";
+import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import {inquirySchema} from "@schemata/qnaSchema.ts";
@@ -90,7 +91,7 @@ const UpdateInquiryPage:FC = () => {
                     method: "patch",
                     data: inquiry,
                 });
-                navigate(`/communication/inquiry/${inquiryId}`, {replace: true});
+                navigate(`/board/inquiry/${inquiryId}`, {replace: true});
             } catch (err) {
                 setUpdateInquiryModal(false);
                 console.error("문의 수정 에러: ", err);
@@ -130,6 +131,8 @@ const UpdateInquiryPage:FC = () => {
 
     return (
         <Container>
+            <HeadTag title={headerCategories.editInquiry[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.editInquiry[lang]}/>
             {isLoading ?
                 <LoadingLoop/>

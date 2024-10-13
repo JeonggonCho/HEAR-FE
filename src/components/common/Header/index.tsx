@@ -4,12 +4,12 @@ import {IHeaderProps} from "@/types/componentProps.ts";
 
 import {CenterTextWrapper, Container, LeftChildWrapper, RightChildWrapper} from "./style.ts";
 
-const Header: FC<IHeaderProps> = ({leftChild, centerText, rightChild, type="grid"}) => {
+const Header: FC<IHeaderProps> = ({leftChild, centerText, rightChild, type="grid", bgColor=false}) => {
     return (
-        <Container type={type}>
-            {leftChild && <LeftChildWrapper>{leftChild}</LeftChildWrapper>}
-            {centerText && <CenterTextWrapper>{centerText}</CenterTextWrapper>}
-            {rightChild && <RightChildWrapper>{rightChild}</RightChildWrapper>}
+        <Container type={type} bgColor={bgColor}>
+            <LeftChildWrapper>{leftChild}</LeftChildWrapper>
+            <CenterTextWrapper>{centerText}</CenterTextWrapper>
+            <RightChildWrapper>{rightChild}</RightChildWrapper>
         </Container>
     );
 };

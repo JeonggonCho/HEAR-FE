@@ -13,6 +13,7 @@ import Input from "@components/common/Input";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
+import HeadTag from "@components/common/HeadTag";
 
 import {inquirySchema} from "@schemata/qnaSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
@@ -59,7 +60,7 @@ const CreateInquiryPage:FC = () => {
                 data: data,
             });
             const {inquiryId} = response.data;
-            navigate(`/communication/inquiry/${inquiryId}`, { replace: true });
+            navigate(`/board/inquiry/${inquiryId}`, { replace: true });
         } catch (err) {
             console.error("문의 생성 시 에러 발생: ", err);
         }
@@ -67,6 +68,8 @@ const CreateInquiryPage:FC = () => {
 
     return (
         <Container>
+            <HeadTag title={headerCategories.inquiry[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.inquiry[lang]}/>
             {isLoading ?
                 <LoadingLoop/>

@@ -13,6 +13,7 @@ import Select from "@components/common/Select";
 import Modal from "@components/common/Modal";
 import LoadingLoop from "@components/common/LoadingLoop";
 import ErrorContent from "@components/content/ErrorContent";
+import HeadTag from "@components/common/HeadTag";
 
 import {signupSchema} from "@schemata/userSchema.ts";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -83,6 +84,8 @@ const SignupPage:FC = () => {
 
     return (
         <Container>
+            <HeadTag title={headerCategories.signUp[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.signUp[lang]}/>
             {isLoading ?
                 <LoadingLoop/>

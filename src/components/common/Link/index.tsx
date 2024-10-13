@@ -10,6 +10,7 @@ import {
     ButtonLinkCardWrapper,
     ButtonImgWrapper
 } from "./style.ts";
+import CardLoading from "@components/skeleton/CardLoading";
 
 type LinkType = "text" | "card" | "button";
 
@@ -34,11 +35,18 @@ const Link: FC<ILinkProps> = ({
         <CardLinkCardWrapper to={to}>
             <div>
                 {image && (
-                    <CardImgWrapper>
-                        <img src={image} alt={`${name}_img`} />
-                    </CardImgWrapper>
+                    isLoading ?
+                        <CardLoading bgColor={"dark"} widthValue={"60px"} heightValue={"60px"}/>
+                        :
+                        <CardImgWrapper>
+                            <img src={image} alt={`${name}_img`} />
+                        </CardImgWrapper>
                 )}
-                <h4>{name}</h4>
+                {isLoading ?
+                    <CardLoading bgColor={"dark"} widthValue={"120px"} heightValue={"20px"}/>
+                    :
+                    <h4>{name}</h4>
+                }
             </div>
             <ArrowForward />
         </CardLinkCardWrapper>
@@ -47,11 +55,19 @@ const Link: FC<ILinkProps> = ({
     const renderButtonLink = () => (
         <ButtonLinkCardWrapper to={isDisabled ? "" : to} {...commonProps}>
             {image && (
-                <ButtonImgWrapper {...commonProps}>
-                    <img src={image} alt={name} />
-                </ButtonImgWrapper>
+                isLoading?
+                    <CardLoading bgColor={"dark"} widthValue={"60px"} heightValue={"60px"}/>
+                    :
+                    <ButtonImgWrapper {...commonProps}>
+                        <img src={image} alt={name} />
+                    </ButtonImgWrapper>
             )}
-            <span>{name}</span>
+
+            {isLoading ?
+                <CardLoading bgColor={"dark"} widthValue={"64px"} heightValue={"20px"}/>
+                :
+                <span>{name}</span>
+            }
         </ButtonLinkCardWrapper>
     );
 

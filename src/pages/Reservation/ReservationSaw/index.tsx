@@ -13,6 +13,7 @@ import Modal from "@components/common/Modal";
 import Calendar from "@components/common/Calendar";
 import LoadingLoop from "@components/common/LoadingLoop";
 import ErrorContent from "@components/content/ErrorContent";
+import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import {sawVacuumSchema} from "@schemata/machineSchema.ts";
@@ -93,6 +94,8 @@ const ReservationSaw:FC = () => {
 
     return (
         <Container tooltip={showTooltip}>
+            <HeadTag title={headerCategories.sawReservationHeader[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.sawReservationHeader[lang]}/>
             <ImageWrapper>
                 <img src={saw} alt={"톱"}/>

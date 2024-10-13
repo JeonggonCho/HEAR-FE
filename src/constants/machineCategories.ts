@@ -28,7 +28,7 @@ export const machineName: MachineNameType = {
         ch: "3D 打印机",
     },
     heat: {
-        ko: "열 선",
+        ko: "열선",
         en: "Hot Wire Cutter ",
         ch: "热丝切割机",
     },

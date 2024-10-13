@@ -40,7 +40,10 @@ const Modal:FC<IModalProps> = ({title, content, setModal, type}) => {
                     }}/>
                     <div>
                         <h3>{title}</h3>
-                        <div onClick={() => setModal(false)}>
+                        <div onClick={(e) => {
+                            e.stopPropagation();
+                            setModal(false);
+                        }}>
                             <ReactSVG src={close}/>
                         </div>
                     </div>

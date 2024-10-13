@@ -61,7 +61,7 @@ const ManagerCard:FC = () => {
 
                     {userData?.role !== "manager" &&
                       <Button
-                        type={"link"} to={"/communication/inquiry/new"}
+                        type={"link"} to={"/board/inquiry/new"}
                         content={buttonCategories.inquiry[lang]}
                         width={"fit"}
                         color={"third"}

@@ -6,10 +6,11 @@ import { useThemeStore } from "@store/useThemeStore.ts";
 const commonBtnStyle = `
     text-align: center;
     transition: all 0.1s ease-in-out 0s;
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     vertical-align: middle;
     cursor: pointer;
-    line-height: 1.4;
     border: none;
     text-wrap: nowrap;
 `;

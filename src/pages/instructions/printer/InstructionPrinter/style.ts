@@ -16,3 +16,11 @@ export const MachineImgWrapper = styled.div`
 export const Content = styled.div`
     padding: 0 8px;
 `;
+
+export const Container = styled.div`
+    & > div:nth-of-type(3),
+    & > div:nth-of-type(4) {
+        margin-left: 24px;
+        margin-right: 24px;
+    }
+`;

@@ -11,6 +11,7 @@ import Modal from "@components/common/Modal";
 import LoadingLoop from "@components/common/LoadingLoop";
 import ErrorContent from "@components/content/ErrorContent";
 import LaserSelectContent from "@components/content/LaserSelectContent";
+import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import {getTomorrowDate} from "@util/calculateDate.ts";
@@ -111,6 +112,7 @@ const ReservationLaser: FC = () => {
 
     return (
         <Container>
+            <HeadTag title={headerCategories.laserReservationHeader[lang]}/>
             <Header
                 leftChild={<ArrowBack/>}
                 centerText={headerCategories.laserReservationHeader[lang]}
@@ -119,6 +121,7 @@ const ReservationLaser: FC = () => {
                         <ReactSVG src={mapIcon}/>
                     </MapIcon>
                 }
+                bgColor={true}
             />
             <ImageWrapper>
                 <img src={laser} alt={"레이저 커팅기"}/>

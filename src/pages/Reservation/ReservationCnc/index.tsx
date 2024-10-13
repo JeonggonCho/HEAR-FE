@@ -14,21 +14,22 @@ import Modal from "@components/common/Modal";
 import Calendar from "@components/common/Calendar";
 import LoadingLoop from "@components/common/LoadingLoop";
 import ErrorContent from "@components/content/ErrorContent";
+import HeadTag from "@components/common/HeadTag";
 
-import {cncHeatSchema} from "@schemata/machineSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
+import {cncHeatSchema} from "@schemata/machineSchema.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
 
 import {CncCheckWrapper, Container, ImageWrapper, MapIcon} from "./style.ts";
 
 import cnc from "@assets/images/cnc.png";
 import mapIcon from "@assets/icons/map.svg";
 import check from "@assets/icons/check.svg";
-import {placeholderCategories} from "@constants/placeholderCategories.ts";
 
 const ReservationCnc:FC = () => {
     const [condition, setCondition] = useState([]);
@@ -94,6 +95,8 @@ const ReservationCnc:FC = () => {
 
     return (
         <Container>
+            <HeadTag title={headerCategories.cncReservationHeader[lang]}/>
+
             <Header
                 leftChild={<ArrowBack/>}
                 centerText={headerCategories.cncReservationHeader[lang]}

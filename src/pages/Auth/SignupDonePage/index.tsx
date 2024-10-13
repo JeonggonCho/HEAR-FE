@@ -17,10 +17,23 @@ const SignupDonePage:FC = () => {
 
     return (
         <Container>
-            <Header centerText={headerCategories.doneSignUp[lang]}/>
-            <LottieWrapper animationData={done}/>
-            <p>{messageCategories.doneSignUp[lang]}</p>
-            <Button type={"link"} to={"/"} content={buttonCategories.goHome[lang]} width={"full"} color={"primary"} scale={"big"}/>
+            <Header
+                centerText={headerCategories.doneSignUp[lang]}
+                type={"grid"}
+            />
+
+            <div>
+                <LottieWrapper animationData={done}/>
+                <p>{messageCategories.doneSignUp[lang]}</p>
+                <Button
+                    type={"link"}
+                    to={"/"}
+                    content={buttonCategories.goHome[lang]}
+                    width={"full"}
+                    color={"primary"}
+                    scale={"big"}
+                />
+            </div>
         </Container>
     );
 };

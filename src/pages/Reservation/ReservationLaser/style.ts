@@ -1,13 +1,8 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-    & > div:first-of-type {
-        background-color: ${({theme}) => theme.colors.bg.main} !important;
-    }
-    
     form {
-        width: calc(100% + 48px);
-        margin-left: -24px;
+        width: 100%;
         padding: 24px;
         background-color: ${({theme}) => theme.colors.bg.main};
         display: flex;
@@ -59,6 +54,8 @@ export const MapIcon = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
+    width: 100%;
+    background-color: ${({theme}) => theme.colors.bg.sub};
     display: flex;
     align-items: center;
     justify-content: center;

@@ -7,20 +7,13 @@ export const Container = styled.main`
     margin: auto;
 `;
 
-export const OutletWrapper = styled.section`
+export const OutletWrapper = styled.section<{background: boolean}>`
     width: 100%;
     min-height: 100vh;
-    padding: 80px 24px 120px;
+    padding-bottom: 120px;
     box-shadow: 0 0 15px ${({theme}) => theme.colors.bg.shadow};
     transition: all 0.2s ease-in-out 0s;
-    background-color: ${({theme}) => theme.colors.bg.sub};
+    background-color: ${({theme, background}) => background ? theme.colors.bg.sub : theme.colors.bg.main};
     border-left: 1px solid ${({theme}) => theme.colors.line.main};
     border-right: 1px solid ${({theme}) => theme.colors.line.main};
-
-    & > div:first-of-type {
-        & > div:first-of-type {
-            transition: all 0.2s ease-in-out 0s;
-            background-color: ${({theme}) => theme.colors.bg.sub};
-        }
-    }
 `;

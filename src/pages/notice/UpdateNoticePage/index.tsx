@@ -12,6 +12,7 @@ import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
+import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import {noticeSchema} from "@schemata/qnaSchema.ts";
@@ -73,7 +74,7 @@ const UpdateNoticePage:FC = () => {
                 method: "patch",
                 data: data,
             });
-            navigate(`/communication/notice/${noticeId}`, {replace: true});
+            navigate(`/board/notice/${noticeId}`, {replace: true});
         } catch (err) {
             console.log("공지 수정 중 에러 발생: ", err);
         }
@@ -81,6 +82,8 @@ const UpdateNoticePage:FC = () => {
 
     return (
         <Container>
+            <HeadTag title={headerCategories.updateNotice[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.updateNotice[lang]}/>
             {isLoading ?
                 <LoadingLoop/>

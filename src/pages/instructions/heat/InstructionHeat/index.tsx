@@ -3,12 +3,13 @@ import React, {FC, useEffect, useState} from "react";
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
+import HeadTag from "@components/common/HeadTag";
 
 import {ITab} from "@/types/tab.ts";
 import {machineName, machineInstructionTabCategories} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
-import {MachineImgWrapper} from "./style.ts";
+import {Container, MachineImgWrapper} from "./style.ts";
 
 import heat from "@assets/images/heat_cutter.png";
 
@@ -29,14 +30,16 @@ const InstructionHeat:FC = () => {
     }, [activeIndex]);
 
     return (
-        <div>
+        <Container>
+            <HeadTag title={machineName.heat[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={machineName.heat[lang]}/>
             <MachineImgWrapper>
                 <img src={heat} alt="열선"/>
             </MachineImgWrapper>
             <Tab type={"button"} tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
             <Content>{tabs[activeIndex].content}</Content>
-        </div>
+        </Container>
     );
 };
 

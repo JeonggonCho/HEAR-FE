@@ -12,3 +12,11 @@ export const MachineImgWrapper = styled.div`
         object-fit: cover;
     }
 `;
+
+export const Container = styled.div`
+    & > div:nth-of-type(3),
+    & > div:nth-of-type(4) {
+        margin-left: 24px;
+        margin-right: 24px;
+    }
+`;

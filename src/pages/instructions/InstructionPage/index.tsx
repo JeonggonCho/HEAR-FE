@@ -2,6 +2,7 @@ import {FC} from "react";
 
 import Header from "@components/common/Header";
 import Link from "@components/common/Link";
+import HeadTag from "@components/common/HeadTag";
 
 import {pageDescriptionCategories} from "@constants/pageDescriptionCategories.ts";
 import {machineName} from "@constants/machineCategories.ts";
@@ -51,6 +52,8 @@ const InstructionPage:FC = () => {
 
     return (
         <Container>
+            <HeadTag title={navCategories.instruction[lang]}/>
+
             <Header leftChild={<InstructionHeaderLeft/>} type={"flex"}/>
             <p>{pageDescriptionCategories.instruction[lang]}</p>
             <div>

@@ -9,6 +9,7 @@ import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
 import PrinterSelectContent from "@components/content/PrinterSelectContent";
 import LoadingLoop from "@components/common/LoadingLoop";
+import HeadTag from "@components/common/HeadTag";
 
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
@@ -90,6 +91,8 @@ const ReservationPrinter:FC = () => {
 
     return (
         <Container>
+            <HeadTag title={headerCategories.printerReservationHeader[lang]}/>
+
             <Header
                 leftChild={<ArrowBack/>}
                 centerText={headerCategories.printerReservationHeader[lang]}

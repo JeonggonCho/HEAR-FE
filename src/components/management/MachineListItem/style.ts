@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 export const Container = styled.div<{isEdit: boolean, showEdit: boolean}>`
     width: 100%;
@@ -9,10 +10,18 @@ export const Container = styled.div<{isEdit: boolean, showEdit: boolean}>`
     align-items: center;
     justify-content: space-between;
     position: relative;
-    overflow: hidden;
+    
+    input {
+        width: ${() => {
+            const {lang} = useThemeStore();
+            return lang === "en" && "172px";
+        }};
+    }
     
     h3 {
+        width: fit-content;
         margin: 0;
+        flex-grow: 1;
     }
     
     & + & {
@@ -23,24 +32,26 @@ export const Container = styled.div<{isEdit: boolean, showEdit: boolean}>`
 export const Buttons = styled.div`
     display: flex;
     align-items: center;
-    gap: 16px;
     margin: 0;
 `;
 
 export const ControlWrapper = styled.div<{showEdit: boolean}>`
-    display: flex;
+    width: 100%;
     align-items: center;
     gap: 8px;
-    margin-right: ${({showEdit}) => showEdit ? "0" : "-126px"};
-    opacity: ${({showEdit}) => showEdit ? '1' : '0'};
-    transition: margin-right 0.2s ease-in-out 0s, opacity 0.4s ease-in-out 0s;
+    margin-right: ${({showEdit}) => {
+        const {lang} = useThemeStore();
+        return showEdit ? "0" : lang === "en" ? "-136px" : lang === "ko" ? "-116px" : "-124px";
+    }};
+    display: ${({showEdit}) => showEdit ? 'flex' : 'hidden'};
+    flex-direction: row;
+    transition: margin-right 0.2s ease-in-out 0s;
 
     button {
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 32px;
-        padding: 12px;
+        vertical-align: middle;
     }
 `;

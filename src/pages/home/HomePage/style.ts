@@ -72,27 +72,31 @@ export const ThemeWrapper = styled.div`
 `;
 
 export const Container = styled.div`
-    & > div:first-of-type,
-    & > div:nth-of-type(2),
-    & > div:nth-of-type(3),
-    & > div:nth-of-type(4),
-    & > div:nth-of-type(5) {
-        margin-bottom: 16px !important;
-    }
-    
-    & > div:nth-of-type(5) {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 16px;
+    & > div:last-of-type {
+        margin: 0 24px;
         
-        @media (max-width: 600px) {
-            grid-template-columns: 1fr;
+        & > div:first-of-type,
+        & > div:nth-of-type(2),
+        & > div:nth-of-type(3),
+        & > div:nth-of-type(4),
+        & > div:nth-of-type(5) {
+            margin-bottom: 16px !important;
+        }
+
+        & > div:last-of-type {
+            display: grid;
+            grid-gap: 16px;
+            grid-template-columns: 1fr 1fr;
         }
     }
+`;
 
-    & > div:last-of-type {
-        display: grid;
-        grid-gap: 16px;
-        grid-template-columns: 1fr 1fr;
+export const ManagerCafeWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 16px;
+
+    @media (max-width: 600px) {
+        grid-template-columns: 1fr;
     }
 `;

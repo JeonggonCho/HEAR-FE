@@ -3,10 +3,8 @@ import {useThemeStore} from "@store/useThemeStore.ts";
 import {lighten} from "polished";
 
 export const Container = styled.div`
-    width: calc(100% + 48px);
     padding: 12px 24px;
     background-color: ${({theme}) => theme.colors.bg.main};
-    margin: 16px 0 16px -24px;
     display: flex;
     flex-direction: column;
 
@@ -140,11 +138,11 @@ export const CountWrapper = styled.div<{rangeValue: number}>`
 
                 &:after {
                     position: absolute;
-                    top: -1px;
+                    top: -2px;
                     left: 0;
                     content: "";
                     width: calc((100% - 16px) * (${({rangeValue}) => rangeValue} / 15));
-                    height: 3px;
+                    height: 4px;
                     border-radius: 4px;
                     background-color: ${({theme}) => {
                         const {isDarkMode} = useThemeStore();

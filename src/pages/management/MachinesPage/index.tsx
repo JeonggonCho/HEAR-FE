@@ -6,6 +6,8 @@ import MachineManageCard from "@components/management/MachineManageCard";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
+import Divider from "@components/common/Divider";
+import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
@@ -78,7 +80,10 @@ const MachinesPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.machineManagementHeader[lang]}/>
+            <HeadTag title={headerCategories.machineManagementHeader[lang]}/>
+
+            <Header leftChild={<ArrowBack/>} centerText={headerCategories.machineManagementHeader[lang]} bgColor={true}/>
+            <Divider/>
             {isLoading?
                 <LoadingLoop/>
                 :
@@ -94,6 +99,7 @@ const MachinesPage:FC = () => {
                           timeData={timeList}
                           setTimes={setTimeList}
                         />
+                        <Divider/>
                         <MachineManageCard
                           name={machineName.printer[lang]}
                           img={printer_icon}
@@ -101,24 +107,28 @@ const MachinesPage:FC = () => {
                           machineData={printers}
                           setMachines={setPrinters}
                         />
+                        <Divider/>
                         <MachineManageCard
                           name={machineName.heat[lang]}
                           img={heat_icon}
                           machineType={"heat"}
                           machineData={heats}
                         />
+                        <Divider/>
                         <MachineManageCard
                           name={machineName.saw[lang]}
                           img={saw_icon}
                           machineType={"saw"}
                           machineData={saws}
                         />
+                        <Divider/>
                         <MachineManageCard
                           name={machineName.vacuum[lang]}
                           img={vacuum_icon}
                           machineType={"vacuum"}
                           machineData={vacuums}
                         />
+                        <Divider/>
                         <MachineManageCard
                           name={machineName.cnc[lang]}
                           img={cnc_icon}
@@ -129,6 +139,7 @@ const MachinesPage:FC = () => {
                     }
                 </>
             }
+            <Divider/>
 
             {errorText &&
                 <Modal

@@ -25,6 +25,7 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container} from "./style.ts";
+import HeadTag from "@components/common/HeadTag";
 
 const UpdateFeedbackPage:FC = () => {
     const [feedback, setFeedback] = useState<any>();
@@ -90,7 +91,7 @@ const UpdateFeedbackPage:FC = () => {
                     method: "patch",
                     data: feedback,
                 });
-                navigate(`/communication/feedback/${feedbackId}`, {replace: true});
+                navigate(`/board/feedback/${feedbackId}`, {replace: true});
             } catch (err) {
                 setUpdateFeedbackModal(false);
                 console.error("피드백 수정 에러: ", err);
@@ -130,6 +131,8 @@ const UpdateFeedbackPage:FC = () => {
 
     return (
         <Container>
+            <HeadTag title={headerCategories.editFeedback[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.editFeedback[lang]}/>
             {isLoading ?
                 <LoadingLoop/>

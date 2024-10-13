@@ -6,12 +6,13 @@ import Header from "@components/common/Header";
 import ProfileCard from "@components/account/ProfileCard";
 import Button from "@components/common/Button";
 import StatusCard from "@components/account/StatusCard";
-import ReservationListCard from "@components/account/ReservationListCard";
 import Modal from "@components/common/Modal";
 import ConfirmContent from "@components/content/ConfirmContent";
 import ErrorContent from "@components/content/ErrorContent";
 import Link from "@components/common/Link";
-import CardLoading from "@components/skeleton/CardLoading";
+import ArrowBack from "@components/common/ArrowBack";
+import Divider from "@components/common/Divider";
+import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
@@ -19,13 +20,17 @@ import {useAuthStore} from "@store/useAuthStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
+import {navCategories} from "@constants/navCategories.ts";
 
-import {Container, HeaderWrapper, UpdateButtonWrapper} from "./style.ts";
+import {BtnsWrapper, Container, DeleteUserWrapper, LinkWrapper, SettingWrapper} from "./style.ts";
 
-import no_profile from "@assets/images/no_profile.png";
+import userImg from "@assets/images/manager.png";
 import machine from "@assets/images/machine.png";
-import list from "@assets/images/list.png";
-import noProfile from "@assets/icons/no_profile.svg";
+import reservation from "@assets/images/my_reservation.png";
+import setting from  "@assets/icons/setting.svg";
+import history from "@assets/images/history.png";
+import siren from "@assets/images/siren.png";
+import notice from "@assets/images/notice.png";
 
 const AccountPage:FC = () => {
     const [logoutModal, setLogoutModal] = useState<boolean>(false);
@@ -65,31 +70,11 @@ const AccountPage:FC = () => {
         navigate("/login");
     };
 
-    const AccountHeaderLeft:FC = () => (
-        <HeaderWrapper>
-            <div>
-                <ReactSVG src={noProfile}/>
-            </div>
-            <div>
-                <p>{userInfo?.username}</p>
-                <span>{userInfo?.email.split("@")[0]}</span>
-            </div>
-        </HeaderWrapper>
+    const AccountHeaderRight:FC = () => (
+        <SettingWrapper>
+            <ReactSVG src={setting}/>
+        </SettingWrapper>
     );
-
-    const AccountHeaderRight:FC = () => {
-        const {lang} = useThemeStore();
-        return (
-            <Button
-                type={"button"}
-                content={buttonCategories.signOut[lang]}
-                width={"fit"}
-                color={"second"}
-                scale={"small"}
-                onClick={() => setLogoutModal(true)}
-            />
-        )
-    };
 
     const LogoutContent = () => {
         const leftBtn = (
@@ -149,46 +134,49 @@ const AccountPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<AccountHeaderLeft/>} rightChild={<AccountHeaderRight/>} type={"flex"}/>
+            <HeadTag title={userInfo?.username || navCategories.account[lang]}/>
+
+            <Header leftChild={<ArrowBack/>} rightChild={<AccountHeaderRight/>} type={"flex"}/>
 
             <ProfileCard isLoading={isLoading}/>
 
-            <UpdateButtonWrapper>
-                <Button type={"link"} content={buttonCategories.profileUpdate[lang]} width={"full"} color={"second"} scale={"normal"} to={"/account/update"}/>
-                <Button type={"link"} content={buttonCategories.passwordChange[lang]} width={"full"} color={"second"} scale={"normal"} to={"/password/update"}/>
-            </UpdateButtonWrapper>
+            <Divider/>
 
             {userData?.role === "student" &&
               <>
                 <StatusCard isLoading={isLoading}/>
-                <ReservationListCard isLoading={isLoading}/>
-                {/*<UsageListCard isLoading={isLoading}/>*/}
+                <Divider/>
+                <LinkWrapper>
+                  <Link image={reservation} type={"card"} name={buttonCategories.myReservations[lang]} to={"/my-reservations"} isLoading={isLoading}/>
+                  <Link image={history} type={"card"} name={buttonCategories.myUsage[lang]} to={"/my-usage"} isLoading={isLoading}/>
+                  <Link image={notice} type={"card"} name={buttonCategories.myInquiries[lang]} to={"/my-inquiries"} isLoading={isLoading}/>
+                  <Link image={siren} type={"card"} name={buttonCategories.myWarning[lang]} to={"/my-warning"} isLoading={isLoading}/>
+                </LinkWrapper>
               </>
             }
 
             {(userData?.role === "manager" || userData?.role === "admin") && (
-                isLoading ?
-                    <>
-                        <CardLoading heightValue={"85px"}/>
-                        <CardLoading heightValue={"85px"}/>
-                        <CardLoading heightValue={"85px"}/>
-                    </>
-                    :
-                    <>
-                        <Link image={list} name={buttonCategories.reservationManagement[lang]} to={"/management/reservations"} type={"card"} />
-                        <Link image={no_profile} name={buttonCategories.userManagement[lang]} to={"/management/users"} type={"card"} />
-                        <Link image={machine} name={buttonCategories.machineManagement[lang]} to={"/management/machines"} type={"card"} />
-                    </>
+                <LinkWrapper>
+                    <Link image={reservation} name={buttonCategories.reservationManagement[lang]} to={"/management/reservations"} type={"card"} isLoading={isLoading}/>
+                    <Link image={userImg} name={buttonCategories.userManagement[lang]} to={"/management/users"} type={"card"} isLoading={isLoading}/>
+                    <Link image={machine} name={buttonCategories.machineManagement[lang]} to={"/management/machines"} type={"card"} isLoading={isLoading}/>
+                </LinkWrapper>
             )}
 
-            <Button
-                type={"button"}
-                content={buttonCategories.accountDeletion[lang]}
-                width={"full"}
-                color={"second"}
-                scale={"big"}
-                onClick={() => setUnregisterModal(true)}
-            />
+            <BtnsWrapper>
+                <Button
+                    type={"button"}
+                    content={buttonCategories.signOut[lang]}
+                    width={"full"}
+                    color={"second"}
+                    scale={"big"}
+                    onClick={() => setLogoutModal(true)}
+                />
+
+                <DeleteUserWrapper onClick={() => setUnregisterModal(true)}>
+                    {buttonCategories.accountDeletion[lang]}
+                </DeleteUserWrapper>
+            </BtnsWrapper>
 
             {logoutModal &&
               <Modal

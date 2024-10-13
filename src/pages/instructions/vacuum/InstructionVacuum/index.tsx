@@ -3,12 +3,13 @@ import React, {FC, useEffect, useState} from "react";
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
+import HeadTag from "@components/common/HeadTag";
 
 import {ITab} from "@/types/tab.ts";
 import {machineName, machineInstructionTabCategories} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
-import {MachineImgWrapper} from "./style.ts";
+import {Container, MachineImgWrapper} from "./style.ts";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
 
 import vacuum from "@assets/images/vacuum.png";
@@ -39,12 +40,14 @@ const InstructionVacuum:FC = () => {
     }, [activeIndex]);
 
     return (
-        <div>
+        <Container>
+            <HeadTag title={machineName.vacuum[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={machineName.vacuum[lang]}/>
             <VacuumImage/>
             <Tab type={"button"} tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
             <Content>{tabs[activeIndex].content}</Content>
-        </div>
+        </Container>
     );
 };
 

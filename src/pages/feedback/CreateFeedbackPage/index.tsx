@@ -13,6 +13,7 @@ import Input from "@components/common/Input";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
+import HeadTag from "@components/common/HeadTag";
 
 import {feedbackSchema} from "@schemata/qnaSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
@@ -59,7 +60,7 @@ const CreateFeedbackPage:FC = () => {
                 data: data,
             });
             const {feedbackId} = response.data;
-            navigate(`/communication/feedback/${feedbackId}`, { replace: true });
+            navigate(`/board/feedback/${feedbackId}`, { replace: true });
         } catch (err) {
             console.error("피드백 생성 시 에러 발생: ", err);
         }
@@ -67,6 +68,8 @@ const CreateFeedbackPage:FC = () => {
 
     return (
         <Container>
+            <HeadTag title={headerCategories.feedback[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.feedback[lang]}/>
             {isLoading ?
                 <LoadingLoop/>

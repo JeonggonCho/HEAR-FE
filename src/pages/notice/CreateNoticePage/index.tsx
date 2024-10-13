@@ -12,6 +12,7 @@ import Button from "@components/common/Button";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
+import HeadTag from "@components/common/HeadTag";
 
 import {noticeSchema} from "@schemata/qnaSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
@@ -19,9 +20,9 @@ import {inputCategories} from "@constants/inputCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container} from "./style.ts";
-import {headerCategories} from "@constants/headerCategories.ts";
 
 const CreateNoticePage:FC = () => {
     const navigate = useNavigate();
@@ -48,7 +49,7 @@ const CreateNoticePage:FC = () => {
                 data: data,
             });
             const {noticeId} = response.data;
-            navigate(`/communication/notice/${noticeId}`, { replace: true });
+            navigate(`/board/notice/${noticeId}`, { replace: true });
         } catch (err) {
             console.error("공지 등록 중 에러 발생: ", err);
         }
@@ -56,6 +57,8 @@ const CreateNoticePage:FC = () => {
 
     return (
         <Container>
+            <HeadTag title={headerCategories.createNotice[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.createNotice[lang]}/>
             {isLoading ?
                 <LoadingLoop/>

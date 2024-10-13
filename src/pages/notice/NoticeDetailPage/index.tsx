@@ -7,6 +7,7 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
 import ErrorContent from "@components/content/ErrorContent";
 import Dropdown from "@components/common/Dropdown";
+import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import {INotice} from "@/types/componentProps.ts";
@@ -17,7 +18,6 @@ import {useThemeStore} from "@store/useThemeStore.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container, NoticeInfoWrapper} from "./style.ts";
-
 
 const NoticeDetailPage:FC = () => {
     const [notice, setNotice] = useState<INotice>();
@@ -54,19 +54,19 @@ const NoticeDetailPage:FC = () => {
 
     return (
         <Container>
+            <HeadTag title={notice?.title || headerCategories.noticeDetail[lang]}/>
+
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.noticeDetail[lang]}/>
             {!isLoading && notice ?
                 <>
                     <NoticeInfoWrapper>
                         <h2>{notice.title}</h2>
-
                         <div>
                             <span>{timeStamp}</span>
                             {userData?.role === "admin" || userData?.role === "manager" && noticeId &&
                               <Dropdown type={"notice"} id={noticeId}/>
                             }
                         </div>
-                        <hr/>
                     </NoticeInfoWrapper>
                     {notice.content &&
                       <p dangerouslySetInnerHTML={{__html: memoizedText}}/>

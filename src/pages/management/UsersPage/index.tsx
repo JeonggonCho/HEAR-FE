@@ -25,6 +25,7 @@ import {Badge, Container, UserControlWrapper} from "./style.ts";
 import tune from "@assets/icons/tune.svg";
 import search from "@assets/icons/search.svg";
 import close from "@assets/icons/close.svg";
+import HeadTag from "@components/common/HeadTag";
 
 const UsersPage:FC = () => {
     const [userList, setUserList] = useState<IUserList[]>([]);
@@ -59,7 +60,9 @@ const UsersPage:FC = () => {
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.userManagementHeader[lang]}/>
+            <HeadTag title={headerCategories.userManagementHeader[lang]}/>
+
+            <Header leftChild={<ArrowBack/>} centerText={headerCategories.userManagementHeader[lang]} bgColor={true}/>
 
             <UserControlWrapper usernameInputText={usernameInputText}>
                 <span>{userList.length} {inputCategories.userUnit[lang]}</span>
@@ -100,21 +103,20 @@ const UsersPage:FC = () => {
             <div>
                 <span>{inputCategories.username[lang]}</span>
                 <span>{inputCategories.year[lang]}</span>
-                <span>{inputCategories.studentId[lang]}</span>
                 <span>{inputCategories.warning[lang]}</span>
                 <span>{inputCategories.status[lang]}</span>
             </div>
 
             {isLoading ?
                 <div style={{display: "flex", flexDirection: "column", gap: "12px"}}>
-                    <CardLoading heightValue={"50px"}/>
-                    <CardLoading heightValue={"50px"}/>
-                    <CardLoading heightValue={"50px"}/>
-                    <CardLoading heightValue={"50px"}/>
-                    <CardLoading heightValue={"50px"}/>
-                    <CardLoading heightValue={"50px"}/>
-                    <CardLoading heightValue={"50px"}/>
-                    <CardLoading heightValue={"50px"}/>
+                    <CardLoading heightValue={"55px"}/>
+                    <CardLoading heightValue={"55px"}/>
+                    <CardLoading heightValue={"55px"}/>
+                    <CardLoading heightValue={"55px"}/>
+                    <CardLoading heightValue={"55px"}/>
+                    <CardLoading heightValue={"55px"}/>
+                    <CardLoading heightValue={"55px"}/>
+                    <CardLoading heightValue={"55px"}/>
                 </div>
                 :
                 <>

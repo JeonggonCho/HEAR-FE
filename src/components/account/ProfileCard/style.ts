@@ -2,16 +2,12 @@ import styled from "@emotion/styled";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 export const Container = styled.div`
-    width: 100%;
-    border-radius: 16px;
-    padding: 18px;
-    background-color: ${({theme}) => theme.colors.bg.main};
+    position: relative;
+    padding: 4px 24px 24px;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    border: 1px solid ${({theme}) => theme.colors.bg.main};
-    margin-top: 8px;
-    
+
     & > div {
         display: flex;
         align-items: start;
@@ -26,13 +22,59 @@ export const Container = styled.div`
             color: ${({theme}) => theme.colors.font.sub};
             font-size: 0.9rem;
             line-height: 1.3;
+            margin-left: 6px;
         }
-        
+
         & > span:last-of-type {
             text-wrap: wrap;
             line-height: 1.3;
             word-break: break-all;
             font-size: 0.9rem;
+        }
+    }
+`;
+
+export const NameEmailWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+
+    & > div:first-of-type {
+        min-width: 48px;
+        width: 48px;
+        height: 48px;
+        overflow: hidden;
+        border-radius: 50%;
+        border: 1px solid ${({theme}) => theme.colors.line.main};
+        background-color: ${({theme}) => theme.colors.bg.sub};
+
+        svg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            fill: ${({theme}) => theme.colors.icon.fill};
+        }
+    }
+
+    & > div:last-of-type {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        & > p {
+            width: fit-content;
+            margin: 0;
+            font-size: 1.15rem;
+            line-height: 1.3;
+        }
+
+        & > span {
+            text-wrap: wrap;
+            word-break: break-all;
+            font-size: 0.87rem;
+            color: ${({theme}) => theme.colors.font.sub};
         }
     }
 `;

@@ -1,53 +1,12 @@
 import styled from "@emotion/styled";
 
-export const HeaderWrapper = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-grow: 1;
-
-    & > div:first-of-type {
-        min-width: 44px;
-        width: 44px;
-        height: 44px;
-        overflow: hidden;
-        border-radius: 50%;
-        border: 1px solid ${({theme}) => theme.colors.line.main};
-        background-color: ${({theme}) => theme.colors.bg.main};
-
-        svg {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            fill: ${({theme}) => theme.colors.icon.fill};
-        }
-    }
-    
-    & > div:last-of-type {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        
-        & > p {
-            width: fit-content;
-            margin: 0;
-            font-size: 1.15rem;
-        }
-        
-        & > span {
-            text-wrap: wrap;
-            word-break: break-all;
-            font-size: 0.87rem;
-            color: ${({theme}) => theme.colors.font.sub};
-        }
-    }
-`;
-
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    
+    & > div:first-of-type {
+        background-color: ${({theme}) => theme.colors.bg.main} !important;
+    }
     
     & > div:nth-of-type(3) {
         display: flex;
@@ -56,13 +15,48 @@ export const Container = styled.div`
     }
 `;
 
-export const UpdateButtonWrapper = styled.div`
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+export const SettingWrapper = styled.div`
+    margin-right: 4px;
+    width: 28px;
+    height: 28px;
+    overflow: hidden;
+    cursor: pointer;
     
-    & > a {
-        text-wrap: nowrap;
-        padding-left: 0;
-        padding-right: 0;
+    &:hover {
+        svg {
+            fill: ${({theme}) => theme.colors.font.main};
+        }
+    }
+    
+    svg {
+        width: 100%;
+        height: 100%;
+        fill: ${({theme}) => theme.colors.icon.fill};
+        transition: all 0.2s ease-in-out 0s;
+    }
+`;
+
+export const DeleteUserWrapper = styled.span`
+    width: fit-content;
+    margin: auto;
+    color: ${({theme}) => theme.colors.font.sub};
+    cursor: pointer;
+`;
+
+export const BtnsWrapper = styled.div`
+    padding: 36px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    border-top: 1px solid ${({theme}) => theme.colors.line.main};
+`;
+
+export const LinkWrapper = styled.div`
+    a {
+        border-radius: 0;
+        padding-right: 24px;
+        padding-left: 24px;
     }
 `;

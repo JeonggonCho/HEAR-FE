@@ -27,8 +27,8 @@ const InquiryFeedbackListItem:FC<IFeedbackProps | IInquiryProps> = (props) => {
 
     return (
         <Container
-            to={props.type === "inquiry" ? `/communication/inquiry/${props._id}`
-                : props.type === "feedback" ? `/communication/feedback/${props._id}`
+            to={props.type === "inquiry" ? `/board/inquiry/${props._id}`
+                : props.type === "feedback" ? `/board/feedback/${props._id}`
                     : "/"}
         >
             <div>

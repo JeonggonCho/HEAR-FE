@@ -53,13 +53,13 @@ const NoticeCard:FC = () => {
                     <NoticesWrapper>
                         {latestNotices.map(value => {
                             return (
-                                <Notice key={value.noticeId} to={`/communication/notice/${value.noticeId}`}>
+                                <Notice key={value.noticeId} to={`/board/notice/${value.noticeId}`}>
                                     <span>{value.title}</span>
                                 </Notice>
                             );
                         })}
                     </NoticesWrapper>
-                    <More to={"/communication/notice"}>
+                    <More to={"/board/notice"}>
                         {buttonCategories.more[lang]} <ArrowForward/>
                     </More>
                 </>

@@ -29,11 +29,11 @@ const UserListItem: FC<IUserList> = (props) => {
             >
                 <span>{currentUserInfo.username}</span>
                 <span>{currentUserInfo.year}</span>
-                <span>{currentUserInfo.studentId}</span>
                 <span>{currentUserInfo.countOfWarning}</span>
                 <div>
                     <span>{currentUserInfo.passQuiz ? cardCategories.pass[lang] : cardCategories.fail[lang]}</span>
                 </div>
+                {/*<Button type={"button"} content={buttonCategories.delete[lang]} width={"fit"} color={"second"} scale={"small"}/>*/}
             </Container>
         );
     };

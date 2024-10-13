@@ -8,6 +8,7 @@ export const Container = styled(Link)`
     flex-direction: column;
     justify-content: space-between;
     border-radius: 16px;
+    border: 1px solid ${({theme}) => theme.colors.bg.main};
     padding: 18px;
     transition: all 0.2s ease-in-out 0s;
 

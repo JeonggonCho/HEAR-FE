@@ -27,7 +27,7 @@ const FeedBackCard:FC = () => {
     }
 
     return (
-        <Container to={"/communication/feedback/new"}>
+        <Container to={"/board/feedback/new"}>
             <div>
                 <ReactSVG src={feedbackLogo}/>
                 <h3>{buttonCategories.appFeedback[lang]}</h3>

@@ -46,13 +46,13 @@ const Dropdown:FC<IDropdownProps> = ({type, id}) => {
     const updateLinkHandler = () => {
         switch (type) {
             case "feedback":
-                navigate(`/communication/feedback/${id}/update`);
+                navigate(`/board/feedback/${id}/update`);
                 return;
             case "inquiry":
-                navigate(`/communication/inquiry/${id}/update`);
+                navigate(`/board/inquiry/${id}/update`);
                 return;
             case "notice":
-                navigate(`/communication/notice/${id}/update`);
+                navigate(`/board/notice/${id}/update`);
                 return;
             default:
                 return;
