@@ -8,7 +8,7 @@ import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
-import ErrorContent from "@components/content/ErrorContent";
+import Toast from "@components/common/Toast";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
@@ -177,11 +177,7 @@ const UpdateInquiryPage:FC = () => {
             }
 
             {errorText &&
-                <Modal
-                  content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                  setModal={clearError}
-                  type={"popup"}
-                />
+                <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

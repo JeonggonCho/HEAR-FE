@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import Modal from "@components/common/Modal";
 import ConfirmContent from "@components/content/ConfirmContent";
 import Button from "@components/common/Button";
-import ErrorContent from "@components/content/ErrorContent";
+import Toast from "@components/common/Toast";
 
 import {IDropdownProps} from "@/types/componentProps.ts";
 import useRequest from "@hooks/useRequest.ts";
@@ -109,11 +109,7 @@ const Dropdown:FC<IDropdownProps> = ({type, id}) => {
             }
 
             {errorText &&
-                <Modal
-                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                    setModal={clearError}
-                    type={"popup"}
-                />
+                <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

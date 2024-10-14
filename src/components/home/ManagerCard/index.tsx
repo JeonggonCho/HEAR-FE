@@ -1,9 +1,8 @@
 import {FC, useCallback, useEffect, useState} from "react";
 
 import Button from "@components/common/Button";
-import Modal from "@components/common/Modal";
-import ErrorContent from "@components/content/ErrorContent";
 import CardLoading from "@components/skeleton/CardLoading";
+import Toast from "@components/common/Toast";
 
 import {useUserDataStore} from "@store/useUserStore.ts";
 import useRequest from "@hooks/useRequest.ts";
@@ -76,11 +75,7 @@ const ManagerCard:FC = () => {
             }
 
             {errorText &&
-              <Modal
-                content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                setModal={clearError}
-                type={"popup"}
-              />
+              <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

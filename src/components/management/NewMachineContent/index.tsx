@@ -6,20 +6,20 @@ import {zodResolver} from "@hookform/resolvers/zod";
 
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
-import Modal from "@components/common/Modal";
-import ErrorContent from "@components/content/ErrorContent";
+import Toast from "@components/common/Toast";
+
 
 import {INewMachineContentProps} from "@/types/componentProps.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {newMachineSchema} from "@schemata/machineSchema.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
 
 import close from "@assets/icons/close.svg";
-import {placeholderCategories} from "@constants/placeholderCategories.ts";
-import {inputCategories} from "@constants/inputCategories.ts";
 
 const NewMachineContent:FC<INewMachineContentProps> = ({title, setModal, machine, setMachines}) => {
     const {sendRequest, errorText, clearError} = useRequest();
@@ -111,11 +111,7 @@ const NewMachineContent:FC<INewMachineContentProps> = ({title, setModal, machine
             }
 
             {errorText &&
-              <Modal
-                content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                setModal={clearError}
-                type={"popup"}
-              />
+              <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

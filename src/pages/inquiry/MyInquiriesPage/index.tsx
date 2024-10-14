@@ -3,8 +3,7 @@ import {FC, useCallback, useEffect, useState} from "react";
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Modal from "@components/common/Modal";
-import ErrorContent from "@components/content/ErrorContent";
+import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 import InquiryFeedbackListItem from "@components/board/InquiryFeedbackListItem";
 import Empty from "@components/common/Empty";
@@ -66,17 +65,16 @@ const MyInquiriesPage:FC = () => {
                             ))}
                         </InquiryListItemWrapper>
                         :
-                        <Empty title={messageCategories.emptyInquiry[lang]}/>
+                        <Empty
+                            title={messageCategories.emptyInquiry[lang]}
+                            message={messageCategories.makeInquiry[lang]}
+                        />
                     }
                 </>
             }
 
             {errorText &&
-              <Modal
-                content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                setModal={clearError}
-                type={"popup"}
-              />
+              <Toast text={errorText} setToast={clearError}/>
             }
         </>
     );

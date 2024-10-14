@@ -10,9 +10,8 @@ import ArrowBack from "@components/common/ArrowBack";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import Link from "@components/common/Link";
-import Modal from "@components/common/Modal";
+import Toast from "@components/common/Toast";
 import LoadingLoop from "@components/common/LoadingLoop";
-import ErrorContent from "@components/content/ErrorContent";
 import HeadTag from "@components/common/HeadTag";
 
 import {loginSchema} from "@schemata/userSchema.ts";
@@ -133,11 +132,7 @@ const SigninPage:FC = () => {
             </LinkWrapper>
 
             {errorText &&
-              <Modal
-                content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                setModal={clearError}
-                type={"popup"}
-              />
+              <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

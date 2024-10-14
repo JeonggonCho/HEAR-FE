@@ -7,7 +7,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import Toggle from "@components/common/Toggle";
 import Modal from "@components/common/Modal";
 import MachineListItem from "@components/management/MachineListItem";
-import ErrorContent from "@components/content/ErrorContent";
+import Toast from "@components/common/Toast";
 import NewMachineContent from "@components/management/NewMachineContent";
 import Input from "@components/common/Input";
 import TimeListContent from "@components/management/TimeListContent";
@@ -225,17 +225,11 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
 
             {/*에러 모달*/}
             {errorText &&
-                <Modal content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                       setModal={clearError}
-                       type={"popup"}
-                />
+                <Toast text={errorText} setToast={clearError}/>
             }
 
             {toggleErrorText &&
-              <Modal content={<ErrorContent text={toggleErrorText} closeModal={clearToggleError}/>}
-                     setModal={clearToggleError}
-                     type={"popup"}
-              />
+              <Toast text={toggleErrorText} setToast={clearToggleError}/>
             }
         </Container>
     );

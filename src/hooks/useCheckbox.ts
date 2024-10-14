@@ -4,7 +4,7 @@ const useCheckbox = (defaultValue: any[]) => {
     const [values, setValues] = useState<any[]>(defaultValue);
 
     const handleCheck = (selectedValue: any, categories: any) => {
-        const filteredCategories = categories.filter((cat: { value: any; }) => cat.value !== "all");
+        const filteredCategories = categories.filter((category: { value: any; }) => category.value !== "all");
 
         // "all" 선택 시 모든 값 해제 후 "all"만 선택
         if (selectedValue === "all") {

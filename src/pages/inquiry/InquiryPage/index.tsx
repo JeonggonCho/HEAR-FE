@@ -3,8 +3,7 @@ import React, {FC, useCallback, useEffect, useState} from "react";
 import InquiryFeedbackListItem from "@components/board/InquiryFeedbackListItem";
 import FloatingButton from "@components/common/FloatingButton";
 import Empty from "@components/common/Empty";
-import Modal from "@components/common/Modal";
-import ErrorContent from "@components/content/ErrorContent";
+import Toast from "@components/common/Toast";
 import CardLoading from "@components/skeleton/CardLoading";
 import Header from "@components/common/Header";
 import Tab from "@components/common/Tab";
@@ -95,11 +94,7 @@ const InquiryPage:FC = () => {
             }
 
             {errorText &&
-                <Modal
-                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                    setModal={clearError}
-                    type={"popup"}
-                />
+                <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

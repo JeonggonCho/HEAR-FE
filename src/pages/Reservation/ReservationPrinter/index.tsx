@@ -6,10 +6,10 @@ import ArrowBack from "@components/common/ArrowBack";
 import RoomMap from "@components/content/RoomMap";
 import Button from "@components/common/Button";
 import Modal from "@components/common/Modal";
-import ErrorContent from "@components/content/ErrorContent";
 import PrinterSelectContent from "@components/content/PrinterSelectContent";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
+import Toast from "@components/common/Toast";
 
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
@@ -168,22 +168,11 @@ const ReservationPrinter:FC = () => {
             }
 
             {showEmptyError &&
-              <Modal
-                content={<ErrorContent
-                    text={messageCategories.emptyDateAndMachine[lang]}
-                    closeModal={() => setShowEmptyError(false)}
-                />}
-                setModal={setShowEmptyError}
-                type={"popup"}
-              />
+              <Toast text={messageCategories.emptyDateAndMachine[lang]} setToast={() => setShowEmptyError(false)}/>
             }
 
             {errorText &&
-                <Modal
-                  content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                  setModal={clearError}
-                  type={"popup"}
-                />
+                <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

@@ -39,8 +39,8 @@ export const TimeWrapper = styled.div<{tooltip: boolean}>`
         position: relative;
 
         & > label {
-            margin-left: 6px;
-            color: ${({theme}) => theme.colors.font.sub};
+            margin-left: 4px;
+            color: ${({theme}) => theme.colors.font.main};
         }
 
         & > div:first-of-type {

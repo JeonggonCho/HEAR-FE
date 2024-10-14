@@ -15,9 +15,9 @@ export const Container = styled.div`
             gap: 8px;
             
             & > label {
-                margin-left: 6px;
+                margin-left: 4px;
                 font-size: 1rem;
-                color: ${({theme}) => theme.colors.font.sub};
+                color: ${({theme}) => theme.colors.font.main};
             }
 
             & > div:last-of-type {

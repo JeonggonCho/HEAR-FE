@@ -10,9 +10,8 @@ import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import Link from "@components/common/Link";
 import Select from "@components/common/Select";
-import Modal from "@components/common/Modal";
 import LoadingLoop from "@components/common/LoadingLoop";
-import ErrorContent from "@components/content/ErrorContent";
+import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 
 import {signupSchema} from "@schemata/userSchema.ts";
@@ -185,11 +184,7 @@ const SignupPage:FC = () => {
             }
 
             {errorText &&
-                <Modal
-                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                    setModal={clearError}
-                    type={"popup"}
-                />
+                <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

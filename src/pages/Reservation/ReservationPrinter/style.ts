@@ -56,14 +56,14 @@ export const DateMachineSelectWrapper = styled.div`
     gap: 16px;
     
     & > label {
-        color: ${({theme}) => theme.colors.font.sub};
-        margin-left: 6px;
+        color: ${({theme}) => theme.colors.font.main};
+        margin-left: 4px;
     }
     
     & > span:first-of-type {
         color: ${({theme}) => theme.colors.font.sub};
         font-size: 0.85rem;
-        margin-left: 6px;
+        margin-left: 4px;
     }
     
     & > div:first-of-type {

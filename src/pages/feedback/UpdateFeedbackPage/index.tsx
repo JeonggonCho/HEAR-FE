@@ -8,7 +8,8 @@ import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
-import ErrorContent from "@components/content/ErrorContent";
+import HeadTag from "@components/common/HeadTag";
+import Toast from "@components/common/Toast";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import Textarea from "@components/common/Textarea";
@@ -25,7 +26,6 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container} from "./style.ts";
-import HeadTag from "@components/common/HeadTag";
 
 const UpdateFeedbackPage:FC = () => {
     const [feedback, setFeedback] = useState<any>();
@@ -177,11 +177,7 @@ const UpdateFeedbackPage:FC = () => {
             }
 
             {errorText &&
-                <Modal
-                  content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                  setModal={clearError}
-                  type={"popup"}
-                />
+                <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

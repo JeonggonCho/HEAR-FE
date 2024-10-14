@@ -3,8 +3,7 @@ import {FC, useCallback, useEffect, useState} from "react";
 import InquiryFeedbackListItem from "@components/board/InquiryFeedbackListItem";
 import FloatingButton from "@components/common/FloatingButton";
 import Empty from "@components/common/Empty";
-import Modal from "@components/common/Modal";
-import ErrorContent from "@components/content/ErrorContent";
+import Toast from "@components/common/Toast";
 import CardLoading from "@components/skeleton/CardLoading";
 import Tab from "@components/common/Tab";
 import Header from "@components/common/Header";
@@ -93,11 +92,7 @@ const FeedbackPage:FC = () => {
             <FloatingButton to={"/board/feedback/new"}/>
 
             {errorText &&
-              <Modal
-                content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                setModal={clearError}
-                type={"popup"}
-              />
+              <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

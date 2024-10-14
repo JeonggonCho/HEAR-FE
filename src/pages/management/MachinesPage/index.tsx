@@ -4,8 +4,7 @@ import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import MachineManageCard from "@components/management/MachineManageCard";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Modal from "@components/common/Modal";
-import ErrorContent from "@components/content/ErrorContent";
+import Toast from "@components/common/Toast";
 import Divider from "@components/common/Divider";
 import HeadTag from "@components/common/HeadTag";
 
@@ -142,11 +141,7 @@ const MachinesPage:FC = () => {
             <Divider/>
 
             {errorText &&
-                <Modal
-                  content={<ErrorContent closeModal={clearError} text={errorText}/>}
-                  setModal={clearError}
-                  type={"popup"}
-                />
+                <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

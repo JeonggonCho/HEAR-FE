@@ -34,13 +34,6 @@ export interface IConfirmContentProps {
 }
 
 
-// 에러 메시지(ErrorContent) props
-export interface IErrorContentProps {
-    text: string;
-    closeModal: () => void;
-}
-
-
 // 헤더(Header) props
 export interface IHeaderProps {
     leftChild?: ReactNode;
@@ -290,8 +283,8 @@ export interface IUserInfoContentProps {
 // 토스트(Toast) props
 export interface IToastProps {
     text: string;
-    time: number;
-    setToast?: () => void;
+    time?: number;
+    setToast: () => void;
 }
 
 
@@ -366,4 +359,17 @@ export interface ILaserReservationConditionContentProps {
     laserStatus: ILaserStatus[];
     rate: number;
     color: "primary" | "green" | "danger" | "orange" | "purple";
+}
+
+
+// 예약 내역 아이템(ReservationListItem) props
+export interface IReservationListItemProps {
+    reservation: {
+        machine: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc";
+        _id: string;
+        date: string;
+        machineName?: string;
+        startTime?: string;
+        endTime?: string;
+    }
 }

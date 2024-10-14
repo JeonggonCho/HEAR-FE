@@ -9,7 +9,7 @@ import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import Modal from "@components/common/Modal";
 import LoadingLoop from "@components/common/LoadingLoop";
-import ErrorContent from "@components/content/ErrorContent";
+import Toast from "@components/common/Toast";
 import LaserSelectContent from "@components/content/LaserSelectContent";
 import HeadTag from "@components/common/HeadTag";
 
@@ -205,19 +205,11 @@ const ReservationLaser: FC = () => {
             }
 
             {errorText &&
-              <Modal
-                content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                setModal={clearError}
-                type={"popup"}
-              />
+              <Toast text={errorText} setToast={clearError}/>
             }
 
             {showEmptyError &&
-                <Modal
-                  content={<ErrorContent text={messageCategories.emptyMachineAndTime[lang]} closeModal={() => setShowEmptyError(false)}/>}
-                  setModal={setShowEmptyError}
-                  type={"popup"}
-                />
+              <Toast text={messageCategories.emptyMachineAndTime[lang]} setToast={() => setShowEmptyError(false)}/>
             }
         </Container>
     );

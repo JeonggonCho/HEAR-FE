@@ -7,15 +7,15 @@ export const Container = styled.div`
     gap: 8px;
     
     label {
-        color: ${({theme}) => theme.colors.font.sub};
-        margin-left: 6px;
+        color: ${({theme}) => theme.colors.font.main};
+        margin-left: 4px;
         line-height: 1.5;
     }
     
     & > span:first-of-type {
         font-size: 0.85rem;
         color: ${({theme}) => theme.colors.font.sub};
-        margin-left: 6px;
+        margin-left: 4px;
         line-height: 1.5;
     }
     

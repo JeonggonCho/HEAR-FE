@@ -13,7 +13,7 @@ import Button from "@components/common/Button";
 import Modal from "@components/common/Modal";
 import Calendar from "@components/common/Calendar";
 import LoadingLoop from "@components/common/LoadingLoop";
-import ErrorContent from "@components/content/ErrorContent";
+import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
@@ -177,11 +177,7 @@ const ReservationCnc:FC = () => {
             }
 
             {errorText &&
-                <Modal
-                  content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                  setModal={clearError}
-                  type={"popup"}
-                />
+                <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

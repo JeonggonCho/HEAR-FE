@@ -1,8 +1,8 @@
 import {FC, useCallback, useEffect, useState} from "react";
 
 import ArrowForward from "@components/common/ArrowForward";
-import Modal from "@components/common/Modal";
-import ErrorContent from "@components/content/ErrorContent";
+import CardLoading from "@components/skeleton/CardLoading";
+import Toast from "@components/common/Toast";
 
 import useRequest from "@hooks/useRequest.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
@@ -11,7 +11,6 @@ import {useThemeStore} from "@store/useThemeStore.ts";
 import {Container, EmptyNotice, ImgWrapper, More, Notice, NoticesWrapper} from "./style.ts";
 
 import notice from "@assets/images/notice.png";
-import CardLoading from "@components/skeleton/CardLoading";
 
 const NoticeCard:FC = () => {
     const [latestNotices, setLatestNotices] = useState<{noticeId: string, title: string}[]>([]);
@@ -68,11 +67,7 @@ const NoticeCard:FC = () => {
             }
 
             {errorText &&
-              <Modal
-                content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                setModal={clearError}
-                type={"popup"}
-                />
+              <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

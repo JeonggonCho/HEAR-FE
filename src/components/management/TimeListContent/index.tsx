@@ -7,8 +7,7 @@ import {DragDropContext, Droppable} from '@hello-pangea/dnd';
 
 import TimeListItem from "@components/management/TimeListItem";
 import Button from "@components/common/Button";
-import Modal from "@components/common/Modal";
-import ErrorContent from "@components/content/ErrorContent";
+import Toast from "@components/common/Toast";
 
 import {timeRangeSchema} from "@schemata/machineSchema.ts";
 import {ITimeListContentProps} from "@/types/componentProps.ts";
@@ -16,9 +15,9 @@ import useRequest from "@hooks/useRequest.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
 
 import {Container, TimeSelectsWrapper, ErrorMessage,} from "./style.ts";
-import {inputCategories} from "@constants/inputCategories.ts";
 
 const TimeListContent:FC<ITimeListContentProps> = ({timeList, setTimeList}) => {
     const {lang} = useThemeStore();
@@ -206,11 +205,7 @@ const TimeListContent:FC<ITimeListContentProps> = ({timeList, setTimeList}) => {
             }
 
             {errorText &&
-                <Modal
-                  content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                  setModal={clearError}
-                  type={"popup"}
-                />
+                <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

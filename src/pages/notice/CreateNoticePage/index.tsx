@@ -10,8 +10,7 @@ import Input from "@components/common/Input";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Modal from "@components/common/Modal";
-import ErrorContent from "@components/content/ErrorContent";
+import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 
 import {noticeSchema} from "@schemata/qnaSchema.ts";
@@ -87,11 +86,7 @@ const CreateNoticePage:FC = () => {
             }
 
             {errorText &&
-                <Modal
-                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                    setModal={clearError}
-                    type={"popup"}
-                />
+                <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

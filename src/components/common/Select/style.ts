@@ -9,8 +9,8 @@ export const Container = styled.div`
     gap: 8px;
     
     & > label:first-of-type {
-        color: ${({theme}) => theme.colors.font.sub};
-        margin-left: 6px;
+        color: ${({theme}) => theme.colors.font.main};
+        margin-left: 4px;
     }
 `;
 
@@ -86,8 +86,8 @@ export const CheckboxWrapper = styled.div`
 
             svg {
                 display: none;
-                width: 20px;
-                fill: ${({theme}) => theme.colors.font.primary};
+                width: 18px;
+                fill: white;
             }
         }
     }
@@ -97,8 +97,8 @@ export const CheckboxWrapper = styled.div`
         
         & > div {
             border: 2px solid ${({theme}) => theme.colors.line.primary};
-            background-color: ${({theme}) => theme.colors.button.approval}
-        ;
+            background-color: ${({theme}) => theme.colors.button.primary};
+            
             svg {
                 display: block;
             }

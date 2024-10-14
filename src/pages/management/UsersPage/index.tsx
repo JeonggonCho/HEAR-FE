@@ -6,11 +6,12 @@ import ArrowBack from "@components/common/ArrowBack";
 import UserListItem from "@components/management/UserListItem";
 import Input from "@components/common/Input";
 import Modal from "@components/common/Modal";
-import ErrorContent from "@components/content/ErrorContent";
 import Empty from "@components/common/Empty";
 import UsersFilterContent from "@components/content/UsersFilterContent";
 import Button from "@components/common/Button";
 import CardLoading from "@components/skeleton/CardLoading";
+import HeadTag from "@components/common/HeadTag";
+import Toast from "@components/common/Toast";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IUserFilter, IUserList} from "@/types/user.ts";
@@ -25,7 +26,6 @@ import {Badge, Container, UserControlWrapper} from "./style.ts";
 import tune from "@assets/icons/tune.svg";
 import search from "@assets/icons/search.svg";
 import close from "@assets/icons/close.svg";
-import HeadTag from "@components/common/HeadTag";
 
 const UsersPage:FC = () => {
     const [userList, setUserList] = useState<IUserList[]>([]);
@@ -140,11 +140,7 @@ const UsersPage:FC = () => {
             }
 
             {errorText &&
-                <Modal
-                  content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                  setModal={clearError}
-                  type={"popup"}
-                />
+                <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

@@ -67,7 +67,7 @@ export const LineTapWrapper = styled.div`
 `;
 
 export const LineTap = styled(Link)<{active: string, tabcount: number}>`
-    color: ${({theme, active}) => active === "true" ? theme.colors.font.primary : theme.colors.font.sub};
+    color: ${({theme, active}) => active === "true" ? theme.colors.font.main : theme.colors.font.sub};
     padding: 12px 0;
     width: calc(100% / ${({tabcount}) => tabcount});
     display: block;

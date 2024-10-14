@@ -67,7 +67,7 @@ export const CncCheckWrapper = styled.div`
             align-items: center;
             gap: 8px;
             font-size: 1rem;
-            color: ${({theme}) => theme.colors.font.sub};
+            color: ${({theme}) => theme.colors.font.main};
             cursor: pointer;
 
             & > div:first-of-type {

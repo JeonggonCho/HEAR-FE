@@ -11,7 +11,7 @@ import Modal from "@components/common/Modal";
 import LangSettingContent from "@components/content/LangSettingContent";
 import ReservationCard from "@components/home/ReservationCard";
 import CardLoading from "@components/skeleton/CardLoading";
-import ErrorContent from "@components/content/ErrorContent";
+import Toast from "@components/common/Toast";
 import CafeSiteCard from "@components/home/CafeSiteCard";
 
 import LaserReservationConditionContent from "@components/content/LaserReservationConditionContent";
@@ -184,11 +184,7 @@ const HomePage = () => {
             }
 
             {errorText &&
-                <Modal
-                  content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                  setModal={clearError}
-                  type={"popup"}
-                />
+                <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

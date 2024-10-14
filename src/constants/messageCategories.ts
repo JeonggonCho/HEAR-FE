@@ -134,4 +134,14 @@ export const messageCategories = {
         en: "The page cannot be found",
         ch: "无法找到该页面",
     },
+    emptyReservation: {
+        ko: "예약 내역이 아직 없어요",
+        en: "There are no reservations yet.",
+        ch: "还没有预订记录。",
+    },
+    makeReservation: {
+        ko: "이용을 원하시는 기기를 예약해주세요",
+        en: "Please reserve the machine you wish to use.",
+        ch: "请预订您想使用的机器。",
+    },
 };

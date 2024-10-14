@@ -10,8 +10,7 @@ import ArrowBack from "@components/common/ArrowBack";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Modal from "@components/common/Modal";
-import ErrorContent from "@components/content/ErrorContent";
+import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
@@ -124,11 +123,7 @@ const ReservationHeat:FC = () => {
             }
 
             {errorText &&
-              <Modal
-                content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                setModal={clearError}
-                type={"popup"}
-              />
+              <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

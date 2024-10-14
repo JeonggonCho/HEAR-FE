@@ -3,12 +3,11 @@ import {FC, useCallback, useEffect, useState} from "react";
 import FloatingButton from "@components/common/FloatingButton";
 import Empty from "@components/common/Empty";
 import NoticeListItem from "@components/board/NoticeListItem";
-import Modal from "@components/common/Modal";
 import LoadingLoop from "@components/common/LoadingLoop";
-import ErrorContent from "@components/content/ErrorContent";
 import Tab from "@components/common/Tab";
 import Header from "@components/common/Header";
 import HeadTag from "@components/common/HeadTag";
+import Toast from "@components/common/Toast";
 
 import {useUserDataStore} from "@store/useUserStore.ts";
 import useRequest from "@hooks/useRequest.ts";
@@ -88,11 +87,7 @@ const NoticePage:FC = () => {
             }
 
             {errorText &&
-                <Modal
-                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                    setModal={clearError}
-                    type={"popup"}
-                />
+                <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

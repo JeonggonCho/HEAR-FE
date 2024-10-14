@@ -7,7 +7,7 @@ import Toggle from "@components/common/Toggle";
 import Button from "@components/common/Button";
 import Modal from "@components/common/Modal";
 import ConfirmContent from "@components/content/ConfirmContent";
-import ErrorContent from "@components/content/ErrorContent";
+import Toast from "@components/common/Toast";
 import Input from "@components/common/Input";
 
 import {ILasers, IPrinters} from "@/types/machine.ts";
@@ -190,11 +190,7 @@ const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines
             }
 
             {errorText &&
-                <Modal
-                  content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                  setModal={clearError}
-                  type={"popup"}
-                />
+                <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

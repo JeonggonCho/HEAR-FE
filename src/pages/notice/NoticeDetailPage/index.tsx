@@ -4,8 +4,7 @@ import {useParams} from "react-router-dom";
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Modal from "@components/common/Modal";
-import ErrorContent from "@components/content/ErrorContent";
+import Toast from "@components/common/Toast";
 import Dropdown from "@components/common/Dropdown";
 import HeadTag from "@components/common/HeadTag";
 
@@ -77,11 +76,7 @@ const NoticeDetailPage:FC = () => {
             }
 
             {errorText &&
-                <Modal
-                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                    setModal={clearError}
-                    type={"popup"}
-                />
+                <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );

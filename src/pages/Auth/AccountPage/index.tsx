@@ -8,11 +8,11 @@ import Button from "@components/common/Button";
 import StatusCard from "@components/account/StatusCard";
 import Modal from "@components/common/Modal";
 import ConfirmContent from "@components/content/ConfirmContent";
-import ErrorContent from "@components/content/ErrorContent";
 import Link from "@components/common/Link";
 import ArrowBack from "@components/common/ArrowBack";
 import Divider from "@components/common/Divider";
 import HeadTag from "@components/common/HeadTag";
+import Toast from "@components/common/Toast";
 
 import useRequest from "@hooks/useRequest.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
@@ -195,11 +195,7 @@ const AccountPage:FC = () => {
             }
 
             {errorText &&
-                <Modal
-                    content={<ErrorContent text={errorText} closeModal={clearError}/>}
-                    setModal={clearError}
-                    type={"popup"}
-                />
+              <Toast text={errorText} setToast={clearError}/>
             }
         </Container>
     );
