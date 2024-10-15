@@ -5,10 +5,7 @@ import Header from "@components/common/Header";
 import ManagerCard from "@components/home/ManagerCard";
 import NoticeCard from "@components/home/NoticeCard";
 import Carousel from "@components/common/Carousel";
-import LangSettingCard from "@components/home/LangSettingCard";
 import FeedBackCard from "@components/home/FeedBackCard";
-import Modal from "@components/common/Modal";
-import LangSettingContent from "@components/content/LangSettingContent";
 import ReservationCard from "@components/home/ReservationCard";
 import CardLoading from "@components/skeleton/CardLoading";
 import Toast from "@components/common/Toast";
@@ -22,8 +19,6 @@ import VacuumReservationConditionContent from "@components/content/VacuumReserva
 import CncReservationConditionContent from "@components/content/CncReservationConditionContent";
 import HeadTag from "@components/common/HeadTag";
 
-import {useThemeStore} from "@store/useThemeStore.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {ILaserStatus} from "@/types/reservation.ts";
 import {getLaserReservationRate} from "@util/getReservationRate.ts";
@@ -34,15 +29,11 @@ import {
     HeaderElementWrapper,
     Logo,
     LogoWrapper,
-    ManagerCafeWrapper,
-    ThemeWrapper,
     Title
 } from "./style.ts";
 
 import logo from "@assets/logo.svg";
 import alarm from "@assets/icons/alarm.svg";
-import dark from "@assets/icons/dark.svg";
-import light from "@assets/icons/light.svg";
 
 
 const HomeHeaderLeft:FC = () => {
@@ -56,24 +47,13 @@ const HomeHeaderLeft:FC = () => {
     );
 };
 
-const HomeHeaderRight:FC = () => {
-    const {isDarkMode, setTheme} = useThemeStore();
-
-    return (
-        <div style={{display: "flex", alignItems: "center", gap: "20px"}}>
-            <ThemeWrapper onClick={() => setTheme(isDarkMode)}>
-                <ReactSVG src={isDarkMode ? light : dark}/>
-            </ThemeWrapper>
-
-            <AlarmWrapper to={"/alarm"}>
-                <ReactSVG src={alarm}/>
-            </AlarmWrapper>
-        </div>
-    );
-};
+const HomeHeaderRight:FC = () => (
+    <AlarmWrapper to={"/alarm"}>
+        <ReactSVG src={alarm}/>
+    </AlarmWrapper>
+);
 
 const HomePage = () => {
-    const [langModal, setLangModal] = useState<boolean>(false);
     const [machineStatus, setMachineStatus] = useState({laser: false, printer: false, heat: false, saw: false, vacuum: false, cnc: false});
     const [laserStatus, setLaserStatus] = useState<ILaserStatus[]>([]);
     const [printerStatus, setPrinterStatus] = useState([]);
@@ -81,8 +61,6 @@ const HomePage = () => {
     const [sawStatus, setSawStatus] = useState([]);
     const [vacuumStatus, setVacuumStatus] = useState([]);
     const [cncStatus, setCncStatus] = useState([]);
-
-    const {lang} = useThemeStore();
 
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
@@ -152,7 +130,6 @@ const HomePage = () => {
                         <Carousel contents={carouselContents}/>
                         : null
                 }
-
                 <ReservationCard
                     laser={machineStatus.laser}
                     printer={machineStatus.printer}
@@ -162,29 +139,16 @@ const HomePage = () => {
                     cnc={machineStatus.cnc}
                     isLoading={isLoading}
                 />
-
                 <NoticeCard/>
-                <ManagerCafeWrapper>
-                    <ManagerCard/>
-                    <CafeSiteCard/>
-                </ManagerCafeWrapper>
+                <ManagerCard/>
                 <div>
-                    <LangSettingCard setModal={setLangModal}/>
+                    <CafeSiteCard/>
                     <FeedBackCard/>
                 </div>
             </div>
 
-            {langModal &&
-              <Modal
-                title={buttonCategories.languageSetting[lang]}
-                setModal={setLangModal}
-                content={<LangSettingContent setModal={setLangModal}/>}
-                type={"bottomSheet"}
-              />
-            }
-
             {errorText &&
-                <Toast text={errorText} setToast={clearError}/>
+                <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

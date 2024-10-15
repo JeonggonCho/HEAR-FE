@@ -1,19 +1,21 @@
 import styled from "@emotion/styled";
-import {darken, lighten} from "polished";
 import {Link} from "react-router-dom";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {lighten} from "polished";
 
 export const ButtonTapWrapper = styled.div`
     height: 44px;
-    background-color: ${({theme}) => theme.colors.bg.main};
+    background-color: ${({theme}) => {
+        const {isDarkMode} = useThemeStore();
+        return isDarkMode ? lighten(0.02, theme.colors.button.third) : theme.colors.bg.sub
+    }};
     padding: 2px;
     border-radius: 10px;
-    border: 1px solid ${({theme}) => theme.colors.bg.main};
+    border: 1px solid ${({theme}) => theme.colors.bg.sub};
     display: flex;
     position: sticky;
     top: 72px;
     margin-bottom: 32px;
-    box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
     z-index: 3;
 `;
 
@@ -43,12 +45,13 @@ export const Background = styled.div<{ activeIndex: number; tabCount: number }>`
     border-radius: 8px;
     background-color: ${({theme}) => {
         const {isDarkMode} = useThemeStore();
-        return isDarkMode ? lighten(0.05, theme.colors.button.third) : darken(0.05, theme.colors.button.third);
+        return isDarkMode ? lighten(0.1, theme.colors.button.second) : theme.colors.bg.main
     }};
     border: 1px solid ${({theme}) => {
         const {isDarkMode} = useThemeStore();
-        return isDarkMode ? lighten(0.05, theme.colors.button.third) : darken(0.05, theme.colors.button.third);
+        return isDarkMode ? lighten(0.1, theme.colors.button.second) : theme.colors.bg.main
     }};
+    box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
     transition: left 0.3s ease-in-out;
     z-index: 0;
 `;

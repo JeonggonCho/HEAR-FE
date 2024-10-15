@@ -13,6 +13,7 @@ const Layout: FC<ILayoutProps> = ({showNav=true}) => {
 
     const hideBackgroundRoutes:string[] = [
         "/account",
+        "/setting",
         "/management/machines",
         "/reservation/laser",
         "/reservation/3d-printer",
@@ -22,6 +23,12 @@ const Layout: FC<ILayoutProps> = ({showNav=true}) => {
         "/reservation/cnc",
         "/management/users",
         "/board/notice",
+        "/instruction/laser",
+        "/instruction/3d-printer",
+        "/instruction/heat",
+        "/instruction/saw",
+        "/instruction/vacuum",
+        "/instruction/cnc",
     ];
 
     useEffect(() => {

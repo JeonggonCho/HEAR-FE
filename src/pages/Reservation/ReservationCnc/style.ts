@@ -89,10 +89,10 @@ export const CncCheckWrapper = styled.div`
 
         & > input[type="checkbox"]:checked + label > div:first-of-type {
             border: 2px solid ${({theme}) => theme.colors.font.primary};
-            background-color: ${({theme}) => theme.colors.button.approval};
+            background-color: ${({theme}) => theme.colors.button.primary};
             
             svg {
-                fill: ${({theme}) => theme.colors.font.primary};
+                fill: white;
             }
         }
     }

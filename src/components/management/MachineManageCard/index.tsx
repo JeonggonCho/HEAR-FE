@@ -225,7 +225,7 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
 
             {/*에러 모달*/}
             {errorText &&
-                <Toast text={errorText} setToast={clearError}/>
+                <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
 
             {toggleErrorText &&

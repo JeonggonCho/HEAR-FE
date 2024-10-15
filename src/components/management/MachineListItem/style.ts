@@ -41,7 +41,7 @@ export const ControlWrapper = styled.div<{showEdit: boolean}>`
     gap: 8px;
     margin-right: ${({showEdit}) => {
         const {lang} = useThemeStore();
-        return showEdit ? "0" : lang === "en" ? "-136px" : lang === "ko" ? "-116px" : "-124px";
+        return showEdit ? "0" : lang === "en" ? "-138px" : lang === "ko" ? "-120px" : "-126px";
     }};
     display: ${({showEdit}) => showEdit ? 'flex' : 'hidden'};
     flex-direction: row;

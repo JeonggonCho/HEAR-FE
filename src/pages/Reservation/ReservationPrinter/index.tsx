@@ -168,11 +168,11 @@ const ReservationPrinter:FC = () => {
             }
 
             {showEmptyError &&
-              <Toast text={messageCategories.emptyDateAndMachine[lang]} setToast={() => setShowEmptyError(false)}/>
+              <Toast text={messageCategories.emptyDateAndMachine[lang]} setToast={() => setShowEmptyError(false)} type={"error"}/>
             }
 
             {errorText &&
-                <Toast text={errorText} setToast={clearError}/>
+                <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

@@ -49,28 +49,6 @@ export const AlarmWrapper = styled(Link)`
     }
 `;
 
-export const ThemeWrapper = styled.div`
-    width: 32px;
-    margin-top: 2px;
-    cursor: pointer;
-
-    svg {
-        display: inline-block;
-        fill: ${({theme}) => theme.colors.icon.fill};
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: all 0.2s ease-in-out 0s;
-
-        &:hover {
-            fill: ${({theme}) => {
-                const {isDarkMode} = useThemeStore();
-                return isDarkMode ? lighten(0.2, theme.colors.icon.fill) : darken(0.2, theme.colors.icon.fill)
-            }};
-        }
-    }
-`;
-
 export const Container = styled.div`
     & > div:last-of-type {
         margin: 0 24px;
@@ -88,15 +66,5 @@ export const Container = styled.div`
             grid-gap: 16px;
             grid-template-columns: 1fr 1fr;
         }
-    }
-`;
-
-export const ManagerCafeWrapper = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 16px;
-
-    @media (max-width: 600px) {
-        grid-template-columns: 1fr;
     }
 `;

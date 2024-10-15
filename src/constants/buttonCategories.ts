@@ -45,7 +45,7 @@ export const buttonCategories = {
         ch: "设备管理",
     },
     profileUpdate: {
-        ko: "내 정보 수정",
+        ko: "내 정보 변경",
         en: "Profile Update",
         ch: "个人资料修改",
     },
@@ -58,11 +58,6 @@ export const buttonCategories = {
         ko: "비밀번호 찾기",
         en: "Find Password",
         ch: "找回密码",
-    },
-    languageSetting: {
-        ko: "언어 설정",
-        en: "Language",
-        ch: "语言设置",
     },
     appFeedback: {
         ko: "피드백 작성",
@@ -213,5 +208,20 @@ export const buttonCategories = {
         ko: "경고 내역",
         en: "Warning History",
         ch: "警告记录",
+    },
+    selectMachine: {
+        ko: "기기 선택",
+        en: "Select Machine",
+        ch: "选择设备",
+    },
+    selectAll: {
+        ko: "전체 선택",
+        en: "Select All",
+        ch: "全选",
+    },
+    deleteSelectedReservations: {
+        ko: "선택 예약취소",
+        en: "Cancel Selected Reservation",
+        ch: "取消选定预订",
     },
 };

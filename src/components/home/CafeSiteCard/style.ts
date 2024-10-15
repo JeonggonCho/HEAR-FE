@@ -42,6 +42,10 @@ export const Container = styled(Link)`
         img {
             width: 20px;
         }
+        
+        @media (max-width: 600px) {
+            flex-direction: row-reverse;
+        }
     }
 
     & > div:last-of-type {
@@ -52,20 +56,5 @@ export const Container = styled(Link)`
         color: ${({theme}) => theme.colors.font.sub};
         text-wrap: nowrap;
         transition: all 0.2s ease-in-out 0s;
-    }
-
-    @media (max-width: 600px) {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        padding: 12px 18px;
-
-        h3 {
-            margin: 0;
-        }
-        
-        & > div:first-of-type {
-            align-items: center;
-        }
     }
 `;

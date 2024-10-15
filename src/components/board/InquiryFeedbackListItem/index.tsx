@@ -32,23 +32,20 @@ const InquiryFeedbackListItem:FC<IFeedbackProps | IInquiryProps> = (props) => {
                     : "/"}
         >
             <div>
+                <WriterWrapper>
+                    <div>
+                        <ReactSVG src={noProfile}/>
+                    </div>
+                    <span>{props.creator}</span>
+                </WriterWrapper>
+                <span>{timeStamp}</span>
+                <TagWrapper tag={props.category}>{categoryLabel}</TagWrapper>
+            </div>
+            <div>
                 <h3>{props.title}</h3>
                 {props.answer &&
                   <span>{props.answer && "답변완료"}</span>
                 }
-                <TagWrapper tag={props.category}>{categoryLabel}</TagWrapper>
-            </div>
-            <div>
-
-                <div>
-                    <WriterWrapper>
-                        <div>
-                            <ReactSVG src={noProfile}/>
-                        </div>
-                        <span>{props.creator}</span>
-                    </WriterWrapper>
-                    <span>{timeStamp}</span>
-                </div>
             </div>
         </Container>
     );

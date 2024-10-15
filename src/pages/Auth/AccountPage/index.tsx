@@ -71,7 +71,7 @@ const AccountPage:FC = () => {
     };
 
     const AccountHeaderRight:FC = () => (
-        <SettingWrapper>
+        <SettingWrapper onClick={() => navigate("/setting")}>
             <ReactSVG src={setting}/>
         </SettingWrapper>
     );
@@ -195,7 +195,7 @@ const AccountPage:FC = () => {
             }
 
             {errorText &&
-              <Toast text={errorText} setToast={clearError}/>
+              <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

@@ -111,7 +111,7 @@ const NewMachineContent:FC<INewMachineContentProps> = ({title, setModal, machine
             }
 
             {errorText &&
-              <Toast text={errorText} setToast={clearError}/>
+              <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

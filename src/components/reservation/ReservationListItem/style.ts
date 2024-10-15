@@ -6,6 +6,7 @@ export const Container = styled.div`
     background-color: ${({theme}) => theme.colors.bg.main};
     
     & > div:first-of-type {
+        width: 100%;
         display: flex;
         align-items: center;
         gap: 12px;
@@ -46,26 +47,10 @@ export const Container = styled.div`
             display: flex;
             align-items: center;
             gap: 12px;
-            flex-grow: 1;
-        }
-        
-        & > div:last-of-type {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
             
-            &:hover {
-                svg {
-                    fill: ${({theme}) => theme.colors.font.main};
-                }
-            }
-            
-            svg {
-                transition: all 0.2s ease-in-out 0s;
-                fill: ${({theme}) => theme.colors.icon.fill};
+            & > span {
+                width: 100%;
+                display: inline-block;
             }
         }
     }
@@ -99,7 +84,7 @@ export const ImgWrapper = styled.div`
 export const ReservationInfoWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     gap: 6px;
     padding: 4px 0;
     flex-grow: 1;
@@ -116,12 +101,15 @@ export const MachineName = styled.span`
 
 export const TimeWrapper = styled.div`
     font-size: 0.9rem;
+    line-height: 1.3;
 `;
 
 export const DateText = styled.span`
     display: inline-block;
     font-size: 1.1rem;
     letter-spacing: -0.2px;
+    width: 100%;
+    text-wrap: nowrap;
 `;
 
 export const DateTag = styled.span`
@@ -130,4 +118,26 @@ export const DateTag = styled.span`
     font-size: 0.87rem;
     padding: 4px 6px;
     border-radius: 6px;
+    width: fit-content;
+`;
+
+export const DeleteBtnWrapper = styled.div`
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: auto;
+
+    &:hover {
+        svg {
+            fill: ${({theme}) => theme.colors.font.main};
+        }
+    }
+
+    svg {
+        transition: all 0.2s ease-in-out 0s;
+        fill: ${({theme}) => theme.colors.icon.fill};
+    }
 `;

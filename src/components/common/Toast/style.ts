@@ -22,7 +22,7 @@ const fadeOut = keyframes`
     }
 `;
 
-export const Container = styled.div<{time: number}>`
+export const Container = styled.div<{time: number, type: "success" | "error" | "normal"}>`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -35,7 +35,7 @@ export const Container = styled.div<{time: number}>`
     left: 50%;
     transform: translateX(-50%);
     border-radius: 16px;
-    border: 1px solid ${({theme}) => theme.colors.line.danger};
+    border: 1px solid ${({theme, type}) => type === "error" ? theme.colors.line.danger : type === "success" ? theme.colors.line.primary : theme.colors.line.main};
     background-color: ${({theme}) => theme.colors.bg.main};
     opacity: 0;
     box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
@@ -50,7 +50,7 @@ export const Container = styled.div<{time: number}>`
         svg {
             width: 32px;
             height: 32px;
-            fill: ${({theme}) => theme.colors.font.danger};
+            fill: ${({theme, type}) => type === "error" ? theme.colors.font.danger : theme.colors.icon.fill};
         }
 
         & > p {

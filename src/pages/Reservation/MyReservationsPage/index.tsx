@@ -8,74 +8,32 @@ import HeadTag from "@components/common/HeadTag";
 import Empty from "@components/common/Empty";
 import ReservationListItem from "@components/reservation/ReservationListItem";
 import Toast from "@components/common/Toast";
+import Modal from "@components/common/Modal";
+import ConfirmContent from "@components/content/ConfirmContent";
+import Button from "@components/common/Button";
 
 import useRequest from "@hooks/useRequest.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
+import {machineName} from "@constants/machineCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {IReservation} from "@/types/componentProps.ts";
 
 import {ReservationControlWrapper, ReservationListItemWrapper, SelectAllWrapper} from "./style.ts";
 
 import check from "@assets/icons/check.svg";
 
-const dummy = [
-    {
-        machine: "laser",
-        _id: "1",
-        date: "2024-10-14",
-        machineId: "1",
-        startTime: "10:00",
-        endTime: "11:00",
-        machineName: "1호기",
-    },
-    {
-        machine: "vacuum",
-        _id: "4",
-        date: "2024-10-16",
-        machineId: "3",
-        machineName: "1호기",
-    },
-    {
-        machine: "heat",
-        _id: "2",
-        date: "2024-10-14",
-        machineId: "2",
-        startTime: "14:00",
-        endTime: "15:00",
-        machineName: "2호기",
-    },
-    {
-        machine: "printer",
-        _id: "3",
-        date: "2024-10-13",
-        machineId: "3",
-        machineName: "1호기",
-    },
-    {
-        machine: "printer",
-        _id: "4",
-        date: "2024-10-16",
-        machineId: "3",
-        machineName: "1호기",
-    },
-    {
-        machine: "cnc",
-        _id: "4",
-        date: "2024-10-16",
-        machineId: "3",
-        machineName: "1호기",
-    },
-    {
-        machine: "saw",
-        _id: "4",
-        date: "2024-10-16",
-        machineId: "3",
-        machineName: "1호기",
-    },
-];
+
+type ReservationArgumentsType = {_id: string, machine: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc", date: string}
 
 const MyReservationsPage:FC = () => {
-    const [reservations, setReservations] = useState(dummy);
+    const [reservations, setReservations] = useState<IReservation[]>([]);
+    const [filter, setFilter] = useState("all");
+    const [selectedReservations, setSelectedReservations] = useState<ReservationArgumentsType[]>([]);
+    const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
+    const [showEmptySelect, setShowEmptySelect] = useState<boolean>(false);
+    const [successDeleteReservation, setSuccessDeleteReservation] = useState<boolean>(false);
 
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
     const {lang} = useThemeStore();
@@ -84,32 +42,89 @@ const MyReservationsPage:FC = () => {
     const fetchMyReservations = useCallback(async () => {
         try {
             const response = await sendRequest({
-                url: "",
+                url: `/reservations/me?filter=${filter}`,
             });
             if (response.data) {
-                // setReservations(response.data);
-                console.log(response.data);
+                setReservations(response.data);
             }
         } catch (err) {
             console.error("내 예약 내역 조회 중 에러 발생: ", err);
         }
-    }, [sendRequest, setReservations]);
+    }, [sendRequest, setReservations, filter]);
 
     useEffect(() => {
         fetchMyReservations();
-    }, [fetchMyReservations]);
+    }, [fetchMyReservations, filter]);
 
-    // 내 예약 취소
-    const deleteReservation = useCallback(async (data:any) => {
+    // 예약 취소
+    const deleteReservations = useCallback(async (target: ReservationArgumentsType[]) => {
+        const query = target.map(r => `ids[]=${r._id}&machines[]=${r.machine}&date[]=${r.date}`).join("&");
+
         const response = await sendRequest({
-            url: "",
+            url: `/reservations?${query}`,
             method: "delete",
-            data: data,
         });
         if (response.data) {
+            const deletedReservations = response.data;
 
+            setReservations(prevReservations =>
+                prevReservations.filter(reservation =>
+                    !deletedReservations.some((deleted: ReservationArgumentsType) =>
+                        reservation._id === deleted._id && reservation.machine === deleted.machine
+                    )
+                )
+            );
+
+            setSuccessDeleteReservation(true);
         }
     }, [sendRequest, setReservations]);
+
+    // 선택된 내역 예약 취소
+    const deleteSelectedReservations = useCallback(async () => {
+        if (selectedReservations.length === 0) return;
+        await deleteReservations(selectedReservations);
+        setSelectedReservations([]);
+        setShowConfirmModal(false);
+    }, [selectedReservations, deleteReservations]);
+
+    // 예약 체크 선택하기
+    const selectHandler = (target: ReservationArgumentsType) => {
+        setSelectedReservations(prevSelected => {
+            const isAlreadySelected = prevSelected.some(
+                (reservation) => reservation._id === target._id && reservation.machine === target.machine && reservation.date === target.date
+            );
+            if (isAlreadySelected) {
+                // 이미 선택된 경우, 선택 해제
+                return prevSelected.filter(
+                    (reservation) => !(reservation._id === target._id && reservation.machine === target.machine && reservation.date === target.date)
+                );
+            } else {
+                // 선택되지 않은 경우, 선택 추가
+                return [...prevSelected, target];
+            }
+        });
+    };
+
+    // 전체 선택하기 한번 더 클릭 시, 전체 해제하기
+    const selectAllHandler = () => {
+        if (selectedReservations.length === reservations.length) {
+            // 모두 선택된 상태라면, 전체 해제
+            setSelectedReservations([]);
+        } else {
+            // 전체 선택
+            const allReservations = reservations.map(reservation => ({
+                _id: reservation._id,
+                machine: reservation.machine,
+                date: reservation.date,
+            }));
+            setSelectedReservations(allReservations);
+        }
+    };
+
+    // 선택된 예약 삭제 확인 모달 핸들러
+    const deleteConfirmHandler = () => {
+        selectedReservations.length === 0 ? setShowEmptySelect(true) : setShowConfirmModal(true);
+    };
 
     return (
         <>
@@ -119,26 +134,33 @@ const MyReservationsPage:FC = () => {
 
             <ReservationControlWrapper>
                 <div>
+                    {/*전체 선택*/}
                     <SelectAllWrapper>
-                        <input type={"checkbox"} id={"select-all"}/>
+                        <input type={"checkbox"} id={"select-all"} onChange={selectAllHandler} checked={selectedReservations.length === reservations.length}/>
                         <label htmlFor={"select-all"}>
                             <ReactSVG src={check}/>
                         </label>
-                        <label htmlFor={"select-all"}>전체 선택</label>
+                        <label htmlFor={"select-all"}>{buttonCategories.selectAll[lang]}</label>
                     </SelectAllWrapper>
-                    <div>
-                        <span>선택 예약취소</span>
+
+                    {/*선택 예약 취소*/}
+                    <div onClick={deleteConfirmHandler}>
+                        <span>{buttonCategories.deleteSelectedReservations[lang]}</span>
+                        {selectedReservations.length > 0 && <span>{`(${ selectedReservations.length})`}</span>}
                     </div>
                 </div>
 
-                <select>
-                <option>기기 선택</option>
-                    <option>레이저 커팅기</option>
-                    <option>3D 프린터</option>
-                    <option>열선</option>
-                    <option>톱</option>
-                    <option>사출 성형기</option>
-                    <option>CNC</option>
+                {/*기기 필터링*/}
+                <select
+                    onChange={(e) => setFilter(e.target.value)}
+                >
+                    <option value={"all"}>{buttonCategories.selectMachine[lang]}</option>
+                    <option value={"laser"}>{machineName.laser[lang]}</option>
+                    <option value={"printer"}>{machineName.printer[lang]}</option>
+                    <option value={"heat"}>{machineName.heat[lang]}</option>
+                    <option value={"saw"}>{machineName.saw[lang]}</option>
+                    <option value={"vacuum"}>{machineName.vacuum[lang]}</option>
+                    <option value={"cnc"}>{machineName.cnc[lang]}</option>
                 </select>
             </ReservationControlWrapper>
 
@@ -148,8 +170,16 @@ const MyReservationsPage:FC = () => {
                 <>
                     {reservations.length > 0 ?
                         <ReservationListItemWrapper>
-                            {reservations.map((reservation, index) => (
-                                <ReservationListItem key={`${reservation._id}`} reservation={reservation}/>
+                            {reservations.map((reservation) => (
+                                <ReservationListItem
+                                    key={`${reservation._id}-${reservation.date}`}
+                                    reservation={reservation}
+                                    deleteHandler={deleteReservations}
+                                    isSelected={selectedReservations.some(
+                                        selected => selected._id === reservation._id && selected.machine === reservation.machine && selected.date === reservation.date
+                                    )}
+                                    selectHandler={() => selectHandler({ _id: reservation._id, machine: reservation.machine, date: reservation.date })}
+                                />
                             ))}
                         </ReservationListItemWrapper>
                         :
@@ -162,7 +192,28 @@ const MyReservationsPage:FC = () => {
             }
 
             {errorText &&
-              <Toast text={errorText} setToast={clearError}/>
+              <Toast text={errorText} setToast={clearError} type={"error"}/>
+            }
+
+            {successDeleteReservation &&
+              <Toast text={messageCategories.deleteDone[lang]} setToast={() => setSuccessDeleteReservation(false)} type={"success"}/>
+            }
+
+            {showEmptySelect &&
+                <Toast text={messageCategories.emptySelectedReservation[lang]} setToast={() => setShowEmptySelect(false)} type={"error"}/>
+            }
+
+            {showConfirmModal &&
+                <Modal
+                  content={
+                    <ConfirmContent
+                        text={messageCategories.confirmDeleteSelectedReservation[lang]}
+                        leftBtn={<Button type={"button"} content={buttonCategories.close[lang]} color={"third"} scale={"normal"} width={"full"} onClick={() => setShowConfirmModal(false)}/>}
+                        rightBtn={<Button type={"button"} content={buttonCategories.delete[lang]} color={"danger"} scale={"normal"} width={"full"} onClick={() => deleteSelectedReservations()}/>}
+                    />}
+                  setModal={() => setShowConfirmModal(false)}
+                  type={"popup"}
+                />
             }
         </>
     );

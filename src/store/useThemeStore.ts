@@ -15,7 +15,7 @@ const themeStore = (set: any): IThemeState => ({
     lang: "ko",
     isDarkMode: false,
     setLang: (lang: ITheme["lang"]) => set({lang}),
-    setTheme: (isDarkMode: boolean) => set({isDarkMode: !isDarkMode}),
+    setTheme: (isDarkMode: boolean) => set({isDarkMode: isDarkMode}),
 });
 
 export const useThemeStore = create<IThemeState>()(

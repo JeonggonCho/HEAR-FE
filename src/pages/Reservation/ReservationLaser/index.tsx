@@ -205,11 +205,11 @@ const ReservationLaser: FC = () => {
             }
 
             {errorText &&
-              <Toast text={errorText} setToast={clearError}/>
+              <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
 
             {showEmptyError &&
-              <Toast text={messageCategories.emptyMachineAndTime[lang]} setToast={() => setShowEmptyError(false)}/>
+              <Toast text={messageCategories.emptyMachineAndTime[lang]} setToast={() => setShowEmptyError(false)} type={"error"}/>
             }
         </Container>
     );

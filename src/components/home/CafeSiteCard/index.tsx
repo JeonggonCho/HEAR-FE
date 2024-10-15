@@ -9,7 +9,7 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 
 import {Container} from "./style.ts";
 
-import cafeLogo from "@assets/cafe_logo.png";
+import cafeLogo from "@assets/images/cafe_logo.png";
 
 const CafeSiteCard:FC = () => {
     const [isLoading, setIsLoading] = useState(true);

@@ -76,6 +76,7 @@ export const ImageWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid ${({theme}) => theme.colors.line.main};
     
     & + & {
         margin-top: 0;

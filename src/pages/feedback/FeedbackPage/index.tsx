@@ -92,7 +92,7 @@ const FeedbackPage:FC = () => {
             <FloatingButton to={"/board/feedback/new"}/>
 
             {errorText &&
-              <Toast text={errorText} setToast={clearError}/>
+              <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

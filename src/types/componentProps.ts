@@ -285,6 +285,7 @@ export interface IToastProps {
     text: string;
     time?: number;
     setToast: () => void;
+    type?: "success" | "error" | "normal";
 }
 
 
@@ -362,14 +363,21 @@ export interface ILaserReservationConditionContentProps {
 }
 
 
+// 예약 내역 타입
+export interface IReservation {
+    machine: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc";
+    _id: string;
+    date: string;
+    machineName?: string;
+    startTime?: string;
+    endTime?: string;
+}
+
+
 // 예약 내역 아이템(ReservationListItem) props
 export interface IReservationListItemProps {
-    reservation: {
-        machine: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc";
-        _id: string;
-        date: string;
-        machineName?: string;
-        startTime?: string;
-        endTime?: string;
-    }
+    reservation: IReservation;
+    deleteHandler?: (reservations: {machine: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc", _id: string, date: string}[]) => void;
+    isSelected?: boolean;
+    selectHandler?: () => void;
 }

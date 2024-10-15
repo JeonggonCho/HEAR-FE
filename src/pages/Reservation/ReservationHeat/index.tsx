@@ -123,7 +123,7 @@ const ReservationHeat:FC = () => {
             }
 
             {errorText &&
-              <Toast text={errorText} setToast={clearError}/>
+              <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

@@ -8,8 +8,9 @@ import {Container} from "./style.ts";
 
 import close from "@assets/icons/close.svg";
 import error from "@assets/icons/error.svg";
+import checkCircle from "@assets/icons/check_circle.svg";
 
-const Toast:FC<IToastProps> = ({text, time=6000, setToast}) => {
+const Toast:FC<IToastProps> = ({text, time=6000, setToast, type="normal"}) => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
     const toastRoot = document.getElementById("toast-hook");
@@ -27,9 +28,10 @@ const Toast:FC<IToastProps> = ({text, time=6000, setToast}) => {
     if (!toastRoot || !isVisible) return null;
 
     const toastContent = (
-        <Container time={time}>
+        <Container time={time} type={type}>
             <div>
-                <ReactSVG src={error}/>
+                {type === "error" && <ReactSVG src={error}/>}
+                {type === "success" && <ReactSVG src={checkCircle}/>}
                 <p>{text}</p>
             </div>
 

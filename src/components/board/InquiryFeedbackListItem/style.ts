@@ -38,27 +38,22 @@ export const Container = styled(Link)`
         width: 100%;
         display: flex;
         align-items: center;
-        gap: 40px;
+        justify-content: space-between;
         margin-bottom: 16px;
+        
+        // 작성일
+        & > span:first-of-type {
+            font-size: 0.85rem;
+            color: ${({theme}) => theme.colors.font.sub};
+            flex-grow: 1;
+        }
     }
 
     & > div:last-of-type {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        
-        & > div:last-of-type {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            
-            
-            // 작성일
-            & > span:first-of-type {
-                font-size: 0.85rem;
-                color: ${({theme}) => theme.colors.font.sub};
-            }
-        }
+        gap: 20px;
     }
 `;
 
@@ -141,6 +136,7 @@ export const WriterWrapper = styled.div`
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-right: 12px;
     
     & > div:first-of-type {
         width: 28px;

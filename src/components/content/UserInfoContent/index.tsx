@@ -292,10 +292,7 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
             }
 
             {errorText &&
-              <Toast
-                text={errorText}
-                setToast={clearError}
-                time={5000}/>
+              <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

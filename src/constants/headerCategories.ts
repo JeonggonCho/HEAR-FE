@@ -45,7 +45,7 @@ export const headerCategories = {
         ch: "设备管理",
     },
     profileUpdate: {
-        ko: "내 정보 수정",
+        ko: "내 정보 변경",
         en: "Profile Update",
         ch: "个人资料修改",
     },
@@ -173,5 +173,30 @@ export const headerCategories = {
         ko: "경고 내역",
         en: "Warning History",
         ch: "警告记录",
+    },
+    themeSetting: {
+        ko: "언어 및 테마 변경",
+        en: "Change Language and Theme",
+        ch: "更改语言和主题",
+    },
+    privacyPolicy: {
+        ko: "개인정보처리방침",
+        en: "Privacy Policy",
+        ch: "隐私政策",
+    },
+    settings: {
+        ko: "설정",
+        en: "Settings",
+        ch: "设置",
+    },
+    general: {
+        ko: "일반",
+        en: "General",
+        ch: "常规",
+    },
+    userGuide: {
+        ko: "이용안내",
+        en: "User Guide",
+        ch: "使用指南",
     },
 };

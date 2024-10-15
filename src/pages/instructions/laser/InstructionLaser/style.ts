@@ -14,6 +14,10 @@ export const MachineImgWrapper = styled.div`
 `;
 
 export const Container = styled.div`
+    & > div:first-of-type {
+        background-color: ${({theme}) => theme.colors.bg.main};
+    }
+    
     & > div:nth-of-type(3),
     & > div:nth-of-type(4) {
         margin-left: 24px;

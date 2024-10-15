@@ -1,13 +1,20 @@
-import {FC} from "react";
+import {FC, useState} from "react";
 import {ReactSVG} from "react-svg";
+
+import Modal from "@components/common/Modal";
+import ConfirmContent from "@components/content/ConfirmContent";
+import Button from "@components/common/Button";
 
 import {IReservationListItemProps} from "@/types/componentProps.ts";
 import {machineName} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 
 import {
     Container, DateTag,
-    DateText,
+    DateText, DeleteBtnWrapper,
     ImgWrapper,
     MachineName,
     MachineType,
@@ -24,7 +31,9 @@ import cnc from "@assets/images/cnc.png";
 import close from "@assets/icons/close.svg";
 import check from "@assets/icons/check.svg";
 
-const ReservationListItem:FC<IReservationListItemProps> = ({reservation}) => {
+const ReservationListItem:FC<IReservationListItemProps> = ({reservation, deleteHandler, isSelected, selectHandler}) => {
+    const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
+
     const {lang} = useThemeStore();
 
     const machines = {
@@ -39,17 +48,25 @@ const ReservationListItem:FC<IReservationListItemProps> = ({reservation}) => {
     return (
         <Container>
             <div>
-                <input type={"checkbox"} id={reservation._id}/>
-                <label htmlFor={reservation._id}>
-                    <ReactSVG src={check}/>
-                </label>
+                {isSelected !== undefined &&
+                    <>
+                        <input type={"checkbox"} id={reservation._id} onChange={selectHandler} checked={isSelected}/>
+                        <label htmlFor={reservation._id}>
+                            <ReactSVG src={check}/>
+                        </label>
+                    </>
+                }
+
                 <div>
-                    <DateText>{reservation.date.split("-").join(".")}</DateText>
-                    <DateTag>오늘</DateTag>
+                    <DateText>{(new Date(reservation.date)).toLocaleDateString()}</DateText>
+                    {new Date().toDateString() === new Date(reservation.date).toDateString() && <DateTag>{cardCategories.today[lang]}</DateTag>}
                 </div>
-                <div>
-                    <ReactSVG src={close}/>
-                </div>
+
+                {deleteHandler !== undefined &&
+                    <DeleteBtnWrapper onClick={() => setShowConfirmModal(true)}>
+                        <ReactSVG src={close}/>
+                    </DeleteBtnWrapper>
+                }
             </div>
 
             <div>
@@ -59,11 +76,53 @@ const ReservationListItem:FC<IReservationListItemProps> = ({reservation}) => {
                 <ReservationInfoWrapper>
                 <MachineType>{machineName[reservation.machine][lang]}</MachineType>
                     {reservation.machineName && <MachineName>{reservation.machineName}</MachineName>}
-                    <TimeWrapper>
-                        이용 시간 | {reservation.startTime && <span>{reservation.startTime}</span>} - {reservation.endTime && <span>{reservation.endTime}</span>}
-                    </TimeWrapper>
+                    {["laser", "saw", "vacuum"].includes(reservation.machine) &&
+                      <TimeWrapper>
+                        <span>{`${reservation.machine === "laser" ?
+                            cardCategories.usageTime[lang]
+                            : reservation.machine === "saw" ?
+                                cardCategories.preferredTime[lang]
+                                : reservation.machine === "vacuum" ?
+                                    cardCategories.preferredTime[lang]
+                                    : ""} | `}
+                        </span>
+                        <span>{`${reservation.startTime && reservation.startTime} - ${reservation.endTime && reservation.endTime}`}</span>
+                      </TimeWrapper>
+                    }
                 </ReservationInfoWrapper>
             </div>
+
+            {showConfirmModal && deleteHandler !== undefined &&
+                <Modal
+                  content={
+                    <ConfirmContent
+                        text={messageCategories.deleteReservation[lang]}
+                        leftBtn={
+                            <Button
+                                type={"button"}
+                                content={buttonCategories.close[lang]}
+                                width={"full"}
+                                scale={"normal"}
+                                color={"third"}
+                                onClick={() => setShowConfirmModal(false)}
+                            />
+                        }
+                        rightBtn={
+                            <Button
+                                type={"button"}
+                                content={buttonCategories.delete[lang]}
+                                width={"full"}
+                                scale={"normal"}
+                                color={"danger"}
+                                onClick={() => deleteHandler([{machine: reservation.machine, _id: reservation._id, date: reservation.date}])}
+                            />
+                        }
+                    />
+                }
+                  setModal={() => setShowConfirmModal(false)}
+                  type={"popup"}
+                />
+            }
         </Container>
     );
 };

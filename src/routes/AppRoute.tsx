@@ -50,6 +50,8 @@ const MyReservationsPage = lazy(() => import("@pages/reservation/MyReservationsP
 const MyUsagePage = lazy(() => import("@pages/reservation/MyUsagePage"));
 const MyInquiriesPage = lazy(() => import("@pages/inquiry/MyInquiriesPage"));
 const MyWarningPage = lazy(() => import("@pages/auth/MyWarningPage"));
+const SettingPage = lazy(() => import("@pages/auth/SettingPage"));
+const ThemeSettingPage = lazy(() => import("@pages/auth/ThemeSettingPage"));
 
 const AppRoute = () => {
     const {isLoggedIn, accessToken, logout} = useAuthStore();
@@ -74,6 +76,9 @@ const AppRoute = () => {
                             <Route path="account/update" element={<UpdateAccountPage/>}/>
                             <Route path="password/reset" element={<FindPasswordPage/>}/>
                             <Route path="password/update" element={<UpdatePasswordPage/>}/>
+
+                            <Route path="setting" element={<SettingPage/>}/>
+                            <Route path="setting/theme" element={<ThemeSettingPage/>}/>
 
                             <Route path="my-reservations" element={<MyReservationsPage/>}/>
                             <Route path="my-usage" element={<MyUsagePage/>}/>

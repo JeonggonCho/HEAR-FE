@@ -144,4 +144,34 @@ export const messageCategories = {
         en: "Please reserve the machine you wish to use.",
         ch: "请预订您想使用的机器。",
     },
+    deleteDone: {
+        ko: "삭제가 완료 되었습니다",
+        en: "Deletion completed",
+        ch: "删除已完成",
+    },
+    deleteReservation: {
+        ko: "예약을 취소하시겠습니까?",
+        en: "Would you like to cancel the reservation?",
+        ch: "您想要取消预订吗？",
+    },
+    emptySelectedReservation: {
+        ko: "선택된 예약이 없습니다",
+        en: "No reservations selected",
+        ch: "没有选择的预订",
+    },
+    confirmDeleteSelectedReservation: {
+        ko: "선택된 예약들을 취소하시겠습니까?",
+        en: "Do you want to cancel the selected reservations?",
+        ch: "您要取消选定的预订吗？",
+    },
+    emptyUsage: {
+        ko: "이용 내역이 아직 없어요",
+        en: "There is no usage history yet",
+        ch: "还没有使用记录",
+    },
+    emptyWarning: {
+        ko: "경고 내역이 없습니다",
+        en: "No warning history",
+        ch: "没有警告记录",
+    },
 };

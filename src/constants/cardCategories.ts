@@ -154,4 +154,29 @@ export const cardCategories = {
         en : "Reservation Rate",
         ch : "预订率",
     },
+    today: {
+        ko : "오늘",
+        en : "Today",
+        ch : "今天",
+    },
+    usageTime: {
+        ko : "이용 시간",
+        en : "Usage Time",
+        ch : "使用时间",
+    },
+    preferredTime: {
+        ko : "희망 시간",
+        en : "Preferred Time",
+        ch : "希望时间",
+    },
+    themeMode: {
+        ko : "화면 모드",
+        en : "Theme Mode",
+        ch : "主题模式",
+    },
+    languageSetting: {
+        ko : "언어 설정",
+        en : "Language Settings",
+        ch : "语言设置",
+    },
 };
