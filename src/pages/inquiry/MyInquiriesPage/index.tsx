@@ -61,6 +61,8 @@ const MyInquiriesPage:FC = () => {
                                     createdAt={inquiry.createdAt}
                                     creator={inquiry.creator}
                                     category={inquiry.category}
+                                    views={inquiry.views}
+                                    likes={inquiry.likes}
                                 />
                             ))}
                         </InquiryListItemWrapper>

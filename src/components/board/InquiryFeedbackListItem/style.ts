@@ -5,62 +5,32 @@ import {useThemeStore} from "@store/useThemeStore.ts";
 
 export const Container = styled(Link)`
     width: 100%;
-    display: inline-block;
-    padding: 14px;
-    transition: all 0.2s ease-in-out 0s;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px 14px 8px;
     background-color: ${({theme}) => theme.colors.bg.main};
     border-radius: 12px;
-
-    h3 {
-        width: 100%;
-        color: ${({theme}) => theme.colors.font.main};
-        margin: 0;
-        font-size: 1.15rem;
-        font-weight: 400;
-        line-height: 1.2;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
+    transition: transform 0.2s ease-out;
+    
     & + & {
         margin-top: 12px;
-            //border-top: 1px solid ${({theme}) => theme.colors.line.main};
     }
 
     &:hover {
-        h3 {
-            color: ${({theme}) => theme.colors.font.primary};
-        }
+        transform: scale(1.01);
     }
 
-    & > div:first-of-type {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 16px;
-        
-        // 작성일
-        & > span:first-of-type {
-            font-size: 0.85rem;
-            color: ${({theme}) => theme.colors.font.sub};
-            flex-grow: 1;
-        }
-    }
-
-    & > div:last-of-type {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
+    &:active {
+        transform: scale(0.98);
     }
 `;
 
 export const TagWrapper = styled.span<{tag: "good" | "bad" | "suggest" | "machine" | "reservation" | "room" | "etc"}>`
     width: fit-content;
-    font-size: 0.9rem;
-    padding: 6px 8px;
+    display: inline-block;
+    font-size: 0.87rem;
+    padding: 6px 6px;
     text-wrap: nowrap;
     text-align: center;
     border-radius: 6px;
@@ -99,7 +69,7 @@ export const TagWrapper = styled.span<{tag: "good" | "bad" | "suggest" | "machin
     color: ${({theme, tag}) => {
         const {isDarkMode} = useThemeStore();
         if (isDarkMode) {
-            return theme.colors.font.sub;
+            return lighten(0.2, theme.colors.font.sub);
         }
         
         let fontColor;
@@ -135,12 +105,11 @@ export const TagWrapper = styled.span<{tag: "good" | "bad" | "suggest" | "machin
 export const WriterWrapper = styled.div`
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-right: 12px;
+    gap: 6px;
     
     & > div:first-of-type {
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
         overflow: hidden;
         border-radius: 50%;
         background-color: ${({theme}) => theme.colors.bg.sub};
@@ -160,8 +129,62 @@ export const WriterWrapper = styled.div`
         }
     }
     
+    // 작성자 이름
     & > span:first-of-type {
         font-size: 0.9rem;
-        color: ${({theme}) => theme.colors.font.sub};
+        color: ${({theme}) => theme.colors.font.main};
+    }
+`;
+
+export const TitleWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+
+    h3 {
+        margin: 0;
+        width: 100%;
+        color: ${({theme}) => theme.colors.font.main};
+        font-size: 1.15rem;
+        font-weight: 400;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: 1.3;
+    }
+`;
+
+export const BottomWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0 4px;
+    border-top: 1px solid ${({theme}) => {
+        const {isDarkMode} = useThemeStore();
+        return isDarkMode ? theme.colors.line.main : lighten(0.05, theme.colors.line.main);
+    }};
+    font-size: 0.85rem;
+    color: ${({theme}) => theme.colors.font.sub};
+`;
+
+export const InfoWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    
+    & > div {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        
+        svg {
+            fill: ${({theme}) => theme.colors.icon.fill};
+            margin-top: 4px;
+            width: 14px;
+            height: 14px;
+        }
     }
 `;

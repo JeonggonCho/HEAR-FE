@@ -8,6 +8,7 @@ import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
 
+
 const NoticeListItem:FC<INotice> = (props) => {
     const {lang} = useThemeStore();
 

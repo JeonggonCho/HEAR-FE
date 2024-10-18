@@ -22,7 +22,7 @@ const Nav:FC = () => {
         { label: navCategories.home[lang], icon: home, path: "/home" },
         { label: navCategories.instruction[lang], icon: note, path: "/instruction" },
         { label: navCategories.quiz[lang], icon: quiz, path: "/quiz" },
-        { label: navCategories.board[lang], icon: inquiry, path: "/board/notice" },
+        { label: navCategories.board[lang], icon: inquiry, path: "/board" },
         { label: navCategories.account[lang], icon: account, path: "/account" },
     ];
 

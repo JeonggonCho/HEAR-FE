@@ -76,30 +76,28 @@ const AppRoute = () => {
                             <Route path="account/update" element={<UpdateAccountPage/>}/>
                             <Route path="password/reset" element={<FindPasswordPage/>}/>
                             <Route path="password/update" element={<UpdatePasswordPage/>}/>
-
                             <Route path="setting" element={<SettingPage/>}/>
                             <Route path="setting/theme" element={<ThemeSettingPage/>}/>
-
                             <Route path="my-reservations" element={<MyReservationsPage/>}/>
                             <Route path="my-usage" element={<MyUsagePage/>}/>
                             <Route path="my-inquiries" element={<MyInquiriesPage/>}/>
                             <Route path="my-warning" element={<MyWarningPage/>}/>
 
-
-                            <Route path="board/notice" element={<NoticePage/>}/>
-                            <Route path="board/inquiry" element={<InquiryPage/>}/>
-                            <Route path="board/feedback" element={<FeedbackPage/>}/>
-                            <Route path="board/notice/new" element={<CreateNoticePage/>}/>
-                            <Route path="board/notice/:noticeId" element={<NoticeDetailPage/>}/>
-                            <Route path="board/notice/:noticeId/update" element={<UpdateNoticePage/>}/>
-
-                            <Route path="board/inquiry/new" element={<CreateInquiryPage/>}/>
-                            <Route path="board/inquiry/:inquiryId" element={<InquiryDetailPage/>}/>
-                            <Route path="board/inquiry/:inquiryId/update" element={<UpdateInquiryPage/>}/>
-
-                            <Route path="board/feedback/new" element={<CreateFeedbackPage/>}/>
-                            <Route path="board/feedback/:feedbackId" element={<FeedbackDetailPage/>}/>
-                            <Route path="board/feedback/:feedbackId/update" element={<UpdateFeedbackPage/>}/>
+                            <Route path="board">
+                                <Route index element={<Navigate to="notice" replace/>} />
+                                <Route path="notice" element={<NoticePage/>}/>
+                                <Route path="inquiry" element={<InquiryPage/>}/>
+                                <Route path="feedback" element={<FeedbackPage/>}/>
+                                <Route path="notice/new" element={<CreateNoticePage/>}/>
+                                <Route path="notice/:noticeId" element={<NoticeDetailPage/>}/>
+                                <Route path="notice/:noticeId/update" element={<UpdateNoticePage/>}/>
+                                <Route path="inquiry/new" element={<CreateInquiryPage/>}/>
+                                <Route path="inquiry/:inquiryId" element={<InquiryDetailPage/>}/>
+                                <Route path="inquiry/:inquiryId/update" element={<UpdateInquiryPage/>}/>
+                                <Route path="feedback/new" element={<CreateFeedbackPage/>}/>
+                                <Route path="feedback/:feedbackId" element={<FeedbackDetailPage/>}/>
+                                <Route path="feedback/:feedbackId/update" element={<UpdateFeedbackPage/>}/>
+                            </Route>
 
                             <Route path="instruction" element={<InstructionPage/>}/>
                             <Route path="instruction/3d-printer" element={<InstructionPrinter/>}/>

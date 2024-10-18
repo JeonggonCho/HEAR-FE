@@ -224,4 +224,14 @@ export const buttonCategories = {
         en: "Cancel Selected Reservation",
         ch: "取消选定预订",
     },
+    light: {
+        ko: "라이트 모드",
+        en: "Light",
+        ch: "亮色模式",
+    },
+    dark: {
+        ko: "다크 모드",
+        en: "Dark",
+        ch: "暗色模式",
+    },
 };

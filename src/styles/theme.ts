@@ -52,13 +52,13 @@ export const darkTheme:Theme = {
             danger: "#E07070",
         },
         bg: {
-            main: "#1E1E24",
+            main: "#1F1F27",
             sub: "#17171C",
             shadow: "rgba(0, 0, 0, 0.3)",
             splash: "linear-gradient(164.81deg, #2E2E41 8.51%, #000000 36.17%, #38466B 63.83%, #222729 91.49%)",
         },
         line: {
-            main: "#292932",
+            main: "#2E2E39",
             primary: "#1949C6",
             second: "#999999",
             danger: "#E07070",

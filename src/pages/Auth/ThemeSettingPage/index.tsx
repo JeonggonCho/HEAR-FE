@@ -7,13 +7,14 @@ import ArrowBack from "@components/common/ArrowBack";
 
 import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 
 import {LanguageCheckMark, LanguageWrapper, ThemeCheckMark, ThemeImgWrapper, ThemeWrapper} from "./style.ts";
 
 import check from "@assets/icons/check.svg";
 import light from "@assets/images/light.png";
 import dark from "@assets/images/dark.png";
-import {cardCategories} from "@constants/cardCategories.ts";
 
 const ThemeSettingPage:FC = () => {
     const {lang, setLang, isDarkMode, setTheme} = useThemeStore();
@@ -46,7 +47,7 @@ const ThemeSettingPage:FC = () => {
                         <ThemeImgWrapper>
                             <img src={light} alt={"light-mode"}/>
                         </ThemeImgWrapper>
-                        <span>라이트</span>
+                        <span>{buttonCategories.light[lang]}</span>
                     </label>
 
                     <input
@@ -65,7 +66,7 @@ const ThemeSettingPage:FC = () => {
                         <ThemeImgWrapper>
                             <img src={dark} alt={"dark-mode"}/>
                         </ThemeImgWrapper>
-                        <span>다크</span>
+                        <span>{buttonCategories.dark[lang]}</span>
                     </label>
                 </div>
             </ThemeWrapper>

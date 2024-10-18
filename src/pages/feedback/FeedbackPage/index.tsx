@@ -69,10 +69,10 @@ const FeedbackPage:FC = () => {
             <div>
                 {isLoading ?
                     <div style={{display: "flex", flexDirection: "column", gap: 16}}>
-                        <CardLoading heightValue={"90px"}/>
-                        <CardLoading heightValue={"90px"}/>
-                        <CardLoading heightValue={"90px"}/>
-                        <CardLoading heightValue={"90px"}/>
+                        <CardLoading heightValue={"160px"}/>
+                        <CardLoading heightValue={"160px"}/>
+                        <CardLoading heightValue={"160px"}/>
+                        <CardLoading heightValue={"160px"}/>
                     </div>
                     :
                     <>

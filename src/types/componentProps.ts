@@ -153,9 +153,11 @@ export interface IQna {
     title: string;
     creator: string;
     createdAt: string;
-    content?: string;
+    content: string;
     answer?: boolean;
     type?: "inquiry" | "feedback";
+    views: number;
+    likes: number;
 }
 
 
@@ -179,6 +181,7 @@ export interface INotice {
     title: string;
     content?: string;
     createdAt: string;
+    views: number;
 }
 
 

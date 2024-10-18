@@ -7,11 +7,14 @@ import {feedbackCategories} from "@constants/feedbackCategories.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
-import {Container, TagWrapper, WriterWrapper} from "./style.ts";
+import {BottomWrapper, Container, InfoWrapper, TagWrapper, TitleWrapper, WriterWrapper} from "./style.ts";
 
 import noProfile from "@assets/icons/no_profile.svg";
+import views from "@assets/icons/visible.svg";
+import likes from "@assets/icons/feedback.svg";
+import comments from "@assets/icons/chat.svg";
 
-const InquiryFeedbackListItem:FC<IFeedbackProps | IInquiryProps> = (props) => {
+const InquiryFeedbackListItem:FC<IInquiryProps | IFeedbackProps> = (props) => {
     const {lang} = useThemeStore();
 
     const timeStamp = useMemo(() => getTimeStamp(props.createdAt, lang), [props.createdAt]);
@@ -31,22 +34,40 @@ const InquiryFeedbackListItem:FC<IFeedbackProps | IInquiryProps> = (props) => {
                 : props.type === "feedback" ? `/board/feedback/${props._id}`
                     : "/"}
         >
-            <div>
-                <WriterWrapper>
-                    <div>
-                        <ReactSVG src={noProfile}/>
-                    </div>
-                    <span>{props.creator}</span>
-                </WriterWrapper>
-                <span>{timeStamp}</span>
-                <TagWrapper tag={props.category}>{categoryLabel}</TagWrapper>
-            </div>
-            <div>
+            <TagWrapper tag={props.category}>{categoryLabel}</TagWrapper>
+
+            <TitleWrapper>
                 <h3>{props.title}</h3>
                 {props.answer &&
                   <span>{props.answer && "답변완료"}</span>
                 }
-            </div>
+            </TitleWrapper>
+
+            <WriterWrapper>
+                <div>
+                    <ReactSVG src={noProfile}/>
+                </div>
+                <span>{props.creator}</span>
+            </WriterWrapper>
+
+            <BottomWrapper>
+                <InfoWrapper>
+                    <div>
+                        <ReactSVG src={views}/>
+                        <span>{props.views}</span>
+                    </div>
+                    <div>
+                        <ReactSVG src={likes}/>
+                        <span>{props.likes}</span>
+                    </div>
+                    <div>
+                        <ReactSVG src={comments}/>
+                        <span>{props.views}</span>
+                    </div>
+                </InfoWrapper>
+
+                <span>{timeStamp}</span>
+            </BottomWrapper>
         </Container>
     );
 };
