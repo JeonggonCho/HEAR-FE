@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.div<{height: number}>`
+export const Container = styled.div<{isScrolled: boolean}>`
     width: 100%;
     
     textarea {
         width: 100%;
-        min-height: ${({height}) => height ? `${height}px` : "280px"};
+        min-height: ${({isScrolled}) => !isScrolled ? "auto" : "280px"};
+        max-height: ${({isScrolled}) => !isScrolled ? "200px" : "none"};
         border-radius: 8px;
         padding: 8px;
         background-color: ${({theme}) => theme.colors.bg.main};
@@ -15,7 +16,7 @@ export const Container = styled.div<{height: number}>`
         resize: none;
         font-size: 1rem;
         font-family: Pretendard, Helvetica, sans-serif;
-        
+
         &::placeholder {
             color: ${({theme}) => theme.colors.font.placeholder};
         }

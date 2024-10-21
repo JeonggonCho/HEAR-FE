@@ -69,4 +69,9 @@ export const placeholderCategories = {
         en: "Please select a date",
         ch: "请选择日期",
     },
+    comment: {
+        ko: "댓글을 작성해주세요",
+        en: "Please write a comment",
+        ch: "请写评论。",
+    },
 };

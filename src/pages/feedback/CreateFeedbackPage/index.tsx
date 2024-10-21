@@ -1,4 +1,4 @@
-import {FC} from "react";
+import {ChangeEvent, FC} from "react";
 import {z} from "zod";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
@@ -44,7 +44,7 @@ const CreateFeedbackPage:FC = () => {
 
     type FeedbackFormData = z.infer<typeof feedbackSchema>;
 
-    const {register, handleSubmit, formState:{errors}} = useForm<FeedbackFormData>({
+    const {register, handleSubmit, formState:{errors}, setValue} = useForm<FeedbackFormData>({
         resolver: zodResolver(feedbackSchema),
         defaultValues: {
             title: "",
@@ -53,6 +53,7 @@ const CreateFeedbackPage:FC = () => {
         },
     });
 
+    // 피드백 생성 요청
     const submitHandler:SubmitHandler<FeedbackFormData> = async (data) => {
         try {
             const response = await sendRequest({
@@ -65,6 +66,12 @@ const CreateFeedbackPage:FC = () => {
         } catch (err) {
             console.error("피드백 생성 시 에러 발생: ", err);
         }
+    };
+
+    // 피드백 content 작성 시, 호출
+    const changeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>)=> {
+        handleTextChange(e);
+        setValue("content", e.target.value);
     };
 
     return (
@@ -103,7 +110,7 @@ const CreateFeedbackPage:FC = () => {
                             errorMessage={errors.content?.message}
                             text={text}
                             countOfText={countOfText}
-                            handleTextChange={handleTextChange}
+                            changeTextareaHandler={changeTextareaHandler}
                         />
 
                         <Button type={"submit"} content={buttonCategories.sendFeedback[lang]} width={"full"} color={"primary"} scale={"big"}/>

@@ -12,7 +12,7 @@ const useTextarea = () => {
         }
     };
 
-    return {text, handleTextChange, countOfText};
+    return {text, setText, setCountOfText, handleTextChange, countOfText};
 };
 
 export default useTextarea;

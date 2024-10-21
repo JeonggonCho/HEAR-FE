@@ -54,15 +54,15 @@ const InquiryFeedbackListItem:FC<IInquiryProps | IFeedbackProps> = (props) => {
                 <InfoWrapper>
                     <div>
                         <ReactSVG src={views}/>
-                        <span>{props.views}</span>
+                        <span>{props.views || 0}</span>
                     </div>
                     <div>
                         <ReactSVG src={likes}/>
-                        <span>{props.likes}</span>
+                        <span>{props.likes || 0}</span>
                     </div>
                     <div>
                         <ReactSVG src={comments}/>
-                        <span>{props.views}</span>
+                        <span>{props.comments || 0}</span>
                     </div>
                 </InfoWrapper>
 

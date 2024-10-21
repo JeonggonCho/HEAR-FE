@@ -1,4 +1,4 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {ChangeEvent, FC, useCallback, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {z} from "zod";
 import {SubmitHandler, useForm} from "react-hook-form";
@@ -37,7 +37,7 @@ const UpdateInquiryPage:FC = () => {
     const {inquiryId} = useParams();
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
-    const {text, handleTextChange, countOfText} = useTextarea();
+    const {text, setText, handleTextChange, countOfText, setCountOfText} = useTextarea();
 
     const {lang} = useThemeStore();
 
@@ -65,7 +65,7 @@ const UpdateInquiryPage:FC = () => {
 
     type InquiryFormData = z.infer<typeof inquirySchema>;
 
-    const {register, handleSubmit, formState:{errors}, reset} = useForm<InquiryFormData>({
+    const {register, handleSubmit, formState:{errors}, reset, setValue} = useForm<InquiryFormData>({
         resolver: zodResolver(inquirySchema),
         defaultValues: {
             title: "",
@@ -77,14 +77,18 @@ const UpdateInquiryPage:FC = () => {
     useEffect(() => {
         if (inquiry) {
             reset(inquiry);
+            setText(inquiry.content);
+            setCountOfText(inquiry.content.length);
         }
     }, [inquiry, reset]);
 
+    // 요청 모달 띄우기
     const submitHandler:SubmitHandler<InquiryFormData> = async (data) => {
         setInquiry(data);
         setUpdateInquiryModal(true);
     };
 
+    // 문의 수정 요청하기
     const handleConfirmUpdate = async () => {
         if (inquiry) {
             try {
@@ -99,6 +103,12 @@ const UpdateInquiryPage:FC = () => {
                 console.error("문의 수정 에러: ", err);
             }
         }
+    };
+
+    // 문의 content 작성 시, 호출
+    const changeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>)=> {
+        handleTextChange(e);
+        setValue("content", e.target.value);
     };
 
     const UpdateInquiryModalContent = () => {
@@ -164,7 +174,7 @@ const UpdateInquiryPage:FC = () => {
                             name={"content"}
                             errorMessage={errors.content?.message}
                             countOfText={countOfText}
-                            handleTextChange={handleTextChange}
+                            changeTextareaHandler={changeTextareaHandler}
                             text={text}
                         />
 

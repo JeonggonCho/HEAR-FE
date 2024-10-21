@@ -1,4 +1,4 @@
-import React, {ChangeEvent, JSX, ReactElement, ReactNode} from "react";
+import React, {ChangeEvent, JSX, MutableRefObject, ReactElement, ReactNode} from "react";
 import {To} from "react-router-dom";
 import {ITab} from "@/types/tab.ts";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
@@ -158,6 +158,7 @@ export interface IQna {
     type?: "inquiry" | "feedback";
     views: number;
     likes: number;
+    comments: number;
 }
 
 
@@ -211,11 +212,12 @@ export interface ITextareaProps {
     name: string;
     errorMessage?: string;
     showCount?: boolean;
-    height?: number;
+    isScrolled?: boolean;
     placeholder?: string;
     countOfText: number;
     text: string;
-    handleTextChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+    changeTextareaHandler: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+    ref?: MutableRefObject<HTMLTextAreaElement | null>;
 }
 
 

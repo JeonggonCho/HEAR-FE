@@ -1,4 +1,4 @@
-import {FC, ReactElement, useCallback, useEffect, useMemo, useState} from "react";
+import {FC, FormEvent, ReactElement, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useParams} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 
@@ -14,9 +14,9 @@ import Textarea from "@components/common/Textarea";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
+import getTimeStamp from "@util/getTimeStamp.ts";
 import {IInquiryProps} from "@/types/componentProps.ts";
 import {inquiryCategories} from "@constants/inquiryCategories.ts";
-import getTimeStamp from "@util/getTimeStamp.ts";
 import {useUserInfoStore} from "@store/useUserStore.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
@@ -27,9 +27,9 @@ import {
     Container,
     ContentWrapper,
     CountsWrapper,
-    DateWrapper,
+    DateWrapper, EmptyMessage,
     InquiryInfoWrapper,
-    InquiryWrapper, LikeBtnWrapper
+    InquiryWrapper, LikeBtnWrapper, TextareaWrapper
 } from "./style.ts";
 import {TagWrapper, WriterWrapper} from "@components/board/InquiryFeedbackListItem/style.ts";
 import {ProfileImgWrapper} from "@components/board/CommentListItem/style.ts";
@@ -39,9 +39,11 @@ import views from "@assets/icons/visible.svg";
 import likes from "@assets/icons/feedback.svg";
 import chat from "@assets/icons/chat.svg";
 import send from "@assets/icons/send.svg";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 
 
-const dummy = [
+const dummy:any[] = [
     {
         _id: 1,
         content: "공감해요",
@@ -84,6 +86,9 @@ const InquiryDetailPage:FC = () => {
     const [inquiry, setInquiry] = useState<IInquiryProps>();
     const [comments, setComments] = useState(dummy);
     const [isLiked, setIsLiked] = useState<boolean>(false);
+    const [emptyCommentContent, setEmptyCommentContent] = useState<boolean>(false);
+
+    const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
     const {inquiryId} = useParams();
 
@@ -92,8 +97,9 @@ const InquiryDetailPage:FC = () => {
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
     const {errorText: likeErrorText, sendRequest: likeSendRequest, clearError: likeClearError} = useRequest();
-    const {text, countOfText, handleTextChange} = useTextarea();
+    const {text, countOfText, handleTextChange} = useTextarea(); // 댓글 textarea
 
+    // 문의 생성일 스탬프
     const timeStamp = useMemo(() => {
         return inquiry?.createdAt ? getTimeStamp(inquiry.createdAt, lang) : '';
     }, [inquiry?.createdAt]);
@@ -138,6 +144,34 @@ const InquiryDetailPage:FC = () => {
         }
     };
 
+    // 댓글 생성 요청하기
+    const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        console.log(text);
+        const data = {};
+        if (text.trim().length === 0) {
+            setEmptyCommentContent(true);
+            return;
+        }
+        try {
+            const response = await sendRequest({
+                url: "",
+                method: "post",
+                data: data,
+            });
+            if (response.data) {
+                console.log(response.data)
+            }
+        } catch (err) {
+            console.error("댓글 생성 요청 중 에러 발생: ", err);
+        }
+    };
+
+    // 댓글 버튼 클릭 시
+    const commentClickHandler = () => {
+        textareaRef.current?.focus();
+    };
+
     return (
         <Container>
             <HeadTag title={inquiry?.title || headerCategories.inquiryDetail[lang]}/>
@@ -146,6 +180,7 @@ const InquiryDetailPage:FC = () => {
 
             {!isLoading && inquiry ?
                 <>
+                    {/*문의 부분*/}
                     <InquiryWrapper>
                         <InquiryInfoWrapper>
                             <div>
@@ -172,15 +207,15 @@ const InquiryDetailPage:FC = () => {
                                 <CountsWrapper>
                                     <div>
                                         <ReactSVG src={views}/>
-                                        <span>{inquiry.views}</span>
+                                        <span>{inquiry.views || 0}</span>
                                     </div>
                                     <div>
                                         <ReactSVG src={likes}/>
-                                        <span>{inquiry.likes}</span>
+                                        <span>{inquiry.likes || 0}</span>
                                     </div>
                                     <div>
                                         <ReactSVG src={chat}/>
-                                        <span>{inquiry.views}</span>
+                                        <span>{inquiry.comments || 0}</span>
                                     </div>
                                 </CountsWrapper>
                             </div>
@@ -195,36 +230,39 @@ const InquiryDetailPage:FC = () => {
                                 <ReactSVG src={likes}/>
                                 <span>{buttonCategories.like[lang]}</span>
                             </LikeBtnWrapper>
-                            <CommentBtnWrapper>
+                            <CommentBtnWrapper onClick={commentClickHandler}>
                                 <ReactSVG src={chat}/>
                                 <span>{buttonCategories.comment[lang]}</span>
                             </CommentBtnWrapper>
                         </BtnsWrapper>
                     </InquiryWrapper>
 
-                    <CommentFormWrapper>
+                    {/*댓글 부분*/}
+                    <CommentFormWrapper onSubmit={submitHandler}>
                         <ProfileImgWrapper>
                             <ReactSVG src={noProfile}/>
                         </ProfileImgWrapper>
-                        <div>
+                        <TextareaWrapper
+                            textLength={text.length}
+                        >
                             <Textarea
-                                name={""}
+                                ref={textareaRef}
+                                name={"comment"}
                                 showCount={false}
-                                height={50}
-                                placeholder={"댓글을 작성해주세요"}
+                                placeholder={placeholderCategories.comment[lang]}
                                 countOfText={countOfText}
-                                handleTextChange={handleTextChange}
+                                changeTextareaHandler={handleTextChange}
                                 text={text}
+                                isScrolled={false}
                             />
-                            <Button type={"submit"} content={<ReactSVG src={send}/> as ReactElement} width={"fit"}
-                                    color={"approval"} scale={"small"}/>
-                        </div>
+                            {text.trim().length > 0 &&
+                              <Button type={"submit"} content={<ReactSVG src={send}/> as ReactElement} width={"fit"} color={"approval"} scale={"small"}/>
+                            }
+                        </TextareaWrapper>
                     </CommentFormWrapper>
 
                     {comments.length === 0 ?
-                        <div>
-                            작성된 답변이 없습니다
-                        </div>
+                        <EmptyMessage>{messageCategories.emptyComment[lang]}</EmptyMessage>
                         :
                         <CommentListWrapper>
                             {comments.map((comment) => (
@@ -243,6 +281,10 @@ const InquiryDetailPage:FC = () => {
 
             {likeErrorText &&
               <Toast text={likeErrorText} setToast={likeClearError} type={"error"}/>
+            }
+
+            {emptyCommentContent &&
+              <Toast text={messageCategories.emptyCommentError[lang]} setToast={() => setEmptyCommentContent(false)} type={"error"}/>
             }
         </Container>
     );

@@ -123,15 +123,15 @@ const FeedbackDetailPage:FC = () => {
                                 <CountsWrapper>
                                     <div>
                                         <ReactSVG src={views}/>
-                                        <span>{feedback.views}</span>
+                                        <span>{feedback.views || 0}</span>
                                     </div>
                                     <div>
                                         <ReactSVG src={likes}/>
-                                        <span>{feedback.likes}</span>
+                                        <span>{feedback.likes || 0}</span>
                                     </div>
                                     <div>
                                         <ReactSVG src={comments}/>
-                                        <span>{feedback.views}</span>
+                                        <span>{feedback.comments || 0}</span>
                                     </div>
                                 </CountsWrapper>
                             </div>

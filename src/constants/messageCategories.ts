@@ -179,4 +179,14 @@ export const messageCategories = {
         en: "Would you like to edit your profile information?",
         ch: "您想修改会员信息吗？",
     },
+    emptyComment: {
+        ko: "작성된 댓글이 없습니다",
+        en: "There are no comments written.",
+        ch: "没有评论。",
+    },
+    emptyCommentError: {
+        ko: "댓글 내용이 없으므로 생성할 수 없습니다",
+        en: "Cannot create comment because the content is empty",
+        ch: "由于内容为空，无法创建评论",
+    },
 };

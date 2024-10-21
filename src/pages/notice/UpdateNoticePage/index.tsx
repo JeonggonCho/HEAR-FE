@@ -1,4 +1,4 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {ChangeEvent, FC, useCallback, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
@@ -29,7 +29,7 @@ const UpdateNoticePage:FC = () => {
 
     const {lang} = useThemeStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
-    const {text, handleTextChange, countOfText} = useTextarea();
+    const {text, handleTextChange, countOfText, setCountOfText, setText} = useTextarea();
 
     const navigate = useNavigate();
 
@@ -53,7 +53,7 @@ const UpdateNoticePage:FC = () => {
 
     type NoticeFormData = z.infer<typeof noticeSchema>;
 
-    const {register, handleSubmit, formState: {errors}, reset} = useForm<NoticeFormData>({
+    const {register, handleSubmit, formState: {errors}, reset, setValue} = useForm<NoticeFormData>({
         resolver: zodResolver(noticeSchema),
         defaultValues: {
             title: "",
@@ -64,9 +64,12 @@ const UpdateNoticePage:FC = () => {
     useEffect(() => {
         if (notice) {
             reset(notice);
+            setText(notice.content);
+            setCountOfText(notice.content.length);
         }
     }, [notice, reset]);
 
+    // 공지 업데이트 요청하기
     const submitHandler:SubmitHandler<NoticeFormData> = async (data) => {
         try {
             await sendRequest({
@@ -78,6 +81,12 @@ const UpdateNoticePage:FC = () => {
         } catch (err) {
             console.log("공지 수정 중 에러 발생: ", err);
         }
+    };
+
+    // 공지 content 작성 시, 호출
+    const changeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>)=> {
+        handleTextChange(e);
+        setValue("content", e.target.value);
     };
 
     return (
@@ -105,7 +114,7 @@ const UpdateNoticePage:FC = () => {
                             name={"content"}
                             errorMessage={errors.content?.message}
                             text={text}
-                            handleTextChange={handleTextChange}
+                            changeTextareaHandler={changeTextareaHandler}
                             countOfText={countOfText}
                         />
 

@@ -1,4 +1,4 @@
-import {FC} from "react";
+import {ChangeEvent, FC} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
 import {useNavigate} from "react-router-dom";
@@ -44,7 +44,7 @@ const CreateInquiryPage:FC = () => {
 
     type InquiryFormData = z.infer<typeof inquirySchema>;
 
-    const {register, handleSubmit, formState:{errors}} = useForm<InquiryFormData>({
+    const {register, handleSubmit, setValue, formState:{errors}} = useForm<InquiryFormData>({
         resolver: zodResolver(inquirySchema),
         defaultValues: {
             title: "",
@@ -53,6 +53,7 @@ const CreateInquiryPage:FC = () => {
         }
     })
 
+    // 문의 생성 핸들러
     const submitHandler: SubmitHandler<InquiryFormData> = async (data) => {
         try {
             const response = await sendRequest({
@@ -65,6 +66,12 @@ const CreateInquiryPage:FC = () => {
         } catch (err) {
             console.error("문의 생성 시 에러 발생: ", err);
         }
+    };
+
+    // 문의 content 작성 시, 호출
+    const changeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>)=> {
+        handleTextChange(e);
+        setValue("content", e.target.value);
     };
 
     return (
@@ -103,7 +110,7 @@ const CreateInquiryPage:FC = () => {
                             errorMessage={errors.content?.message}
                             text={text}
                             countOfText={countOfText}
-                            handleTextChange={handleTextChange}
+                            changeTextareaHandler={changeTextareaHandler}
                         />
 
                         <Button type={"submit"} content={buttonCategories.sendInquiry[lang]} width={"full"} color={"primary"} scale={"big"}/>

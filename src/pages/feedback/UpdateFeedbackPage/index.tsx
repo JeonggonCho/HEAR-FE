@@ -1,4 +1,4 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {ChangeEvent, FC, useCallback, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {z} from "zod";
 import {SubmitHandler, useForm} from "react-hook-form";
@@ -33,7 +33,7 @@ const UpdateFeedbackPage:FC = () => {
     const [updateFeedbackModal, setUpdateFeedbackModal] = useState<boolean>(false);
 
     const {lang} = useThemeStore();
-    const {text, handleTextChange, countOfText} = useTextarea();
+    const {text, handleTextChange, countOfText, setCountOfText, setText} = useTextarea();
 
     const feedbackInfoCategories = [
         {label: feedbackCategories.good[lang], value: "good", id: "radio-1"},
@@ -65,7 +65,7 @@ const UpdateFeedbackPage:FC = () => {
 
     type FeedbackFormData = z.infer<typeof feedbackSchema>;
 
-    const {register, handleSubmit, formState:{errors}, reset} = useForm<FeedbackFormData>({
+    const {register, handleSubmit, formState:{errors}, reset, setValue} = useForm<FeedbackFormData>({
         resolver: zodResolver(feedbackSchema),
         defaultValues: {
             title: "",
@@ -77,6 +77,8 @@ const UpdateFeedbackPage:FC = () => {
     useEffect(() => {
         if (feedback) {
             reset(feedback);
+            setText(feedback.content);
+            setCountOfText(feedback.content.length);
         }
     }, [feedback, reset]);
 
@@ -100,6 +102,12 @@ const UpdateFeedbackPage:FC = () => {
             }
         }
     }
+
+    // 피드백 content 작성 시, 호출
+    const changeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>)=> {
+        handleTextChange(e);
+        setValue("content", e.target.value);
+    };
 
     const UpdateFeedbackModalContent = () => {
         const leftBtn = (
@@ -165,7 +173,7 @@ const UpdateFeedbackPage:FC = () => {
                             errorMessage={errors.content?.message}
                             text={text}
                             countOfText={countOfText}
-                            handleTextChange={handleTextChange}
+                            changeTextareaHandler={changeTextareaHandler}
                         />
 
                         <Button type={"submit"} content={buttonCategories.editing[lang]} width={"full"} color={"primary"} scale={"big"}/>

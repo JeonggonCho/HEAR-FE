@@ -1,4 +1,4 @@
-import {FC} from "react";
+import {ChangeEvent, FC} from "react";
 import {useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -33,7 +33,7 @@ const CreateNoticePage:FC = () => {
 
     type NoticeFormData = z.infer<typeof noticeSchema>;
 
-    const {register, handleSubmit, formState: {errors}} = useForm<NoticeFormData>({
+    const {register, handleSubmit, formState: {errors}, setValue} = useForm<NoticeFormData>({
         resolver: zodResolver(noticeSchema),
         defaultValues: {
             title: "",
@@ -41,6 +41,7 @@ const CreateNoticePage:FC = () => {
         },
     });
 
+    // 공지 생성 요청하기
     const submitHandler:SubmitHandler<NoticeFormData> = async (data) => {
         try {
             const response = await sendRequest({
@@ -53,6 +54,12 @@ const CreateNoticePage:FC = () => {
         } catch (err) {
             console.error("공지 등록 중 에러 발생: ", err);
         }
+    };
+
+    // 공지 content 작성 시, 호출
+    const changeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>)=> {
+        handleTextChange(e);
+        setValue("content", e.target.value);
     };
 
     return (
@@ -81,7 +88,7 @@ const CreateNoticePage:FC = () => {
                             errorMessage={errors.content?.message}
                             text={text}
                             countOfText={countOfText}
-                            handleTextChange={handleTextChange}
+                            changeTextareaHandler={changeTextareaHandler}
                         />
 
                         <Button type={"submit"} content={buttonCategories.createNotice[lang]} width={"full"} color={"primary"} scale={"big"}/>
