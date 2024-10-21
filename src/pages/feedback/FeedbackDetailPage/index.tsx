@@ -32,6 +32,7 @@ import noProfile from "@assets/icons/no_profile.svg";
 import views from "@assets/icons/visible.svg";
 import likes from "@assets/icons/feedback.svg";
 import comments from "@assets/icons/chat.svg";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 
 const FeedbackDetailPage:FC = () => {
     const [feedback, setFeedback] = useState<IFeedbackProps>();
@@ -143,11 +144,11 @@ const FeedbackDetailPage:FC = () => {
                         <BtnsWrapper>
                             <LikeBtnWrapper onClick={likeFeedback} isLiked={isLiked}>
                                 <ReactSVG src={likes}/>
-                                <span>좋아요</span>
+                                <span>{buttonCategories.like[lang]}</span>
                             </LikeBtnWrapper>
                             <CommentBtnWrapper>
                                 <ReactSVG src={comments}/>
-                                <span>댓글</span>
+                                <span>{buttonCategories.comment[lang]}</span>
                             </CommentBtnWrapper>
                         </BtnsWrapper>
                     </FeedbackWrapper>

@@ -13,8 +13,9 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 
-import {noticeSchema} from "@schemata/qnaSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
+import useTextarea from "@hooks/useTextarea.ts";
+import {noticeSchema} from "@schemata/qnaSchema.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
@@ -27,8 +28,8 @@ const CreateNoticePage:FC = () => {
     const navigate = useNavigate();
 
     const {lang} = useThemeStore();
-
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
+    const {text, handleTextChange, countOfText} = useTextarea();
 
     type NoticeFormData = z.infer<typeof noticeSchema>;
 
@@ -78,6 +79,9 @@ const CreateNoticePage:FC = () => {
                             register={register}
                             name={"content"}
                             errorMessage={errors.content?.message}
+                            text={text}
+                            countOfText={countOfText}
+                            handleTextChange={handleTextChange}
                         />
 
                         <Button type={"submit"} content={buttonCategories.createNotice[lang]} width={"full"} color={"primary"} scale={"big"}/>

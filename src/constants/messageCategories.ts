@@ -174,4 +174,9 @@ export const messageCategories = {
         en: "No warning history",
         ch: "没有警告记录",
     },
+    confirmUpdateAccount: {
+        ko: "회원정보를 수정하시겠습니까?",
+        en: "Would you like to edit your profile information?",
+        ch: "您想修改会员信息吗？",
+    },
 };

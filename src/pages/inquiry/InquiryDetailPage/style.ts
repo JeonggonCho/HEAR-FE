@@ -16,9 +16,7 @@ export const InquiryWrapper = styled.div`
 `;
 
 export const InquiryInfoWrapper = styled.div`
-    padding-bottom: 12px;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding: 0 8px;
     
     & > div:first-of-type {
         display: flex;
@@ -159,4 +157,24 @@ export const CommentBtnWrapper = styled.div`
         height: 20px;
         transition: all 0.2s ease-in-out 0s;
     }
+`;
+
+export const CommentFormWrapper = styled.form`
+    display: flex;
+    gap: 12px;
+    margin: 24px 24px 0;
+    
+    & > div:nth-of-type(2) {
+        display: flex;
+        flex-grow: 1;
+        gap: 8px;
+        
+        textarea {
+            width: 100%;
+        }
+    }
+`;
+
+export const CommentListWrapper = styled.div`
+    margin: 0 24px;
 `;

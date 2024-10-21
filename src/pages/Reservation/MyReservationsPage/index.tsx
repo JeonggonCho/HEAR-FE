@@ -24,7 +24,6 @@ import {ReservationControlWrapper, ReservationListItemWrapper, SelectAllWrapper}
 
 import check from "@assets/icons/check.svg";
 
-
 type ReservationArgumentsType = {_id: string, machine: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc", date: string}
 
 const MyReservationsPage:FC = () => {
@@ -136,14 +135,19 @@ const MyReservationsPage:FC = () => {
                 <div>
                     {/*전체 선택*/}
                     <SelectAllWrapper>
-                        <input type={"checkbox"} id={"select-all"} onChange={selectAllHandler} checked={selectedReservations.length === reservations.length}/>
+                        <input
+                            type={"checkbox"}
+                            id={"select-all"}
+                            onChange={selectAllHandler}
+                            checked={reservations.length > 0 && selectedReservations.length === reservations.length}
+                        />
                         <label htmlFor={"select-all"}>
                             <ReactSVG src={check}/>
                         </label>
                         <label htmlFor={"select-all"}>{buttonCategories.selectAll[lang]}</label>
                     </SelectAllWrapper>
 
-                    {/*선택 예약 취소*/}
+                    {/*선택 예약 취소(삭제)*/}
                     <div onClick={deleteConfirmHandler}>
                         <span>{buttonCategories.deleteSelectedReservations[lang]}</span>
                         {selectedReservations.length > 0 && <span>{`(${ selectedReservations.length})`}</span>}
@@ -152,7 +156,10 @@ const MyReservationsPage:FC = () => {
 
                 {/*기기 필터링*/}
                 <select
-                    onChange={(e) => setFilter(e.target.value)}
+                    onChange={(e) => {
+                        setFilter(e.target.value);
+                        setSelectedReservations([]);
+                    }}
                 >
                     <option value={"all"}>{buttonCategories.selectMachine[lang]}</option>
                     <option value={"laser"}>{machineName.laser[lang]}</option>

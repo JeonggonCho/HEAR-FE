@@ -90,6 +90,11 @@ export const buttonCategories = {
         ch: "发送询问",
     },
     edit: {
+        ko: "수정하기",
+        en: "Edit",
+        ch: "编辑",
+    },
+    editing: {
         ko: "수정",
         en: "Edit",
         ch: "编辑",
@@ -233,5 +238,15 @@ export const buttonCategories = {
         ko: "다크 모드",
         en: "Dark",
         ch: "暗色模式",
+    },
+    like: {
+        ko: "좋아요",
+        en: "Like",
+        ch: "喜欢",
+    },
+    comment: {
+        ko: "댓글",
+        en: "Comment",
+        ch: "评论",
     },
 };

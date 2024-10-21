@@ -66,6 +66,19 @@ const BaseComponent = styled.div<{
     background-color: ${({ theme, color }) => theme.colors.button[color]};
     color: ${({ theme, color }) => getTextColor(theme, color)};
     
+    & > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    svg {
+        margin-top: 4px;
+        fill: ${({theme, color}) => getTextColor(theme, color)};
+        width: 20px;
+        height: 20px;
+    }
+    
     &:hover {
         background-color: ${({ theme, color }) => {
             const { isDarkMode } = useThemeStore();

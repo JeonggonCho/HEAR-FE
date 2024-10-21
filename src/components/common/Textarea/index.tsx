@@ -1,4 +1,4 @@
-import {ChangeEvent, FC, useState} from "react";
+import {ChangeEvent, FC} from "react";
 
 import InputError from "@components/common/InputError";
 
@@ -6,28 +6,18 @@ import {ITextareaProps} from "@/types/componentProps.ts";
 
 import {Container} from "./style.ts";
 
-const Textarea:FC<ITextareaProps> = ({register, name, errorMessage}) => {
-    const [text, setText] = useState("");
-    const [countOfText, setCountOfText] = useState(0);
-
-    const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const inputText = e.target.value;
-        if (inputText.length <= 400) {
-            setText(inputText);
-            setCountOfText(inputText.length);
-        }
-    };
-
+const Textarea:FC<ITextareaProps> = ({register, name, errorMessage, showCount=true, height, placeholder, countOfText, text, handleTextChange}) => {
     return (
-        <Container>
+        <Container height={height as number}>
             <textarea
-                {...register(name)}
+                {...register ? register(name) : null}
                 value={text}
-                onChange={handleTextChange}
+                onChange={handleTextChange as (e:ChangeEvent<HTMLTextAreaElement>) => void}
                 maxLength={400}
+                placeholder={placeholder}
             />
             {errorMessage && <InputError errorMessage={errorMessage}/> }
-            <p><span>{countOfText}</span> / 400</p>
+            {showCount && <p><span>{countOfText}</span> / 400</p>}
         </Container>
     );
 };

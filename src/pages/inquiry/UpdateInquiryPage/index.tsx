@@ -17,6 +17,7 @@ import ConfirmContent from "@components/content/ConfirmContent";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
+import useTextarea from "@hooks/useTextarea.ts";
 import {inquirySchema} from "@schemata/qnaSchema.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {inquiryCategories} from "@constants/inquiryCategories.ts";
@@ -36,6 +37,7 @@ const UpdateInquiryPage:FC = () => {
     const {inquiryId} = useParams();
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
+    const {text, handleTextChange, countOfText} = useTextarea();
 
     const {lang} = useThemeStore();
 
@@ -161,9 +163,12 @@ const UpdateInquiryPage:FC = () => {
                             register={register}
                             name={"content"}
                             errorMessage={errors.content?.message}
+                            countOfText={countOfText}
+                            handleTextChange={handleTextChange}
+                            text={text}
                         />
 
-                        <Button type={"submit"} content={buttonCategories.edit[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={buttonCategories.editing[lang]} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
 
                     {updateInquiryModal &&

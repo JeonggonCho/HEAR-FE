@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import {useThemeStore} from "@store/useThemeStore.ts";
 
 export const MachineImgWrapper = styled.div`
     width: 130px;
@@ -19,16 +18,8 @@ export const Content = styled.div`
 `;
 
 export const Container = styled.div`
-    background-color: ${({theme}) => {
-        const {isDarkMode} = useThemeStore();
-        return isDarkMode && theme.colors.bg.sub;
-    }};
-
     & > div:first-of-type {
-        background-color: ${({theme}) => {
-            const {isDarkMode} = useThemeStore();
-            return isDarkMode ? theme.colors.bg.sub : theme.colors.bg.main;
-        }};
+        background-color: ${({theme}) => theme.colors.bg.main};
     }
     
     & > div:nth-of-type(3),

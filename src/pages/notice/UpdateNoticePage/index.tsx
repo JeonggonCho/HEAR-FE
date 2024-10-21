@@ -14,6 +14,7 @@ import Button from "@components/common/Button";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
+import useTextarea from "@hooks/useTextarea.ts";
 import {noticeSchema} from "@schemata/qnaSchema.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
@@ -27,12 +28,12 @@ const UpdateNoticePage:FC = () => {
     const [notice, setNotice] = useState<{title: string, content: string}>();
 
     const {lang} = useThemeStore();
+    const {isLoading, errorText, sendRequest, clearError} = useRequest();
+    const {text, handleTextChange, countOfText} = useTextarea();
 
     const navigate = useNavigate();
 
     const {noticeId} = useParams();
-
-    const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     const fetchNotice = useCallback(async () => {
         try {
@@ -103,9 +104,12 @@ const UpdateNoticePage:FC = () => {
                             register={register}
                             name={"content"}
                             errorMessage={errors.content?.message}
+                            text={text}
+                            handleTextChange={handleTextChange}
+                            countOfText={countOfText}
                         />
 
-                        <Button type={"submit"} content={buttonCategories.edit[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={buttonCategories.editing[lang]} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
                 </>
             }

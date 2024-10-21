@@ -14,8 +14,9 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 
-import {feedbackSchema} from "@schemata/qnaSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
+import useTextarea from "@hooks/useTextarea.ts";
+import {feedbackSchema} from "@schemata/qnaSchema.ts";
 import {feedbackCategories} from "@constants/feedbackCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
@@ -30,6 +31,7 @@ const CreateFeedbackPage:FC = () => {
     const navigate = useNavigate();
 
     const {lang} = useThemeStore();
+    const {text, handleTextChange, countOfText} = useTextarea();
 
     const feedbackInfoCategories = [
         {label: feedbackCategories.good[lang], value: "good", id: "radio-1"},
@@ -99,6 +101,9 @@ const CreateFeedbackPage:FC = () => {
                             register={register}
                             name={"content"}
                             errorMessage={errors.content?.message}
+                            text={text}
+                            countOfText={countOfText}
+                            handleTextChange={handleTextChange}
                         />
 
                         <Button type={"submit"} content={buttonCategories.sendFeedback[lang]} width={"full"} color={"primary"} scale={"big"}/>

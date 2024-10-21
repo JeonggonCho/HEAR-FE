@@ -16,6 +16,7 @@ import HeadTag from "@components/common/HeadTag";
 
 import {inquirySchema} from "@schemata/qnaSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
+import useTextarea from "@hooks/useTextarea.ts";
 import {inquiryCategories} from "@constants/inquiryCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
@@ -30,6 +31,7 @@ const CreateInquiryPage:FC = () => {
     const navigate = useNavigate();
 
     const {lang} = useThemeStore();
+    const {text, handleTextChange, countOfText} = useTextarea();
 
     const inquiryInfoCategories = [
         {label: inquiryCategories.machine[lang], value: "machine", id: "radio-1"},
@@ -99,6 +101,9 @@ const CreateInquiryPage:FC = () => {
                             register={register}
                             name={"content"}
                             errorMessage={errors.content?.message}
+                            text={text}
+                            countOfText={countOfText}
+                            handleTextChange={handleTextChange}
                         />
 
                         <Button type={"submit"} content={buttonCategories.sendInquiry[lang]} width={"full"} color={"primary"} scale={"big"}/>

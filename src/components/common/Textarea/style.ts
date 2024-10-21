@@ -1,15 +1,13 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.div`
+export const Container = styled.div<{height: number}>`
     width: 100%;
-    margin-bottom: 32px;
     
     textarea {
         width: 100%;
-        min-height: 280px;
+        min-height: ${({height}) => height ? `${height}px` : "280px"};
         border-radius: 8px;
         padding: 8px;
-        margin-bottom: 6px;
         background-color: ${({theme}) => theme.colors.bg.main};
         color: ${({theme}) => theme.colors.font.main};
         border: 1px solid ${({theme}) => theme.colors.line.main};
@@ -17,6 +15,10 @@ export const Container = styled.div`
         resize: none;
         font-size: 1rem;
         font-family: Pretendard, Helvetica, sans-serif;
+        
+        &::placeholder {
+            color: ${({theme}) => theme.colors.font.placeholder};
+        }
 
 
         &:focus {
@@ -35,7 +37,7 @@ export const Container = styled.div`
     }
     
     & > p:last-of-type {
-        margin: 0;
+        margin: 6px 0 0 0;
         text-align: end;
         color: ${({theme}) => theme.colors.font.sub};
         

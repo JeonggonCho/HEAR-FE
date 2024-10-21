@@ -207,9 +207,15 @@ export interface IInputErrorProps {
 
 // 텍스트 영역(Textarea) props
 export interface ITextareaProps {
-    register: UseFormRegister<any>;
+    register?: UseFormRegister<any>;
     name: string;
     errorMessage?: string;
+    showCount?: boolean;
+    height?: number;
+    placeholder?: string;
+    countOfText: number;
+    text: string;
+    handleTextChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 

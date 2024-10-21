@@ -1,12 +1,8 @@
 import styled from "@emotion/styled";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {darken, lighten} from "polished";
 
 export const Container = styled.div`
-    color: ${({theme}) => {
-        const {isDarkMode} = useThemeStore();
-        return isDarkMode ? lighten(0.35, theme.colors.font.sub) : darken(0.3, theme.colors.font.sub);
-    }};
+    color: ${({theme}) => theme.colors.font.main};
     
     div + div {
         margin-top: 48px;

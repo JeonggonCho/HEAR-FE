@@ -17,6 +17,7 @@ import Select from "@components/common/Select";
 import ConfirmContent from "@components/content/ConfirmContent";
 
 import useRequest from "@hooks/useRequest.ts";
+import useTextarea from "@hooks/useTextarea.ts";
 import {feedbackSchema} from "@schemata/qnaSchema.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {feedbackCategories} from "@constants/feedbackCategories.ts";
@@ -32,6 +33,7 @@ const UpdateFeedbackPage:FC = () => {
     const [updateFeedbackModal, setUpdateFeedbackModal] = useState<boolean>(false);
 
     const {lang} = useThemeStore();
+    const {text, handleTextChange, countOfText} = useTextarea();
 
     const feedbackInfoCategories = [
         {label: feedbackCategories.good[lang], value: "good", id: "radio-1"},
@@ -161,9 +163,12 @@ const UpdateFeedbackPage:FC = () => {
                             register={register}
                             name={"content"}
                             errorMessage={errors.content?.message}
+                            text={text}
+                            countOfText={countOfText}
+                            handleTextChange={handleTextChange}
                         />
 
-                        <Button type={"submit"} content={buttonCategories.edit[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button type={"submit"} content={buttonCategories.editing[lang]} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
 
                     {updateFeedbackModal &&

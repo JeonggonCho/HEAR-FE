@@ -23,6 +23,7 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 
 import {Container} from "./style.ts";
 
@@ -54,7 +55,6 @@ const UpdateAccountPage:FC = () => {
                     method: "get",
                 });
                 const {userId, username, email, year, studentId, studio, passQuiz, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role} = response.data;
-
                 setUserData({year, studio, passQuiz, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role});
                 setUserInfo({userId, username, email, studentId});
             } catch (err) {
@@ -120,7 +120,7 @@ const UpdateAccountPage:FC = () => {
         const leftBtn = (
             <Button
                 type={"button"}
-                content={"닫기"}
+                content={buttonCategories.close[lang]}
                 width={"full"}
                 color={"third"}
                 scale={"normal"}
@@ -130,7 +130,7 @@ const UpdateAccountPage:FC = () => {
         const rightBtn = (
             <Button
                 type={"submit"}
-                content={"수정하기"}
+                content={buttonCategories.editing[lang]}
                 width={"full"}
                 color={"approval"}
                 scale={"normal"}
@@ -139,7 +139,7 @@ const UpdateAccountPage:FC = () => {
         );
         return (
             <ConfirmContent
-                text={"회원정보를 수정하시겠습니까?"}
+                text={messageCategories.confirmUpdateAccount[lang]}
                 leftBtn={leftBtn}
                 rightBtn={rightBtn}
             />

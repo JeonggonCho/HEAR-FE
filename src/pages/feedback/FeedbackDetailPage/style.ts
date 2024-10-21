@@ -16,9 +16,7 @@ export const FeedbackWrapper = styled.div`
 `;
 
 export const FeedbackInfoWrapper = styled.div`
-    padding-bottom: 12px;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding: 0 8px;
 
     & > div:first-of-type {
         display: flex;
