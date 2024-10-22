@@ -40,6 +40,13 @@ export const RightPartWrapper = styled.div`
     margin-top: 6px;
     flex-grow: 1;
     
+    & > div:first-of-type {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-right: 6px;
+    }
+    
     & > div:last-of-type {
         display: flex;
         align-items: center;
@@ -61,7 +68,11 @@ export const ContentWrapper = styled.p`
     border-radius: 12px;
     font-size: 0.9rem;
     line-height: 1.3;
-    white-space: pre-wrap; // 줄바꿈 적용
+
+    a {
+        color: ${({theme}) => theme.colors.font.primary};
+        text-decoration: underline;
+    }
 `;
 
 export const BtnsWrapper = styled.div`
@@ -70,7 +81,15 @@ export const BtnsWrapper = styled.div`
     gap: 12px;
 `;
 
-export const BtnWrapper = styled.span`
+export const LikeBtnWrapper = styled.span<{isLiked: boolean}>`
+    font-size: 0.85rem;
+    color: ${({theme, isLiked}) => isLiked ? theme.colors.font.primary : theme.colors.font.sub};
+    cursor: pointer;
+    transition: all 0.1s ease-in-out 0s;
+    margin-left: 6px;
+`;
+
+export const CommentBtnWrapper = styled.span`
     font-size: 0.85rem;
     color: ${({theme}) => theme.colors.font.sub};
     cursor: pointer;
@@ -85,4 +104,32 @@ export const BtnWrapper = styled.span`
 export const TimeWrapper = styled.span`
     font-size: 0.8rem;
     color: ${({theme}) => theme.colors.font.sub};
+`;
+
+export const CommentEditWrapper = styled.div`
+    margin: 12px 0;
+    display: flex;
+    flex-direction: column;
+    
+    & > div:last-of-type {
+        margin-left: auto;
+        margin-right: 6px;
+    }
+`;
+
+export const CancelBtnWrapper = styled.span`
+    font-size: 0.9rem;
+    color: ${({theme}) => theme.colors.font.sub};
+    cursor: pointer;
+    transition: all 0.1s ease-in-out 0s;
+
+    &:hover {
+        color: ${({theme}) => theme.colors.font.main};
+    }
+`;
+
+export const EditBtnWrapper = styled.span`
+    font-size: 0.9rem;
+    color: ${({theme}) => theme.colors.font.primary};
+    cursor: pointer;
 `;

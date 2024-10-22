@@ -3,5 +3,7 @@ export interface IComment {
     content: string;
     createdAt: Date;
     author: string;
+    authorId: string;
     likes: number;
+    isLiked: boolean;
 }

@@ -4,7 +4,6 @@ import {lighten} from "polished";
 
 export const Container = styled.div`
     position: relative;
-    z-index: 2;
 
     svg {
         display: flex;
@@ -28,6 +27,7 @@ export const DropdownWrapper = styled.div`
     box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
     display: flex;
     flex-direction: column;
+    z-index: 2;
 `;
 
 export const DropdownMenu = styled.div`

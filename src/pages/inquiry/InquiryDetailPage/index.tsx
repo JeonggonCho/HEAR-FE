@@ -160,13 +160,13 @@ const InquiryDetailPage:FC = () => {
 
         const data = {
             content: text.trim(),
-            refId: inquiry?._id,
+            refId: inquiryId,
             refType: "inquiry",
         };
 
         try {
             const response = await commentSendRequest({
-                url: "/inquiries/comment",
+                url: "/comments",
                 method: "post",
                 data: data,
             });
@@ -291,8 +291,10 @@ const InquiryDetailPage:FC = () => {
                                     _id={comment._id}
                                     content={comment.content}
                                     author={comment.author}
+                                    authorId={comment.authorId}
                                     likes={comment.likes}
                                     createdAt={comment.createdAt}
+                                    isLiked={comment.isLiked}
                                 />
                             ))}
                         </CommentListWrapper>
