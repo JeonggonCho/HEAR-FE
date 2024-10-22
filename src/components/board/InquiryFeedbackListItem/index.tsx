@@ -38,9 +38,6 @@ const InquiryFeedbackListItem:FC<IInquiryProps | IFeedbackProps> = (props) => {
 
             <TitleWrapper>
                 <h3>{props.title}</h3>
-                {props.answer &&
-                  <span>{props.answer && "답변완료"}</span>
-                }
             </TitleWrapper>
 
             <WriterWrapper>

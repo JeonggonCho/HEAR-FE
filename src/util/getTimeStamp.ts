@@ -1,4 +1,4 @@
-const getTimeStamp = (date: string, lang: "ko"| "en" | "ch") => {
+const getTimeStamp = (date: string | Date, lang: "ko"| "en" | "ch") => {
     const start = new Date(date);
     const end = new Date();
 

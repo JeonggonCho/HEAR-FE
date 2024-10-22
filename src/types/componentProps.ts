@@ -154,7 +154,6 @@ export interface IQna {
     creator: string;
     createdAt: string;
     content: string;
-    answer?: boolean;
     type?: "inquiry" | "feedback";
     views: number;
     likes: number;
@@ -223,8 +222,11 @@ export interface ITextareaProps {
 
 // 드롭다운(Dropdown) props
 export interface IDropdownProps {
-    type: "feedback" | "inquiry" | "notice";
-    id: string;
+    dropdownMenus: {
+        icon: string;
+        label: string;
+        action: () => void;
+    }[]
 }
 
 

@@ -62,6 +62,11 @@ export const ContentWrapper = styled.div`
             return isDarkMode ? lighten(0.2, theme.colors.font.sub) : darken(0.3, theme.colors.font.sub);
         }};
     }
+
+    a {
+        color: ${({theme}) => theme.colors.font.primary};
+        text-decoration: underline;
+    }
 `;
 
 export const DateWrapper = styled.span`

@@ -22,9 +22,7 @@ export const Container = styled.div`
         overflow-wrap: break-word;
         margin: 24px;
     }
-;
-
-
+    
     a {
         color: ${({theme}) => theme.colors.font.primary};
         text-decoration: underline;

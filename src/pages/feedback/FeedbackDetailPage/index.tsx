@@ -1,5 +1,5 @@
 import {FC, useCallback, useEffect, useMemo, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 
 import Header from "@components/common/Header";
@@ -8,14 +8,20 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import Toast from "@components/common/Toast";
 import Dropdown from "@components/common/Dropdown";
 import HeadTag from "@components/common/HeadTag";
+import Modal from "@components/common/Modal";
+import ConfirmContent from "@components/content/ConfirmContent";
+import Button from "@components/common/Button";
 
 import useRequest from "@hooks/useRequest.ts";
-import {IFeedbackProps} from "@/types/componentProps.ts";
+import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
+import {IFeedbackProps} from "@/types/componentProps.ts";
 import {feedbackCategories} from "@constants/feedbackCategories.ts";
 import {useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 
 import {
     BtnsWrapper, CommentBtnWrapper,
@@ -32,23 +38,33 @@ import noProfile from "@assets/icons/no_profile.svg";
 import views from "@assets/icons/visible.svg";
 import likes from "@assets/icons/feedback.svg";
 import comments from "@assets/icons/chat.svg";
-import {buttonCategories} from "@constants/buttonCategories.ts";
+import deleteIcon from "@assets/icons/delete.svg";
+import editIcon from "@assets/icons/edit.svg";
+
 
 const FeedbackDetailPage:FC = () => {
     const [feedback, setFeedback] = useState<IFeedbackProps>();
     const [isLiked, setIsLiked] = useState<boolean>(false);
+    const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
 
+    const navigate = useNavigate();
     const {feedbackId} = useParams();
 
     const {userInfo} = useUserInfoStore();
     const {lang} = useThemeStore();
+    const {isLoading, errorText, sendRequest, clearError} = useRequest();
+    const {errorText: deleteFeedbackErrorText, sendRequest: deleteFeedbackSendRequest, clearError: deleteFeedbackClearError} = useRequest();
+    const {errorText: likeErrorText, sendRequest: likeSendRequest, clearError: likeClearError} = useRequest();
 
+    // 피드백 생성 일자
     const timeStamp = useMemo(() => {
         return feedback?.createdAt ? getTimeStamp(feedback.createdAt, lang) : '';
     }, [feedback?.createdAt]);
 
-    const {isLoading, errorText, sendRequest, clearError} = useRequest();
-    const {errorText: likeErrorText, sendRequest: likeSendRequest, clearError: likeClearError} = useRequest();
+    // 피드백 내용 링크 처리
+    const transformedText = useMemo(() => {
+        return feedback?.content ? generateLinksAndLineBreaks(feedback.content) : '';
+    }, [feedback?.content]);
 
     // 피드백 디테일 조회
     const fetchFeedback = useCallback(async () => {
@@ -66,6 +82,29 @@ const FeedbackDetailPage:FC = () => {
     useEffect(() => {
         fetchFeedback();
     }, [fetchFeedback]);
+
+    // 피드백 삭제 확인 모달 띄우기
+    const deleteFeedbackConfirm = () => {
+        setShowConfirmModal(true);
+    };
+
+    // 피드백 삭제
+    const deleteFeedback = async () => {
+        try {
+            await deleteFeedbackSendRequest({
+                url: `/feedback/${feedbackId}`,
+                method: "delete",
+            });
+            navigate(-1);
+        } catch (err) {
+            console.error("피드백 삭제 중 에러 발생: ", err);
+        }
+    };
+
+    // 피드백 수정
+    const updateFeedback = () => {
+        navigate(`/board/feedback/${feedbackId}/update`);
+    };
 
     // 피드백 좋아요
     const likeFeedback = async () => {
@@ -90,6 +129,13 @@ const FeedbackDetailPage:FC = () => {
         }
     };
 
+    // 피드백 드롭다운 메뉴목록
+    const feedbackDropdownMenus = [
+        {icon: editIcon, label: buttonCategories.edit[lang], action: updateFeedback},
+        {icon: deleteIcon, label: buttonCategories.delete[lang], action: deleteFeedbackConfirm},
+    ];
+
+
     return (
         <Container>
             <HeadTag title={feedback?.title || headerCategories.feedbackDetail[lang]}/>
@@ -104,7 +150,7 @@ const FeedbackDetailPage:FC = () => {
                                     <TagWrapper tag={feedback.category}>{feedbackCategories[feedback.category][lang]}</TagWrapper>
                                     <div>
                                         {feedbackId && feedback.creatorId === userInfo?.userId &&
-                                          <Dropdown type={"feedback"} id={feedbackId}/>
+                                          <Dropdown dropdownMenus={feedbackDropdownMenus}/>
                                         }
                                     </div>
                                 </div>
@@ -138,7 +184,7 @@ const FeedbackDetailPage:FC = () => {
                         </FeedbackInfoWrapper>
 
                         <ContentWrapper>
-                            <p>{feedback.content}</p>
+                            <p dangerouslySetInnerHTML={{__html: transformedText}}/>
                         </ContentWrapper>
 
                         <BtnsWrapper>
@@ -165,8 +211,26 @@ const FeedbackDetailPage:FC = () => {
                 <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
 
+            {deleteFeedbackErrorText &&
+              <Toast text={deleteFeedbackErrorText} setToast={deleteFeedbackClearError} type={"error"}/>
+            }
+
             {likeErrorText &&
               <Toast text={likeErrorText} setToast={likeClearError} type={"error"}/>
+            }
+
+            {showConfirmModal &&
+              <Modal
+                content={
+                    <ConfirmContent
+                        text={messageCategories.delete[lang]}
+                        leftBtn={<Button type={"button"} content={buttonCategories.close[lang]} color={"third"} scale={"normal"} width={"full"} onClick={() => setShowConfirmModal(false)}/> }
+                        rightBtn={<Button type={"submit"} content={buttonCategories.delete[lang]} color={"danger"} scale={"normal"} width={"full"} onClick={deleteFeedback}/>}
+                    />
+                }
+                setModal={() => setShowConfirmModal(false)}
+                type={"popup"}
+              />
             }
         </Container>
     );

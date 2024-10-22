@@ -63,6 +63,8 @@ const MyInquiriesPage:FC = () => {
                                     category={inquiry.category}
                                     views={inquiry.views}
                                     likes={inquiry.likes}
+                                    comments={inquiry.comments}
+                                    content={inquiry.content}
                                 />
                             ))}
                         </InquiryListItemWrapper>

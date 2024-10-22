@@ -62,6 +62,11 @@ export const ContentWrapper = styled.div`
             return isDarkMode ? lighten(0.2, theme.colors.font.sub) : darken(0.3, theme.colors.font.sub);
         }};
     }
+
+    a {
+        color: ${({theme}) => theme.colors.font.primary};
+        text-decoration: underline;
+    }
 `;
 
 export const DateWrapper = styled.span`
@@ -162,7 +167,12 @@ export const CommentBtnWrapper = styled.div`
 export const CommentFormWrapper = styled.form`
     display: flex;
     gap: 12px;
-    margin: 36px 24px 40px;
+    margin: 28px 24px 24px;
+    padding: 12px 0;
+    position: sticky;
+    top: 72px;
+    background-color: ${({theme}) => theme.colors.bg.sub};
+    z-index: 3;
     
     & > div:first-of-type {
         margin-top: 5px;

@@ -6,13 +6,13 @@ import {zodResolver} from "@hookform/resolvers/zod";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
+import Select from "@components/common/Select";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
 import Toast from "@components/common/Toast";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
-import Select from "@components/common/Select";
 import ConfirmContent from "@components/content/ConfirmContent";
 import HeadTag from "@components/common/HeadTag";
 
@@ -53,7 +53,7 @@ const UpdateInquiryPage:FC = () => {
             const response = await sendRequest({
                 url: `/inquiries/${inquiryId}`,
             });
-            setInquiry(response.data);
+            setInquiry(response.data.inquiry);
         } catch (err) {
             console.error("문의 조회 중 에러 발생: ", err);
         }

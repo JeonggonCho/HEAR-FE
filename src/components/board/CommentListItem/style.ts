@@ -39,6 +39,13 @@ export const RightPartWrapper = styled.div`
     flex-direction: column;
     margin-top: 6px;
     flex-grow: 1;
+    
+    & > div:last-of-type {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-left: 6px;
+    }
 `;
 
 export const AuthorWrapper = styled.span`
@@ -53,13 +60,14 @@ export const ContentWrapper = styled.p`
     padding: 16px;
     border-radius: 12px;
     font-size: 0.9rem;
+    line-height: 1.3;
+    white-space: pre-wrap; // 줄바꿈 적용
 `;
 
 export const BtnsWrapper = styled.div`
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-left: 6px;
 `;
 
 export const BtnWrapper = styled.span`
@@ -67,8 +75,14 @@ export const BtnWrapper = styled.span`
     color: ${({theme}) => theme.colors.font.sub};
     cursor: pointer;
     transition: all 0.1s ease-in-out 0s;
+    margin-left: 6px;
     
     &:hover {
         color: ${({theme}) => theme.colors.font.main};
     }
+`;
+
+export const TimeWrapper = styled.span`
+    font-size: 0.8rem;
+    color: ${({theme}) => theme.colors.font.sub};
 `;
