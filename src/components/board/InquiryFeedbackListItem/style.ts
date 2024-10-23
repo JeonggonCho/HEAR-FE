@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import {Link} from "react-router-dom";
 import {darken, lighten} from "polished";
-import {useThemeStore} from "@store/useThemeStore.ts";
 
 export const Container = styled(Link)`
     width: 100%;
@@ -26,7 +25,7 @@ export const Container = styled(Link)`
     }
 `;
 
-export const TagWrapper = styled.span<{tag: "good" | "bad" | "suggest" | "machine" | "reservation" | "room" | "etc"}>`
+export const TagWrapper = styled.span<{tag: "good" | "bad" | "suggest" | "machine" | "reservation" | "room" | "etc", isDarkMode: boolean}>`
     width: fit-content;
     display: inline-block;
     font-size: 0.87rem;
@@ -35,9 +34,7 @@ export const TagWrapper = styled.span<{tag: "good" | "bad" | "suggest" | "machin
     text-align: center;
     border-radius: 6px;
     opacity: ${({tag}) => (tag === "suggest" || tag === "room") ? 0.8 : 1};
-    background-color: ${({theme, tag}) => {
-        const {isDarkMode} = useThemeStore();
-        
+    background-color: ${({theme, tag, isDarkMode}) => {
         let bgColor;
         switch (tag) {
             case "good":
@@ -66,8 +63,7 @@ export const TagWrapper = styled.span<{tag: "good" | "bad" | "suggest" | "machin
         }
         return bgColor;
     }};
-    color: ${({theme, tag}) => {
-        const {isDarkMode} = useThemeStore();
+    color: ${({theme, tag, isDarkMode}) => {
         if (isDarkMode) {
             return lighten(0.2, theme.colors.font.sub);
         }
@@ -156,16 +152,13 @@ export const TitleWrapper = styled.div`
     }
 `;
 
-export const BottomWrapper = styled.div`
+export const BottomWrapper = styled.div<{isDarkMode: boolean}>`
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 8px 0 4px;
-    border-top: 1px solid ${({theme}) => {
-        const {isDarkMode} = useThemeStore();
-        return isDarkMode ? theme.colors.line.main : lighten(0.05, theme.colors.line.main);
-    }};
+    border-top: 1px solid ${({theme, isDarkMode}) => isDarkMode ? theme.colors.line.main : lighten(0.05, theme.colors.line.main)};
     font-size: 0.85rem;
     color: ${({theme}) => theme.colors.font.sub};
 `;

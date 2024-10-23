@@ -6,4 +6,5 @@ export interface IComment {
     authorId: string;
     likes: number;
     isLiked: boolean;
+    setComments: React.Dispatch<React.SetStateAction<IComment[]>>;
 }

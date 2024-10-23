@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { darken, lighten } from "polished";
-import { useThemeStore } from "@store/useThemeStore.ts";
 
 const commonBtnStyle = `
     text-align: center;
@@ -10,19 +9,16 @@ const commonBtnStyle = `
     align-items: center;
     justify-content: center;
     vertical-align: middle;
-    cursor: pointer;
     border: none;
     text-wrap: nowrap;
 `;
 
-const getBackgroundColor = (theme: any, color: "primary" | "approval" | "second" | "third" | "danger", isDarkMode:boolean) => {
+const getBackgroundColor = (theme: any, color: "primary" | "approval" | "second" | "third" | "danger", isDarkMode: boolean) => {
     const baseColor = theme.colors.button[color];
     return isDarkMode ? lighten(0.05, baseColor) : darken(0.05, baseColor);
 };
 
-const getTextColor = (theme: any, color: "primary" | "approval" | "second" | "third" | "danger") => {
-    const { isDarkMode } = useThemeStore();
-
+const getTextColor = (theme: any, color: "primary" | "approval" | "second" | "third" | "danger", isDarkMode: boolean) => {
     switch (color) {
         case "primary":
             return "white";
@@ -46,6 +42,8 @@ const BaseComponent = styled.div<{
     width: "full" | "fit";
     color: "primary" | "approval" | "second" | "third" | "danger";
     scale: "small" | "normal" | "big";
+    disabled: boolean | undefined;
+    isDarkMode: boolean;
 }>`
     ${commonBtnStyle};
     
@@ -63,8 +61,17 @@ const BaseComponent = styled.div<{
     }[scale])};
     
     border-radius: ${({ scale }) => (scale === "big" ? "12px" : scale === "normal" ? "10px" : "8px")};
-    background-color: ${({ theme, color }) => theme.colors.button[color]};
-    color: ${({ theme, color }) => getTextColor(theme, color)};
+    background-color: ${({ theme, color, disabled, isDarkMode }) => {
+        return disabled && !isDarkMode ? darken(0.05, theme.colors.button.third) 
+                : disabled && isDarkMode ? theme.colors.button.third 
+                        : theme.colors.button[color]
+    }};
+    color: ${({ theme, color, disabled, isDarkMode }) => {
+        return disabled && !isDarkMode ? theme.colors.font.sub
+                : disabled && isDarkMode ? theme.colors.font.placeholder
+                        : getTextColor(theme, color, isDarkMode)
+    }};
+    cursor: ${({disabled}) => disabled ? "not-allowed" : "pointer"};
     
     & > div {
         display: flex;
@@ -74,20 +81,17 @@ const BaseComponent = styled.div<{
     
     svg {
         margin-top: 4px;
-        fill: ${({theme, color}) => getTextColor(theme, color)};
+        fill: ${({theme, color, isDarkMode}) => getTextColor(theme, color, isDarkMode)};
         width: 20px;
         height: 20px;
     }
     
     &:hover {
-        background-color: ${({ theme, color }) => {
-            const { isDarkMode } = useThemeStore();
-            return getBackgroundColor(theme, color, isDarkMode);
-        }};
+        background-color: ${({ theme, color, disabled, isDarkMode }) => !disabled && getBackgroundColor(theme, color, isDarkMode)};
     }
     
     &:active {
-        transform: scale(0.95);
+        transform: ${({disabled}) => !disabled && 'scale(0.95)'};
     }
 `;
 

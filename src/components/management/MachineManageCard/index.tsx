@@ -43,7 +43,7 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
     const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(null);
     const [rangeValue, setRangeValue] = useState<number | undefined>(machineType === "heat" ? (machineData[0] as IHeats)?.count : undefined);
 
-    const {lang} = useThemeStore();
+    const {lang, isDarkMode} = useThemeStore();
 
     const {isOpen, listRef, maxHeight, handleList} = useListCollapse({dataLength: machineData.length, timeLength: timeData?.length});
 
@@ -176,7 +176,7 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
 
                     {/*열선 개수 조절*/}
                     {machineType === "heat" &&
-                        <CountWrapper rangeValue={rangeValue as number}>
+                        <CountWrapper rangeValue={rangeValue as number} isDarkMode={isDarkMode}>
                             <div>
                                 <Input
                                     label={inputCategories.count[lang]}

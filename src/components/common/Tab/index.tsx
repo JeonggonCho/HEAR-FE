@@ -2,6 +2,7 @@ import React, {FC, useMemo} from 'react';
 import {useLocation} from "react-router-dom";
 
 import {ITabProps} from "@/types/componentProps.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {ButtonTapWrapper, ButtonTap, Background, LineTapWrapper, LineTap} from "./style.ts";
 
@@ -9,6 +10,8 @@ const Tab:FC<ITabProps> = (props) => {
     const {type, tabs} = props;
 
     const location = useLocation();
+
+    const {lang, isDarkMode} = useThemeStore();
 
     const memoizedTabs = useMemo(() => tabs, [tabs]);
 
@@ -19,13 +22,18 @@ const Tab:FC<ITabProps> = (props) => {
         }
 
         return (
-            <ButtonTapWrapper>
-                <Background activeIndex={activeIndex} tabCount={tabs.length} />
+            <ButtonTapWrapper isDarkMode={isDarkMode}>
+                <Background
+                    activeIndex={activeIndex}
+                    tabCount={tabs.length}
+                    isDarkMode={isDarkMode}
+                />
                 {memoizedTabs.map((tab, index) => (
                     <ButtonTap
                         key={index}
                         onClick={() => setActiveIndex(index)}
                         active={(activeIndex === index).toString()}
+                        lang={lang}
                     >
                         {tab.name}
                     </ButtonTap>

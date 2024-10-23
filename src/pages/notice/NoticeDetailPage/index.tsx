@@ -35,7 +35,7 @@ const NoticeDetailPage:FC = () => {
     const {noticeId} = useParams();
 
     const {userData} = useUserDataStore();
-    const {lang} = useThemeStore();
+    const {lang, isDarkMode} = useThemeStore();
 
     const {isLoading: noticeIsLoading, errorText: noticeErrorText, sendRequest: noticeSendRequest, clearError: noticeClearError} = useRequest();
     const {errorText: deleteNoticeErrorText, sendRequest: deleteNoticeSendRequest, clearError: deleteNoticeClearError} = useRequest();
@@ -97,7 +97,7 @@ const NoticeDetailPage:FC = () => {
 
 
     return (
-        <Container>
+        <Container isDarkMode={isDarkMode}>
             <HeadTag title={notice?.title || headerCategories.noticeDetail[lang]}/>
 
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.noticeDetail[lang]}/>

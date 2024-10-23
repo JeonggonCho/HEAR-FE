@@ -16,7 +16,7 @@ import account from "@assets/icons/account.svg";
 
 const Nav:FC = () => {
     const {pathname} = useLocation();
-    const {lang} = useThemeStore();
+    const {lang, isDarkMode} = useThemeStore();
 
     const navInfoCategories: ICategory[] = [
         { label: navCategories.home[lang], icon: home, path: "/home" },
@@ -33,6 +33,7 @@ const Nav:FC = () => {
                     to={category.path}
                     key={index}
                     active={(pathname.includes(category.path)).toString()}
+                    isDarkMode={isDarkMode}
                 >
                     <div>
                         <ReactSVG src={category.icon} />

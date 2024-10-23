@@ -10,18 +10,18 @@ import ReservationCard from "@components/home/ReservationCard";
 import CardLoading from "@components/skeleton/CardLoading";
 import Toast from "@components/common/Toast";
 import CafeSiteCard from "@components/home/CafeSiteCard";
-
+import HeadTag from "@components/common/HeadTag";
 import LaserReservationConditionContent from "@components/content/LaserReservationConditionContent";
 import PrinterReservationConditionContent from "@components/content/PrinterReservationConditionContent";
 import HeatReservationConditionContent from "@components/content/HeatReservationConditionContent";
 import SawReservationConditionContent from "@components/content/SawReservationConditionContent";
 import VacuumReservationConditionContent from "@components/content/VacuumReservationConditionContent";
 import CncReservationConditionContent from "@components/content/CncReservationConditionContent";
-import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
-import {ILaserStatus} from "@/types/reservation.ts";
 import {getLaserReservationRate} from "@util/getReservationRate.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {ILaserStatus} from "@/types/reservation.ts";
 
 import {
     AlarmWrapper,
@@ -47,11 +47,15 @@ const HomeHeaderLeft:FC = () => {
     );
 };
 
-const HomeHeaderRight:FC = () => (
-    <AlarmWrapper to={"/alarm"}>
-        <ReactSVG src={alarm}/>
-    </AlarmWrapper>
-);
+const HomeHeaderRight:FC = () => {
+    const {isDarkMode} = useThemeStore();
+
+    return (
+        <AlarmWrapper to={"/alarm"} isDarkMode={isDarkMode}>
+            <ReactSVG src={alarm}/>
+        </AlarmWrapper>
+    );
+};
 
 const HomePage = () => {
     const [machineStatus, setMachineStatus] = useState({laser: false, printer: false, heat: false, saw: false, vacuum: false, cnc: false});
@@ -104,7 +108,7 @@ const HomePage = () => {
     }, [fetchAllReservations, fetchMachineStatus]);
 
     const carouselContents = [];
-    if (machineStatus.laser) carouselContents.push(<LaserReservationConditionContent laserStatus={laserStatus} rate={rate} color={color}/>);
+    if (machineStatus.laser) carouselContents.push(<LaserReservationConditionContent laserStatus={laserStatus} rate={rate} color={color || "primary"}/>);
     if (machineStatus.printer) carouselContents.push(<PrinterReservationConditionContent/>);
     if (machineStatus.heat) carouselContents.push(<HeatReservationConditionContent/>);
     if (machineStatus.saw) carouselContents.push(<SawReservationConditionContent/>);

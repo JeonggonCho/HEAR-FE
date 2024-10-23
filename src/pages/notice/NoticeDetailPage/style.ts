@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
 import {darken, lighten} from "polished";
-import {useThemeStore} from "@store/useThemeStore.ts";
 
-export const Container = styled.div`
+export const Container = styled.div<{isDarkMode: boolean}>`
     width: 100%;
     
     & > div:first-of-type {
@@ -12,10 +11,7 @@ export const Container = styled.div`
 
     p {
         font-size: 1.15rem;
-        color: ${({theme}) => {
-            const {isDarkMode} = useThemeStore();
-            return isDarkMode ? lighten(0.2, theme.colors.font.sub) : darken(0.3, theme.colors.font.sub);
-        }};
+        color: ${({theme, isDarkMode}) => isDarkMode ? lighten(0.2, theme.colors.font.sub) : darken(0.3, theme.colors.font.sub)};
         line-height: 1.5;
         word-break: keep-all;
         white-space: normal;

@@ -14,10 +14,11 @@ import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
 import stripHtml from "@util/stripHtml.ts";
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
+import {useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
-import {useUserInfoStore} from "@store/useUserStore.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
 
 import {
     AuthorWrapper,
@@ -35,7 +36,6 @@ import {
 import noProfile from "@assets/icons/no_profile.svg";
 import deleteIcon from "@assets/icons/delete.svg";
 import editIcon from "@assets/icons/edit.svg";
-import {placeholderCategories} from "@constants/placeholderCategories.ts";
 
 
 const CommentListItem:FC<IComment> = (props) => {
@@ -77,6 +77,8 @@ const CommentListItem:FC<IComment> = (props) => {
                 url: `/comments/${props._id}`,
                 method: "delete",
             });
+            setShowConfirmModal(false);
+            props.setComments(prevState => prevState.filter((comment) => comment._id !== props._id));
         } catch (err) {
             console.error("댓글 삭제 중 에러 발생: ", err);
         }
@@ -189,7 +191,7 @@ const CommentListItem:FC<IComment> = (props) => {
                         <div>
                         <TimeWrapper>{timeStamp}</TimeWrapper>
                             <BtnsWrapper>
-                            <LikeBtnWrapper onClick={likeComment} isLiked={isLiked}>
+                                <LikeBtnWrapper onClick={likeComment} isLiked={isLiked}>
                                     {buttonCategories.like[lang]} {countOfLike || 0}
                                 </LikeBtnWrapper>
                                 <CommentBtnWrapper>

@@ -62,12 +62,13 @@ const InquiryDetailPage:FC = () => {
     const {inquiryId} = useParams();
 
     const {userInfo} = useUserInfoStore();
-    const {lang} = useThemeStore();
+    const {lang, isDarkMode} = useThemeStore();
 
     const {isLoading: inquiryIsLoading, errorText: inquiryErrorText, sendRequest: inquirySendRequest, clearError: inquiryClearError} = useRequest();
     const {errorText: deleteInquiryErrorText, sendRequest: deleteInquirySendRequest, clearError: deleteInquiryClearError} = useRequest();
     const {errorText: likeInquiryErrorText, sendRequest: likeInquirySendRequest, clearError: likeInquiryClearError} = useRequest();
     const {errorText: commentErrorText, sendRequest: commentSendRequest, clearError: commentClearError} = useRequest();
+
     const {text, countOfText, handleTextChange, setText} = useTextarea(); // 댓글 textarea
 
     // 문의 생성 날짜 스탬프
@@ -205,7 +206,7 @@ const InquiryDetailPage:FC = () => {
                         <InquiryInfoWrapper>
                             <div>
                                 <div>
-                                    <TagWrapper tag={inquiry.category}>{inquiryCategories[inquiry.category][lang]}</TagWrapper>
+                                    <TagWrapper tag={inquiry.category} isDarkMode={isDarkMode}>{inquiryCategories[inquiry.category][lang]}</TagWrapper>
                                     <div>
                                         {inquiryId && inquiry && inquiry.creatorId === userInfo?.userId &&
                                           <Dropdown dropdownMenus={inquiryDropdownMenus}/>
@@ -241,7 +242,7 @@ const InquiryDetailPage:FC = () => {
                             </div>
                         </InquiryInfoWrapper>
 
-                        <ContentWrapper>
+                        <ContentWrapper isDarkMode={isDarkMode}>
                             <p dangerouslySetInnerHTML={{__html: transformedText}}/>
                         </ContentWrapper>
 
@@ -295,6 +296,7 @@ const InquiryDetailPage:FC = () => {
                                     likes={comment.likes}
                                     createdAt={comment.createdAt}
                                     isLiked={comment.isLiked}
+                                    setComments={setComments}
                                 />
                             ))}
                         </CommentListWrapper>

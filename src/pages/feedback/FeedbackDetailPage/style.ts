@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import {useThemeStore} from "@store/useThemeStore.ts";
 import {darken, lighten} from "polished";
 
 export const Container = styled.div`
@@ -48,7 +47,7 @@ export const FeedbackInfoWrapper = styled.div`
     }
 `;
 
-export const ContentWrapper = styled.div`
+export const ContentWrapper = styled.div<{isDarkMode: boolean}>`
     padding: 24px 8px;
 
     & > p:first-of-type {
@@ -57,10 +56,7 @@ export const ContentWrapper = styled.div`
         line-height: 1.8;
         text-wrap: wrap;
         word-break: manual;
-        color: ${({theme}) => {
-            const {isDarkMode} = useThemeStore();
-            return isDarkMode ? lighten(0.2, theme.colors.font.sub) : darken(0.3, theme.colors.font.sub);
-        }};
+        color: ${({theme, isDarkMode}) => isDarkMode ? lighten(0.2, theme.colors.font.sub) : darken(0.3, theme.colors.font.sub)};
     }
 
     a {

@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import {Link} from "react-router-dom";
-import {useThemeStore} from "@store/useThemeStore.ts";
 import {darken, lighten} from "polished";
 
 export const HeaderElementWrapper = styled.div`
@@ -26,7 +25,7 @@ export const Title = styled.h1`
     color: ${({theme}) => theme.colors.font.primary};
 `;
 
-export const AlarmWrapper = styled(Link)`
+export const AlarmWrapper = styled(Link)<{isDarkMode: boolean}>`
     width: 32px;
     margin-right: 6px;
     margin-top: 2px;
@@ -41,10 +40,7 @@ export const AlarmWrapper = styled(Link)`
         transition: all 0.2s ease-in-out 0s;
         
         &:hover {
-            fill: ${({theme}) => {
-                const {isDarkMode} = useThemeStore();
-                return isDarkMode ? lighten(0.2, theme.colors.icon.fill) : darken(0.2, theme.colors.icon.fill)
-            }};
+            fill: ${({theme, isDarkMode}) => isDarkMode ? lighten(0.2, theme.colors.icon.fill) : darken(0.2, theme.colors.icon.fill)};
         }
     }
 `;

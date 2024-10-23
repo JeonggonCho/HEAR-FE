@@ -15,7 +15,7 @@ import likes from "@assets/icons/feedback.svg";
 import comments from "@assets/icons/chat.svg";
 
 const InquiryFeedbackListItem:FC<IInquiryProps | IFeedbackProps> = (props) => {
-    const {lang} = useThemeStore();
+    const {lang, isDarkMode} = useThemeStore();
 
     const timeStamp = useMemo(() => getTimeStamp(props.createdAt, lang), [props.createdAt]);
 
@@ -34,7 +34,7 @@ const InquiryFeedbackListItem:FC<IInquiryProps | IFeedbackProps> = (props) => {
                 : props.type === "feedback" ? `/board/feedback/${props._id}`
                     : "/"}
         >
-            <TagWrapper tag={props.category}>{categoryLabel}</TagWrapper>
+            <TagWrapper tag={props.category} isDarkMode={isDarkMode}>{categoryLabel}</TagWrapper>
 
             <TitleWrapper>
                 <h3>{props.title}</h3>
@@ -47,7 +47,7 @@ const InquiryFeedbackListItem:FC<IInquiryProps | IFeedbackProps> = (props) => {
                 <span>{props.creator}</span>
             </WriterWrapper>
 
-            <BottomWrapper>
+            <BottomWrapper isDarkMode={isDarkMode}>
                 <InfoWrapper>
                     <div>
                         <ReactSVG src={views}/>

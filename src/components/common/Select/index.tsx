@@ -4,6 +4,7 @@ import {ReactSVG} from "react-svg";
 import InputError from "@components/common/InputError";
 
 import {ISelectProps} from "@/types/componentProps.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {
     CheckboxListWrapper,
@@ -17,6 +18,8 @@ import {
 import check from "@assets/icons/check.svg";
 
 const Select:FC<ISelectProps> = ({label, categories, register, name, errorMessage, type="radio", onSelectChange, values=[]}) => {
+    const {lang, isDarkMode} = useThemeStore();
+
     return (
         <Container>
             <label>{label}</label>
@@ -33,7 +36,13 @@ const Select:FC<ISelectProps> = ({label, categories, register, name, errorMessag
                                   {...register ? register(name) : null}
                                   disabled={category.status}
                               />
-                              <LabelWrapper htmlFor={category.id}>{category.label}</LabelWrapper>
+                              <LabelWrapper
+                                  htmlFor={category.id}
+                                  isDarkMode={isDarkMode}
+                                  lang={lang}
+                              >
+                                  {category.label}
+                              </LabelWrapper>
                           </RadioWrapper>
                       );
                   })}

@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import {useThemeStore} from "@store/useThemeStore.ts";
 import {darken, lighten} from "polished";
 
 const setDirection = (isMine: boolean) => {
@@ -12,16 +11,13 @@ const setBorder = (isMine: boolean) => {
         : "border-left: 22px solid transparent; " + "border-right: 0 solid transparent;";
 };
 
-export const Container = styled.div<{isMine: boolean}>`
+export const Container = styled.div<{isMine: boolean, isDarkMode: boolean}>`
     display: flex;
     gap: 32px;
     ${({isMine}) => isMine ? "flex-direction: row-reverse;" : "flex-direction: row;"};
     
     & > div {
-        background-color: ${({theme}) => {
-            const {isDarkMode} = useThemeStore();
-            return isDarkMode ? theme.colors.button.second : lighten(0.05, theme.colors.button.second);
-        }};
+        background-color: ${({theme, isDarkMode}) => isDarkMode ? theme.colors.button.second : lighten(0.05, theme.colors.button.second)};
         width: 40px;
         height: 40px;
         overflow: hidden;
@@ -37,8 +33,7 @@ export const Container = styled.div<{isMine: boolean}>`
     p {
         position: relative;
         max-width: 75%;
-        background-color: ${({theme, isMine}) => {
-            const {isDarkMode} = useThemeStore();
+        background-color: ${({theme, isMine, isDarkMode}) => {
             if (isMine) {
                 return theme.colors.button.approval;
             }
@@ -48,10 +43,7 @@ export const Container = styled.div<{isMine: boolean}>`
         margin: 0;
         border-radius: 12px;
         font-size: 1.15rem;
-        color: ${({theme}) => {
-            const {isDarkMode} = useThemeStore();
-            return isDarkMode ? lighten(0.2, theme.colors.font.sub) : darken(0.2, theme.colors.font.sub);
-        }});
+        color: ${({theme, isDarkMode}) => isDarkMode ? lighten(0.2, theme.colors.font.sub) : darken(0.2, theme.colors.font.sub)});
         line-height: 1.5;
         word-break: keep-all;
         white-space: normal;
@@ -64,8 +56,7 @@ export const Container = styled.div<{isMine: boolean}>`
             top: 12px;
             content: "";
             width: 6px;
-            border-top: 16px solid ${({theme, isMine}) => {
-                const {isDarkMode} = useThemeStore();
+            border-top: 16px solid ${({theme, isMine, isDarkMode}) => {
                 if (isMine) {
                     return theme.colors.button.approval;
                 }

@@ -68,6 +68,8 @@ export const ContentWrapper = styled.p`
     border-radius: 12px;
     font-size: 0.9rem;
     line-height: 1.3;
+    text-wrap: wrap;
+    word-break: break-all;
 
     a {
         color: ${({theme}) => theme.colors.font.primary};

@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import {useThemeStore} from "@store/useThemeStore.ts";
 import {lighten} from "polished";
 
 export const Container = styled.div`
@@ -102,7 +101,7 @@ export const BtnsWrapper = styled.div`
     }
 `;
 
-export const CountWrapper = styled.div<{rangeValue: number}>`
+export const CountWrapper = styled.div<{rangeValue: number, isDarkMode: boolean}>`
     width: 100%;
     margin-top: 12px;
     display: flex;
@@ -144,10 +143,7 @@ export const CountWrapper = styled.div<{rangeValue: number}>`
                     width: calc((100% - 16px) * (${({rangeValue}) => rangeValue} / 15));
                     height: 4px;
                     border-radius: 4px;
-                    background-color: ${({theme}) => {
-                        const {isDarkMode} = useThemeStore();
-                        return isDarkMode ? theme.colors.button.primary : lighten(0.05, theme.colors.button.primary); 
-                    }};
+                    background-color: ${({theme, isDarkMode}) => isDarkMode ? theme.colors.button.primary : lighten(0.05, theme.colors.button.primary)};
                     z-index: 0;
                 }
             }
@@ -157,10 +153,7 @@ export const CountWrapper = styled.div<{rangeValue: number}>`
                 position: relative;
                 background: white;
                 cursor: pointer;
-                border: 1px solid ${({theme}) => {
-                    const {isDarkMode} = useThemeStore();
-                    return isDarkMode ? theme.colors.line.main : lighten(0.05, theme.colors.line.main);
-                }};
+                border: 1px solid ${({theme, isDarkMode}) => isDarkMode ? theme.colors.line.main : lighten(0.05, theme.colors.line.main)};
                 height: 24px; 
                 width: 24px;
                 margin-top: -9px;

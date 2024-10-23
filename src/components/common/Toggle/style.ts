@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
-import {useThemeStore} from "@store/useThemeStore.ts";
 import {lighten} from "polished";
 
-export const Container = styled.button<{status: boolean}>`
+export const Container = styled.button<{status: boolean, isDarkMode: boolean}>`
     width: 52px;
     height: 32px;
     padding: 2px;
@@ -10,8 +9,7 @@ export const Container = styled.button<{status: boolean}>`
     align-items: center;
     border: none;
     border-radius: 16px;
-    background-color: ${({theme, status}) => {
-        const {isDarkMode} = useThemeStore();
+    background-color: ${({theme, status, isDarkMode}) => {
         return isDarkMode && status === false ? theme.colors.button.second 
                 : isDarkMode === false && status === false ? lighten(0.1, theme.colors.button.second) 
                         : status === true ? theme.colors.button.green 

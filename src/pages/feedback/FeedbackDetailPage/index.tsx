@@ -51,7 +51,7 @@ const FeedbackDetailPage:FC = () => {
     const {feedbackId} = useParams();
 
     const {userInfo} = useUserInfoStore();
-    const {lang} = useThemeStore();
+    const {lang, isDarkMode} = useThemeStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
     const {errorText: deleteFeedbackErrorText, sendRequest: deleteFeedbackSendRequest, clearError: deleteFeedbackClearError} = useRequest();
     const {errorText: likeErrorText, sendRequest: likeSendRequest, clearError: likeClearError} = useRequest();
@@ -147,7 +147,7 @@ const FeedbackDetailPage:FC = () => {
                         <FeedbackInfoWrapper>
                             <div>
                                 <div>
-                                    <TagWrapper tag={feedback.category}>{feedbackCategories[feedback.category][lang]}</TagWrapper>
+                                    <TagWrapper tag={feedback.category} isDarkMode={isDarkMode}>{feedbackCategories[feedback.category][lang]}</TagWrapper>
                                     <div>
                                         {feedbackId && feedback.creatorId === userInfo?.userId &&
                                           <Dropdown dropdownMenus={feedbackDropdownMenus}/>
@@ -183,7 +183,7 @@ const FeedbackDetailPage:FC = () => {
                             </div>
                         </FeedbackInfoWrapper>
 
-                        <ContentWrapper>
+                        <ContentWrapper isDarkMode={isDarkMode}>
                             <p dangerouslySetInnerHTML={{__html: transformedText}}/>
                         </ContentWrapper>
 
