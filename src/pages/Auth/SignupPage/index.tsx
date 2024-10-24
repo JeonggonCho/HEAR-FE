@@ -2,8 +2,8 @@ import {FC, useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
-import {AxiosResponse} from "axios";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {AxiosResponse} from "axios";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
@@ -14,28 +14,36 @@ import Link from "@components/common/Link";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
-import InputError from "@components/common/InputError";
+import InputMessage from "@components/common/InputMessage";
 
 import useRequest from "@hooks/useRequest.ts";
 import useDebounce from "@hooks/useDebounce.ts";
 import isEmailValid from "@util/isEmailValid.ts";
+import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
 import {IAuthResponseData} from "@/types/authResponse.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {signupSchema} from "@schemata/userSchema.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 
-import {Container, EmailFormWrapper} from "./style.ts";
-
+import {
+    Container,
+    EmailFormWrapper,
+    EmailInputWrapper,
+    VerificationCodeInputWrapper,
+} from "./style.ts";
 
 const SignupPage:FC = () => {
-    const [sameEmailError, setSameEmailError] = useState<boolean>(false);
-    const [disabledEmailAuthenticationBtn, setDisabledEmailAuthenticationBtn] = useState<boolean>(true);
     const [email, setEmail] = useState<string>("");
+    const [sameEmailError, setSameEmailError] = useState<boolean>(false);
+    const [validEmailMessage, setValidEmailMessage] = useState<boolean>(false);
+    const [disabledVerificationBtn, setDisabledVerificationBtn] = useState<boolean>(true);
+    const [sendVerificationCodeMode, setSendVerificationCodeMode] = useState<boolean>(false);
+    const [disabledConfirmBtn, setDisabledConfirmBtn] = useState<boolean>(true);
 
     const navigate = useNavigate();
 
@@ -43,6 +51,7 @@ const SignupPage:FC = () => {
     const {setUserInfo} = useUserInfoStore();
     const {setUserData} = useUserDataStore();
     const {lang} = useThemeStore();
+    const {signupSchema} = UserSchemaProvider();
 
     const yearCategories = [
         {label: inputCategories.first[lang], value: "1", id: "select-1"},
@@ -54,6 +63,17 @@ const SignupPage:FC = () => {
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
     const {sendRequest: checkEmailSendRequest} = useRequest();
+    const {
+        sendRequest: sendVerificationCodeSendRequest,
+        errorText: sendVerificationCodeErrorText,
+        clearError: sendVerificationCodeClearError,
+    } = useRequest();
+
+    const {
+        sendRequest: verifyEmailCodeSendRequest,
+        errorText: verifyEmailCodeErrorText,
+        clearError: verifyEmailCodeClearError,
+    } = useRequest();
 
     type SignupFormData = z.infer<typeof signupSchema>;
 
@@ -77,23 +97,25 @@ const SignupPage:FC = () => {
     // 동일한 이메일이 있는지 확인 요청 보내기
     const checkSameEmail = useCallback(async () => {
         if (!debouncedEmail || !isEmailValid(debouncedEmail)) {
-            setDisabledEmailAuthenticationBtn(true);
-            return
-        };
+            setDisabledVerificationBtn(true);
+            return;
+        }
         try {
             const response = await checkEmailSendRequest({
                 url: `/users/check-email?email=${debouncedEmail}`,
             });
             if (response.data !== 200) {
-                setDisabledEmailAuthenticationBtn(true);
+                setDisabledVerificationBtn(true);
                 setSameEmailError(true);
+                setValidEmailMessage(false);
             } else {
-                setDisabledEmailAuthenticationBtn(false);
+                setDisabledVerificationBtn(false);
                 setSameEmailError(false);
+                setValidEmailMessage(true);
             }
         } catch (err) {
             console.error("동일한 이메일 존재하는지 확인 중 에러 발생: ", err);
-            setDisabledEmailAuthenticationBtn(true);
+            setDisabledVerificationBtn(true);
         }
     }, [checkEmailSendRequest, debouncedEmail]);
 
@@ -101,6 +123,53 @@ const SignupPage:FC = () => {
     useEffect(() => {
         checkSameEmail();
     }, [checkSameEmail]);
+
+
+    // 인증 번호 전송하기
+    const sendVerificationCode = async () => {
+        try {
+            const response = await sendVerificationCodeSendRequest({
+                url: "/users/send-verification-code",
+                method: "post",
+                data: {email: debouncedEmail},
+            });
+            if (response.data) {
+                console.log(response.data);
+            }
+        } catch (err) {
+            console.error("인증 번호 요청 중 에러 발생: ", err);
+        }
+    };
+
+    // 인증 번호 전송 요청 클릭
+    const sendVerificationCodeClickHandler = () => {
+        if (validEmailMessage && isEmailValid(debouncedEmail)) {
+            sendVerificationCode();
+            setSendVerificationCodeMode(true);
+        }
+    };
+
+    // 인증 번호 확인하기
+    const verifyEmailCode = async () => {
+        try {
+            const response = await verifyEmailCodeSendRequest({
+                url: "/users/verify-email-code",
+                method: "post",
+                data: {},
+            });
+            if (response.data) {
+                console.log(response.data);
+            }
+        } catch (err) {
+            console.error("인증 번호 확인 중 에러 발생: ", err);
+        }
+    };
+
+
+    // 인증 번호 확인 요청 클릭
+    const verifyEmailCodeClickHandler = () => {
+        verifyEmailCode();
+    };
 
 
     // 회원가입 요청하기
@@ -144,7 +213,7 @@ const SignupPage:FC = () => {
                         />
 
                         <EmailFormWrapper>
-                            <div>
+                            <EmailInputWrapper>
                                 <Input
                                     label={inputCategories.hyuEmail[lang]}
                                     type={"text"}
@@ -158,14 +227,37 @@ const SignupPage:FC = () => {
                                 />
                                 <Button
                                     type={"button"}
-                                    content={"이메일 인증"}
+                                    content={buttonCategories.verification[lang]}
                                     width={"fit"}
                                     color={"approval"}
                                     scale={"small"}
-                                    disabled={disabledEmailAuthenticationBtn}
+                                    disabled={disabledVerificationBtn}
+                                    onClick={sendVerificationCodeClickHandler}
                                 />
-                            </div>
-                            {sameEmailError && <InputError errorMessage={"동일한 이메일이 존재합니다"}/>}
+                            </EmailInputWrapper>
+
+                            {sameEmailError && isEmailValid(debouncedEmail) && <InputMessage message={messageCategories.sameEmailError[lang]} type={"error"}/>}
+                            {validEmailMessage && isEmailValid(debouncedEmail) && <InputMessage message={messageCategories.validEmail[lang]} type={"approval"}/>}
+
+                            {sendVerificationCodeMode &&
+                              <VerificationCodeInputWrapper>
+                                <Input
+                                  type={"text"}
+                                  id={"verification-code"}
+                                  name={"verification-code"}
+                                  placeholder={placeholderCategories.verificationCode[lang]}
+                                />
+                                <Button
+                                  type={"button"}
+                                  content={buttonCategories.confirm[lang]}
+                                  width={"fit"}
+                                  color={"approval"}
+                                  scale={"small"}
+                                  disabled={disabledConfirmBtn}
+                                  onClick={verifyEmailCodeClickHandler}
+                                />
+                              </VerificationCodeInputWrapper>
+                            }
                         </EmailFormWrapper>
 
                         <Input
@@ -242,6 +334,14 @@ const SignupPage:FC = () => {
 
             {errorText &&
                 <Toast text={errorText} setToast={clearError} type={"error"}/>
+            }
+
+            {sendVerificationCodeErrorText &&
+                <Toast text={sendVerificationCodeErrorText} setToast={sendVerificationCodeClearError} type={"error"}/>
+            }
+
+            {verifyEmailCodeErrorText &&
+                <Toast text={verifyEmailCodeErrorText} setToast={verifyEmailCodeClearError} type={"error"}/>
             }
         </Container>
     );

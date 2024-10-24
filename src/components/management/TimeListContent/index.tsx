@@ -1,7 +1,7 @@
 import {FC} from "react";
-import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 import {z} from "zod";
+import {zodResolver} from "@hookform/resolvers/zod";
 import {v4 as uuidv4} from "uuid";
 import {DragDropContext, Droppable} from '@hello-pangea/dnd';
 
@@ -9,18 +9,20 @@ import TimeListItem from "@components/management/TimeListItem";
 import Button from "@components/common/Button";
 import Toast from "@components/common/Toast";
 
-import {timeRangeSchema} from "@schemata/machineSchema.ts";
-import {ITimeListContentProps} from "@/types/componentProps.ts";
 import useRequest from "@hooks/useRequest.ts";
-import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
+import {ITimeListContentProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 
 import {Container, TimeSelectsWrapper, ErrorMessage,} from "./style.ts";
 
+
 const TimeListContent:FC<ITimeListContentProps> = ({timeList, setTimeList}) => {
     const {lang} = useThemeStore();
+    const {timeRangeSchema} = MachineSchemaProvider();
 
     const {errorText, sendRequest, clearError} = useRequest();
 

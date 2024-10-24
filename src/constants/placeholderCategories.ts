@@ -74,4 +74,9 @@ export const placeholderCategories = {
         en: "Please write a comment",
         ch: "请写评论。",
     },
+    verificationCode: {
+        ko: "인증번호를 입력해주세요",
+        en: "Please enter the verification code",
+        ch: "请输入验证码",
+    },
 };

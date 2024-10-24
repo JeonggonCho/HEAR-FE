@@ -249,4 +249,14 @@ export const buttonCategories = {
         en: "Comment",
         ch: "评论",
     },
+    verification: {
+        ko: "인증",
+        en: "Verification",
+        ch: "验证",
+    },
+    confirm: {
+        ko: "확인",
+        en: "Confirm",
+        ch: "确认",
+    },
 };

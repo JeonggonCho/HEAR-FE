@@ -1,17 +1,17 @@
 import {FC, useCallback, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
+import {zodResolver} from "@hookform/resolvers/zod";
 
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import Toast from "@components/common/Toast";
 
 import useRequest from "@hooks/useRequest.ts";
+import WarningSchemaProvider from "@schemata/WarningSchemaProvider.ts";
 import {IUserInfoContentProps} from "@/types/componentProps.ts";
 import {IUserInfo} from "@/types/user.ts";
-import {warningSchema} from "@schemata/warningSchema.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
@@ -23,13 +23,14 @@ import {Buttons, CloseButton, Container, FieldWrapper, PassTag, PassWrapper, War
 import userIcon from "@assets/images/no_profile.png";
 import close from "@assets/icons/close.svg";
 
+
 const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfoUpdate}) => {
     const [user, setUser] = useState<IUserInfo>();
     const [showWarning, setShowWarning] = useState<boolean>(false);
 
     const {lang} = useThemeStore();
-
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
+    const {warningSchema} = WarningSchemaProvider();
 
     type WarningFormData = z.infer<typeof warningSchema>;
 

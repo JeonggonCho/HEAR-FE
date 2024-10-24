@@ -1,8 +1,8 @@
 import {ChangeEvent, FC} from "react";
 import {useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
+import {zodResolver} from "@hookform/resolvers/zod";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
@@ -15,14 +15,15 @@ import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
-import {noticeSchema} from "@schemata/qnaSchema.ts";
-import {inputCategories} from "@constants/inputCategories.ts";
+import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container} from "./style.ts";
+
 
 const CreateNoticePage:FC = () => {
     const navigate = useNavigate();
@@ -30,6 +31,7 @@ const CreateNoticePage:FC = () => {
     const {lang} = useThemeStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
     const {text, handleTextChange, countOfText} = useTextarea();
+    const {noticeSchema} = BoardSchemaProvider();
 
     type NoticeFormData = z.infer<typeof noticeSchema>;
 

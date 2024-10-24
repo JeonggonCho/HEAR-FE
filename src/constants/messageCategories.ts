@@ -189,4 +189,149 @@ export const messageCategories = {
         en: "Cannot create comment because the content is empty",
         ch: "由于内容为空，无法创建评论",
     },
+    sameEmailError: {
+        ko: "동일한 이메일이 존재합니다",
+        en: "The same email already exists",
+        ch: "相同的邮箱已存在",
+    },
+    validEmail: {
+        ko: "사용 가능한 이메일입니다",
+        en: "This email is available",
+        ch: "该邮箱可用",
+    },
+    startTimeForm: {
+        ko: "시작 시간이 유효한 시간 형식이 아닙니다",
+        en: "The start time is not in a valid time format",
+        ch: "开始时间不是有效的时间格式。",
+    },
+    endTimeForm: {
+        ko: "종료 시간이 유효한 시간 형식이 아닙니다",
+        en: "The end time is not in a valid time format",
+        ch: "结束时间不是有效的时间格式。",
+    },
+    timeSequence: {
+        ko: "시작 시간은 종료 시간보다 이전이여야 합니다",
+        en: "The start time must be earlier than the end time",
+        ch: "开始时间必须早于结束时间。",
+    },
+    machineName: {
+        ko: "기기명을 입력해주세요",
+        en: "Please enter the machine name",
+        ch: "请输入机器名称。",
+    },
+    mustCheck: {
+        ko: "해당 항목에 체크가 되어야 합니다",
+        en: "This item must be checked",
+        ch: "该项目必须被勾选。",
+    },
+    selectDate: {
+        ko: "날짜를 선택해주세요",
+        en: "Please select a date",
+        ch: "请选择日期。",
+    },
+    dateForm: {
+        ko: "날짜 형식은 YYYY-MM-DD이어야 합니다",
+        en: "The date format must be YYYY-MM-DD",
+        ch: "日期格式必须为YYYY-MM-DD。",
+    },
+    selectLaser: {
+        ko: "레이저 커팅기를 선택해주세요",
+        en: "Please select the laser cutter",
+        ch: "请选择激光切割机。",
+    },
+    minimumSelectTime: {
+        ko: "시간을 최소 1개 이상 선택해주세요",
+        en: "Please select at least one time",
+        ch: "请至少选择一个时间。",
+    },
+    maximumSelectTime: {
+        ko: "최대 예약 가능 횟수만큼 시간 선택이 가능합니다",
+        en: "You can select time slots up to the maximum number of reservations allowed",
+        ch: "您可以选择的时间段最多为允许的预约次数。",
+    },
+    inputTitle: {
+        ko: "제목을 입력해주세요",
+        en: "Please enter a title",
+        ch: "请输入标题。",
+    },
+    minimumContent: {
+        ko: "내용은 10자 이상 400자 이하로 작성해주세요",
+        en: "Please write the content with at least 10 characters and no more than 400 characters",
+        ch: "内容请写在10个字符以上，400个字符以下。",
+    },
+    maximumContent: {
+        ko: "내용은 10자 이상 400자 이하로 작성해주세요",
+        en: "Please enter content with at least 10 characters and no more than 400 characters",
+        ch: "内容请填写不少于10个字符且不超过400个字符。",
+    },
+    selectCategory: {
+        ko: "카테고리를 선택해주세요",
+        en: "Please select a category",
+        ch: "请选择一个类别。",
+    },
+    inputWarning: {
+        ko: "경고 사유를 작성해주세요",
+        en: "Please provide the reason for the warning",
+        ch: "请填写警告理由。",
+    },
+    inputUsername: {
+        ko: "이름을 입력해주세요",
+        en: "Please enter your name",
+        ch: "请输入您的姓名。",
+    },
+    inputEmail: {
+        ko: "이메일을 입력해주세요",
+        en: "Please enter your email",
+        ch: "请输入您的电子邮件。",
+    },
+    checkEmailForm: {
+        ko: "이메일 주소를 확인해주세요",
+        en: "Please verify your email address",
+        ch: "请确认您的电子邮件地址。",
+    },
+    emailDomain: {
+        ko: "이메일은 '@hanyang.ac.kr' 만 사용이 가능합니다",
+        en: "Only emails ending with '@hanyang.ac.kr' are allowed",
+        ch: "仅允许使用以'@hanyang.ac.kr'结尾的电子邮件。",
+    },
+    passwordLength: {
+        ko: "비밀번호는 8자 이상 20자 이하로 입력해주세요",
+        en: "Please enter a password between 8 and 20 characters",
+        ch: "密码请填写在8到20个字符之间。",
+    },
+    passwordForm: {
+        ko: "8~20자의 영문 대/소문자, 숫자, 특수문자 중 2가지 조합으로 입력해주세요",
+        en: "Please enter a combination of two of the following: uppercase letters, lowercase letters, numbers, and special characters, between 8 and 20 characters",
+        ch: "请输入8到20个字符的组合，包含大写字母、小写字母、数字和特殊字符中的两种。",
+    },
+    confirmPasswordLength: {
+        ko: "비밀번호 확인은 8자 이상 20자 이하로 입력해주세요",
+        en: "Please confirm your password with a length between 8 and 20 characters",
+        ch: "密码确认请填写在8到20个字符之间。",
+    },
+    selectYear: {
+        ko: "학년을 선택해주세요",
+        en: "Please select a year",
+        ch: "请选择年份。",
+    },
+    studentId: {
+        ko: "학번은 10자리의 숫자여야 합니다",
+        en: "The student ID must be a 10-digit number",
+        ch: "学号必须是10位数字。",
+    },
+    studio: {
+        ko: "스튜디오 교수님을 입력해주세요",
+        en: "Please enter the studio professor's name",
+        ch: "请输入工作室教授的名字。",
+    },
+    tel: {
+        ko: "전화번호를 확인해주세요",
+        en: "Please verify your phone number",
+        ch: "请确认您的电话号码。",
+    },
+    equalPassword: {
+        ko: "비밀번호가 일치하지 않습니다",
+        en: "The passwords do not match",
+        ch: "密码不匹配。",
+    },
 };

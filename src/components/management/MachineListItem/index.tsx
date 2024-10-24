@@ -13,9 +13,9 @@ import Input from "@components/common/Input";
 import {ILasers, IPrinters} from "@/types/machine.ts";
 import useToggle from "@hooks/useToggle.ts";
 import useRequest from "@hooks/useRequest.ts";
-import {newMachineSchema} from "@schemata/machineSchema.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
+import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
@@ -23,6 +23,7 @@ import {Buttons, Container, ControlWrapper} from "./style.ts";
 
 const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines: React.Dispatch<React.SetStateAction<ILasers[]>> | React.Dispatch<React.SetStateAction<IPrinters[]>>}> = (props) => {
     const {lang} = useThemeStore();
+    const {newMachineSchema} = MachineSchemaProvider();
 
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const [isEdit, setIsEdit] = useState<boolean>(false);

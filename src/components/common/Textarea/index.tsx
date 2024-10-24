@@ -1,6 +1,6 @@
 import {forwardRef, useEffect, useRef} from "react";
 
-import InputError from "@components/common/InputError";
+import InputMessage from "@components/common/InputMessage";
 
 import {ITextareaProps} from "@/types/componentProps.ts";
 
@@ -42,7 +42,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, ITextareaProps>( // forwardRefë
                     maxLength={400}
                     placeholder={placeholder}
                 />
-                {errorMessage && <InputError errorMessage={errorMessage}/>}
+                {errorMessage && <InputMessage message={errorMessage} type={"error"}/>}
                 {showCount && <p><span>{countOfText}</span> / 400</p>}
             </Container>
         );

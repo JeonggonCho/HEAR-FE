@@ -1,24 +1,24 @@
 import {ChangeEvent, FC} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {z} from "zod";
 import {useNavigate} from "react-router-dom";
+import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
+import Select from "@components/common/Select";
 import Button from "@components/common/Button";
 import Textarea from "@components/common/Textarea";
-import Select from "@components/common/Select";
 import Input from "@components/common/Input";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 
-import {inquirySchema} from "@schemata/qnaSchema.ts";
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
-import {inquiryCategories} from "@constants/inquiryCategories.ts";
+import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {inquiryCategories} from "@constants/inquiryCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {pageDescriptionCategories} from "@constants/pageDescriptionCategories.ts";
@@ -27,11 +27,14 @@ import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container} from "./style.ts";
 
+
 const CreateInquiryPage:FC = () => {
     const navigate = useNavigate();
 
     const {lang} = useThemeStore();
     const {text, handleTextChange, countOfText} = useTextarea();
+    const {inquirySchema} = BoardSchemaProvider();
+    const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     const inquiryInfoCategories = [
         {label: inquiryCategories.machine[lang], value: "machine", id: "radio-1"},
@@ -39,8 +42,6 @@ const CreateInquiryPage:FC = () => {
         {label: inquiryCategories.room[lang], value: "room", id: "radio-3"},
         {label: inquiryCategories.etc[lang], value: "etc", id: "radio-4"},
     ];
-
-    const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     type InquiryFormData = z.infer<typeof inquirySchema>;
 

@@ -2,7 +2,7 @@ import {FC, useMemo, useState} from "react";
 import {ReactSVG} from "react-svg";
 
 import Button from "@components/common/Button";
-import InputError from "@components/common/InputError";
+import InputMessage from "@components/common/InputMessage";
 
 import {ICalendarProps} from "@/types/componentProps.ts";
 import {calendarInformation, days} from "@constants/calendarCategories.ts";
@@ -148,7 +148,7 @@ const Calendar:FC<ICalendarProps> = ({onSelectDate, date, machine, condition}) =
                 </div>
             </div>
 
-            {isEmpty && <InputError errorMessage={messageCategories.emptyDate[lang]}/>}
+            {isEmpty && <InputMessage message={messageCategories.emptyDate[lang]} type={"error"}/>}
 
 
             {/*날짜 선택 완료 부분*/}

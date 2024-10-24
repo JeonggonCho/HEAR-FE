@@ -1,9 +1,9 @@
 import {FC} from "react";
 import {useNavigate} from "react-router-dom";
-import { z } from "zod";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {AxiosResponse} from "axios";
+import { z } from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {AxiosResponse} from "axios";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
@@ -14,20 +14,21 @@ import Toast from "@components/common/Toast";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 
-import {loginSchema} from "@schemata/userSchema.ts";
+import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
 import useRequest from "@hooks/useRequest.ts";
-import {useAuthStore} from "@store/useAuthStore.ts";
-import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {IAuthResponseData} from "@/types/authResponse.ts";
+import {useAuthStore} from "@store/useAuthStore.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
-import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container, LinkWrapper} from "./style.ts";
 
 import logo from "@assets/logo.svg";
+
 
 const SigninPage:FC = () => {
     const navigate = useNavigate();
@@ -38,6 +39,7 @@ const SigninPage:FC = () => {
     const {lang} = useThemeStore();
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
+    const {loginSchema} = UserSchemaProvider();
 
     type LoginFormData = z.infer<typeof loginSchema>;
 

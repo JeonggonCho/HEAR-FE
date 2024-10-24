@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {ReactSVG} from "react-svg";
 
-import InputError from "@components/common/InputError";
+import InputMessage from "@components/common/InputMessage";
 
 import {ISelectProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
@@ -71,7 +71,7 @@ const Select:FC<ISelectProps> = ({label, categories, register, name, errorMessag
                 </CheckboxListWrapper>
             }
 
-            {errorMessage && <InputError errorMessage={errorMessage}/>}
+            {errorMessage && <InputMessage message={errorMessage} type={"error"}/>}
         </Container>
     );
 };

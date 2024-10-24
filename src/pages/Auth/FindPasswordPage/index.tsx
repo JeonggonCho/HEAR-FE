@@ -8,7 +8,7 @@ import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import HeadTag from "@components/common/HeadTag";
 
-import {findPasswordSchema} from "@schemata/userSchema.ts";
+import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
@@ -17,8 +17,10 @@ import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container} from "./style.ts";
 
+
 const FindPasswordPage:FC = () => {
     const {lang} = useThemeStore();
+    const {findPasswordSchema} = UserSchemaProvider();
 
     const {register, handleSubmit, formState:{errors}} = useForm({
         resolver: zodResolver(findPasswordSchema),

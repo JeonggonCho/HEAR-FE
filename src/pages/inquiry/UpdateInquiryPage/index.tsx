@@ -1,7 +1,7 @@
 import {ChangeEvent, FC, useCallback, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {z} from "zod";
 import {SubmitHandler, useForm} from "react-hook-form";
+import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 
 import Header from "@components/common/Header";
@@ -18,7 +18,7 @@ import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
-import {inquirySchema} from "@schemata/qnaSchema.ts";
+import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {inquiryCategories} from "@constants/inquiryCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
@@ -38,8 +38,8 @@ const UpdateInquiryPage:FC = () => {
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
     const {text, setText, handleTextChange, countOfText, setCountOfText} = useTextarea();
-
     const {lang} = useThemeStore();
+    const {inquirySchema} = BoardSchemaProvider();
 
     const inquiryInfoCategories = [
         {label: inquiryCategories.machine[lang], value: "machine", id: "radio-1"},

@@ -1,30 +1,31 @@
 import {FC, useCallback} from "react";
+import {SubmitHandler, useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
-import {SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import Toast from "@components/common/Toast";
 
-
 import {INewMachineContentProps} from "@/types/componentProps.ts";
 import useRequest from "@hooks/useRequest.ts";
-import {newMachineSchema} from "@schemata/machineSchema.ts";
+import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
-import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
 
 import close from "@assets/icons/close.svg";
 
+
 const NewMachineContent:FC<INewMachineContentProps> = ({title, setModal, machine, setMachines}) => {
     const {sendRequest, errorText, clearError} = useRequest();
 
     const {lang} = useThemeStore();
+    const {newMachineSchema} = MachineSchemaProvider();
 
     type MachineFormData = z.infer<typeof newMachineSchema>;
 

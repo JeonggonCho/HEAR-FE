@@ -16,16 +16,17 @@ import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
-import {updateAccountSchema} from "@schemata/userSchema.ts";
+import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
-import {useThemeStore} from "@store/useThemeStore.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
 import {Container} from "./style.ts";
+
 
 const UpdateAccountPage:FC = () => {
     const [formData, setFormData] = useState<any>(null);
@@ -34,6 +35,7 @@ const UpdateAccountPage:FC = () => {
     const {userInfo, setUserInfo} = useUserInfoStore();
     const {userData, setUserData} = useUserDataStore();
     const {lang} = useThemeStore();
+    const {updateAccountSchema} = UserSchemaProvider();
 
     const yearCategories = [
         {label: inputCategories.first[lang], value: "1", id: "select-1"},

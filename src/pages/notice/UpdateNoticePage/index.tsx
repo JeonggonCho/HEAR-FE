@@ -1,8 +1,8 @@
 import {ChangeEvent, FC, useCallback, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {z} from "zod";
 import {SubmitHandler, useForm} from "react-hook-form";
+import {z} from "zod";
+import {zodResolver} from "@hookform/resolvers/zod";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
@@ -15,7 +15,7 @@ import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
-import {noticeSchema} from "@schemata/qnaSchema.ts";
+import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
@@ -24,17 +24,19 @@ import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container} from "./style.ts";
 
+
 const UpdateNoticePage:FC = () => {
     const [notice, setNotice] = useState<{title: string, content: string}>();
 
-    const {lang} = useThemeStore();
-    const {isLoading, errorText, sendRequest, clearError} = useRequest();
-    const {text, handleTextChange, countOfText, setCountOfText, setText} = useTextarea();
-
     const navigate = useNavigate();
 
+    const {lang} = useThemeStore();
     const {noticeId} = useParams();
+    const {isLoading, errorText, sendRequest, clearError} = useRequest();
+    const {text, handleTextChange, countOfText, setCountOfText, setText} = useTextarea();
+    const {noticeSchema} = BoardSchemaProvider();
 
+    // 공지사항 디테일 조회
     const fetchNotice = useCallback(async () => {
         try {
             const response = await sendRequest({

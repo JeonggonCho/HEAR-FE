@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FC, useCallback, useState} from "react";
+import {useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
-import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 
 import Toggle from "@components/common/Toggle";
@@ -17,9 +17,9 @@ import {IHeats, ILasers, IPrinters} from "@/types/machine.ts";
 import useListCollapse from "@hooks/useListCollapse.ts";
 import useToggle from "@hooks/useToggle.ts";
 import useRequest from "@hooks/useRequest.ts";
-import {updateHeatCountSchema} from "@schemata/machineSchema.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
+import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
@@ -36,6 +36,7 @@ import {
 
 import more from "@assets/icons/arrow_down.svg";
 
+
 const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, machineType, setMachines, timeData, setTimes}) => {
     const [showEdit, setShowEdit] = useState<boolean>(false);
     const [newLaserModal, setNewLaserModal] = useState<boolean>(false);
@@ -44,12 +45,10 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
     const [rangeValue, setRangeValue] = useState<number | undefined>(machineType === "heat" ? (machineData[0] as IHeats)?.count : undefined);
 
     const {lang, isDarkMode} = useThemeStore();
-
     const {isOpen, listRef, maxHeight, handleList} = useListCollapse({dataLength: machineData.length, timeLength: timeData?.length});
-
     const {sendRequest, errorText, clearError} = useRequest();
-
     const {status, handleToggle, isLoading, errorText:toggleErrorText, clearError:clearToggleError} = useToggle(machineData[0]?.status, machineData[0]?.url);
+    const {updateHeatCountSchema} = MachineSchemaProvider();
 
     type UpdateHeatCountFormType = z.infer<typeof updateHeatCountSchema>;
 

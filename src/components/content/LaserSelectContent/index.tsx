@@ -1,23 +1,25 @@
 import {FC, useCallback, useEffect, useMemo, useState} from "react";
-import {z} from "zod";
 import {SubmitHandler, useForm} from "react-hook-form";
+import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 
 import Select from "@components/common/Select";
 import Button from "@components/common/Button";
 
+import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {ILaserSelectContentProps} from "@/types/componentProps.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
-import {laserTimeSchema} from "@schemata/machineSchema.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 
 import {Container, CountOfLaserPerDayWrapper, CountOfLaserPerWeekWrapper, CountOfLaserWrapper} from "./style.ts";
-import {useThemeStore} from "@store/useThemeStore.ts";
+
 
 const LaserSelectContent:FC<ILaserSelectContentProps> = ({laserInfo, laserTimesInfo, reservationList, setReservationList, setModal}) => {
     const {userData} = useUserDataStore();
     const {lang} = useThemeStore();
+    const {laserTimeSchema} = MachineSchemaProvider();
 
     const [countOfLaserPerWeek, setCountOfLaserPerWeek] = useState<number>((userData && userData.countOfLaserPerWeek - reservationList.length) || 0);
     const [countOfLaserPerDay, setCountOfLaserPerDay] = useState<number>((userData && userData.countOfLaserPerDay - reservationList.length) || 0);

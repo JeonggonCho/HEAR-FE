@@ -2,7 +2,7 @@ import {useState} from "react";
 import {ReactSVG} from "react-svg";
 import {FieldValues} from "react-hook-form";
 
-import InputError from "@components/common/InputError";
+import InputMessage from "@components/common/InputMessage";
 
 import {IInputProps} from "@/types/componentProps.ts";
 
@@ -62,7 +62,7 @@ const Input = <TFieldValues extends FieldValues>(
                 />
             }
 
-            {errorMessage && <InputError errorMessage={errorMessage}/>}
+            {errorMessage && <InputMessage message={errorMessage} type={"error"}/>}
 
             {visibleToggle && inputType === "password"
                 ? <ReactSVG

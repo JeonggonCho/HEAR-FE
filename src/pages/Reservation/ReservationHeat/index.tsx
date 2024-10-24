@@ -1,9 +1,9 @@
 import {FC, useCallback, useEffect} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {z} from "zod";
-import {ReactSVG} from "react-svg";
-import {zodResolver} from "@hookform/resolvers/zod";
 import {useNavigate} from "react-router-dom";
+import {ReactSVG} from "react-svg";
+import {z} from "zod";
+import {zodResolver} from "@hookform/resolvers/zod";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
@@ -14,8 +14,8 @@ import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
+import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {getTomorrowDate, getAfterWeekDate} from "@util/calculateDate.ts";
-import {cncHeatSchema} from "@schemata/machineSchema.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
@@ -35,6 +35,7 @@ const ReservationHeat:FC = () => {
     const navigate = useNavigate();
 
     const {lang} = useThemeStore();
+    const {cncHeatSchema} = MachineSchemaProvider();
 
     type HeatFormData = z.infer<typeof cncHeatSchema>;
 

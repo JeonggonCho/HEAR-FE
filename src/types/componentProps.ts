@@ -199,9 +199,10 @@ export interface IEmptyProps {
 }
 
 
-// 인풋 에러 메시지(InputError) props
-export interface IInputErrorProps {
-    errorMessage?: string | undefined;
+// 인풋 메시지(InputMessage) props
+export interface IInputMessageProps {
+    message: string;
+    type: "error" | "approval";
 }
 
 

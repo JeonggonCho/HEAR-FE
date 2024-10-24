@@ -1,14 +1,14 @@
 import {ChangeEvent, FC} from "react";
-import {z} from "zod";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
+import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
+import Select from "@components/common/Select";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
-import Select from "@components/common/Select";
 import Input from "@components/common/Input";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Toast from "@components/common/Toast";
@@ -16,7 +16,7 @@ import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
-import {feedbackSchema} from "@schemata/qnaSchema.ts";
+import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
 import {feedbackCategories} from "@constants/feedbackCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
@@ -27,11 +27,14 @@ import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
 
+
 const CreateFeedbackPage:FC = () => {
     const navigate = useNavigate();
 
     const {lang} = useThemeStore();
     const {text, handleTextChange, countOfText} = useTextarea();
+    const {isLoading, errorText, sendRequest, clearError} = useRequest();
+    const {feedbackSchema} = BoardSchemaProvider();
 
     const feedbackInfoCategories = [
         {label: feedbackCategories.good[lang], value: "good", id: "radio-1"},
@@ -39,8 +42,6 @@ const CreateFeedbackPage:FC = () => {
         {label: feedbackCategories.suggest[lang], value: "suggest", id: "radio-3"},
         {label: feedbackCategories.etc[lang], value: "etc", id: "radio-4"},
     ];
-
-    const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     type FeedbackFormData = z.infer<typeof feedbackSchema>;
 
