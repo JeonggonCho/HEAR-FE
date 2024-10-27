@@ -60,6 +60,7 @@ export interface IInputProps<TFieldValues extends FieldValues> {
     visibleToggle?: boolean;
     disabled?: boolean;
     value?: any;
+    maxLength?: number;
 }
 
 
@@ -394,4 +395,12 @@ export interface IReservationListItemProps {
     deleteHandler?: (reservations: {machine: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc", _id: string, date: string}[]) => void;
     isSelected?: boolean;
     selectHandler?: () => void;
+}
+
+
+// 타이머(Timer) props
+export interface ITimerProps {
+    defaultTime: number,
+    action: () => void;
+    resetTrigger: number;
 }

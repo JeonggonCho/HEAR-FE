@@ -37,6 +37,10 @@ const UserSchemaProvider = () => {
         tel: z
             .string()
             .regex(TEL_REGEX, messageCategories.tel[lang]),
+        code: z
+            .string()
+            .min(6, messageCategories.codeLength[lang])
+            .max(6, messageCategories.codeLength[lang]),
     }).superRefine((data, ctx) => {
         if (data.password !== data.confirmPassword) {
             ctx.addIssue({

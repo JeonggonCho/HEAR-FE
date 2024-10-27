@@ -183,5 +183,10 @@ export const inputCategories = {
         ko: "날짜 및 기기 선택",
         en: "Select Date and Device",
         ch: "选择日期和设备",
+    },
+    verificationCode: {
+        ko: "인증 번호",
+        en: "Verification Code",
+        ch: "验证码",
     }
 };

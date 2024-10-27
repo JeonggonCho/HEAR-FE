@@ -27,6 +27,7 @@ const Input = <TFieldValues extends FieldValues>(
         visibleToggle,
         disabled,
         value,
+        maxLength,
     }: IInputProps<TFieldValues>
 ) => {
     const [inputType, setInputType] = useState<string>(type);
@@ -59,6 +60,7 @@ const Input = <TFieldValues extends FieldValues>(
                     min={inputType === "number" ? 0 : undefined}
                     onWheel={e => (e.target as HTMLElement).blur()}
                     value={value}
+                    maxLength={maxLength}
                 />
             }
 

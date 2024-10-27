@@ -1,4 +1,4 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {ChangeEvent, FC, useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
@@ -15,10 +15,12 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 import InputMessage from "@components/common/InputMessage";
+import Timer from "@components/common/Timer";
 
 import useRequest from "@hooks/useRequest.ts";
 import useDebounce from "@hooks/useDebounce.ts";
 import isEmailValid from "@util/isEmailValid.ts";
+import isNumber from "@util/isNumber.ts";
 import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
 import {IAuthResponseData} from "@/types/authResponse.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
@@ -31,19 +33,27 @@ import {headerCategories} from "@constants/headerCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
 import {
+    ChangeAndResendBtnsWrapper,
     Container,
     EmailFormWrapper,
     EmailInputWrapper,
     VerificationCodeInputWrapper,
 } from "./style.ts";
 
+
 const SignupPage:FC = () => {
     const [email, setEmail] = useState<string>("");
+    const [verificationCode, setVerificationCode] = useState<string>("");
+    const [resetTrigger, setResetTrigger] = useState<number>(0);
+    const [fixEmail, setFixEmail] = useState<boolean>(false);
     const [sameEmailError, setSameEmailError] = useState<boolean>(false);
     const [validEmailMessage, setValidEmailMessage] = useState<boolean>(false);
     const [disabledVerificationBtn, setDisabledVerificationBtn] = useState<boolean>(true);
     const [sendVerificationCodeMode, setSendVerificationCodeMode] = useState<boolean>(false);
     const [disabledConfirmBtn, setDisabledConfirmBtn] = useState<boolean>(true);
+    const [sendCodeMessage, setSendCodeMessage] = useState<boolean>(false);
+    const [isVerified, setIsVerified] = useState<boolean>(false);
+    const [verifiedMessage, setVerifiedMessage] = useState<boolean>(false);
 
     const navigate = useNavigate();
 
@@ -77,7 +87,7 @@ const SignupPage:FC = () => {
 
     type SignupFormData = z.infer<typeof signupSchema>;
 
-    const {register, handleSubmit, formState:{errors}} = useForm<SignupFormData>({
+    const {register, handleSubmit, formState:{errors}, clearErrors} = useForm<SignupFormData>({
         resolver: zodResolver(signupSchema),
         defaultValues: {
             username: "",
@@ -88,6 +98,7 @@ const SignupPage:FC = () => {
             studentId: "",
             studio: "",
             tel: "",
+            code: "",
         }
     });
 
@@ -127,6 +138,7 @@ const SignupPage:FC = () => {
 
     // 인증 번호 전송하기
     const sendVerificationCode = async () => {
+        setVerificationCode("");
         try {
             const response = await sendVerificationCodeSendRequest({
                 url: "/users/send-verification-code",
@@ -134,7 +146,14 @@ const SignupPage:FC = () => {
                 data: {email: debouncedEmail},
             });
             if (response.data) {
-                console.log(response.data);
+                setIsVerified(false);
+                setSendVerificationCodeMode(true);
+                setFixEmail(true);
+                setValidEmailMessage(false);
+                setSendCodeMessage(true);
+                setVerificationCode("");
+                setResetTrigger(prevState => prevState + 1);
+                setDisabledConfirmBtn(true);
             }
         } catch (err) {
             console.error("인증 번호 요청 중 에러 발생: ", err);
@@ -143,32 +162,45 @@ const SignupPage:FC = () => {
 
     // 인증 번호 전송 요청 클릭
     const sendVerificationCodeClickHandler = () => {
-        if (validEmailMessage && isEmailValid(debouncedEmail)) {
+        if (isEmailValid(email)) {
             sendVerificationCode();
-            setSendVerificationCodeMode(true);
         }
     };
 
     // 인증 번호 확인하기
-    const verifyEmailCode = async () => {
+    const verifyEmailCode = useCallback(async () => {
         try {
             const response = await verifyEmailCodeSendRequest({
                 url: "/users/verify-email-code",
                 method: "post",
-                data: {},
+                data: { email: email, code: verificationCode },
             });
             if (response.data) {
-                console.log(response.data);
+                setIsVerified(true);
+                setVerifiedMessage(true);
+                setSendVerificationCodeMode(false);
             }
         } catch (err) {
             console.error("인증 번호 확인 중 에러 발생: ", err);
         }
-    };
+    }, [verifyEmailCodeSendRequest, email, verificationCode]);
 
 
     // 인증 번호 확인 요청 클릭
     const verifyEmailCodeClickHandler = () => {
-        verifyEmailCode();
+        if (verificationCode.length === 6 && isNumber(verificationCode)) {
+            verifyEmailCode();
+        }
+    };
+
+    // 이메일 리셋
+    const emailResetHandler = () => {
+        setFixEmail(false);
+        setEmail("");
+        setVerificationCode("");
+        setSendVerificationCodeMode(false);
+        setIsVerified(false);
+        setDisabledConfirmBtn(true);
     };
 
 
@@ -178,7 +210,7 @@ const SignupPage:FC = () => {
             const response: AxiosResponse<IAuthResponseData> = await sendRequest({
                 url: "/users/signup",
                 method: "post",
-                data: data
+                data: data,
             });
             const {userId, email, username, studentId, year, studio, passQuiz, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role, accessToken, refreshToken} = response.data;
 
@@ -189,6 +221,25 @@ const SignupPage:FC = () => {
             navigate("/signup/done", { replace: true });
         } catch (err) {
             console.error("회원가입 실패: ", err);
+        }
+    };
+
+    // 입력 필드에 입력이 있을 경우, 오류 메시지 숨기기
+    const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        clearErrors(name as keyof SignupFormData);
+
+        if (name === "email") {
+            setEmail(value);
+        } else if (name === "code") {
+            setVerificationCode(value);
+
+            // 인증 코드가 6자리 숫자인지 확인
+            if (value.length === 6 && isNumber(value)) {
+                setDisabledConfirmBtn(false);
+            } else {
+                setDisabledConfirmBtn(true);
+            }
         }
     };
 
@@ -210,10 +261,11 @@ const SignupPage:FC = () => {
                             name={"username"}
                             register={register}
                             errorMessage={errors.username?.message}
+                            onChange={inputChangeHandler}
                         />
 
                         <EmailFormWrapper>
-                            <EmailInputWrapper>
+                            <EmailInputWrapper sendVerificationCodeMode={sendVerificationCodeMode}>
                                 <Input
                                     label={inputCategories.hyuEmail[lang]}
                                     type={"text"}
@@ -223,29 +275,72 @@ const SignupPage:FC = () => {
                                     register={register}
                                     errorMessage={errors.email?.message}
                                     value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    onChange={inputChangeHandler}
+                                    disabled={fixEmail}
                                 />
-                                <Button
-                                    type={"button"}
-                                    content={buttonCategories.verification[lang]}
-                                    width={"fit"}
-                                    color={"approval"}
-                                    scale={"small"}
-                                    disabled={disabledVerificationBtn}
-                                    onClick={sendVerificationCodeClickHandler}
-                                />
+
+                                {isVerified ? (
+                                    <Button
+                                        type="button"
+                                        content={buttonCategories.changing[lang]}
+                                        width="fit"
+                                        color="second"
+                                        scale="small"
+                                        onClick={emailResetHandler}
+                                    />
+                                ) : (
+                                    <>
+                                        {!sendVerificationCodeMode ? (
+                                            <Button
+                                                type="button"
+                                                content={buttonCategories.verification[lang]}
+                                                width="fit"
+                                                color="approval"
+                                                scale="small"
+                                                disabled={disabledVerificationBtn}
+                                                onClick={sendVerificationCodeClickHandler}
+                                            />
+                                        ) : (
+                                            <ChangeAndResendBtnsWrapper sendVerificationCodeMode={sendVerificationCodeMode}>
+                                                <Button
+                                                    type="button"
+                                                    content={buttonCategories.changing[lang]}
+                                                    width="fit"
+                                                    color="second"
+                                                    scale="small"
+                                                    onClick={emailResetHandler}
+                                                />
+                                                <Button
+                                                    type="button"
+                                                    content={buttonCategories.resend[lang]}
+                                                    width="fit"
+                                                    color="approval"
+                                                    scale="small"
+                                                    onClick={sendVerificationCodeClickHandler}
+                                                />
+                                            </ChangeAndResendBtnsWrapper>
+                                        )}
+                                    </>
+                                )}
                             </EmailInputWrapper>
 
                             {sameEmailError && isEmailValid(debouncedEmail) && <InputMessage message={messageCategories.sameEmailError[lang]} type={"error"}/>}
                             {validEmailMessage && isEmailValid(debouncedEmail) && <InputMessage message={messageCategories.validEmail[lang]} type={"approval"}/>}
 
-                            {sendVerificationCodeMode &&
+                            {!isVerified && sendVerificationCodeMode &&
                               <VerificationCodeInputWrapper>
+                                <Timer resetTrigger={resetTrigger} defaultTime={180} action={emailResetHandler}/>
                                 <Input
+                                  label={inputCategories.verificationCode[lang]}
                                   type={"text"}
-                                  id={"verification-code"}
-                                  name={"verification-code"}
-                                  placeholder={placeholderCategories.verificationCode[lang]}
+                                  id={"code"}
+                                  name={"code"}
+                                  value={verificationCode}
+                                  placeholder={"⋆⋆⋆⋆⋆⋆"}
+                                  register={register}
+                                  errorMessage={errors.code?.message}
+                                  onChange={inputChangeHandler}
+                                  maxLength={6}
                                 />
                                 <Button
                                   type={"button"}
@@ -269,6 +364,7 @@ const SignupPage:FC = () => {
                             register={register}
                             errorMessage={errors.password?.message}
                             visibleToggle={true}
+                            onChange={inputChangeHandler}
                         />
 
                         <Input
@@ -280,6 +376,7 @@ const SignupPage:FC = () => {
                             register={register}
                             errorMessage={errors.confirmPassword?.message}
                             visibleToggle={true}
+                            onChange={inputChangeHandler}
                         />
 
                         <Select
@@ -299,6 +396,7 @@ const SignupPage:FC = () => {
                             name={"studentId"}
                             register={register}
                             errorMessage={errors.studentId?.message}
+                            onChange={inputChangeHandler}
                         />
 
                         <Input
@@ -309,6 +407,7 @@ const SignupPage:FC = () => {
                             name={"studio"}
                             register={register}
                             errorMessage={errors.studio?.message}
+                            onChange={inputChangeHandler}
                         />
 
                         <Input
@@ -319,9 +418,16 @@ const SignupPage:FC = () => {
                             name={"tel"}
                             register={register}
                             errorMessage={errors.tel?.message}
+                            onChange={inputChangeHandler}
                         />
 
-                        <Button type={"submit"} content={buttonCategories.signUp[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button
+                            type={"submit"}
+                            content={buttonCategories.signUp[lang]}
+                            width={"full"}
+                            color={"primary"}
+                            scale={"big"}
+                        />
                     </form>
                     <Link
                         type={"text"}
@@ -342,6 +448,14 @@ const SignupPage:FC = () => {
 
             {verifyEmailCodeErrorText &&
                 <Toast text={verifyEmailCodeErrorText} setToast={verifyEmailCodeClearError} type={"error"}/>
+            }
+
+            {sendCodeMessage &&
+                <Toast text={messageCategories.sendVerificationCode[lang]} setToast={() => setSendCodeMessage(false)} type={"success"}/>
+            }
+
+            {verifiedMessage &&
+                <Toast text={messageCategories.verifiedCode[lang]} setToast={() => setVerifiedMessage(false)} type={"success"}/>
             }
         </Container>
     );

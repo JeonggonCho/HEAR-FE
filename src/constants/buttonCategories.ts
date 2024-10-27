@@ -189,6 +189,11 @@ export const buttonCategories = {
         en: "Change",
         ch: "更改",
     },
+    changing: {
+        ko: "변경",
+        en: "Change",
+        ch: "更改",
+    },
     reservationStatus: {
         ko: "예약 현황 보기",
         en: "View Reservation Status",
@@ -258,5 +263,10 @@ export const buttonCategories = {
         ko: "확인",
         en: "Confirm",
         ch: "确认",
+    },
+    resend: {
+        ko: "재전송",
+        en: "Resend",
+        ch: "重新发送",
     },
 };

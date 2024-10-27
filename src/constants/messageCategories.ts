@@ -334,4 +334,19 @@ export const messageCategories = {
         en: "The passwords do not match",
         ch: "密码不匹配。",
     },
+    codeLength: {
+        ko: "인증 번호는 6자리입니다",
+        en: "The verification code is 6 digits",
+        ch: "验证码是6位数字。",
+    },
+    sendVerificationCode: {
+        ko: "이메일로 인증 번호가 전송되었습니다",
+        en: "A verification code has been sent to your email",
+        ch: "验证码已发送到您的电子邮箱。",
+    },
+    verifiedCode: {
+        ko: "인증 번호가 확인되었습니다",
+        en: "The verification code has been confirmed",
+        ch: "验证码已确认。",
+    },
 };
