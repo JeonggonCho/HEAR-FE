@@ -11,7 +11,7 @@ import {Container} from "./style.ts";
 import visible from "@assets/icons/visible.svg";
 import invisible from "@assets/icons/invisible.svg";
 
-const Input = <TFieldValues extends FieldValues>(
+const Input = <T extends FieldValues>(
     {
         label,
         subLabel,
@@ -28,7 +28,7 @@ const Input = <TFieldValues extends FieldValues>(
         disabled,
         value,
         maxLength,
-    }: IInputProps<TFieldValues>
+    }: IInputProps<T>
 ) => {
     const [inputType, setInputType] = useState<string>(type);
 

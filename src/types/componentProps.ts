@@ -1,7 +1,7 @@
 import React, {ChangeEvent, JSX, MutableRefObject, ReactElement, ReactNode} from "react";
+import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 import {To} from "react-router-dom";
 import {ITab} from "@/types/tab.ts";
-import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
 import {IUserInfo} from "@/types/user.ts";
 import {
@@ -45,16 +45,16 @@ export interface IHeaderProps {
 
 
 // 인풋(Input) props
-export interface IInputProps<TFieldValues extends FieldValues> {
+export interface IInputProps<T extends FieldValues> {
     label?: string;
     subLabel?: string;
     type: string;
     id: string;
-    name: FieldPath<TFieldValues>;
+    name: FieldPath<T>;
     placeholder?: string;
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     onClick?: () => void;
-    register?: UseFormRegister<TFieldValues>;
+    register?: UseFormRegister<T>;
     errorMessage?: string;
     readonly?: boolean;
     visibleToggle?: boolean;
@@ -403,4 +403,17 @@ export interface ITimerProps {
     defaultTime: number,
     action: () => void;
     resetTrigger: number;
+}
+
+
+// 이메일 인증(EmailVerification) props
+export interface IEmailVerificationProps<T extends FieldValues> {
+    email: string;
+    setEmail: React.Dispatch<React.SetStateAction<string>>;
+    verificationCode: string;
+    setVerificationCode: React.Dispatch<React.SetStateAction<string>>;
+    inputChangeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+    register: UseFormRegister<T>;
+    emailErrorMessage?: string;
+    verificationCodeErrorMessage?: string;
 }
