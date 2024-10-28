@@ -1,4 +1,4 @@
-import {FC} from "react";
+import {FC, useEffect} from "react";
 import {useForm} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -7,24 +7,25 @@ import {DragDropContext, Droppable} from '@hello-pangea/dnd';
 
 import TimeListItem from "@components/management/TimeListItem";
 import Button from "@components/common/Button";
-import Toast from "@components/common/Toast";
 
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {ITimeListContentProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 
 import {Container, TimeSelectsWrapper, ErrorMessage,} from "./style.ts";
 
 
 const TimeListContent:FC<ITimeListContentProps> = ({timeList, setTimeList}) => {
     const {lang} = useThemeStore();
-    const {timeRangeSchema} = MachineSchemaProvider();
-
+    const {showToast} = useToastStore();
     const {errorText, sendRequest, clearError} = useRequest();
+    const {timeRangeSchema} = MachineSchemaProvider();
 
     type TimeFormData = z.infer<typeof timeRangeSchema>;
 
@@ -108,6 +109,15 @@ const TimeListContent:FC<ITimeListContentProps> = ({timeList, setTimeList}) => {
             setTimeList && setTimeList(timeList);
         }
     };
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
 
     return (
         <Container>
@@ -203,11 +213,7 @@ const TimeListContent:FC<ITimeListContentProps> = ({timeList, setTimeList}) => {
                     </div>
                 </DragDropContext>
                 :
-                <p>시간 목록이 없습니다</p>
-            }
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
+                <p>{messageCategories.emptyTimeList[lang]}</p>
             }
         </Container>
     );

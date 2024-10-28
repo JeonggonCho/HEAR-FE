@@ -5,7 +5,6 @@ import {ReactSVG} from "react-svg";
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Toast from "@components/common/Toast";
 import Dropdown from "@components/common/Dropdown";
 import HeadTag from "@components/common/HeadTag";
 import Modal from "@components/common/Modal";
@@ -16,9 +15,10 @@ import useRequest from "@hooks/useRequest.ts";
 import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import {IFeedbackProps} from "@/types/componentProps.ts";
-import {feedbackCategories} from "@constants/feedbackCategories.ts";
 import {useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
+import {feedbackCategories} from "@constants/feedbackCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
@@ -52,6 +52,7 @@ const FeedbackDetailPage:FC = () => {
 
     const {userInfo} = useUserInfoStore();
     const {lang, isDarkMode} = useThemeStore();
+    const {showToast} = useToastStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
     const {errorText: deleteFeedbackErrorText, sendRequest: deleteFeedbackSendRequest, clearError: deleteFeedbackClearError} = useRequest();
     const {errorText: likeErrorText, sendRequest: likeSendRequest, clearError: likeClearError} = useRequest();
@@ -83,6 +84,15 @@ const FeedbackDetailPage:FC = () => {
         fetchFeedback();
     }, [fetchFeedback]);
 
+    // 피드백 디테일 조회 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
+
     // 피드백 삭제 확인 모달 띄우기
     const deleteFeedbackConfirm = () => {
         setShowConfirmModal(true);
@@ -100,6 +110,15 @@ const FeedbackDetailPage:FC = () => {
             console.error("피드백 삭제 중 에러 발생: ", err);
         }
     };
+
+    // 피드백 삭제 에러 메시지
+    useEffect(() => {
+        if (deleteFeedbackErrorText) {
+            showToast(deleteFeedbackErrorText, "error");
+            const errorTimer = setTimeout(deleteFeedbackClearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [deleteFeedbackErrorText, deleteFeedbackClearError, showToast]);
 
     // 피드백 수정
     const updateFeedback = () => {
@@ -128,6 +147,15 @@ const FeedbackDetailPage:FC = () => {
             console.error("피드백 좋아요 처리 중 에러 발생: ", err);
         }
     };
+
+    // 피드백 좋아요 에러 메시지
+    useEffect(() => {
+        if (likeErrorText) {
+            showToast(likeErrorText, "error");
+            const errorTimer = setTimeout(likeClearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [likeErrorText, likeClearError, showToast]);
 
     // 피드백 드롭다운 메뉴목록
     const feedbackDropdownMenus = [
@@ -205,18 +233,6 @@ const FeedbackDetailPage:FC = () => {
                 </>
                 :
                 <LoadingLoop/>
-            }
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
-            }
-
-            {deleteFeedbackErrorText &&
-              <Toast text={deleteFeedbackErrorText} setToast={deleteFeedbackClearError} type={"error"}/>
-            }
-
-            {likeErrorText &&
-              <Toast text={likeErrorText} setToast={likeClearError} type={"error"}/>
             }
 
             {showConfirmModal &&

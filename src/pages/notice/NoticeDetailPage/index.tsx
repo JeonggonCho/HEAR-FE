@@ -4,7 +4,6 @@ import {useNavigate, useParams} from "react-router-dom";
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Toast from "@components/common/Toast";
 import Dropdown from "@components/common/Dropdown";
 import HeadTag from "@components/common/HeadTag";
 import Button from "@components/common/Button";
@@ -17,6 +16,7 @@ import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
 import {INotice} from "@/types/componentProps.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
@@ -36,9 +36,8 @@ const NoticeDetailPage:FC = () => {
 
     const {userData} = useUserDataStore();
     const {lang, isDarkMode} = useThemeStore();
-
-    const {isLoading: noticeIsLoading, errorText: noticeErrorText, sendRequest: noticeSendRequest, clearError: noticeClearError} = useRequest();
-    const {errorText: deleteNoticeErrorText, sendRequest: deleteNoticeSendRequest, clearError: deleteNoticeClearError} = useRequest();
+    const {showToast} = useToastStore();
+    const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     // 공지 생성 일자
     const timeStamp = useMemo(() => {
@@ -53,14 +52,14 @@ const NoticeDetailPage:FC = () => {
     // 공지 조회하기
     const fetchNotice = useCallback(async () => {
         try {
-            const response = await noticeSendRequest({
+            const response = await sendRequest({
                 url: `/notices/${noticeId}`,
             });
             setNotice(response.data);
         } catch (err) {
             console.error("공지 조회 중 에러 발생: ", err);
         }
-    }, [noticeSendRequest, noticeId]);
+    }, [sendRequest, noticeId]);
 
     useEffect(() => {
         fetchNotice();
@@ -72,9 +71,9 @@ const NoticeDetailPage:FC = () => {
     };
 
     // 공지 삭제
-    const deleteNotice = async () => {
+    const deleteNotice = useCallback(async () => {
         try {
-            await deleteNoticeSendRequest({
+            await sendRequest({
                 url: `/notices/${noticeId}`,
                 method: "delete",
             });
@@ -82,12 +81,21 @@ const NoticeDetailPage:FC = () => {
         } catch (err) {
             console.error("공지 삭제 중 에러 발생: ", err);
         }
-    };
+    }, [sendRequest, noticeId]);
 
     // 공지 수정
     const updateNotice = () => {
         navigate(`/board/notice/${noticeId}/update`);
     };
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
 
     // 공지 드롭다운 메뉴목록
     const noticeDropdownMenus = [
@@ -101,7 +109,7 @@ const NoticeDetailPage:FC = () => {
             <HeadTag title={notice?.title || headerCategories.noticeDetail[lang]}/>
 
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.noticeDetail[lang]}/>
-            {!noticeIsLoading && notice ?
+            {!isLoading && notice ?
                 <>
                     <NoticeInfoWrapper>
                         <h2>{notice.title}</h2>
@@ -116,14 +124,6 @@ const NoticeDetailPage:FC = () => {
                 </>
                 :
                 <LoadingLoop/>
-            }
-
-            {noticeErrorText &&
-                <Toast text={noticeErrorText} setToast={noticeClearError} type={"error"}/>
-            }
-
-            {deleteNoticeErrorText &&
-              <Toast text={deleteNoticeErrorText} setToast={deleteNoticeClearError} type={"error"}/>
             }
 
             {showConfirmModal &&

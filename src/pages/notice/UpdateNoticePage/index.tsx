@@ -8,7 +8,6 @@ import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Input from "@components/common/Input";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Toast from "@components/common/Toast";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
 import HeadTag from "@components/common/HeadTag";
@@ -16,8 +15,9 @@ import HeadTag from "@components/common/HeadTag";
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
 import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
@@ -29,9 +29,10 @@ const UpdateNoticePage:FC = () => {
     const [notice, setNotice] = useState<{title: string, content: string}>();
 
     const navigate = useNavigate();
+    const {noticeId} = useParams();
 
     const {lang} = useThemeStore();
-    const {noticeId} = useParams();
+    const {showToast} = useToastStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
     const {text, handleTextChange, countOfText, setCountOfText, setText} = useTextarea();
     const {noticeSchema} = BoardSchemaProvider();
@@ -91,6 +92,15 @@ const UpdateNoticePage:FC = () => {
         setValue("content", e.target.value);
     };
 
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
+
     return (
         <Container>
             <HeadTag title={headerCategories.updateNotice[lang]}/>
@@ -123,10 +133,6 @@ const UpdateNoticePage:FC = () => {
                         <Button type={"submit"} content={buttonCategories.editing[lang]} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
                 </>
-            }
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

@@ -10,13 +10,13 @@ import ArrowBack from "@components/common/ArrowBack";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {getTomorrowDate, getAfterWeekDate} from "@util/calculateDate.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
@@ -29,12 +29,14 @@ import {Container, HeatCheckWrapper, ImageWrapper, ReturnDateWrapper} from "./st
 import heat from "@assets/images/heat_cutter.png";
 import check from "@assets/icons/check.svg";
 
+
 const ReservationHeat:FC = () => {
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
     const navigate = useNavigate();
 
     const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
+    const {isLoading, sendRequest, errorText, clearError} = useRequest();
     const {cncHeatSchema} = MachineSchemaProvider();
 
     type HeatFormData = z.infer<typeof cncHeatSchema>;
@@ -50,10 +52,21 @@ const ReservationHeat:FC = () => {
         }
     });
 
+    // 예약 날짜 고정
     useEffect(() => {
         setValue("date", formattedDate);
     }, []);
 
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
+
+    // 열선 예약 요청
     const submitHandler:SubmitHandler<HeatFormData> = useCallback(async (data) => {
         try {
             await sendRequest({
@@ -121,10 +134,6 @@ const ReservationHeat:FC = () => {
 
                     <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
                 </form>
-            }
-
-            {errorText &&
-              <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

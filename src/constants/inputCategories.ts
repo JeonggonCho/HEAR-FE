@@ -29,6 +29,21 @@ export const inputCategories = {
         en: "Confirm Password",
         ch: "确认密码",
     },
+    currentPassword: {
+        ko: "현재 비밀번호",
+        en: "Current Password",
+        ch: "当前密码",
+    },
+    newPassword: {
+        ko: "새 비밀번호",
+        en: "New Password",
+        ch: "新密码",
+    },
+    confirmNewPassword: {
+        ko: "새 비밀번호 확인",
+        en: "Confirm New Password",
+        ch: "确认新密码",
+    },
     studio: {
         ko: "스튜디오 지도 교수님",
         en: "Studio Professor",

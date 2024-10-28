@@ -1,33 +1,35 @@
 import React, {FC, useCallback, useEffect, useState} from "react";
 
+import Header from "@components/common/Header";
+import Tab from "@components/common/Tab";
 import InquiryFeedbackListItem from "@components/board/InquiryFeedbackListItem";
 import FloatingButton from "@components/common/FloatingButton";
 import Empty from "@components/common/Empty";
-import Toast from "@components/common/Toast";
 import CardLoading from "@components/skeleton/CardLoading";
-import Header from "@components/common/Header";
-import Tab from "@components/common/Tab";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IInquiryProps} from "@/types/componentProps.ts";
-import {useUserDataStore} from "@store/useUserStore.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
-import {useThemeStore} from "@store/useThemeStore.ts";
 import {ITab} from "@/types/tab.ts";
+import {useUserDataStore} from "@store/useUserStore.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {navCategories} from "@constants/navCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 
 import {Container} from "./style.ts";
 import {HeaderWrapper} from "@pages/notice/NoticePage/style.ts";
 
 import notice from "@assets/images/notice.png";
 
+
 const InquiryPage:FC = () => {
     const [inquiries, setInquiries] = useState<IInquiryProps[]>([]);
 
     const {userData} = useUserDataStore();
     const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
 
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
@@ -49,6 +51,15 @@ const InquiryPage:FC = () => {
     useEffect(() => {
         fetchInquiries();
     }, [fetchInquiries]);
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
 
     return (
         <Container>
@@ -91,10 +102,6 @@ const InquiryPage:FC = () => {
 
             {userData?.role !== "manager" &&
               <FloatingButton to={"/board/inquiry/new"}/>
-            }
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

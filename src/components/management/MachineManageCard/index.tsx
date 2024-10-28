@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, useCallback, useState} from "react";
+import React, {ChangeEvent, FC, useCallback, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
@@ -7,18 +7,18 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import Toggle from "@components/common/Toggle";
 import Modal from "@components/common/Modal";
 import MachineListItem from "@components/management/MachineListItem";
-import Toast from "@components/common/Toast";
 import NewMachineContent from "@components/management/NewMachineContent";
 import Input from "@components/common/Input";
 import TimeListContent from "@components/management/TimeListContent";
 
-import {IMachineManageCardProps} from "@/types/componentProps.ts";
-import {IHeats, ILasers, IPrinters} from "@/types/machine.ts";
 import useListCollapse from "@hooks/useListCollapse.ts";
 import useToggle from "@hooks/useToggle.ts";
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
+import {IMachineManageCardProps} from "@/types/componentProps.ts";
+import {IHeats, ILasers, IPrinters} from "@/types/machine.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
@@ -45,6 +45,7 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
     const [rangeValue, setRangeValue] = useState<number | undefined>(machineType === "heat" ? (machineData[0] as IHeats)?.count : undefined);
 
     const {lang, isDarkMode} = useThemeStore();
+    const {showToast} = useToastStore();
     const {isOpen, listRef, maxHeight, handleList} = useListCollapse({dataLength: machineData.length, timeLength: timeData?.length});
     const {sendRequest, errorText, clearError} = useRequest();
     const {status, handleToggle, isLoading, errorText:toggleErrorText, clearError:clearToggleError} = useToggle(machineData[0]?.status, machineData[0]?.url);
@@ -86,6 +87,24 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
         // 4. 새로 설정한 타이머를 상태로 저장
         setDebounceTimeout(newTimeout);
     }, [debounceTimeout, sendRequest, machineData]);
+
+    // 열선 개수 수정 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
+
+    // 토글 에러 메시지
+    useEffect(() => {
+        if (toggleErrorText) {
+            showToast(toggleErrorText, "error");
+            const errorTimer = setTimeout(clearToggleError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [toggleErrorText, clearToggleError, showToast]);
 
     return (
         <Container>
@@ -220,15 +239,6 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
                 setModal={setNewPrinterModal}
                 type={"popup"}
               />
-            }
-
-            {/*에러 모달*/}
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
-            }
-
-            {toggleErrorText &&
-              <Toast text={toggleErrorText} setToast={clearToggleError}/>
             }
         </Container>
     );

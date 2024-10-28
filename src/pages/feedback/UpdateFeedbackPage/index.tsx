@@ -10,7 +10,6 @@ import Select from "@components/common/Select";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
 import HeadTag from "@components/common/HeadTag";
-import Toast from "@components/common/Toast";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import Textarea from "@components/common/Textarea";
@@ -20,11 +19,13 @@ import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
 import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {feedbackCategories} from "@constants/feedbackCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 
 import {Container} from "./style.ts";
 
@@ -33,10 +34,11 @@ const UpdateFeedbackPage:FC = () => {
     const [feedback, setFeedback] = useState<any>();
     const [updateFeedbackModal, setUpdateFeedbackModal] = useState<boolean>(false);
 
+    const {feedbackId} = useParams();
     const navigate = useNavigate();
 
     const {lang} = useThemeStore();
-    const {feedbackId} = useParams();
+    const {showToast} = useToastStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
     const {text, handleTextChange, countOfText, setCountOfText, setText} = useTextarea();
     const {feedbackSchema} = BoardSchemaProvider();
@@ -48,6 +50,7 @@ const UpdateFeedbackPage:FC = () => {
         {label: feedbackCategories.etc[lang], value: "etc", id: "radio-4"},
     ];
 
+    // 현재 작성된 피드백 정보 가져오기
     const fetchFeedback = useCallback(async () => {
         try {
             const response = await sendRequest({
@@ -82,11 +85,13 @@ const UpdateFeedbackPage:FC = () => {
         }
     }, [feedback, reset]);
 
+    // 피드백 수정 확인 모달 띄우기
     const submitHandler:SubmitHandler<FeedbackFormData> = async (data) => {
         setFeedback(data);
         setUpdateFeedbackModal(true);
     };
 
+    // 피드백 수정 요청하기
     const handleConfirmUpdate = async () => {
         if (feedback) {
             try {
@@ -98,7 +103,7 @@ const UpdateFeedbackPage:FC = () => {
                 navigate(`/board/feedback/${feedbackId}`, {replace: true});
             } catch (err) {
                 setUpdateFeedbackModal(false);
-                console.error("피드백 수정 에러: ", err);
+                console.error("피드백 수정 중 에러 발생: ", err);
             }
         }
     }
@@ -109,6 +114,17 @@ const UpdateFeedbackPage:FC = () => {
         setValue("content", e.target.value);
     };
 
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
+
+
+    // 피드백 수정 확인 모달
     const UpdateFeedbackModalContent = () => {
         const leftBtn = (
             <Button
@@ -132,12 +148,13 @@ const UpdateFeedbackPage:FC = () => {
         );
         return (
             <ConfirmContent
-                text={"피드백을 수정하시겠습니까?"}
+                text={messageCategories.confirmUpdateFeedback[lang]}
                 leftBtn={leftBtn}
                 rightBtn={rightBtn}
             />
         );
     };
+
 
     return (
         <Container>
@@ -187,10 +204,6 @@ const UpdateFeedbackPage:FC = () => {
                         />
                     }
                 </>
-            }
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

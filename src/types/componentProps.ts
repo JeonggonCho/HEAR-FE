@@ -295,15 +295,6 @@ export interface IUserInfoContentProps {
 }
 
 
-// 토스트(Toast) props
-export interface IToastProps {
-    text: string;
-    time?: number;
-    setToast: () => void;
-    type?: "success" | "error" | "normal";
-}
-
-
 // 필터 내용(FilterContent) props
 export interface IFilterContentProps {
     filter: any;

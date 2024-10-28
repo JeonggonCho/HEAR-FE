@@ -6,24 +6,27 @@ import ArrowBack from "@components/common/ArrowBack";
 import HeadTag from "@components/common/HeadTag";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Empty from "@components/common/Empty";
-import Toast from "@components/common/Toast";
 
-import {useThemeStore} from "@store/useThemeStore.ts";
-import {headerCategories} from "@constants/headerCategories.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {IWarning} from "@/types/warning.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
 import {WarningsListItem, WarningsListItemWrapper} from "./style.ts";
 
 import error from "@assets/icons/error.svg";
 
+
 const MyWarningPage:FC = () => {
     const [warnings, setWarnings] = useState<IWarning[]>([]);
 
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
     const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
+    const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
+    // 내 경고 내역 조회하기
     const fetchWarnings = useCallback(async () => {
         try {
             const response = await sendRequest({
@@ -40,6 +43,15 @@ const MyWarningPage:FC = () => {
     useEffect(() => {
         fetchWarnings();
     }, [fetchWarnings]);
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
 
     return (
         <>
@@ -69,10 +81,6 @@ const MyWarningPage:FC = () => {
                         <Empty title={messageCategories.emptyWarning[lang]}/>
                     }
                 </>
-            }
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </>
     );

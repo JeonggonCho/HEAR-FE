@@ -349,4 +349,19 @@ export const messageCategories = {
         en: "The verification code has been confirmed",
         ch: "验证码已确认。",
     },
+    emptyTimeList: {
+        ko: "시간 목록이 없습니다",
+        en: "No list of times available",
+        ch: "没有时间列表",
+    },
+    confirmUpdateFeedback: {
+        ko: "피드백을 수정하시겠습니까?",
+        en: "Would you like to edit the feedback?",
+        ch: "您要修改反馈吗？",
+    },
+    confirmUpdateInquiry: {
+        ko: "문의를 수정하시겠습니까?",
+        en: "Would you like to edit the inquiry?",
+        ch: "您要修改咨询吗？",
+    },
 };

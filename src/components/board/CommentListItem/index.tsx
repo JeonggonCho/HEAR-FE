@@ -5,17 +5,17 @@ import Button from "@components/common/Button";
 import Dropdown from "@components/common/Dropdown";
 import Modal from "@components/common/Modal";
 import ConfirmContent from "@components/content/ConfirmContent";
-import Toast from "@components/common/Toast";
 import Textarea from "@components/common/Textarea";
 
-import {IComment} from "@/types/comment.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
 import stripHtml from "@util/stripHtml.ts";
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
+import {IComment} from "@/types/comment.ts";
 import {useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
@@ -44,18 +44,18 @@ const CommentListItem:FC<IComment> = (props) => {
     const [isLiked, setIsLiked] = useState<boolean>(props.isLiked);
     const [countOfLike, setCountOfLike] = useState(props.likes);
 
+    const {lang} = useThemeStore();
+    const {userInfo} = useUserInfoStore();
+    const {showToast} = useToastStore();
+    const {text, countOfText, handleTextChange, setText} = useTextarea();
+    const {errorText, clearError, sendRequest} = useRequest();
+
     // 댓글 링크 처리
     const transformedContent = useMemo(() => {
         return generateLinksAndLineBreaks(props.content);
     }, [props.content]);
 
     const [content, setContent] = useState(transformedContent);
-
-    const {lang} = useThemeStore();
-    const {userInfo} = useUserInfoStore();
-
-    const {text, countOfText, handleTextChange, setText} = useTextarea();
-    const {errorText, clearError, sendRequest} = useRequest();
 
     // textarea에 포커스를 주기위해 Ref 생성
     const commentTextareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -142,6 +142,15 @@ const CommentListItem:FC<IComment> = (props) => {
         }
     };
 
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
+
     // 댓글 드롭다운 메뉴 목록
     const commentDropdownMenus = [
         {icon: editIcon, label: buttonCategories.edit[lang], action: updateCommentMode},
@@ -202,10 +211,6 @@ const CommentListItem:FC<IComment> = (props) => {
                     </>
                 }
             </RightPartWrapper>
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
-            }
 
             {showConfirmModal &&
               <Modal

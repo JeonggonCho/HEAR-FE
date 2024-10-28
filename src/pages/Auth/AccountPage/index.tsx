@@ -3,21 +3,21 @@ import {useNavigate} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 
 import Header from "@components/common/Header";
+import ArrowBack from "@components/common/ArrowBack";
 import ProfileCard from "@components/account/ProfileCard";
 import Button from "@components/common/Button";
 import StatusCard from "@components/account/StatusCard";
 import Modal from "@components/common/Modal";
 import ConfirmContent from "@components/content/ConfirmContent";
 import Link from "@components/common/Link";
-import ArrowBack from "@components/common/ArrowBack";
 import Divider from "@components/common/Divider";
 import HeadTag from "@components/common/HeadTag";
-import Toast from "@components/common/Toast";
 
 import useRequest from "@hooks/useRequest.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {navCategories} from "@constants/navCategories.ts";
@@ -32,11 +32,10 @@ import history from "@assets/images/history.png";
 import siren from "@assets/images/siren.png";
 import notice from "@assets/images/notice.png";
 
+
 const AccountPage:FC = () => {
     const [logoutModal, setLogoutModal] = useState<boolean>(false);
     const [unregisterModal, setUnregisterModal] = useState<boolean>(false);
-
-    const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     const navigate = useNavigate();
 
@@ -44,6 +43,8 @@ const AccountPage:FC = () => {
     const {userData, setUserData, clearUserData} = useUserDataStore();
     const {logout} = useAuthStore();
     const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
+    const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     const fetchUser = useCallback(async () => {
         try {
@@ -62,6 +63,15 @@ const AccountPage:FC = () => {
     useEffect(() => {
         fetchUser();
     }, [fetchUser]);
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
 
     const handleLogout = () => {
         logout();
@@ -192,10 +202,6 @@ const AccountPage:FC = () => {
                 setModal={setUnregisterModal}
                 type={"popup"}
               />
-            }
-
-            {errorText &&
-              <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

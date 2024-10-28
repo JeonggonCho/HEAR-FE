@@ -1,4 +1,4 @@
-import {ChangeEvent, FC} from "react";
+import {ChangeEvent, FC, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
@@ -10,13 +10,13 @@ import Input from "@components/common/Input";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
 import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
@@ -29,6 +29,7 @@ const CreateNoticePage:FC = () => {
     const navigate = useNavigate();
 
     const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
     const {text, handleTextChange, countOfText} = useTextarea();
     const {noticeSchema} = BoardSchemaProvider();
@@ -64,6 +65,15 @@ const CreateNoticePage:FC = () => {
         setValue("content", e.target.value);
     };
 
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
+
     return (
         <Container>
             <HeadTag title={headerCategories.createNotice[lang]}/>
@@ -96,10 +106,6 @@ const CreateNoticePage:FC = () => {
                         <Button type={"submit"} content={buttonCategories.createNotice[lang]} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
                 </>
-            }
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

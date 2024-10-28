@@ -7,30 +7,30 @@ import Toggle from "@components/common/Toggle";
 import Button from "@components/common/Button";
 import Modal from "@components/common/Modal";
 import ConfirmContent from "@components/content/ConfirmContent";
-import Toast from "@components/common/Toast";
 import Input from "@components/common/Input";
 
-import {ILasers, IPrinters} from "@/types/machine.ts";
 import useToggle from "@hooks/useToggle.ts";
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
+import {ILasers, IPrinters} from "@/types/machine.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
 import {Buttons, Container, ControlWrapper} from "./style.ts";
 
-const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines: React.Dispatch<React.SetStateAction<ILasers[]>> | React.Dispatch<React.SetStateAction<IPrinters[]>>}> = (props) => {
-    const {lang} = useThemeStore();
-    const {newMachineSchema} = MachineSchemaProvider();
 
+const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines: React.Dispatch<React.SetStateAction<ILasers[]>> | React.Dispatch<React.SetStateAction<IPrinters[]>>}> = (props) => {
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const [isEdit, setIsEdit] = useState<boolean>(false);
 
+    const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
     const {handleToggle, status, isLoading} = useToggle(props.status, props.url);
-
     const {sendRequest, errorText, clearError} = useRequest();
+    const {newMachineSchema} = MachineSchemaProvider();
 
     type MachineFormData = z.infer<typeof newMachineSchema>;
 
@@ -97,6 +97,15 @@ const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines
             setShowDeleteModal(false);
         }
     }, [sendRequest, props._id]);
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
 
     return (
         <Container isEdit={isEdit} showEdit={props.showEdit}>
@@ -188,10 +197,6 @@ const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines
                 setModal={setShowDeleteModal}
                 type={"popup"}
               />
-            }
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

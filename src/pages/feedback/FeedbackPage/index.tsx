@@ -1,19 +1,19 @@
 import {FC, useCallback, useEffect, useState} from "react";
 
+import Header from "@components/common/Header";
+import Tab from "@components/common/Tab";
 import InquiryFeedbackListItem from "@components/board/InquiryFeedbackListItem";
 import FloatingButton from "@components/common/FloatingButton";
 import Empty from "@components/common/Empty";
-import Toast from "@components/common/Toast";
 import CardLoading from "@components/skeleton/CardLoading";
-import Tab from "@components/common/Tab";
-import Header from "@components/common/Header";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IFeedbackProps} from "@/types/componentProps.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
-import {useThemeStore} from "@store/useThemeStore.ts";
 import {ITab} from "@/types/tab.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {navCategories} from "@constants/navCategories.ts";
 
@@ -22,11 +22,12 @@ import {HeaderWrapper} from "@pages/notice/NoticePage/style.ts";
 
 import notice from "@assets/images/notice.png";
 
+
 const FeedbackPage:FC = () => {
     const [feedback, setFeedback] = useState<IFeedbackProps[]>([]);
 
     const {lang} = useThemeStore();
-
+    const {showToast} = useToastStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     const tabs: ITab[] = [
@@ -35,6 +36,7 @@ const FeedbackPage:FC = () => {
         { name: buttonCategories.feedback[lang], path: "/board/feedback", },
     ];
 
+    // 피드백 목록 요청
     const fetchFeedback = useCallback(async () => {
         try {
             const response = await sendRequest({
@@ -49,6 +51,15 @@ const FeedbackPage:FC = () => {
     useEffect(() => {
         fetchFeedback();
     }, [fetchFeedback]);
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
 
     return (
         <Container>
@@ -90,10 +101,6 @@ const FeedbackPage:FC = () => {
             </div>
 
             <FloatingButton to={"/board/feedback/new"}/>
-
-            {errorText &&
-              <Toast text={errorText} setToast={clearError} type={"error"}/>
-            }
         </Container>
     );
 };

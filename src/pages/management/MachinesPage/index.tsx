@@ -4,14 +4,14 @@ import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import MachineManageCard from "@components/management/MachineManageCard";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Toast from "@components/common/Toast";
 import Divider from "@components/common/Divider";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
-import {headerCategories} from "@constants/headerCategories.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 import {machineName} from "@constants/machineCategories.ts";
 
 import {Container} from "./style.ts";
@@ -23,6 +23,7 @@ import saw_icon from "@assets/images/saw_icon.png";
 import vacuum_icon from "@assets/images/vacuum_icon.png";
 import cnc_icon from "@assets/images/cnc_icon.png";
 
+
 const MachinesPage:FC = () => {
     const [lasers, setLasers] = useState<ILasers[]>([]);
     const [printers, setPrinters] = useState<IPrinters[]>([]);
@@ -33,7 +34,7 @@ const MachinesPage:FC = () => {
     const [timeList, setTimeList] = useState<ILaserTimes[]>([]);
 
     const {lang} = useThemeStore();
-
+    const {showToast} = useToastStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     // 기기 정보들 정보 조회하기
@@ -76,6 +77,15 @@ const MachinesPage:FC = () => {
     useEffect(() => {
         fetchMachines();
     }, [fetchMachines]);
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
 
     return (
         <Container>
@@ -139,10 +149,6 @@ const MachinesPage:FC = () => {
                 </>
             }
             <Divider/>
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
-            }
         </Container>
     );
 };

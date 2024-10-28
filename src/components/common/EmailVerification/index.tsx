@@ -5,7 +5,6 @@ import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import InputMessage from "@components/common/InputMessage";
 import Timer from "@components/common/Timer";
-import Toast from "@components/common/Toast";
 
 import useRequest from "@hooks/useRequest.ts";
 import useDebounce from "@hooks/useDebounce.ts";
@@ -13,6 +12,7 @@ import isEmailValid from "@util/isEmailValid.ts";
 import isNumber from "@util/isNumber.ts";
 import {IEmailVerificationProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
@@ -36,19 +36,8 @@ const EmailVerification = <T extends FieldValues>(
     const [isVerified, setIsVerified] = useState<boolean>(false);
 
     const {lang} = useThemeStore();
-
-    const {sendRequest: checkEmailSendRequest} = useRequest();
-    const {
-        sendRequest: sendVerificationCodeSendRequest,
-        errorText: sendVerificationCodeErrorText,
-        clearError: sendVerificationCodeClearError,
-    } = useRequest();
-
-    const {
-        sendRequest: verifyEmailCodeSendRequest,
-        errorText: verifyEmailCodeErrorText,
-        clearError: verifyEmailCodeClearError,
-    } = useRequest();
+    const {showToast} = useToastStore();
+    const {sendRequest, errorText, clearError} = useRequest();
 
 
     // 이메일 디바운스 적용하기
@@ -61,7 +50,7 @@ const EmailVerification = <T extends FieldValues>(
             return;
         }
         try {
-            const response = await checkEmailSendRequest({
+            const response = await sendRequest({
                 url: `/users/check-email?email=${debouncedEmail}`,
             });
             if (response.data !== 200) {
@@ -77,7 +66,7 @@ const EmailVerification = <T extends FieldValues>(
             console.error("동일한 이메일 존재하는지 확인 중 에러 발생: ", err);
             setDisabledVerificationBtn(true);
         }
-    }, [checkEmailSendRequest, debouncedEmail]);
+    }, [sendRequest, debouncedEmail]);
 
     // 디바운스 될 때, 이메일 유효성 함수 호출
     useEffect(() => {
@@ -87,7 +76,7 @@ const EmailVerification = <T extends FieldValues>(
     // 인증 번호 전송하기
     const sendVerificationCode = useCallback(async () => {
         try {
-            const response = await sendVerificationCodeSendRequest({
+            const response = await sendRequest({
                 url: "/users/send-verification-code",
                 method: "post",
                 data: {email: debouncedEmail},
@@ -105,7 +94,7 @@ const EmailVerification = <T extends FieldValues>(
         } catch (err) {
             console.error("인증 번호 요청 중 에러 발생: ", err);
         }
-    }, [sendVerificationCodeSendRequest, debouncedEmail]);
+    }, [sendRequest, debouncedEmail]);
 
     // 인증 번호 전송 요청 클릭
     const sendVerificationCodeClickHandler = () => {
@@ -117,7 +106,7 @@ const EmailVerification = <T extends FieldValues>(
     // 인증 번호 확인하기
     const verifyEmailCode = useCallback(async () => {
         try {
-            const response = await verifyEmailCodeSendRequest({
+            const response = await sendRequest({
                 url: "/users/verify-email-code",
                 method: "post",
                 data: { email: email, code: verificationCode },
@@ -130,7 +119,7 @@ const EmailVerification = <T extends FieldValues>(
         } catch (err) {
             console.error("인증 번호 확인 중 에러 발생: ", err);
         }
-    }, [verifyEmailCodeSendRequest, email, verificationCode]);
+    }, [sendRequest, email, verificationCode]);
 
     // 인증 번호 확인 요청 클릭
     const verifyEmailCodeClickHandler = () => {
@@ -157,6 +146,33 @@ const EmailVerification = <T extends FieldValues>(
             setDisabledConfirmBtn(true);
         }
     }, [verificationCode]);
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
+
+    // 인증 번호 전송 성공 메시지
+    useEffect(() => {
+        if (sendCodeMessage) {
+            showToast(messageCategories.sendVerificationCode[lang], "success");
+            const errorTimer = setTimeout(() => setSendCodeMessage(false), 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [sendCodeMessage, setSendCodeMessage, showToast]);
+
+    // 인증 번호 확인 메시지
+    useEffect(() => {
+        if (verifiedMessage) {
+            showToast(messageCategories.verifiedCode[lang], "success");
+            const errorTimer = setTimeout(() => setVerifiedMessage(false), 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [verifiedMessage, setVerifiedMessage, showToast]);
 
     return (
         <Container>
@@ -247,22 +263,6 @@ const EmailVerification = <T extends FieldValues>(
                       onClick={verifyEmailCodeClickHandler}
                     />
                 </VerificationCodeInputWrapper>
-            }
-
-            {sendVerificationCodeErrorText &&
-              <Toast text={sendVerificationCodeErrorText} setToast={sendVerificationCodeClearError} type={"error"}/>
-            }
-
-            {verifyEmailCodeErrorText &&
-              <Toast text={verifyEmailCodeErrorText} setToast={verifyEmailCodeClearError} type={"error"}/>
-            }
-
-            {sendCodeMessage &&
-              <Toast text={messageCategories.sendVerificationCode[lang]} setToast={() => setSendCodeMessage(false)} type={"success"}/>
-            }
-
-            {verifiedMessage &&
-              <Toast text={messageCategories.verifiedCode[lang]} setToast={() => setVerifiedMessage(false)} type={"success"}/>
             }
         </Container>
     );

@@ -11,12 +11,12 @@ import UsersFilterContent from "@components/content/UsersFilterContent";
 import Button from "@components/common/Button";
 import CardLoading from "@components/skeleton/CardLoading";
 import HeadTag from "@components/common/HeadTag";
-import Toast from "@components/common/Toast";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IUserFilter, IUserList} from "@/types/user.ts";
-import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
@@ -27,6 +27,7 @@ import tune from "@assets/icons/tune.svg";
 import search from "@assets/icons/search.svg";
 import close from "@assets/icons/close.svg";
 
+
 const UsersPage:FC = () => {
     const [userList, setUserList] = useState<IUserList[]>([]);
     const [showFilter, setShowFilter] = useState<boolean>(false);
@@ -35,9 +36,10 @@ const UsersPage:FC = () => {
     const [username, setUsername] = useState<string>(usernameInputText.trim());
 
     const {lang} = useThemeStore();
-
+    const {showToast} = useToastStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
+    // 유저 목록 조회
     const fetchUserList = useCallback(async () => {
         try {
             const response = await sendRequest({
@@ -53,6 +55,16 @@ const UsersPage:FC = () => {
         fetchUserList();
     }, [fetchUserList]);
 
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
+
+    // 유저 이름 검색
     const handleSearchUsername = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setUsername(usernameInputText.trim());
@@ -137,10 +149,6 @@ const UsersPage:FC = () => {
                   setModal={setShowFilter}
                   type={"bottomSheet"}
                 />
-            }
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

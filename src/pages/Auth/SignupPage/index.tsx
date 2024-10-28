@@ -1,4 +1,4 @@
-import {ChangeEvent, FC, useState} from "react";
+import {ChangeEvent, FC, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
@@ -12,7 +12,6 @@ import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import Link from "@components/common/Link";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 import EmailVerification from "@components/common/EmailVerification";
 
@@ -22,6 +21,7 @@ import {IAuthResponseData} from "@/types/authResponse.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
@@ -40,6 +40,7 @@ const SignupPage:FC = () => {
     const {setUserInfo} = useUserInfoStore();
     const {setUserData} = useUserDataStore();
     const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
     const {signupSchema} = UserSchemaProvider();
 
     const yearCategories = [
@@ -100,6 +101,15 @@ const SignupPage:FC = () => {
             setVerificationCode(value);
         }
     };
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
 
     return (
         <Container>
@@ -214,10 +224,6 @@ const SignupPage:FC = () => {
                         color={"primary"}
                     />
                 </>
-            }
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

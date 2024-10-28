@@ -8,7 +8,6 @@ import Carousel from "@components/common/Carousel";
 import FeedBackCard from "@components/home/FeedBackCard";
 import ReservationCard from "@components/home/ReservationCard";
 import CardLoading from "@components/skeleton/CardLoading";
-import Toast from "@components/common/Toast";
 import CafeSiteCard from "@components/home/CafeSiteCard";
 import HeadTag from "@components/common/HeadTag";
 import LaserReservationConditionContent from "@components/content/LaserReservationConditionContent";
@@ -18,10 +17,10 @@ import SawReservationConditionContent from "@components/content/SawReservationCo
 import VacuumReservationConditionContent from "@components/content/VacuumReservationConditionContent";
 import CncReservationConditionContent from "@components/content/CncReservationConditionContent";
 
-import useRequest from "@hooks/useRequest.ts";
-import {getLaserReservationRate} from "@util/getReservationRate.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {ILaserStatus} from "@/types/reservation.ts";
+import useRequest from "@hooks/useRequest.ts";
+import {getLaserReservationRate} from "@util/getReservationRate.ts";
 
 import {
     AlarmWrapper,
@@ -34,6 +33,7 @@ import {
 
 import logo from "@assets/logo.svg";
 import alarm from "@assets/icons/alarm.svg";
+import {useToastStore} from "@store/useToastStore.ts";
 
 
 const HomeHeaderLeft:FC = () => {
@@ -47,6 +47,7 @@ const HomeHeaderLeft:FC = () => {
     );
 };
 
+
 const HomeHeaderRight:FC = () => {
     const {isDarkMode} = useThemeStore();
 
@@ -57,6 +58,7 @@ const HomeHeaderRight:FC = () => {
     );
 };
 
+
 const HomePage = () => {
     const [machineStatus, setMachineStatus] = useState({laser: false, printer: false, heat: false, saw: false, vacuum: false, cnc: false});
     const [laserStatus, setLaserStatus] = useState<ILaserStatus[]>([]);
@@ -66,6 +68,7 @@ const HomePage = () => {
     const [vacuumStatus, setVacuumStatus] = useState([]);
     const [cncStatus, setCncStatus] = useState([]);
 
+    const {showToast} = useToastStore();
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
     const {rate, color} = useMemo(() =>  getLaserReservationRate(laserStatus), [laserStatus]);
@@ -106,6 +109,15 @@ const HomePage = () => {
         fetchMachineStatus();
         fetchAllReservations();
     }, [fetchAllReservations, fetchMachineStatus]);
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
 
     const carouselContents = [];
     if (machineStatus.laser) carouselContents.push(<LaserReservationConditionContent laserStatus={laserStatus} rate={rate} color={color || "primary"}/>);
@@ -150,10 +162,6 @@ const HomePage = () => {
                     <FeedBackCard/>
                 </div>
             </div>
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
-            }
         </Container>
     );
 };

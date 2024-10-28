@@ -6,37 +6,53 @@ import {messageCategories} from "@constants/messageCategories.ts";
 const UserSchemaProvider = () => {
     const {lang} = useThemeStore();
 
-    const signupSchema = z.object({
-        username: z
+    const usernameSchema = z
             .string()
-            .min(1, messageCategories.inputUsername[lang]),
-        email: z
+            .min(1, messageCategories.inputUsername[lang]);
+
+    const emailSchema = z
             .string()
             .min(1, messageCategories.inputEmail[lang])
             .email(messageCategories.checkEmailForm[lang])
-            .regex(EMAIL_REGEX, messageCategories.emailDomain[lang]),
-        password: z
+            .regex(EMAIL_REGEX, messageCategories.emailDomain[lang]);
+
+    const passwordSchema = z
             .string()
             .min(8, messageCategories.passwordLength[lang])
             .max(20, messageCategories.passwordLength[lang])
-            .regex(PW_REGEX, messageCategories.passwordForm[lang]),
-        confirmPassword: z
+            .regex(PW_REGEX, messageCategories.passwordForm[lang]);
+
+    const confirmPasswordSchema = z
             .string()
             .min(8, messageCategories.confirmPasswordLength[lang])
-            .max(20, messageCategories.confirmPasswordLength[lang]),
-        year: z
+            .max(20, messageCategories.confirmPasswordLength[lang]);
+
+    const yearSchema = z
             .enum(["1", "2", "3", "4", "5"], {
                 required_error: messageCategories.selectYear[lang]
-            }),
-        studentId: z
+            });
+
+    const studentIdSchema = z
             .string()
-            .regex(STUDENTID_REGEX, messageCategories.studentId[lang]),
-        studio: z
+            .regex(STUDENTID_REGEX, messageCategories.studentId[lang]);
+
+    const studioSchema = z
             .string()
-            .min(1, messageCategories.studio[lang]),
-        tel: z
+            .min(1, messageCategories.studio[lang]);
+
+    const telSchema = z
             .string()
-            .regex(TEL_REGEX, messageCategories.tel[lang]),
+            .regex(TEL_REGEX, messageCategories.tel[lang]);
+
+    const signupSchema = z.object({
+        username: usernameSchema,
+        email: emailSchema,
+        password: passwordSchema,
+        confirmPassword: confirmPasswordSchema,
+        year: yearSchema,
+        studentId: studentIdSchema,
+        studio: studioSchema,
+        tel: telSchema,
         code: z
             .string()
             .min(6, messageCategories.codeLength[lang])
@@ -44,7 +60,7 @@ const UserSchemaProvider = () => {
     }).superRefine((data, ctx) => {
         if (data.password !== data.confirmPassword) {
             ctx.addIssue({
-                path:["confirmPassword"],
+                path: ["confirmPassword"],
                 code: z.ZodIssueCode.custom,
                 message: messageCategories.equalPassword[lang],
             });
@@ -52,52 +68,39 @@ const UserSchemaProvider = () => {
     });
 
     const loginSchema = z.object({
-        email: z
-            .string()
-            .min(1, messageCategories.inputEmail[lang])
-            .email(messageCategories.checkEmailForm[lang])
-            .regex(EMAIL_REGEX, messageCategories.emailDomain[lang]),
-        password: z
-            .string()
-            .min(8, messageCategories.passwordLength[lang])
-            .max(20, messageCategories.passwordLength[lang])
-            .regex(PW_REGEX, messageCategories.passwordForm[lang]),
+        email: emailSchema,
+        password: passwordSchema,
     });
 
     const updateAccountSchema = z.object({
-        username: z
-            .string()
-            .min(1, messageCategories.inputUsername[lang]),
-        year: z
-            .enum(["1", "2", "3", "4", "5"], {
-                required_error: messageCategories.selectYear[lang]
-            }),
-        studentId: z
-            .string()
-            .regex(STUDENTID_REGEX, messageCategories.studentId[lang]),
-        studio: z
-            .string()
-            .min(1, messageCategories.studio[lang]),
-        tel: z
-            .string()
-            .regex(TEL_REGEX, messageCategories.tel[lang]),
+        username: usernameSchema,
+        year: yearSchema,
+        studentId: studentIdSchema,
+        studio: studioSchema,
+        tel: telSchema,
+    });
+
+    const updatePasswordSchema = z.object({
+        password: passwordSchema,
+        newPassword: passwordSchema,
+        confirmPassword: confirmPasswordSchema,
+    }).superRefine((data, ctx) => {
+        if (data.newPassword !== data.confirmPassword) {
+            ctx.addIssue({
+                path: ["confirmPassword"],
+                code: z.ZodIssueCode.custom,
+                message: messageCategories.equalPassword[lang],
+            });
+        }
     });
 
     const findPasswordSchema = z.object({
-        username: z
-            .string()
-            .min(1, messageCategories.inputUsername[lang]),
-        email: z
-            .string()
-            .min(1, messageCategories.inputEmail[lang])
-            .email(messageCategories.checkEmailForm[lang])
-            .regex(EMAIL_REGEX, messageCategories.emailDomain[lang]),
-        studentId: z
-            .string()
-            .regex(STUDENTID_REGEX, messageCategories.studentId[lang]),
+        username: usernameSchema,
+        email: emailSchema,
+        studentId: studentIdSchema,
     });
 
-    return {signupSchema, loginSchema, updateAccountSchema, findPasswordSchema}
+    return {signupSchema, loginSchema, updateAccountSchema, updatePasswordSchema, findPasswordSchema}
 };
 
 export default UserSchemaProvider;

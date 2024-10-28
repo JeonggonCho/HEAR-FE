@@ -13,12 +13,12 @@ import Button from "@components/common/Button";
 import Modal from "@components/common/Modal";
 import Calendar from "@components/common/Calendar";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
@@ -39,11 +39,12 @@ const ReservationCnc:FC = () => {
 
     const navigate = useNavigate();
 
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
-
     const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
+    const {isLoading, sendRequest, errorText, clearError} = useRequest();
     const {cncHeatSchema} = MachineSchemaProvider();
 
+    // 현재 CNC 예약 현황 조회
     const fetchAllCncReservationInfo = useCallback(async () => {
         try {
             const response = await sendRequest({
@@ -71,11 +72,13 @@ const ReservationCnc:FC = () => {
         }
     });
 
+    // 예약 날짜 선택
     const handleDateSelect = (date: string) => {
         setValue("date", date);
         setShowCalendar(false);
     };
 
+    // CNC 예약 요청
     const submitHandler:SubmitHandler<CncFormData> = useCallback(async (data) => {
         try {
             const response = await sendRequest({
@@ -94,6 +97,15 @@ const ReservationCnc:FC = () => {
             reset();
         }
     }, [sendRequest]);
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
 
     return (
         <Container>
@@ -176,10 +188,6 @@ const ReservationCnc:FC = () => {
                 setModal={setShowMap}
                 type={"popup"}
               />
-            }
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

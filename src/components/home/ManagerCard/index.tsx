@@ -2,25 +2,26 @@ import {FC, useCallback, useEffect, useState} from "react";
 
 import Button from "@components/common/Button";
 import CardLoading from "@components/skeleton/CardLoading";
-import Toast from "@components/common/Toast";
 
-import {useUserDataStore} from "@store/useUserStore.ts";
 import useRequest from "@hooks/useRequest.ts";
+import {useUserDataStore} from "@store/useUserStore.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
-import {useThemeStore} from "@store/useThemeStore.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
 import {Container, EmptyManagerInfo, ManagerCardTitleWrapper, ManagerInfoWrapper} from "./style.ts";
 
 import manager from "@assets/images/manager.png";
 
-const ManagerCard:FC = () => {
-    const {userData} = useUserDataStore();
-    const {lang} = useThemeStore();
 
+const ManagerCard:FC = () => {
     const [managerInfo, setManagerInfo] = useState<{username: string, lab: string}>();
 
+    const {userData} = useUserDataStore();
+    const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
     const fetchManageInfo = useCallback(async () => {
@@ -39,6 +40,14 @@ const ManagerCard:FC = () => {
     useEffect(() => {
         fetchManageInfo();
     }, [fetchManageInfo]);
+
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
 
     if (isLoading) {
         return <CardLoading heightValue={"120px"}/>;
@@ -72,10 +81,6 @@ const ManagerCard:FC = () => {
                 <EmptyManagerInfo>
                     {messageCategories.emptyManagerInfo[lang]}
                 </EmptyManagerInfo>
-            }
-
-            {errorText &&
-              <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

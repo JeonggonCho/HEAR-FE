@@ -1,4 +1,4 @@
-import {FC} from "react";
+import {FC, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import { z } from "zod";
@@ -10,7 +10,6 @@ import ArrowBack from "@components/common/ArrowBack";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import Link from "@components/common/Link";
-import Toast from "@components/common/Toast";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 
@@ -20,6 +19,7 @@ import {IAuthResponseData} from "@/types/authResponse.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
@@ -37,7 +37,7 @@ const SigninPage:FC = () => {
     const {setUserInfo} = useUserInfoStore();
     const {setUserData} = useUserDataStore();
     const {lang} = useThemeStore();
-
+    const {showToast} = useToastStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
     const {loginSchema} = UserSchemaProvider();
 
@@ -51,6 +51,7 @@ const SigninPage:FC = () => {
         }
     });
 
+    // 로그인 요청
     const submitHandler: SubmitHandler<LoginFormData> = async (data) => {
         try {
             const response:AxiosResponse<IAuthResponseData> = await sendRequest({
@@ -68,6 +69,15 @@ const SigninPage:FC = () => {
             console.log("로그인 실패: ", err);
         }
     };
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
 
     if (isLoading) {
         return <LoadingLoop/>
@@ -132,10 +142,6 @@ const SigninPage:FC = () => {
                     color={"second"}
                 />
             </LinkWrapper>
-
-            {errorText &&
-              <Toast text={errorText} setToast={clearError} type={"error"}/>
-            }
         </Container>
     );
 };

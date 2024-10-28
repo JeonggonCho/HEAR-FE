@@ -2,21 +2,23 @@ import {FC, useCallback, useEffect, useState} from "react";
 
 import ArrowForward from "@components/common/ArrowForward";
 import CardLoading from "@components/skeleton/CardLoading";
-import Toast from "@components/common/Toast";
 
 import useRequest from "@hooks/useRequest.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 
 import {Container, EmptyNotice, ImgWrapper, More, Notice, NoticesWrapper} from "./style.ts";
 
 import notice from "@assets/images/notice.png";
 
+
 const NoticeCard:FC = () => {
     const [latestNotices, setLatestNotices] = useState<{noticeId: string, title: string}[]>([]);
 
     const {lang} = useThemeStore();
-
+    const {showToast} = useToastStore();
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
     const fetchLatestNotices = useCallback(async () => {
@@ -36,6 +38,15 @@ const NoticeCard:FC = () => {
         fetchLatestNotices();
     }, [fetchLatestNotices]);
 
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
+
     // 로딩중인 경우, 스켈레톤 렌더링
     if (isLoading) {
         return <CardLoading heightValue={"55px"}/>
@@ -44,7 +55,7 @@ const NoticeCard:FC = () => {
     return (
         <Container>
             <ImgWrapper valid={latestNotices.length > 0}>
-                <img src={notice} alt="공지사항"/>
+                <img src={notice} alt="notice"/>
             </ImgWrapper>
 
             {latestNotices.length > 0 ?
@@ -63,11 +74,7 @@ const NoticeCard:FC = () => {
                     </More>
                 </>
                 :
-                <EmptyNotice>공지사항이 없습니다</EmptyNotice>
-            }
-
-            {errorText &&
-              <Toast text={errorText} setToast={clearError} type={"error"}/>
+                <EmptyNotice>{messageCategories.emptyNotice[lang]}</EmptyNotice>
             }
         </Container>
     );

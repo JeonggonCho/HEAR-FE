@@ -5,7 +5,6 @@ import {ReactSVG} from "react-svg";
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Toast from "@components/common/Toast";
 import Dropdown from "@components/common/Dropdown";
 import HeadTag from "@components/common/HeadTag";
 import Button from "@components/common/Button";
@@ -20,10 +19,11 @@ import getTimeStamp from "@util/getTimeStamp.ts";
 import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
 import {IInquiryProps} from "@/types/componentProps.ts";
 import {IComment} from "@/types/comment.ts";
-import {inquiryCategories} from "@constants/inquiryCategories.ts";
 import {useUserInfoStore} from "@store/useUserStore.ts";
-import {headerCategories} from "@constants/headerCategories.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {inquiryCategories} from "@constants/inquiryCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
@@ -63,12 +63,11 @@ const InquiryDetailPage:FC = () => {
 
     const {userInfo} = useUserInfoStore();
     const {lang, isDarkMode} = useThemeStore();
-
+    const {showToast} = useToastStore();
     const {isLoading: inquiryIsLoading, errorText: inquiryErrorText, sendRequest: inquirySendRequest, clearError: inquiryClearError} = useRequest();
     const {errorText: deleteInquiryErrorText, sendRequest: deleteInquirySendRequest, clearError: deleteInquiryClearError} = useRequest();
     const {errorText: likeInquiryErrorText, sendRequest: likeInquirySendRequest, clearError: likeInquiryClearError} = useRequest();
     const {errorText: commentErrorText, sendRequest: commentSendRequest, clearError: commentClearError} = useRequest();
-
     const {text, countOfText, handleTextChange, setText} = useTextarea(); // 댓글 textarea
 
     // 문의 생성 날짜 스탬프
@@ -99,6 +98,15 @@ const InquiryDetailPage:FC = () => {
         fetchInquiry();
     }, [fetchInquiry]);
 
+    // 문의 디테일 조회 에러 메시지
+    useEffect(() => {
+        if (inquiryErrorText) {
+            showToast(inquiryErrorText, "error");
+            const errorTimer = setTimeout(inquiryClearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [inquiryErrorText, inquiryClearError, showToast]);
+
     // 문의 좋아요
     const likeInquiry = async () => {
         try {
@@ -122,6 +130,15 @@ const InquiryDetailPage:FC = () => {
         }
     };
 
+    // 문의 좋아요 에러 메시지
+    useEffect(() => {
+        if (likeInquiryErrorText) {
+            showToast(likeInquiryErrorText, "error");
+            const errorTimer = setTimeout(likeInquiryClearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [likeInquiryErrorText, likeInquiryClearError, showToast]);
+
     // 문의 삭제 확인 모달 띄우기
     const deleteInquiryConfirm = () => {
         setShowConfirmModal(true);
@@ -139,6 +156,15 @@ const InquiryDetailPage:FC = () => {
             console.error("문의 삭제 중 에러 발생: ", err);
         }
     };
+
+    // 문의 삭제 에러 메시지
+    useEffect(() => {
+        if (deleteInquiryErrorText) {
+            showToast(deleteInquiryErrorText, "error");
+            const errorTimer = setTimeout(deleteInquiryClearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [deleteInquiryErrorText, deleteInquiryClearError, showToast]);
 
     // 문의 수정
     const updateInquiry = () => {
@@ -186,6 +212,24 @@ const InquiryDetailPage:FC = () => {
             console.error("댓글 생성 요청 중 에러 발생: ", err);
         }
     };
+
+    // 댓글 생성 에러 메시지
+    useEffect(() => {
+        if (commentErrorText) {
+            showToast(commentErrorText, "error");
+            const errorTimer = setTimeout(commentClearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [commentErrorText, commentClearError, showToast]);
+
+    // 댓글 공란 에러 메시지
+    useEffect(() => {
+        if (emptyCommentContent) {
+            showToast(messageCategories.emptyCommentError[lang], "error");
+            const errorTimer = setTimeout(() => setEmptyCommentContent(false), 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [emptyCommentContent, setEmptyCommentContent, showToast]);
 
     // 댓글 버튼 클릭 시
     const commentClickHandler = () => {
@@ -304,26 +348,6 @@ const InquiryDetailPage:FC = () => {
                 </>
                 :
                 <LoadingLoop/>
-            }
-
-            {inquiryErrorText &&
-              <Toast text={inquiryErrorText} setToast={inquiryClearError} type={"error"}/>
-            }
-
-            {deleteInquiryErrorText &&
-              <Toast text={deleteInquiryErrorText} setToast={deleteInquiryClearError} type={"error"}/>
-            }
-
-            {commentErrorText &&
-              <Toast text={commentErrorText} setToast={commentClearError} type={"error"}/>
-            }
-
-            {likeInquiryErrorText &&
-              <Toast text={likeInquiryErrorText} setToast={likeInquiryClearError} type={"error"}/>
-            }
-
-            {emptyCommentContent &&
-              <Toast text={messageCategories.emptyCommentError[lang]} setToast={() => setEmptyCommentContent(false)} type={"error"}/>
             }
 
             {showConfirmModal &&

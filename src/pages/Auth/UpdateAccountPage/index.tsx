@@ -1,7 +1,7 @@
 import {FC, useCallback, useEffect, useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {z} from "zod";
 import {useNavigate} from "react-router-dom";
+import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 
 import Header from "@components/common/Header";
@@ -12,13 +12,13 @@ import Button from "@components/common/Button";
 import Modal from "@components/common/Modal";
 import ConfirmContent from "@components/content/ConfirmContent";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
@@ -32,9 +32,10 @@ const UpdateAccountPage:FC = () => {
     const [formData, setFormData] = useState<any>(null);
     const [updateAccountModal, setUpdateAccountModal] = useState<boolean>(false);
 
+    const {lang} = useThemeStore();
     const {userInfo, setUserInfo} = useUserInfoStore();
     const {userData, setUserData} = useUserDataStore();
-    const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
     const {updateAccountSchema} = UserSchemaProvider();
 
     const yearCategories = [
@@ -95,26 +96,35 @@ const UpdateAccountPage:FC = () => {
         }
     }, [userInfo, userData, reset]);
 
-    // 내 정보 수정 버튼 클릭 시, 유효성 검사 및 confirm 모달 보이기
-    const submitHandler: SubmitHandler<UpdateAccountFormData> = async (data) => {
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
+
+    // 내 정보 변경 버튼 클릭 시, 유효성 검사 및 confirm 모달 보이기
+    const submitHandler: SubmitHandler<UpdateAccountFormData> = (data) => {
         setFormData(data);
         setUpdateAccountModal(true);
     };
 
     // confirm 모달에서 수정하기 클릭 시, 수정 요청보내기
     const handleConfirmUpdate = async () => {
-        if (formData) {
-            try {
-                await sendRequest({
-                    url: "/users",
-                    method: "patch",
-                    data: formData,
-                });
-                navigate("/account", {replace: true});
-            } catch (err) {
-                setUpdateAccountModal(false);
-                console.error("정보 수정 에러: ", err);
-            }
+        if (!formData) return;
+        try {
+            await sendRequest({
+                url: "/users",
+                method: "patch",
+                data: formData,
+            });
+            showToast("내 정보가 변경되었습니다", "success");
+            navigate("/account", {replace: true});
+        } catch (err) {
+            setUpdateAccountModal(false);
+            console.error("내 정보 변경 중 에러 발생: ", err);
         }
     };
 
@@ -224,10 +234,6 @@ const UpdateAccountPage:FC = () => {
                         />
                     }
                 </>
-            }
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

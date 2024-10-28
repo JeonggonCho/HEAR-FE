@@ -9,7 +9,6 @@ import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import Modal from "@components/common/Modal";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Toast from "@components/common/Toast";
 import LaserSelectContent from "@components/content/LaserSelectContent";
 import HeadTag from "@components/common/HeadTag";
 
@@ -18,6 +17,7 @@ import {getTomorrowDate} from "@util/calculateDate.ts";
 import {ILaserInfo, ILaserReservation, ILaserTimesinfo} from "@/types/reservation.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
@@ -30,6 +30,7 @@ import laser from "@assets/images/laser_cut.png";
 import mapIcon from "@assets/icons/map.svg";
 import close from "@assets/icons/close.svg";
 
+
 const ReservationLaser: FC = () => {
     const [reservationList, setReservationList] = useState<ILaserReservation[]>([]);
     const [laserInfo, setLaserInfo] = useState<ILaserInfo[]>([]);
@@ -38,12 +39,12 @@ const ReservationLaser: FC = () => {
     const [showMap, setShowMap] = useState<boolean>(false);
     const [showEmptyError, setShowEmptyError] = useState<boolean>(false);
 
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
-
     const navigate = useNavigate();
 
     const {userData, setUserData} = useUserDataStore();
     const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
+    const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
     // 레이저 커팅기 이용 날짜인 내일 날짜 계산
     const formattedDate = getTomorrowDate();
@@ -74,6 +75,7 @@ const ReservationLaser: FC = () => {
         ));
     };
 
+    // 레이저 커팅기 예약 요청
     const submitHandler = useCallback(async (e:any) => {
         e.preventDefault();
         if (reservationList.length === 0) {
@@ -109,6 +111,24 @@ const ReservationLaser: FC = () => {
             console.error("레이저 커팅기 예약 중 에러 발생: ", err);
         }
     }, [sendRequest, reservationList]);
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
+
+    // 공란 에러 메시지
+    useEffect(() => {
+        if (showEmptyError) {
+            showToast(messageCategories.emptyMachineAndTime[lang], "error");
+            const errorTimer = setTimeout(() => setShowEmptyError(false), 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [showEmptyError, setShowEmptyError, showToast]);
 
     return (
         <Container>
@@ -202,14 +222,6 @@ const ReservationLaser: FC = () => {
                 setModal={setShowMap}
                 type={"popup"}
               />
-            }
-
-            {errorText &&
-              <Toast text={errorText} setToast={clearError} type={"error"}/>
-            }
-
-            {showEmptyError &&
-              <Toast text={messageCategories.emptyMachineAndTime[lang]} setToast={() => setShowEmptyError(false)} type={"error"}/>
             }
         </Container>
     );

@@ -1,4 +1,4 @@
-import {FC, useCallback} from "react";
+import {FC, useCallback, useEffect} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
@@ -6,12 +6,12 @@ import {zodResolver} from "@hookform/resolvers/zod";
 
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
-import Toast from "@components/common/Toast";
 
-import {INewMachineContentProps} from "@/types/componentProps.ts";
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
+import {INewMachineContentProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
@@ -22,9 +22,9 @@ import close from "@assets/icons/close.svg";
 
 
 const NewMachineContent:FC<INewMachineContentProps> = ({title, setModal, machine, setMachines}) => {
-    const {sendRequest, errorText, clearError} = useRequest();
-
     const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
+    const {sendRequest, errorText, clearError} = useRequest();
     const {newMachineSchema} = MachineSchemaProvider();
 
     type MachineFormData = z.infer<typeof newMachineSchema>;
@@ -77,6 +77,15 @@ const NewMachineContent:FC<INewMachineContentProps> = ({title, setModal, machine
         }
     }, [sendRequest]);
 
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
+
     return (
         <Container>
             <div>
@@ -109,10 +118,6 @@ const NewMachineContent:FC<INewMachineContentProps> = ({title, setModal, machine
                         scale={"big"}
                     />
                 </form>
-            }
-
-            {errorText &&
-              <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

@@ -13,12 +13,12 @@ import Input from "@components/common/Input";
 import Modal from "@components/common/Modal";
 import Calendar from "@components/common/Calendar";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
@@ -38,13 +38,14 @@ const ReservationVacuum:FC = () => {
     const [showMap, setShowMap] = useState<boolean>(false);
     const [showTooltip, setShowTooltip] = useState<boolean>(true);
 
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
-
-    const {lang} = useThemeStore();
-    const {sawVacuumSchema} = MachineSchemaProvider();
-
     const navigate = useNavigate();
 
+    const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
+    const {isLoading, sendRequest, errorText, clearError} = useRequest();
+    const {sawVacuumSchema} = MachineSchemaProvider();
+
+    // 사출 성형기 예약 정보 가져오기
     const fetchAllVacuumReservationInfo = useCallback(async () => {
         try {
             const response = await sendRequest({
@@ -78,6 +79,7 @@ const ReservationVacuum:FC = () => {
         setShowCalendar(false);
     };
 
+    // 사출 성형기 예약 요청
     const submitHandler:SubmitHandler<VacuumFormData> = useCallback(async (data) => {
         try {
             const response = await sendRequest({
@@ -96,6 +98,15 @@ const ReservationVacuum:FC = () => {
             reset();
         }
     }, [sendRequest])
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
 
     return (
         <Container tooltip={showTooltip}>
@@ -198,10 +209,6 @@ const ReservationVacuum:FC = () => {
                 setModal={setShowMap}
                 type={"popup"}
               />
-            }
-
-            {errorText &&
-              <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

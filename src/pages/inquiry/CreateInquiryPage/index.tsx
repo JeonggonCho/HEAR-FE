@@ -1,4 +1,4 @@
-import {ChangeEvent, FC} from "react";
+import {ChangeEvent, FC, useEffect} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import {z} from "zod";
@@ -11,13 +11,13 @@ import Button from "@components/common/Button";
 import Textarea from "@components/common/Textarea";
 import Input from "@components/common/Input";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
 import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {inquiryCategories} from "@constants/inquiryCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
@@ -32,6 +32,7 @@ const CreateInquiryPage:FC = () => {
     const navigate = useNavigate();
 
     const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
     const {text, handleTextChange, countOfText} = useTextarea();
     const {inquirySchema} = BoardSchemaProvider();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
@@ -75,6 +76,15 @@ const CreateInquiryPage:FC = () => {
         setValue("content", e.target.value);
     };
 
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
+
     return (
         <Container>
             <HeadTag title={headerCategories.inquiry[lang]}/>
@@ -117,10 +127,6 @@ const CreateInquiryPage:FC = () => {
                         <Button type={"submit"} content={buttonCategories.sendInquiry[lang]} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
                 </>
-            }
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

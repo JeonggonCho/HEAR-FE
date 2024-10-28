@@ -7,24 +7,25 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import Empty from "@components/common/Empty";
 import ReservationListItem from "@components/reservation/ReservationListItem";
-import Toast from "@components/common/Toast";
 import Modal from "@components/common/Modal";
 import ConfirmContent from "@components/content/ConfirmContent";
 import Button from "@components/common/Button";
 
 import useRequest from "@hooks/useRequest.ts";
-import {headerCategories} from "@constants/headerCategories.ts";
+import {IReservation} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {machineName} from "@constants/machineCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
-import {IReservation} from "@/types/componentProps.ts";
 
 import {ReservationControlWrapper, ReservationListItemWrapper, SelectAllWrapper} from "./style.ts";
 
 import check from "@assets/icons/check.svg";
 
 type ReservationArgumentsType = {_id: string, machine: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc", date: string}
+
 
 const MyReservationsPage:FC = () => {
     const [reservations, setReservations] = useState<IReservation[]>([]);
@@ -34,8 +35,9 @@ const MyReservationsPage:FC = () => {
     const [showEmptySelect, setShowEmptySelect] = useState<boolean>(false);
     const [successDeleteReservation, setSuccessDeleteReservation] = useState<boolean>(false);
 
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
     const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
+    const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
     // 내 예약 내역 조회
     const fetchMyReservations = useCallback(async () => {
@@ -125,6 +127,33 @@ const MyReservationsPage:FC = () => {
         selectedReservations.length === 0 ? setShowEmptySelect(true) : setShowConfirmModal(true);
     };
 
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
+
+    // 공란 에러 메시지
+    useEffect(() => {
+        if (showEmptySelect) {
+            showToast(messageCategories.emptySelectedReservation[lang], "error");
+            const errorTimer = setTimeout(() => setShowEmptySelect(false), 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [showEmptySelect, setShowEmptySelect, showToast]);
+
+    // 삭제 성공 메시지
+    useEffect(() => {
+        if (successDeleteReservation) {
+            showToast(messageCategories.deleteDone[lang], "success");
+            const errorTimer = setTimeout(() => setSuccessDeleteReservation(false), 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [successDeleteReservation, setSuccessDeleteReservation, showToast]);
+
     return (
         <>
             <HeadTag title={headerCategories.myReservations[lang]}/>
@@ -196,18 +225,6 @@ const MyReservationsPage:FC = () => {
                         />
                     }
                 </>
-            }
-
-            {errorText &&
-              <Toast text={errorText} setToast={clearError} type={"error"}/>
-            }
-
-            {successDeleteReservation &&
-              <Toast text={messageCategories.deleteDone[lang]} setToast={() => setSuccessDeleteReservation(false)} type={"success"}/>
-            }
-
-            {showEmptySelect &&
-                <Toast text={messageCategories.emptySelectedReservation[lang]} setToast={() => setShowEmptySelect(false)} type={"error"}/>
             }
 
             {showConfirmModal &&

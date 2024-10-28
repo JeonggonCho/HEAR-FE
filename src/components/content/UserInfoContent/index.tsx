@@ -6,14 +6,14 @@ import {zodResolver} from "@hookform/resolvers/zod";
 
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
-import Toast from "@components/common/Toast";
 
 import useRequest from "@hooks/useRequest.ts";
 import WarningSchemaProvider from "@schemata/WarningSchemaProvider.ts";
 import {IUserInfoContentProps} from "@/types/componentProps.ts";
 import {IUserInfo} from "@/types/user.ts";
-import {cardCategories} from "@constants/cardCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
@@ -29,6 +29,7 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
     const [showWarning, setShowWarning] = useState<boolean>(false);
 
     const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
     const {warningSchema} = WarningSchemaProvider();
 
@@ -150,6 +151,15 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
             console.error("교육 미이수 처리 중 에러 발생: ", err);
         }
     }, [isLoading, sendRequest, userId, user, onUserInfoUpdate]);
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
 
     return (
         <Container>
@@ -290,10 +300,6 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                     </PassWrapper>
                   </div>
                 </>
-            }
-
-            {errorText &&
-              <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

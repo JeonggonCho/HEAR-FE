@@ -1,6 +1,7 @@
 import {FC, useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
 import {useNavigate} from "react-router-dom";
+
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import RoomMap from "@components/content/RoomMap";
@@ -9,14 +10,14 @@ import Modal from "@components/common/Modal";
 import PrinterSelectContent from "@components/content/PrinterSelectContent";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
-import Toast from "@components/common/Toast";
 
+import useRequest from "@hooks/useRequest.ts";
+import {IPrinterReservation} from "@/types/reservation.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
-import {IPrinterReservation} from "@/types/reservation.ts";
-import useRequest from "@hooks/useRequest.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 
 import {Container, DateMachineSelectWrapper, EmptyMessage, ImageWrapper, MapIcon} from "./style.ts";
@@ -34,7 +35,7 @@ const ReservationPrinter:FC = () => {
     const [showEmptyError, setShowEmptyError] = useState<boolean>(false);
 
     const {lang} = useThemeStore();
-
+    const {showToast} = useToastStore();
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
     const navigate = useNavigate();
@@ -55,6 +56,24 @@ const ReservationPrinter:FC = () => {
     useEffect(() => {
         fetchValidPrinterInfo();
     }, [fetchValidPrinterInfo]);
+
+    // 요청 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
+
+    // 공란 에러 메시지
+    useEffect(() => {
+        if (showEmptyError) {
+            showToast(messageCategories.emptyDateAndMachine[lang], "error");
+            const errorTimer = setTimeout(() => setShowEmptyError(false), 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [showEmptyError, setShowEmptyError, showToast]);
 
     const handleDateSelect = (date: string) => {
         setSelectedDate(date);
@@ -165,14 +184,6 @@ const ReservationPrinter:FC = () => {
                 setModal={setShowMap}
                 type={"popup"}
               />
-            }
-
-            {showEmptyError &&
-              <Toast text={messageCategories.emptyDateAndMachine[lang]} setToast={() => setShowEmptyError(false)} type={"error"}/>
-            }
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

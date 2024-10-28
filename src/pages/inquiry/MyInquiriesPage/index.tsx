@@ -3,24 +3,25 @@ import {FC, useCallback, useEffect, useState} from "react";
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 import InquiryFeedbackListItem from "@components/board/InquiryFeedbackListItem";
 import Empty from "@components/common/Empty";
 
 import useRequest from "@hooks/useRequest.ts";
-import {headerCategories} from "@constants/headerCategories.ts";
-import {useThemeStore} from "@store/useThemeStore.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
 import {IInquiryProps} from "@/types/componentProps.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 
 import {InquiryListItemWrapper} from "./style.ts";
 
 const MyInquiriesPage:FC = () => {
     const [inquiries, setInquiries] = useState<IInquiryProps[]>([]);
 
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
     const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
+    const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
     // 내 문의 내역 조회
     const fetchMyInquiries = useCallback(async () => {
@@ -39,6 +40,15 @@ const MyInquiriesPage:FC = () => {
     useEffect(() => {
         fetchMyInquiries();
     }, [fetchMyInquiries]);
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
 
     return (
         <>
@@ -75,10 +85,6 @@ const MyInquiriesPage:FC = () => {
                         />
                     }
                 </>
-            }
-
-            {errorText &&
-              <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </>
     );

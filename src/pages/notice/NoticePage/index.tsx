@@ -1,33 +1,34 @@
 import {FC, useCallback, useEffect, useState} from "react";
 
+import Header from "@components/common/Header";
+import Tab from "@components/common/Tab";
 import FloatingButton from "@components/common/FloatingButton";
 import Empty from "@components/common/Empty";
 import NoticeListItem from "@components/board/NoticeListItem";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Tab from "@components/common/Tab";
-import Header from "@components/common/Header";
 import HeadTag from "@components/common/HeadTag";
-import Toast from "@components/common/Toast";
 
-import {useUserDataStore} from "@store/useUserStore.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {INotice} from "@/types/componentProps.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
+import {useUserDataStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {navCategories} from "@constants/navCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 
 import {Container, HeaderWrapper, NoticeListItemWrapper} from "./style.ts";
 
 import notice from "@assets/images/notice.png";
 import {ITab} from "@/types/tab.ts";
 
+
 const NoticePage:FC = () => {
     const [notices, setNotices] = useState<INotice[]>([]);
 
     const {userData} = useUserDataStore();
     const {lang} = useThemeStore();
-
+    const {showToast} = useToastStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     const tabs: ITab[] = [
@@ -50,6 +51,15 @@ const NoticePage:FC = () => {
     useEffect(() => {
         fetchNotices();
     }, [fetchNotices]);
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
 
     return (
         <Container>
@@ -85,10 +95,6 @@ const NoticePage:FC = () => {
                       <FloatingButton to={"/board/notice/new"}/>
                     }
                 </NoticeListItemWrapper>
-            }
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

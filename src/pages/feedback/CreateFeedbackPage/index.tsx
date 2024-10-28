@@ -1,4 +1,4 @@
-import {ChangeEvent, FC} from "react";
+import {ChangeEvent, FC, useEffect} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import {z} from "zod";
@@ -11,19 +11,19 @@ import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Toast from "@components/common/Toast";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
 import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
+import {useToastStore} from "@store/useToastStore.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 import {feedbackCategories} from "@constants/feedbackCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {pageDescriptionCategories} from "@constants/pageDescriptionCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
-import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
 
@@ -32,6 +32,7 @@ const CreateFeedbackPage:FC = () => {
     const navigate = useNavigate();
 
     const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
     const {text, handleTextChange, countOfText} = useTextarea();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
     const {feedbackSchema} = BoardSchemaProvider();
@@ -53,6 +54,15 @@ const CreateFeedbackPage:FC = () => {
             content: "",
         },
     });
+
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
 
     // 피드백 생성 요청
     const submitHandler:SubmitHandler<FeedbackFormData> = async (data) => {
@@ -117,10 +127,6 @@ const CreateFeedbackPage:FC = () => {
                         <Button type={"submit"} content={buttonCategories.sendFeedback[lang]} width={"full"} color={"primary"} scale={"big"}/>
                     </form>
                 </>
-            }
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );

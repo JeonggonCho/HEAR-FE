@@ -9,7 +9,6 @@ import ArrowBack from "@components/common/ArrowBack";
 import Select from "@components/common/Select";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
-import Toast from "@components/common/Toast";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
@@ -20,6 +19,7 @@ import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
 import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 import {inquiryCategories} from "@constants/inquiryCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
@@ -27,18 +27,20 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container} from "./style.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
+
 
 const UpdateInquiryPage:FC = () => {
     const [inquiry, setInquiry] = useState<any>();
     const [updateInquiryModal, setUpdateInquiryModal] = useState<boolean>(false);
 
     const navigate = useNavigate();
-
     const {inquiryId} = useParams();
 
+    const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
     const {text, setText, handleTextChange, countOfText, setCountOfText} = useTextarea();
-    const {lang} = useThemeStore();
     const {inquirySchema} = BoardSchemaProvider();
 
     const inquiryInfoCategories = [
@@ -48,6 +50,7 @@ const UpdateInquiryPage:FC = () => {
         {label: inquiryCategories.etc[lang], value: "etc", id: "radio-4"},
     ];
 
+    // 기존에 작성된 문의 정보 가져오기
     const fetchInquiry = useCallback(async () => {
         try {
             const response = await sendRequest({
@@ -111,6 +114,16 @@ const UpdateInquiryPage:FC = () => {
         setValue("content", e.target.value);
     };
 
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) {
+            showToast(errorText, "error");
+            const errorTimer = setTimeout(clearError, 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [errorText, clearError, showToast]);
+
+    // 문의 수정 확인 모달
     const UpdateInquiryModalContent = () => {
         const leftBtn = (
             <Button
@@ -134,7 +147,7 @@ const UpdateInquiryPage:FC = () => {
         );
         return (
             <ConfirmContent
-                text={"문의를 수정하시겠습니까?"}
+                text={messageCategories.confirmUpdateInquiry[lang]}
                 leftBtn={leftBtn}
                 rightBtn={rightBtn}
             />
@@ -189,10 +202,6 @@ const UpdateInquiryPage:FC = () => {
                         />
                     }
                 </>
-            }
-
-            {errorText &&
-                <Toast text={errorText} setToast={clearError} type={"error"}/>
             }
         </Container>
     );
