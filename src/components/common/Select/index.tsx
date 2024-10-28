@@ -38,7 +38,7 @@ const Select:FC<ISelectProps> = ({label, categories, register, name, errorMessag
                               />
                               <LabelWrapper
                                   htmlFor={category.id}
-                                  isDarkMode={isDarkMode}
+                                  darkmode={isDarkMode.toString()}
                                   lang={lang}
                               >
                                   {category.label}

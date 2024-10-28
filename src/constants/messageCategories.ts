@@ -175,9 +175,14 @@ export const messageCategories = {
         ch: "没有警告记录",
     },
     confirmUpdateAccount: {
-        ko: "회원정보를 수정하시겠습니까?",
+        ko: "회원정보를 변경하시겠습니까?",
         en: "Would you like to edit your profile information?",
         ch: "您想修改会员信息吗？",
+    },
+    confirmUpdatePassword: {
+        ko: "비밀번호를 수정하시겠습니까?",
+        en: "Would you like to change your password?",
+        ch: "您要修改密码吗？",
     },
     emptyComment: {
         ko: "작성된 댓글이 없습니다",
@@ -363,5 +368,15 @@ export const messageCategories = {
         ko: "문의를 수정하시겠습니까?",
         en: "Would you like to edit the inquiry?",
         ch: "您要修改咨询吗？",
+    },
+    updateAccountDone: {
+        ko: "유저 정보 변경이 완료되었습니다",
+        en: "Your information has been updated successfully",
+        ch: "您的信息已成功更新",
+    },
+    updatePasswordDone: {
+        ko: "비밀번호 변경이 완료되었습니다",
+        en: "Your password has been changed successfully",
+        ch: "您的密码已成功更改",
     },
 };

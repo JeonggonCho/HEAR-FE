@@ -32,12 +32,12 @@ const Dropdown:FC<IDropdownProps> = ({dropdownMenus}) => {
             <ReactSVG src={more} onClick={() => setShowDropdown((prevState) => !prevState)}/>
 
             {showDropdown &&
-                <DropdownWrapper isDarkMode={isDarkMode}>
+                <DropdownWrapper darkmode={isDarkMode.toString()}>
                     {dropdownMenus.map((menu, index) => (
                         <DropdownMenu
                             key={`${index} ${menu.label}`}
                             onClick={menu.action}
-                            isDarkMode={isDarkMode}
+                            darkmode={isDarkMode.toString()}
                         >
                             <ReactSVG src={menu.icon}/> {menu.label}
                         </DropdownMenu>

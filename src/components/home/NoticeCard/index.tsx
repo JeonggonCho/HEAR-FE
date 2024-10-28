@@ -40,12 +40,10 @@ const NoticeCard:FC = () => {
 
     // 에러 메시지
     useEffect(() => {
-        if (errorText) {
-            showToast(errorText, "error");
-            const errorTimer = setTimeout(clearError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [errorText, clearError, showToast]);
+        if (errorText) showToast(errorText, "error");
+        const errorTimer = setTimeout(() => clearError(), 6000);
+        return () => clearTimeout(errorTimer);
+    }, [errorText]);
 
     // 로딩중인 경우, 스켈레톤 렌더링
     if (isLoading) {

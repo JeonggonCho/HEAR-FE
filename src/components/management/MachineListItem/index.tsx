@@ -100,12 +100,10 @@ const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines
 
     // 에러 메시지
     useEffect(() => {
-        if (errorText) {
-            showToast(errorText, "error");
-            const errorTimer = setTimeout(clearError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [errorText, clearError, showToast]);
+        if (errorText) showToast(errorText, "error");
+        const errorTimer = setTimeout(() => clearError(), 6000);
+        return () => clearTimeout(errorTimer);
+    }, [errorText]);
 
     return (
         <Container isEdit={isEdit} showEdit={props.showEdit}>

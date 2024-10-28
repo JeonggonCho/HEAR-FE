@@ -13,20 +13,20 @@ export const Container = styled.div`
     }
 `;
 
-export const DropdownWrapper = styled.div<{isDarkMode: boolean}>`
+export const DropdownWrapper = styled.div<{darkmode: string}>`
     position: absolute;
     padding: 6px 0;
     top: 32px;
     right: 4px;
     border-radius: 6px;
-    background-color: ${({theme, isDarkMode}) => isDarkMode ? lighten(0.1, theme.colors.bg.main) : theme.colors.bg.main};
+    background-color: ${({theme, darkmode}) => darkmode === "true" ? lighten(0.1, theme.colors.bg.main) : theme.colors.bg.main};
     box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
     display: flex;
     flex-direction: column;
     z-index: 2;
 `;
 
-export const DropdownMenu = styled.div<{isDarkMode: boolean}>`
+export const DropdownMenu = styled.div<{darkmode: string}>`
     display: flex;
     align-items: center;
     gap: 8px;
@@ -38,12 +38,12 @@ export const DropdownMenu = styled.div<{isDarkMode: boolean}>`
     color: ${({theme}) => theme.colors.font.sub};
 
     &:hover {
-        background-color: ${({theme, isDarkMode}) => isDarkMode ? theme.colors.bg.main : theme.colors.button.third};
+        background-color: ${({theme, darkmode}) => darkmode === "true" ? theme.colors.bg.main : theme.colors.button.third};
     }
 
     svg {
         width: 20px;
         height: 20px;
-        fill: ${({theme, isDarkMode}) => isDarkMode ? lighten(0.2, theme.colors.icon.fill) : theme.colors.icon.fill};
+        fill: ${({theme, darkmode}) => darkmode === "true" ? lighten(0.2, theme.colors.icon.fill) : theme.colors.icon.fill};
     }
 `;

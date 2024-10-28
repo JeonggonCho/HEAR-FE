@@ -149,30 +149,24 @@ const EmailVerification = <T extends FieldValues>(
 
     // 에러 메시지
     useEffect(() => {
-        if (errorText) {
-            showToast(errorText, "error");
-            const errorTimer = setTimeout(clearError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [errorText, clearError, showToast]);
+        if (errorText) showToast(errorText, "error");
+        const errorTimer = setTimeout(() => clearError(), 6000);
+        return () => clearTimeout(errorTimer);
+    }, [errorText]);
 
     // 인증 번호 전송 성공 메시지
     useEffect(() => {
-        if (sendCodeMessage) {
-            showToast(messageCategories.sendVerificationCode[lang], "success");
-            const errorTimer = setTimeout(() => setSendCodeMessage(false), 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [sendCodeMessage, setSendCodeMessage, showToast]);
+        if (sendCodeMessage) showToast(messageCategories.sendVerificationCode[lang], "success");
+        const errorTimer = setTimeout(() => setSendCodeMessage(false), 6000);
+        return () => clearTimeout(errorTimer);
+    }, [sendCodeMessage]);
 
     // 인증 번호 확인 메시지
     useEffect(() => {
-        if (verifiedMessage) {
-            showToast(messageCategories.verifiedCode[lang], "success");
-            const errorTimer = setTimeout(() => setVerifiedMessage(false), 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [verifiedMessage, setVerifiedMessage, showToast]);
+        if (verifiedMessage) showToast(messageCategories.verifiedCode[lang], "success");
+        const errorTimer = setTimeout(() => setVerifiedMessage(false), 6000);
+        return () => clearTimeout(errorTimer);
+    }, [verifiedMessage]);
 
     return (
         <Container>

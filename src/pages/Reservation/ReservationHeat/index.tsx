@@ -31,7 +31,6 @@ import check from "@assets/icons/check.svg";
 
 
 const ReservationHeat:FC = () => {
-
     const navigate = useNavigate();
 
     const {lang} = useThemeStore();
@@ -59,12 +58,10 @@ const ReservationHeat:FC = () => {
 
     // 에러 메시지
     useEffect(() => {
-        if (errorText) {
-            showToast(errorText, "error");
-            const errorTimer = setTimeout(clearError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [errorText, clearError, showToast]);
+        if (errorText) showToast(errorText, "error");
+        const errorTimer = setTimeout(() => clearError(), 6000);
+        return () => clearTimeout(errorTimer);
+    }, [errorText]);
 
     // 열선 예약 요청
     const submitHandler:SubmitHandler<HeatFormData> = useCallback(async (data) => {

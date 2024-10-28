@@ -33,7 +33,7 @@ const Nav:FC = () => {
                     to={category.path}
                     key={index}
                     active={(pathname.includes(category.path)).toString()}
-                    isDarkMode={isDarkMode}
+                    darkmode={isDarkMode.toString()}
                 >
                     <div>
                         <ReactSVG src={category.icon} />

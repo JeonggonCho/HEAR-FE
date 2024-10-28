@@ -13,7 +13,7 @@ const Toggle:FC<IToggleProps> = ({status, isLoading, click}) => {
             onClick={click}
             status={status}
             disabled={isLoading as boolean}
-            isDarkMode={isDarkMode}
+            darkmode={isDarkMode.toString()}
         >
             <div/>
         </Container>

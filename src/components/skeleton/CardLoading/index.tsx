@@ -13,7 +13,7 @@ const CardLoading:FC<ICardLoadingProps> = ({widthValue, heightValue, bgColor}) =
             bgColor={bgColor || "light"}
             widthValue={widthValue || "100%"}
             heightValue={heightValue || "80px"}
-            isDarkMode={isDarkMode}
+            darkmode={isDarkMode.toString()}
         />
     );
 };

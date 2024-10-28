@@ -78,12 +78,10 @@ const CreateInquiryPage:FC = () => {
 
     // 에러 메시지
     useEffect(() => {
-        if (errorText) {
-            showToast(errorText, "error");
-            const errorTimer = setTimeout(clearError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [errorText, clearError, showToast]);
+        if (errorText) showToast(errorText, "error");
+        const errorTimer = setTimeout(() => clearError(), 6000);
+        return () => clearTimeout(errorTimer);
+    }, [errorText]);
 
     return (
         <Container>

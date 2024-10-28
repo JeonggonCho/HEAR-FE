@@ -2,6 +2,9 @@ import styled from "@emotion/styled";
 
 export const Container = styled.div<{isScrolled: boolean}>`
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     
     textarea {
         width: 100%;

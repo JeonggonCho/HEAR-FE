@@ -1,7 +1,7 @@
 import {FC, useMemo} from "react";
 
-import {IChatBubbleProps} from "@/types/componentProps.ts";
 import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
+import {IChatBubbleProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {Container} from "./style.ts";
@@ -12,7 +12,7 @@ const ChatBubble:FC<IChatBubbleProps> = ({text, isMine, showProfile, profile}) =
     const {isDarkMode} = useThemeStore();
 
     return (
-        <Container isMine={isMine} isDarkMode={isDarkMode}>
+        <Container mine={isMine.toString()} darkmode={isDarkMode.toString()}>
             {showProfile &&
               <div>
                 <img src={profile} alt={"chat_profile"}/>

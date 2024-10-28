@@ -15,7 +15,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, ITextareaProps>( // forwardRef�
         // 텍스트 영역의 초기 ref
         const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
-        // 초기 ref와 부모로부터 받은 ref 합치기
+        // 초기 ref와 부모로부터 받은 ref 합치기 (댓글에서 포커스 주기 용도)
         useEffect(() => {
             if (ref && typeof ref === "function") {
                 ref(textareaRef.current);

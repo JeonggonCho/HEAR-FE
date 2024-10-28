@@ -129,30 +129,24 @@ const MyReservationsPage:FC = () => {
 
     // 에러 메시지
     useEffect(() => {
-        if (errorText) {
-            showToast(errorText, "error");
-            const errorTimer = setTimeout(clearError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [errorText, clearError, showToast]);
+        if (errorText) showToast(errorText, "error");
+        const errorTimer = setTimeout(() => clearError(), 6000);
+        return () => clearTimeout(errorTimer);
+    }, [errorText]);
 
     // 공란 에러 메시지
     useEffect(() => {
-        if (showEmptySelect) {
-            showToast(messageCategories.emptySelectedReservation[lang], "error");
-            const errorTimer = setTimeout(() => setShowEmptySelect(false), 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [showEmptySelect, setShowEmptySelect, showToast]);
+        if (showEmptySelect) showToast(messageCategories.emptySelectedReservation[lang], "error");
+        const errorTimer = setTimeout(() => setShowEmptySelect(false), 6000);
+        return () => clearTimeout(errorTimer);
+    }, [showEmptySelect]);
 
     // 삭제 성공 메시지
     useEffect(() => {
-        if (successDeleteReservation) {
-            showToast(messageCategories.deleteDone[lang], "success");
-            const errorTimer = setTimeout(() => setSuccessDeleteReservation(false), 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [successDeleteReservation, setSuccessDeleteReservation, showToast]);
+        if (successDeleteReservation) showToast(messageCategories.deleteDone[lang], "success");
+        const errorTimer = setTimeout(() => setSuccessDeleteReservation(false), 6000);
+        return () => clearTimeout(errorTimer);
+    }, [successDeleteReservation]);
 
     return (
         <>

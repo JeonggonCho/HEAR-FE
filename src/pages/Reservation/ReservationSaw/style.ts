@@ -28,12 +28,12 @@ export const ImageWrapper = styled.div`
     }
 `;
 
-export const TimeWrapper = styled.div<{tooltip: boolean}>`
+export const TimeWrapper = styled.div<{tooltip: string}>`
     display: flex;
     flex-direction: column;
     gap: 6px;
-    margin-bottom: ${({tooltip}) => tooltip ? "-16px" : "0"};
-    margin-top: ${({tooltip}) => tooltip ? "48px" : "0"};
+    margin-bottom: ${({tooltip}) => tooltip === "true" ? "-16px" : "0"};
+    margin-top: ${({tooltip}) => tooltip === "true" ? "48px" : "0"};
     
     & > div:first-of-type {
         position: relative;

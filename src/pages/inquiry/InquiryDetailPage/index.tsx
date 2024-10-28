@@ -100,12 +100,10 @@ const InquiryDetailPage:FC = () => {
 
     // 문의 디테일 조회 에러 메시지
     useEffect(() => {
-        if (inquiryErrorText) {
-            showToast(inquiryErrorText, "error");
-            const errorTimer = setTimeout(inquiryClearError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [inquiryErrorText, inquiryClearError, showToast]);
+        if (inquiryErrorText) showToast(inquiryErrorText, "error");
+        const errorTimer = setTimeout(inquiryClearError, 6000);
+        return () => clearTimeout(errorTimer);
+    }, [inquiryErrorText]);
 
     // 문의 좋아요
     const likeInquiry = async () => {
@@ -132,12 +130,10 @@ const InquiryDetailPage:FC = () => {
 
     // 문의 좋아요 에러 메시지
     useEffect(() => {
-        if (likeInquiryErrorText) {
-            showToast(likeInquiryErrorText, "error");
-            const errorTimer = setTimeout(likeInquiryClearError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [likeInquiryErrorText, likeInquiryClearError, showToast]);
+        if (likeInquiryErrorText) showToast(likeInquiryErrorText, "error");
+        const errorTimer = setTimeout(likeInquiryClearError, 6000);
+        return () => clearTimeout(errorTimer);
+    }, [likeInquiryErrorText]);
 
     // 문의 삭제 확인 모달 띄우기
     const deleteInquiryConfirm = () => {
@@ -159,12 +155,10 @@ const InquiryDetailPage:FC = () => {
 
     // 문의 삭제 에러 메시지
     useEffect(() => {
-        if (deleteInquiryErrorText) {
-            showToast(deleteInquiryErrorText, "error");
-            const errorTimer = setTimeout(deleteInquiryClearError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [deleteInquiryErrorText, deleteInquiryClearError, showToast]);
+        if (deleteInquiryErrorText) showToast(deleteInquiryErrorText, "error");
+        const errorTimer = setTimeout(deleteInquiryClearError, 6000);
+        return () => clearTimeout(errorTimer);
+    }, [deleteInquiryErrorText]);
 
     // 문의 수정
     const updateInquiry = () => {
@@ -215,21 +209,17 @@ const InquiryDetailPage:FC = () => {
 
     // 댓글 생성 에러 메시지
     useEffect(() => {
-        if (commentErrorText) {
-            showToast(commentErrorText, "error");
-            const errorTimer = setTimeout(commentClearError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [commentErrorText, commentClearError, showToast]);
+        if (commentErrorText) showToast(commentErrorText, "error");
+        const errorTimer = setTimeout(commentClearError, 6000);
+        return () => clearTimeout(errorTimer);
+    }, [commentErrorText]);
 
     // 댓글 공란 에러 메시지
     useEffect(() => {
-        if (emptyCommentContent) {
-            showToast(messageCategories.emptyCommentError[lang], "error");
-            const errorTimer = setTimeout(() => setEmptyCommentContent(false), 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [emptyCommentContent, setEmptyCommentContent, showToast]);
+        if (emptyCommentContent) showToast(messageCategories.emptyCommentError[lang], "error");
+        const errorTimer = setTimeout(() => setEmptyCommentContent(false), 6000);
+        return () => clearTimeout(errorTimer);
+    }, [emptyCommentContent]);
 
     // 댓글 버튼 클릭 시
     const commentClickHandler = () => {
@@ -250,7 +240,7 @@ const InquiryDetailPage:FC = () => {
                         <InquiryInfoWrapper>
                             <div>
                                 <div>
-                                    <TagWrapper tag={inquiry.category} isDarkMode={isDarkMode}>{inquiryCategories[inquiry.category][lang]}</TagWrapper>
+                                    <TagWrapper tag={inquiry.category} darkmode={isDarkMode.toString()}>{inquiryCategories[inquiry.category][lang]}</TagWrapper>
                                     <div>
                                         {inquiryId && inquiry && inquiry.creatorId === userInfo?.userId &&
                                           <Dropdown dropdownMenus={inquiryDropdownMenus}/>
@@ -286,7 +276,7 @@ const InquiryDetailPage:FC = () => {
                             </div>
                         </InquiryInfoWrapper>
 
-                        <ContentWrapper isDarkMode={isDarkMode}>
+                        <ContentWrapper darkmode={isDarkMode.toString()}>
                             <p dangerouslySetInnerHTML={{__html: transformedText}}/>
                         </ContentWrapper>
 

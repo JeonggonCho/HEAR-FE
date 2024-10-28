@@ -90,21 +90,17 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
 
     // 열선 개수 수정 에러 메시지
     useEffect(() => {
-        if (errorText) {
-            showToast(errorText, "error");
-            const errorTimer = setTimeout(clearError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [errorText, clearError, showToast]);
+        if (errorText) showToast(errorText, "error");
+        const errorTimer = setTimeout(() => clearError(), 6000);
+        return () => clearTimeout(errorTimer);
+    }, [errorText]);
 
     // 토글 에러 메시지
     useEffect(() => {
-        if (toggleErrorText) {
-            showToast(toggleErrorText, "error");
-            const errorTimer = setTimeout(clearToggleError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [toggleErrorText, clearToggleError, showToast]);
+        if (toggleErrorText) showToast(toggleErrorText, "error");
+        const errorTimer = setTimeout(clearToggleError, 6000);
+        return () => clearTimeout(errorTimer);
+    }, [toggleErrorText]);
 
     return (
         <Container>
@@ -194,7 +190,7 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
 
                     {/*열선 개수 조절*/}
                     {machineType === "heat" &&
-                        <CountWrapper rangeValue={rangeValue as number} isDarkMode={isDarkMode}>
+                        <CountWrapper rangeValue={rangeValue as number} darkmode={isDarkMode.toString()}>
                             <div>
                                 <Input
                                     label={inputCategories.count[lang]}

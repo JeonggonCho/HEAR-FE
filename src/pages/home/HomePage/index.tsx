@@ -52,7 +52,7 @@ const HomeHeaderRight:FC = () => {
     const {isDarkMode} = useThemeStore();
 
     return (
-        <AlarmWrapper to={"/alarm"} isDarkMode={isDarkMode}>
+        <AlarmWrapper to={"/alarm"} darkmode={isDarkMode.toString()}>
             <ReactSVG src={alarm}/>
         </AlarmWrapper>
     );
@@ -112,12 +112,10 @@ const HomePage = () => {
 
     // 에러 메시지
     useEffect(() => {
-        if (errorText) {
-            showToast(errorText, "error");
-            const errorTimer = setTimeout(clearError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [errorText, clearError, showToast]);
+        if (errorText) showToast(errorText, "error");
+        const errorTimer = setTimeout(() => clearError(), 6000);
+        return () => clearTimeout(errorTimer);
+    }, [errorText]);
 
     const carouselContents = [];
     if (machineStatus.laser) carouselContents.push(<LaserReservationConditionContent laserStatus={laserStatus} rate={rate} color={color || "primary"}/>);

@@ -13,17 +13,17 @@ const commonBtnStyle = `
     text-wrap: nowrap;
 `;
 
-const getBackgroundColor = (theme: any, color: "primary" | "approval" | "second" | "third" | "danger", isDarkMode: boolean) => {
+const getBackgroundColor = (theme: any, color: "primary" | "approval" | "second" | "third" | "danger", darkmode: string) => {
     const baseColor = theme.colors.button[color];
-    return isDarkMode ? lighten(0.05, baseColor) : darken(0.05, baseColor);
+    return darkmode === "true" ? lighten(0.05, baseColor) : darken(0.05, baseColor);
 };
 
-const getTextColor = (theme: any, color: "primary" | "approval" | "second" | "third" | "danger", isDarkMode: boolean) => {
+const getTextColor = (theme: any, color: "primary" | "approval" | "second" | "third" | "danger", darkmode: string) => {
     switch (color) {
         case "primary":
             return "white";
         case "second":
-            if (isDarkMode) {
+            if (darkmode === "true") {
                 return lighten(0.1, theme.colors.font.sub);
             }
             return "white";
@@ -43,7 +43,7 @@ const BaseComponent = styled.div<{
     color: "primary" | "approval" | "second" | "third" | "danger";
     scale: "small" | "normal" | "big";
     disabled: boolean | undefined;
-    isDarkMode: boolean;
+    darkmode: string;
 }>`
     ${commonBtnStyle};
     
@@ -61,15 +61,15 @@ const BaseComponent = styled.div<{
     }[scale])};
     
     border-radius: ${({ scale }) => (scale === "big" ? "12px" : scale === "normal" ? "10px" : "8px")};
-    background-color: ${({ theme, color, disabled, isDarkMode }) => {
-        return disabled && !isDarkMode ? darken(0.05, theme.colors.button.third) 
-                : disabled && isDarkMode ? theme.colors.button.third 
+    background-color: ${({ theme, color, disabled, darkmode }) => {
+        return disabled && darkmode === "false" ? darken(0.05, theme.colors.button.third) 
+                : disabled && darkmode === "true" ? theme.colors.button.third 
                         : theme.colors.button[color]
     }};
-    color: ${({ theme, color, disabled, isDarkMode }) => {
-        return disabled && !isDarkMode ? theme.colors.font.sub
-                : disabled && isDarkMode ? theme.colors.font.placeholder
-                        : getTextColor(theme, color, isDarkMode)
+    color: ${({ theme, color, disabled, darkmode }) => {
+        return disabled && darkmode === "false" ? theme.colors.font.sub
+                : disabled && darkmode === "true" ? theme.colors.font.placeholder
+                        : getTextColor(theme, color, darkmode);
     }};
     cursor: ${({disabled}) => disabled ? "not-allowed" : "pointer"};
     
@@ -81,13 +81,13 @@ const BaseComponent = styled.div<{
     
     svg {
         margin-top: 4px;
-        fill: ${({theme, color, isDarkMode}) => getTextColor(theme, color, isDarkMode)};
+        fill: ${({theme, color, darkmode}) => getTextColor(theme, color, darkmode)};
         width: 20px;
         height: 20px;
     }
     
     &:hover {
-        background-color: ${({ theme, color, disabled, isDarkMode }) => !disabled && getBackgroundColor(theme, color, isDarkMode)};
+        background-color: ${({ theme, color, disabled, darkmode }) => !disabled && getBackgroundColor(theme, color, darkmode)};
     }
     
     &:active {

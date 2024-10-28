@@ -101,7 +101,7 @@ export const BtnsWrapper = styled.div`
     }
 `;
 
-export const CountWrapper = styled.div<{rangeValue: number, isDarkMode: boolean}>`
+export const CountWrapper = styled.div<{rangeValue: number, darkmode: string}>`
     width: 100%;
     margin-top: 12px;
     display: flex;
@@ -143,7 +143,7 @@ export const CountWrapper = styled.div<{rangeValue: number, isDarkMode: boolean}
                     width: calc((100% - 16px) * (${({rangeValue}) => rangeValue} / 15));
                     height: 4px;
                     border-radius: 4px;
-                    background-color: ${({theme, isDarkMode}) => isDarkMode ? theme.colors.button.primary : lighten(0.05, theme.colors.button.primary)};
+                    background-color: ${({theme, darkmode}) => darkmode === "true" ? theme.colors.button.primary : lighten(0.05, theme.colors.button.primary)};
                     z-index: 0;
                 }
             }
@@ -153,7 +153,7 @@ export const CountWrapper = styled.div<{rangeValue: number, isDarkMode: boolean}
                 position: relative;
                 background: white;
                 cursor: pointer;
-                border: 1px solid ${({theme, isDarkMode}) => isDarkMode ? theme.colors.line.main : lighten(0.05, theme.colors.line.main)};
+                border: 1px solid ${({theme, darkmode}) => darkmode === "true" ? theme.colors.line.main : lighten(0.05, theme.colors.line.main)};
                 height: 24px; 
                 width: 24px;
                 margin-top: -9px;

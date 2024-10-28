@@ -86,12 +86,10 @@ const FeedbackDetailPage:FC = () => {
 
     // 피드백 디테일 조회 에러 메시지
     useEffect(() => {
-        if (errorText) {
-            showToast(errorText, "error");
-            const errorTimer = setTimeout(clearError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [errorText, clearError, showToast]);
+        if (errorText) showToast(errorText, "error");
+        const errorTimer = setTimeout(() => clearError(), 6000);
+        return () => clearTimeout(errorTimer);
+    }, [errorText]);
 
     // 피드백 삭제 확인 모달 띄우기
     const deleteFeedbackConfirm = () => {
@@ -113,12 +111,10 @@ const FeedbackDetailPage:FC = () => {
 
     // 피드백 삭제 에러 메시지
     useEffect(() => {
-        if (deleteFeedbackErrorText) {
-            showToast(deleteFeedbackErrorText, "error");
-            const errorTimer = setTimeout(deleteFeedbackClearError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [deleteFeedbackErrorText, deleteFeedbackClearError, showToast]);
+        if (deleteFeedbackErrorText) showToast(deleteFeedbackErrorText, "error");
+        const errorTimer = setTimeout(deleteFeedbackClearError, 6000);
+        return () => clearTimeout(errorTimer);
+    }, [deleteFeedbackErrorText]);
 
     // 피드백 수정
     const updateFeedback = () => {
@@ -150,19 +146,16 @@ const FeedbackDetailPage:FC = () => {
 
     // 피드백 좋아요 에러 메시지
     useEffect(() => {
-        if (likeErrorText) {
-            showToast(likeErrorText, "error");
-            const errorTimer = setTimeout(likeClearError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [likeErrorText, likeClearError, showToast]);
+        if (likeErrorText) showToast(likeErrorText, "error");
+        const errorTimer = setTimeout(likeClearError, 6000);
+        return () => clearTimeout(errorTimer);
+    }, [likeErrorText]);
 
     // 피드백 드롭다운 메뉴목록
     const feedbackDropdownMenus = [
         {icon: editIcon, label: buttonCategories.edit[lang], action: updateFeedback},
         {icon: deleteIcon, label: buttonCategories.delete[lang], action: deleteFeedbackConfirm},
     ];
-
 
     return (
         <Container>
@@ -175,7 +168,7 @@ const FeedbackDetailPage:FC = () => {
                         <FeedbackInfoWrapper>
                             <div>
                                 <div>
-                                    <TagWrapper tag={feedback.category} isDarkMode={isDarkMode}>{feedbackCategories[feedback.category][lang]}</TagWrapper>
+                                    <TagWrapper tag={feedback.category} darkmode={isDarkMode.toString()}>{feedbackCategories[feedback.category][lang]}</TagWrapper>
                                     <div>
                                         {feedbackId && feedback.creatorId === userInfo?.userId &&
                                           <Dropdown dropdownMenus={feedbackDropdownMenus}/>
@@ -211,7 +204,7 @@ const FeedbackDetailPage:FC = () => {
                             </div>
                         </FeedbackInfoWrapper>
 
-                        <ContentWrapper isDarkMode={isDarkMode}>
+                        <ContentWrapper darkmode={isDarkMode.toString()}>
                             <p dangerouslySetInnerHTML={{__html: transformedText}}/>
                         </ContentWrapper>
 

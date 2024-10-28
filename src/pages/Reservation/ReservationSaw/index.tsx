@@ -99,12 +99,10 @@ const ReservationSaw:FC = () => {
 
     // 에러 메시지
     useEffect(() => {
-        if (errorText) {
-            showToast(errorText, "error");
-            const errorTimer = setTimeout(clearError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [errorText, clearError, showToast]);
+        if (errorText) showToast(errorText, "error");
+        const errorTimer = setTimeout(() => clearError(), 6000);
+        return () => clearTimeout(errorTimer);
+    }, [errorText]);
 
     return (
         <Container tooltip={showTooltip}>
@@ -131,7 +129,7 @@ const ReservationSaw:FC = () => {
                         readonly
                     />
 
-                    <TimeWrapper tooltip={showTooltip}>
+                    <TimeWrapper tooltip={showTooltip.toString()}>
                         <div>
                             <label>{inputCategories.wantedTime[lang]}</label>
                             {showTooltip &&

@@ -25,7 +25,7 @@ export const Container = styled(Link)`
     }
 `;
 
-export const TagWrapper = styled.span<{tag: "good" | "bad" | "suggest" | "machine" | "reservation" | "room" | "etc", isDarkMode: boolean}>`
+export const TagWrapper = styled.span<{tag: "good" | "bad" | "suggest" | "machine" | "reservation" | "room" | "etc", darkmode: string}>`
     width: fit-content;
     display: inline-block;
     font-size: 0.87rem;
@@ -34,7 +34,7 @@ export const TagWrapper = styled.span<{tag: "good" | "bad" | "suggest" | "machin
     text-align: center;
     border-radius: 6px;
     opacity: ${({tag}) => (tag === "suggest" || tag === "room") ? 0.8 : 1};
-    background-color: ${({theme, tag, isDarkMode}) => {
+    background-color: ${({theme, tag, darkmode}) => {
         let bgColor;
         switch (tag) {
             case "good":
@@ -50,10 +50,10 @@ export const TagWrapper = styled.span<{tag: "good" | "bad" | "suggest" | "machin
                 bgColor = theme.colors.button.danger;
                 break;
             case "suggest":
-                bgColor = isDarkMode ? darken(0.3, theme.colors.button.green) : lighten(0.4, theme.colors.button.green);
+                bgColor = darkmode === "true" ? darken(0.3, theme.colors.button.green) : lighten(0.4, theme.colors.button.green);
                 break;
             case "room":
-                bgColor = isDarkMode ? darken(0.3, theme.colors.button.green) : lighten(0.4, theme.colors.button.green);
+                bgColor = darkmode === "true" ? darken(0.3, theme.colors.button.green) : lighten(0.4, theme.colors.button.green);
                 break;
             case "etc":
                 bgColor = theme.colors.button.third;
@@ -63,8 +63,8 @@ export const TagWrapper = styled.span<{tag: "good" | "bad" | "suggest" | "machin
         }
         return bgColor;
     }};
-    color: ${({theme, tag, isDarkMode}) => {
-        if (isDarkMode) {
+    color: ${({theme, tag, darkmode}) => {
+        if (darkmode === "true") {
             return lighten(0.2, theme.colors.font.sub);
         }
         
@@ -152,13 +152,13 @@ export const TitleWrapper = styled.div`
     }
 `;
 
-export const BottomWrapper = styled.div<{isDarkMode: boolean}>`
+export const BottomWrapper = styled.div<{darkmode: string}>`
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 8px 0 4px;
-    border-top: 1px solid ${({theme, isDarkMode}) => isDarkMode ? theme.colors.line.main : lighten(0.05, theme.colors.line.main)};
+    border-top: 1px solid ${({theme, darkmode}) => darkmode === "true" ? theme.colors.line.main : lighten(0.05, theme.colors.line.main)};
     font-size: 0.85rem;
     color: ${({theme}) => theme.colors.font.sub};
 `;

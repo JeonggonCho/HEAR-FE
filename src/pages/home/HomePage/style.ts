@@ -25,7 +25,7 @@ export const Title = styled.h1`
     color: ${({theme}) => theme.colors.font.primary};
 `;
 
-export const AlarmWrapper = styled(Link)<{isDarkMode: boolean}>`
+export const AlarmWrapper = styled(Link)<{darkmode: string}>`
     width: 32px;
     margin-right: 6px;
     margin-top: 2px;
@@ -40,7 +40,7 @@ export const AlarmWrapper = styled(Link)<{isDarkMode: boolean}>`
         transition: all 0.2s ease-in-out 0s;
         
         &:hover {
-            fill: ${({theme, isDarkMode}) => isDarkMode ? lighten(0.2, theme.colors.icon.fill) : darken(0.2, theme.colors.icon.fill)};
+            fill: ${({theme, darkmode}) => darkmode === "true" ? lighten(0.2, theme.colors.icon.fill) : darken(0.2, theme.colors.icon.fill)};
         }
     }
 `;

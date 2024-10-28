@@ -90,12 +90,10 @@ const NoticeDetailPage:FC = () => {
 
     // 에러 메시지
     useEffect(() => {
-        if (errorText) {
-            showToast(errorText, "error");
-            const errorTimer = setTimeout(clearError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [errorText, clearError, showToast]);
+        if (errorText) showToast(errorText, "error");
+        const errorTimer = setTimeout(() => clearError(), 6000);
+        return () => clearTimeout(errorTimer);
+    }, [errorText]);
 
     // 공지 드롭다운 메뉴목록
     const noticeDropdownMenus = [
@@ -103,9 +101,8 @@ const NoticeDetailPage:FC = () => {
         {icon: deleteIcon, label: buttonCategories.delete[lang], action: deleteNoticeConfirm},
     ];
 
-
     return (
-        <Container isDarkMode={isDarkMode}>
+        <Container darkmode={isDarkMode.toString()}>
             <HeadTag title={notice?.title || headerCategories.noticeDetail[lang]}/>
 
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.noticeDetail[lang]}/>

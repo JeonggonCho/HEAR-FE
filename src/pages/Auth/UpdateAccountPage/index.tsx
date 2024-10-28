@@ -32,10 +32,13 @@ const UpdateAccountPage:FC = () => {
     const [formData, setFormData] = useState<any>(null);
     const [updateAccountModal, setUpdateAccountModal] = useState<boolean>(false);
 
+    const navigate = useNavigate();
+
     const {lang} = useThemeStore();
     const {userInfo, setUserInfo} = useUserInfoStore();
     const {userData, setUserData} = useUserDataStore();
     const {showToast} = useToastStore();
+    const {isLoading, errorText, sendRequest, clearError} = useRequest();
     const {updateAccountSchema} = UserSchemaProvider();
 
     const yearCategories = [
@@ -45,10 +48,6 @@ const UpdateAccountPage:FC = () => {
         {label: inputCategories.fourth[lang], value: "4", id: "select-4"},
         {label: inputCategories.fifth[lang], value: "5", id: "select-5"},
     ];
-
-    const {isLoading, errorText, sendRequest, clearError} = useRequest();
-
-    const navigate = useNavigate();
 
     const fetchUser = useCallback(async () => {
         if (userInfo && userData) {
@@ -98,12 +97,10 @@ const UpdateAccountPage:FC = () => {
 
     // 에러 메시지
     useEffect(() => {
-        if (errorText) {
-            showToast(errorText, "error");
-            const errorTimer = setTimeout(clearError, 6000);
-            return () => clearTimeout(errorTimer);
-        }
-    }, [errorText, clearError, showToast]);
+        if (errorText) showToast(errorText, "error");
+        const errorTimer = setTimeout(() => clearError(), 6000);
+        return () => clearTimeout(errorTimer);
+    }, [errorText]);
 
     // 내 정보 변경 버튼 클릭 시, 유효성 검사 및 confirm 모달 보이기
     const submitHandler: SubmitHandler<UpdateAccountFormData> = (data) => {
@@ -120,7 +117,7 @@ const UpdateAccountPage:FC = () => {
                 method: "patch",
                 data: formData,
             });
-            showToast("내 정보가 변경되었습니다", "success");
+            showToast(messageCategories.updateAccountDone[lang], "success");
             navigate("/account", {replace: true});
         } catch (err) {
             setUpdateAccountModal(false);
@@ -128,35 +125,32 @@ const UpdateAccountPage:FC = () => {
         }
     };
 
-    const UpdateAccountModalContent = () => {
-        const leftBtn = (
-            <Button
-                type={"button"}
-                content={buttonCategories.close[lang]}
-                width={"full"}
-                color={"third"}
-                scale={"normal"}
-                onClick={() => {setUpdateAccountModal(false)}}
-            />
-        );
-        const rightBtn = (
-            <Button
-                type={"submit"}
-                content={buttonCategories.editing[lang]}
-                width={"full"}
-                color={"approval"}
-                scale={"normal"}
-                onClick={handleConfirmUpdate}
-            />
-        );
-        return (
-            <ConfirmContent
-                text={messageCategories.confirmUpdateAccount[lang]}
-                leftBtn={leftBtn}
-                rightBtn={rightBtn}
-            />
-        );
-    };
+    // 내 정보 변경 확인 모달 컨텐츠
+    const UpdateAccountModalContent = () => (
+        <ConfirmContent
+            text={messageCategories.confirmUpdateAccount[lang]}
+            leftBtn={
+                <Button
+                    type={"button"}
+                    content={buttonCategories.close[lang]}
+                    width={"full"}
+                    color={"third"}
+                    scale={"normal"}
+                    onClick={() => {setUpdateAccountModal(false)}}
+                />
+            }
+            rightBtn={
+                <Button
+                    type={"submit"}
+                    content={buttonCategories.editing[lang]}
+                    width={"full"}
+                    color={"approval"}
+                    scale={"normal"}
+                    onClick={handleConfirmUpdate}
+                />
+            }
+        />
+    );
 
     return (
         <Container>

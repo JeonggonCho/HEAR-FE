@@ -34,7 +34,7 @@ const InquiryFeedbackListItem:FC<IInquiryProps | IFeedbackProps> = (props) => {
                 : props.type === "feedback" ? `/board/feedback/${props._id}`
                     : "/"}
         >
-            <TagWrapper tag={props.category} isDarkMode={isDarkMode}>{categoryLabel}</TagWrapper>
+            <TagWrapper tag={props.category} darkmode={isDarkMode.toString()}>{categoryLabel}</TagWrapper>
 
             <TitleWrapper>
                 <h3>{props.title}</h3>
@@ -47,7 +47,7 @@ const InquiryFeedbackListItem:FC<IInquiryProps | IFeedbackProps> = (props) => {
                 <span>{props.creator}</span>
             </WriterWrapper>
 
-            <BottomWrapper isDarkMode={isDarkMode}>
+            <BottomWrapper darkmode={isDarkMode.toString()}>
                 <InfoWrapper>
                     <div>
                         <ReactSVG src={views}/>

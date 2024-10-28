@@ -21,7 +21,7 @@ export const Container = styled.nav`
     box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
 `;
 
-export const NavButton = styled(NavLink)<{ active: string, isDarkMode: boolean }>`
+export const NavButton = styled(NavLink)<{ active: string, darkmode: string }>`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,7 +48,7 @@ export const NavButton = styled(NavLink)<{ active: string, isDarkMode: boolean }
         justify-content: space-between;
 
         svg {
-            fill: ${({active, theme, isDarkMode}) => active === "true" ? theme.colors.button.primary : isDarkMode ? lighten(0.1, theme.colors.icon.fill) : darken(0.1, theme.colors.icon.fill)};
+            fill: ${({active, theme, darkmode}) => active === "true" ? theme.colors.button.primary : darkmode === "true" ? lighten(0.1, theme.colors.icon.fill) : darken(0.1, theme.colors.icon.fill)};
         }
     }
 `;

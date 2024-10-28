@@ -11,13 +11,13 @@ const skeletonWave = keyframes`
     }
 `;
 
-export const Container = styled.div<{widthValue: string, heightValue: string, bgColor: "dark" | "light", isDarkMode: boolean}>`
+export const Container = styled.div<{widthValue: string, heightValue: string, bgColor: "dark" | "light", darkmode: string}>`
     width: ${({ widthValue }) => widthValue};
     height: ${({ heightValue }) => heightValue};
-    background: ${({theme, bgColor, isDarkMode}) => {
+    background: ${({theme, bgColor, darkmode}) => {
         return bgColor === "dark" ?
                 `linear-gradient(90deg, ${theme.colors.button.third} 0%, ${(theme.colors.bg.main)} 25%, ${theme.colors.button.third} 50%, ${theme.colors.button.third} 100%)`
-                : `linear-gradient(90deg, ${theme.colors.bg.main} 0%, ${isDarkMode ? theme.colors.button.third : darken(0.03, theme.colors.button.third)} 25%, ${theme.colors.bg.main} 50%, ${theme.colors.bg.main} 100%)`
+                : `linear-gradient(90deg, ${theme.colors.bg.main} 0%, ${darkmode === "true" ? theme.colors.button.third : darken(0.03, theme.colors.button.third)} 25%, ${theme.colors.bg.main} 50%, ${theme.colors.bg.main} 100%)`
     }};
     background-size: 200% 100%;
     border-radius: 16px;

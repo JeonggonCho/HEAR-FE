@@ -22,11 +22,11 @@ const Tab:FC<ITabProps> = (props) => {
         }
 
         return (
-            <ButtonTapWrapper isDarkMode={isDarkMode}>
+            <ButtonTapWrapper darkmode={isDarkMode.toString()}>
                 <Background
                     activeIndex={activeIndex}
                     tabCount={tabs.length}
-                    isDarkMode={isDarkMode}
+                    darkmode={isDarkMode.toString()}
                 />
                 {memoizedTabs.map((tab, index) => (
                     <ButtonTap

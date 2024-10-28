@@ -13,7 +13,7 @@ import checkCircle from "@assets/icons/check_circle.svg";
 const Toast:FC = () => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
-    const {text, type, hideToast} = useToastStore();
+    const {text, type, hideToast, key} = useToastStore();
 
     const toastRoot = document.getElementById("toast-hook");
 
@@ -31,7 +31,7 @@ const Toast:FC = () => {
     if (!toastRoot || !isVisible) return null;
 
     const toastContent = (
-        <Container time={6000} type={type}>
+        <Container key={key} time={6000} type={type}>
             <div>
                 {type === "error" && <ReactSVG src={error}/>}
                 {type === "success" && <ReactSVG src={checkCircle}/>}
