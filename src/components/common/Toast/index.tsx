@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useEffect} from "react";
 import ReactDOM from "react-dom";
 import {ReactSVG} from "react-svg";
 
@@ -10,38 +10,30 @@ import close from "@assets/icons/close.svg";
 import error from "@assets/icons/error.svg";
 import checkCircle from "@assets/icons/check_circle.svg";
 
-const Toast:FC = () => {
-    const [isVisible, setIsVisible] = useState<boolean>(false);
 
+const TOAST_DISPLAY_TIME = 6000;
+
+const Toast:FC = () => {
     const {text, type, hideToast, key} = useToastStore();
 
     const toastRoot = document.getElementById("toast-hook");
 
     useEffect(() => {
-        if (text) {
-            setIsVisible(true);
-            const timer = setTimeout(() => {
-                setIsVisible(false);
-                hideToast();
-            }, 6000);
-            return () => clearTimeout(timer);
-        }
+        const timer = setTimeout(hideToast, TOAST_DISPLAY_TIME);
+        return () => clearTimeout(timer);
     }, [text, hideToast]);
 
-    if (!toastRoot || !isVisible) return null;
+    if (!toastRoot || !text) return null;
 
     const toastContent = (
-        <Container key={key} time={6000} type={type}>
+        <Container key={key} time={TOAST_DISPLAY_TIME} type={type}>
             <div>
                 {type === "error" && <ReactSVG src={error}/>}
                 {type === "success" && <ReactSVG src={checkCircle}/>}
                 <p>{text}</p>
             </div>
 
-            <div onClick={() => {
-                setIsVisible(false);
-                hideToast();
-            }}>
+            <div onClick={hideToast}>
                 <ReactSVG src={close}/>
             </div>
         </Container>

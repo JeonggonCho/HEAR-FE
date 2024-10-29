@@ -180,7 +180,7 @@ export const messageCategories = {
         ch: "您想修改会员信息吗？",
     },
     confirmUpdatePassword: {
-        ko: "비밀번호를 수정하시겠습니까?",
+        ko: "비밀번호를 변경하시겠습니까?",
         en: "Would you like to change your password?",
         ch: "您要修改密码吗？",
     },
@@ -378,5 +378,10 @@ export const messageCategories = {
         ko: "비밀번호 변경이 완료되었습니다",
         en: "Your password has been changed successfully",
         ch: "您的密码已成功更改",
+    },
+    findPasswordDone: {
+        ko: "변경된 비밀번호를 이메일로 전송했습니다",
+        en: "The updated password has been sent to your email",
+        ch: "更新后的密码已发送至您的邮箱",
     },
 };

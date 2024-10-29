@@ -121,10 +121,12 @@ const ReservationLaser: FC = () => {
 
     // 공란 에러 메시지
     useEffect(() => {
-        if (showEmptyError) showToast(messageCategories.emptyMachineAndTime[lang], "error");
-        const errorTimer = setTimeout(() => setShowEmptyError(false), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [showEmptyError]);
+        if (showEmptyError) {
+            showToast(messageCategories.emptyMachineAndTime[lang], "error");
+            const errorTimer = setTimeout(() => setShowEmptyError(false), 6000);
+            return () => clearTimeout(errorTimer);
+        }
+    }, [showEmptyError, setShowEmptyError, showToast]);
 
     return (
         <Container>
