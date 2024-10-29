@@ -97,7 +97,6 @@ const UserSchemaProvider = () => {
     const findPasswordSchema = z.object({
         username: usernameSchema,
         email: emailSchema,
-        studentId: studentIdSchema,
     });
 
     return {signupSchema, loginSchema, updateAccountSchema, updatePasswordSchema, findPasswordSchema}

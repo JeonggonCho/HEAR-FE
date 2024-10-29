@@ -1,69 +1,110 @@
 import {FC} from 'react';
 
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {printerInstruction} from "@constants/instruction/printerInstruction.ts";
+
 import {Container, ImageWrapper} from "../../instruction.style.ts";
 
 import printerMachine from "@assets/instruction_images/printer/3d_printer_machine.jpg";
+import printerMachine2 from "@assets/instruction_images/printer/3d_printer_machine2.jpg";
 
 const Introduction:FC = () => {
+    const {lang} = useThemeStore();
+
     return (
         <Container>
-            <h3>1. 3D 프린터 기기</h3>
+            <h3>{printerInstruction.introduction.machine[lang]}</h3>
+
+            <p>1-1. Cubicon</p>
 
             <ImageWrapper>
-                <img src={printerMachine} alt="3D 프린터 기기"/>
+                <img src={printerMachine} alt="큐비콘 3D 프린터 기기"/>
             </ImageWrapper>
 
             <section>
                 <div>
-                    <h4>모델명</h4>
+                    <h4>{printerInstruction.introduction.name[lang]}</h4>
                     <p>CUBICON Single Plus 3DP-310F</p>
                 </div>
                 <div>
-                    <h4>작업대 사이즈</h4>
+                    <h4>{printerInstruction.introduction.size[lang]}</h4>
                     <p>240(w) x 190(d) x 200(h)</p>
                 </div>
                 <div>
-                    <h4>재료</h4>
-                    <p>CUBICON 흰색 PLA 필라멘트</p>
+                    <h4>{printerInstruction.introduction.material[lang]}</h4>
+                    <p>{printerInstruction.introduction.filament[lang]}</p>
                 </div>
                 <div>
-                    <h4>확장자</h4>
-                    <p>STL(추천), OBJ → GCODE 변환</p>
+                    <h4>{printerInstruction.introduction.extension[lang]}</h4>
+                    <p>{printerInstruction.introduction.recommendedExtension[lang]}</p>
                 </div>
                 <div>
-                    <h4>GCODE 변환 소프트웨어</h4>
+                    <h4>{printerInstruction.introduction.software[lang]}</h4>
                     <p>Cubicreator
                         <a href={"http://eng.3dcubicon.com/bbs/board.php?bo_table=datalist"}
                            target={'_blank'}>
-                            홈페이지 이동
+                            {printerInstruction.introduction.goToLink[lang]}
                         </a>
                     </p>
                 </div>
-                <div>
-                    <h4>운용 기기 대수</h4>
-                    <p>2대</p>
-                </div>
             </section>
 
-            <h3>2. 규칙</h3>
+            <p>1-2. Creality</p>
+
+            <ImageWrapper>
+                <img src={printerMachine2} alt="creality 3D 프린터 기기"/>
+            </ImageWrapper>
 
             <section>
                 <div>
-                    <h4>사용시간</h4>
-                    <p>하루 : 10시 - 18시 (8시간)</p>
-                    <span>* 기본적으로 주말 이용이 불가능하며 상황에 따라 탄력 운영</span>
+                    <h4>{printerInstruction.introduction.name[lang]}</h4>
+                    <p>Creality K1 Max</p>
                 </div>
                 <div>
-                    <h4>예약 인원</h4>
-                    <p>하루 : 기기 1대당 1명 씩 총 2명</p>
+                    <h4>{printerInstruction.introduction.size[lang]}</h4>
+                    <p>300(w) x 300(d) x 300(h)</p>
                 </div>
                 <div>
-                    <h4>카드키</h4>
-                    <p>학생증을 맡겨야 카드키를 받아갈 수 있음</p>
+                    <h4>{printerInstruction.introduction.material[lang]}</h4>
+                    <p>{printerInstruction.introduction.filament[lang]}</p>
                 </div>
                 <div>
-                    <h4>규칙 미준수 시</h4>
-                    <p>회당 경고 1회</p>
+                    <h4>{printerInstruction.introduction.extension[lang]}</h4>
+                    <p>{printerInstruction.introduction.recommendedExtension[lang]}</p>
+                </div>
+                <div>
+                    <h4>{printerInstruction.introduction.software[lang]}</h4>
+                    <p>Creality Print
+                        <a href={"https://www.creality.com/pages/download-software"}
+                           target={'_blank'}>
+                            {printerInstruction.introduction.goToLink[lang]}
+                        </a>
+                    </p>
+                </div>
+            </section>
+
+            <br/>
+            <br/>
+
+            <h3>{printerInstruction.introduction.rule[lang]}</h3>
+
+            <section>
+                <div>
+                    <h4>{printerInstruction.introduction.usageTime[lang]}</h4>
+                    <p>{printerInstruction.introduction.schedule[lang]}</p>
+                    <span>{printerInstruction.introduction.weekend[lang]}</span>
+                </div>
+                <div>
+                    <h4>{printerInstruction.introduction.countOfUser[lang]}</h4>
+                    <p>{printerInstruction.introduction.manPerMachine[lang]}</p>
+                </div>
+                <div>
+                    <h4>{printerInstruction.introduction.keyCard[lang]}</h4>
+                    <p>{printerInstruction.introduction.idCard[lang]}</p>
+                </div>
+                <div>
+                    <h4>{printerInstruction.introduction.warning[lang]}</h4>
+                    <p>{printerInstruction.introduction.warningContent[lang]}</p>
                 </div>
             </section>
         </Container>

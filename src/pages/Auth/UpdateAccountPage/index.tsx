@@ -193,6 +193,7 @@ const UpdateAccountPage:FC = () => {
 
                         <Input
                             label={inputCategories.studio[lang]}
+                            subLabel={inputCategories.inputKorean[lang]}
                             type={"text"}
                             id={"studio"}
                             name={"studio"}

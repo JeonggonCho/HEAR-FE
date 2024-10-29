@@ -39,7 +39,6 @@ const FindPasswordPage:FC = () => {
         defaultValues: {
             username: "",
             email: "",
-            studentId: "",
         }
     });
 
@@ -94,15 +93,6 @@ const FindPasswordPage:FC = () => {
                         id={"email"}
                         register={register}
                         errorMessage={errors.email?.message}
-                    />
-                    <Input
-                        label={inputCategories.studentId[lang]}
-                        type={"number"}
-                        placeholder={placeholderCategories.studentId[lang]}
-                        name={"studentId"}
-                        id={"student-id"}
-                        register={register}
-                        errorMessage={errors.studentId?.message}
                     />
                     <Button type={"submit"} content={buttonCategories.findPassword[lang]} width={"full"} color={"primary"} scale={"big"}/>
                 </form>

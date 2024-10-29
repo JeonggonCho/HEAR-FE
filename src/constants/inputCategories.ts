@@ -203,5 +203,10 @@ export const inputCategories = {
         ko: "인증 번호",
         en: "Verification Code",
         ch: "验证码",
-    }
+    },
+    inputKorean: {
+        ko: "한국어로 입력해주세요",
+        en: "Please enter in Korean",
+        ch: "请用韩语输入",
+    },
 };

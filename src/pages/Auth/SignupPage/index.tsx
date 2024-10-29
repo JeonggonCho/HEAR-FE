@@ -187,6 +187,7 @@ const SignupPage:FC = () => {
 
                         <Input
                             label={inputCategories.studio[lang]}
+                            subLabel={inputCategories.inputKorean[lang]}
                             type={"text"}
                             placeholder={placeholderCategories.studio[lang]}
                             id={"studio"}
