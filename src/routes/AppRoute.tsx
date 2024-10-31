@@ -52,6 +52,7 @@ const MyWarningPage = lazy(() => import("@pages/auth/MyWarningPage"));
 const SettingPage = lazy(() => import("@pages/auth/SettingPage"));
 const ThemeSettingPage = lazy(() => import("@pages/auth/ThemeSettingPage"));
 
+
 const AppRoute = () => {
     const {isLoggedIn} = useAuth();
 

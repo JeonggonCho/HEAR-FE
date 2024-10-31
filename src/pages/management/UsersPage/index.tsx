@@ -26,6 +26,7 @@ import {Badge, Container, UserControlWrapper} from "./style.ts";
 import tune from "@assets/icons/tune.svg";
 import search from "@assets/icons/search.svg";
 import close from "@assets/icons/close.svg";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 
 
 const UsersPage:FC = () => {
@@ -115,6 +116,7 @@ const UsersPage:FC = () => {
                 <span>{inputCategories.year[lang]}</span>
                 <span>{inputCategories.warning[lang]}</span>
                 <span>{inputCategories.status[lang]}</span>
+                <span>{buttonCategories.deletion[lang]}</span>
             </div>
 
             {isLoading ?

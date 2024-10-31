@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 export const Container = styled.div`
     width: 100%;
 
+    // 프로필 이미지
     & > div:nth-of-type(2) {
         width: 72px;
         height: 72px;
@@ -30,6 +31,7 @@ export const Container = styled.div`
         border-radius: 8px;
         border: 1px solid ${({theme}) => theme.colors.line.main};
         overflow: hidden;
+        margin-bottom: 12px;
     }
 `;
 
@@ -177,9 +179,5 @@ export const Buttons = styled.div`
     display: flex;
     align-items: center;
     gap: 6px;
-    
-    & > button {
-        padding: 6px 12px;
-    }
 `;
 

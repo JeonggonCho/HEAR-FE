@@ -9,26 +9,30 @@ export const Container = styled.div<{pass: boolean}>`
     cursor: pointer;
     
     & > span:first-of-type {
-        width: 25%;
+        width: 20%;
     }
 
     & > span:nth-of-type(2) {
         width: 15%;
+        text-align: center;
     }
 
     & > span:nth-of-type(3) {
-        width: 15%;
-    }
-
-    & > span:nth-of-type(4) {
-        width: 15%;
+        width: 20%;
+        text-align: center;
     }
 
     & > div:first-of-type {
-        width: 30%;
-        
+        width: 25%;
+        text-align: center;
+
         span {
             color: ${({pass, theme}) => pass ? theme.colors.font.primary : theme.colors.font.danger};
         }
+    }
+    
+    & > button:last-of-type {
+        margin: auto;
+        z-index: 1;
     }
 `;

@@ -90,11 +90,12 @@ const MachinesPage:FC = () => {
             <HeadTag title={headerCategories.machineManagementHeader[lang]}/>
 
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.machineManagementHeader[lang]} bgColor={true}/>
-            <Divider/>
+
             {isLoading?
                 <LoadingLoop/>
                 :
                 <>
+                    <Divider/>
                     {lasers && printers && heats && saws && vacuums && cncs &&
                       <>
                         <MachineManageCard

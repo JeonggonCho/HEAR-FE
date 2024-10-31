@@ -52,7 +52,7 @@ export const PopupWrapper = styled.div`
     position: absolute;
     transform: translateX(-50%);
     left: 50%;
-    top: 80px;
+    top: 40px;
     animation: ${fadeIn} 0.3s;
 
     @media (max-width: 600px) {

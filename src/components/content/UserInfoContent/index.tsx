@@ -1,4 +1,5 @@
 import {FC, useCallback, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
@@ -6,8 +7,11 @@ import {zodResolver} from "@hookform/resolvers/zod";
 
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
+import Modal from "@components/common/Modal";
+import ConfirmContent from "@components/content/ConfirmContent";
 
 import useRequest from "@hooks/useRequest.ts";
+import useAuth from "@hooks/useAuth.ts";
 import WarningSchemaProvider from "@schemata/WarningSchemaProvider.ts";
 import {IUserInfoContentProps} from "@/types/componentProps.ts";
 import {IUserInfo} from "@/types/user.ts";
@@ -17,6 +21,7 @@ import {cardCategories} from "@constants/cardCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 
 import {Buttons, CloseButton, Container, FieldWrapper, PassTag, PassWrapper, WarningWrapper} from "./style.ts";
 
@@ -27,9 +32,14 @@ import close from "@assets/icons/close.svg";
 const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfoUpdate}) => {
     const [user, setUser] = useState<IUserInfo>();
     const [showWarning, setShowWarning] = useState<boolean>(false);
+    const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState<boolean>(false);
+    const [showHandoverConfirmModal, setShowHandoverConfirmModal] = useState<boolean>(false);
+
+    const navigate = useNavigate();
 
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
+    const {logout} = useAuth();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
     const {warningSchema} = WarningSchemaProvider();
 
@@ -158,6 +168,98 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
         const errorTimer = setTimeout(() => clearError(), 6000);
         return () => clearTimeout(errorTimer);
     }, [errorText]);
+
+    // 유저 삭제 확인 모달 띄우기
+    const deleteConfirmHandler = () => {
+        setShowDeleteConfirmModal(true);
+    };
+
+    // 유저 삭제하기
+    const deleteUser = useCallback(async () => {
+        try {
+            const response = await sendRequest({
+                url: `/users/${userId}`,
+                method: "delete",
+            });
+        } catch (err) {
+            console.error("유저 삭제 중 에러 발생: ", err);
+        } finally {
+            setShowDeleteConfirmModal(false);
+        }
+    }, [sendRequest, user]);
+
+    // 유저 조교 인수인계 확인 모달 띄우기
+    const handoverConfirmHandler = () => {
+        setShowHandoverConfirmModal(true);
+    };
+
+    // 조교 역할 인수인계 하기
+    const handoverAssistant = useCallback(async () => {
+        try {
+            const response = await sendRequest({
+                url: `/users/handover-assistant/${userId}`,
+                method: "patch",
+                data: {},
+            });
+            if (response.data) {
+                logout();
+                navigate("/login", {replace: true});
+            }
+        } catch (err) {
+            console.error("조교 역할 인수 인계 중 에러 발생: ", err);
+        } finally {
+            setShowHandoverConfirmModal(false);
+        }
+    }, [sendRequest, user]);
+
+
+    // 유저 삭제 확인 모달 내용
+    const DeleteConfirmModalContent = () => (
+        <ConfirmContent
+            text={messageCategories.delete[lang]}
+            leftBtn={<Button
+                type={"button"}
+                content={buttonCategories.cancel[lang]}
+                scale={"normal"}
+                color={"third"}
+                width={"full"}
+                onClick={() => setShowDeleteConfirmModal(false)}
+            />}
+            rightBtn={<Button
+                type={"button"}
+                content={buttonCategories.deletion[lang]}
+                scale={"normal"}
+                color={"danger"}
+                width={"full"}
+                onClick={deleteUser}
+            />}
+        />
+    );
+
+    // 유저 조교 인수인계 확인 모달 내용
+    const HandoverConfirmModalContent = () => (
+        <ConfirmContent
+            text={messageCategories.handover[lang]}
+            description={messageCategories.warningHandover[lang]}
+            leftBtn={<Button
+                type={"button"}
+                content={buttonCategories.cancel[lang]}
+                color={"third"}
+                scale={"normal"}
+                width={"full"}
+                onClick={() => setShowHandoverConfirmModal(false)}
+            />}
+            rightBtn={<Button
+                type={"button"}
+                content={buttonCategories.handover[lang]}
+                color={"danger"}
+                scale={"normal"}
+                width={"full"}
+                onClick={handoverAssistant}
+            />}
+        />
+    );
+
 
     return (
         <Container>
@@ -297,7 +399,42 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                       </div>
                     </PassWrapper>
                   </div>
+
+                  <Buttons>
+                    <Button
+                      type={"button"}
+                      content={buttonCategories.deletion[lang]}
+                      width={"full"}
+                      color={"second"}
+                      scale={"small"}
+                      onClick={deleteConfirmHandler}
+                    />
+                    <Button
+                      type={"button"}
+                      content={buttonCategories.handover[lang]}
+                      width={"full"}
+                      color={"second"}
+                      scale={"small"}
+                      onClick={handoverConfirmHandler}
+                    />
+                  </Buttons>
                 </>
+            }
+
+            {showDeleteConfirmModal &&
+                <Modal
+                  content={<DeleteConfirmModalContent/>}
+                  setModal={setShowDeleteConfirmModal}
+                  type={"popup"}
+                />
+            }
+
+            {showHandoverConfirmModal &&
+                <Modal
+                  content={<HandoverConfirmModalContent/>}
+                  setModal={setShowHandoverConfirmModal}
+                  type={"popup"}
+                />
             }
         </Container>
     );

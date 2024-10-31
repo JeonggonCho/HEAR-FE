@@ -384,4 +384,14 @@ export const messageCategories = {
         en: "The updated password has been sent to your email",
         ch: "更新后的密码已发送至您的邮箱",
     },
+    handover: {
+        ko: "조교 역할을 인수인계 하시겠습니까?",
+        en: "Do you want to hand over the assistant role?",
+        ch: "您要交接助理角色吗?",
+    },
+    warningHandover: {
+        ko: "조교 역할 인수인계 시, 조교 님의 계정은 삭제됩니다",
+        en: "When handing over the assistant role, your account will be deleted",
+        ch: "交接助理角色时，您的账户将被删除。",
+    },
 };

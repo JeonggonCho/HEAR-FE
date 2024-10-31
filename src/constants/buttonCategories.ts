@@ -269,4 +269,9 @@ export const buttonCategories = {
         en: "Resend",
         ch: "重新发送",
     },
+    handover: {
+        ko: "조교 인수인계",
+        en: "Assistant Handover",
+        ch: "助理交接",
+    },
 };

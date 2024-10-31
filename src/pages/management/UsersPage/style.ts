@@ -17,23 +17,27 @@ export const Container = styled.div`
         z-index: 3;
         
         & > span:first-of-type {
-            width: 25%;
+            width: 20%;
         }
         
         & > span:nth-of-type(2) {
             width: 15%;
+            text-align: center;
         }
         
         & > span:nth-of-type(3) {
-            width: 15%;
+            width: 20%;
+            text-align: center;
         }
 
         & > span:nth-of-type(4) {
-            width: 15%;
+            width: 25%;
+            text-align: center;
         }
 
         & > span:nth-of-type(5) {
-            width: 30%;
+            width: 20%;
+            text-align: center;
         }
     }
 `;

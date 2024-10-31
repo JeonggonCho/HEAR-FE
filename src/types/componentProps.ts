@@ -20,7 +20,7 @@ export interface IButtonProps {
     width: "full" | "fit";
     color: "primary" | "approval" | "second" | "third" | "danger";
     scale: "small" | "normal" | "big";
-    onClick?: () => void;
+    onClick?: (e: any) => void;
     disabled?: boolean;
 }
 

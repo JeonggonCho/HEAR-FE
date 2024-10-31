@@ -10,10 +10,12 @@ import {Container, BottomSheetWrapper, PopupWrapper} from "./style.ts";
 
 const Modal:FC<IModalProps> = ({title, content, setModal, type}) => {
     const modalRef = useRef<HTMLDivElement>(null);
+    const backgroundRef = useRef<HTMLDivElement>(null);
 
+    // 모달 창 외부의 background 클릭 시, 모달 닫히게 하기
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
-            if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+            if (backgroundRef.current && modalRef.current && backgroundRef.current.contains(e.target as Node) && !modalRef.current.contains(e.target as Node)) {
                 setModal(false);
             }
         };
@@ -30,7 +32,7 @@ const Modal:FC<IModalProps> = ({title, content, setModal, type}) => {
     if (!modalRoot) return null;
 
     const modalContent = (
-        <Container>
+        <Container ref={backgroundRef}>
             {type === "popup"
                 ? <PopupWrapper ref={modalRef}>{content}</PopupWrapper>
                 : <BottomSheetWrapper ref={modalRef}>
