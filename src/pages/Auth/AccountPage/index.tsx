@@ -14,8 +14,8 @@ import Divider from "@components/common/Divider";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
+import useAuth from "@hooks/useAuth.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
-import {useAuthStore} from "@store/useAuthStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
@@ -39,13 +39,14 @@ const AccountPage:FC = () => {
 
     const navigate = useNavigate();
 
-    const {userInfo, setUserInfo, clearUserInfo} = useUserInfoStore();
-    const {userData, setUserData, clearUserData} = useUserDataStore();
-    const {logout} = useAuthStore();
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
+    const {userInfo, setUserInfo, clearUserInfo} = useUserInfoStore();
+    const {userData, setUserData, clearUserData} = useUserDataStore();
+    const {logout} = useAuth();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
+    // 유저 정보 조회
     const fetchUser = useCallback(async () => {
         try {
             const response = await sendRequest({
@@ -59,7 +60,6 @@ const AccountPage:FC = () => {
         }
     }, [sendRequest]);
 
-    // 유저 정보 조회
     useEffect(() => {
         fetchUser();
     }, [fetchUser]);
@@ -71,6 +71,7 @@ const AccountPage:FC = () => {
         return () => clearTimeout(errorTimer);
     }, [errorText]);
 
+    // 로그아웃 동작
     const handleLogout = () => {
         logout();
         clearUserInfo();

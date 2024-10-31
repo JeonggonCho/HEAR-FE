@@ -45,6 +45,8 @@ export const Container = styled(Link)`
         
         @media (max-width: 600px) {
             flex-direction: row-reverse;
+            justify-content: space-between;
+            align-items: start;
         }
     }
 

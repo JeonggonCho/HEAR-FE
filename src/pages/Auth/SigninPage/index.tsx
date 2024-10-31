@@ -15,8 +15,8 @@ import HeadTag from "@components/common/HeadTag";
 
 import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
 import useRequest from "@hooks/useRequest.ts";
+import useAuth from "@hooks/useAuth.ts";
 import {IAuthResponseData} from "@/types/authResponse.ts";
-import {useAuthStore} from "@store/useAuthStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
@@ -33,7 +33,7 @@ import logo from "@assets/logo.svg";
 const SigninPage:FC = () => {
     const navigate = useNavigate();
 
-    const {login} = useAuthStore();
+    const {login} = useAuth();
     const {setUserInfo} = useUserInfoStore();
     const {setUserData} = useUserDataStore();
     const {lang} = useThemeStore();

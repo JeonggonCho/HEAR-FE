@@ -1,8 +1,7 @@
-import {lazy, Suspense, useEffect} from "react";
+import {lazy, Suspense} from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
 
-import {useAuthStore} from "@store/useAuthStore.ts";
-import isTokenValid from "@util/isTokenValid.ts";
+import useAuth from "@hooks/useAuth.ts";
 
 const Layout = lazy(() => import("@layouts/Layout"));
 
@@ -54,13 +53,7 @@ const SettingPage = lazy(() => import("@pages/auth/SettingPage"));
 const ThemeSettingPage = lazy(() => import("@pages/auth/ThemeSettingPage"));
 
 const AppRoute = () => {
-    const {isLoggedIn, accessToken, logout} = useAuthStore();
-
-    useEffect(() => {
-        if (isLoggedIn && !isTokenValid(accessToken)) {
-            logout();
-        }
-    }, [isLoggedIn, accessToken, logout]);
+    const {isLoggedIn} = useAuth();
 
     return (
         <Suspense fallback={<></>}>

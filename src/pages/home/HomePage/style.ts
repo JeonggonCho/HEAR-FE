@@ -60,7 +60,7 @@ export const Container = styled.div`
         & > div:last-of-type {
             display: grid;
             grid-gap: 16px;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
         }
     }
 `;

@@ -15,10 +15,10 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import EmailVerification from "@components/common/EmailVerification";
 
-import useRequest from "@hooks/useRequest.ts";
 import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
+import useRequest from "@hooks/useRequest.ts";
+import useAuth from "@hooks/useAuth.ts";
 import {IAuthResponseData} from "@/types/authResponse.ts";
-import {useAuthStore} from "@store/useAuthStore.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
@@ -36,7 +36,7 @@ const SignupPage:FC = () => {
 
     const navigate = useNavigate();
 
-    const {login} = useAuthStore();
+    const {login} = useAuth();
     const {setUserInfo} = useUserInfoStore();
     const {setUserData} = useUserDataStore();
     const {lang} = useThemeStore();
@@ -129,7 +129,6 @@ const SignupPage:FC = () => {
                             errorMessage={errors.username?.message}
                             onChange={inputChangeHandler}
                         />
-
                         <EmailVerification
                             email={email}
                             setEmail={setEmail}
@@ -140,7 +139,6 @@ const SignupPage:FC = () => {
                             emailErrorMessage={errors.email?.message}
                             verificationCodeErrorMessage={errors.code?.message}
                         />
-
                         <Input
                             label={inputCategories.password[lang]}
                             type={"password"}
@@ -152,7 +150,6 @@ const SignupPage:FC = () => {
                             visibleToggle={true}
                             onChange={inputChangeHandler}
                         />
-
                         <Input
                             label={inputCategories.confirmPassword[lang]}
                             type={"password"}
@@ -164,7 +161,6 @@ const SignupPage:FC = () => {
                             visibleToggle={true}
                             onChange={inputChangeHandler}
                         />
-
                         <Select
                             label={inputCategories.year[lang]}
                             categories={yearCategories}
@@ -173,7 +169,6 @@ const SignupPage:FC = () => {
                             errorMessage={errors.year?.message}
                             type={"radio"}
                         />
-
                         <Input
                             label={inputCategories.studentId[lang]}
                             type={"number"}
@@ -184,7 +179,6 @@ const SignupPage:FC = () => {
                             errorMessage={errors.studentId?.message}
                             onChange={inputChangeHandler}
                         />
-
                         <Input
                             label={inputCategories.studio[lang]}
                             subLabel={inputCategories.inputKorean[lang]}
@@ -196,7 +190,6 @@ const SignupPage:FC = () => {
                             errorMessage={errors.studio?.message}
                             onChange={inputChangeHandler}
                         />
-
                         <Input
                             label={inputCategories.tel[lang]}
                             type={"tel"}
@@ -207,7 +200,6 @@ const SignupPage:FC = () => {
                             errorMessage={errors.tel?.message}
                             onChange={inputChangeHandler}
                         />
-
                         <Button
                             type={"submit"}
                             content={buttonCategories.signUp[lang]}

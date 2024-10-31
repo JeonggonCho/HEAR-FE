@@ -121,7 +121,7 @@ export const cardCategories = {
     },
     cafe: {
         ko: "불꽃건축 카페",
-        en: "Architecture Website",
+        en: "Website",
         ch: "建筑网站",
     },
     currentLang: {
