@@ -394,4 +394,19 @@ export const messageCategories = {
         en: "When handing over the assistant role, your account will be deleted",
         ch: "交接助理角色时，您的账户将被删除。",
     },
+    unregisterDone: {
+        ko: "회원탈퇴가 완료되었습니다",
+        en: "Your account has been successfully deleted",
+        ch: "您的账户已成功注销",
+    },
+    deleteUserDone: {
+        ko: "회원 삭제가 완료되었습니다",
+        en: "The user has been successfully deleted",
+        ch: "用户已成功删除",
+    },
+    handoverDone: {
+        ko: "조교 역할 인수인계 후, 회원탈퇴가 완료되었습니다",
+        en: "Your account has been successfully deleted after transferring the assistant role",
+        ch: "在移交助教角色后，您的账户已成功注销",
+    },
 };

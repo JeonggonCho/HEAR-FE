@@ -1,4 +1,5 @@
 import {FC, useCallback, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 import Modal from "@components/common/Modal";
 import UserInfoContent from "@components/content/UserInfoContent";
@@ -6,6 +7,7 @@ import Button from "@components/common/Button";
 import ConfirmContent from "@components/content/ConfirmContent";
 
 import useRequest from "@hooks/useRequest.ts";
+import useAuth from "@hooks/useAuth.ts";
 import { IUserInfo, IUserList } from "@/types/user.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
@@ -21,8 +23,11 @@ const UserListItem: FC<IUserList> = (props) => {
     const [showUserInfoModal, setShowUserInfoModal] = useState<boolean>(false);
     const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState<boolean>(false);
 
+    const navigate = useNavigate();
+
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
+    const {logout} = useAuth();
     const {sendRequest, errorText, clearError} = useRequest();
 
     // 유저 정보 받아 유저 정보 업데이트하기
@@ -43,6 +48,11 @@ const UserListItem: FC<IUserList> = (props) => {
                 url: `/users/${userInfo?.userId}`,
                 method: "delete",
             });
+            if (response.data) {
+                showToast(messageCategories.deleteUserDone[lang], "success");
+                logout();
+                navigate("/login", {replace: true});
+            }
         } catch (err) {
             console.error("유저 삭제 중 에러 발생: ", err);
         } finally {

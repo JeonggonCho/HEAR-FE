@@ -20,13 +20,13 @@ import {headerCategories} from "@constants/headerCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 
 import {Badge, Container, UserControlWrapper} from "./style.ts";
 
 import tune from "@assets/icons/tune.svg";
 import search from "@assets/icons/search.svg";
 import close from "@assets/icons/close.svg";
-import {buttonCategories} from "@constants/buttonCategories.ts";
 
 
 const UsersPage:FC = () => {
@@ -68,6 +68,7 @@ const UsersPage:FC = () => {
         e.preventDefault();
         setUsername(usernameInputText.trim());
     };
+
 
     return (
         <Container>

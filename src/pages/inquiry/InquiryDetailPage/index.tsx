@@ -1,4 +1,4 @@
-import {FC, FormEvent, ReactElement, useCallback, useEffect, useMemo, useRef, useState} from "react";
+import React, {FC, FormEvent, ReactElement, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 
@@ -17,7 +17,7 @@ import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
-import {IInquiryProps} from "@/types/componentProps.ts";
+import {IFeedbackProps, IInquiryProps, INotice} from "@/types/componentProps.ts";
 import {IComment} from "@/types/comment.ts";
 import {useUserInfoStore} from "@store/useUserStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
@@ -331,6 +331,7 @@ const InquiryDetailPage:FC = () => {
                                     createdAt={comment.createdAt}
                                     isLiked={comment.isLiked}
                                     setComments={setComments}
+                                    setRefDoc={setInquiry as React.Dispatch<React.SetStateAction<IInquiryProps | IFeedbackProps | INotice>>}
                                 />
                             ))}
                         </CommentListWrapper>

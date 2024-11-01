@@ -10,10 +10,11 @@ export const Container = styled.div<{pass: boolean}>`
     
     & > span:first-of-type {
         width: 20%;
+        line-height: 1.3;
     }
 
     & > span:nth-of-type(2) {
-        width: 15%;
+        width: 20%;
         text-align: center;
     }
 
@@ -22,8 +23,13 @@ export const Container = styled.div<{pass: boolean}>`
         text-align: center;
     }
 
+    & > span:nth-of-type(4) {
+        width: 20%;
+        text-align: center;
+    }
+
     & > div:first-of-type {
-        width: 25%;
+        width: 20%;
         text-align: center;
 
         span {

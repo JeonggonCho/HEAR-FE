@@ -181,6 +181,11 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                 url: `/users/${userId}`,
                 method: "delete",
             });
+            if (response.data) {
+                showToast(messageCategories.deleteUserDone[lang], "success");
+                logout();
+                navigate("/login", {replace: true});
+            }
         } catch (err) {
             console.error("유저 삭제 중 에러 발생: ", err);
         } finally {
@@ -202,6 +207,7 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                 data: {},
             });
             if (response.data) {
+                showToast(messageCategories.handoverDone[lang], "success");
                 logout();
                 navigate("/login", {replace: true});
             }

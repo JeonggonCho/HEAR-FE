@@ -21,7 +21,7 @@ export const Container = styled.div`
         }
         
         & > span:nth-of-type(2) {
-            width: 15%;
+            width: 20%;
             text-align: center;
         }
         
@@ -31,7 +31,7 @@ export const Container = styled.div`
         }
 
         & > span:nth-of-type(4) {
-            width: 25%;
+            width: 20%;
             text-align: center;
         }
 

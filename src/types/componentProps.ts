@@ -183,6 +183,7 @@ export interface INotice {
     content?: string;
     createdAt: string;
     views: number;
+    comments: number;
 }
 
 

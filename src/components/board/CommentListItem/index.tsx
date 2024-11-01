@@ -78,7 +78,15 @@ const CommentListItem:FC<IComment> = (props) => {
                 method: "delete",
             });
             setShowConfirmModal(false);
+            // 댓글 목록에서 삭제된 댓글 제거
             props.setComments(prevState => prevState.filter((comment) => comment._id !== props._id));
+            // 문의, 피드백, 공지에서 댓글 개수 1 빼기
+            if (props.setRefDoc) {
+                props.setRefDoc(prevState => ({
+                    ...prevState,
+                    comments: Math.max((prevState.comments as number) - 1, 0), // 0 미만 방지하기
+                }));
+            }
         } catch (err) {
             console.error("댓글 삭제 중 에러 발생: ", err);
         }
