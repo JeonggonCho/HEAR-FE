@@ -13,7 +13,7 @@ import CardLoading from "@components/skeleton/CardLoading";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
-import {IUserFilter, IUserList} from "@/types/user.ts";
+import {IUserFilter, IUserInfo} from "@/types/user.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
@@ -30,7 +30,7 @@ import close from "@assets/icons/close.svg";
 
 
 const UsersPage:FC = () => {
-    const [userList, setUserList] = useState<IUserList[]>([]);
+    const [userList, setUserList] = useState<IUserInfo[]>([]);
     const [showFilter, setShowFilter] = useState<boolean>(false);
     const [filter, setFilter] = useState<IUserFilter>({year: ["all"], passQuiz: ["all"], countOfWarning:["all"]});
     const [usernameInputText, setUsernameInputText] = useState<string>("");
@@ -136,8 +136,8 @@ const UsersPage:FC = () => {
                     {userList.length === 0 ?
                         <Empty title={messageCategories.emptyUsers[lang]}/>
                         :
-                        userList.map((user, index) => (
-                            <UserListItem key={index} {...user}/>
+                        userList.map((user) => (
+                            <UserListItem key={user.userId} userList={userList} setUserList={setUserList} {...user}/>
                         ))
                     }
                 </>

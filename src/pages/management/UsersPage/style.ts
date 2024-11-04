@@ -69,6 +69,10 @@ export const UserControlWrapper = styled.div<{usernameInputText: string}>`
             border: 1px solid ${({theme}) => theme.colors.line.main};
             background-color: ${({theme}) => theme.colors.bg.main};
             border-radius: 8px;
+            
+            &:focus-within {
+                border-color: ${({theme}) => theme.colors.line.primary};
+            }
                 
             input {
                 border: none;

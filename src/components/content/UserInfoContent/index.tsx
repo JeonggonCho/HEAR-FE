@@ -29,7 +29,7 @@ import userIcon from "@assets/images/no_profile.png";
 import close from "@assets/icons/close.svg";
 
 
-const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfoUpdate}) => {
+const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfoUpdate, userList, setUserList, setShowUserInfoModal}) => {
     const [user, setUser] = useState<IUserInfo>();
     const [showWarning, setShowWarning] = useState<boolean>(false);
     const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState<boolean>(false);
@@ -182,9 +182,10 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                 method: "delete",
             });
             if (response.data) {
+                const remainedUsers = userList.filter(user => user.userId.toString() !== response.data.deletedUserId.toString());
+                setUserList(remainedUsers);
                 showToast(messageCategories.deleteUserDone[lang], "success");
-                logout();
-                navigate("/login", {replace: true});
+                setShowUserInfoModal(false);
             }
         } catch (err) {
             console.error("유저 삭제 중 에러 발생: ", err);

@@ -1,5 +1,4 @@
-import {FC, useCallback, useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import React, {FC, useCallback, useEffect, useState} from "react";
 
 import Modal from "@components/common/Modal";
 import UserInfoContent from "@components/content/UserInfoContent";
@@ -7,8 +6,7 @@ import Button from "@components/common/Button";
 import ConfirmContent from "@components/content/ConfirmContent";
 
 import useRequest from "@hooks/useRequest.ts";
-import useAuth from "@hooks/useAuth.ts";
-import { IUserInfo, IUserList } from "@/types/user.ts";
+import {IUserInfo} from "@/types/user.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
@@ -18,16 +16,18 @@ import {messageCategories} from "@constants/messageCategories.ts";
 import { Container } from "./style.ts";
 
 
-const UserListItem: FC<IUserList> = (props) => {
-    const [userInfo, setUserInfo] = useState<IUserInfo | null>(null);
+const UserListItem: FC<IUserInfo & { userList: IUserInfo[], setUserList: React.Dispatch<React.SetStateAction<IUserInfo[]>> }> =
+    ({
+         userList,
+         setUserList,
+         ...props
+    }) => {
+    const [userInfo, setUserInfo] = useState<IUserInfo>(props);
     const [showUserInfoModal, setShowUserInfoModal] = useState<boolean>(false);
     const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState<boolean>(false);
 
-    const navigate = useNavigate();
-
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
-    const {logout} = useAuth();
     const {sendRequest, errorText, clearError} = useRequest();
 
     // 유저 정보 받아 유저 정보 업데이트하기
@@ -49,9 +49,11 @@ const UserListItem: FC<IUserList> = (props) => {
                 method: "delete",
             });
             if (response.data) {
+                // 유저 목록에서 삭제된 유저 제거
+                const remainedUsers = userList.filter(user => user.userId.toString() !== response.data.deletedUserId.toString());
+                setUserList(remainedUsers);
                 showToast(messageCategories.deleteUserDone[lang], "success");
-                logout();
-                navigate("/login", {replace: true});
+                setShowUserInfoModal(false);
             }
         } catch (err) {
             console.error("유저 삭제 중 에러 발생: ", err);
@@ -67,31 +69,6 @@ const UserListItem: FC<IUserList> = (props) => {
         return () => clearTimeout(errorTimer);
     }, [errorText]);
 
-    const renderContainer = () => {
-        const currentUserInfo = userInfo || props;
-
-        return (
-            <Container
-                pass={currentUserInfo.passQuiz}
-                onClick={() => setShowUserInfoModal(true)}
-            >
-                <span>{currentUserInfo.username}</span>
-                <span>{currentUserInfo.year}</span>
-                <span>{currentUserInfo.countOfWarning}</span>
-                <div>
-                    <span>{currentUserInfo.passQuiz ? cardCategories.pass[lang] : cardCategories.fail[lang]}</span>
-                </div>
-                <Button
-                    type={"button"}
-                    content={buttonCategories.delete[lang]}
-                    width={"fit"}
-                    color={"second"}
-                    scale={"small"}
-                    onClick={deleteConfirmHandler}
-                />
-            </Container>
-        );
-    };
 
     // 유저 삭제 확인 모달 내용
     const DeleteConfirmModalContent = () => (
@@ -118,7 +95,25 @@ const UserListItem: FC<IUserList> = (props) => {
 
     return (
         <>
-            {renderContainer()}
+            <Container
+                pass={userInfo.passQuiz}
+                onClick={() => setShowUserInfoModal(true)}
+            >
+                <span>{userInfo.username}</span>
+                <span>{userInfo.year}</span>
+                <span>{userInfo.countOfWarning}</span>
+                <div>
+                    <span>{userInfo.passQuiz ? cardCategories.pass[lang] : cardCategories.fail[lang]}</span>
+                </div>
+                <Button
+                    type={"button"}
+                    content={buttonCategories.delete[lang]}
+                    width={"fit"}
+                    color={"second"}
+                    scale={"small"}
+                    onClick={deleteConfirmHandler}
+                />
+            </Container>
 
             {showUserInfoModal && props.userId && (
                 <Modal
@@ -127,6 +122,9 @@ const UserListItem: FC<IUserList> = (props) => {
                             userId={props.userId}
                             setModal={setShowUserInfoModal}
                             onUserInfoUpdate={userInfoUpdateHandler}
+                            userList={userList}
+                            setUserList={setUserList}
+                            setShowUserInfoModal={setShowUserInfoModal}
                         />
                     }
                     setModal={setShowUserInfoModal}

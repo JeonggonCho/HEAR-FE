@@ -293,6 +293,9 @@ export interface IUserInfoContentProps {
     userId: string;
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
     onUserInfoUpdate?: (updatedUser: IUserInfo) => void;
+    userList: IUserInfo[];
+    setUserList: React.Dispatch<React.SetStateAction<IUserInfo[]>>;
+    setShowUserInfoModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
