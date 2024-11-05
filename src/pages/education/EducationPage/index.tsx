@@ -10,28 +10,28 @@ import {Container, HeaderWrapper} from "./style.ts";
 
 import test from "@assets/images/test.png";
 
-const QuizHeaderLeft = () => {
+const EducationHeaderLeft = () => {
     const {lang} = useThemeStore();
 
     return (
         <HeaderWrapper>
             <img src={test} alt="모형제작실 교육"/>
-            <h2>{navCategories.quiz[lang]}</h2>
+            <h2>{navCategories.edu[lang]}</h2>
         </HeaderWrapper>
     );
 };
 
-const QuizPage:FC = () => {
+const EducationPage:FC = () => {
     const {lang} = useThemeStore();
 
     return (
         <Container>
-            <HeadTag title={navCategories.quiz[lang]}/>
+            <HeadTag title={navCategories.edu[lang]}/>
 
-            <Header leftChild={<QuizHeaderLeft/>} type={"flex"}/>
+            <Header leftChild={<EducationHeaderLeft/>} type={"flex"}/>
             교육
         </Container>
     );
 };
 
-export default QuizPage;
+export default EducationPage;

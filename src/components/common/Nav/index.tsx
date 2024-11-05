@@ -10,7 +10,7 @@ import {navCategories} from "@constants/navCategories.ts";
 
 import home from "@assets/icons/home.svg";
 import note from "@assets/icons/note.svg";
-import quiz from "@assets/icons/quiz.svg";
+import edu from "@assets/icons/edu.svg";
 import inquiry from "@assets/icons/inquiry.svg";
 import account from "@assets/icons/account.svg";
 
@@ -21,7 +21,7 @@ const Nav:FC = () => {
     const navInfoCategories: ICategory[] = [
         { label: navCategories.home[lang], icon: home, path: "/home" },
         { label: navCategories.instruction[lang], icon: note, path: "/instruction" },
-        { label: navCategories.quiz[lang], icon: quiz, path: "/quiz" },
+        { label: navCategories.edu[lang], icon: edu, path: "/education" },
         { label: navCategories.board[lang], icon: inquiry, path: "/board" },
         { label: navCategories.account[lang], icon: account, path: "/account" },
     ];

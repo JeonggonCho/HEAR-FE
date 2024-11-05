@@ -9,10 +9,10 @@ export const navCategories = {
         en: "Instruction",
         ch: "使用方法",
     },
-    quiz: {
+    edu: {
         ko: "교육",
-        en: "Quiz",
-        ch: "测验",
+        en: "Edu",
+        ch: "教育",
     },
     board: {
         ko: "소통",

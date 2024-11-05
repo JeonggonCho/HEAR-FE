@@ -59,10 +59,10 @@ const SigninPage:FC = () => {
                 method: "post",
                 data: data
             });
-            const {userId, email, username, studentId, year, studio, passQuiz, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role, accessToken, refreshToken, lab} = response.data;
+            const {userId, email, username, studentId, year, studio, passEducation, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role, accessToken, refreshToken, lab} = response.data;
             login(accessToken, refreshToken);
             setUserInfo({userId, email, username, studentId});
-            setUserData({year, studio, passQuiz, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role, lab});
+            setUserData({year, studio, passEducation, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role, lab});
 
             navigate("/");
         } catch (err) {

@@ -107,84 +107,86 @@ const ReservationVacuum:FC = () => {
     }, [errorText]);
 
     return (
-        <Container tooltip={showTooltip}>
-            <HeadTag title={headerCategories.vacuumReservationHeader[lang]}/>
+        <>
+            <Container tooltip={showTooltip}>
+                <HeadTag title={headerCategories.vacuumReservationHeader[lang]}/>
 
-            <Header
-                leftChild={<ArrowBack/>}
-                centerText={headerCategories.vacuumReservationHeader[lang]}
-                rightChild={
-                    <MapIcon onClick={() => setShowMap(true)}>
-                        <ReactSVG src={mapIcon}/>
-                    </MapIcon>
+                <Header
+                    leftChild={<ArrowBack/>}
+                    centerText={headerCategories.vacuumReservationHeader[lang]}
+                    rightChild={
+                        <MapIcon onClick={() => setShowMap(true)}>
+                            <ReactSVG src={mapIcon}/>
+                        </MapIcon>
+                    }
+                />
+                <ImageWrapper>
+                    <img src={vacuum} alt={"사출성형기"}/>
+                </ImageWrapper>
+                {isLoading ?
+                    <LoadingLoop/>
+                    :
+                    <form onSubmit={handleSubmit(submitHandler)}>
+                        <Input
+                            label={inputCategories.date[lang]}
+                            subLabel={messageCategories.noWeekendAndHoliday[lang]}
+                            type={"text"}
+                            id={"vacuum-reservation-date"}
+                            name={"date"}
+                            placeholder={placeholderCategories.date[lang]}
+                            register={register}
+                            errorMessage={errors.date?.message}
+                            onClick={() => setShowCalendar(true)}
+                            readonly
+                        />
+
+                        <TimeWrapper tooltip={showTooltip}>
+                            <div>
+                                <label>{inputCategories.wantedTime[lang]}</label>
+                                {showTooltip &&
+                                  <div>
+                                    <span>{messageCategories.changeTime[lang]}</span>
+                                    <ReactSVG src={close} onClick={() => setShowTooltip(false)}/>
+                                  </div>
+                                }
+                            </div>
+
+                            <div>
+                                <select
+                                    onChange={(e) => setValue("startTime", e.target.value)}
+                                >
+                                    <option value={""}>{placeholderCategories.startTime[lang]}</option>
+                                    <option value={"10:00"}>10:00</option>
+                                    <option value={"11:00"}>11:00</option>
+                                    <option value={"12:00"}>12:00</option>
+                                    <option value={"13:00"}>13:00</option>
+                                    <option value={"14:00"}>14:00</option>
+                                    <option value={"15:00"}>15:00</option>
+                                    <option value={"16:00"}>16:00</option>
+                                    <option value={"17:00"}>17:00</option>
+                                </select>
+                                <select
+                                    onChange={(e) => setValue("endTime", e.target.value)}
+                                >
+                                    <option value={""}>{placeholderCategories.endTime[lang]}</option>
+                                    <option value={"11:00"}>11:00</option>
+                                    <option value={"12:00"}>12:00</option>
+                                    <option value={"13:00"}>13:00</option>
+                                    <option value={"14:00"}>14:00</option>
+                                    <option value={"15:00"}>15:00</option>
+                                    <option value={"16:00"}>16:00</option>
+                                    <option value={"17:00"}>17:00</option>
+                                    <option value={"18:00"}>18:00</option>
+                                </select>
+                            </div>
+                            {errors.startTime?.message && <ErrorMessage>{errors.startTime?.message}</ErrorMessage>}
+                            {errors.endTime?.message && <ErrorMessage>{errors.endTime?.message}</ErrorMessage>}
+                        </TimeWrapper>
+
+                        <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                    </form>
                 }
-            />
-            <ImageWrapper>
-                <img src={vacuum} alt={"사출성형기"}/>
-            </ImageWrapper>
-            {isLoading ?
-                <LoadingLoop/>
-                :
-                <form onSubmit={handleSubmit(submitHandler)}>
-                    <Input
-                        label={inputCategories.date[lang]}
-                        subLabel={messageCategories.noWeekendAndHoliday[lang]}
-                        type={"text"}
-                        id={"vacuum-reservation-date"}
-                        name={"date"}
-                        placeholder={placeholderCategories.date[lang]}
-                        register={register}
-                        errorMessage={errors.date?.message}
-                        onClick={() => setShowCalendar(true)}
-                        readonly
-                    />
-
-                    <TimeWrapper tooltip={showTooltip}>
-                        <div>
-                            <label>{inputCategories.wantedTime[lang]}</label>
-                            {showTooltip &&
-                              <div>
-                                <span>{messageCategories.changeTime[lang]}</span>
-                                <ReactSVG src={close} onClick={() => setShowTooltip(false)}/>
-                              </div>
-                            }
-                        </div>
-
-                        <div>
-                            <select
-                                onChange={(e) => setValue("startTime", e.target.value)}
-                            >
-                                <option value={""}>{placeholderCategories.startTime[lang]}</option>
-                                <option value={"10:00"}>10:00</option>
-                                <option value={"11:00"}>11:00</option>
-                                <option value={"12:00"}>12:00</option>
-                                <option value={"13:00"}>13:00</option>
-                                <option value={"14:00"}>14:00</option>
-                                <option value={"15:00"}>15:00</option>
-                                <option value={"16:00"}>16:00</option>
-                                <option value={"17:00"}>17:00</option>
-                            </select>
-                            <select
-                                onChange={(e) => setValue("endTime", e.target.value)}
-                            >
-                                <option value={""}>{placeholderCategories.endTime[lang]}</option>
-                                <option value={"11:00"}>11:00</option>
-                                <option value={"12:00"}>12:00</option>
-                                <option value={"13:00"}>13:00</option>
-                                <option value={"14:00"}>14:00</option>
-                                <option value={"15:00"}>15:00</option>
-                                <option value={"16:00"}>16:00</option>
-                                <option value={"17:00"}>17:00</option>
-                                <option value={"18:00"}>18:00</option>
-                            </select>
-                        </div>
-                        {errors.startTime?.message && <ErrorMessage>{errors.startTime?.message}</ErrorMessage>}
-                        {errors.endTime?.message && <ErrorMessage>{errors.endTime?.message}</ErrorMessage>}
-                    </TimeWrapper>
-
-                    <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
-                </form>
-            }
+            </Container>
 
             {showCalendar &&
               <Modal
@@ -208,7 +210,7 @@ const ReservationVacuum:FC = () => {
                 type={"popup"}
               />
             }
-        </Container>
+        </>
     );
 };
 

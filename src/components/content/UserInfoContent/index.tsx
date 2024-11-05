@@ -117,20 +117,20 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
     }, [isLoading, sendRequest, userId, user, onUserInfoUpdate]);
 
     // 교육 이수 처리하기
-    const handlePassQuiz = useCallback(async () => {
+    const handlePassEducation = useCallback(async () => {
         if (isLoading) return;
-        if (user?.passQuiz === true) {
+        if (user?.passEducation === true) {
             console.error("이미 교육 이수가 완료된 상태입니다.");
             return;
         }
         try {
             const response = await sendRequest({
-                url: `/users/quiz/pass/${userId}`,
+                url: `/users/education/pass/${userId}`,
                 method: "patch",
-                data: {passQuiz: false},
+                data: {passEducation: false},
             });
-            if (response.data.passQuiz === true) {
-                const updatedUser = {...user, passQuiz: response.data.passQuiz as boolean};
+            if (response.data.passEducation === true) {
+                const updatedUser = {...user, passEducation: response.data.passEducation as boolean};
                 setUser(updatedUser as IUserInfo);
                 onUserInfoUpdate && onUserInfoUpdate(updatedUser as IUserInfo);
             }
@@ -140,20 +140,20 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
     }, [isLoading, sendRequest, userId, user, onUserInfoUpdate]);
 
     // 교육 미이수 처리하기
-    const handleResetQuiz = useCallback(async () => {
+    const handleResetEducation = useCallback(async () => {
         if (isLoading) return;
-        if (user?.passQuiz === false) {
+        if (user?.passEducation === false) {
             console.error("이미 교육 미이수가 완료된 상태입니다.");
             return;
         }
         try {
             const response = await sendRequest({
-                url: `/users/quiz/reset/${userId}`,
+                url: `/users/education/reset/${userId}`,
                 method: "patch",
-                data: {passQuiz: true},
+                data: {passEducation: true},
             });
-            if (response.data.passQuiz === false) {
-                const updatedUser = {...user, passQuiz: response.data.passQuiz as boolean};
+            if (response.data.passEducation === false) {
+                const updatedUser = {...user, passEducation: response.data.passEducation as boolean};
                 setUser(updatedUser as IUserInfo);
                 onUserInfoUpdate && onUserInfoUpdate(updatedUser as IUserInfo);
             }
@@ -377,29 +377,29 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                       <div>{inputCategories.status[lang]}</div>
                       <div>
                         <PassTag
-                          pass={user?.passQuiz || false}
+                          pass={user?.passEducation || false}
                         >
-                            {user?.passQuiz ? cardCategories.pass[lang] : cardCategories.fail[lang]}
+                            {user?.passEducation ? cardCategories.pass[lang] : cardCategories.fail[lang]}
                         </PassTag>
                         <Buttons>
-                            {!user?.passQuiz && (
+                            {!user?.passEducation && (
                                 <Button
                                     type={"button"}
                                     content={buttonCategories.pass[lang]}
                                     width={"fit"}
                                     color={"third"}
                                     scale={"small"}
-                                    onClick={handlePassQuiz}
+                                    onClick={handlePassEducation}
                                 />
                             )}
-                            {user?.passQuiz && (
+                            {user?.passEducation && (
                                 <Button
                                     type={"button"}
                                     content={buttonCategories.fail[lang]}
                                     width={"fit"}
                                     color={"third"}
                                     scale={"small"}
-                                    onClick={handleResetQuiz}
+                                    onClick={handleResetEducation}
                                 />
                             )}
                         </Buttons>

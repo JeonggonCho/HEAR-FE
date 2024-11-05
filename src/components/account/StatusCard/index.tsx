@@ -22,10 +22,10 @@ const StatusCard:FC<{isLoading: boolean}> = ({isLoading}) => {
                     </>
                     :
                     <>
-                        <p>{cardCategories.passQuiz[lang]}</p>
-                        <span>{cardCategories.quizMessage[lang]}</span>
-                        <PassStatus pass={userData?.passQuiz as boolean}>
-                            {userData?.passQuiz ? cardCategories.pass[lang] : cardCategories.fail[lang]}
+                        <p>{cardCategories.passEducation[lang]}</p>
+                        <span>{cardCategories.eduMessage[lang]}</span>
+                        <PassStatus pass={userData?.passEducation as boolean}>
+                            {userData?.passEducation ? cardCategories.pass[lang] : cardCategories.fail[lang]}
                         </PassStatus>
                     </>
                 }

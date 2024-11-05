@@ -25,6 +25,7 @@ import {Container, DateMachineSelectWrapper, EmptyMessage, ImageWrapper, MapIcon
 import printer from "@assets/images/3d_printer.png";
 import mapIcon from "@assets/icons/map.svg";
 
+
 const ReservationPrinter:FC = () => {
     const [reservation, setReservation] = useState<IPrinterReservation>();
     const [selectedDate, setSelectedDate] = useState<string>();
@@ -105,51 +106,53 @@ const ReservationPrinter:FC = () => {
     }, [sendRequest, reservation]);
 
     return (
-        <Container>
-            <HeadTag title={headerCategories.printerReservationHeader[lang]}/>
+        <>
+            <Container>
+                <HeadTag title={headerCategories.printerReservationHeader[lang]}/>
 
-            <Header
-                leftChild={<ArrowBack/>}
-                centerText={headerCategories.printerReservationHeader[lang]}
-                rightChild={
-                    <MapIcon onClick={() => setShowMap(true)}>
-                        <ReactSVG src={mapIcon}/>
-                    </MapIcon>
+                <Header
+                    leftChild={<ArrowBack/>}
+                    centerText={headerCategories.printerReservationHeader[lang]}
+                    rightChild={
+                        <MapIcon onClick={() => setShowMap(true)}>
+                            <ReactSVG src={mapIcon}/>
+                        </MapIcon>
+                    }
+                />
+                <ImageWrapper>
+                    <img src={printer} alt={"3d 프린터"}/>
+                </ImageWrapper>
+                {isLoading ?
+                    <LoadingLoop/>
+                    :
+                    <form onSubmit={submitHandler}>
+                        <DateMachineSelectWrapper>
+                            <label>{inputCategories.selectDateAndMachine[lang]}</label>
+                            <span>{messageCategories.noWeekendAndHoliday[lang]}</span>
+                            <div>
+                                {!reservation ?
+                                    <EmptyMessage>{messageCategories.emptyDateAndMachine[lang]}</EmptyMessage>
+                                    :
+                                    <div>
+                                    </div>
+                                }
+
+                                <Button
+                                    type={"button"}
+                                    content={reservation ? `${buttonCategories.change[lang]}` : `${buttonCategories.selectDateAndMachine[lang]}`}
+                                    width={"full"}
+                                    color={"approval"}
+                                    scale={"normal"}
+                                    onClick={() => setShowSelectModal(true)}
+                                />
+                            </div>
+                        </DateMachineSelectWrapper>
+
+                        <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"}
+                                color={"primary"} scale={"big"}/>
+                    </form>
                 }
-            />
-            <ImageWrapper>
-                <img src={printer} alt={"3d 프린터"}/>
-            </ImageWrapper>
-            {isLoading ?
-                <LoadingLoop/>
-                :
-                <form onSubmit={submitHandler}>
-                    <DateMachineSelectWrapper>
-                        <label>{inputCategories.selectDateAndMachine[lang]}</label>
-                        <span>{messageCategories.noWeekendAndHoliday[lang]}</span>
-                        <div>
-                            {!reservation ?
-                                <EmptyMessage>{messageCategories.emptyDateAndMachine[lang]}</EmptyMessage>
-                                :
-                                <div>
-                                </div>
-                            }
-
-                            <Button
-                                type={"button"}
-                                content={reservation ? `${buttonCategories.change[lang]}` : `${buttonCategories.selectDateAndMachine[lang]}`}
-                                width={"full"}
-                                color={"approval"}
-                                scale={"normal"}
-                                onClick={() => setShowSelectModal(true)}
-                            />
-                        </div>
-                    </DateMachineSelectWrapper>
-
-                    <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"}
-                            color={"primary"} scale={"big"}/>
-                </form>
-            }
+            </Container>
 
             {showSelectModal &&
               <Modal
@@ -181,7 +184,7 @@ const ReservationPrinter:FC = () => {
                 type={"popup"}
               />
             }
-        </Container>
+        </>
     );
 };
 

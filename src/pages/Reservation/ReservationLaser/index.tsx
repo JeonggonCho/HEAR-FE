@@ -129,73 +129,75 @@ const ReservationLaser: FC = () => {
     }, [showEmptyError, setShowEmptyError, showToast]);
 
     return (
-        <Container>
-            <HeadTag title={headerCategories.laserReservationHeader[lang]}/>
-            <Header
-                leftChild={<ArrowBack/>}
-                centerText={headerCategories.laserReservationHeader[lang]}
-                rightChild={
-                    <MapIcon onClick={() => setShowMap(true)}>
-                        <ReactSVG src={mapIcon}/>
-                    </MapIcon>
-                }
-                bgColor={true}
-            />
-            <ImageWrapper>
-                <img src={laser} alt={"레이저 커팅기"}/>
-            </ImageWrapper>
-            {isLoading ?
-                <LoadingLoop/>
-                :
-                <form onSubmit={submitHandler}>
-                    <Input
-                        label={inputCategories.tomorrowDate[lang]}
-                        subLabel={messageCategories.noWeekendAndHoliday[lang]}
-                        type={"text"}
-                        id={"laser-reservation-date"}
-                        value={formattedDate}
-                        name={"date"}
-                        placeholder={placeholderCategories.date[lang]}
-                        disabled={true}
-                    />
+        <>
+            <Container>
+                <HeadTag title={headerCategories.laserReservationHeader[lang]}/>
+                <Header
+                    leftChild={<ArrowBack/>}
+                    centerText={headerCategories.laserReservationHeader[lang]}
+                    rightChild={
+                        <MapIcon onClick={() => setShowMap(true)}>
+                            <ReactSVG src={mapIcon}/>
+                        </MapIcon>
+                    }
+                    bgColor={true}
+                />
+                <ImageWrapper>
+                    <img src={laser} alt={"레이저 커팅기"}/>
+                </ImageWrapper>
+                {isLoading ?
+                    <LoadingLoop/>
+                    :
+                    <form onSubmit={submitHandler}>
+                        <Input
+                            label={inputCategories.tomorrowDate[lang]}
+                            subLabel={messageCategories.noWeekendAndHoliday[lang]}
+                            type={"text"}
+                            id={"laser-reservation-date"}
+                            value={formattedDate}
+                            name={"date"}
+                            placeholder={placeholderCategories.date[lang]}
+                            disabled={true}
+                        />
 
-                    <div>
-                        <label>{inputCategories.machineAndTime[lang]}</label>
                         <div>
-                            {reservationList.length === 0 ?
-                                <EmptyMessage>{messageCategories.emptyMachineAndTime[lang]}</EmptyMessage>
-                                :
-                                <>
-                                    {reservationList.map((reservation) => {
-                                        const selectedLaserInfo = laserInfo.filter(value => value.laserId === reservation.laserId)[0];
-                                        const selectedLaserTimeInfo = laserTimesInfo.filter(value => value.startTime === reservation.startTime && value.endTime === reservation.endTime)[0];
-                                        return (
-                                            <SelectedItemWrapper key={`${reservation.laserId} ${reservation.startTime} ${reservation.endTime}`}>
-                                                <span>{selectedLaserInfo.laserName}</span>
-                                                <span>{`${selectedLaserTimeInfo.startTime} - ${selectedLaserTimeInfo.endTime}`}</span>
-                                                <div onClick={() => handleRemoveReservationItem(reservation)}>
-                                                    <ReactSVG src={close}/>
-                                                </div>
-                                            </SelectedItemWrapper>
-                                        );
-                                    })}
-                                </>
-                            }
+                            <label>{inputCategories.machineAndTime[lang]}</label>
+                            <div>
+                                {reservationList.length === 0 ?
+                                    <EmptyMessage>{messageCategories.emptyMachineAndTime[lang]}</EmptyMessage>
+                                    :
+                                    <>
+                                        {reservationList.map((reservation) => {
+                                            const selectedLaserInfo = laserInfo.filter(value => value.laserId === reservation.laserId)[0];
+                                            const selectedLaserTimeInfo = laserTimesInfo.filter(value => value.startTime === reservation.startTime && value.endTime === reservation.endTime)[0];
+                                            return (
+                                                <SelectedItemWrapper key={`${reservation.laserId} ${reservation.startTime} ${reservation.endTime}`}>
+                                                    <span>{selectedLaserInfo.laserName}</span>
+                                                    <span>{`${selectedLaserTimeInfo.startTime} - ${selectedLaserTimeInfo.endTime}`}</span>
+                                                    <div onClick={() => handleRemoveReservationItem(reservation)}>
+                                                        <ReactSVG src={close}/>
+                                                    </div>
+                                                </SelectedItemWrapper>
+                                            );
+                                        })}
+                                    </>
+                                }
 
-                            <Button
-                                type={"button"}
-                                content={buttonCategories.selectMachineAndTime[lang]}
-                                width={"full"}
-                                color={"approval"}
-                                scale={"normal"}
-                                onClick={() => setShowModal(true)}
-                            />
+                                <Button
+                                    type={"button"}
+                                    content={buttonCategories.selectMachineAndTime[lang]}
+                                    width={"full"}
+                                    color={"approval"}
+                                    scale={"normal"}
+                                    onClick={() => setShowModal(true)}
+                                />
+                            </div>
                         </div>
-                    </div>
 
-                    <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
-                </form>
-            }
+                        <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                    </form>
+                }
+            </Container>
 
             {showModal &&
               <Modal
@@ -221,7 +223,7 @@ const ReservationLaser: FC = () => {
                 type={"popup"}
               />
             }
-        </Container>
+        </>
     );
 };
 

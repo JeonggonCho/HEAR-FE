@@ -156,55 +156,57 @@ const UpdateFeedbackPage:FC = () => {
 
 
     return (
-        <Container>
-            <HeadTag title={headerCategories.editFeedback[lang]}/>
+        <>
+            <Container>
+                <HeadTag title={headerCategories.editFeedback[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.editFeedback[lang]}/>
-            {isLoading ?
-                <LoadingLoop/>
-                :
-                <>
-                    <form onSubmit={handleSubmit(submitHandler)}>
-                        <Input
-                            label={inputCategories.title[lang]}
-                            type={"text"}
-                            placeholder={placeholderCategories.title[lang]}
-                            id={"feedback-title"}
-                            name={"title"}
-                            register={register}
-                            errorMessage={errors.title?.message}
-                        />
+                <Header leftChild={<ArrowBack/>} centerText={headerCategories.editFeedback[lang]}/>
+                {isLoading ?
+                    <LoadingLoop/>
+                    :
+                    <>
+                        <form onSubmit={handleSubmit(submitHandler)}>
+                            <Input
+                                label={inputCategories.title[lang]}
+                                type={"text"}
+                                placeholder={placeholderCategories.title[lang]}
+                                id={"feedback-title"}
+                                name={"title"}
+                                register={register}
+                                errorMessage={errors.title?.message}
+                            />
 
-                        <Select
-                            categories={feedbackInfoCategories}
-                            name={"category"}
-                            register={register}
-                            errorMessage={errors.category?.message}
-                            type={"radio"}
-                        />
+                            <Select
+                                categories={feedbackInfoCategories}
+                                name={"category"}
+                                register={register}
+                                errorMessage={errors.category?.message}
+                                type={"radio"}
+                            />
 
-                        <Textarea
-                            register={register}
-                            name={"content"}
-                            errorMessage={errors.content?.message}
-                            text={text}
-                            countOfText={countOfText}
-                            changeTextareaHandler={changeTextareaHandler}
-                        />
+                            <Textarea
+                                register={register}
+                                name={"content"}
+                                errorMessage={errors.content?.message}
+                                text={text}
+                                countOfText={countOfText}
+                                changeTextareaHandler={changeTextareaHandler}
+                            />
 
-                        <Button type={"submit"} content={buttonCategories.editing[lang]} width={"full"} color={"primary"} scale={"big"}/>
-                    </form>
+                            <Button type={"submit"} content={buttonCategories.editing[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                        </form>
+                    </>
+                }
+            </Container>
 
-                    {updateFeedbackModal &&
-                        <Modal
-                          content={<UpdateFeedbackModalContent/>}
-                          setModal={setUpdateFeedbackModal}
-                          type={"popup"}
-                        />
-                    }
-                </>
+            {updateFeedbackModal &&
+              <Modal
+                content={<UpdateFeedbackModalContent/>}
+                setModal={setUpdateFeedbackModal}
+                type={"popup"}
+              />
             }
-        </Container>
+        </>
     );
 };
 

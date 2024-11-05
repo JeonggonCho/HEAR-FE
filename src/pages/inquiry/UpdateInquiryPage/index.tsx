@@ -153,55 +153,57 @@ const UpdateInquiryPage:FC = () => {
     };
 
     return (
-        <Container>
-            <HeadTag title={headerCategories.editInquiry[lang]}/>
+        <>
+            <Container>
+                <HeadTag title={headerCategories.editInquiry[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.editInquiry[lang]}/>
-            {isLoading ?
-                <LoadingLoop/>
-                :
-                <>
-                    <form onSubmit={handleSubmit(submitHandler)}>
-                        <Input
-                            label={inputCategories.title[lang]}
-                            type={"text"}
-                            placeholder={placeholderCategories.title[lang]}
-                            id={"inquiry-title"}
-                            name={"title"}
-                            register={register}
-                            errorMessage={errors.title?.message}
-                        />
+                <Header leftChild={<ArrowBack/>} centerText={headerCategories.editInquiry[lang]}/>
+                {isLoading ?
+                    <LoadingLoop/>
+                    :
+                    <>
+                        <form onSubmit={handleSubmit(submitHandler)}>
+                            <Input
+                                label={inputCategories.title[lang]}
+                                type={"text"}
+                                placeholder={placeholderCategories.title[lang]}
+                                id={"inquiry-title"}
+                                name={"title"}
+                                register={register}
+                                errorMessage={errors.title?.message}
+                            />
 
-                        <Select
-                            categories={inquiryInfoCategories}
-                            name={"category"}
-                            register={register}
-                            errorMessage={errors.category?.message}
-                            type={"radio"}
-                        />
+                            <Select
+                                categories={inquiryInfoCategories}
+                                name={"category"}
+                                register={register}
+                                errorMessage={errors.category?.message}
+                                type={"radio"}
+                            />
 
-                        <Textarea
-                            register={register}
-                            name={"content"}
-                            errorMessage={errors.content?.message}
-                            countOfText={countOfText}
-                            changeTextareaHandler={changeTextareaHandler}
-                            text={text}
-                        />
+                            <Textarea
+                                register={register}
+                                name={"content"}
+                                errorMessage={errors.content?.message}
+                                countOfText={countOfText}
+                                changeTextareaHandler={changeTextareaHandler}
+                                text={text}
+                            />
 
-                        <Button type={"submit"} content={buttonCategories.editing[lang]} width={"full"} color={"primary"} scale={"big"}/>
-                    </form>
+                            <Button type={"submit"} content={buttonCategories.editing[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                        </form>
+                    </>
+                }
+            </Container>
 
-                    {updateInquiryModal &&
-                        <Modal
-                          content={<UpdateInquiryModalContent/>}
-                          setModal={setUpdateInquiryModal}
-                          type={"popup"}
-                        />
-                    }
-                </>
+            {updateInquiryModal &&
+              <Modal
+                content={<UpdateInquiryModalContent/>}
+                setModal={setUpdateInquiryModal}
+                type={"popup"}
+              />
             }
-        </Container>
+        </>
     );
 };
 

@@ -44,10 +44,10 @@ export const cardCategories = {
         en: "Recent Usage History",
         ch: "最近使用记录",
     },
-    passQuiz: {
+    passEducation: {
         ko: "교육 이수",
-        en: "Quiz Pass Status",
-        ch: "测验通过状态",
+        en: "Education Pass Status",
+        ch: "教育通过状态",
     },
     countOfWarning: {
         ko: "경고 횟수",
@@ -64,7 +64,7 @@ export const cardCategories = {
         en: "Fail",
         ch: "未通过",
     },
-    quizMessage: {
+    eduMessage: {
         ko: "(미이수 시, 사용제한)",
         en: "(Usage restriction if not completed)",
         ch: "(未完成时，使用限制)",

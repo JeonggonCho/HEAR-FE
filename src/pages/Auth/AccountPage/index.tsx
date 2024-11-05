@@ -31,6 +31,7 @@ import setting from  "@assets/icons/setting.svg";
 import history from "@assets/images/history.png";
 import siren from "@assets/images/siren.png";
 import notice from "@assets/images/notice.png";
+import test from "@assets/images/test.png";
 
 
 const AccountPage:FC = () => {
@@ -52,8 +53,8 @@ const AccountPage:FC = () => {
             const response = await sendRequest({
                 url: "/users",
             });
-            const {userId, username, email, year, studentId, studio, passQuiz, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role, lab} = response.data;
-            setUserData({year, studio, passQuiz, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role, lab});
+            const {userId, username, email, year, studentId, studio, passEducation, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role, lab} = response.data;
+            setUserData({year, studio, passEducation, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role, lab});
             setUserInfo({userId, username, email, studentId});
         } catch (err) {
             console.error("유저 정보 조회 에러: ", err);
@@ -163,50 +164,53 @@ const AccountPage:FC = () => {
     };
 
     return (
-        <Container>
-            <HeadTag title={userInfo?.username || navCategories.account[lang]}/>
+        <>
+            <Container>
+                <HeadTag title={userInfo?.username || navCategories.account[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} rightChild={<AccountHeaderRight/>} type={"flex"}/>
+                <Header leftChild={<ArrowBack/>} rightChild={<AccountHeaderRight/>} type={"flex"}/>
 
-            <ProfileCard isLoading={isLoading}/>
+                <ProfileCard isLoading={isLoading}/>
 
-            <Divider/>
-
-            {userData?.role === "student" &&
-              <>
-                <StatusCard isLoading={isLoading}/>
                 <Divider/>
-                <LinkWrapper>
-                  <Link image={reservation} type={"card"} name={buttonCategories.myReservations[lang]} to={"/my-reservations"} isLoading={isLoading}/>
-                  <Link image={history} type={"card"} name={buttonCategories.myUsage[lang]} to={"/my-usage"} isLoading={isLoading}/>
-                  <Link image={notice} type={"card"} name={buttonCategories.myInquiries[lang]} to={"/my-inquiries"} isLoading={isLoading}/>
-                  <Link image={siren} type={"card"} name={buttonCategories.myWarning[lang]} to={"/my-warning"} isLoading={isLoading}/>
-                </LinkWrapper>
-              </>
-            }
 
-            {(userData?.role === "manager" || userData?.role === "admin") && (
-                <LinkWrapper>
-                    <Link image={reservation} name={buttonCategories.reservationManagement[lang]} to={"/management/reservations"} type={"card"} isLoading={isLoading}/>
-                    <Link image={userImg} name={buttonCategories.userManagement[lang]} to={"/management/users"} type={"card"} isLoading={isLoading}/>
-                    <Link image={machine} name={buttonCategories.machineManagement[lang]} to={"/management/machines"} type={"card"} isLoading={isLoading}/>
-                </LinkWrapper>
-            )}
+                {userData?.role === "student" &&
+                  <>
+                    <StatusCard isLoading={isLoading}/>
+                    <Divider/>
+                    <LinkWrapper>
+                      <Link image={reservation} type={"card"} name={buttonCategories.myReservations[lang]} to={"/my-reservations"} isLoading={isLoading}/>
+                      <Link image={history} type={"card"} name={buttonCategories.myUsage[lang]} to={"/my-usage"} isLoading={isLoading}/>
+                      <Link image={notice} type={"card"} name={buttonCategories.myInquiries[lang]} to={"/my-inquiries"} isLoading={isLoading}/>
+                      <Link image={siren} type={"card"} name={buttonCategories.myWarning[lang]} to={"/my-warning"} isLoading={isLoading}/>
+                    </LinkWrapper>
+                  </>
+                }
 
-            <BtnsWrapper>
-                <Button
-                    type={"button"}
-                    content={buttonCategories.signOut[lang]}
-                    width={"full"}
-                    color={"second"}
-                    scale={"big"}
-                    onClick={() => setLogoutModal(true)}
-                />
+                {(userData?.role === "manager" || userData?.role === "admin") && (
+                    <LinkWrapper>
+                        <Link image={reservation} name={buttonCategories.reservationManagement[lang]} to={"/management/reservations"} type={"card"} isLoading={isLoading}/>
+                        <Link image={userImg} name={buttonCategories.userManagement[lang]} to={"/management/users"} type={"card"} isLoading={isLoading}/>
+                        <Link image={machine} name={buttonCategories.machineManagement[lang]} to={"/management/machines"} type={"card"} isLoading={isLoading}/>
+                        <Link image={test} name={buttonCategories.eduManagement[lang]} to={"/management/education"} type={"card"} isLoading={isLoading}/>
+                    </LinkWrapper>
+                )}
 
-                <DeleteUserWrapper onClick={() => setUnregisterModal(true)}>
-                    {buttonCategories.accountDeletion[lang]}
-                </DeleteUserWrapper>
-            </BtnsWrapper>
+                <BtnsWrapper>
+                    <Button
+                        type={"button"}
+                        content={buttonCategories.signOut[lang]}
+                        width={"full"}
+                        color={"second"}
+                        scale={"big"}
+                        onClick={() => setLogoutModal(true)}
+                    />
+
+                    <DeleteUserWrapper onClick={() => setUnregisterModal(true)}>
+                        {buttonCategories.accountDeletion[lang]}
+                    </DeleteUserWrapper>
+                </BtnsWrapper>
+            </Container>
 
             {logoutModal &&
               <Modal
@@ -223,7 +227,7 @@ const AccountPage:FC = () => {
                 type={"popup"}
               />
             }
-        </Container>
+        </>
     );
 };
 

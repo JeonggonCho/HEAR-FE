@@ -31,19 +31,19 @@ const UsersFilterContent:FC<IFilterContentProps> = ({filter, setFilter, setModal
         {label: filterCategories.two[lang], value: 2, id: "warning-2"},
     ];
 
-    const passQuizFilterCategories = [
-        {label: filterCategories.all[lang], value: "all", id: "quiz-all"},
-        {label: filterCategories.pass[lang], value: true, id: "quiz-pass"},
-        {label: filterCategories.fail[lang], value: false, id: "quiz-fail"},
+    const passEducationFilterCategories = [
+        {label: filterCategories.all[lang], value: "all", id: "education-all"},
+        {label: filterCategories.pass[lang], value: true, id: "education-pass"},
+        {label: filterCategories.fail[lang], value: false, id: "education-fail"},
     ];
 
     const {values: year, handleCheck: handleYears} = useCheckbox(filter.year || ["all"]);
     const {values: countOfWarning, handleCheck: handleWarnings} = useCheckbox(filter.countOfWarning || ["all"]);
-    const {values: passQuiz, handleCheck: handlePassQuiz} = useCheckbox(filter.passQuiz || ["all"]);
+    const {values: passEducation, handleCheck: handlePassEducation} = useCheckbox(filter.passEducation || ["all"]);
 
     const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setFilter({year, countOfWarning, passQuiz});
+        setFilter({year, countOfWarning, passEducation});
         setModal(false);
     };
 
@@ -67,11 +67,11 @@ const UsersFilterContent:FC<IFilterContentProps> = ({filter, setFilter, setModal
             />
             <Select
                 label={inputCategories.selectPass[lang]}
-                name={"passQuiz"}
-                categories={passQuizFilterCategories}
+                name={"passEducation"}
+                categories={passEducationFilterCategories}
                 type={"checkbox"}
-                onSelectChange={handlePassQuiz}
-                values={passQuiz}
+                onSelectChange={handlePassEducation}
+                values={passEducation}
             />
             <Button
                 type={"submit"}

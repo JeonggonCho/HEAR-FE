@@ -108,63 +108,65 @@ const UpdatePasswordPage:FC = () => {
 
 
     return (
-        <Container>
-            <HeadTag title={headerCategories.passwordChange[lang]}/>
+        <>
+            <Container>
+                <HeadTag title={headerCategories.passwordChange[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.passwordChange[lang]}/>
+                <Header leftChild={<ArrowBack/>} centerText={headerCategories.passwordChange[lang]}/>
 
-            {isLoading ?
-                <LoadingLoop/>
-                :
-                <form onSubmit={handleSubmit(submitHandler)}>
-                    <Input
-                        label={inputCategories.currentPassword[lang]}
-                        placeholder={placeholderCategories.password[lang]}
-                        type={"password"}
-                        id={"password"}
-                        name={"password"}
-                        register={register}
-                        errorMessage={errors.password?.message}
-                        visibleToggle={true}
-                    />
-                    <Input
-                        label={inputCategories.newPassword[lang]}
-                        placeholder={placeholderCategories.password[lang]}
-                        type={"password"}
-                        id={"newPassword"}
-                        name={"newPassword"}
-                        register={register}
-                        errorMessage={errors.newPassword?.message}
-                        visibleToggle={true}
-                    />
-                    <Input
-                        label={inputCategories.confirmNewPassword[lang]}
-                        placeholder={placeholderCategories.password[lang]}
-                        type={"password"}
-                        id={"confirmPassword"}
-                        name={"confirmPassword"}
-                        register={register}
-                        errorMessage={errors.confirmPassword?.message}
-                        visibleToggle={true}
-                    />
-                    <Button
-                        type={"submit"}
-                        content={buttonCategories.passwordChange[lang]}
-                        width={"full"}
-                        color={"primary"}
-                        scale={"big"}
-                    />
-                </form>
-            }
+                {isLoading ?
+                    <LoadingLoop/>
+                    :
+                    <form onSubmit={handleSubmit(submitHandler)}>
+                        <Input
+                            label={inputCategories.currentPassword[lang]}
+                            placeholder={placeholderCategories.password[lang]}
+                            type={"password"}
+                            id={"password"}
+                            name={"password"}
+                            register={register}
+                            errorMessage={errors.password?.message}
+                            visibleToggle={true}
+                        />
+                        <Input
+                            label={inputCategories.newPassword[lang]}
+                            placeholder={placeholderCategories.password[lang]}
+                            type={"password"}
+                            id={"newPassword"}
+                            name={"newPassword"}
+                            register={register}
+                            errorMessage={errors.newPassword?.message}
+                            visibleToggle={true}
+                        />
+                        <Input
+                            label={inputCategories.confirmNewPassword[lang]}
+                            placeholder={placeholderCategories.password[lang]}
+                            type={"password"}
+                            id={"confirmPassword"}
+                            name={"confirmPassword"}
+                            register={register}
+                            errorMessage={errors.confirmPassword?.message}
+                            visibleToggle={true}
+                        />
+                        <Button
+                            type={"submit"}
+                            content={buttonCategories.passwordChange[lang]}
+                            width={"full"}
+                            color={"primary"}
+                            scale={"big"}
+                        />
+                    </form>
+                }
+            </Container>
 
             {updatePasswordModal &&
-                <Modal
-                  content={<UpdatePasswordModalContent/>}
-                  setModal={setUpdatePasswordModal}
-                  type={"popup"}
-                />
+              <Modal
+                content={<UpdatePasswordModalContent/>}
+                setModal={setUpdatePasswordModal}
+                type={"popup"}
+              />
             }
-        </Container>
+        </>
     );
 };
 

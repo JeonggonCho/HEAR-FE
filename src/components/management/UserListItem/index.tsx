@@ -96,14 +96,14 @@ const UserListItem: FC<IUserInfo & { userList: IUserInfo[], setUserList: React.D
     return (
         <>
             <Container
-                pass={userInfo.passQuiz}
+                pass={userInfo.passEducation}
                 onClick={() => setShowUserInfoModal(true)}
             >
                 <span>{userInfo.username}</span>
                 <span>{userInfo.year}</span>
                 <span>{userInfo.countOfWarning}</span>
                 <div>
-                    <span>{userInfo.passQuiz ? cardCategories.pass[lang] : cardCategories.fail[lang]}</span>
+                    <span>{userInfo.passEducation ? cardCategories.pass[lang] : cardCategories.fail[lang]}</span>
                 </div>
                 <Button
                     type={"button"}

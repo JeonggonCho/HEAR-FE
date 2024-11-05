@@ -32,7 +32,7 @@ import close from "@assets/icons/close.svg";
 const UsersPage:FC = () => {
     const [userList, setUserList] = useState<IUserInfo[]>([]);
     const [showFilter, setShowFilter] = useState<boolean>(false);
-    const [filter, setFilter] = useState<IUserFilter>({year: ["all"], passQuiz: ["all"], countOfWarning:["all"]});
+    const [filter, setFilter] = useState<IUserFilter>({year: ["all"], passEducation: ["all"], countOfWarning:["all"]});
     const [usernameInputText, setUsernameInputText] = useState<string>("");
     const [username, setUsername] = useState<string>(usernameInputText.trim());
 
@@ -44,7 +44,7 @@ const UsersPage:FC = () => {
     const fetchUserList = useCallback(async () => {
         try {
             const response = await sendRequest({
-                url: `users/all?year=${filter.year.join(",")}&passQuiz=${filter.passQuiz.join(",")}&countOfWarning=${filter.countOfWarning.join(",")}&username=${username}`,
+                url: `users/all?year=${filter.year.join(",")}&passEducation=${filter.passEducation.join(",")}&countOfWarning=${filter.countOfWarning.join(",")}&username=${username}`,
             });
             setUserList(response.data);
         } catch (err) {
@@ -71,87 +71,89 @@ const UsersPage:FC = () => {
 
 
     return (
-        <Container>
-            <HeadTag title={headerCategories.userManagementHeader[lang]}/>
+        <>
+            <Container>
+                <HeadTag title={headerCategories.userManagementHeader[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.userManagementHeader[lang]} bgColor={true}/>
+                <Header leftChild={<ArrowBack/>} centerText={headerCategories.userManagementHeader[lang]} bgColor={true}/>
 
-            <UserControlWrapper usernameInputText={usernameInputText}>
-                <span>{userList.length} {inputCategories.userUnit[lang]}</span>
+                <UserControlWrapper usernameInputText={usernameInputText}>
+                    <span>{userList.length} {inputCategories.userUnit[lang]}</span>
 
-                <form onSubmit={handleSearchUsername}>
-                    <div>
-                        <Input
-                            type={"text"}
-                            id={"username-input"}
-                            name={"username"}
-                            placeholder={placeholderCategories.studentName[lang]}
-                            value={usernameInputText}
-                            onChange={(e) => setUsernameInputText(e.target.value)}
-                        />
+                    <form onSubmit={handleSearchUsername}>
+                        <div>
+                            <Input
+                                type={"text"}
+                                id={"username-input"}
+                                name={"username"}
+                                placeholder={placeholderCategories.studentName[lang]}
+                                value={usernameInputText}
+                                onChange={(e) => setUsernameInputText(e.target.value)}
+                            />
 
-                        <div onClick={() => setUsernameInputText("")}>
-                            <ReactSVG src={close}/>
+                            <div onClick={() => setUsernameInputText("")}>
+                                <ReactSVG src={close}/>
+                            </div>
+
+                            <Button
+                                type={"submit"}
+                                content={<ReactSVG src={search}/>}
+                                width={"fit"}
+                                color={"second"}
+                                scale={"small"}
+                            />
                         </div>
 
-                        <Button
-                            type={"submit"}
-                            content={<ReactSVG src={search}/>}
-                            width={"fit"}
-                            color={"second"}
-                            scale={"small"}
-                        />
-                    </div>
+                        <div onClick={() => setShowFilter(true)}>
+                            {!(filter.year.includes("all") && filter.countOfWarning.includes("all") && filter.passEducation.includes("all")) &&
+                              <Badge/>
+                            }
+                            <ReactSVG src={tune}/>
+                        </div>
+                    </form>
+                </UserControlWrapper>
 
-                    <div onClick={() => setShowFilter(true)}>
-                        {!(filter.year.includes("all") && filter.countOfWarning.includes("all") && filter.passQuiz.includes("all")) &&
-                          <Badge/>
-                        }
-                        <ReactSVG src={tune}/>
-                    </div>
-                </form>
-            </UserControlWrapper>
-
-            <div>
-                <span>{inputCategories.username[lang]}</span>
-                <span>{inputCategories.year[lang]}</span>
-                <span>{inputCategories.warning[lang]}</span>
-                <span>{inputCategories.status[lang]}</span>
-                <span>{buttonCategories.deletion[lang]}</span>
-            </div>
-
-            {isLoading ?
-                <div style={{display: "flex", flexDirection: "column", gap: "12px"}}>
-                    <CardLoading heightValue={"55px"}/>
-                    <CardLoading heightValue={"55px"}/>
-                    <CardLoading heightValue={"55px"}/>
-                    <CardLoading heightValue={"55px"}/>
-                    <CardLoading heightValue={"55px"}/>
-                    <CardLoading heightValue={"55px"}/>
-                    <CardLoading heightValue={"55px"}/>
-                    <CardLoading heightValue={"55px"}/>
+                <div>
+                    <span>{inputCategories.username[lang]}</span>
+                    <span>{inputCategories.year[lang]}</span>
+                    <span>{inputCategories.warning[lang]}</span>
+                    <span>{inputCategories.status[lang]}</span>
+                    <span>{buttonCategories.deletion[lang]}</span>
                 </div>
-                :
-                <>
-                    {userList.length === 0 ?
-                        <Empty title={messageCategories.emptyUsers[lang]}/>
-                        :
-                        userList.map((user) => (
-                            <UserListItem key={user.userId} userList={userList} setUserList={setUserList} {...user}/>
-                        ))
-                    }
-                </>
-            }
+
+                {isLoading ?
+                    <div style={{display: "flex", flexDirection: "column", gap: "12px"}}>
+                        <CardLoading heightValue={"55px"}/>
+                        <CardLoading heightValue={"55px"}/>
+                        <CardLoading heightValue={"55px"}/>
+                        <CardLoading heightValue={"55px"}/>
+                        <CardLoading heightValue={"55px"}/>
+                        <CardLoading heightValue={"55px"}/>
+                        <CardLoading heightValue={"55px"}/>
+                        <CardLoading heightValue={"55px"}/>
+                    </div>
+                    :
+                    <>
+                        {userList.length === 0 ?
+                            <Empty title={messageCategories.emptyUsers[lang]}/>
+                            :
+                            userList.map((user) => (
+                                <UserListItem key={user.userId} userList={userList} setUserList={setUserList} {...user}/>
+                            ))
+                        }
+                    </>
+                }
+            </Container>
 
             {showFilter &&
-                <Modal
-                  title={headerCategories.userFilter[lang]}
-                  content={<UsersFilterContent filter={filter} setFilter={setFilter} setModal={setShowFilter}/>}
-                  setModal={setShowFilter}
-                  type={"bottomSheet"}
-                />
+              <Modal
+                title={headerCategories.userFilter[lang]}
+                content={<UsersFilterContent filter={filter} setFilter={setFilter} setModal={setShowFilter}/>}
+                setModal={setShowFilter}
+                type={"bottomSheet"}
+              />
             }
-        </Container>
+        </>
     );
 };
 

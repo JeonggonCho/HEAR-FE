@@ -44,6 +44,11 @@ export const buttonCategories = {
         en: "Machine Management",
         ch: "设备管理",
     },
+    eduManagement: {
+        ko: "교육 관리",
+        en: "Educational Management",
+        ch: "教育管理",
+    },
     profileUpdate: {
         ko: "내 정보 변경",
         en: "Profile Update",

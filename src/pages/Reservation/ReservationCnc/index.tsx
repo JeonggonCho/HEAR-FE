@@ -106,64 +106,66 @@ const ReservationCnc:FC = () => {
     }, [errorText]);
 
     return (
-        <Container>
-            <HeadTag title={headerCategories.cncReservationHeader[lang]}/>
+        <>
+            <Container>
+                <HeadTag title={headerCategories.cncReservationHeader[lang]}/>
 
-            <Header
-                leftChild={<ArrowBack/>}
-                centerText={headerCategories.cncReservationHeader[lang]}
-                rightChild={
-                    <MapIcon onClick={() => setShowMap(true)}>
-                        <ReactSVG src={mapIcon}/>
-                    </MapIcon>
+                <Header
+                    leftChild={<ArrowBack/>}
+                    centerText={headerCategories.cncReservationHeader[lang]}
+                    rightChild={
+                        <MapIcon onClick={() => setShowMap(true)}>
+                            <ReactSVG src={mapIcon}/>
+                        </MapIcon>
+                    }
+                />
+                <ImageWrapper>
+                    <img src={cnc} alt={"cnc"}/>
+                </ImageWrapper>
+                {isLoading ?
+                    <LoadingLoop/>
+                    :
+                    <form onSubmit={handleSubmit(submitHandler)}>
+                        <CncCheckWrapper>
+                            <div>
+                                <input
+                                    type={"checkbox"}
+                                    id={"cncWarning"}
+                                    onClick={() => setValue("check", !getValues("check"))}
+                                />
+                                <label htmlFor={"cncWarning"}>
+                                    <div><ReactSVG src={check}/></div>
+                                    {inputCategories.check[lang]}
+                                </label>
+                            </div>
+
+                            <div>
+                                <span>{messageCategories.cncRule[lang]}</span>
+                                <p>{messageCategories.cncDescription[lang]}</p>
+                            </div>
+
+                            {errors.check?.message &&
+                              <p>{errors.check.message}</p>
+                            }
+                        </CncCheckWrapper>
+
+                        <Input
+                            label={inputCategories.twoDayLaterDate[lang]}
+                            subLabel={messageCategories.noWeekendAndHoliday[lang]}
+                            type={"text"}
+                            id={"cnc-reservation-date"}
+                            name={"date"}
+                            placeholder={placeholderCategories.date[lang]}
+                            register={register}
+                            errorMessage={errors.date?.message}
+                            onClick={() => setShowCalendar(true)}
+                            readonly
+                        />
+
+                        <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                    </form>
                 }
-            />
-            <ImageWrapper>
-                <img src={cnc} alt={"cnc"}/>
-            </ImageWrapper>
-            {isLoading ?
-                <LoadingLoop/>
-                :
-                <form onSubmit={handleSubmit(submitHandler)}>
-                    <CncCheckWrapper>
-                        <div>
-                            <input
-                                type={"checkbox"}
-                                id={"cncWarning"}
-                                onClick={() => setValue("check", !getValues("check"))}
-                            />
-                            <label htmlFor={"cncWarning"}>
-                                <div><ReactSVG src={check}/></div>
-                                {inputCategories.check[lang]}
-                            </label>
-                        </div>
-
-                        <div>
-                            <span>{messageCategories.cncRule[lang]}</span>
-                            <p>{messageCategories.cncDescription[lang]}</p>
-                        </div>
-
-                        {errors.check?.message &&
-                          <p>{errors.check.message}</p>
-                        }
-                    </CncCheckWrapper>
-
-                    <Input
-                        label={inputCategories.twoDayLaterDate[lang]}
-                        subLabel={messageCategories.noWeekendAndHoliday[lang]}
-                        type={"text"}
-                        id={"cnc-reservation-date"}
-                        name={"date"}
-                        placeholder={placeholderCategories.date[lang]}
-                        register={register}
-                        errorMessage={errors.date?.message}
-                        onClick={() => setShowCalendar(true)}
-                        readonly
-                    />
-
-                    <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
-                </form>
-            }
+            </Container>
 
             {showCalendar &&
               <Modal
@@ -187,7 +189,7 @@ const ReservationCnc:FC = () => {
                 type={"popup"}
               />
             }
-        </Container>
+        </>
     );
 };
 

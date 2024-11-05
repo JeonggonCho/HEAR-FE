@@ -40,11 +40,12 @@ const ReservationHeat = lazy(() => import("@pages/reservation/ReservationHeat"))
 const ReservationCnc = lazy(() => import("@pages/reservation/ReservationCnc"));
 const ReservationSaw = lazy(() => import("@pages/reservation/ReservationSaw"));
 const ReservationVacuum = lazy(() => import("@pages/reservation/ReservationVacuum"));
-const QuizPage = lazy(() => import("@pages/quiz/QuizPage"));
+const EducationPage = lazy(() => import("@pages/education/EducationPage"));
 const NotFoundPage = lazy(() => import("@pages/home/NotFoundPage"));
 const MachinesPage = lazy(() => import("@pages/management/MachinesPage"));
 const UsersPage = lazy(() => import("@pages/management/UsersPage"));
 const ReservationsPage = lazy(() => import("@pages/management/ReservationsPage"));
+const EducationManagementPage = lazy(() => import("@pages/management/EducationManagementPage"));
 const MyReservationsPage = lazy(() => import("@pages/reservation/MyReservationsPage"));
 const MyUsagePage = lazy(() => import("@pages/reservation/MyUsagePage"));
 const MyInquiriesPage = lazy(() => import("@pages/inquiry/MyInquiriesPage"));
@@ -112,9 +113,10 @@ const AppRoute = () => {
                             <Route path="management/machines" element={<MachinesPage/>}/>
                             <Route path="management/users" element={<UsersPage/>}/>
                             <Route path="management/reservations" element={<ReservationsPage/>}/>
+                            <Route path="management/education" element={<EducationManagementPage/>}/>
 
                             <Route path="alarm" element={<NotificationPage/>}/>
-                            <Route path="quiz" element={<QuizPage/>}/>
+                            <Route path="education" element={<EducationPage/>}/>
                         </>
                     :
                         <>

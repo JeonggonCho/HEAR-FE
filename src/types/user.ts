@@ -3,7 +3,7 @@ export interface IUserList {
     username: string;
     year: "1" | "2" | "3" | "4" | "5";
     studentId: string;
-    passQuiz: boolean;
+    passEducation: boolean;
     countOfWarning: number;
 }
 
@@ -15,6 +15,6 @@ export interface IUserInfo extends IUserList {
 
 export interface IUserFilter {
     year: Array<"all" | "1" | "2" | "3" | "4" | "5">;
-    passQuiz: Array<"all" | "pass" | "fail">;
+    passEducation: Array<"all" | "pass" | "fail">;
     countOfWarning: Array<"all" | "0" | "1" | "2">;
 }

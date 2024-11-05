@@ -5,7 +5,7 @@ export interface IAuthResponseData {
     studentId: string;
     year: "1" | "2" | "3" | "4" | "5";
     studio: string;
-    passQuiz: boolean;
+    passEducation: boolean;
     countOfLaserPerWeek: number;
     countOfLaserPerDay: number;
     countOfWarning: number;
