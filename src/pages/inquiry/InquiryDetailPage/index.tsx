@@ -1,4 +1,4 @@
-import React, {FC, FormEvent, ReactElement, useCallback, useEffect, useMemo, useRef, useState} from "react";
+import React, {FC, FormEvent, MutableRefObject, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 
@@ -8,10 +8,9 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import Dropdown from "@components/common/Dropdown";
 import HeadTag from "@components/common/HeadTag";
 import Button from "@components/common/Button";
-import CommentListItem from "@components/board/CommentListItem";
-import Textarea from "@components/common/Textarea";
 import Modal from "@components/common/Modal";
 import ConfirmContent from "@components/content/ConfirmContent";
+import Comments from "@components/board/Comments";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
@@ -25,26 +24,23 @@ import {useThemeStore} from "@store/useThemeStore.ts";
 import {inquiryCategories} from "@constants/inquiryCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
-import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
 import {
-    BtnsWrapper, CommentBtnWrapper, CommentFormWrapper, CommentListWrapper,
+    BtnsWrapper, CommentBtnWrapper,
     Container,
     ContentWrapper,
     CountsWrapper,
-    DateWrapper, EmptyMessage,
+    DateWrapper,
     InquiryInfoWrapper,
-    InquiryWrapper, LikeBtnWrapper, TextareaWrapper
+    InquiryWrapper, LikeBtnWrapper
 } from "./style.ts";
 import {TagWrapper, WriterWrapper} from "@components/board/InquiryFeedbackListItem/style.ts";
-import {ProfileImgWrapper} from "@components/board/CommentListItem/style.ts";
 
 import noProfile from "@assets/icons/no_profile.svg";
 import views from "@assets/icons/visible.svg";
 import likes from "@assets/icons/feedback.svg";
 import chat from "@assets/icons/chat.svg";
-import send from "@assets/icons/send.svg";
 import deleteIcon from "@assets/icons/delete.svg";
 import editIcon from "@assets/icons/edit.svg";
 
@@ -64,10 +60,7 @@ const InquiryDetailPage:FC = () => {
     const {userInfo} = useUserInfoStore();
     const {lang, isDarkMode} = useThemeStore();
     const {showToast} = useToastStore();
-    const {isLoading: inquiryIsLoading, errorText: inquiryErrorText, sendRequest: inquirySendRequest, clearError: inquiryClearError} = useRequest();
-    const {errorText: deleteInquiryErrorText, sendRequest: deleteInquirySendRequest, clearError: deleteInquiryClearError} = useRequest();
-    const {errorText: likeInquiryErrorText, sendRequest: likeInquirySendRequest, clearError: likeInquiryClearError} = useRequest();
-    const {errorText: commentErrorText, sendRequest: commentSendRequest, clearError: commentClearError} = useRequest();
+    const {isLoading, errorText, sendRequest, clearError} = useRequest();
     const {text, countOfText, handleTextChange, setText} = useTextarea(); // 댓글 textarea
 
     // 문의 생성 날짜 스탬프
@@ -83,7 +76,7 @@ const InquiryDetailPage:FC = () => {
     // 문의 디테일 조회
     const fetchInquiry = useCallback(async () => {
         try {
-            const response = await inquirySendRequest({
+            const response = await sendRequest({
                 url: `/inquiries/${inquiryId}`
             });
             setInquiry(response.data.inquiry);
@@ -92,23 +85,16 @@ const InquiryDetailPage:FC = () => {
         } catch (err) {
             console.error("문의 조회 중 에러 발생: ", err);
         }
-    }, [inquirySendRequest, inquiryId]);
+    }, [sendRequest, inquiryId]);
 
     useEffect(() => {
         fetchInquiry();
     }, [fetchInquiry]);
 
-    // 문의 디테일 조회 에러 메시지
-    useEffect(() => {
-        if (inquiryErrorText) showToast(inquiryErrorText, "error");
-        const errorTimer = setTimeout(inquiryClearError, 6000);
-        return () => clearTimeout(errorTimer);
-    }, [inquiryErrorText]);
-
     // 문의 좋아요
     const likeInquiry = async () => {
         try {
-            const response = await likeInquirySendRequest({
+            const response = await sendRequest({
                 url: `/inquiries/like/${inquiryId}`,
                 method: "post",
                 data: {},
@@ -128,13 +114,6 @@ const InquiryDetailPage:FC = () => {
         }
     };
 
-    // 문의 좋아요 에러 메시지
-    useEffect(() => {
-        if (likeInquiryErrorText) showToast(likeInquiryErrorText, "error");
-        const errorTimer = setTimeout(likeInquiryClearError, 6000);
-        return () => clearTimeout(errorTimer);
-    }, [likeInquiryErrorText]);
-
     // 문의 삭제 확인 모달 띄우기
     const deleteInquiryConfirm = () => {
         setShowConfirmModal(true);
@@ -143,7 +122,7 @@ const InquiryDetailPage:FC = () => {
     // 문의 삭제
     const deleteInquiry = async () => {
         try {
-            await deleteInquirySendRequest({
+            await sendRequest({
                 url: `/inquiries/${inquiryId}`,
                 method: "delete",
             });
@@ -152,13 +131,6 @@ const InquiryDetailPage:FC = () => {
             console.error("문의 삭제 중 에러 발생: ", err);
         }
     };
-
-    // 문의 삭제 에러 메시지
-    useEffect(() => {
-        if (deleteInquiryErrorText) showToast(deleteInquiryErrorText, "error");
-        const errorTimer = setTimeout(deleteInquiryClearError, 6000);
-        return () => clearTimeout(errorTimer);
-    }, [deleteInquiryErrorText]);
 
     // 문의 수정
     const updateInquiry = () => {
@@ -186,7 +158,7 @@ const InquiryDetailPage:FC = () => {
         };
 
         try {
-            const response = await commentSendRequest({
+            const response = await sendRequest({
                 url: "/comments",
                 method: "post",
                 data: data,
@@ -203,16 +175,14 @@ const InquiryDetailPage:FC = () => {
             }
             setText("");
         } catch (err) {
-            console.error("댓글 생성 요청 중 에러 발생: ", err);
+            console.error("문의 댓글 생성 요청 중 에러 발생: ", err);
         }
     };
 
-    // 댓글 생성 에러 메시지
-    useEffect(() => {
-        if (commentErrorText) showToast(commentErrorText, "error");
-        const errorTimer = setTimeout(commentClearError, 6000);
-        return () => clearTimeout(errorTimer);
-    }, [commentErrorText]);
+    // 댓글 버튼 클릭 시
+    const commentClickHandler = () => {
+        textareaRef.current?.focus();
+    };
 
     // 댓글 공란 에러 메시지
     useEffect(() => {
@@ -221,140 +191,111 @@ const InquiryDetailPage:FC = () => {
         return () => clearTimeout(errorTimer);
     }, [emptyCommentContent]);
 
-    // 댓글 버튼 클릭 시
-    const commentClickHandler = () => {
-        textareaRef.current?.focus();
-    };
+    // 에러 메시지
+    useEffect(() => {
+        if (errorText) showToast(errorText, "error");
+        const errorTimer = setTimeout(clearError, 6000);
+        return () => clearTimeout(errorTimer);
+    }, [errorText]);
 
 
     return (
-        <Container>
-            <HeadTag title={inquiry?.title || headerCategories.inquiryDetail[lang]}/>
+        <>
+            <Container>
+                <HeadTag title={inquiry?.title || headerCategories.inquiryDetail[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.inquiryDetail[lang]}/>
+                <Header leftChild={<ArrowBack/>} centerText={headerCategories.inquiryDetail[lang]}/>
 
-            {!inquiryIsLoading && inquiry ?
-                <>
-                    {/*문의 부분*/}
-                    <InquiryWrapper>
-                        <InquiryInfoWrapper>
-                            <div>
+                {!isLoading && inquiry ?
+                    <>
+                        {/*문의 부분*/}
+                        <InquiryWrapper>
+                            <InquiryInfoWrapper>
                                 <div>
-                                    <TagWrapper tag={inquiry.category} darkmode={isDarkMode.toString()}>{inquiryCategories[inquiry.category][lang]}</TagWrapper>
                                     <div>
-                                        {inquiryId && inquiry && inquiry.creatorId === userInfo?.userId &&
-                                          <Dropdown dropdownMenus={inquiryDropdownMenus}/>
-                                        }
+                                        <TagWrapper tag={inquiry.category} darkmode={isDarkMode.toString()}>{inquiryCategories[inquiry.category][lang]}</TagWrapper>
+                                        <div>
+                                            {inquiryId && inquiry && inquiry.creatorId === userInfo?.userId &&
+                                              <Dropdown dropdownMenus={inquiryDropdownMenus}/>
+                                            }
+                                        </div>
                                     </div>
+                                    <h2>{inquiry.title}</h2>
                                 </div>
-                                <h2>{inquiry.title}</h2>
-                            </div>
 
-                            <div>
-                                <WriterWrapper>
-                                    <div>
-                                        <ReactSVG src={noProfile}/>
-                                    </div>
-                                    <span>{inquiry.creator}</span>
-                                </WriterWrapper>
-                                <DateWrapper>{timeStamp}</DateWrapper>
+                                <div>
+                                    <WriterWrapper>
+                                        <div>
+                                            <ReactSVG src={noProfile}/>
+                                        </div>
+                                        <span>{inquiry.creator}</span>
+                                    </WriterWrapper>
+                                    <DateWrapper>{timeStamp}</DateWrapper>
 
-                                <CountsWrapper>
-                                    <div>
-                                        <ReactSVG src={views}/>
-                                        <span>{inquiry.views || 0}</span>
-                                    </div>
-                                    <div>
-                                        <ReactSVG src={likes}/>
-                                        <span>{inquiry.likes || 0}</span>
-                                    </div>
-                                    <div>
-                                        <ReactSVG src={chat}/>
-                                        <span>{inquiry.comments || 0}</span>
-                                    </div>
-                                </CountsWrapper>
-                            </div>
-                        </InquiryInfoWrapper>
+                                    <CountsWrapper>
+                                        <div>
+                                            <ReactSVG src={views}/>
+                                            <span>{inquiry.views || 0}</span>
+                                        </div>
+                                        <div>
+                                            <ReactSVG src={likes}/>
+                                            <span>{inquiry.likes || 0}</span>
+                                        </div>
+                                        <div>
+                                            <ReactSVG src={chat}/>
+                                            <span>{inquiry.comments || 0}</span>
+                                        </div>
+                                    </CountsWrapper>
+                                </div>
+                            </InquiryInfoWrapper>
 
-                        <ContentWrapper darkmode={isDarkMode.toString()}>
-                            <p dangerouslySetInnerHTML={{__html: transformedText}}/>
-                        </ContentWrapper>
+                            <ContentWrapper darkmode={isDarkMode.toString()}>
+                                <p dangerouslySetInnerHTML={{__html: transformedText}}/>
+                            </ContentWrapper>
 
-                        <BtnsWrapper>
-                            <LikeBtnWrapper onClick={likeInquiry} isLiked={isLiked}>
-                                <ReactSVG src={likes}/>
-                                <span>{buttonCategories.like[lang]}</span>
-                            </LikeBtnWrapper>
-                            <CommentBtnWrapper onClick={commentClickHandler}>
-                                <ReactSVG src={chat}/>
-                                <span>{buttonCategories.comment[lang]}</span>
-                            </CommentBtnWrapper>
-                        </BtnsWrapper>
-                    </InquiryWrapper>
+                            <BtnsWrapper>
+                                <LikeBtnWrapper onClick={likeInquiry} isLiked={isLiked}>
+                                    <ReactSVG src={likes}/>
+                                    <span>{buttonCategories.like[lang]}</span>
+                                </LikeBtnWrapper>
+                                <CommentBtnWrapper onClick={commentClickHandler}>
+                                    <ReactSVG src={chat}/>
+                                    <span>{buttonCategories.comment[lang]}</span>
+                                </CommentBtnWrapper>
+                            </BtnsWrapper>
+                        </InquiryWrapper>
 
-                    {/*댓글 부분*/}
-                    <CommentFormWrapper onSubmit={submitHandler}>
-                        <ProfileImgWrapper>
-                            <ReactSVG src={noProfile}/>
-                        </ProfileImgWrapper>
-                        <TextareaWrapper
-                            textLength={text.length}
-                        >
-                            <Textarea
-                                ref={textareaRef}
-                                name={"comment"}
-                                showCount={false}
-                                placeholder={placeholderCategories.comment[lang]}
-                                countOfText={countOfText}
-                                changeTextareaHandler={handleTextChange}
-                                text={text}
-                                isScrolled={false}
-                            />
-                            {text.trim().length > 0 &&
-                              <Button type={"submit"} content={<ReactSVG src={send}/> as ReactElement} width={"fit"} color={"approval"} scale={"small"}/>
-                            }
-                        </TextareaWrapper>
-                    </CommentFormWrapper>
-
-                    {comments.length === 0 ?
-                        <EmptyMessage>{messageCategories.emptyComment[lang]}</EmptyMessage>
-                        :
-                        <CommentListWrapper>
-                            {comments.map((comment, index) => (
-                                <CommentListItem
-                                    key={`${index} ${comment._id}`}
-                                    _id={comment._id}
-                                    content={comment.content}
-                                    author={comment.author}
-                                    authorId={comment.authorId}
-                                    likes={comment.likes}
-                                    createdAt={comment.createdAt}
-                                    isLiked={comment.isLiked}
-                                    setComments={setComments}
-                                    setRefDoc={setInquiry as React.Dispatch<React.SetStateAction<IInquiryProps | IFeedbackProps | INotice>>}
-                                />
-                            ))}
-                        </CommentListWrapper>
-                    }
-                </>
-                :
-                <LoadingLoop/>
-            }
+                        {/*댓글 부분*/}
+                        <Comments
+                            text={text}
+                            textareaRef={textareaRef as MutableRefObject<HTMLTextAreaElement>}
+                            countOfText={countOfText}
+                            handleTextChange={handleTextChange}
+                            comments={comments}
+                            setComments={setComments}
+                            setRefDoc={setInquiry as React.Dispatch<React.SetStateAction<IInquiryProps | IFeedbackProps | INotice>>}
+                            submitHandler={submitHandler}
+                        />
+                    </>
+                    :
+                    <LoadingLoop/>
+                }
+            </Container>
 
             {showConfirmModal &&
-                <Modal
-                  content={
+              <Modal
+                content={
                     <ConfirmContent
                         text={messageCategories.delete[lang]}
                         leftBtn={<Button type={"button"} content={buttonCategories.close[lang]} color={"third"} scale={"normal"} width={"full"} onClick={() => setShowConfirmModal(false)}/> }
                         rightBtn={<Button type={"submit"} content={buttonCategories.delete[lang]} color={"danger"} scale={"normal"} width={"full"} onClick={deleteInquiry}/>}
                     />
-                  }
-                  setModal={() => setShowConfirmModal(false)}
-                  type={"popup"}
-                />
+                }
+                setModal={() => setShowConfirmModal(false)}
+                type={"popup"}
+              />
             }
-        </Container>
+        </>
     );
 };
 

@@ -83,6 +83,7 @@ const NoticePage:FC = () => {
                                 _id={value._id}
                                 createdAt={value.createdAt}
                                 views={value.views}
+                                comments={value.comments}
                             />
                         ))
                         :

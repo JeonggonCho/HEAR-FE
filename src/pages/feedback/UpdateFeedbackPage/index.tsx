@@ -31,11 +31,11 @@ import {Container} from "./style.ts";
 
 
 const UpdateFeedbackPage:FC = () => {
-    const [feedback, setFeedback] = useState<any>();
+    const [feedback, setFeedback] = useState<{title: string, category: "good" | "bad" | "suggest" | "etc" , content: string}>();
     const [updateFeedbackModal, setUpdateFeedbackModal] = useState<boolean>(false);
 
-    const {feedbackId} = useParams();
     const navigate = useNavigate();
+    const {feedbackId} = useParams();
 
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
@@ -56,7 +56,8 @@ const UpdateFeedbackPage:FC = () => {
             const response = await sendRequest({
                 url: `/feedback/${feedbackId}`
             });
-            setFeedback(response.data);
+            const {title, category, content} = response.data.feedback;
+            setFeedback({title, category, content});
         } catch (err) {
             console.error("피드백 조회 중 에러 발생: ", err);
         }

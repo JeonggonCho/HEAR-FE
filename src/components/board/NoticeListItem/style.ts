@@ -27,11 +27,6 @@ export const Container = styled(Link)`
         white-space: nowrap;
     }
     
-    span {
-        font-size: 0.9rem;
-        color: ${({theme}) => theme.colors.font.sub};
-    }
-    
     & + & {
         border-top: 1px solid ${({theme}) => theme.colors.line.main};
     }
@@ -42,5 +37,27 @@ export const Container = styled(Link)`
         h3 {
             color: ${({theme}) => theme.colors.font.primary};
         }
+    }
+`;
+
+export const NoticeInfoWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    div {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        svg {
+            width: 16px;
+            fill: ${({theme}) => theme.colors.icon.fill};
+        }
+    }
+
+    span {
+        font-size: 0.9rem;
+        color: ${({theme}) => theme.colors.font.sub};
     }
 `;

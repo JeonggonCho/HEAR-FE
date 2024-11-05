@@ -43,7 +43,7 @@ const UpdateNoticePage:FC = () => {
             const response = await sendRequest({
                 url: `/notices/${noticeId}`,
             });
-            const {title, content} = response.data;
+            const {title, content} = response.data.notice;
             setNotice({title, content});
         } catch (err) {
             console.error("공지 조회 중 에러 발생: ", err);

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, JSX, MutableRefObject, ReactElement, ReactNode} from "react";
+import React, {ChangeEvent, FormEvent, JSX, MutableRefObject, ReactElement, ReactNode} from "react";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 import {To} from "react-router-dom";
 import {ITab} from "@/types/tab.ts";
@@ -11,6 +11,7 @@ import {
     ILaserTimesinfo,
     IPrinterReservation
 } from "@/types/reservation.ts";
+import {IComment} from "@/types/comment.ts";
 
 // 버튼(Button) props
 export interface IButtonProps {
@@ -411,4 +412,17 @@ export interface IEmailVerificationProps<T extends FieldValues> {
     register: UseFormRegister<T>;
     emailErrorMessage?: string;
     verificationCodeErrorMessage?: string;
+}
+
+
+// 댓글 목록(Comments) props
+export interface ICommentsProps {
+    text: string;
+    textareaRef?: MutableRefObject<HTMLTextAreaElement>;
+    countOfText: number;
+    handleTextChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+    comments: IComment[];
+    setComments: React.Dispatch<React.SetStateAction<IComment[]>>;
+    setRefDoc: React.Dispatch<React.SetStateAction<IInquiryProps | IFeedbackProps | INotice>>;
+    submitHandler: (e: FormEvent<HTMLFormElement>) => Promise<void>;
 }
