@@ -74,4 +74,19 @@ export const placeholderCategories = {
         en: "Please write a comment",
         ch: "请写评论。",
     },
+    question: {
+        ko: "질문",
+        en: "Question",
+        ch: "问题",
+    },
+    explanation: {
+        ko: "질문 부가설명",
+        en: "Question Additional Explanation",
+        ch: "问题附加说明",
+    },
+    answer: {
+        ko: "답",
+        en: "Answer",
+        ch: "答案",
+    },
 };

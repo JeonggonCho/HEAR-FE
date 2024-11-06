@@ -22,6 +22,7 @@ import {Container} from "./style.ts";
 import {HeaderWrapper} from "@pages/notice/NoticePage/style.ts";
 
 import notice from "@assets/images/notice.png";
+import write from "@assets/icons/write.svg";
 
 
 const InquiryPage:FC = () => {
@@ -99,7 +100,11 @@ const InquiryPage:FC = () => {
             </div>
 
             {userData?.role !== "manager" &&
-              <FloatingButton to={"/board/inquiry/new"}/>
+              <FloatingButton
+                type={"link"}
+                to={"/board/inquiry/new"}
+                icon={write}
+              />
             }
         </Container>
     );

@@ -279,4 +279,9 @@ export const buttonCategories = {
         en: "Assistant Handover",
         ch: "助理交接",
     },
+    save: {
+        ko: "저장",
+        en: "Save",
+        ch: "保存",
+    },
 };

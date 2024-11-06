@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
-import {Link} from "react-router-dom";
-import {lighten} from "polished";
+import { Link } from "react-router-dom";
+import { lighten } from "polished";
+import { css, Theme } from "@emotion/react";
 
-export const Container = styled(Link)`
+const commonStyles = (theme: Theme) => css`
     position: fixed;
     bottom: 112px;
     display: flex;
@@ -11,11 +12,12 @@ export const Container = styled(Link)`
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background-color: ${({theme}) => theme.colors.button.primary};
+    background-color: ${theme.colors.button.primary};
     transition: all 0.2s ease-in-out 0s;
+    cursor: pointer;
 
     &:hover {
-        background-color: ${({theme}) => lighten(0.1, theme.colors.button.primary)};
+        background-color: ${lighten(0.1, theme.colors.button.primary)};
         transform: scale(1.05);
     }
 
@@ -30,4 +32,13 @@ export const Container = styled(Link)`
     @media (min-width: 600px) {
         right: calc((100vw - 600px) / 2 + 32px);
     }
+`;
+
+export const LinkWrapper = styled(Link)`
+    ${({ theme }) => commonStyles(theme)}
+`;
+
+export const ButtonWrapper = styled.button`
+    border: none;
+    ${({ theme }) => commonStyles(theme)}
 `;

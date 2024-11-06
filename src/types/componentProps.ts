@@ -190,7 +190,10 @@ export interface INotice {
 
 // 플로팅 버튼(FloatingButton) props
 export interface IFloatingButtonProps {
-    to:To;
+    type: "link" | "button";
+    to?: To;
+    action?: () => void;
+    icon: string;
 }
 
 

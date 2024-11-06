@@ -21,6 +21,7 @@ import {Container} from "./style.ts";
 import {HeaderWrapper} from "@pages/notice/NoticePage/style.ts";
 
 import notice from "@assets/images/notice.png";
+import write from "@assets/icons/write.svg";
 
 
 const FeedbackPage:FC = () => {
@@ -98,7 +99,11 @@ const FeedbackPage:FC = () => {
                 }
             </div>
 
-            <FloatingButton to={"/board/feedback/new"}/>
+            <FloatingButton
+                type={"link"}
+                to={"/board/feedback/new"}
+                icon={write}
+            />
         </Container>
     );
 };

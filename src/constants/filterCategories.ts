@@ -54,4 +54,19 @@ export const filterCategories = {
         en: "2 times",
         ch: "2次",
     },
+    short: {
+        ko: "단답형",
+        en: "Short Answer",
+        ch: "简答",
+    },
+    single: {
+        ko: "단일 선택형",
+        en: "Single Choice",
+        ch: "单项选择",
+    },
+    multiple: {
+        ko: "다중 선택형",
+        en: "Multiple Choice",
+        ch: "多项选择",
+    },
 };

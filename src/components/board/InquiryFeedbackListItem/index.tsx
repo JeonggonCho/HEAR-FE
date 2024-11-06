@@ -1,11 +1,11 @@
 import {FC, useMemo} from 'react';
 import {ReactSVG} from "react-svg";
 
+import getTimeStamp from "@util/getTimeStamp.ts";
 import {IFeedbackProps, IInquiryProps} from "@/types/componentProps.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 import {inquiryCategories} from "@constants/inquiryCategories.ts";
 import {feedbackCategories} from "@constants/feedbackCategories.ts";
-import getTimeStamp from "@util/getTimeStamp.ts";
-import {useThemeStore} from "@store/useThemeStore.ts";
 
 import {BottomWrapper, Container, InfoWrapper, TagWrapper, TitleWrapper, WriterWrapper} from "./style.ts";
 
@@ -13,6 +13,7 @@ import noProfile from "@assets/icons/no_profile.svg";
 import views from "@assets/icons/visible.svg";
 import likes from "@assets/icons/feedback.svg";
 import comments from "@assets/icons/chat.svg";
+
 
 const InquiryFeedbackListItem:FC<IInquiryProps | IFeedbackProps> = (props) => {
     const {lang, isDarkMode} = useThemeStore();

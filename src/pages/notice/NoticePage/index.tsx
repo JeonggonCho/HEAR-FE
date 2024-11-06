@@ -10,6 +10,7 @@ import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
 import {INotice} from "@/types/componentProps.ts";
+import {ITab} from "@/types/tab.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
@@ -20,7 +21,7 @@ import {messageCategories} from "@constants/messageCategories.ts";
 import {Container, HeaderWrapper, NoticeListItemWrapper} from "./style.ts";
 
 import notice from "@assets/images/notice.png";
-import {ITab} from "@/types/tab.ts";
+import write from "@assets/icons/write.svg";
 
 
 const NoticePage:FC = () => {
@@ -91,7 +92,11 @@ const NoticePage:FC = () => {
                     }
 
                     {userData?.role === "manager" &&
-                      <FloatingButton to={"/board/notice/new"}/>
+                      <FloatingButton
+                        type={"link"}
+                        to={"/board/notice/new"}
+                        icon={write}
+                      />
                     }
                 </NoticeListItemWrapper>
             }

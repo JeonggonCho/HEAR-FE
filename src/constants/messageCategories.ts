@@ -409,4 +409,9 @@ export const messageCategories = {
         en: "Your account has been successfully deleted after transferring the assistant role",
         ch: "在移交助教角色后，您的账户已成功注销",
     },
+    emptyQuestion: {
+        ko: "생성된 문제가 없습니다",
+        en: "No questions have been generated",
+        ch: "没有生成的问题",
+    },
 };
