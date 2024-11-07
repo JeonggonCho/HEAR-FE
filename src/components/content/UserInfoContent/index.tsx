@@ -9,6 +9,7 @@ import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import Modal from "@components/common/Modal";
 import ConfirmContent from "@components/content/ConfirmContent";
+import ProfileImage from "@components/common/ProfileImage";
 
 import useRequest from "@hooks/useRequest.ts";
 import useAuth from "@hooks/useAuth.ts";
@@ -25,7 +26,6 @@ import {messageCategories} from "@constants/messageCategories.ts";
 
 import {Buttons, CloseButton, Container, FieldWrapper, PassTag, PassWrapper, WarningWrapper} from "./style.ts";
 
-import userIcon from "@assets/images/no_profile.png";
 import close from "@assets/icons/close.svg";
 
 
@@ -279,9 +279,7 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
                     <ReactSVG src={close}/>
                   </CloseButton>
 
-                  <div>
-                    <img src={userIcon} alt={"no_profile"}/>
-                  </div>
+                  <ProfileImage size={72}/>
 
                   <h3>{user?.username}</h3>
 

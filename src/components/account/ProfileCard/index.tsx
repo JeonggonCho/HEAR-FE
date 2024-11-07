@@ -1,7 +1,7 @@
 import {FC} from "react";
-import {ReactSVG} from "react-svg";
 
 import CardLoading from "@components/skeleton/CardLoading";
+import ProfileImage from "@components/common/ProfileImage";
 
 import {useUserInfoStore, useUserDataStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
@@ -9,7 +9,6 @@ import {cardCategories} from "@constants/cardCategories.ts";
 
 import {Container, NameEmailWrapper} from "./style.ts";
 
-import noProfile from "@assets/icons/no_profile.svg";
 
 const ProfileCard:FC<{isLoading: boolean}> = ({isLoading}) => {
     const {userInfo} = useUserInfoStore();
@@ -19,9 +18,7 @@ const ProfileCard:FC<{isLoading: boolean}> = ({isLoading}) => {
     return (
         <Container>
             <NameEmailWrapper>
-                <div>
-                    <ReactSVG src={noProfile}/>
-                </div>
+                <ProfileImage size={48}/>
                 <div>
                     <p>{userInfo?.username}</p>
                     <span>{userInfo?.email.split("@")[0]}</span>

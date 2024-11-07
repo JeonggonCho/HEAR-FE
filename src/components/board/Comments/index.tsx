@@ -4,15 +4,15 @@ import {ReactSVG} from "react-svg";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
 import CommentListItem from "@components/board/CommentListItem";
+import ProfileImage from "@components/common/ProfileImage";
 
 import {ICommentsProps, IFeedbackProps, IInquiryProps, INotice} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
-import {CommentListWrapper, Container, ProfileImgWrapper, TextareaWrapper, EmptyMessage} from "./style.ts";
+import {CommentListWrapper, Container, TextareaWrapper, EmptyMessage} from "./style.ts";
 
-import noProfile from "@assets/icons/no_profile.svg";
 import send from "@assets/icons/send.svg";
 
 
@@ -22,9 +22,7 @@ const Comments:FC<ICommentsProps> = ({text, textareaRef, countOfText, handleText
     return (
         <>
             <Container onSubmit={submitHandler}>
-                <ProfileImgWrapper>
-                    <ReactSVG src={noProfile}/>
-                </ProfileImgWrapper>
+                <ProfileImage size={28}/>
                 <TextareaWrapper textLength={text.length}>
                     <Textarea
                         ref={textareaRef}

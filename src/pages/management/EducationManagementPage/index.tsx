@@ -1,5 +1,6 @@
 import {FC, useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
+import { v4 as uuidv4 } from "uuid";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
@@ -9,6 +10,7 @@ import QuestionListItem from "@components/management/QuestionListItem";
 import Button from "@components/common/Button";
 import Modal from "@components/common/Modal";
 import Empty from "@components/common/Empty";
+import ConfirmContent from "@components/content/ConfirmContent";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IEducation} from "@/types/education.ts";
@@ -27,6 +29,7 @@ import tune from "@assets/icons/tune.svg"
 const EducationManagementPage:FC = () => {
     const [questions, setQuestions] = useState<IEducation[]>([]);
     const [showFilter, setShowFilter] = useState<boolean>(false);
+    const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
 
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
@@ -53,8 +56,9 @@ const EducationManagementPage:FC = () => {
 
     // 문제 추가하기
     const addQuestion = () => {
-        const newQuestion = {
-            _id: "1",
+        const newQuestion: IEducation = {
+            _id: uuidv4(),
+            educationType: "shortAnswer",
             question: "",
             description: "",
             answer: [""],
@@ -63,14 +67,13 @@ const EducationManagementPage:FC = () => {
     };
 
     // 문제 제거하기
-    const removeQuestion = (targetIndex: number) => {
-        console.log(targetIndex);
-        const remainedQuestions = questions.filter((_, index) => index !== targetIndex);
+    const removeQuestion = (targetIndex: string) => {
+        const remainedQuestions = questions.filter((question) => question._id !== targetIndex);
         setQuestions(remainedQuestions);
     };
 
     // 문제 저장하기
-    const saveQuestion = useCallback(async () => {
+    const saveQuestions = useCallback(async () => {
         try {
             const response = await sendRequest({
                 url: "/education",
@@ -97,6 +100,34 @@ const EducationManagementPage:FC = () => {
         return () => clearTimeout(errorTimer);
     }, [errorText]);
 
+    // 문제 저장 확인 모달 띄우기
+    const showConfirmModalHandler = () => {
+        setShowConfirmModal(true);
+    };
+
+    // 문제 저장 확인 모달내용
+    const SaveConfirmModalContent = () => (
+        <ConfirmContent
+            text={"교육 문제를 저장하시겠습니까?"}
+            leftBtn={<Button
+                type={"button"}
+                content={buttonCategories.close[lang]}
+                width={"full"}
+                scale={"normal"}
+                color={"third"}
+                onClick={() => setShowConfirmModal(false)}
+            />}
+            rightBtn={<Button
+                type={"button"}
+                content={buttonCategories.save[lang]}
+                width={"full"}
+                scale={"normal"}
+                color={"primary"}
+                onClick={saveQuestions}
+            />}
+        />
+    );
+
 
     return (
         <>
@@ -114,7 +145,7 @@ const EducationManagementPage:FC = () => {
                     width={"fit"}
                     color={"primary"}
                     scale={"small"}
-                    onClick={saveQuestion}
+                    onClick={showConfirmModalHandler}
                 />
             </MenusWrapper>
 
@@ -127,9 +158,8 @@ const EducationManagementPage:FC = () => {
                             <>
                                 {questions.map((question, index) => (
                                     <QuestionListItem
-                                        key={index}
+                                        key={question._id}
                                         index={index}
-                                        questionId={index}
                                         removeQuestion={removeQuestion}
                                         question={question}
                                     />
@@ -155,6 +185,14 @@ const EducationManagementPage:FC = () => {
                   content={<></>}
                   setModal={setShowFilter}
                   type={"bottomSheet"}
+                />
+            }
+
+            {showConfirmModal &&
+                <Modal
+                  content={<SaveConfirmModalContent/>}
+                  setModal={setShowConfirmModal}
+                  type={"popup"}
                 />
             }
         </>

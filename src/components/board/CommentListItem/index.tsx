@@ -1,11 +1,11 @@
 import {FC, useEffect, useMemo, useRef, useState} from "react";
-import {ReactSVG} from "react-svg";
 
 import Button from "@components/common/Button";
 import Dropdown from "@components/common/Dropdown";
 import Modal from "@components/common/Modal";
 import ConfirmContent from "@components/content/ConfirmContent";
 import Textarea from "@components/common/Textarea";
+import ProfileImage from "@components/common/ProfileImage";
 
 import getTimeStamp from "@util/getTimeStamp.ts";
 import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
@@ -28,12 +28,10 @@ import {
     ContentWrapper, EditBtnWrapper,
     LeftPartWrapper,
     LikeBtnWrapper,
-    ProfileImgWrapper,
     RightPartWrapper,
     TimeWrapper
 } from "./style.ts";
 
-import noProfile from "@assets/icons/no_profile.svg";
 import deleteIcon from "@assets/icons/delete.svg";
 import editIcon from "@assets/icons/edit.svg";
 
@@ -166,9 +164,7 @@ const CommentListItem:FC<IComment> = (props) => {
     return (
         <Container>
             <LeftPartWrapper>
-                <ProfileImgWrapper>
-                    <ReactSVG src={noProfile}/>
-                </ProfileImgWrapper>
+                <ProfileImage size={28}/>
                 <div/>
             </LeftPartWrapper>
 

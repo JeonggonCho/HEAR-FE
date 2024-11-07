@@ -11,6 +11,7 @@ import Button from "@components/common/Button";
 import Modal from "@components/common/Modal";
 import ConfirmContent from "@components/content/ConfirmContent";
 import Comments from "@components/board/Comments";
+import ProfileImage from "@components/common/ProfileImage";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
@@ -37,7 +38,6 @@ import {
 } from "./style.ts";
 import {TagWrapper, WriterWrapper} from "@components/board/InquiryFeedbackListItem/style.ts";
 
-import noProfile from "@assets/icons/no_profile.svg";
 import views from "@assets/icons/visible.svg";
 import likes from "@assets/icons/feedback.svg";
 import chat from "@assets/icons/chat.svg";
@@ -225,9 +225,7 @@ const InquiryDetailPage:FC = () => {
 
                                 <div>
                                     <WriterWrapper>
-                                        <div>
-                                            <ReactSVG src={noProfile}/>
-                                        </div>
+                                        <ProfileImage size={24}/>
                                         <span>{inquiry.creator}</span>
                                     </WriterWrapper>
                                     <DateWrapper>{timeStamp}</DateWrapper>

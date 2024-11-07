@@ -103,28 +103,6 @@ export const WriterWrapper = styled.div`
     align-items: center;
     gap: 6px;
     
-    & > div:first-of-type {
-        width: 24px;
-        height: 24px;
-        overflow: hidden;
-        border-radius: 50%;
-        background-color: ${({theme}) => theme.colors.bg.sub};
-        border: 1px solid ${({theme}) => theme.colors.line.main};
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        
-        svg {
-            fill: ${({theme}) => theme.colors.icon.fill};
-        }
-        
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    }
-    
     // 작성자 이름
     & > span:first-of-type {
         font-size: 0.9rem;

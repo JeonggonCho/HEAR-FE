@@ -41,23 +41,6 @@ export const NameEmailWrapper = styled.div`
     gap: 12px;
     margin-bottom: 16px;
 
-    & > div:first-of-type {
-        min-width: 48px;
-        width: 48px;
-        height: 48px;
-        overflow: hidden;
-        border-radius: 50%;
-        border: 1px solid ${({theme}) => theme.colors.line.main};
-        background-color: ${({theme}) => theme.colors.bg.sub};
-
-        svg {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            fill: ${({theme}) => theme.colors.icon.fill};
-        }
-    }
-
     & > div:last-of-type {
         display: flex;
         flex-direction: column;

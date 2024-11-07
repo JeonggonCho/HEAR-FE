@@ -7,22 +7,6 @@ export const Container = styled.div`
     margin: 24px 0;
 `;
 
-export const ProfileImgWrapper = styled.div`
-    border-radius: 50%;
-    border: 1px solid ${({theme}) => theme.colors.line.main};
-    background-color: ${({theme}) => theme.colors.bg.main};
-    width: 28px;
-    height: 28px;
-    overflow: hidden;
-    
-    svg {
-        fill: ${({theme}) => theme.colors.icon.fill};
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-`;
-
 export const LeftPartWrapper = styled.div`
     display: flex;
     flex-direction: column;

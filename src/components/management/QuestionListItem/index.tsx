@@ -14,8 +14,8 @@ import close from "@assets/icons/close.svg";
 import drag from "@assets/icons/drag_line.svg";
 
 
-const QuestionListItem:FC<{index: number, questionId: number, removeQuestion: (questionId: number) => void, question: IEducation}> = ({index, questionId, removeQuestion, question}) => {
-    const [questionType, setQuestionType] = useState("shortAnswer");
+const QuestionListItem:FC<{index: number, removeQuestion: (questionId: string) => void, question: IEducation}> = ({index, questionId, removeQuestion, question}) => {
+    const [questionType, setQuestionType] = useState(question.educationType || "shortAnswer");
 
     const {lang} = useThemeStore();
 
@@ -26,7 +26,7 @@ const QuestionListItem:FC<{index: number, questionId: number, removeQuestion: (q
                     <ReactSVG src={drag}/>
                 </DragIndicator>
                 <IndexWrapper>{index + 1}</IndexWrapper>
-                <RemoveWrapper onClick={() => removeQuestion(questionId)}>
+                <RemoveWrapper onClick={() => removeQuestion(question._id)}>
                     <ReactSVG src={close}/>
                 </RemoveWrapper>
             </div>
@@ -41,7 +41,7 @@ const QuestionListItem:FC<{index: number, questionId: number, removeQuestion: (q
                 <select
                     defaultValue={"shortAnswer"}
                     onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                        setQuestionType(e.target.value);
+                        setQuestionType(e.target.value as "shortAnswer" | "singleChoice" | "multipleChoice");
                     }}
                 >
                     <option value={"shortAnswer"}>{filterCategories.short[lang]}</option>

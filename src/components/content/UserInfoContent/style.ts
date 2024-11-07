@@ -5,19 +5,7 @@ export const Container = styled.div`
 
     // 프로필 이미지
     & > div:nth-of-type(2) {
-        width: 72px;
-        height: 72px;
-        overflow: hidden;
-        padding: 16px;
         margin: 20px auto 12px;
-        border-radius: 50%;
-        background-color: ${({theme}) => theme.colors.bg.sub};
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
     }
 
     h3 {
