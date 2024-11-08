@@ -86,17 +86,17 @@ const TimeListContent:FC<ITimeListContentProps> = ({timeList, setTimeList}) => {
         // 영역 이외의 곳으로 드래그앤드롭 시, 적용 안 됨
         if (!result.destination) return;
         // 새로운 시간 목록 생성하기
-        const newTimeList = Array.from(timeList);
+        const updatedTimeList = Array.from(timeList);
         // 드래그한 항목 제거 후, 새로운 위치에 삽입하기
-        const [removed] = newTimeList.splice(result.source.index, 1);
-        newTimeList.splice(result.destination.index, 0, removed);
+        const [movedItem] = updatedTimeList.splice(result.source.index, 1);
+        updatedTimeList.splice(result.destination.index, 0, movedItem);
 
-        setTimeList && setTimeList(newTimeList);
+        setTimeList && setTimeList(updatedTimeList);
         try {
             await sendRequest({
                 url: "/machines/lasers/times",
                 method: "patch",
-                data: newTimeList.map((t) => (
+                data: updatedTimeList.map((t) => (
                     {
                         id: t.id,
                         startTime: t.startTime,
@@ -116,6 +116,7 @@ const TimeListContent:FC<ITimeListContentProps> = ({timeList, setTimeList}) => {
         const errorTimer = setTimeout(() => clearError(), 6000);
         return () => clearTimeout(errorTimer);
     }, [errorText]);
+
 
     return (
         <Container>

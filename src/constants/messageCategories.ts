@@ -414,4 +414,14 @@ export const messageCategories = {
         en: "No questions have been generated",
         ch: "没有生成的问题",
     },
+    confirmSaveQuestions: {
+        ko: "문제를 저장하시겠습니까?",
+        en: "Would you like to save the question?",
+        ch: "您想保存问题吗？",
+    },
+    warningSaveQuestions: {
+        ko: "누락된 질문과 정답이 없는지 확인해보세요",
+        en: "Please check for any missing questions or answers",
+        ch: "请检查是否有遗漏的问题或答案",
+    },
 };

@@ -37,4 +37,29 @@ export const MenusWrapper = styled.div`
             }
         }
     }
+    
+    & > div:last-of-type {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        
+        & > div:first-of-type {
+            width: 28px;
+            height: 28px;
+            overflow: hidden;
+            cursor: pointer;
+            
+            svg {
+                width: 100%;
+                height: 100%;
+                fill: ${({theme}) => theme.colors.icon.fill};
+                object-fit: cover;
+                transition: all 0.2s ease-in-out 0s;
+                
+                &:hover {
+                    fill: ${({theme}) => theme.colors.font.main};
+                }
+            }
+        }
+    }
 `;

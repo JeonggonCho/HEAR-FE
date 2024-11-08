@@ -209,4 +209,19 @@ export const inputCategories = {
         en: "Please enter in Korean",
         ch: "请用韩语输入",
     },
+    questionType: {
+        ko: "문제 유형",
+        en: "Question Type",
+        ch: "问题类型",
+    },
+    option: {
+        ko: "옵션",
+        en: "Options",
+        ch: "选项",
+    },
+    answer: {
+        ko: "답",
+        en: "Answer",
+        ch: "答案",
+    }
 };

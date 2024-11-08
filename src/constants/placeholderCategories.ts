@@ -89,4 +89,9 @@ export const placeholderCategories = {
         en: "Answer",
         ch: "答案",
     },
+    optionContent: {
+        ko: "옵션 내용",
+        en: "Option Content",
+        ch: "选项内容",
+    },
 };

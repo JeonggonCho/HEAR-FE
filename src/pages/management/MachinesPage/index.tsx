@@ -85,6 +85,7 @@ const MachinesPage:FC = () => {
         return () => clearTimeout(errorTimer);
     }, [errorText]);
 
+
     return (
         <Container>
             <HeadTag title={headerCategories.machineManagementHeader[lang]}/>
