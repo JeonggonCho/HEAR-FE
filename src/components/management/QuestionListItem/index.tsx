@@ -1,16 +1,18 @@
-import React, {ChangeEvent, FC, useState} from "react";
+import {ChangeEvent, FC, useState} from "react";
 import {ReactSVG} from "react-svg";
 import { v4 as uuidv4 } from "uuid";
-import {Draggable} from "@hello-pangea/dnd";
+import {DragDropContext, Draggable, Droppable} from "@hello-pangea/dnd";
 
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 
+import {IQuestionListItemProps} from "@/types/componentProps.ts";
 import {EducationType, IMultipleChoice, IShortAnswer, ISingleChoice} from "@/types/education.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {filterCategories} from "@constants/filterCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 
 import {
     Container,
@@ -27,15 +29,9 @@ import dragQuestion from "@assets/icons/drag_line.svg";
 import dragOption from "@assets/icons/drag.svg";
 import add from "@assets/icons/add.svg";
 import remove from "@assets/icons/remove.svg";
-import {buttonCategories} from "@constants/buttonCategories.ts";
 
 
-const QuestionListItem:FC<{
-    index: number,
-    removeQuestion: (questionId: string) => void,
-    question: EducationType,
-    setQuestions: React.Dispatch<React.SetStateAction<EducationType[]>>
-}> = ({index, removeQuestion, question, setQuestions}) => {
+const QuestionListItem:FC<IQuestionListItemProps> = ({index, removeQuestion, question, setQuestions}) => {
     const [questionType, setQuestionType] = useState<"shortAnswer" | "singleChoice" | "multipleChoice">(question.questionType || "shortAnswer");
     const [showExplanation, setShowExplanation] = useState<boolean>(false);
 
@@ -161,6 +157,28 @@ const QuestionListItem:FC<{
         });
     };
 
+    // 옵션 목록 드래그
+    const onDragEnd = (result: any) => {
+        const {destination, source} = result;
+
+        if (!destination) return;
+        if (destination.index === source.index) return;
+
+        const updatedOptions = Array.from((question as ISingleChoice | IMultipleChoice).options);
+        const [movedItem] = updatedOptions.splice(source.index, 1);
+        updatedOptions.splice(destination.index, 0, movedItem);
+        setQuestions(prevState => {
+            const questions = [...prevState];
+            const targetIndex = questions.findIndex(q => q._id === question._id);
+            if (targetIndex !== -1) {
+                const currentQuestion = questions[targetIndex] as ISingleChoice | IMultipleChoice;
+
+                questions[targetIndex] = {...currentQuestion, options: updatedOptions};
+            }
+            return questions;
+        });
+    };
+
     // 옵션 제거하기
     const removeOption = (targetOptionId: string) => {
         if ((question as ISingleChoice | IMultipleChoice).options.length <= 1) return;
@@ -256,99 +274,168 @@ const QuestionListItem:FC<{
     return (
         <Draggable draggableId={question._id} index={index}>
             {(provided, snapshot) => (
-                (
-                    <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        style={{...provided.draggableProps.style}}
-                    >
-                        <Container isDragging={snapshot.isDragging}>
-                            <div>
-                                <DragIndicator {...provided.dragHandleProps}>
-                                    <ReactSVG src={dragQuestion}/>
-                                </DragIndicator>
-                                <IndexWrapper>{index + 1}</IndexWrapper>
-                                <RemoveWrapper onClick={() => removeQuestion(question._id)}>
-                                    <ReactSVG src={close}/>
-                                </RemoveWrapper>
-                            </div>
+                <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    style={{...provided.draggableProps.style}}
+                >
+                    <Container isDragging={snapshot.isDragging}>
+                        <div>
+                            <DragIndicator {...provided.dragHandleProps}>
+                                <ReactSVG src={dragQuestion}/>
+                            </DragIndicator>
+                            <IndexWrapper>{index + 1}</IndexWrapper>
+                            <RemoveWrapper onClick={() => removeQuestion(question._id)}>
+                                <ReactSVG src={close}/>
+                            </RemoveWrapper>
+                        </div>
 
-                            {/*질문 입력 부분, 문제유형*/}
-                            <div>
+                        {/*질문 입력 부분, 문제유형*/}
+                        <div>
+                            <Input
+                                label={placeholderCategories.question[lang]}
+                                placeholder={placeholderCategories.question[lang]}
+                                type={"text"}
+                                id={"question"}
+                                name={"question"}
+                                value={question.question || ""}
+                                onChange={changeQuestionHandler}
+                            />
+                            <QuestionTypeWrapper>
+                                <label>{inputCategories.questionType[lang]}</label>
+                                <select
+                                    defaultValue={questionType}
+                                    onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+                                        setQuestionType(e.target.value as "shortAnswer" | "singleChoice" | "multipleChoice");
+                                        changeQuestionTypeHandler(e.target.value as "shortAnswer" | "singleChoice" | "multipleChoice");
+                                    }}
+                                >
+                                    <option value={"shortAnswer"}>{filterCategories.short[lang]}</option>
+                                    <option value={"singleChoice"}>{filterCategories.single[lang]}</option>
+                                    <option value={"multipleChoice"}>{filterCategories.multiple[lang]}</option>
+                                </select>
+                            </QuestionTypeWrapper>
+                        </div>
+
+                        {/*질문 부가설명 입력 부분*/}
+                        {showExplanation ?
+                            <ExplanationWrapper>
                                 <Input
-                                    label={placeholderCategories.question[lang]}
-                                    placeholder={placeholderCategories.question[lang]}
+                                    label={placeholderCategories.explanation[lang]}
+                                    placeholder={placeholderCategories.explanation[lang]}
                                     type={"text"}
-                                    id={"question"}
-                                    name={"question"}
-                                    value={question.question || ""}
-                                    onChange={changeQuestionHandler}
+                                    id={"description"}
+                                    name={"description"}
+                                    value={question.explanation || ""}
+                                    onChange={changeExplanationHandler}
                                 />
-                                <QuestionTypeWrapper>
-                                    <label>{inputCategories.questionType[lang]}</label>
-                                    <select
-                                        defaultValue={questionType}
-                                        onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                                            setQuestionType(e.target.value as "shortAnswer" | "singleChoice" | "multipleChoice");
-                                            changeQuestionTypeHandler(e.target.value as "shortAnswer" | "singleChoice" | "multipleChoice");
-                                        }}
-                                    >
-                                        <option value={"shortAnswer"}>{filterCategories.short[lang]}</option>
-                                        <option value={"singleChoice"}>{filterCategories.single[lang]}</option>
-                                        <option value={"multipleChoice"}>{filterCategories.multiple[lang]}</option>
-                                    </select>
-                                </QuestionTypeWrapper>
-                            </div>
-
-                            {/*질문 부가설명 입력 부분*/}
-                            {showExplanation || question.explanation ?
-                                <ExplanationWrapper>
-                                    <Input
-                                        label={placeholderCategories.explanation[lang]}
-                                        placeholder={placeholderCategories.explanation[lang]}
-                                        type={"text"}
-                                        id={"description"}
-                                        name={"description"}
-                                        value={question.explanation || ""}
-                                        onChange={changeExplanationHandler}
-                                    />
-                                    <Button
-                                        type={"button"}
-                                        content={<ReactSVG src={close}/>}
-                                        width={"fit"}
-                                        color={"third"}
-                                        scale={"small"}
-                                        onClick={closeExplanationHandler}
-                                    />
-                                </ExplanationWrapper>
-                                :
                                 <Button
                                     type={"button"}
-                                    content={buttonCategories.addExplanation[lang]}
-                                    width={"full"}
+                                    content={<ReactSVG src={close}/>}
+                                    width={"fit"}
                                     color={"third"}
                                     scale={"small"}
-                                    onClick={openExplanationHandler}
+                                    onClick={closeExplanationHandler}
                                 />
-                            }
+                            </ExplanationWrapper>
+                            :
+                            <Button
+                                type={"button"}
+                                content={buttonCategories.addExplanation[lang]}
+                                width={"full"}
+                                color={"third"}
+                                scale={"small"}
+                                onClick={openExplanationHandler}
+                            />
+                        }
 
-                            {questionType === "shortAnswer" ?
-                                <TextAnswerWrapper>
-                                    <Input
-                                        label={inputCategories.answer[lang]}
-                                        placeholder={placeholderCategories.answer[lang]}
-                                        type={"text"}
-                                        id={"단답형"}
-                                        name={"단답형"}
-                                        value={(question as IShortAnswer).answer || ""}
-                                        onChange={changeShortAnswerHandler}
-                                    />
-                                </TextAnswerWrapper>
+                        {/*옵션 및 답 지정 부분*/}
+                        {questionType === "shortAnswer" ?
+                            <TextAnswerWrapper>
+                                <Input
+                                    label={inputCategories.answer[lang]}
+                                    placeholder={placeholderCategories.answer[lang]}
+                                    type={"text"}
+                                    id={"단답형"}
+                                    name={"단답형"}
+                                    value={(question as IShortAnswer).answer || ""}
+                                    onChange={changeShortAnswerHandler}
+                                />
+                            </TextAnswerWrapper>
+                            :
+                            questionType === "singleChoice" ?
+                                <OptionsWrapper>
+                                    <div>
+                                        <label>{`${inputCategories.option[lang]} (${(question as ISingleChoice).options.length})`}</label>
+                                        <Button
+                                            type={"button"}
+                                            content={<ReactSVG src={add}/>}
+                                            width={"fit"}
+                                            color={"third"}
+                                            scale={"small"}
+                                            onClick={addOption}
+                                        />
+                                    </div>
+
+                                    <DragDropContext onDragEnd={onDragEnd}>
+                                        <div className="options">
+                                            <Droppable droppableId="options">
+                                                {(provided) => (
+                                                    <div
+                                                        ref={provided.innerRef}
+                                                        {...provided.droppableProps}
+                                                    >
+                                                        {(question as ISingleChoice).options.map((opt, index) => (
+                                                            <Draggable draggableId={opt.optionId} index={index}>
+                                                                {(provided, snapshot) => (
+                                                                    <div
+                                                                        ref={provided.innerRef}
+                                                                        {...provided.draggableProps}
+                                                                        style={{...provided.draggableProps.style}}
+                                                                    >
+                                                                        <OptionListItemWrapper key={opt.optionId} isDragging={snapshot.isDragging}>
+                                                                            <div {...provided.dragHandleProps}>
+                                                                                <ReactSVG src={dragOption}/>
+                                                                            </div>
+                                                                            <Input
+                                                                                placeholder={placeholderCategories.optionContent[lang]}
+                                                                                type={"text"}
+                                                                                id={"option"}
+                                                                                name={"option"}
+                                                                                value={opt.content}
+                                                                                onChange={(e) => changeOptionContentHandler(opt.optionId, e.target.value as string)}
+                                                                            />
+                                                                            <input
+                                                                                type={"radio"}
+                                                                                onChange={() => changeSingleChoiceAnswerHandler(opt.optionId as string)}
+                                                                                checked={opt.isAnswer}
+                                                                                id={opt.optionId}
+                                                                            />
+                                                                            <Button
+                                                                                type={"button"}
+                                                                                content={<ReactSVG src={remove}/>}
+                                                                                width={"fit"}
+                                                                                color={"third"}
+                                                                                scale={"small"}
+                                                                                onClick={() => removeOption(opt.optionId)}
+                                                                            />
+                                                                        </OptionListItemWrapper>
+                                                                    </div>
+                                                                )}
+                                                            </Draggable>
+                                                        ))}
+                                                        {provided.placeholder}
+                                                    </div>
+                                                )}
+                                            </Droppable>
+                                        </div>
+                                    </DragDropContext>
+                                </OptionsWrapper>
                                 :
-                                questionType === "singleChoice" ?
+                                questionType === "multipleChoice" ?
                                     <OptionsWrapper>
                                         <div>
-                                            <label>{`${inputCategories.option[lang]} (${(question as ISingleChoice).options.length})`}</label>
+                                            <label>{`${inputCategories.option[lang]} (${(question as IMultipleChoice).options.length})`}</label>
                                             <Button
                                                 type={"button"}
                                                 content={<ReactSVG src={add}/>}
@@ -358,86 +445,66 @@ const QuestionListItem:FC<{
                                                 onClick={addOption}
                                             />
                                         </div>
-                                        {(question as ISingleChoice).options.map((opt) => (
-                                            <OptionListItemWrapper key={opt.optionId}>
-                                                <div>
-                                                    <ReactSVG src={dragOption}/>
-                                                </div>
-                                                <Input
-                                                    placeholder={placeholderCategories.optionContent[lang]}
-                                                    type={"text"}
-                                                    id={"option"}
-                                                    name={"option"}
-                                                    value={opt.content}
-                                                    onChange={(e) => changeOptionContentHandler(opt.optionId, e.target.value as string)}
-                                                />
-                                                <input
-                                                    type={"radio"}
-                                                    onChange={() => changeSingleChoiceAnswerHandler(opt.optionId as string)}
-                                                    checked={opt.isAnswer}
-                                                    id={opt.optionId}
-                                                />
-                                                <Button
-                                                    type={"button"}
-                                                    content={<ReactSVG src={remove}/>}
-                                                    width={"fit"}
-                                                    color={"third"}
-                                                    scale={"small"}
-                                                    onClick={() => removeOption(opt.optionId)}
-                                                />
-                                            </OptionListItemWrapper>
-                                        ))}
+
+                                        <DragDropContext onDragEnd={onDragEnd}>
+                                            <div className="options">
+                                                <Droppable droppableId="options">
+                                                    {(provided) => (
+                                                        <div
+                                                            ref={provided.innerRef}
+                                                            {...provided.droppableProps}
+                                                        >
+                                                            {(question as IMultipleChoice).options.map((opt, index) => (
+                                                                <Draggable draggableId={opt.optionId} index={index} key={opt.optionId}>
+                                                                    {(provided, snapshot) => (
+                                                                        <div
+                                                                            ref={provided.innerRef}
+                                                                            {...provided.draggableProps}
+                                                                            style={{ ...provided.draggableProps.style }}
+                                                                        >
+                                                                            <OptionListItemWrapper key={opt.optionId} isDragging={snapshot.isDragging}>
+                                                                                <div {...provided.dragHandleProps}>
+                                                                                    <ReactSVG src={dragOption}/>
+                                                                                </div>
+                                                                                <Input
+                                                                                    placeholder={placeholderCategories.optionContent[lang]}
+                                                                                    type={"text"}
+                                                                                    id={"option"}
+                                                                                    name={"option"}
+                                                                                    value={opt.content}
+                                                                                    onChange={(e) => changeOptionContentHandler(opt.optionId, e.target.value as string)}
+                                                                                />
+                                                                                <input
+                                                                                    type={"checkbox"}
+                                                                                    onChange={() => changeMultipleChoiceAnswersHandler(opt.optionId as string)}
+                                                                                    checked={opt.isAnswer}
+                                                                                    id={opt.optionId}
+                                                                                />
+                                                                                <Button
+                                                                                    type={"button"}
+                                                                                    content={<ReactSVG src={remove}/>}
+                                                                                    width={"fit"}
+                                                                                    color={"third"}
+                                                                                    scale={"small"}
+                                                                                    onClick={() => removeOption(opt.optionId)}
+                                                                                />
+                                                                            </OptionListItemWrapper>
+                                                                        </div>
+                                                                    )}
+                                                                </Draggable>
+                                                            ))}
+                                                            {provided.placeholder}
+                                                        </div>
+                                                    )}
+                                                </Droppable>
+                                            </div>
+                                        </DragDropContext>
                                     </OptionsWrapper>
                                     :
-                                    questionType === "multipleChoice" ?
-                                        <OptionsWrapper>
-                                            <div>
-                                                <label>{`${inputCategories.option[lang]} (${(question as ISingleChoice).options.length})`}</label>
-                                                <Button
-                                                    type={"button"}
-                                                    content={<ReactSVG src={add}/>}
-                                                    width={"fit"}
-                                                    color={"third"}
-                                                    scale={"small"}
-                                                    onClick={addOption}
-                                                />
-                                            </div>
-                                            {(question as IMultipleChoice).options.map((opt) => (
-                                                <OptionListItemWrapper key={opt.optionId}>
-                                                    <div>
-                                                        <ReactSVG src={dragOption}/>
-                                                    </div>
-                                                    <Input
-                                                        placeholder={placeholderCategories.optionContent[lang]}
-                                                        type={"text"}
-                                                        id={"option"}
-                                                        name={"option"}
-                                                        value={opt.content}
-                                                        onChange={(e) => changeOptionContentHandler(opt.optionId, e.target.value as string)}
-                                                    />
-                                                    <input
-                                                        type={"checkbox"}
-                                                        onChange={() => changeMultipleChoiceAnswersHandler(opt.optionId as string)}
-                                                        checked={opt.isAnswer}
-                                                        id={opt.optionId}
-                                                    />
-                                                    <Button
-                                                        type={"button"}
-                                                        content={<ReactSVG src={remove}/>}
-                                                        width={"fit"}
-                                                        color={"third"}
-                                                        scale={"small"}
-                                                        onClick={() => removeOption(opt.optionId)}
-                                                    />
-                                                </OptionListItemWrapper>
-                                            ))}
-                                        </OptionsWrapper>
-                                        :
-                                        <></>
-                            }
-                        </Container>
-                    </div>
-                )
+                                    <></>
+                        }
+                    </Container>
+                </div>
             )}
         </Draggable>
     );

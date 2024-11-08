@@ -162,11 +162,15 @@ export const OptionsWrapper = styled.div`
     }
 `;
 
-export const OptionListItemWrapper = styled.div`
+export const OptionListItemWrapper = styled.div<{ isDragging: boolean }>`
     width: 100%;
     display: flex;
     align-items: center;
     gap: 12px;
+    padding: 4px 6px;
+    border-radius: 10px;
+    background-color: ${({theme}) => theme.colors.bg.main};
+    box-shadow: ${({ isDragging }) => (isDragging ? "0 2px 8px rgba(0,0,0,0.2)" : "none")};
     
     & > div:first-of-type {
         cursor: grab;

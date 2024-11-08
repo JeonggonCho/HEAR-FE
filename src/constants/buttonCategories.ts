@@ -289,4 +289,9 @@ export const buttonCategories = {
         en: "Add explanation for the question",
         ch: "添加问题说明",
     },
+    reset: {
+        ko: "초기화",
+        en: "Reset",
+        ch: "重置",
+    },
 };

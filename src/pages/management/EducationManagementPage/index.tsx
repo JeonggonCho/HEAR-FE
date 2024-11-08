@@ -74,7 +74,7 @@ const EducationManagementPage:FC = () => {
     const onDragEnd = (result: any) => {
         const { destination, source } = result;
 
-        if (!destination) result; // 유효하지 않은 위치일 경우,
+        if (!destination) return; // 유효하지 않은 위치일 경우,
         if (destination.index === source.index) return; // 동일한 위치일 경우,
 
         // 위치 업데이트
@@ -180,7 +180,7 @@ const EducationManagementPage:FC = () => {
                 </div>
                 <div>
                     <ResetButtonWrapper onClick={resetQuestions} modified={isModified.toString()} darkmode={isDarkMode.toString()}>
-                        <span>초기화</span> <ReactSVG src={reset}/>
+                        <span>{buttonCategories.reset[lang]}</span> <ReactSVG src={reset}/>
                     </ResetButtonWrapper>
                     <Button
                         type={"button"}

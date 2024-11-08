@@ -12,6 +12,7 @@ import {
     IPrinterReservation
 } from "@/types/reservation.ts";
 import {IComment} from "@/types/comment.ts";
+import {EducationType} from "@/types/education.ts";
 
 // 버튼(Button) props
 export interface IButtonProps {
@@ -428,4 +429,13 @@ export interface ICommentsProps {
     setComments: React.Dispatch<React.SetStateAction<IComment[]>>;
     setRefDoc: React.Dispatch<React.SetStateAction<IInquiryProps | IFeedbackProps | INotice>>;
     submitHandler: (e: FormEvent<HTMLFormElement>) => Promise<void>;
+}
+
+
+// 문제 리스트 아이템(QuestionListItem) props
+export interface IQuestionListItemProps {
+    index: number;
+    removeQuestion: (questionId: string) => void;
+    question: EducationType;
+    setQuestions: React.Dispatch<React.SetStateAction<EducationType[]>>;
 }
