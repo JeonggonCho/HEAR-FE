@@ -67,6 +67,21 @@ export const QuestionTypeWrapper = styled.div`
     }
 `;
 
+export const ExplanationWrapper = styled.div`
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 8px;
+    
+    & > div:first-of-type {
+        width: 100%;
+    }
+    
+    button {
+        padding: 6px 10px;
+    }
+`;
+
 export const IndexWrapper = styled.label`
     width: 28px;
     height: 28px;
@@ -151,7 +166,7 @@ export const OptionListItemWrapper = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     
     & > div:first-of-type {
         cursor: grab;
@@ -182,10 +197,16 @@ export const OptionListItemWrapper = styled.div`
         }
     }
     
-    input[type="radio"] {
+    input[type="radio"],
+    input[type="checkbox"] {
         width: 24px;
         height: 24px;
         cursor: pointer;
+        
+        @media (max-width: 600px) {
+            width: 32px;
+            height: 32px;
+        }
     }
     
     button {

@@ -3,7 +3,7 @@ export interface IShortAnswer {
     questionType: "shortAnswer";
     question: string;
     explanation?: string;
-    answers: string;
+    answer: string;
 }
 
 export interface ISingleChoice {

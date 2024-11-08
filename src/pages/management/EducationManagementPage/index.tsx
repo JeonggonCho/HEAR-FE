@@ -21,7 +21,7 @@ import {headerCategories} from "@constants/headerCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
-import {MenusWrapper, QuestionsWrapper} from "./style.ts";
+import {MenusWrapper, QuestionsWrapper, ResetButtonWrapper} from "./style.ts";
 
 import add from "@assets/icons/add.svg";
 import tune from "@assets/icons/tune.svg"
@@ -35,7 +35,7 @@ const EducationManagementPage:FC = () => {
     const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
     const [isModified, setIsModified] = useState<boolean>(false);
 
-    const {lang} = useThemeStore();
+    const {lang, isDarkMode} = useThemeStore();
     const {showToast} = useToastStore();
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
@@ -65,7 +65,7 @@ const EducationManagementPage:FC = () => {
             questionType: "shortAnswer",
             question: "",
             explanation: "",
-            answers: "",
+            answer: "",
         };
         setQuestions(prevState => [...prevState, newQuestion]);
     };
@@ -92,6 +92,8 @@ const EducationManagementPage:FC = () => {
 
     // 문제 원래대로 초기화하기
     const resetQuestions = () => {
+        // TODO 문제 유형이 기존과 다를 경우, 제대로 초기화가 안 됨
+
         setQuestions(initialQuestions);
     };
 
@@ -177,9 +179,9 @@ const EducationManagementPage:FC = () => {
                     <ReactSVG src={tune}/>
                 </div>
                 <div>
-                    <div onClick={resetQuestions}>
-                        <ReactSVG src={reset}/>
-                    </div>
+                    <ResetButtonWrapper onClick={resetQuestions} modified={isModified.toString()} darkmode={isDarkMode.toString()}>
+                        <span>초기화</span> <ReactSVG src={reset}/>
+                    </ResetButtonWrapper>
                     <Button
                         type={"button"}
                         content={buttonCategories.save[lang]}

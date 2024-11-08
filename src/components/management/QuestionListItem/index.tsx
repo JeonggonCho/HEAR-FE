@@ -14,7 +14,7 @@ import {inputCategories} from "@constants/inputCategories.ts";
 
 import {
     Container,
-    DragIndicator,
+    DragIndicator, ExplanationWrapper,
     IndexWrapper,
     OptionListItemWrapper,
     OptionsWrapper, QuestionTypeWrapper,
@@ -27,6 +27,7 @@ import dragQuestion from "@assets/icons/drag_line.svg";
 import dragOption from "@assets/icons/drag.svg";
 import add from "@assets/icons/add.svg";
 import remove from "@assets/icons/remove.svg";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 
 
 const QuestionListItem:FC<{
@@ -36,6 +37,7 @@ const QuestionListItem:FC<{
     setQuestions: React.Dispatch<React.SetStateAction<EducationType[]>>
 }> = ({index, removeQuestion, question, setQuestions}) => {
     const [questionType, setQuestionType] = useState<"shortAnswer" | "singleChoice" | "multipleChoice">(question.questionType || "shortAnswer");
+    const [showExplanation, setShowExplanation] = useState<boolean>(false);
 
     const {lang} = useThemeStore();
 
@@ -51,7 +53,7 @@ const QuestionListItem:FC<{
                     updatedQuestion = {
                         ...questions[targetIndex],
                         questionType: typeValue,
-                        answers: "",
+                        answer: "",
                     } as IShortAnswer;
                 } else if (typeValue === "singleChoice") {
                     updatedQuestion = {
@@ -92,6 +94,32 @@ const QuestionListItem:FC<{
             }
             return questions;
         });
+    };
+
+    // 질문 부가설명 켜기
+    const openExplanationHandler = () => {
+        setQuestions(prevState => {
+            const questions = [...prevState];
+            const targetIndex = questions.findIndex((q) => q._id === question._id);
+            if (targetIndex !== -1) {
+                questions[targetIndex] = { ...questions[targetIndex], explanation: "" }; // 부가설명 빈칸으로 설정
+            }
+            return questions;
+        });
+        setShowExplanation(true);
+    };
+
+    // 질문 부가설명 끄기
+    const closeExplanationHandler = () => {
+        setQuestions(prevState => {
+            const questions = [...prevState];
+            const targetIndex = questions.findIndex((q) => q._id === question._id);
+            if (targetIndex !== -1) {
+                questions[targetIndex] = { ...questions[targetIndex], explanation: "" }; // 부가설명 빈칸으로 설정
+            }
+            return questions;
+        });
+        setShowExplanation(false);
     };
 
     // 질문 부가설명
@@ -176,7 +204,7 @@ const QuestionListItem:FC<{
             const targetIndex = questions.findIndex((q) => q._id === question._id);
             if (targetIndex !== -1) {
                 if (questionType === "shortAnswer") {
-                    questions[targetIndex] = { ...questions[targetIndex], answers: value } as IShortAnswer;
+                    questions[targetIndex] = { ...questions[targetIndex], answer: value } as IShortAnswer;
                 }
             }
             return questions;
@@ -184,8 +212,7 @@ const QuestionListItem:FC<{
     };
 
     // 단일 선택형 답 지정
-    const changeSingleChoiceAnswerHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const targetOptionId = e.target.id;
+    const changeSingleChoiceAnswerHandler = (targetOptionId: string) => {
         setQuestions(prevState => {
             const questions = [...prevState];
             const targetIndex = questions.findIndex((q) => q._id === question._id);
@@ -207,8 +234,22 @@ const QuestionListItem:FC<{
     };
 
     // 다중 선택형 답 지정
-    const changeMultipleChoiceAnswersHandler = () => {
+    const changeMultipleChoiceAnswersHandler = (targetOptionId: string) => {
+        setQuestions((prevState) => {
+            const questions = [...prevState];
+            const targetIndex = questions.findIndex((q) => q._id === question._id);
 
+            if (targetIndex !== -1) {
+                const currentQuestion = questions[targetIndex] as IMultipleChoice;
+
+                const updatedOptions = currentQuestion.options.map((opt) =>
+                    opt.optionId === targetOptionId ? { ...opt, isAnswer: !opt.isAnswer } : opt
+                );
+
+                questions[targetIndex] = { ...currentQuestion, options: updatedOptions };
+            }
+            return questions;
+        });
     };
 
 
@@ -232,6 +273,7 @@ const QuestionListItem:FC<{
                                 </RemoveWrapper>
                             </div>
 
+                            {/*질문 입력 부분, 문제유형*/}
                             <div>
                                 <Input
                                     label={placeholderCategories.question[lang]}
@@ -258,15 +300,37 @@ const QuestionListItem:FC<{
                                 </QuestionTypeWrapper>
                             </div>
 
-                            <Input
-                                label={placeholderCategories.explanation[lang]}
-                                placeholder={placeholderCategories.explanation[lang]}
-                                type={"text"}
-                                id={"description"}
-                                name={"description"}
-                                value={question.explanation || ""}
-                                onChange={changeExplanationHandler}
-                            />
+                            {/*질문 부가설명 입력 부분*/}
+                            {showExplanation || question.explanation ?
+                                <ExplanationWrapper>
+                                    <Input
+                                        label={placeholderCategories.explanation[lang]}
+                                        placeholder={placeholderCategories.explanation[lang]}
+                                        type={"text"}
+                                        id={"description"}
+                                        name={"description"}
+                                        value={question.explanation || ""}
+                                        onChange={changeExplanationHandler}
+                                    />
+                                    <Button
+                                        type={"button"}
+                                        content={<ReactSVG src={close}/>}
+                                        width={"fit"}
+                                        color={"third"}
+                                        scale={"small"}
+                                        onClick={closeExplanationHandler}
+                                    />
+                                </ExplanationWrapper>
+                                :
+                                <Button
+                                    type={"button"}
+                                    content={buttonCategories.addExplanation[lang]}
+                                    width={"full"}
+                                    color={"third"}
+                                    scale={"small"}
+                                    onClick={openExplanationHandler}
+                                />
+                            }
 
                             {questionType === "shortAnswer" ?
                                 <TextAnswerWrapper>
@@ -276,7 +340,7 @@ const QuestionListItem:FC<{
                                         type={"text"}
                                         id={"단답형"}
                                         name={"단답형"}
-                                        value={(question as IShortAnswer).answers || ""}
+                                        value={(question as IShortAnswer).answer || ""}
                                         onChange={changeShortAnswerHandler}
                                     />
                                 </TextAnswerWrapper>
@@ -309,7 +373,7 @@ const QuestionListItem:FC<{
                                                 />
                                                 <input
                                                     type={"radio"}
-                                                    onChange={changeSingleChoiceAnswerHandler}
+                                                    onChange={() => changeSingleChoiceAnswerHandler(opt.optionId as string)}
                                                     checked={opt.isAnswer}
                                                     id={opt.optionId}
                                                 />
@@ -327,7 +391,46 @@ const QuestionListItem:FC<{
                                     :
                                     questionType === "multipleChoice" ?
                                         <OptionsWrapper>
-                                            <p>다중 선택형</p>
+                                            <div>
+                                                <label>{`${inputCategories.option[lang]} (${(question as ISingleChoice).options.length})`}</label>
+                                                <Button
+                                                    type={"button"}
+                                                    content={<ReactSVG src={add}/>}
+                                                    width={"fit"}
+                                                    color={"third"}
+                                                    scale={"small"}
+                                                    onClick={addOption}
+                                                />
+                                            </div>
+                                            {(question as IMultipleChoice).options.map((opt) => (
+                                                <OptionListItemWrapper key={opt.optionId}>
+                                                    <div>
+                                                        <ReactSVG src={dragOption}/>
+                                                    </div>
+                                                    <Input
+                                                        placeholder={placeholderCategories.optionContent[lang]}
+                                                        type={"text"}
+                                                        id={"option"}
+                                                        name={"option"}
+                                                        value={opt.content}
+                                                        onChange={(e) => changeOptionContentHandler(opt.optionId, e.target.value as string)}
+                                                    />
+                                                    <input
+                                                        type={"checkbox"}
+                                                        onChange={() => changeMultipleChoiceAnswersHandler(opt.optionId as string)}
+                                                        checked={opt.isAnswer}
+                                                        id={opt.optionId}
+                                                    />
+                                                    <Button
+                                                        type={"button"}
+                                                        content={<ReactSVG src={remove}/>}
+                                                        width={"fit"}
+                                                        color={"third"}
+                                                        scale={"small"}
+                                                        onClick={() => removeOption(opt.optionId)}
+                                                    />
+                                                </OptionListItemWrapper>
+                                            ))}
                                         </OptionsWrapper>
                                         :
                                         <></>

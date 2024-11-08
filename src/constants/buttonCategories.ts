@@ -284,4 +284,9 @@ export const buttonCategories = {
         en: "Save",
         ch: "保存",
     },
+    addExplanation: {
+        ko: "질문 부가설명 추가",
+        en: "Add explanation for the question",
+        ch: "添加问题说明",
+    },
 };
