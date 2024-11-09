@@ -4,10 +4,10 @@ import {useNavigate} from "react-router-dom";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
-import RoomMap from "@components/content/RoomMap";
+import RoomMap from "@components/reservation/RoomMap";
 import Button from "@components/common/Button";
 import Modal from "@components/common/Modal";
-import PrinterSelectContent from "@components/content/PrinterSelectContent";
+import PrinterSelectContent from "@components/reservation/PrinterSelectContent";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 

@@ -4,7 +4,8 @@ import {IConfirmContentProps} from "@/types/componentProps.ts";
 
 import {Container} from "./style.ts";
 
-const ConfirmContent:FC<IConfirmContentProps> = ({text, description, leftBtn, rightBtn}) => {
+
+const ModalConfirmContent:FC<IConfirmContentProps> = ({text, description, leftBtn, rightBtn}) => {
     return (
         <Container>
             <p>{text}</p>
@@ -16,4 +17,4 @@ const ConfirmContent:FC<IConfirmContentProps> = ({text, description, leftBtn, ri
     );
 };
 
-export default ConfirmContent;
+export default ModalConfirmContent;

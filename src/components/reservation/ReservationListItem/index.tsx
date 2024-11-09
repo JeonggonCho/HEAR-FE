@@ -2,7 +2,7 @@ import {FC, useState} from "react";
 import {ReactSVG} from "react-svg";
 
 import Modal from "@components/common/Modal";
-import ConfirmContent from "@components/content/ConfirmContent";
+import ModalConfirmContent from "@components/common/ModalConfirmContent";
 import Button from "@components/common/Button";
 
 import {IReservationListItemProps} from "@/types/componentProps.ts";
@@ -95,7 +95,7 @@ const ReservationListItem:FC<IReservationListItemProps> = ({reservation, deleteH
             {showConfirmModal && deleteHandler !== undefined &&
                 <Modal
                   content={
-                    <ConfirmContent
+                    <ModalConfirmContent
                         text={messageCategories.deleteReservation[lang]}
                         leftBtn={
                             <Button

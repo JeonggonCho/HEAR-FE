@@ -7,6 +7,7 @@ import {Container} from "./style.ts";
 
 import cnc from "@assets/images/cnc.png";
 
+
 const CncReservationConditionContent: FC = () => {
     const {lang} = useThemeStore();
 

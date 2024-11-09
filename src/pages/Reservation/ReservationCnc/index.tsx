@@ -7,7 +7,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
-import RoomMap from "@components/content/RoomMap";
+import RoomMap from "@components/reservation/RoomMap";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import Modal from "@components/common/Modal";

@@ -11,7 +11,7 @@ import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Modal from "@components/common/Modal";
-import ConfirmContent from "@components/content/ConfirmContent";
+import ModalConfirmContent from "@components/common/ModalConfirmContent";
 
 import useRequest from "@hooks/useRequest.ts";
 import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
@@ -81,7 +81,7 @@ const UpdatePasswordPage:FC = () => {
 
     // 비밀번호 변경 확인 모달 컨텐츠
     const UpdatePasswordModalContent = () => (
-        <ConfirmContent
+        <ModalConfirmContent
             text={messageCategories.confirmUpdatePassword[lang]}
             leftBtn={
                 <Button

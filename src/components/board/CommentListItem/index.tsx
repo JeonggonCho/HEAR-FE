@@ -3,7 +3,7 @@ import {FC, useEffect, useMemo, useRef, useState} from "react";
 import Button from "@components/common/Button";
 import Dropdown from "@components/common/Dropdown";
 import Modal from "@components/common/Modal";
-import ConfirmContent from "@components/content/ConfirmContent";
+import ModalConfirmContent from "@components/common/ModalConfirmContent";
 import Textarea from "@components/common/Textarea";
 import ProfileImage from "@components/common/ProfileImage";
 
@@ -217,7 +217,7 @@ const CommentListItem:FC<IComment> = (props) => {
             {showConfirmModal &&
               <Modal
                 content={
-                    <ConfirmContent
+                    <ModalConfirmContent
                         text={messageCategories.delete[lang]}
                         leftBtn={<Button type={"button"} content={buttonCategories.close[lang]} color={"third"} scale={"normal"} width={"full"} onClick={() => setShowConfirmModal(false)}/> }
                         rightBtn={<Button type={"submit"} content={buttonCategories.delete[lang]} color={"danger"} scale={"normal"} width={"full"} onClick={deleteComment}/>}

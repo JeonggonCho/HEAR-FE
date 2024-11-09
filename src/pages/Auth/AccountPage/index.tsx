@@ -8,7 +8,7 @@ import ProfileCard from "@components/account/ProfileCard";
 import Button from "@components/common/Button";
 import StatusCard from "@components/account/StatusCard";
 import Modal from "@components/common/Modal";
-import ConfirmContent from "@components/content/ConfirmContent";
+import ModalConfirmContent from "@components/common/ModalConfirmContent";
 import Link from "@components/common/Link";
 import Divider from "@components/common/Divider";
 import HeadTag from "@components/common/HeadTag";
@@ -128,7 +128,7 @@ const AccountPage:FC = () => {
             />
         );
         return (
-            <ConfirmContent text={messageCategories.signOut[lang]} leftBtn={leftBtn} rightBtn={rightBtn}/>
+            <ModalConfirmContent text={messageCategories.signOut[lang]} leftBtn={leftBtn} rightBtn={rightBtn}/>
         );
     };
 
@@ -154,7 +154,7 @@ const AccountPage:FC = () => {
             />
         );
         return (
-            <ConfirmContent
+            <ModalConfirmContent
                 text={messageCategories.accountDeletion[lang]}
                 description={messageCategories.ifDeletingAccount[lang]}
                 leftBtn={leftBtn}

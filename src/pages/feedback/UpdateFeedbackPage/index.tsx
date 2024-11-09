@@ -13,7 +13,7 @@ import HeadTag from "@components/common/HeadTag";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import Textarea from "@components/common/Textarea";
-import ConfirmContent from "@components/content/ConfirmContent";
+import ModalConfirmContent from "@components/common/ModalConfirmContent";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
@@ -146,7 +146,7 @@ const UpdateFeedbackPage:FC = () => {
             />
         );
         return (
-            <ConfirmContent
+            <ModalConfirmContent
                 text={messageCategories.confirmUpdateFeedback[lang]}
                 leftBtn={leftBtn}
                 rightBtn={rightBtn}

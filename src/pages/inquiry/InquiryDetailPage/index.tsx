@@ -9,7 +9,7 @@ import Dropdown from "@components/common/Dropdown";
 import HeadTag from "@components/common/HeadTag";
 import Button from "@components/common/Button";
 import Modal from "@components/common/Modal";
-import ConfirmContent from "@components/content/ConfirmContent";
+import ModalConfirmContent from "@components/common/ModalConfirmContent";
 import Comments from "@components/board/Comments";
 import ProfileImage from "@components/common/ProfileImage";
 
@@ -283,7 +283,7 @@ const InquiryDetailPage:FC = () => {
             {showConfirmModal &&
               <Modal
                 content={
-                    <ConfirmContent
+                    <ModalConfirmContent
                         text={messageCategories.delete[lang]}
                         leftBtn={<Button type={"button"} content={buttonCategories.close[lang]} color={"third"} scale={"normal"} width={"full"} onClick={() => setShowConfirmModal(false)}/> }
                         rightBtn={<Button type={"submit"} content={buttonCategories.delete[lang]} color={"danger"} scale={"normal"} width={"full"} onClick={deleteInquiry}/>}

@@ -12,7 +12,7 @@ import Modal from "@components/common/Modal";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
-import ConfirmContent from "@components/content/ConfirmContent";
+import ModalConfirmContent from "@components/common/ModalConfirmContent";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";
@@ -144,7 +144,7 @@ const UpdateInquiryPage:FC = () => {
             />
         );
         return (
-            <ConfirmContent
+            <ModalConfirmContent
                 text={messageCategories.confirmUpdateInquiry[lang]}
                 leftBtn={leftBtn}
                 rightBtn={rightBtn}

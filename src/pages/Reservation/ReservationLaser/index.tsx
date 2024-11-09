@@ -4,12 +4,12 @@ import {useNavigate} from "react-router-dom";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
-import RoomMap from "@components/content/RoomMap";
+import RoomMap from "@components/reservation/RoomMap";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import Modal from "@components/common/Modal";
 import LoadingLoop from "@components/common/LoadingLoop";
-import LaserSelectContent from "@components/content/LaserSelectContent";
+import LaserSelectContent from "@components/reservation/LaserSelectContent";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";

@@ -3,7 +3,7 @@ import {FC, FormEvent} from "react";
 import Select from "@components/common/Select";
 import Button from "@components/common/Button";
 
-import {IFilterContentProps} from "@/types/componentProps.ts";
+import {IFilterContentProps} from "@types/componentProps.ts";
 import useCheckbox from "@hooks/useCheckbox.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";

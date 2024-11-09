@@ -8,7 +8,7 @@ import HeadTag from "@components/common/HeadTag";
 import Empty from "@components/common/Empty";
 import ReservationListItem from "@components/reservation/ReservationListItem";
 import Modal from "@components/common/Modal";
-import ConfirmContent from "@components/content/ConfirmContent";
+import ModalConfirmContent from "@components/common/ModalConfirmContent";
 import Button from "@components/common/Button";
 
 import useRequest from "@hooks/useRequest.ts";
@@ -224,7 +224,7 @@ const MyReservationsPage:FC = () => {
             {showConfirmModal &&
                 <Modal
                   content={
-                    <ConfirmContent
+                    <ModalConfirmContent
                         text={messageCategories.confirmDeleteSelectedReservation[lang]}
                         leftBtn={<Button type={"button"} content={buttonCategories.close[lang]} color={"third"} scale={"normal"} width={"full"} onClick={() => setShowConfirmModal(false)}/>}
                         rightBtn={<Button type={"button"} content={buttonCategories.delete[lang]} color={"danger"} scale={"normal"} width={"full"} onClick={() => deleteSelectedReservations()}/>}

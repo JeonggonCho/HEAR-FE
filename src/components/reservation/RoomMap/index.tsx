@@ -2,13 +2,14 @@ import {FC} from "react";
 import {ReactSVG} from "react-svg";
 
 import {IRoomMapProps} from "@/types/componentProps.ts";
-import {cardCategories} from "@constants/cardCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {machineName} from "@constants/machineCategories.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
 
 import {CncWrapper, Container, LaserWrapper, MapWrapper, PrinterWrapper, VacuumWrapper} from "./style.ts";
 
 import close from "@assets/icons/close.svg";
+
 
 const RoomMap:FC<IRoomMapProps> = ({machine, setModal}) => {
     const {lang} = useThemeStore();

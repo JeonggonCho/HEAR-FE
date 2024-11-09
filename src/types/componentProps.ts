@@ -435,6 +435,15 @@ export interface ICommentsProps {
 }
 
 
+// 문제 목록(QuestionListContent) props
+export interface IQuestionListContentProps {
+    onDragEnd: (result: any) => void;
+    questions: EducationType[];
+    removeQuestion: (targetIndex: string) => void;
+    setQuestions: React.Dispatch<React.SetStateAction<EducationType[]>>;
+}
+
+
 // 문제 리스트 아이템(QuestionListItem) props
 export interface IQuestionListItemProps {
     index: number;

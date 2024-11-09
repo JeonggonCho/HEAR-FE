@@ -10,7 +10,7 @@ import Select from "@components/common/Select";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import Modal from "@components/common/Modal";
-import ConfirmContent from "@components/content/ConfirmContent";
+import ModalConfirmContent from "@components/common/ModalConfirmContent";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 
@@ -127,7 +127,7 @@ const UpdateAccountPage:FC = () => {
 
     // 내 정보 변경 확인 모달 컨텐츠
     const UpdateAccountModalContent = () => (
-        <ConfirmContent
+        <ModalConfirmContent
             text={messageCategories.confirmUpdateAccount[lang]}
             leftBtn={
                 <Button

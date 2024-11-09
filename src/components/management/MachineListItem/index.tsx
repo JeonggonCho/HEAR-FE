@@ -6,7 +6,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import Toggle from "@components/common/Toggle";
 import Button from "@components/common/Button";
 import Modal from "@components/common/Modal";
-import ConfirmContent from "@components/content/ConfirmContent";
+import ModalConfirmContent from "@components/common/ModalConfirmContent";
 import Input from "@components/common/Input";
 
 import useToggle from "@hooks/useToggle.ts";
@@ -173,7 +173,7 @@ const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines
 
             {showDeleteModal &&
               <Modal
-                content={<ConfirmContent
+                content={<ModalConfirmContent
                     text={messageCategories.machineDelete[lang]}
                     leftBtn={<Button
                         type={"button"}

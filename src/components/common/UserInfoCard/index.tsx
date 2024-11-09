@@ -8,7 +8,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import Modal from "@components/common/Modal";
-import ConfirmContent from "@components/content/ConfirmContent";
+import ModalConfirmContent from "@components/common/ModalConfirmContent";
 import ProfileImage from "@components/common/ProfileImage";
 
 import useRequest from "@hooks/useRequest.ts";
@@ -29,7 +29,7 @@ import {Buttons, CloseButton, Container, FieldWrapper, PassTag, PassWrapper, War
 import close from "@assets/icons/close.svg";
 
 
-const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfoUpdate, userList, setUserList, setShowUserInfoModal}) => {
+const UserInfoCard:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfoUpdate, userList, setUserList, setShowUserInfoModal}) => {
     const [user, setUser] = useState<IUserInfo>();
     const [showWarning, setShowWarning] = useState<boolean>(false);
     const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState<boolean>(false);
@@ -222,7 +222,7 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
 
     // 유저 삭제 확인 모달 내용
     const DeleteConfirmModalContent = () => (
-        <ConfirmContent
+        <ModalConfirmContent
             text={messageCategories.delete[lang]}
             leftBtn={<Button
                 type={"button"}
@@ -245,7 +245,7 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
 
     // 유저 조교 인수인계 확인 모달 내용
     const HandoverConfirmModalContent = () => (
-        <ConfirmContent
+        <ModalConfirmContent
             text={messageCategories.handover[lang]}
             description={messageCategories.warningHandover[lang]}
             leftBtn={<Button
@@ -445,4 +445,4 @@ const UserInfoContent:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfo
     );
 };
 
-export default UserInfoContent;
+export default UserInfoCard;

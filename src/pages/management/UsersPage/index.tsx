@@ -7,7 +7,7 @@ import UserListItem from "@components/management/UserListItem";
 import Input from "@components/common/Input";
 import Modal from "@components/common/Modal";
 import Empty from "@components/common/Empty";
-import UsersFilterContent from "@components/content/UsersFilterContent";
+import UsersFilterContent from "@components/management/UsersFilterContent";
 import Button from "@components/common/Button";
 import CardLoading from "@components/skeleton/CardLoading";
 import HeadTag from "@components/common/HeadTag";

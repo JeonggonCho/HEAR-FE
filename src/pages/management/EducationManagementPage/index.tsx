@@ -1,17 +1,16 @@
 import {FC, useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
 import { v4 as uuidv4 } from "uuid";
-import {DragDropContext, Droppable} from "@hello-pangea/dnd";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import HeadTag from "@components/common/HeadTag";
 import LoadingLoop from "@components/common/LoadingLoop";
-import QuestionListItem from "@components/management/QuestionListItem";
 import Button from "@components/common/Button";
 import Modal from "@components/common/Modal";
 import Empty from "@components/common/Empty";
-import ConfirmContent from "@components/content/ConfirmContent";
+import ModalConfirmContent from "@components/common/ModalConfirmContent";
+import QuestionListContent from "@components/management/QuestionListContent";
 
 import useRequest from "@hooks/useRequest.ts";
 import {EducationType} from "@/types/education.ts";
@@ -26,6 +25,7 @@ import {MenusWrapper, QuestionsWrapper, ResetButtonWrapper} from "./style.ts";
 import add from "@assets/icons/add.svg";
 import tune from "@assets/icons/tune.svg"
 import reset from "@assets/icons/reset.svg";
+import EducationManagementFilterContent from "@components/management/EducationManagementFilterContent";
 
 
 const EducationManagementPage:FC = () => {
@@ -145,7 +145,7 @@ const EducationManagementPage:FC = () => {
 
     // 문제 저장 확인 모달내용
     const SaveConfirmModalContent = () => (
-        <ConfirmContent
+        <ModalConfirmContent
             text={messageCategories.confirmSaveQuestions[lang]}
             description={messageCategories.warningSaveQuestions[lang]}
             leftBtn={<Button
@@ -200,30 +200,12 @@ const EducationManagementPage:FC = () => {
                     :
                     <>
                         {questions.length > 0 ?
-                            <DragDropContext onDragEnd={onDragEnd}>
-                                <div className="questions">
-                                    <Droppable droppableId="questions">
-                                    {(provided) => (
-                                            <div
-                                                ref={provided.innerRef}
-                                                {...provided.droppableProps}
-                                                style={{display: "flex", flexDirection: "column", gap: "20px"}}
-                                            >
-                                                {questions.map((question, index) => (
-                                                    <QuestionListItem
-                                                        key={question._id}
-                                                        index={index}
-                                                        removeQuestion={removeQuestion}
-                                                        question={question}
-                                                        setQuestions={setQuestions}
-                                                    />
-                                                ))}
-                                                {provided.placeholder}
-                                            </div>
-                                        )}
-                                    </Droppable>
-                                </div>
-                            </DragDropContext>
+                            <QuestionListContent
+                                onDragEnd={onDragEnd}
+                                questions={questions}
+                                removeQuestion={removeQuestion}
+                                setQuestions={setQuestions}
+                            />
                             :
                             <Empty title={messageCategories.emptyQuestion[lang]}/>
                         }
@@ -241,7 +223,7 @@ const EducationManagementPage:FC = () => {
 
             {showFilter &&
                 <Modal
-                  content={<></>}
+                  content={<EducationManagementFilterContent/>}
                   setModal={setShowFilter}
                   type={"bottomSheet"}
                 />

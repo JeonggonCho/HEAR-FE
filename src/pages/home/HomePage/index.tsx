@@ -10,17 +10,18 @@ import ReservationCard from "@components/home/ReservationCard";
 import CardLoading from "@components/skeleton/CardLoading";
 import CafeSiteCard from "@components/home/CafeSiteCard";
 import HeadTag from "@components/common/HeadTag";
-import LaserReservationConditionContent from "@components/content/LaserReservationConditionContent";
-import PrinterReservationConditionContent from "@components/content/PrinterReservationConditionContent";
-import HeatReservationConditionContent from "@components/content/HeatReservationConditionContent";
-import SawReservationConditionContent from "@components/content/SawReservationConditionContent";
-import VacuumReservationConditionContent from "@components/content/VacuumReservationConditionContent";
-import CncReservationConditionContent from "@components/content/CncReservationConditionContent";
+import LaserReservationConditionContent from "@components/home/LaserReservationConditionContent";
+import PrinterReservationConditionContent from "@components/home/PrinterReservationConditionContent";
+import HeatReservationConditionContent from "@components/home/HeatReservationConditionContent";
+import SawReservationConditionContent from "@components/home/SawReservationConditionContent";
+import VacuumReservationConditionContent from "@components/home/VacuumReservationConditionContent";
+import CncReservationConditionContent from "@components/home/CncReservationConditionContent";
 
-import {useThemeStore} from "@store/useThemeStore.ts";
-import {ILaserStatus} from "@/types/reservation.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {getLaserReservationRate} from "@util/getReservationRate.ts";
+import {ILaserStatus} from "@/types/reservation.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {useToastStore} from "@store/useToastStore.ts";
 
 import {
     AlarmWrapper,
@@ -33,7 +34,6 @@ import {
 
 import logo from "@assets/logo.svg";
 import alarm from "@assets/icons/alarm.svg";
-import {useToastStore} from "@store/useToastStore.ts";
 
 
 const HomeHeaderLeft:FC = () => {

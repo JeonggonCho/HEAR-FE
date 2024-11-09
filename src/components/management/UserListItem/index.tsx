@@ -1,9 +1,9 @@
 import React, {FC, useCallback, useEffect, useState} from "react";
 
 import Modal from "@components/common/Modal";
-import UserInfoContent from "@components/content/UserInfoContent";
+import UserInfoCard from "@components/common/UserInfoCard";
 import Button from "@components/common/Button";
-import ConfirmContent from "@components/content/ConfirmContent";
+import ModalConfirmContent from "@components/common/ModalConfirmContent";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IUserInfo} from "@/types/user.ts";
@@ -72,7 +72,7 @@ const UserListItem: FC<IUserInfo & { userList: IUserInfo[], setUserList: React.D
 
     // 유저 삭제 확인 모달 내용
     const DeleteConfirmModalContent = () => (
-        <ConfirmContent
+        <ModalConfirmContent
             text={messageCategories.delete[lang]}
             leftBtn={<Button
                 type={"button"}
@@ -118,7 +118,7 @@ const UserListItem: FC<IUserInfo & { userList: IUserInfo[], setUserList: React.D
             {showUserInfoModal && props.userId && (
                 <Modal
                     content={
-                        <UserInfoContent
+                        <UserInfoCard
                             userId={props.userId}
                             setModal={setShowUserInfoModal}
                             onUserInfoUpdate={userInfoUpdateHandler}
