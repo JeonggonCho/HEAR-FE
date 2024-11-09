@@ -14,6 +14,7 @@ import {
 import {IComment} from "@/types/comment.ts";
 import {EducationType} from "@/types/education.ts";
 
+
 // 버튼(Button) props
 export interface IButtonProps {
     type: "button" | "link" | "submit";
@@ -76,6 +77,7 @@ export interface ILangSettingCardProps {
 export interface ILangSettingContentProps {
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 
 // 달력 (Calendar) props
 export interface ICalendarProps {
@@ -140,6 +142,7 @@ interface IButtonTabProps {
     activeIndex: number;
     setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
 }
+
 
 // 라인형태 탭(Tab) props
 interface ILineTabProps {
@@ -438,4 +441,30 @@ export interface IQuestionListItemProps {
     removeQuestion: (questionId: string) => void;
     question: EducationType;
     setQuestions: React.Dispatch<React.SetStateAction<EducationType[]>>;
+}
+
+
+// 옵션 목록(OptionListContent) props
+export interface IOptionListContentProps {
+    onDragEnd: (result: any) => void;
+    question: EducationType;
+    questionType: "singleChoice" | "multipleChoice";
+    changeOptionContentHandler: (targetOptionId: string, content: string) => void;
+    changeChoiceAnswerHandler: (targetOptionId: string) => void;
+    removeOption: (targetOptionId: string) => void;
+}
+
+
+// 옵션 목록 아이템(OptionListItem) props
+export interface IOptionListItem {
+    questionType: "singleChoice" | "multipleChoice";
+    index: number;
+    option: {
+        optionId: string;
+        content: string;
+        isAnswer: boolean;
+    };
+    changeOptionContentHandler: (targetOptionId: string, content: string) => void;
+    changeChoiceAnswerHandler: (targetOptionId: string) => void;
+    removeOption: (targetOptionId: string) => void;
 }

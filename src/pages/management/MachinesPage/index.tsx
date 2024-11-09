@@ -14,8 +14,6 @@ import {useThemeStore} from "@store/useThemeStore.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {machineName} from "@constants/machineCategories.ts";
 
-import {Container} from "./style.ts";
-
 import laser_icon from "@assets/images/laser_icon.png";
 import printer_icon from "@assets/images/printer_icon.png";
 import heat_icon from "@assets/images/heat_icon.png";
@@ -87,7 +85,7 @@ const MachinesPage:FC = () => {
 
 
     return (
-        <Container>
+        <>
             <HeadTag title={headerCategories.machineManagementHeader[lang]}/>
 
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.machineManagementHeader[lang]} bgColor={true}/>
@@ -149,7 +147,7 @@ const MachinesPage:FC = () => {
                 </>
             }
             <Divider/>
-        </Container>
+        </>
     );
 };
 

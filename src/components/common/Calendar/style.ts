@@ -67,7 +67,10 @@ export const CalendarMonthWrapper = styled.div<{preventPrevBtn: boolean, prevent
             gap: 12px;
             
             button {
-                padding: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 6px 6px 4px 6px;
             }
             
             div {
