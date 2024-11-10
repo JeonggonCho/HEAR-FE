@@ -2,13 +2,15 @@ import {solarHolidays} from "@constants/calendarCategories.ts";
 import {isSameDay} from "@util/calculateDate.ts";
 
 interface IGenerateCalendar {
+    calendarType: "normal" | "reservation";
     currentDate: Date;
     lang: "ko" | "en" | "ch";
-    machine: "printer" | "saw" | "vacuum" | "cnc" | undefined;
+    machine?: "printer" | "saw" | "vacuum" | "cnc";
     condition?: any[];
+    selectWeekend: boolean;
 }
 
-const generateCalendar = ({currentDate, lang, machine, condition}:IGenerateCalendar) => { // 날짜를 인자로 받기
+const generateCalendar = ({calendarType, currentDate, lang, machine, condition, selectWeekend}: IGenerateCalendar) => { // 날짜를 인자로 받기
     const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1); // 현재 날짜의 해당 월의 첫번째 날의 (년도, 월, 일) 구하기
     const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0); // 현재 날짜의 해당 월의 마지막 날의 (년도, 월, 일) 구하기 -> 월에 +1 하고 일에 0을 주면 마지막 날 구할 수 있음
 

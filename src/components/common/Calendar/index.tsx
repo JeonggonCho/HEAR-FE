@@ -4,11 +4,11 @@ import {ReactSVG} from "react-svg";
 import Button from "@components/common/Button";
 import InputMessage from "@components/common/InputMessage";
 
+import generateCalendar from "@util/generateCalendar.ts";
 import {ICalendarProps} from "@/types/componentProps.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 import {calendarInformation, days} from "@constants/calendarCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
-import {useThemeStore} from "@store/useThemeStore.ts";
-import generateCalendar from "@util/generateCalendar.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
 import {
@@ -24,7 +24,8 @@ import {
 import arrowBack from "@assets/icons/arrow_back_small.svg";
 import arrowForward from "@assets/icons/arrow_forward_small.svg";
 
-const Calendar:FC<ICalendarProps> = ({onSelectDate, date, machine, condition}) => {
+
+const Calendar:FC<ICalendarProps> = ({calendarType="normal", onSelectDate, date, machine, condition, setModal, selectWeekend=false}) => {
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
     const [selectedDate, setSelectedDate] = useState<Date | null>(date ? new Date(date) : null);
     const [isEmpty, setIsEmpty] = useState<boolean>(false);
@@ -32,7 +33,7 @@ const Calendar:FC<ICalendarProps> = ({onSelectDate, date, machine, condition}) =
     const {lang} = useThemeStore();
 
     const dateList = useMemo(() =>
-        generateCalendar({currentDate, lang, machine, condition}), [currentDate, lang, machine, condition]);
+        generateCalendar({calendarType, currentDate, lang, machine, condition, selectWeekend}), [calendarType, currentDate, lang, machine, condition, selectWeekend]);
 
     // 이전 달로 이동 제한하기 (이번 달까지만)
     const isPrevMonthDisabled = useMemo(() => (
@@ -74,6 +75,7 @@ const Calendar:FC<ICalendarProps> = ({onSelectDate, date, machine, condition}) =
         const formattedDate = `${year}-${month}-${day}`;
         onSelectDate(formattedDate);
         setIsEmpty(false);
+        setModal(false);
     };
 
     return (
@@ -104,10 +106,12 @@ const Calendar:FC<ICalendarProps> = ({onSelectDate, date, machine, condition}) =
                                 disabled={isNextMonthDisabled}
                             />
                         </div>
-                        <div>
+                        {calendarType === "reservation" &&
+                          <div>
                             <span/>
                             <span>{calendarInformation.reservation[lang]}</span>
-                        </div>
+                          </div>
+                        }
                     </div>
                 </CalendarMonthWrapper>
 

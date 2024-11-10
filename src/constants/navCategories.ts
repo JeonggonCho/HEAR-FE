@@ -9,9 +9,9 @@ export const navCategories = {
         en: "Instruction",
         ch: "使用方法",
     },
-    edu: {
+    test: {
         ko: "교육",
-        en: "Edu",
+        en: "Test",
         ch: "教育",
     },
     board: {

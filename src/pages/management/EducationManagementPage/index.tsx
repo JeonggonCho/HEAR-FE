@@ -11,27 +11,31 @@ import Modal from "@components/common/Modal";
 import Empty from "@components/common/Empty";
 import ModalConfirmContent from "@components/common/ModalConfirmContent";
 import QuestionListContent from "@components/management/QuestionListContent";
+import EducationSettingsContent from "@components/management/EducationSettingsContent";
 
 import useRequest from "@hooks/useRequest.ts";
-import {EducationType} from "@/types/education.ts";
+import {EducationType, IEducationSettings} from "@/types/education.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
-import {MenusWrapper, QuestionsWrapper, ResetButtonWrapper} from "./style.ts";
+import {MenuButtonWrapper, MenusWrapper, QuestionsWrapper, ResetButtonWrapper} from "./style.ts";
 
 import add from "@assets/icons/add.svg";
 import tune from "@assets/icons/tune.svg"
 import reset from "@assets/icons/reset.svg";
-import EducationManagementFilterContent from "@components/management/EducationManagementFilterContent";
+import menu from "@assets/icons/menu.svg";
+import SideMenu from "@components/common/SideMenu";
 
 
 const EducationManagementPage:FC = () => {
     const [questions, setQuestions] = useState<EducationType[]>([]);
     const [initialQuestions, setInitialQuestions] = useState<EducationType[]>([]);
-    const [showFilter, setShowFilter] = useState<boolean>(false);
+    const [settings, setSettings] = useState<IEducationSettings>({startDate: "", endDate: "", status: false});
+    const [showSettings, setShowSettings] = useState<boolean>(false);
+    const [showSideMenu, setShowSideMenu] = useState<boolean>(false);
     const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
     const [isModified, setIsModified] = useState<boolean>(false);
 
@@ -48,6 +52,7 @@ const EducationManagementPage:FC = () => {
             if (response.data) {
                 setQuestions(response.data.questions);
                 setInitialQuestions(response.data.questions);
+                setSettings(response.data.settings);
             }
         } catch (err) {
             console.error("문제 조회 중 에러 발생: ", err);
@@ -119,7 +124,7 @@ const EducationManagementPage:FC = () => {
 
     // 메뉴 bottom sheet 열기
     const clickMenuHandler = () => {
-        setShowFilter(true);
+        setShowSettings(true);
     };
 
     // 에러 메시지
@@ -148,23 +153,40 @@ const EducationManagementPage:FC = () => {
         <ModalConfirmContent
             text={messageCategories.confirmSaveQuestions[lang]}
             description={messageCategories.warningSaveQuestions[lang]}
-            leftBtn={<Button
-                type={"button"}
-                content={buttonCategories.close[lang]}
-                width={"full"}
-                scale={"normal"}
-                color={"third"}
-                onClick={() => setShowConfirmModal(false)}
-            />}
-            rightBtn={<Button
-                type={"button"}
-                content={buttonCategories.save[lang]}
-                width={"full"}
-                scale={"normal"}
-                color={"primary"}
-                onClick={saveQuestions}
-            />}
+            leftBtn={
+                <Button
+                    type={"button"}
+                    content={buttonCategories.close[lang]}
+                    width={"full"}
+                    scale={"normal"}
+                    color={"third"}
+                    onClick={() => setShowConfirmModal(false)}
+                />
+            }
+            rightBtn={
+                <Button
+                    type={"button"}
+                    content={buttonCategories.save[lang]}
+                    width={"full"}
+                    scale={"normal"}
+                    color={"primary"}
+                    onClick={saveQuestions}
+                />
+            }
         />
+    );
+
+    // 사이드 메뉴 컨텐츠
+    const SideMenuContent = () => (
+        <div style={{display: "flex", flexDirection: "column", gap: "12px"}}>
+            <Button
+                type={"button"}
+                content={buttonCategories.preview[lang]}
+                width={"full"}
+                color={"third"}
+                scale={"normal"}
+            />
+        </div>
     );
 
 
@@ -172,7 +194,18 @@ const EducationManagementPage:FC = () => {
         <>
             <HeadTag title={headerCategories.educationManagementHeader[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.educationManagementHeader[lang]}/>
+            <Header
+                leftChild={<ArrowBack/>}
+                centerText={headerCategories.educationManagementHeader[lang]}
+                rightChild={
+                    <MenuButtonWrapper
+                        onClick={() => setShowSideMenu(true)}
+                    >
+                        <ReactSVG src={menu}/>
+                    </MenuButtonWrapper>
+                }
+                bgColor={true}
+            />
 
             <MenusWrapper>
                 <div onClick={clickMenuHandler}>
@@ -221,10 +254,14 @@ const EducationManagementPage:FC = () => {
                 }
             </QuestionsWrapper>
 
-            {showFilter &&
+            {showSettings &&
                 <Modal
-                  content={<EducationManagementFilterContent/>}
-                  setModal={setShowFilter}
+                  title={headerCategories.educationSettings[lang]}
+                  content={<EducationSettingsContent
+                      settings={settings}
+                      setSettings={setSettings}
+                  />}
+                  setModal={setShowSettings}
                   type={"bottomSheet"}
                 />
             }
@@ -234,6 +271,14 @@ const EducationManagementPage:FC = () => {
                   content={<SaveConfirmModalContent/>}
                   setModal={setShowConfirmModal}
                   type={"popup"}
+                />
+            }
+
+            {showSideMenu &&
+                <SideMenu
+                  content={<SideMenuContent/>}
+                  direction={"right"}
+                  setSideMenu={setShowSideMenu}
                 />
             }
         </>

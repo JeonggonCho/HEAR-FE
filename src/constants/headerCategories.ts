@@ -204,4 +204,9 @@ export const headerCategories = {
         en: "User Guide",
         ch: "使用指南",
     },
+    educationSettings: {
+        ko: "교육 설정",
+        en: "Education Settings",
+        ch: "教育设置",
+    },
 };

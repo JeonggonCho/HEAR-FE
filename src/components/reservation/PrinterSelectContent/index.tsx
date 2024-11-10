@@ -22,10 +22,12 @@ const PrinterSelectContent:FC<IPrinterSelectContentProps> = (
     return (
         <Container selectMachineMode={selectMachineMode}>
             <Calendar
+                calendarType={"reservation"}
                 setModal={setModal}
                 onSelectDate={onSelectDate}
                 date={selectedDate}
                 machine={"printer"}
+                selectWeekend={false}
             />
             <SelectPrinterWrapper>
                 {selectedDate && (

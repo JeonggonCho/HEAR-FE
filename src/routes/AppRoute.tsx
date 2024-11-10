@@ -40,7 +40,7 @@ const ReservationHeat = lazy(() => import("@pages/reservation/ReservationHeat"))
 const ReservationCnc = lazy(() => import("@pages/reservation/ReservationCnc"));
 const ReservationSaw = lazy(() => import("@pages/reservation/ReservationSaw"));
 const ReservationVacuum = lazy(() => import("@pages/reservation/ReservationVacuum"));
-const EducationPage = lazy(() => import("@pages/education/EducationPage"));
+const TestPage = lazy(() => import("@pages/education/TestPage"));
 const NotFoundPage = lazy(() => import("@pages/home/NotFoundPage"));
 const MachinesPage = lazy(() => import("@pages/management/MachinesPage"));
 const UsersPage = lazy(() => import("@pages/management/UsersPage"));
@@ -116,7 +116,7 @@ const AppRoute = () => {
                             <Route path="management/education" element={<EducationManagementPage/>}/>
 
                             <Route path="alarm" element={<NotificationPage/>}/>
-                            <Route path="education" element={<EducationPage/>}/>
+                            <Route path="test" element={<TestPage/>}/>
                         </>
                     :
                         <>

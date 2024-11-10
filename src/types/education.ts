@@ -31,3 +31,9 @@ export interface IMultipleChoice {
 }
 
 export type EducationType = IShortAnswer | ISingleChoice | IMultipleChoice;
+
+export interface IEducationSettings {
+    startDate: string;
+    endDate: string;
+    status: boolean;
+}

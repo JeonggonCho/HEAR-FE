@@ -294,4 +294,9 @@ export const buttonCategories = {
         en: "Reset",
         ch: "重置",
     },
+    preview: {
+        ko: "미리보기",
+        en: "Preview",
+        ch: "预览",
+    },
 };

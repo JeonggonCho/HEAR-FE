@@ -19,12 +19,8 @@ const Modal:FC<IModalProps> = ({title, content, setModal, type}) => {
                 setModal(false);
             }
         };
-
         document.addEventListener('mousedown', handleClickOutside);
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
+        return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [modalRef, setModal]);
 
     const modalRoot = document.getElementById("modal-hook");

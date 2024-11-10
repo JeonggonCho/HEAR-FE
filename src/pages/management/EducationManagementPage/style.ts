@@ -1,24 +1,46 @@
 import styled from "@emotion/styled";
-import {darken} from "polished";
+import {darken, lighten} from "polished";
 
 export const QuestionsWrapper = styled.div`
-    margin: 12px 24px 0;
+    margin: 24px 24px 0;
     
     & > button:last-of-type {
         margin-top: 20px;
     }
 `;
 
+export const MenuButtonWrapper = styled.div`
+    width: 28px;
+    height: 28px;
+    overflow: hidden;
+    cursor: pointer;
+
+    &:hover {
+        svg {
+            fill: ${({theme}) => theme.colors.font.main};
+            transform: scale(1.05);
+        }
+    }
+
+    svg {
+        width: 100%;
+        height: 100%;
+        fill: #B0B8C1;
+        transition: all 0.2s ease-in-out 0s;
+    }
+`;
+
 export const MenusWrapper = styled.div`
     width: 100%;
-    padding: 8px 24px 8px 30px ;
+    padding: 8px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: sticky;
     top: 72px;
     z-index: 2;
-    background-color: ${({theme}) => theme.colors.bg.sub};
+    background-color: ${({theme}) => theme.colors.bg.main};
+    border-bottom: 1px solid ${({theme}) => theme.colors.line.main};
     
     & > div:first-of-type {
         width: 32px;
@@ -42,7 +64,7 @@ export const MenusWrapper = styled.div`
     & > div:last-of-type {
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: 8px;
     }
 `;
 
@@ -54,7 +76,7 @@ export const ResetButtonWrapper = styled.div<{modified: string, darkmode: string
     background-color: ${({theme, modified, darkmode}) => {
         return modified === "true" ? theme.colors.button.approval 
                 : darkmode === "true" ? theme.colors.button.third
-                        : darken(0.05, theme.colors.button.third)
+                        : darken(0.05, theme.colors.button.third);
     }};
     display: flex;
     align-items: center;
@@ -67,7 +89,7 @@ export const ResetButtonWrapper = styled.div<{modified: string, darkmode: string
         color: ${({theme, modified, darkmode}) => {
             return modified === "true" ? theme.colors.font.primary 
                     : darkmode === "true" ? theme.colors.font.placeholder
-                            : theme.colors.font.sub
+                            : lighten(0.2, theme.colors.font.sub);
         }};
         transition: all 0.2s ease-in-out 0s;
     }
@@ -78,7 +100,7 @@ export const ResetButtonWrapper = styled.div<{modified: string, darkmode: string
         fill: ${({theme, modified, darkmode}) => {
             return modified === "true" ? theme.colors.font.primary
                     : darkmode === "true" ? theme.colors.font.placeholder
-                            : theme.colors.font.sub
+                            : lighten(0.2, theme.colors.font.sub);
         }};
         object-fit: cover;
         transition: all 0.2s ease-in-out 0s;

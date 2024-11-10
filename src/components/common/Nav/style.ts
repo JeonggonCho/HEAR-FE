@@ -11,8 +11,9 @@ export const Container = styled.nav`
     border-right: 1px solid ${({theme}) => theme.colors.line.main};
     padding: 4px 20px 20px 20px;
     border-radius: 24px 24px 0 0;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background-color: ${({theme}) => theme.colors.bg.main};
     position: fixed;
     bottom: -8px;
@@ -28,6 +29,7 @@ export const NavButton = styled(NavLink)<{ active: string, darkmode: string }>`
     font-size: 0.9rem;
     text-wrap: nowrap;
     color: ${({active, theme}) => active === "true" ? theme.colors.font.primary : theme.colors.font.sub};
+    flex-grow: 1;
     transition: all 0.2s ease-in-out 0s;
     
     &:hover {

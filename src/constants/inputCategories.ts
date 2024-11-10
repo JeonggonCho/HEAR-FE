@@ -223,5 +223,25 @@ export const inputCategories = {
         ko: "답",
         en: "Answer",
         ch: "答案",
-    }
+    },
+    durationSettings: {
+        ko: "기간 설정",
+        en: "Duration Settings",
+        ch: "期间设置",
+    },
+    startDate: {
+        ko: "시작일",
+        en: "Start Date",
+        ch: "开始日期",
+    },
+    endDate: {
+        ko: "종료일",
+        en: "End Date",
+        ch: "结束日期",
+    },
+    onEducation: {
+        ko: "교육 시행",
+        en: "Education Implementation",
+        ch: "教育实施",
+    },
 };

@@ -67,7 +67,7 @@ const BaseComponent = styled.div<{
                         : theme.colors.button[color]
     }};
     color: ${({ theme, color, disabled, darkmode }) => {
-        return disabled && darkmode === "false" ? theme.colors.font.sub
+        return disabled && darkmode === "false" ? lighten(0.2, theme.colors.font.sub)
                 : disabled && darkmode === "true" ? theme.colors.font.placeholder
                         : getTextColor(theme, color, darkmode);
     }};

@@ -191,13 +191,17 @@ const ReservationVacuum:FC = () => {
             {showCalendar &&
               <Modal
                 title={headerCategories.date[lang]}
-                content={<Calendar
-                    setModal={setShowCalendar}
-                    onSelectDate={handleDateSelect}
-                    date={getValues("date")}
-                    machine={"vacuum"}
-                    condition={condition}
-                />}
+                content={
+                    <Calendar
+                        calendarType={"reservation"}
+                        setModal={setShowCalendar}
+                        onSelectDate={handleDateSelect}
+                        date={getValues("date")}
+                        machine={"vacuum"}
+                        condition={condition}
+                        selectWeekend={false}
+                    />
+                }
                 setModal={setShowCalendar}
                 type={"bottomSheet"}
               />

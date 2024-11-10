@@ -12,7 +12,7 @@ import {
     IPrinterReservation
 } from "@/types/reservation.ts";
 import {IComment} from "@/types/comment.ts";
-import {EducationType} from "@/types/education.ts";
+import {EducationType, IEducationSettings} from "@/types/education.ts";
 
 
 // 버튼(Button) props
@@ -81,11 +81,13 @@ export interface ILangSettingContentProps {
 
 // 달력 (Calendar) props
 export interface ICalendarProps {
+    calendarType: "normal" | "reservation";
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
     onSelectDate: (date:string) => void;
     date?: string;
     machine?: "printer" | "saw" | "vacuum" | "cnc";
     condition?: any[];
+    selectWeekend: boolean;
 }
 
 
@@ -476,4 +478,19 @@ export interface IOptionListItem {
     changeOptionContentHandler: (targetOptionId: string, content: string) => void;
     changeChoiceAnswerHandler: (targetOptionId: string) => void;
     removeOption: (targetOptionId: string) => void;
+}
+
+
+// 교육 설정 내용(EducationSettingsContent) props
+export interface IEducationSettingsContentProps {
+    settings: IEducationSettings;
+    setSettings: React.Dispatch<React.SetStateAction<IEducationSettings>>;
+}
+
+
+// 사이드 메뉴(SideMenu) props
+export interface ISideMenuProps {
+    direction: "left" | "right";
+    setSideMenu: (() => void) | React.Dispatch<React.SetStateAction<boolean>>;
+    content: React.ReactElement;
 }
