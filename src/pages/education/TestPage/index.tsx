@@ -31,7 +31,8 @@ const TestPage:FC = () => {
             <HeadTag title={navCategories.test[lang]}/>
 
             <Header leftChild={<TestHeaderLeft/>} type={"flex"}/>
-            교육
+
+
         </Container>
     );
 };

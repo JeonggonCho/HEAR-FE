@@ -33,8 +33,9 @@ import menu from "@assets/icons/menu.svg";
 const EducationManagementPage:FC = () => {
     const [questions, setQuestions] = useState<EducationType[]>([]);
     const [initialQuestions, setInitialQuestions] = useState<EducationType[]>([]);
-    const [settings, setSettings] = useState<IEducationSettings>({startDate: "", endDate: "", status: false});
+    const [settings, setSettings] = useState<IEducationSettings>({startDate: "", endDate: "", status: false, cutOffPoint: ""});
     const [initialDateSetting, setInitialDateSetting] = useState<{startDate: string | undefined, endDate: string | undefined}>({startDate: "", endDate: ""});
+    const [initialCutOffPoint, setInitialCutOffPoint] = useState<{cutOffPoint: string}>({cutOffPoint: ""});
     const [showSettings, setShowSettings] = useState<boolean>(false);
     const [showSideMenu, setShowSideMenu] = useState<boolean>(false);
     const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
@@ -54,8 +55,9 @@ const EducationManagementPage:FC = () => {
                 const {questions, settings} = response.data;
                 setQuestions(questions);
                 setInitialQuestions(questions);
-                setSettings(settings);
+                setSettings({...settings, cutOffPoint: settings.cutOffPoint.toString()});
                 setInitialDateSetting({startDate: settings.startDate, endDate: settings.endDate});
+                setInitialCutOffPoint({cutOffPoint: settings.cutOffPoint.toString()});
             }
         } catch (err) {
             console.error("문제 조회 중 에러 발생: ", err);
@@ -198,7 +200,6 @@ const EducationManagementPage:FC = () => {
                 color={"third"}
                 scale={"normal"}
                 onClick={() => {}}
-                disabled={!status}
             />
         </div>
     );
@@ -275,6 +276,8 @@ const EducationManagementPage:FC = () => {
                         setSettings={setSettings}
                         initialDateSetting={initialDateSetting}
                         setInitialDateSetting={setInitialDateSetting}
+                        initialCutOffPoint={initialCutOffPoint}
+                        setInitialCutOffPoint={setInitialCutOffPoint}
                     />
                 }
                 setModal={setShowSettings}

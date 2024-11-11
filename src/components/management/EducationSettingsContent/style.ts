@@ -50,7 +50,7 @@ export const DateSelectWrapper = styled.form`
         & > div:first-of-type {
             display: flex;
             align-items: end;
-            gap: 16px;
+            gap: 8px;
             
             input {
                 width: 100%;
@@ -72,15 +72,6 @@ export const DateSelectWrapper = styled.form`
         margin-top: 28px;
     }
     
-    @media (max-width: 480px) {
-        flex-direction: column;
-        
-        & > button {
-            margin-top: 0;
-            width: 100%;
-        }
-    }
-    
     div {
         width: 100%;
     }
@@ -100,5 +91,43 @@ export const StatusSettingWrapper = styled.div`
         font-size: 1.15rem;
         font-weight: 500;
         color: ${({theme}) => theme.colors.font.main};
+    }
+`;
+
+export const CutOffPointSettingWrapper = styled.div`
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    
+    & > div:first-of-type {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        
+        & > label {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: ${({theme}) => theme.colors.font.main};
+        }
+        
+        & > p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: ${({theme}) => theme.colors.font.sub};
+            line-height: 1.3;
+            text-wrap: pretty;
+            word-break: keep-all;
+        }
+    }
+    
+    & > div:nth-of-type(2) {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        
+        & > div:first-of-type {
+            width: 48px;
+        }
     }
 `;

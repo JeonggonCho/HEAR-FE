@@ -487,6 +487,8 @@ export interface IEducationSettingsContentProps {
     setSettings: React.Dispatch<React.SetStateAction<IEducationSettings>>;
     initialDateSetting: {startDate: string | undefined, endDate: string | undefined};
     setInitialDateSetting: React.Dispatch<React.SetStateAction<{startDate: string | undefined, endDate: string | undefined}>>;
+    initialCutOffPoint: {cutOffPoint: string};
+    setInitialCutOffPoint: React.Dispatch<React.SetStateAction<{cutOffPoint: string}>>;
 }
 
 

@@ -1,4 +1,4 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {ChangeEvent, FC, useCallback, useEffect, useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
@@ -20,19 +20,25 @@ import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
-import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 
-import {Container, DateSelectWrapper, DateSettingWrapper, StatusSettingWrapper} from "./style.ts";
+import {
+    Container,
+    CutOffPointSettingWrapper,
+    DateSelectWrapper,
+    DateSettingWrapper,
+    StatusSettingWrapper
+} from "./style.ts";
 
 import erase from "@assets/icons/erase.svg";
 import resetIcon from "@assets/icons/reset.svg";
-import {messageCategories} from "@constants/messageCategories.ts";
 
 
-const EducationSettingsContent:FC<IEducationSettingsContentProps> = ({settings, setSettings, initialDateSetting, setInitialDateSetting}) => {
+const EducationSettingsContent:FC<IEducationSettingsContentProps> = ({settings, setSettings, initialDateSetting, setInitialDateSetting, initialCutOffPoint, setInitialCutOffPoint}) => {
     const [showStartDateCalendarModal, setShowStartDateCalendarModal] = useState<boolean>(false);
     const [showEndDateCalendarModal, setShowEndDateCalendarModal] = useState<boolean>(false);
-    const [isModified, setIsModified] = useState<boolean>(false);
+    const [isDateModified, setIsDateModified] = useState<boolean>(false);
+    const [isCutOffPointModified, setIsCutOffPointModified] = useState<boolean>(false);
 
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
@@ -105,6 +111,37 @@ const EducationSettingsContent:FC<IEducationSettingsContentProps> = ({settings, 
         }
     }, [sendRequest]);
 
+    // 커트라인 문제 개수 입력
+    const changeCutOffPoint = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.value.length <= 1) {
+            setSettings((prevState) => ({...prevState, cutOffPoint: e.target.value}));
+        }
+    };
+
+    // 커트라인 문제 개수 저장하기
+    const saveCutOffPoint = async () => {
+        if (Number(settings.cutOffPoint) === 0 || Number(settings.cutOffPoint) > 9) {
+            showToast("커트라인 문제 개수는 1 이상 9 이하의 숫자여야 합니다", "error");
+            return;
+        }
+        const data = {cutOffPoint: parseInt(settings.cutOffPoint, 10)};
+        try {
+            const response = await sendRequest({
+                url: "/education/cutOffPoint",
+                method: "patch",
+                data: data,
+            });
+            if (response.data) {
+                const cutOffPoint = response.data;
+                setSettings((prevState) => ({...prevState, cutOffPoint}));
+                setInitialCutOffPoint({cutOffPoint});
+                showToast("커트라인 문제 개수 저장이 완료되었습니다", "success");
+            }
+        } catch (err) {
+            console.error("커트라인 문제 개수 저장 중 에러 발생: ", err);
+        }
+    };
+
     // 에러 메시지
     useEffect(() => {
         if (errorText) showToast(errorText, "error");
@@ -115,11 +152,20 @@ const EducationSettingsContent:FC<IEducationSettingsContentProps> = ({settings, 
     // 기간 변경 여부 체크
     useEffect(() => {
         if (JSON.stringify({startDate: settings.startDate, endDate: settings.endDate}) !== JSON.stringify(initialDateSetting)) {
-            setIsModified(true);
+            setIsDateModified(true);
         } else {
-            setIsModified(false);
+            setIsDateModified(false);
         }
     }, [settings, initialDateSetting]);
+
+    // 커트라인 변경 여부 체크
+    useEffect(() => {
+        if (JSON.stringify({cutOffPoint: settings.cutOffPoint}) !== JSON.stringify(initialCutOffPoint)) {
+            setIsCutOffPointModified(true);
+        } else {
+            setIsCutOffPointModified(false);
+        }
+    }, [settings, initialCutOffPoint]);
 
 
     return (
@@ -138,7 +184,7 @@ const EducationSettingsContent:FC<IEducationSettingsContentProps> = ({settings, 
                                 color={"second"}
                                 scale={"small"}
                                 onClick={resetDate}
-                                disabled={!isModified}
+                                disabled={!isDateModified}
                             />
                             <Button
                                 type={"button"}
@@ -149,6 +195,7 @@ const EducationSettingsContent:FC<IEducationSettingsContentProps> = ({settings, 
                                 color={"second"}
                                 scale={"small"}
                                 onClick={eraseDate}
+                                disabled={!settings.startDate && !settings.endDate}
                             />
                         </div>
                     </div>
@@ -160,18 +207,18 @@ const EducationSettingsContent:FC<IEducationSettingsContentProps> = ({settings, 
                                     type={"text"}
                                     id={"startDate"}
                                     name={"startDate"}
-                                    placeholder={placeholderCategories.date[lang]}
+                                    placeholder={inputCategories.startDate[lang]}
                                     register={register}
                                     onClick={() => setShowStartDateCalendarModal(true)}
                                     readonly
                                 />
-                                <span> - </span>
+                                <span>-</span>
                                 <Input
                                     label={inputCategories.endDate[lang]}
                                     type={"text"}
                                     id={"endDate"}
                                     name={"endDate"}
-                                    placeholder={placeholderCategories.date[lang]}
+                                    placeholder={inputCategories.endDate[lang]}
                                     register={register}
                                     onClick={() => setShowEndDateCalendarModal(true)}
                                     disabled={!settings.startDate}
@@ -192,10 +239,36 @@ const EducationSettingsContent:FC<IEducationSettingsContentProps> = ({settings, 
                             width={"fit"}
                             color={"approval"}
                             scale={"normal"}
-                            disabled={!isModified}
+                            disabled={!isDateModified}
                         />
                     </DateSelectWrapper>
                 </DateSettingWrapper>
+
+                <CutOffPointSettingWrapper>
+                    <div>
+                        <label>{inputCategories.cutOffPointSettings[lang]}</label>
+                        <p>{inputCategories.descriptionOfCutOffPointSettings[lang]}</p>
+                    </div>
+                    <div>
+                        <Input
+                            type={"number"}
+                            id={"cutOffPoint"}
+                            name={"cutOffPoint"}
+                            onChange={changeCutOffPoint}
+                            value={settings.cutOffPoint}
+                            maxLength={1}
+                        />
+                        <Button
+                            type={"button"}
+                            content={buttonCategories.save[lang]}
+                            width={"fit"}
+                            color={"approval"}
+                            scale={"normal"}
+                            disabled={!isCutOffPointModified}
+                            onClick={saveCutOffPoint}
+                        />
+                    </div>
+                </CutOffPointSettingWrapper>
 
                 <StatusSettingWrapper>
                     <label>{inputCategories.onEducation[lang]}</label>

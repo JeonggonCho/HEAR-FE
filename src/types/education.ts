@@ -36,4 +36,5 @@ export interface IEducationSettings {
     startDate: string | undefined;
     endDate: string | undefined;
     status: boolean;
+    cutOffPoint: string;
 }

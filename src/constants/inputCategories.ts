@@ -244,4 +244,14 @@ export const inputCategories = {
         en: "Education Implementation",
         ch: "教育实施",
     },
+    cutOffPointSettings: {
+        ko: "커트라인 설정",
+        en: "Cutoff Point Setting",
+        ch: "分数线设置",
+    },
+    descriptionOfCutOffPointSettings: {
+        ko: "해당 개수 이상 문제를 틀릴 경우 미이수 처리",
+        en: "Failure if the number of incorrect answers exceeds this count",
+        ch: "若错误次数超过该数量则判定为未完成",
+    },
 };
