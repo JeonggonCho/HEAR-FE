@@ -12,6 +12,7 @@ import Empty from "@components/common/Empty";
 import ModalConfirmContent from "@components/common/ModalConfirmContent";
 import QuestionListContent from "@components/management/QuestionListContent";
 import EducationSettingsContent from "@components/management/EducationSettingsContent";
+import SideMenu from "@components/common/SideMenu";
 
 import useRequest from "@hooks/useRequest.ts";
 import {EducationType, IEducationSettings} from "@/types/education.ts";
@@ -27,13 +28,13 @@ import add from "@assets/icons/add.svg";
 import tune from "@assets/icons/tune.svg"
 import reset from "@assets/icons/reset.svg";
 import menu from "@assets/icons/menu.svg";
-import SideMenu from "@components/common/SideMenu";
 
 
 const EducationManagementPage:FC = () => {
     const [questions, setQuestions] = useState<EducationType[]>([]);
     const [initialQuestions, setInitialQuestions] = useState<EducationType[]>([]);
     const [settings, setSettings] = useState<IEducationSettings>({startDate: "", endDate: "", status: false});
+    const [initialDateSetting, setInitialDateSetting] = useState<{startDate: string | undefined, endDate: string | undefined}>({startDate: "", endDate: ""});
     const [showSettings, setShowSettings] = useState<boolean>(false);
     const [showSideMenu, setShowSideMenu] = useState<boolean>(false);
     const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
@@ -47,12 +48,14 @@ const EducationManagementPage:FC = () => {
     const fetchQuestions = useCallback(async () => {
         try {
             const response = await sendRequest({
-                url: "/education"
+                url: "/education",
             });
             if (response.data) {
-                setQuestions(response.data.questions);
-                setInitialQuestions(response.data.questions);
-                setSettings(response.data.settings);
+                const {questions, settings} = response.data;
+                setQuestions(questions);
+                setInitialQuestions(questions);
+                setSettings(settings);
+                setInitialDateSetting({startDate: settings.startDate, endDate: settings.endDate});
             }
         } catch (err) {
             console.error("문제 조회 중 에러 발생: ", err);
@@ -112,7 +115,7 @@ const EducationManagementPage:FC = () => {
                 data: data,
             });
             if (response.data) {
-                showToast(response.data.message, "success");
+                showToast(messageCategories.questionSaveDone[lang], "success");
                 setInitialQuestions(questions);
             }
         } catch (err) {
@@ -178,13 +181,24 @@ const EducationManagementPage:FC = () => {
 
     // 사이드 메뉴 컨텐츠
     const SideMenuContent = () => (
-        <div style={{display: "flex", flexDirection: "column", gap: "12px"}}>
+        <div style={{display: "flex", flexDirection: "column", gap: "20px"}}>
             <Button
                 type={"button"}
                 content={buttonCategories.preview[lang]}
                 width={"full"}
                 color={"third"}
                 scale={"normal"}
+                onClick={() => {}}
+                disabled={questions.length === 0}
+            />
+            <Button
+                type={"button"}
+                content={buttonCategories.response[lang]}
+                width={"full"}
+                color={"third"}
+                scale={"normal"}
+                onClick={() => {}}
+                disabled={!status}
             />
         </div>
     );
@@ -198,9 +212,7 @@ const EducationManagementPage:FC = () => {
                 leftChild={<ArrowBack/>}
                 centerText={headerCategories.educationManagementHeader[lang]}
                 rightChild={
-                    <MenuButtonWrapper
-                        onClick={() => setShowSideMenu(true)}
-                    >
+                    <MenuButtonWrapper onClick={() => setShowSideMenu(true)}>
                         <ReactSVG src={menu}/>
                     </MenuButtonWrapper>
                 }
@@ -255,15 +267,19 @@ const EducationManagementPage:FC = () => {
             </QuestionsWrapper>
 
             {showSettings &&
-                <Modal
-                  title={headerCategories.educationSettings[lang]}
-                  content={<EducationSettingsContent
-                      settings={settings}
-                      setSettings={setSettings}
-                  />}
-                  setModal={setShowSettings}
-                  type={"bottomSheet"}
-                />
+              <Modal
+                title={headerCategories.educationSettings[lang]}
+                content={
+                    <EducationSettingsContent
+                        settings={settings}
+                        setSettings={setSettings}
+                        initialDateSetting={initialDateSetting}
+                        setInitialDateSetting={setInitialDateSetting}
+                    />
+                }
+                setModal={setShowSettings}
+                type={"bottomSheet"}
+              />
             }
 
             {showConfirmModal &&

@@ -52,7 +52,7 @@ export const SideMenuWrapper = styled.div<{direction: "left" | "right"}>`
         width: 100%;
         display: flex;
         align-items: center;
-        justify-content: ${({direction}) => direction === "right" ? "start" : "end"};
+        justify-content: ${({direction}) => direction === "right" ? "end" : "start"};
     }
 
     @media (max-width: 600px) {

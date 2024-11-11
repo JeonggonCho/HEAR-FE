@@ -35,12 +35,11 @@ export const Buttons = styled.div`
     margin: 0;
 `;
 
-export const ControlWrapper = styled.div<{showEdit: boolean}>`
+export const ControlWrapper = styled.div<{showEdit: boolean, lang: "ko" | "en" | "ch"}>`
     width: 100%;
     align-items: center;
     gap: 8px;
-    margin-right: ${({showEdit}) => {
-        const {lang} = useThemeStore();
+    margin-right: ${({showEdit, lang}) => {
         return showEdit ? "0" : lang === "en" ? "-138px" : lang === "ko" ? "-120px" : "-126px";
     }};
     display: ${({showEdit}) => showEdit ? 'flex' : 'hidden'};

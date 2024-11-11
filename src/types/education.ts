@@ -33,7 +33,7 @@ export interface IMultipleChoice {
 export type EducationType = IShortAnswer | ISingleChoice | IMultipleChoice;
 
 export interface IEducationSettings {
-    startDate: string;
-    endDate: string;
+    startDate: string | undefined;
+    endDate: string | undefined;
     status: boolean;
 }

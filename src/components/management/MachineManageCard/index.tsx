@@ -143,7 +143,7 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
                         <div>
                           <button
                             onClick={() => setShowEdit(prevState => !prevState)}
-                          >{buttonCategories.edit[lang]}</button>
+                          >{buttonCategories.editing[lang]}</button>
                           <button
                             onClick={() => machineType === "laser" ? setNewLaserModal(true)
                                 : machineType === "printer" ? setNewPrinterModal(true)

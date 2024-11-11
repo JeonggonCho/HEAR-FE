@@ -219,6 +219,11 @@ export const messageCategories = {
         en: "The start time must be earlier than the end time",
         ch: "开始时间必须早于结束时间。",
     },
+    dateSequence: {
+        ko: "시작일은 종료일보다 이전이여야 합니다",
+        en: "The start date must be before the end date",
+        ch: "开始日期必须早于结束日期。",
+    },
     machineName: {
         ko: "기기명을 입력해주세요",
         en: "Please enter the machine name",
@@ -423,5 +428,15 @@ export const messageCategories = {
         ko: "누락된 질문과 정답이 없는지 확인해보세요",
         en: "Please check for any missing questions or answers",
         ch: "请检查是否有遗漏的问题或答案",
+    },
+    durationSaveDone: {
+        ko: "기간 변경이 완료되었습니다",
+        en: "Date range updated successfully",
+        ch: "日期范围已更新完成",
+    },
+    questionSaveDone: {
+        ko: "문제 저장이 완료되었습니다",
+        en: "Questions saved successfully",
+        ch: "问题已成功保存",
     },
 };

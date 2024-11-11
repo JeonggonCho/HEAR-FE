@@ -13,6 +13,7 @@ import Modal from "@components/common/Modal";
 import Calendar from "@components/common/Calendar";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
+import InputMessage from "@components/common/InputMessage";
 
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
@@ -24,7 +25,7 @@ import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 
-import {Container, ErrorMessage, ImageWrapper, TimeWrapper} from "./style.ts";
+import {Container, ImageWrapper, TimeWrapper} from "./style.ts";
 
 import saw from "@assets/images/saw.png";
 import close from "@assets/icons/close.svg";
@@ -92,7 +93,7 @@ const ReservationSaw:FC = () => {
                 }, 300);
             }
         } catch (err) {
-            console.log("톱 예약 요청 중 에러 발생: ", err);
+            console.error("톱 예약 요청 중 에러 발생: ", err);
             reset();
         }
     }, [sendRequest]);
@@ -169,8 +170,8 @@ const ReservationSaw:FC = () => {
                                     <option value={"18:00"}>18:00</option>
                                 </select>
                             </div>
-                            {errors.startTime?.message && <ErrorMessage>{errors.startTime?.message}</ErrorMessage>}
-                            {errors.endTime?.message && <ErrorMessage>{errors.endTime?.message}</ErrorMessage>}
+                            {errors.startTime?.message && <InputMessage message={errors.startTime.message} type={"error"}/>}
+                            {errors.endTime?.message && <InputMessage message={errors.endTime.message} type={"error"}/>}
                         </TimeWrapper>
 
                         <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>

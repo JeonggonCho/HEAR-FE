@@ -105,6 +105,7 @@ const ReservationCnc:FC = () => {
         return () => clearTimeout(errorTimer);
     }, [errorText]);
 
+
     return (
         <>
             <Container>

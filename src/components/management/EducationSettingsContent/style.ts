@@ -23,14 +23,63 @@ export const DateSettingWrapper = styled.div`
             font-weight: 500;
             color: ${({theme}) => theme.colors.font.main};
         }
+        
+        & > div:first-of-type {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            & > button {
+                padding: 4px 8px;
+            }
+        }
     }
 `;
 
-export const DateSelectWrapper = styled.div`
+export const DateSelectWrapper = styled.form`
     width: 100%;
     display: flex;
-    align-items: end;
+    align-items: start;
     gap: 16px;
+    
+    & > div:first-of-type {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        
+        & > div:first-of-type {
+            display: flex;
+            align-items: end;
+            gap: 16px;
+            
+            input {
+                width: 100%;
+            }
+        }
+        
+        & > div:nth-of-type(2) {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            
+            p {
+                color: ${({theme}) => theme.colors.font.danger};
+            } 
+        }
+    }
+    
+    & > button {
+        margin-top: 28px;
+    }
+    
+    @media (max-width: 480px) {
+        flex-direction: column;
+        
+        & > button {
+            margin-top: 0;
+            width: 100%;
+        }
+    }
     
     div {
         width: 100%;

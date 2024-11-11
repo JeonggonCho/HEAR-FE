@@ -485,6 +485,8 @@ export interface IOptionListItem {
 export interface IEducationSettingsContentProps {
     settings: IEducationSettings;
     setSettings: React.Dispatch<React.SetStateAction<IEducationSettings>>;
+    initialDateSetting: {startDate: string | undefined, endDate: string | undefined};
+    setInitialDateSetting: React.Dispatch<React.SetStateAction<{startDate: string | undefined, endDate: string | undefined}>>;
 }
 
 

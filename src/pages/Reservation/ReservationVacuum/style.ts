@@ -129,15 +129,3 @@ export const TimeWrapper = styled.div<{tooltip: boolean}>`
         }
     }
 `;
-
-export const ErrorMessage = styled.span`
-    font-size: 0.9rem;
-    display: inline-block;
-    color: ${({theme}) => theme.colors.font.danger};
-    margin-left: 4px;
-    margin-top: 4px;
-    
-    & + & {
-        margin-bottom: 8px;
-    }
-`;

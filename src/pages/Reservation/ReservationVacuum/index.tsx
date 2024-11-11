@@ -14,6 +14,7 @@ import Modal from "@components/common/Modal";
 import Calendar from "@components/common/Calendar";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
+import InputMessage from "@components/common/InputMessage";
 
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
@@ -25,7 +26,7 @@ import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 
-import {Container, ErrorMessage, ImageWrapper, MapIcon, TimeWrapper} from "./style.ts";
+import {Container, ImageWrapper, MapIcon, TimeWrapper} from "./style.ts";
 
 import vacuum from "@assets/images/vacuum.png";
 import mapIcon from "@assets/icons/map.svg";
@@ -179,8 +180,8 @@ const ReservationVacuum:FC = () => {
                                     <option value={"18:00"}>18:00</option>
                                 </select>
                             </div>
-                            {errors.startTime?.message && <ErrorMessage>{errors.startTime?.message}</ErrorMessage>}
-                            {errors.endTime?.message && <ErrorMessage>{errors.endTime?.message}</ErrorMessage>}
+                            {errors.startTime?.message && <InputMessage message={errors.startTime.message} type={"error"}/>}
+                            {errors.endTime?.message && <InputMessage message={errors.endTime.message} type={"error"}/>}
                         </TimeWrapper>
 
                         <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>

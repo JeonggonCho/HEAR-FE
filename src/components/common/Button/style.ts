@@ -81,7 +81,11 @@ const BaseComponent = styled.div<{
     
     svg {
         margin-top: 4px;
-        fill: ${({theme, color, darkmode}) => getTextColor(theme, color, darkmode)};
+        fill: ${({theme, color, darkmode, disabled}) => {
+            return disabled && darkmode === "false" ? lighten(0.2, theme.colors.font.sub)
+                    : disabled && darkmode === "true" ? theme.colors.font.placeholder 
+                            : getTextColor(theme, color, darkmode);
+        }};
         width: 20px;
         height: 20px;
     }

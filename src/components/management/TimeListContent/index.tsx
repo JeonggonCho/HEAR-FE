@@ -7,6 +7,7 @@ import {DragDropContext, Droppable} from '@hello-pangea/dnd';
 
 import TimeListItem from "@components/management/TimeListItem";
 import Button from "@components/common/Button";
+import InputMessage from "@components/common/InputMessage";
 
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
@@ -18,7 +19,7 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
-import {Container, TimeSelectsWrapper, ErrorMessage,} from "./style.ts";
+import {Container, TimeSelectsWrapper,} from "./style.ts";
 
 
 const TimeListContent:FC<ITimeListContentProps> = ({timeList, setTimeList}) => {
@@ -183,8 +184,10 @@ const TimeListContent:FC<ITimeListContentProps> = ({timeList, setTimeList}) => {
                 />
             </TimeSelectsWrapper>
 
-            {timeErrors.startTime?.message && <ErrorMessage>{timeErrors.startTime.message}</ErrorMessage>}
-            {timeErrors.endTime?.message && <ErrorMessage>{timeErrors.endTime.message}</ErrorMessage>}
+            <div style={{display:"flex", flexDirection:"column", gap:"8px"}}>
+                {timeErrors.startTime?.message && <InputMessage message={timeErrors.startTime.message} type={"error"}/>}
+                {timeErrors.endTime?.message && <InputMessage message={timeErrors.endTime.message} type={"error"}/>}
+            </div>
 
             {timeList.length !== 0 ?
                 <DragDropContext onDragEnd={onDragEnd}>

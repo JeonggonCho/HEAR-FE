@@ -1,14 +1,15 @@
 import {z} from "zod";
-import {DATE_REGEX, timeRegex} from "@constants/regex.ts";
+
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {DATE_REGEX, TIME_REGEX} from "@constants/regex.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
 const MachineSchemaProvider = () => {
     const {lang} = useThemeStore();
 
     const timeRangeSchema = z.object({
-        startTime: z.string().regex(timeRegex, messageCategories.startTimeForm[lang]),
-        endTime: z.string().regex(timeRegex, messageCategories.endTimeForm[lang]),
+        startTime: z.string().regex(TIME_REGEX, messageCategories.startTimeForm[lang]),
+        endTime: z.string().regex(TIME_REGEX, messageCategories.endTimeForm[lang]),
     }).refine((data) => {
         const startHour = Number(data.startTime.split(":")[0]);
         const endHour = Number(data.endTime.split(":")[0]);
@@ -47,8 +48,8 @@ const MachineSchemaProvider = () => {
             .string()
             .min(1, messageCategories.selectDate[lang])
             .regex(DATE_REGEX, messageCategories.dateForm[lang]),
-        startTime: z.string().regex(timeRegex, messageCategories.startTimeForm[lang]),
-        endTime: z.string().regex(timeRegex, messageCategories.endTimeForm[lang]),
+        startTime: z.string().regex(TIME_REGEX, messageCategories.startTimeForm[lang]),
+        endTime: z.string().regex(TIME_REGEX, messageCategories.endTimeForm[lang]),
     }).refine((data) => {
         const startHour = Number(data.startTime.split(":")[0]);
         const endHour = Number(data.endTime.split(":")[0]);

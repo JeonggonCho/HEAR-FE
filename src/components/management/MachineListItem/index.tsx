@@ -128,7 +128,7 @@ const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines
                   />
                 }
 
-                <ControlWrapper showEdit={props.showEdit}>
+                <ControlWrapper showEdit={props.showEdit} lang={lang}>
                     {isEdit?
                         <>
                             <Button
@@ -152,7 +152,7 @@ const MachineListItem:FC<(ILasers | IPrinters) & {showEdit: boolean; setMachines
                         <>
                             <Button
                                 type={"button"}
-                                content={buttonCategories.edit[lang]}
+                                content={buttonCategories.editing[lang]}
                                 width={"fit"}
                                 color={"third"}
                                 scale={"small"}

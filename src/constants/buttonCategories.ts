@@ -294,9 +294,19 @@ export const buttonCategories = {
         en: "Reset",
         ch: "重置",
     },
+    erase: {
+        ko: "지우기",
+        en: "Erase",
+        ch: "清除",
+    },
     preview: {
         ko: "미리보기",
         en: "Preview",
         ch: "预览",
+    },
+    response: {
+        ko: "응답",
+        en: "Response",
+        ch: "回复",
     },
 };
