@@ -1,13 +1,12 @@
 import {solarHolidays} from "@constants/calendarCategories.ts";
 
-
 // 날짜 폼 yyyy-mm-dd로 변환하는 함수
-export const getFormattedDate = (dateString: string | Date) => {
+export const getFormattedDate = (dateString: string | Date, type: "dash" | "point") => {
     const date = new Date(dateString);
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
+    return type === "dash" ? `${year}-${month}-${day}` : `${year}.${month}.${day}`;
 };
 
 // 같은 날인지 비교하는 함수
@@ -91,4 +90,17 @@ export const getAfterWeekDate = (fromTomorrowNotConsiderHoliday:boolean) => {
     const month = (oneWeekLater.getMonth() + 1).toString().padStart(2, '0');
     const day = oneWeekLater.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
+};
+
+// 타겟 날짜가 두 날짜 사이인지 확인하는 함수
+export const isBetweenDate = (targetDate: Date, date1: Date, date2: Date) => {
+    const toDateOnly = (date: Date) => {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    };
+
+    const start = toDateOnly(date1).getTime();
+    const end = toDateOnly(date2).getTime();
+    const target = toDateOnly(targetDate).getTime();
+
+    return target >= Math.min(start, end) && target <= Math.max(start, end);
 };

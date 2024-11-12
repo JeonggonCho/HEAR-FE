@@ -174,7 +174,7 @@ const EducationManagementPage:FC = () => {
                     content={buttonCategories.save[lang]}
                     width={"full"}
                     scale={"normal"}
-                    color={"primary"}
+                    color={"approval"}
                     onClick={saveQuestions}
                 />
             }

@@ -309,4 +309,9 @@ export const buttonCategories = {
         en: "Response",
         ch: "回复",
     },
+    startTest: {
+        ko: "테스트 시작하기",
+        en: "Start Test",
+        ch: "开始测试",
+    },
 };

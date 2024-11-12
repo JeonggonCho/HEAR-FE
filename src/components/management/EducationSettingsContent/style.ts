@@ -48,6 +48,7 @@ export const DateSelectWrapper = styled.form`
         gap: 12px;
         
         & > div:first-of-type {
+            margin-top: 2px;
             display: flex;
             align-items: end;
             gap: 8px;
@@ -66,10 +67,6 @@ export const DateSelectWrapper = styled.form`
                 color: ${({theme}) => theme.colors.font.danger};
             } 
         }
-    }
-    
-    & > button {
-        margin-top: 28px;
     }
     
     div {
@@ -117,7 +114,7 @@ export const CutOffPointSettingWrapper = styled.div`
             color: ${({theme}) => theme.colors.font.sub};
             line-height: 1.3;
             text-wrap: pretty;
-            word-break: keep-all;
+            word-break: break-word;
         }
     }
     

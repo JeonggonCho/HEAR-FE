@@ -58,8 +58,8 @@ const EducationSettingsContent:FC<IEducationSettingsContentProps> = ({settings, 
 
     useEffect(() => {
         reset({
-            startDate: settings.startDate ? getFormattedDate(settings.startDate) : "",
-            endDate: settings.endDate ? getFormattedDate(settings.endDate) : "",
+            startDate: settings.startDate ? getFormattedDate(settings.startDate, "dash") : "",
+            endDate: settings.endDate ? getFormattedDate(settings.endDate, "dash") : "",
         });
     }, []);
 
@@ -86,8 +86,8 @@ const EducationSettingsContent:FC<IEducationSettingsContentProps> = ({settings, 
     // 기간 초기화
     const resetDate = () => {
         reset({
-            startDate: initialDateSetting.startDate ? getFormattedDate(initialDateSetting.startDate) : "",
-            endDate: initialDateSetting.endDate ? getFormattedDate(initialDateSetting.endDate): "",
+            startDate: initialDateSetting.startDate ? getFormattedDate(initialDateSetting.startDate, "dash") : "",
+            endDate: initialDateSetting.endDate ? getFormattedDate(initialDateSetting.endDate, "dash"): "",
         });
         setSettings(prevState => ({...prevState, startDate: initialDateSetting.startDate, endDate: initialDateSetting.endDate}));
     };
@@ -121,7 +121,7 @@ const EducationSettingsContent:FC<IEducationSettingsContentProps> = ({settings, 
     // 커트라인 문제 개수 저장하기
     const saveCutOffPoint = async () => {
         if (Number(settings.cutOffPoint) === 0 || Number(settings.cutOffPoint) > 9) {
-            showToast("커트라인 문제 개수는 1 이상 9 이하의 숫자여야 합니다", "error");
+            showToast(messageCategories.warningCutOffPoint[lang], "error");
             return;
         }
         const data = {cutOffPoint: parseInt(settings.cutOffPoint, 10)};
@@ -135,7 +135,7 @@ const EducationSettingsContent:FC<IEducationSettingsContentProps> = ({settings, 
                 const cutOffPoint = response.data;
                 setSettings((prevState) => ({...prevState, cutOffPoint}));
                 setInitialCutOffPoint({cutOffPoint});
-                showToast("커트라인 문제 개수 저장이 완료되었습니다", "success");
+                showToast(messageCategories.saveCutOffPointDone[lang], "success");
             }
         } catch (err) {
             console.error("커트라인 문제 개수 저장 중 에러 발생: ", err);
@@ -203,7 +203,6 @@ const EducationSettingsContent:FC<IEducationSettingsContentProps> = ({settings, 
                         <div>
                             <div>
                                 <Input
-                                    label={inputCategories.startDate[lang]}
                                     type={"text"}
                                     id={"startDate"}
                                     name={"startDate"}
@@ -214,7 +213,6 @@ const EducationSettingsContent:FC<IEducationSettingsContentProps> = ({settings, 
                                 />
                                 <span>-</span>
                                 <Input
-                                    label={inputCategories.endDate[lang]}
                                     type={"text"}
                                     id={"endDate"}
                                     name={"endDate"}

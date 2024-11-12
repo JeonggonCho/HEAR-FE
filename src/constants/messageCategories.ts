@@ -439,4 +439,19 @@ export const messageCategories = {
         en: "Questions saved successfully",
         ch: "问题已成功保存",
     },
+    saveCutOffPointDone: {
+        ko: "커트라인 문제 개수 저장이 완료되었습니다",
+        en: "The cutoff point has been successfully saved",
+        ch: "已成功保存及格分数",
+    },
+    warningCutOffPoint: {
+        ko: "커트라인 문제 개수는 1 이상 9 이하의 숫자여야 합니다",
+        en: "The cutoff point must be a number between 1 and 9",
+        ch: "及格分数必须是 1 到 9 之间的数字",
+    },
+    emptyPeriod: {
+        ko: "교육 기간이 정해지지 않았습니다.",
+        en: "The test period has not been set.",
+        ch: "测试期间尚未设定。",
+    },
 };
