@@ -506,4 +506,6 @@ export interface ITestListItemProps {
     testAnswers: ITestAnswer[];
     setTestAnswers: React.Dispatch<React.SetStateAction<ITestAnswer[]>>;
     isAnswerFilled: boolean;
+    inputAnswer: (e: any, question: EducationType) => void;
+    isChecked: (optionId: string, question:EducationType) => boolean;
 }

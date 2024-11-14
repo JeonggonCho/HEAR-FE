@@ -122,9 +122,9 @@ export const LabelWrapper = styled.label<{darkmode: string, lang: "en" | "ch" | 
     width: 100%;
     height: 56px;
     background-color: ${({theme}) => theme.colors.bg.main};
-    color: ${({theme, darkmode}) => darkmode === "true" ? lighten(0.5, theme.colors.font.sub) : theme.colors.font.sub};
+    color: ${({theme}) => theme.colors.font.sub};
     border-radius: 8px;
-    border: 1px solid ${({theme, darkmode}) => darkmode === "true" ? lighten(0.1, theme.colors.line.main) : theme.colors.line.main};
+    border: 1px solid ${({theme, darkmode}) => darkmode === "true" ? lighten(0.05, theme.colors.line.main) : theme.colors.line.main};
     cursor: pointer;
     transition: all 0.2s ease-in-out 0s;
     font-size: ${({lang}) => lang === "en" ? "0.9rem" : "1rem"};

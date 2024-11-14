@@ -111,22 +111,60 @@ export const SideMenuQuestionsWrapper = styled.ul`
     }
 `;
 
-export const SideMenuQuestionWrapper = styled.li`
+export const SideMenuQuestionWrapper = styled.li<{filled: string}>`
     cursor: pointer;
-    border: 1px solid ${({theme}) => theme.colors.line.main};
+    border: 1px solid ${({theme, filled}) => {
+        return filled === "true" ? theme.colors.line.primary : theme.colors.line.main;
+    }};
     padding: 4px;
     border-radius: 8px;
     display: flex;
+    align-items: center;
     gap: 12px;
     
     label {
+        cursor: pointer;
         width: 28px;
         min-width: 28px;
         height: 28px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        background-color: ${({theme}) => theme.colors.button.third};
+        background-color: ${({theme, filled}) => {
+            return filled === "true" ? theme.colors.button.approval : theme.colors.button.third;
+        }};
         border-radius: 4px;
+        color: ${({theme, filled}) => {
+            return filled === "true" ? theme.colors.font.primary : theme.colors.font.sub;
+        }};
+    }
+`;
+
+export const SideMenuAnswerWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    
+    p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: ${({theme}) => theme.colors.font.main};
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+`;
+
+export const AnswerWrapper = styled.div`
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    
+    input[type="checkbox"],
+    input[type="radio"] {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        margin: 0;
     }
 `;

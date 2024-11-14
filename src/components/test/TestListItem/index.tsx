@@ -12,47 +12,9 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import Button from "@components/common/Button";
 
 
-const TestListItem:FC<ITestListItemProps> = ({question, testAnswers, setTestAnswers, isAnswerFilled}) => {
+const TestListItem:FC<ITestListItemProps> = ({question, testAnswers, setTestAnswers, isAnswerFilled, inputAnswer, isChecked}) => {
     const {lang} = useThemeStore();
     const scrollbarWidth = useScrollbarWidth();
-
-    // 문제 입력
-    const inputAnswer = (e: any) => {
-        const value = e.target.value;
-        const id = e.target.id;
-
-        setTestAnswers((prevState) => {
-            const answers = [...prevState];
-            const targetIndex = answers.findIndex((answer) => answer.questionId === question._id);
-            if (targetIndex !== -1) {
-                if (question.questionType === "shortAnswer") {
-                    (answers[targetIndex].myAnswer as string) = value;
-                } else if (question.questionType === "singleChoice") {
-                    (answers[targetIndex].myAnswer as string) = id;
-                } else if (question.questionType === "multipleChoice") {
-                    const currentAnswers = answers[targetIndex].myAnswer as string[];
-                    if (currentAnswers.includes(id)) {
-                        answers[targetIndex].myAnswer = currentAnswers.filter((item) => item !== id);
-                    } else {
-                        answers[targetIndex].myAnswer = [...currentAnswers, id];
-                    }
-                }
-            }
-            return answers;
-        });
-    };
-
-    // 문제 체크 확인
-    const isChecked = (optionId: string) => {
-        const targetIndex = testAnswers.findIndex((answer) => answer.questionId === question._id);
-        if (targetIndex === -1) return false;
-        if (question.questionType === "singleChoice") {
-            return testAnswers[targetIndex].myAnswer === optionId;
-        } else if (question.questionType === "multipleChoice") {
-            return (testAnswers[targetIndex].myAnswer as string[]).includes(optionId);
-        }
-        return false;
-    };
 
     // 단답형 답 채우기
     const initialShortAnswer = () => {
@@ -99,7 +61,7 @@ const TestListItem:FC<ITestListItemProps> = ({question, testAnswers, setTestAnsw
                         type={"text"}
                         id={"shortAnswer"}
                         name={"shortAnswer"}
-                        onChange={inputAnswer}
+                        onChange={e => inputAnswer(e, question)}
                         value={initialShortAnswer()}
                     />
                 </ShortAnswerWrapper>
@@ -109,12 +71,13 @@ const TestListItem:FC<ITestListItemProps> = ({question, testAnswers, setTestAnsw
                             <div key={index}>
                                 <input
                                     type={"radio"}
-                                    name={question._id}
-                                    id={opt.optionId}
-                                    checked={isChecked(opt.optionId)}
-                                    onChange={inputAnswer}
+                                    name={`testList ${question._id}`}
+                                    id={`testList ${opt.optionId}`}
+                                    checked={isChecked(opt.optionId, question)}
+                                    onClick={e => inputAnswer(e, question)}
+                                    readOnly
                                 />
-                                <label htmlFor={opt.optionId}>{opt.content}</label>
+                                <label htmlFor={`testList ${opt.optionId}`}>{opt.content}</label>
                             </div>
                         ))}
                     </ChoiceWrapper>
@@ -126,8 +89,9 @@ const TestListItem:FC<ITestListItemProps> = ({question, testAnswers, setTestAnsw
                                         type={"checkbox"}
                                         name={opt.optionId}
                                         id={opt.optionId}
-                                        checked={isChecked(opt.optionId)}
-                                        onChange={inputAnswer}
+                                        checked={isChecked(opt.optionId, question)}
+                                        onClick={e => inputAnswer(e, question)}
+                                        readOnly
                                     />
                                     <label htmlFor={opt.optionId}>{opt.content}</label>
                                 </div>

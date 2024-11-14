@@ -7,7 +7,7 @@ export const Container = styled.form`
     flex-direction: column;
     gap: 40px;
     
-    label {
+    & > label {
         color: ${({theme}) => theme.colors.font.main};
     }
 `;

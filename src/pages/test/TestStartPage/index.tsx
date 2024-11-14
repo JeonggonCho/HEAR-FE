@@ -16,7 +16,7 @@ import Empty from "@components/common/Empty";
 
 import useRequest from "@hooks/useRequest.ts";
 import useScrollbarWidth from "@hooks/useScrollbarWidth.ts";
-import {EducationType, ITestAnswer} from "@/types/education.ts";
+import {EducationType, IMultipleChoice, ISingleChoice, ITestAnswer} from "@/types/education.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
 import {navCategories} from "@constants/navCategories.ts";
@@ -26,10 +26,11 @@ import {cardCategories} from "@constants/cardCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
 import {
+    AnswerWrapper,
     BtnsWrapper,
     Container,
     MenusWrapper,
-    QuestionsWrapper,
+    QuestionsWrapper, SideMenuAnswerWrapper,
     SideMenuBtnWrapper, SideMenuQuestionsWrapper,
     SideMenuQuestionWrapper
 } from "./style.ts";
@@ -139,6 +140,32 @@ const TestStartPage:FC = () => {
         }
     }, [sendRequest, navigate]);
 
+    // 문제 답안 입력
+    const inputAnswer = (e: any, question: EducationType) => {
+        const value = e.target.value;
+        const id = e.target.id;
+
+        setTestAnswers((prevState) => {
+            const answers = [...prevState];
+            const targetIndex = answers.findIndex((answer) => answer.questionId === question._id);
+            if (targetIndex !== -1) {
+                if (question.questionType === "shortAnswer") {
+                    (answers[targetIndex].myAnswer as string) = value;
+                } else if (question.questionType === "singleChoice") {
+                    (answers[targetIndex].myAnswer as string) = (id as string).split(" ")[1];
+                } else if (question.questionType === "multipleChoice") {
+                    const currentAnswers = answers[targetIndex].myAnswer as string[];
+                    if (currentAnswers.includes(id)) {
+                        answers[targetIndex].myAnswer = currentAnswers.filter((item) => item !== id);
+                    } else {
+                        answers[targetIndex].myAnswer = [...currentAnswers, id];
+                    }
+                }
+            }
+            return answers;
+        });
+    };
+
     // 작성된 답안 모두 지우기
     const eraseAnswers = () => {
         setTestAnswers(prevState => {
@@ -147,6 +174,18 @@ const TestStartPage:FC = () => {
                 myAnswer: Array.isArray(answer.myAnswer) ? [] : "",
             }));
         });
+    };
+
+    // 선택형 문제 체크 확인
+    const isChecked = (optionId: string, question:EducationType) => {
+        const targetIndex = testAnswers.findIndex((answer) => answer.questionId === question._id);
+        if (targetIndex === -1) return false;
+        if (question.questionType === "singleChoice") {
+            return testAnswers[targetIndex].myAnswer === optionId;
+        } else if (question.questionType === "multipleChoice") {
+            return (testAnswers[targetIndex].myAnswer as string[]).includes(optionId);
+        }
+        return false;
     };
 
     // 답안이 있는지 확인
@@ -231,20 +270,67 @@ const TestStartPage:FC = () => {
     // 사이드 메뉴 문제 답안 내용
     const TestAnswersContent = () => (
         <SideMenuQuestionsWrapper>
-            {questions.length > 0 && testAnswers.map((answer, index) => (
-                <SideMenuQuestionWrapper
-                    key={index}
-                    onClick={() => clickSideMenuQuestionHandler(index)}
-                >
-                    <label>{index + 1}</label>
-                    {Array.isArray(answer.myAnswer as string[]) ?
-                        <></>
-                        : typeof (answer.myAnswer as string) === "string" ?
-                            <p>{answer.myAnswer}</p>
-                            : null
-                    }
-                </SideMenuQuestionWrapper>
-            ))}
+            {questions.length > 0 && testAnswers.map((answer, index) => {
+                const targetQuestion = questions.find((q) => q._id === answer.questionId);
+
+                return (
+                    <SideMenuQuestionWrapper
+                        key={index}
+                        onClick={() => clickSideMenuQuestionHandler(index)}
+                        filled={
+                            ((Array.isArray(answer.myAnswer) && answer.myAnswer.length > 0) ||
+                                (typeof answer.myAnswer === "string" && answer.myAnswer.trim() !== ""))
+                                ? "true"
+                                : "false"
+                        }
+                    >
+                        <label>{index + 1}</label>
+                        <SideMenuAnswerWrapper>
+                            {targetQuestion && targetQuestion.questionType === "shortAnswer" && answer.myAnswer ? (
+                                <p>{answer.myAnswer.toString() as string}</p>
+                            ) : targetQuestion && targetQuestion.questionType === "singleChoice" ? (
+                                <AnswerWrapper>
+                                    {(questions
+                                        .filter((q) => q._id === answer.questionId)[0] as ISingleChoice).options
+                                        .map((opt, index) => (
+                                            <input
+                                                key={index}
+                                                type={"radio"}
+                                                name={`sideMenu ${targetQuestion._id}`}
+                                                id={`sideMenu ${opt.optionId}`}
+                                                checked={isChecked(opt.optionId, targetQuestion)}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    inputAnswer(e, targetQuestion);
+                                                }}
+                                                readOnly
+                                            />
+                                        ))}
+                                </AnswerWrapper>
+                            ) : targetQuestion && targetQuestion.questionType === "multipleChoice" ? (
+                                <AnswerWrapper>
+                                    {(questions
+                                        .filter((q) => q._id === answer.questionId)[0] as IMultipleChoice).options
+                                        .map((opt, index) => (
+                                            <input
+                                                key={index}
+                                                type={"checkbox"}
+                                                name={opt.optionId}
+                                                id={opt.optionId}
+                                                checked={isChecked(opt.optionId, targetQuestion)}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    inputAnswer(e, targetQuestion);
+                                                }}
+                                                readOnly
+                                            />
+                                        ))}
+                                </AnswerWrapper>
+                            ) : null}
+                        </SideMenuAnswerWrapper>
+                    </SideMenuQuestionWrapper>
+                );
+            })}
         </SideMenuQuestionsWrapper>
     );
 
@@ -252,7 +338,7 @@ const TestStartPage:FC = () => {
     return (
         <>
             <Container>
-                <HeadTag title={navCategories.test[lang]}/>
+            <HeadTag title={navCategories.test[lang]}/>
 
                 <Header
                     leftChild={<ArrowBack/>}
@@ -308,6 +394,8 @@ const TestStartPage:FC = () => {
                                                     testAnswers={testAnswers}
                                                     setTestAnswers={setTestAnswers}
                                                     isAnswerFilled={isAnswerFilled(q)}
+                                                    inputAnswer={inputAnswer}
+                                                    isChecked={isChecked}
                                                 />
                                             ))}
                                         </div>
