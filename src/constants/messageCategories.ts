@@ -454,4 +454,14 @@ export const messageCategories = {
         en: "The test period has not been set.",
         ch: "测试期间尚未设定。",
     },
+    warningSubmit: {
+        ko: "제출 이후, 수정이 불가하며 미이수 경우, 모형 제작실 이용이 제한됩니다",
+        en: "Once submitted, modifications are not allowed. If incomplete, access to the making studio will be restricted.",
+        ch: "提交后无法修改，未完成的情况下，将限制使用制作工作室。",
+    },
+    warningEraseAnswers: {
+        ko: "현재 작성된 모든 답안을 지우게 됩니다",
+        en: "All currently entered answers will be cleared.",
+        ch: "所有当前填写的答案将被清除。",
+    },
 };

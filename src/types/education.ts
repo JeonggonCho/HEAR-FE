@@ -3,7 +3,7 @@ export interface IShortAnswer {
     questionType: "shortAnswer";
     question: string;
     explanation?: string;
-    answer: string;
+    answer?: string;
 }
 
 export interface ISingleChoice {
@@ -14,7 +14,7 @@ export interface ISingleChoice {
     options: {
         optionId: string,
         content: string,
-        isAnswer: boolean,
+        isAnswer?: boolean,
     }[];
 }
 
@@ -26,7 +26,7 @@ export interface IMultipleChoice {
     options: {
         optionId: string,
         content: string,
-        isAnswer: boolean,
+        isAnswer?: boolean,
     }[];
 }
 
@@ -37,4 +37,9 @@ export interface IEducationSettings {
     endDate: string | undefined;
     status: boolean;
     cutOffPoint: string;
+}
+
+export interface ITestAnswer {
+    questionId: string;
+    myAnswer: string | string[];
 }

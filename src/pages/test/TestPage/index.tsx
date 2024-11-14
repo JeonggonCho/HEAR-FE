@@ -64,6 +64,20 @@ const TestPage:FC = () => {
         }
     }, [startDate, endDate]);
 
+    // 테스트 시작 버튼 클릭 시, 유저가 테스트 응시가 가능한지 확인
+    const checkUserTestStatus = useCallback(async () => {
+        try {
+            const response = await sendRequest({
+                url: "/education/status",
+            });
+            if (response.data) {
+                navigate("/test/start");
+            }
+        } catch (err) {
+            console.error("응시 확인 중 에러 발생: ", err);
+        }
+    }, [sendRequest]);
+
     // 에러 메시지
     useEffect(() => {
         if (errorText) showToast(errorText, "error");
@@ -114,9 +128,7 @@ const TestPage:FC = () => {
                         color={"primary"}
                         scale={"big"}
                         disabled={!available}
-                        onClick={() => {
-                            navigate("/test/start");
-                        }}
+                        onClick={checkUserTestStatus}
                     />
                 </ContentWrapper>
             </Container>

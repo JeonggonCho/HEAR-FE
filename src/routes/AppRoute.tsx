@@ -40,9 +40,9 @@ const ReservationHeat = lazy(() => import("@pages/reservation/ReservationHeat"))
 const ReservationCnc = lazy(() => import("@pages/reservation/ReservationCnc"));
 const ReservationSaw = lazy(() => import("@pages/reservation/ReservationSaw"));
 const ReservationVacuum = lazy(() => import("@pages/reservation/ReservationVacuum"));
-const TestPage = lazy(() => import("@pages/education/TestPage"));
-const TestStartPage = lazy(() => import("@pages/education/TestStartPage"));
-const TestEndPage = lazy(() => import("@pages/education/TestEndPage"));
+const TestPage = lazy(() => import("@pages/test/TestPage"));
+const TestStartPage = lazy(() => import("@pages/test/TestStartPage"));
+const TestEndPage = lazy(() => import("@pages/test/TestEndPage"));
 const NotFoundPage = lazy(() => import("@pages/home/NotFoundPage"));
 const MachinesPage = lazy(() => import("@pages/management/MachinesPage"));
 const UsersPage = lazy(() => import("@pages/management/UsersPage"));

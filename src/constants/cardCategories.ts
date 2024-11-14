@@ -179,4 +179,14 @@ export const cardCategories = {
         en : "Language Settings",
         ch : "语言设置",
     },
+    submit: {
+        ko: "제출 하시겠습니까?",
+        en: "Do you want to submit?",
+        ch: "您要提交吗？",
+    },
+    eraseAnswers: {
+        ko: "답안을 지우겠습니까?",
+        en: "Do you want to clear the answers?",
+        ch: "您要清除答案吗？",
+    },
 };

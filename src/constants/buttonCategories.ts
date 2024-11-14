@@ -314,4 +314,19 @@ export const buttonCategories = {
         en: "Start Test",
         ch: "开始测试",
     },
+    submit: {
+        ko: "제출",
+        en: "Submit",
+        ch: "提交",
+    },
+    previous: {
+        ko: "이전",
+        en: "Previous",
+        ch: "上一页",
+    },
+    next: {
+        ko: "다음",
+        en: "Next",
+        ch: "下一页",
+    },
 };

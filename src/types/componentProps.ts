@@ -12,7 +12,7 @@ import {
     IPrinterReservation
 } from "@/types/reservation.ts";
 import {IComment} from "@/types/comment.ts";
-import {EducationType, IEducationSettings} from "@/types/education.ts";
+import {EducationType, IEducationSettings, ITestAnswer} from "@/types/education.ts";
 
 
 // 버튼(Button) props
@@ -497,4 +497,13 @@ export interface ISideMenuProps {
     direction: "left" | "right";
     setSideMenu: (() => void) | React.Dispatch<React.SetStateAction<boolean>>;
     content: React.ReactElement;
+}
+
+
+// 테스트 문제 리스트 아이템(TestListItem) props
+export interface ITestListItemProps {
+    question: EducationType;
+    testAnswers: ITestAnswer[];
+    setTestAnswers: React.Dispatch<React.SetStateAction<ITestAnswer[]>>;
+    isAnswerFilled: boolean;
 }
