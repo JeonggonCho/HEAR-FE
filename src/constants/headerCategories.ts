@@ -214,4 +214,9 @@ export const headerCategories = {
         en: "Test",
         ch: "测试",
     },
+    testDone: {
+        ko: "모형 제작실 교육 완료",
+        en: "Making Studio Test Completed",
+        ch: "制作工作室测试完成",
+    },
 };

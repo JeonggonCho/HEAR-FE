@@ -189,4 +189,19 @@ export const cardCategories = {
         en: "Do you want to clear the answers?",
         ch: "您要清除答案吗？",
     },
+    grading: {
+        ko: "채점",
+        en: "Grading",
+        ch: "评分",
+    },
+    score: {
+        ko: "점수",
+        en: "Score",
+        ch: "分数",
+    },
+    result: {
+        ko: "결과",
+        en: "Result",
+        ch: "结果",
+    },
 };

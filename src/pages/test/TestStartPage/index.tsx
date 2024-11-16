@@ -122,7 +122,7 @@ const TestStartPage:FC = () => {
     };
 
     // 문제 제출하기
-    const submitTest = useCallback(async () => {
+    const submitTest = async () => {
         try {
             const response = await sendRequest({
                 url: "/education/check",
@@ -131,14 +131,14 @@ const TestStartPage:FC = () => {
             });
             if (response.data) {
                 sessionStorage.removeItem("testAnswers");
-                navigate("/test/end");
+                navigate("/test/end", {replace: true});
             }
         } catch (err) {
             console.error("문제 제출 중 에러 발생: ", err);
         } finally {
             setShowSubmitConfirmModal(false);
         }
-    }, [sendRequest, navigate]);
+    };
 
     // 문제 답안 입력
     const inputAnswer = (e: any, question: EducationType) => {

@@ -61,6 +61,8 @@ const InquiryDetailPage:FC = () => {
     const {lang, isDarkMode} = useThemeStore();
     const {showToast} = useToastStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
+    const {sendRequest:likeSendRequest, errorText:likeErrorText, clearError:likeClearError} = useRequest();
+    const {sendRequest:commentSendRequest, errorText:commentErrorText, clearError:commentClearError} = useRequest();
     const {text, countOfText, handleTextChange, setText} = useTextarea(); // 댓글 textarea
 
     // 문의 생성 날짜 스탬프
@@ -94,7 +96,7 @@ const InquiryDetailPage:FC = () => {
     // 문의 좋아요
     const likeInquiry = async () => {
         try {
-            const response = await sendRequest({
+            const response = await likeSendRequest({
                 url: `/inquiries/like/${inquiryId}`,
                 method: "post",
                 data: {},
@@ -158,7 +160,7 @@ const InquiryDetailPage:FC = () => {
         };
 
         try {
-            const response = await sendRequest({
+            const response = await commentSendRequest({
                 url: "/comments",
                 method: "post",
                 data: data,
@@ -197,6 +199,20 @@ const InquiryDetailPage:FC = () => {
         const errorTimer = setTimeout(clearError, 6000);
         return () => clearTimeout(errorTimer);
     }, [errorText]);
+
+    // 좋아요 에러 메시지
+    useEffect(() => {
+        if (likeErrorText) showToast(likeErrorText, "error");
+        const errorTimer = setTimeout(likeClearError, 6000);
+        return () => clearTimeout(errorTimer);
+    }, [likeErrorText]);
+
+    // 댓글 에러 메시지
+    useEffect(() => {
+        if (commentErrorText) showToast(commentErrorText, "error");
+        const errorTimer = setTimeout(commentClearError, 6000);
+        return () => clearTimeout(errorTimer);
+    }, [commentErrorText]);
 
 
     return (

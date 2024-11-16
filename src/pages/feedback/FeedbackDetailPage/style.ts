@@ -95,10 +95,10 @@ export const CountsWrapper = styled.div`
 `;
 
 export const BtnsWrapper = styled.div`
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 8px;
     align-items: center;
-    justify-content: space-between;
-    gap: 8px;
     border-top: 1px solid ${({theme}) => theme.colors.line.main};
     color: ${({theme}) => theme.colors.font.sub};
     font-size: 0.9rem;

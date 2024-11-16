@@ -1,15 +1,15 @@
 import {FC} from "react";
 
 import Input from "@components/common/Input";
+import Button from "@components/common/Button";
 
 import useScrollbarWidth from "@hooks/useScrollbarWidth.ts";
 import {ITestListItemProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 
 import {ChoiceWrapper, Container, ResetButtonWrapper, ShortAnswerWrapper} from "./style.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
-import Button from "@components/common/Button";
 
 
 const TestListItem:FC<ITestListItemProps> = ({question, testAnswers, setTestAnswers, isAnswerFilled, inputAnswer, isChecked}) => {

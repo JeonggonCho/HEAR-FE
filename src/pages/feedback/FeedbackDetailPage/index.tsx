@@ -61,6 +61,8 @@ const FeedbackDetailPage:FC = () => {
     const {lang, isDarkMode} = useThemeStore();
     const {showToast} = useToastStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
+    const {errorText:likeErrorText, sendRequest:likeSendRequest, clearError:likeClearError} = useRequest();
+    const {errorText:commentErrorText, sendRequest:commentSendRequest, clearError:commentClearError} = useRequest();
     const {text, countOfText, handleTextChange, setText} = useTextarea();
 
     // 피드백 생성 일자
@@ -117,7 +119,7 @@ const FeedbackDetailPage:FC = () => {
     // 피드백 좋아요
     const likeFeedback = async () => {
         try {
-            const response = await sendRequest({
+            const response = await likeSendRequest({
                 url: `/feedback/like/${feedbackId}`,
                 method: "post",
                 data: {},
@@ -158,7 +160,7 @@ const FeedbackDetailPage:FC = () => {
         };
 
         try {
-            const response = await sendRequest({
+            const response = await commentSendRequest({
                 url: "/comments",
                 method: "post",
                 data: data,
@@ -197,6 +199,20 @@ const FeedbackDetailPage:FC = () => {
         const errorTimer = setTimeout(clearError, 6000);
         return () => clearTimeout(errorTimer);
     }, [errorText]);
+
+    // 좋아요 에러 메시지
+    useEffect(() => {
+        if (likeErrorText) showToast(likeErrorText, "error");
+        const errorTimer = setTimeout(likeClearError, 6000);
+        return () => clearTimeout(errorTimer);
+    }, [likeErrorText]);
+
+    // 댓글 에러 메시지
+    useEffect(() => {
+        if (commentErrorText) showToast(commentErrorText, "error");
+        const errorTimer = setTimeout(commentClearError, 6000);
+        return () => clearTimeout(errorTimer);
+    }, [commentErrorText]);
 
 
     return (

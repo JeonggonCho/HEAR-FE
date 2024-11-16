@@ -46,6 +46,7 @@ const NoticeDetailPage:FC = () => {
     const {lang, isDarkMode} = useThemeStore();
     const {showToast} = useToastStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
+    const {errorText:commentErrorText, sendRequest:commentSendRequest, clearError:commentClearError} = useRequest();
     const {text, countOfText, handleTextChange, setText} = useTextarea();
 
     // 공지 생성 일자
@@ -119,7 +120,7 @@ const NoticeDetailPage:FC = () => {
         };
 
         try {
-            const response = await sendRequest({
+            const response = await commentSendRequest({
                 url: "/comments",
                 method: "post",
                 data: data,
@@ -153,6 +154,13 @@ const NoticeDetailPage:FC = () => {
         const errorTimer = setTimeout(() => clearError(), 6000);
         return () => clearTimeout(errorTimer);
     }, [errorText]);
+
+    // 댓글 에러 메시지
+    useEffect(() => {
+        if (commentErrorText) showToast(commentErrorText, "error");
+        const errorTimer = setTimeout(() => commentClearError(), 6000);
+        return () => clearTimeout(errorTimer);
+    }, [commentErrorText]);
 
 
     return (

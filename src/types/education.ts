@@ -43,3 +43,15 @@ export interface ITestAnswer {
     questionId: string;
     myAnswer: string | string[];
 }
+
+export type QuestionResultType = {
+    _id: string;
+    questionId: string;
+    myAnswer: string | string[];
+    isCorrect: boolean;
+};
+
+export interface ITestResult {
+    isPassed: boolean;
+    questions: QuestionResultType[];
+}
