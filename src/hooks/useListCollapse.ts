@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 
-const useListCollapse = ({dataLength, timeLength}:{dataLength?: number, timeLength?: number}) => {
+const useListCollapse = (dataLength?: number, timeLength?: number) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [maxHeight, setMaxHeight] = useState<number | null>(null);
 

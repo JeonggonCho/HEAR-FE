@@ -85,7 +85,6 @@ export const ChoiceWrapper = styled.div`
         display: flex;
         align-items: center;
         gap: 12px;
-        height: 32px;
         
         input[type="checkbox"],
         input[type="radio"] {
@@ -107,4 +106,5 @@ export const ResetButtonWrapper = styled.div`
     width: 100%;
     display: flex;
     justify-content: end;
+    margin-top: 32px;
 `;

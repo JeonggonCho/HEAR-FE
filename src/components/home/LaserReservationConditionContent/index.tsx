@@ -18,7 +18,7 @@ import more from "@assets/icons/arrow_down.svg";
 const LaserReservationConditionContent: FC<ILaserReservationConditionContentProps> = ({laserStatus, rate, color}) => {
     const {lang} = useThemeStore();
 
-    const {maxHeight, isOpen, listRef, handleList} = useListCollapse({});
+    const {maxHeight, isOpen, listRef, handleList} = useListCollapse();
 
     return (
         <Container>

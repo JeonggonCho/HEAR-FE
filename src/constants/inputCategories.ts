@@ -224,6 +224,11 @@ export const inputCategories = {
         en: "Answer",
         ch: "答案",
     },
+    submittedAnswer: {
+        ko: "제출 답안",
+        en: "Submitted Answer",
+        ch: "提交答案",
+    },
     durationSettings: {
         ko: "기간 설정",
         en: "Duration Settings",

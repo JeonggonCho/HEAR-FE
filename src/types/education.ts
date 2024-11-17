@@ -45,9 +45,16 @@ export interface ITestAnswer {
 }
 
 export type QuestionResultType = {
-    _id: string;
-    questionId: string;
-    myAnswer: string | string[];
+    question: string;
+    explanation?: string;
+    questionType: "shortAnswer" | "singleChoice" | "multipleChoice";
+    answer?: string;
+    myAnswer?: string | string[];
+    options?: {
+        content: string;
+        isAnswer: boolean;
+        isChecked: boolean;
+    }[];
     isCorrect: boolean;
 };
 

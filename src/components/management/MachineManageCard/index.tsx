@@ -46,7 +46,7 @@ const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, 
 
     const {lang, isDarkMode} = useThemeStore();
     const {showToast} = useToastStore();
-    const {isOpen, listRef, maxHeight, handleList} = useListCollapse({dataLength: machineData.length, timeLength: timeData?.length});
+    const {isOpen, listRef, maxHeight, handleList} = useListCollapse(machineData.length, timeData?.length);
     const {sendRequest, errorText, clearError} = useRequest();
     const {status, handleToggle, isLoading, errorText:toggleErrorText, clearError:clearToggleError} = useToggle(machineData[0]?.status, machineData[0]?.url);
     const {updateHeatCountSchema} = MachineSchemaProvider();

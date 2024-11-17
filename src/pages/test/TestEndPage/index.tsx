@@ -4,6 +4,7 @@ import {ReactSVG} from "react-svg";
 import Header from "@components/common/Header";
 import HeadTag from "@components/common/HeadTag";
 import LoadingLoop from "@components/common/LoadingLoop";
+import GradingAnswerListItem from "@components/test/GradingAnswerListItem";
 
 import useRequest from "@hooks/useRequest.ts";
 import {ITestResult, QuestionResultType} from "@/types/education.ts";
@@ -13,7 +14,13 @@ import {navCategories} from "@constants/navCategories.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 
-import {QuestionsWrapper, QuestionWrapper, ResultCard, ResultSignWrapper, ResultWrapper} from "./style.ts";
+import {
+    QuestionListWrapper,
+    QuestionsWrapper,
+    ResultCard,
+    ResultSignWrapper,
+    ResultWrapper
+} from "./style.ts";
 
 import checkCircle from "@assets/icons/check_circle.svg";
 import cancelCircle from "@assets/icons/cancel_circle.svg";
@@ -92,16 +99,24 @@ const TestEndPage:FC = () => {
                         <label>{cardCategories.grading[lang]}</label>
                         <ul>
                             {testResult?.questions.map((q, index) => (
-                                <QuestionWrapper
+                                <QuestionListWrapper
                                     key={index}
                                     pass={q.isCorrect ? "true" : "false"}
                                 >
-                                    <span>{index}</span>
-
+                                    <span>{index + 1}</span>
+                                    <GradingAnswerListItem
+                                        question={q.question}
+                                        questionType={q.questionType}
+                                        answer={q.answer}
+                                        options={q.options}
+                                        myAnswer={q.myAnswer}
+                                        isCorrect={q.isCorrect}
+                                        explanation={q.explanation}
+                                    />
                                     <div>
                                         <ReactSVG src={q.isCorrect ? circle : close}/>
                                     </div>
-                                </QuestionWrapper>
+                                </QuestionListWrapper>
                             ))}
                         </ul>
                     </QuestionsWrapper>

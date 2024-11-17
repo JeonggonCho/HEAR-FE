@@ -9,7 +9,7 @@ export const ResultWrapper = styled.div`
 
 export const ResultCard = styled.div`
     width: 100%;
-    padding: 24px;
+    padding: 16px 24px;
     background-color: ${({theme}) => theme.colors.bg.main};
     border-radius: 12px;
     display: grid;
@@ -25,13 +25,13 @@ export const ResultCard = styled.div`
         gap: 20px;
         
         label {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             font-weight: 500;
             color: ${({theme}) => theme.colors.font.sub};
         }
         
         p {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             margin: 0;
             
             & > span:last-of-type {
@@ -50,11 +50,11 @@ export const ResultSignWrapper = styled.div<{pass: "true" | "false"}>`
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-left: 8px;
+    margin-left: 12px;
     margin-top: -2px;
     
     & > span {
-        font-size: 1.2rem;
+        font-size: 1.05rem;
     }
     
     svg {
@@ -66,14 +66,16 @@ export const ResultSignWrapper = styled.div<{pass: "true" | "false"}>`
 
 export const QuestionsWrapper = styled.div`
     & > label {
+        display: inline-block;
         margin-left: 8px;
         color: ${({theme}) => theme.colors.font.sub};
-        font-size: 1.15rem;
+        font-size: 1.05rem;
         font-weight: 500;
-        margin-bottom: 36px;
+        margin-bottom: 12px;
     }
     
     ul {
+        margin: 0;
         padding: 0;
         display: flex;
         flex-direction: column;
@@ -81,22 +83,24 @@ export const QuestionsWrapper = styled.div`
     }
 `;
 
-export const QuestionWrapper = styled.li<{pass: "true" | "false"}>`
+export const QuestionListWrapper = styled.li<{pass: "true" | "false"}>`
     display: flex;
     justify-content: space-between;
+    gap: 16px;
     padding: 8px;
     background-color: ${({theme}) => theme.colors.bg.main};
     border-radius: 12px;
 
     & > span:first-of-type {
+        min-width: 32px;
         width: 32px;
         height: 32px;
         display: flex;
         align-items: center;
         justify-content: center;
         background-color: ${({theme}) => theme.colors.button.third};
+        color: ${({theme}) => theme.colors.font.sub};
         border-radius: 4px;
-        font-size: 1.2rem;
     }
     
     & > div:last-of-type {

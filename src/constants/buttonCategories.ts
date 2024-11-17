@@ -25,7 +25,7 @@ export const buttonCategories = {
         ch: "删除账户",
     },
     close: {
-        ko: "닫 기",
+        ko: "닫기",
         en: "Close",
         ch: "关闭",
     },

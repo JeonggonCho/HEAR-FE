@@ -204,4 +204,9 @@ export const cardCategories = {
         en: "Result",
         ch: "结果",
     },
+    view: {
+        ko: "보기",
+        en: "View",
+        ch: "查看",
+    },
 };
