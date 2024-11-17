@@ -91,7 +91,7 @@ const NoticePage:FC = () => {
                         <Empty title={messageCategories.emptyNotice[lang]}/>
                     }
 
-                    {userData?.role === "manager" &&
+                    {userData?.role === "assistant" &&
                       <FloatingButton
                         type={"link"}
                         to={"/board/notice/new"}

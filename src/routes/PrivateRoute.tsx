@@ -2,7 +2,7 @@ import {FC} from "react";
 import {Outlet, Navigate} from "react-router-dom";
 
 interface IPrivateRouteProps {
-    role: "admin" | "student" | "manager" | null;
+    role: "admin" | "student" | "assistant" | null;
 }
 
 const PrivateRoute:FC<IPrivateRouteProps> = ({role}) => {

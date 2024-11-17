@@ -6,7 +6,6 @@ import {zodResolver} from "@hookform/resolvers/zod";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
-import Select from "@components/common/Select";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import Modal from "@components/common/Modal";
@@ -35,19 +34,11 @@ const UpdateAccountPage:FC = () => {
     const navigate = useNavigate();
 
     const {lang} = useThemeStore();
+    const {showToast} = useToastStore();
     const {userInfo, setUserInfo} = useUserInfoStore();
     const {userData, setUserData} = useUserDataStore();
-    const {showToast} = useToastStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
-    const {updateAccountSchema} = UserSchemaProvider();
-
-    const yearCategories = [
-        {label: inputCategories.first[lang], value: "1", id: "select-1"},
-        {label: inputCategories.second[lang], value: "2", id: "select-2"},
-        {label: inputCategories.third[lang], value: "3", id: "select-3"},
-        {label: inputCategories.fourth[lang], value: "4", id: "select-4"},
-        {label: inputCategories.fifth[lang], value: "5", id: "select-5"},
-    ];
+    const {updateStudentAccountSchema, updateAssistantAccountSchema} = UserSchemaProvider();
 
     const fetchUser = useCallback(async () => {
         if (userInfo && userData) {
@@ -56,8 +47,8 @@ const UpdateAccountPage:FC = () => {
                     url: "/users",
                     method: "get",
                 });
-                const {userId, username, email, year, studentId, studio, passEducation, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role} = response.data;
-                setUserData({year, studio, passEducation, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role});
+                const {userId, username, email, year, studentId, studio, passEducation, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role, lab} = response.data;
+                setUserData({year, studio, passEducation, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role, lab});
                 setUserInfo({userId, username, email, studentId});
             } catch (err) {
                 console.error("유저 정보 조회 에러: ", err);
@@ -70,30 +61,64 @@ const UpdateAccountPage:FC = () => {
         fetchUser();
     }, [fetchUser]);
 
-    type UpdateAccountFormData = z.infer<typeof updateAccountSchema>;
+    type UpdateStudentAccountFormData = z.infer<typeof updateStudentAccountSchema>;
+    type UpdateAssistantAccountFormData = z.infer<typeof updateAssistantAccountSchema>;
 
-    const {register, handleSubmit, formState: {errors}, reset} = useForm<UpdateAccountFormData>({
-        resolver: zodResolver(updateAccountSchema),
+
+    // 학생 유저의 폼
+    const {
+        register: studentRegister,
+        handleSubmit: studentHandleSubmit,
+        formState: {
+            errors: studentErrors,
+        },
+        reset: studentReset,
+    } = useForm<UpdateStudentAccountFormData>({
+        resolver: zodResolver(updateStudentAccountSchema),
         defaultValues: {
             username: "",
-            year: "1",
             studentId: "",
-            studio: "",
             tel: "",
-        }
+        },
     });
 
+    // 조교 유저의 폼
+    const {
+        register: assistantRegister,
+        handleSubmit: assistantHandleSubmit,
+        formState: {
+            errors: assistantErrors,
+        },
+        reset: assistantReset,
+    } = useForm<UpdateAssistantAccountFormData>({
+        resolver: zodResolver(updateAssistantAccountSchema),
+        defaultValues: {
+            username: "",
+            studentId: "",
+            tel: "",
+            lab: "",
+        },
+    });
+
+    // 초기 값 채우기
     useEffect(() => {
         if (userInfo && userData) {
-            reset({
-                username: userInfo.username,
-                year: userData?.year,
-                studentId: userInfo?.studentId,
-                studio: userData?.studio,
-                tel: userData?.tel,
-            });
+            if (userData.role === "student") {
+                studentReset({
+                    username: userInfo.username,
+                    studentId: userInfo.studentId,
+                    tel: userData.tel,
+                });
+            } else if (userData.role === "assistant") {
+                assistantReset({
+                    username: userInfo.username,
+                    studentId: userInfo.studentId,
+                    tel: userData.tel,
+                    lab: userData.lab,
+                });
+            }
         }
-    }, [userInfo, userData, reset]);
+    }, [userInfo, userData]);
 
     // 에러 메시지
     useEffect(() => {
@@ -103,12 +128,12 @@ const UpdateAccountPage:FC = () => {
     }, [errorText]);
 
     // 내 정보 변경 버튼 클릭 시, 유효성 검사 및 confirm 모달 보이기
-    const submitHandler: SubmitHandler<UpdateAccountFormData> = (data) => {
+    const submitHandler: SubmitHandler<UpdateStudentAccountFormData> = (data) => {
         setFormData(data);
         setUpdateAccountModal(true);
     };
 
-    // confirm 모달에서 수정하기 클릭 시, 수정 요청보내기
+    // confirm 모달에서 수정하기 클릭 시, 수정 요청 보내기
     const handleConfirmUpdate = async () => {
         if (!formData) return;
         try {
@@ -142,7 +167,7 @@ const UpdateAccountPage:FC = () => {
             rightBtn={
                 <Button
                     type={"submit"}
-                    content={buttonCategories.editing[lang]}
+                    content={buttonCategories.changing[lang]}
                     width={"full"}
                     color={"approval"}
                     scale={"normal"}
@@ -151,6 +176,7 @@ const UpdateAccountPage:FC = () => {
             }
         />
     );
+
 
     return (
         <Container>
@@ -161,72 +187,105 @@ const UpdateAccountPage:FC = () => {
                 <LoadingLoop/>
                 :
                 <>
-                    <form onSubmit={handleSubmit(submitHandler)}>
-                        <Input
-                            label={inputCategories.username[lang]}
-                            type={"text"}
-                            placeholder={placeholderCategories.username[lang]}
-                            id={"username"}
-                            name={"username"}
-                            register={register}
-                            errorMessage={errors.username?.message}
-                        />
+                    {userData?.role === "student" ?
+                        <form onSubmit={studentHandleSubmit(submitHandler)}>
+                            <Input
+                                label={inputCategories.username[lang]}
+                                type={"text"}
+                                placeholder={placeholderCategories.username[lang]}
+                                id={"username"}
+                                name={"username"}
+                                register={studentRegister}
+                                errorMessage={studentErrors.username?.message}
+                            />
 
-                        <Select
-                            categories={yearCategories}
-                            label={inputCategories.year[lang]}
-                            name={"year"}
-                            register={register}
-                            errorMessage={errors.year?.message}
-                            type={"radio"}
-                        />
+                            <Input
+                                label={inputCategories.studentId[lang]}
+                                type={"number"}
+                                placeholder={placeholderCategories.studentId[lang]}
+                                id={"student-id"}
+                                name={"studentId"}
+                                register={studentRegister}
+                                errorMessage={studentErrors.studentId?.message}
+                            />
 
-                        <Input
-                            label={inputCategories.studentId[lang]}
-                            type={"number"}
-                            placeholder={placeholderCategories.studentId[lang]}
-                            id={"student-id"}
-                            name={"studentId"}
-                            register={register}
-                            errorMessage={errors.studentId?.message}
-                        />
+                            <Input
+                                label={inputCategories.tel[lang]}
+                                type={"tel"}
+                                placeholder={placeholderCategories.tel[lang]}
+                                id={"tel"}
+                                name={"tel"}
+                                register={studentRegister}
+                                errorMessage={studentErrors.tel?.message}
+                            />
 
-                        <Input
-                            label={inputCategories.studio[lang]}
-                            subLabel={inputCategories.inputKorean[lang]}
-                            type={"text"}
-                            id={"studio"}
-                            name={"studio"}
-                            placeholder={placeholderCategories.studio[lang]}
-                            register={register}
-                            errorMessage={errors.studio?.message}
-                        />
+                            <Button
+                                type={"submit"}
+                                content={buttonCategories.profileUpdate[lang]}
+                                width={"full"}
+                                color={"primary"}
+                                scale={"big"}
+                            />
+                        </form>
+                        : userData?.role === "assistant" ?
+                            <form onSubmit={assistantHandleSubmit(submitHandler)}>
+                                <Input
+                                    label={inputCategories.username[lang]}
+                                    type={"text"}
+                                    placeholder={placeholderCategories.username[lang]}
+                                    id={"username"}
+                                    name={"username"}
+                                    register={assistantRegister}
+                                    errorMessage={assistantErrors.username?.message}
+                                />
 
-                        <Input
-                            label={inputCategories.tel[lang]}
-                            type={"tel"}
-                            placeholder={placeholderCategories.tel[lang]}
-                            id={"tel"}
-                            name={"tel"}
-                            register={register}
-                            errorMessage={errors.tel?.message}
-                        />
+                                <Input
+                                    label={inputCategories.studentId[lang]}
+                                    type={"number"}
+                                    placeholder={placeholderCategories.studentId[lang]}
+                                    id={"student-id"}
+                                    name={"studentId"}
+                                    register={assistantRegister}
+                                    errorMessage={assistantErrors.studentId?.message}
+                                />
 
-                        <Button
-                            type={"submit"}
-                            content={buttonCategories.profileUpdate[lang]}
-                            width={"full"}
-                            color={"primary"}
-                            scale={"big"}
-                        />
-                    </form>
+                                <Input
+                                    label={inputCategories.tel[lang]}
+                                    type={"tel"}
+                                    placeholder={placeholderCategories.tel[lang]}
+                                    id={"tel"}
+                                    name={"tel"}
+                                    register={assistantRegister}
+                                    errorMessage={assistantErrors.tel?.message}
+                                />
+
+                                <Input
+                                    label={inputCategories.lab[lang]}
+                                    type={"text"}
+                                    placeholder={placeholderCategories.lab[lang]}
+                                    id={"lab"}
+                                    name={"lab"}
+                                    register={assistantRegister}
+                                    errorMessage={assistantErrors.lab?.message}
+                                />
+
+                                <Button
+                                    type={"submit"}
+                                    content={buttonCategories.profileUpdate[lang]}
+                                    width={"full"}
+                                    color={"primary"}
+                                    scale={"big"}
+                                />
+                            </form>
+                            : null
+                    }
 
                     {updateAccountModal &&
-                        <Modal
-                            content={<UpdateAccountModalContent/>}
-                            setModal={setUpdateAccountModal}
-                            type={"popup"}
-                        />
+                      <Modal
+                        content={<UpdateAccountModalContent/>}
+                        setModal={setUpdateAccountModal}
+                        type={"popup"}
+                      />
                     }
                 </>
             }

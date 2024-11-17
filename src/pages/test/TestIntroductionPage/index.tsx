@@ -20,10 +20,12 @@ import {Container, ContentWrapper} from "./style.ts";
 import test from "@assets/images/test.png";
 
 
-const TestPage:FC = () => {
+const TestIntroductionPage:FC = () => {
     const [startDate, setStartDate] = useState<string>("");
     const [endDate, setEndDate] = useState<string>("");
-    const [available, setAvailable] = useState<boolean>(false);
+    const [availableDate, setAvailableDate] = useState<boolean>(false);
+    const [availableStatus, setAvailableStatus] = useState<boolean>(false);
+    const [cutOffPoint, setCutOffPoint] = useState<number>(0);
 
     const navigate = useNavigate();
 
@@ -38,9 +40,11 @@ const TestPage:FC = () => {
                 url: "/education/settings",
             });
             if (response.data) {
-                const {startDate, endDate} = response.data;
+                const {startDate, endDate, cutOffPoint, status} = response.data;
                 setStartDate(startDate ? getFormattedDate(startDate, "point") : "");
                 setEndDate(endDate ? getFormattedDate(endDate, "point") : "");
+                setCutOffPoint(cutOffPoint);
+                setAvailableStatus(status);
             }
         } catch (err) {
             console.error("교육 설정 조회 중 에러 발생: ", err);
@@ -58,9 +62,9 @@ const TestPage:FC = () => {
             const start = new Date(startDate);
             const end = new Date(endDate);
             const result = isBetweenDate(targetDate, start, end);
-            setAvailable(result);
+            setAvailableDate(result);
         } else {
-            setAvailable(false);
+            setAvailableDate(false);
         }
     }, [startDate, endDate]);
 
@@ -84,6 +88,20 @@ const TestPage:FC = () => {
         const errorTimer = setTimeout(() => clearError(), 6000);
         return () => clearTimeout(errorTimer);
     }, [errorText]);
+
+    // 커트라인 텍스트 생성
+    const getCutOffMessage = (lang: "ko" | "en" | "ch", cutOffPoint: number): string => {
+        switch (lang) {
+            case "ko":
+                return `${cutOffPoint} 개 이상 틀릴 경우, 미이수 처리됨`;
+            case "en":
+                return `If ${cutOffPoint} or more are incorrect, marked as incomplete`;
+            case "ch":
+                return `如有 ${cutOffPoint} 个或以上错误，将视为未通过`;
+            default:
+                return "";
+        }
+    };
 
 
     return (
@@ -113,6 +131,11 @@ const TestPage:FC = () => {
                     </div>
 
                     <div>
+                        <label>{educationCategories.cutOffPoint[lang]}</label>
+                        <span>{getCutOffMessage(lang, cutOffPoint)}</span>
+                    </div>
+
+                    <div>
                         <ul>
                             <li>{educationCategories.needStudy[lang]}</li>
                             <li>{educationCategories.cantModify[lang]}</li>
@@ -127,7 +150,7 @@ const TestPage:FC = () => {
                         width={"full"}
                         color={"primary"}
                         scale={"big"}
-                        disabled={!available}
+                        disabled={!availableDate || !availableStatus}
                         onClick={checkUserTestStatus}
                     />
                 </ContentWrapper>
@@ -136,4 +159,4 @@ const TestPage:FC = () => {
     );
 };
 
-export default TestPage;
+export default TestIntroductionPage;

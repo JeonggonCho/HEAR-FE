@@ -9,6 +9,11 @@ export const educationCategories = {
         en: "Test Participants",
         ch: "测试参与者",
     },
+    cutOffPoint: {
+        ko: "커트라인",
+        en: "Cutoff",
+        ch: "分数线",
+    },
     target: {
         ko: "2학년 ~ 5학년 전체 학생 (복학생 및 편입생 포함)",
         en: "All students from 2nd to 5th grade (including returning and transfer students)",

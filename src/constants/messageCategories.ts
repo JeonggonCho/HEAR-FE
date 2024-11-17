@@ -109,7 +109,7 @@ export const messageCategories = {
         en: "Book the Model making studio here!",
         ch: "在这里预定模型制作工作室！",
     },
-    emptyManagerInfo: {
+    emptyAssistantInfo: {
         ko: "조교 정보가 없습니다",
         en: "No assistant instructor information available",
         ch: "没有助教信息",
@@ -333,6 +333,11 @@ export const messageCategories = {
         ko: "스튜디오 교수님을 입력해주세요",
         en: "Please enter the studio professor's name",
         ch: "请输入工作室教授的名字。",
+    },
+    lab: {
+        ko: "연구실을 입력해주세요",
+        en: "Please enter the laboratory",
+        ch: "请输入实验室",
     },
     tel: {
         ko: "전화번호를 확인해주세요",

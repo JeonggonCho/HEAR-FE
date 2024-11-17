@@ -12,7 +12,7 @@ export const Container = styled.div`
     transition: all 0.2s ease-in-out 0s;
 `;
 
-export const ManagerCardTitleWrapper = styled.div<{valid: boolean}>`
+export const AssistantCardTitleWrapper = styled.div<{valid: boolean}>`
     display: flex;
     align-items: center;
     gap: 12px;
@@ -33,7 +33,7 @@ export const ManagerCardTitleWrapper = styled.div<{valid: boolean}>`
     }
 `;
 
-export const ManagerInfoWrapper = styled.div`
+export const AssistantInfoWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     
@@ -55,6 +55,6 @@ export const ManagerInfoWrapper = styled.div`
     }
 `;
 
-export const EmptyManagerInfo = styled.div`
+export const EmptyAssistantInfo = styled.div`
     color: ${({theme}) => theme.colors.font.placeholder};
 `;

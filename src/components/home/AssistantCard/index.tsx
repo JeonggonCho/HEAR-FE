@@ -11,26 +11,29 @@ import {cardCategories} from "@constants/cardCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
-import {Container, EmptyManagerInfo, ManagerCardTitleWrapper, ManagerInfoWrapper} from "./style.ts";
+import {
+    AssistantCardTitleWrapper, AssistantInfoWrapper,
+    Container, EmptyAssistantInfo,
+} from "./style.ts";
 
-import manager from "@assets/images/manager.png";
+import assistant from "@assets/images/assistant.png";
 
 
-const ManagerCard:FC = () => {
-    const [managerInfo, setManagerInfo] = useState<{username: string, lab: string}>();
+const AssistantCard:FC = () => {
+    const [assistantInfo, setAssistantInfo] = useState<{username: string, lab: string}>();
 
     const {userData} = useUserDataStore();
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
-    const fetchManageInfo = useCallback(async () => {
+    const fetchAssistantInfo = useCallback(async () => {
         try {
             const response = await sendRequest({
-                url: "/users/manager",
+                url: "/users/assistant",
             });
             if (response.data) {
-                setManagerInfo(response.data);
+                setAssistantInfo(response.data);
             }
         } catch (err) {
             console.error("조교 정보 조회 중 에러 발생: ", err);
@@ -38,8 +41,8 @@ const ManagerCard:FC = () => {
     }, [sendRequest]);
 
     useEffect(() => {
-        fetchManageInfo();
-    }, [fetchManageInfo]);
+        fetchAssistantInfo();
+    }, [fetchAssistantInfo]);
 
     // 에러 메시지
     useEffect(() => {
@@ -54,19 +57,19 @@ const ManagerCard:FC = () => {
 
     return (
         <Container>
-            <ManagerCardTitleWrapper valid={!!managerInfo}>
-                <img src={manager} alt="관리 조교"/>
-                <h3>{cardCategories.manager[lang]}</h3>
-            </ManagerCardTitleWrapper>
+            <AssistantCardTitleWrapper valid={!!assistantInfo}>
+                <img src={assistant} alt="관리 조교"/>
+                <h3>{cardCategories.assistant[lang]}</h3>
+            </AssistantCardTitleWrapper>
 
-            {managerInfo ?
-                <ManagerInfoWrapper>
+            {assistantInfo ?
+                <AssistantInfoWrapper>
                     <div>
-                        <span>{managerInfo.username}</span>
-                        <span>{managerInfo.lab}</span>
+                        <span>{assistantInfo.username}</span>
+                        <span>{assistantInfo.lab}</span>
                     </div>
 
-                    {userData?.role !== "manager" &&
+                    {userData?.role !== "assistant" &&
                       <Button
                         type={"link"} to={"/board/inquiry/new"}
                         content={buttonCategories.inquiry[lang]}
@@ -75,14 +78,14 @@ const ManagerCard:FC = () => {
                         scale={"small"}
                       />
                     }
-                </ManagerInfoWrapper>
+                </AssistantInfoWrapper>
                 :
-                <EmptyManagerInfo>
-                    {messageCategories.emptyManagerInfo[lang]}
-                </EmptyManagerInfo>
+                <EmptyAssistantInfo>
+                    {messageCategories.emptyAssistantInfo[lang]}
+                </EmptyAssistantInfo>
             }
         </Container>
     );
 };
 
-export default ManagerCard;
+export default AssistantCard;

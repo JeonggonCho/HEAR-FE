@@ -187,7 +187,7 @@ const NoticeDetailPage:FC = () => {
                                     </div>
                                 </DateAndCountsWrapper>
 
-                                {userData?.role === "admin" || userData?.role === "manager" && noticeId &&
+                                {userData?.role === "admin" || userData?.role === "assistant" && noticeId &&
                                   <Dropdown dropdownMenus={noticeDropdownMenus}/>
                                 }
                             </div>

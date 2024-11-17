@@ -16,7 +16,7 @@ interface IUserData {
     countOfLaserPerWeek: number;
     countOfLaserPerDay: number;
     tel: string;
-    role: "student" | "manager" | "admin";
+    role: "student" | "assistant" | "admin";
     lab?: string;
 }
 

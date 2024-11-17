@@ -74,7 +74,7 @@ export const cardCategories = {
         en: "(Usage restriction after 2 warnings)",
         ch: "(警告两次后，使用限制)",
     },
-    manager: {
+    assistant: {
         ko: "모형 제작실 관리 조교",
         en: "Modeling Studio Assistant",
         ch: "模型制作室助理",
@@ -218,5 +218,10 @@ export const cardCategories = {
         ko: "오답",
         en: "Incorrect",
         ch: "错误答案",
+    },
+    emptyLab: {
+        ko: "내 정보 변경 > 연구실 기입",
+        en: "Profile Update > Fill in Lab",
+        ch: "个人资料修改 > 填写研究室",
     },
 };

@@ -3,6 +3,7 @@ import {EMAIL_REGEX, PW_REGEX, STUDENTID_REGEX, TEL_REGEX} from "@constants/rege
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
+
 const UserSchemaProvider = () => {
     const {lang} = useThemeStore();
 
@@ -44,6 +45,10 @@ const UserSchemaProvider = () => {
             .string()
             .regex(TEL_REGEX, messageCategories.tel[lang]);
 
+    const labSchema = z
+        .string()
+        .min(1, messageCategories.lab[lang]);
+
     const signupSchema = z.object({
         username: usernameSchema,
         email: emailSchema,
@@ -72,12 +77,17 @@ const UserSchemaProvider = () => {
         password: passwordSchema,
     });
 
-    const updateAccountSchema = z.object({
+    const updateStudentAccountSchema = z.object({
         username: usernameSchema,
-        year: yearSchema,
         studentId: studentIdSchema,
-        studio: studioSchema,
         tel: telSchema,
+    });
+
+    const updateAssistantAccountSchema = z.object({
+        username: usernameSchema,
+        studentId: studentIdSchema,
+        tel: telSchema,
+        lab: labSchema,
     });
 
     const updatePasswordSchema = z.object({
@@ -99,7 +109,7 @@ const UserSchemaProvider = () => {
         email: emailSchema,
     });
 
-    return {signupSchema, loginSchema, updateAccountSchema, updatePasswordSchema, findPasswordSchema}
+    return {signupSchema, loginSchema, updateStudentAccountSchema, updateAssistantAccountSchema, updatePasswordSchema, findPasswordSchema}
 };
 
 export default UserSchemaProvider;

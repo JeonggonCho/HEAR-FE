@@ -2,7 +2,7 @@ import {FC, useCallback, useEffect, useMemo, useState} from "react";
 import {ReactSVG} from "react-svg";
 
 import Header from "@components/common/Header";
-import ManagerCard from "@components/home/ManagerCard";
+import AssistantCard from "@components/home/AssistantCard";
 import NoticeCard from "@components/home/NoticeCard";
 import Carousel from "@components/common/Carousel";
 import FeedBackCard from "@components/home/FeedBackCard";
@@ -154,7 +154,7 @@ const HomePage = () => {
                     isLoading={isLoading}
                 />
                 <NoticeCard/>
-                <ManagerCard/>
+                <AssistantCard/>
                 <div>
                     <CafeSiteCard/>
                     <FeedBackCard/>

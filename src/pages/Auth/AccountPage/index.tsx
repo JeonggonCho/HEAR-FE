@@ -24,7 +24,7 @@ import {navCategories} from "@constants/navCategories.ts";
 
 import {BtnsWrapper, Container, DeleteUserWrapper, LinkWrapper, SettingWrapper} from "./style.ts";
 
-import userImg from "@assets/images/manager.png";
+import userImg from "@assets/images/assistant.png";
 import machine from "@assets/images/machine.png";
 import reservation from "@assets/images/my_reservation.png";
 import setting from  "@assets/icons/setting.svg";
@@ -187,7 +187,7 @@ const AccountPage:FC = () => {
                   </>
                 }
 
-                {(userData?.role === "manager" || userData?.role === "admin") && (
+                {(userData?.role === "assistant" || userData?.role === "admin") && (
                     <LinkWrapper>
                         <Link image={reservation} name={buttonCategories.reservationManagement[lang]} to={"/management/reservations"} type={"card"} isLoading={isLoading}/>
                         <Link image={userImg} name={buttonCategories.userManagement[lang]} to={"/management/users"} type={"card"} isLoading={isLoading}/>

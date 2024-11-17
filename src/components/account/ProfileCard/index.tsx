@@ -7,7 +7,7 @@ import {useUserInfoStore, useUserDataStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 
-import {Container, NameEmailWrapper} from "./style.ts";
+import {Container, LabNameWrapper, NameEmailWrapper} from "./style.ts";
 
 
 const ProfileCard:FC<{isLoading: boolean}> = ({isLoading}) => {
@@ -24,6 +24,22 @@ const ProfileCard:FC<{isLoading: boolean}> = ({isLoading}) => {
                     <span>{userInfo?.email.split("@")[0]}</span>
                 </div>
             </NameEmailWrapper>
+
+            {userData?.role &&
+              <div>
+                  {isLoading ?
+                      <>
+                          <CardLoading bgColor={"dark"} widthValue={"60px"} heightValue={"20px"}/>
+                          <CardLoading bgColor={"dark"} widthValue={"150px"} heightValue={"20px"}/>
+                      </>
+                      :
+                      <>
+                          <span>{cardCategories.role[lang]}</span>
+                          <span>{cardCategories[userData?.role][lang]}</span>
+                      </>
+                  }
+              </div>
+            }
 
             <div>
                 {isLoading ?
@@ -70,7 +86,7 @@ const ProfileCard:FC<{isLoading: boolean}> = ({isLoading}) => {
               </>
             }
 
-            {userData?.role === "manager" &&
+            {userData?.role === "assistant" &&
               <div>
                   {isLoading ?
                       <>
@@ -80,23 +96,7 @@ const ProfileCard:FC<{isLoading: boolean}> = ({isLoading}) => {
                       :
                       <>
                           <span>{cardCategories.lab[lang]}</span>
-                          <span>{userData?.lab}</span>
-                      </>
-                  }
-              </div>
-            }
-
-            {userData?.role &&
-              <div>
-                  {isLoading ?
-                      <>
-                          <CardLoading bgColor={"dark"} widthValue={"60px"} heightValue={"20px"}/>
-                          <CardLoading bgColor={"dark"} widthValue={"150px"} heightValue={"20px"}/>
-                      </>
-                      :
-                      <>
-                          <span>{cardCategories.role[lang]}</span>
-                          <span>{cardCategories[userData?.role][lang]}</span>
+                          <LabNameWrapper lab={!!userData.lab}>{userData?.lab || `${cardCategories.emptyLab[lang]}`}</LabNameWrapper>
                       </>
                   }
               </div>

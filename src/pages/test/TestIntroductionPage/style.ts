@@ -21,7 +21,7 @@ export const ContentWrapper = styled.div`
             object-fit: contain;
 
             @media (max-width: 400px) {
-                width: 30%;
+                width: 25%;
             }
         }
     }
@@ -44,8 +44,9 @@ export const ContentWrapper = styled.div`
         }
     }
     
-    // 교육 대상
-    & > div:nth-of-type(3) {
+    // 교육 대상, 커트라인
+    & > div:nth-of-type(3),
+    & > div:nth-of-type(4) {
         display: flex;
         flex-direction: column;
         gap: 12px;

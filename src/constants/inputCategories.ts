@@ -54,6 +54,11 @@ export const inputCategories = {
         en: "Phone Number",
         ch: "电话号码",
     },
+    lab: {
+        ko: "연구실",
+        en: "Lab",
+        ch: "研究室",
+    },
     year: {
         ko: "학년",
         en: "Year",

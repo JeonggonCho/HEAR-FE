@@ -39,6 +39,11 @@ export const placeholderCategories = {
         en: "Please enter your phone number",
         ch: "请输入您的电话号码",
     },
+    lab: {
+        ko: "OO 연구실 (000호)",
+        en: "OO Lab (Room 000)",
+        ch: "OO 研究室（000室）",
+    },
     startTime: {
         ko: "시작 시간",
         en: "Start Time",

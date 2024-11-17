@@ -10,7 +10,7 @@ export interface IAuthResponseData {
     countOfLaserPerDay: number;
     countOfWarning: number;
     tel: string;
-    role: "student" | "manager" | "admin";
+    role: "student" | "assistant" | "admin";
     accessToken: string;
     refreshToken: string;
     lab?: string;

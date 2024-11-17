@@ -99,7 +99,7 @@ const InquiryPage:FC = () => {
                 }
             </div>
 
-            {userData?.role !== "manager" &&
+            {userData?.role !== "assistant" &&
               <FloatingButton
                 type={"link"}
                 to={"/board/inquiry/new"}

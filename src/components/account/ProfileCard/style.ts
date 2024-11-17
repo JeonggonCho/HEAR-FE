@@ -61,3 +61,7 @@ export const NameEmailWrapper = styled.div`
         }
     }
 `;
+
+export const LabNameWrapper = styled.span<{lab: boolean}>`
+    color: ${({theme, lab}) => lab ? theme.colors.font.main : theme.colors.font.danger};
+`;
