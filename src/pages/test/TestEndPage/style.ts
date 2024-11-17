@@ -82,35 +82,3 @@ export const QuestionsWrapper = styled.div`
         gap: 12px;
     }
 `;
-
-export const QuestionListWrapper = styled.li<{pass: "true" | "false"}>`
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 8px;
-    background-color: ${({theme}) => theme.colors.bg.main};
-    border-radius: 12px;
-
-    & > span:first-of-type {
-        min-width: 32px;
-        width: 32px;
-        height: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: ${({theme}) => theme.colors.button.third};
-        color: ${({theme}) => theme.colors.font.sub};
-        border-radius: 4px;
-    }
-    
-    & > div:last-of-type {
-        padding: 0 4px 0 12px;
-        display: flex;
-        align-items: center;
-        border-left: 1px solid ${({theme}) => theme.colors.line.main};
-        
-        svg {
-            fill: ${({theme, pass}) => pass === "true" ? theme.colors.button.green : theme.colors.font.danger};
-        }
-    }
-`;

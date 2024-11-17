@@ -209,4 +209,14 @@ export const cardCategories = {
         en: "View",
         ch: "查看",
     },
+    correct: {
+        ko: "정답",
+        en: "Correct",
+        ch: "正确答案",
+    },
+    incorrect: {
+        ko: "오답",
+        en: "Incorrect",
+        ch: "错误答案",
+    },
 };

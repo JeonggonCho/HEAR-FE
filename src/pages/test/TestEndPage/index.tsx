@@ -15,7 +15,6 @@ import {cardCategories} from "@constants/cardCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 
 import {
-    QuestionListWrapper,
     QuestionsWrapper,
     ResultCard,
     ResultSignWrapper,
@@ -24,8 +23,6 @@ import {
 
 import checkCircle from "@assets/icons/check_circle.svg";
 import cancelCircle from "@assets/icons/cancel_circle.svg";
-import circle from "@assets/icons/circle.svg";
-import close from "@assets/icons/close.svg";
 
 
 const TestEndPage:FC = () => {
@@ -99,24 +96,17 @@ const TestEndPage:FC = () => {
                         <label>{cardCategories.grading[lang]}</label>
                         <ul>
                             {testResult?.questions.map((q, index) => (
-                                <QuestionListWrapper
+                                <GradingAnswerListItem
                                     key={index}
-                                    pass={q.isCorrect ? "true" : "false"}
-                                >
-                                    <span>{index + 1}</span>
-                                    <GradingAnswerListItem
-                                        question={q.question}
-                                        questionType={q.questionType}
-                                        answer={q.answer}
-                                        options={q.options}
-                                        myAnswer={q.myAnswer}
-                                        isCorrect={q.isCorrect}
-                                        explanation={q.explanation}
-                                    />
-                                    <div>
-                                        <ReactSVG src={q.isCorrect ? circle : close}/>
-                                    </div>
-                                </QuestionListWrapper>
+                                    index={index}
+                                    question={q.question}
+                                    questionType={q.questionType}
+                                    answer={q.answer}
+                                    options={q.options}
+                                    myAnswer={q.myAnswer}
+                                    isCorrect={q.isCorrect}
+                                    explanation={q.explanation}
+                                />
                             ))}
                         </ul>
                     </QuestionsWrapper>

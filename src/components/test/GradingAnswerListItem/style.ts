@@ -1,52 +1,77 @@
 import styled from "@emotion/styled";
 import hexToRgb from "@util/hexToRgb.ts";
 
-export const Container = styled.div<{isOpen: boolean, maxHeight: string}>`
+export const Container = styled.div`
     width: 100%;
-    display: flex;
+    display: grid;
     flex-direction: column;
+    padding: 8px;
+    background-color: ${({theme}) => theme.colors.bg.main};
+    border-radius: 12px;
+`;
 
-    & > div:first-of-type {
-        max-height: ${({maxHeight, isOpen}) => isOpen ? maxHeight : "0"};
-        transition: max-height 0.3s ease-in-out;
-        overflow: hidden;
-
-        & > div:first-of-type {
-            margin: 8px 0 24px 0;
-        }
-    }
+export const LabelAndMoreWrapper = styled.div<{isOpen: boolean, isCorrect: boolean}>`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    cursor: pointer;
     
-    // 보기 버튼 영역
-    & > div:last-of-type {
+    // 문제 번호
+    label {
+        width: 32px;
+        height: 32px;
         display: flex;
         align-items: center;
         justify-content: center;
+        background-color: ${({theme}) => theme.colors.button.third};
+        border-radius: 4px;
+        color: ${({theme}) => theme.colors.font.sub};
         cursor: pointer;
-        
-        &:hover {
-            span {
-                color: ${({theme}) => theme.colors.font.main};
-            }
-            
-            svg {
-                fill: ${({theme}) => theme.colors.font.main};
-            }
-        }
+    }
+    
+    // O, X 표시
+    & > div:first-of-type {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-grow: 1;
         
         span {
-            font-size: 0.9rem;
-            margin-left: 12px;
-            color: ${({theme}) => theme.colors.font.sub};
-            transition: all 0.2s ease-in-out 0s;
+            color: ${({theme}) => theme.colors.font.main};
         }
         
         svg {
-            width: 28px;
-            height: 28px;
+            fill: ${({theme, isCorrect}) => isCorrect ? theme.colors.button.green : theme.colors.font.danger};
+        }
+    }
+    
+    // 더보기 화살표
+    & > div:last-of-type {
+        width: 28px;
+        height: 28px;
+        overflow: hidden;
+
+        svg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             fill: ${({theme}) => theme.colors.font.sub};
             transition: all 0.2s ease-in-out 0s;
             transform: ${({isOpen}) => isOpen ? `rotate(180deg)` : null};
         }
+    }
+`;
+
+export const SolutionWrapper = styled.div<{isOpen: boolean, maxHeight: string}>`
+    max-height: ${({maxHeight, isOpen}) => isOpen ? maxHeight : "0"};
+    transition: max-height 0.3s ease-in-out;
+    overflow: hidden;
+
+    & > div:first-of-type {
+        margin-top: 12px;
+        padding: 24px 12px 16px;
+        border-top: 1px solid ${({theme}) => theme.colors.line.main};
     }
 `;
 
@@ -70,7 +95,7 @@ export const QuestionWrapper = styled.div`
 `;
 
 export const ExplanationWrapper = styled.p`
-    margin: 16px 0 8px 24px;
+    margin: 16px 0 24px 24px;
     color: ${({theme}) => theme.colors.font.sub};
 `;
 
@@ -85,8 +110,14 @@ export const AnswersWrapper = styled.div`
     }
 `;
 
+export const ShortAnswerWrapper = styled.div`
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid ${({theme}) => theme.colors.line.main};
+`;
+
 export const ShortAnswer = styled.p`
-    margin: 12px 0;
+    margin: 0 0 12px;
     text-wrap: wrap;
     word-break: break-all;
     line-height: 1.3;
@@ -97,6 +128,7 @@ export const MyAnswer = styled.p<{isCorrect: boolean}>`
     text-wrap: wrap;
     word-break: break-all;
     line-height: 1.3;
+    margin: 0;
 `;
 
 export const OptionListItemWrapper = styled.li<{isAnswer: boolean, isChecked: boolean}>`
@@ -109,7 +141,7 @@ export const OptionListItemWrapper = styled.li<{isAnswer: boolean, isChecked: bo
     background-color: ${({ theme, isAnswer }) => {
         return isAnswer ? `rgba(${hexToRgb(theme.colors.button.green)}, 0.05)` : theme.colors.bg.main;
     }};
-    color: ${({theme, isAnswer}) => isAnswer ? theme.colors.button.green : theme.colors.font.main};
+    color: ${({theme, isAnswer}) => isAnswer ? theme.colors.font.main : theme.colors.font.sub};
     border-radius: 8px;
 
     & > p {
