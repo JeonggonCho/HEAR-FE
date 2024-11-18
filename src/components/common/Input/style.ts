@@ -6,18 +6,23 @@ export const Container = styled.div`
     position: relative;
     gap: 8px;
     
-    label {
-        width: fit-content;
-        color: ${({theme}) => theme.colors.font.main};
-        margin-left: 4px;
-        line-height: 1.5;
-    }
-    
-    & > span:first-of-type {
-        font-size: 0.85rem;
-        color: ${({theme}) => theme.colors.font.sub};
-        margin-left: 4px;
-        line-height: 1.5;
+    & > div:first-of-type {
+        display: flex;
+        flex-direction: column;
+        
+        label {
+            width: fit-content;
+            color: ${({theme}) => theme.colors.font.main};
+            margin-left: 4px;
+            line-height: 1.5;
+        }
+
+        & > span:first-of-type {
+            font-size: 0.85rem;
+            color: ${({theme}) => theme.colors.font.sub};
+            margin-left: 4px;
+            line-height: 1.5;
+        }   
     }
     
     input {

@@ -14,8 +14,8 @@ export const Container = styled.div<{scrollbarWidth: number}>`
         & > div:first-of-type {
             display: flex;
             gap: 12px;
-            font-size: 1.15rem;
-            line-height: 1.5;
+            font-size: 1.05rem;
+            line-height: 1.3;
 
             & > span {
                 font-weight: 500;
@@ -31,7 +31,7 @@ export const Container = styled.div<{scrollbarWidth: number}>`
         & > p:first-of-type {
             margin: 0 0 0 28px;
             color: ${({theme}) => theme.colors.font.sub};
-            line-height: 1.5;
+            line-height: 1.3;
             text-wrap: wrap;
             word-break: break-all;
         }
@@ -51,7 +51,7 @@ export const ShortAnswerWrapper = styled.div`
     flex-grow: 1;
     
     label {
-        margin-top: 10px;
+        margin-top: 18px;
         text-wrap: nowrap;
         font-weight: 500;
         font-size: 1.15rem;
@@ -95,7 +95,7 @@ export const ChoiceWrapper = styled.div`
         
         label {
             width: 100%;
-            font-size: 1.15rem;
+            font-size: 1rem;
             cursor: pointer;
             line-height: 1.2;
         }

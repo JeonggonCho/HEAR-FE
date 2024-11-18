@@ -104,12 +104,17 @@ const UserSchemaProvider = () => {
         }
     });
 
+    const updateYearAndStudioSchema = z.object({
+        year: yearSchema,
+        studio: studioSchema,
+    });
+
     const findPasswordSchema = z.object({
         username: usernameSchema,
         email: emailSchema,
     });
 
-    return {signupSchema, loginSchema, updateStudentAccountSchema, updateAssistantAccountSchema, updatePasswordSchema, findPasswordSchema}
+    return {signupSchema, loginSchema, updateStudentAccountSchema, updateAssistantAccountSchema, updateYearAndStudioSchema, updatePasswordSchema, findPasswordSchema}
 };
 
 export default UserSchemaProvider;

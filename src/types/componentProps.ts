@@ -34,6 +34,7 @@ export interface IConfirmContentProps {
     description?: string;
     leftBtn: React.ReactElement;
     rightBtn: React.ReactElement;
+    additionalComponent?: React.ReactElement;
 }
 
 

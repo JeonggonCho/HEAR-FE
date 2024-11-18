@@ -34,9 +34,10 @@ const Input = <T extends FieldValues>(
 
     return (
         <Container>
-            {label && <label htmlFor={id}>{label}</label>}
-
-            {subLabel && <span>{subLabel}</span>}
+            <div>
+                {label && <label htmlFor={id}>{label}</label>}
+                {subLabel && <span>{subLabel}</span>}
+            </div>
 
             {type === "range" ?
                 <input

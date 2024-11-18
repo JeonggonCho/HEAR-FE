@@ -1,6 +1,7 @@
 import {FC, useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {ReactSVG} from "react-svg";
+import {z} from "zod";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
@@ -16,6 +17,7 @@ import Empty from "@components/common/Empty";
 
 import useRequest from "@hooks/useRequest.ts";
 import useScrollbarWidth from "@hooks/useScrollbarWidth.ts";
+import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
 import {EducationType, IMultipleChoice, ISingleChoice, ITestAnswer} from "@/types/education.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
@@ -32,10 +34,16 @@ import {
     MenusWrapper,
     QuestionsWrapper, SideMenuAnswerWrapper,
     SideMenuBtnWrapper, SideMenuQuestionsWrapper,
-    SideMenuQuestionWrapper
+    SideMenuQuestionWrapper, YearAndStudioWrapper
 } from "./style.ts";
 
 import menu from "@assets/icons/menu.svg";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import Input from "@components/common/Input";
+import Select from "@components/common/Select";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
 
 
 const TestStartPage:FC = () => {
@@ -52,6 +60,25 @@ const TestStartPage:FC = () => {
     const {showToast} = useToastStore();
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
     const scrollbarWidth = useScrollbarWidth();
+    const {updateYearAndStudioSchema} = UserSchemaProvider();
+
+    const yearCategories = [
+        {label: inputCategories.first[lang], value: "1", id: "select-1"},
+        {label: inputCategories.second[lang], value: "2", id: "select-2"},
+        {label: inputCategories.third[lang], value: "3", id: "select-3"},
+        {label: inputCategories.fourth[lang], value: "4", id: "select-4"},
+        {label: inputCategories.fifth[lang], value: "5", id: "select-5"},
+    ];
+
+    type UpdateYearAndStudioForm = z.infer<typeof updateYearAndStudioSchema>;
+
+    const {register, handleSubmit, formState:{errors}, getValues, reset} = useForm<UpdateYearAndStudioForm>({
+        resolver: zodResolver(updateYearAndStudioSchema),
+        defaultValues: {
+            year: "1",
+            studio: "",
+        },
+    });
 
     // 기존 답변 스토리지에서 로드하기
     const loadAnswersFromStorage = (): ITestAnswer[] => {
@@ -122,12 +149,16 @@ const TestStartPage:FC = () => {
     };
 
     // 문제 제출하기
-    const submitTest = async () => {
+    const submitTest:SubmitHandler<UpdateYearAndStudioForm> = async () => {
         try {
             const response = await sendRequest({
                 url: "/education/check",
                 method: "post",
-                data: {testAnswers},
+                data: {
+                    testAnswers: testAnswers,
+                    year: getValues("year"),
+                    studio: getValues("studio"),
+                },
             });
             if (response.data) {
                 sessionStorage.removeItem("testAnswers");
@@ -251,18 +282,46 @@ const TestStartPage:FC = () => {
                     color={"third"}
                     scale={"normal"}
                     width={"full"}
-                    onClick={() => setShowSubmitConfirmModal(false)}
+                    onClick={() => {
+                        reset({
+                            year: "1",
+                            studio: "",
+                        });
+                        setShowSubmitConfirmModal(false);
+                    }}
                 />
             }
             rightBtn={
                 <Button
-                    type={"button"}
+                    type={"submit"}
                     content={buttonCategories.submit[lang]}
                     color={"approval"}
                     scale={"normal"}
                     width={"full"}
-                    onClick={submitTest}
+                    onClick={handleSubmit(submitTest)}
                 />
+            }
+            additionalComponent={
+                <YearAndStudioWrapper>
+                    <Select
+                        categories={yearCategories}
+                        label={inputCategories.year[lang]}
+                        name={"year"}
+                        register={register}
+                        errorMessage={errors.year?.message}
+                        type={"radio"}
+                    />
+                    <Input
+                        label={inputCategories.studio[lang]}
+                        subLabel={inputCategories.inputKorean[lang]}
+                        type={"text"}
+                        id={"studio"}
+                        name={"studio"}
+                        placeholder={placeholderCategories.studio[lang]}
+                        register={register}
+                        errorMessage={errors.studio?.message}
+                    />
+                </YearAndStudioWrapper>
             }
         />
     );
