@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import {Link} from "react-router-dom";
 
+
 export const Container = styled.div`
     margin-top: 8px;
     width: 100%;
@@ -11,6 +12,46 @@ export const Container = styled.div`
     border: 1px solid ${({theme}) => theme.colors.bg.main};
     display: flex;
     align-items: center;
+`;
+
+export const ImgWrapper = styled.div<{valid: boolean}>`
+    width: 24px;
+    max-width: 24px;
+    min-width: 24px;
+    height: auto;
+    overflow: hidden;
+    margin-right: 20px;
+    flex-grow: 1;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: ${({valid}) => valid ? "1" : "0.5"};
+        filter: ${({valid}) => valid ? "" : "grayscale(100%)"};
+    }
+`;
+
+export const RollingWrapper = styled.div<{rollingHeight: string}>`
+    width: 100%;
+    height: ${({rollingHeight}) => rollingHeight};
+    overflow: hidden;
+`;
+
+export const RollingContent = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+export const Notice = styled(Link)`
+    width: 100%;
+    font-size: 0.9rem;
+    color: ${({theme}) => theme.colors.font.main};
+    line-height: 1.2;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 `;
 
 export const More = styled(Link)`
@@ -35,56 +76,6 @@ export const More = styled(Link)`
         fill: ${({theme}) => theme.colors.font.sub};
         transition: all 0.2s ease-in-out 0s;
     }
-`;
-
-export const Notice = styled(Link)`
-    transition: all 0.2s ease-in-out 0s;
-    display: block;
-    width: 100%;
-    
-    & > span:first-of-type {
-        display: block;
-        width: 100%;
-        font-size: 0.9rem;
-        line-height: 1.2;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        color: ${({theme}) => theme.colors.font.main};
-    }
-    
-    &:hover {
-        span:first-of-type {
-            color: ${({theme}) => theme.colors.font.primary};
-        }
-    }
-`;
-
-export const ImgWrapper = styled.div<{valid: boolean}>`
-    width: 24px;
-    max-width: 24px;
-    min-width: 24px;
-    height: auto;
-    overflow: hidden;
-    margin-right: 12px;
-    flex-grow: 1;
-
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: ${({valid}) => valid ? "1" : "0.5"};
-        filter: ${({valid}) => valid ? "" : "grayscale(100%)"};
-    }
-`;
-
-export const NoticesWrapper = styled.div`
-    height: 20px;
-    overflow: hidden;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
 `;
 
 export const EmptyNotice = styled.span`

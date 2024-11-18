@@ -4,12 +4,21 @@ import ArrowForward from "@components/common/ArrowForward";
 import CardLoading from "@components/skeleton/CardLoading";
 
 import useRequest from "@hooks/useRequest.ts";
+import useRolling from "@hooks/useRolling.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
-import {Container, EmptyNotice, ImgWrapper, More, Notice, NoticesWrapper} from "./style.ts";
+import {
+    Container,
+    EmptyNotice,
+    ImgWrapper,
+    More,
+    Notice,
+    RollingContent,
+    RollingWrapper
+} from "./style.ts";
 
 import notice from "@assets/images/notice.png";
 
@@ -20,6 +29,7 @@ const NoticeCard:FC = () => {
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
+    const {setIsHovered, rollingRef, rollingHeight} = useRolling(latestNotices.length, 5000, "18px");
 
     const fetchLatestNotices = useCallback(async () => {
         try {
@@ -27,7 +37,8 @@ const NoticeCard:FC = () => {
                 url: "/notices/latest"
             });
             if (response.data) {
-                setLatestNotices(response.data);
+                const notices = response.data;
+                setLatestNotices(notices);
             }
         } catch (err) {
             console.error("최신 공지사항 목록 조회 중 에러 발생: ", err);
@@ -45,7 +56,8 @@ const NoticeCard:FC = () => {
         return () => clearTimeout(errorTimer);
     }, [errorText]);
 
-    // 로딩중인 경우, 스켈레톤 렌더링
+
+    // 로딩 중인 경우, 스켈레톤 렌더링
     if (isLoading) {
         return <CardLoading heightValue={"55px"}/>
     }
@@ -58,15 +70,21 @@ const NoticeCard:FC = () => {
 
             {latestNotices.length > 0 ?
                 <>
-                    <NoticesWrapper>
-                        {latestNotices.map(value => {
-                            return (
-                                <Notice key={value.noticeId} to={`/board/notice/${value.noticeId}`}>
-                                    <span>{value.title}</span>
-                                </Notice>
-                            );
-                        })}
-                    </NoticesWrapper>
+                    <RollingWrapper
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
+                        rollingHeight={rollingHeight}
+                    >
+                        <RollingContent ref={rollingRef}>
+                            {latestNotices.map(value => (
+                                    <Notice key={value.noticeId} to={`/board/notice/${value.noticeId}`}>
+                                        {value.title}
+                                    </Notice>
+                                )
+                            )}
+                        </RollingContent>
+                    </RollingWrapper>
+
                     <More to={"/board/notice"}>
                         {buttonCategories.more[lang]} <ArrowForward/>
                     </More>

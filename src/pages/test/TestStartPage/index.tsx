@@ -1,10 +1,13 @@
 import {FC, useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {SubmitHandler, useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
+import {zodResolver} from "@hookform/resolvers/zod";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
+import Select from "@components/common/Select";
 import HeadTag from "@components/common/HeadTag";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Button from "@components/common/Button";
@@ -14,6 +17,7 @@ import ModalConfirmContent from "@components/common/ModalConfirmContent";
 import ProgressBar from "@components/common/ProgressBar";
 import TestListItem from "@components/test/TestListItem";
 import Empty from "@components/common/Empty";
+import Input from "@components/common/Input";
 
 import useRequest from "@hooks/useRequest.ts";
 import useScrollbarWidth from "@hooks/useScrollbarWidth.ts";
@@ -26,6 +30,8 @@ import {headerCategories} from "@constants/headerCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
 
 import {
     AnswerWrapper,
@@ -38,12 +44,6 @@ import {
 } from "./style.ts";
 
 import menu from "@assets/icons/menu.svg";
-import {SubmitHandler, useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
-import Input from "@components/common/Input";
-import Select from "@components/common/Select";
-import {inputCategories} from "@constants/inputCategories.ts";
-import {placeholderCategories} from "@constants/placeholderCategories.ts";
 
 
 const TestStartPage:FC = () => {
@@ -62,6 +62,7 @@ const TestStartPage:FC = () => {
     const scrollbarWidth = useScrollbarWidth();
     const {updateYearAndStudioSchema} = UserSchemaProvider();
 
+    // 학년 카테고리
     const yearCategories = [
         {label: inputCategories.first[lang], value: "1", id: "select-1"},
         {label: inputCategories.second[lang], value: "2", id: "select-2"},
@@ -148,29 +149,6 @@ const TestStartPage:FC = () => {
         setShowSideMenu(false);
     };
 
-    // 문제 제출하기
-    const submitTest:SubmitHandler<UpdateYearAndStudioForm> = async () => {
-        try {
-            const response = await sendRequest({
-                url: "/education/check",
-                method: "post",
-                data: {
-                    testAnswers: testAnswers,
-                    year: getValues("year"),
-                    studio: getValues("studio"),
-                },
-            });
-            if (response.data) {
-                sessionStorage.removeItem("testAnswers");
-                navigate("/test/end", {replace: true});
-            }
-        } catch (err) {
-            console.error("문제 제출 중 에러 발생: ", err);
-        } finally {
-            setShowSubmitConfirmModal(false);
-        }
-    };
-
     // 문제 답안 입력
     const inputAnswer = (e: any, question: EducationType) => {
         const value = e.target.value;
@@ -230,6 +208,29 @@ const TestStartPage:FC = () => {
             return selectedAnswers.length > 0;
         }
         return false;
+    };
+
+    // 문제 제출하기
+    const submitTest:SubmitHandler<UpdateYearAndStudioForm> = async () => {
+        try {
+            const response = await sendRequest({
+                url: "/education/check",
+                method: "post",
+                data: {
+                    testAnswers: testAnswers,
+                    year: getValues("year"),
+                    studio: getValues("studio"),
+                },
+            });
+            if (response.data) {
+                sessionStorage.removeItem("testAnswers");
+                navigate("/test/end", {replace: true});
+            }
+        } catch (err) {
+            console.error("문제 제출 중 에러 발생: ", err);
+        } finally {
+            setShowSubmitConfirmModal(false);
+        }
     };
 
     // 에러 메시지
