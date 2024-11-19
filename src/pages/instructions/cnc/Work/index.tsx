@@ -1,17 +1,25 @@
-import {FC} from "react";
+import {FC, useState} from "react";
+
+import Image from "@components/common/Image";
 
 import {cncInstruction} from "@constants/instruction/cncInstruction.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
-import {Container, ImageWrapper} from "../../instruction.style.ts";
+import {Container} from "../../instruction.style.ts";
 
 import ballEndmill from "@assets/instruction_images/cnc/cnc_ballEndmill.jpg";
 import flatEndmill from "@assets/instruction_images/cnc/cnc_flatEndmill.jpg";
 import cncLine from "@assets/instruction_images/cnc/cnc_line.jpg";
 import cncVolume from "@assets/instruction_images/cnc/cnc_volume.jpg";
 
+
 const Work:FC = () => {
+    const [currentImage, setCurrentImage] = useState<number>(0);
+
     const {lang} = useThemeStore();
+
+    const images = [ballEndmill, flatEndmill, cncLine, cncVolume];
+
 
     return (
         <Container>
@@ -20,15 +28,21 @@ const Work:FC = () => {
             <section>
                 <p>{cncInstruction.work.ballEndMill[lang]}</p>
                 <span>{cncInstruction.work.ballEndMillFeature[lang]}</span>
-                <ImageWrapper>
-                    <img src={ballEndmill} alt="볼 엔드 밀"/>
-                </ImageWrapper>
+                <Image
+                    images={images}
+                    targetIndex={0}
+                    currentImage={currentImage}
+                    setCurrentImage={setCurrentImage}
+                />
 
                 <p>{cncInstruction.work.flatEndMill[lang]}</p>
                 <span>{cncInstruction.work.flatEndMillFeature[lang]}</span>
-                <ImageWrapper>
-                    <img src={flatEndmill} alt="평 엔드 밀"/>
-                </ImageWrapper>
+                <Image
+                    images={images}
+                    targetIndex={1}
+                    currentImage={currentImage}
+                    setCurrentImage={setCurrentImage}
+                />
             </section>
 
             <h3>{cncInstruction.work.availableWork[lang]}</h3>
@@ -36,15 +50,21 @@ const Work:FC = () => {
             <section>
                 <p>{cncInstruction.work.flatWork[lang]}</p>
                 <span>{cncInstruction.work.flatWorkFeature[lang]}</span>
-                <ImageWrapper>
-                    <img src={cncLine} alt="판재 절단"/>
-                </ImageWrapper>
+                <Image
+                    images={images}
+                    targetIndex={2}
+                    currentImage={currentImage}
+                    setCurrentImage={setCurrentImage}
+                />
 
                 <p>{cncInstruction.work.volumeWork[lang]}</p>
                 <span>{cncInstruction.work.volumeWorkFeature[lang]}</span>
-                <ImageWrapper>
-                    <img src={cncVolume} alt="매스 성형"/>
-                </ImageWrapper>
+                <Image
+                    images={images}
+                    targetIndex={3}
+                    currentImage={currentImage}
+                    setCurrentImage={setCurrentImage}
+                />
             </section>
         </Container>
     );

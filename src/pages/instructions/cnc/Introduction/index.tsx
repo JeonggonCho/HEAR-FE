@@ -1,22 +1,26 @@
 import {FC} from "react";
 
+import Image from "@components/common/Image";
+
 import {cncInstruction} from "@constants/instruction/cncInstruction.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
-import {Container, ImageWrapper} from "../../instruction.style.ts";
+import {Container} from "../../instruction.style.ts";
 
 import cncMachine from "@assets/instruction_images/cnc/cnc_machine.jpg";
 
+
 const Introduction:FC = () => {
     const {lang} = useThemeStore();
+
+    const images = [cncMachine];
+
 
     return (
         <Container>
             <h3>{cncInstruction.introduction.cncMachine[lang]}</h3>
 
-            <ImageWrapper>
-                <img src={cncMachine} alt="CNC 기기"/>
-            </ImageWrapper>
+            <Image images={images} targetIndex={0}/>
 
             <section>
                 <div>

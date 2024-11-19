@@ -201,7 +201,7 @@ const AccountPage:FC = () => {
                         type={"button"}
                         content={buttonCategories.signOut[lang]}
                         width={"full"}
-                        color={"second"}
+                        color={"third"}
                         scale={"big"}
                         onClick={() => setLogoutModal(true)}
                     />

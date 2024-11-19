@@ -20,7 +20,7 @@ import Empty from "@components/common/Empty";
 import Input from "@components/common/Input";
 
 import useRequest from "@hooks/useRequest.ts";
-import useScrollbarWidth from "@hooks/useScrollbarWidth.ts";
+import useScrollbarSize from "@hooks/useScrollbarSize.ts";
 import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
 import {EducationType, IMultipleChoice, ISingleChoice, ITestAnswer} from "@/types/education.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
@@ -59,7 +59,7 @@ const TestStartPage:FC = () => {
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
-    const scrollbarWidth = useScrollbarWidth();
+    const {scrollbarWidth} = useScrollbarSize();
     const {updateYearAndStudioSchema} = UserSchemaProvider();
 
     // 학년 카테고리
@@ -276,6 +276,28 @@ const TestStartPage:FC = () => {
         <ModalConfirmContent
             text={cardCategories.submit[lang]}
             description={messageCategories.warningSubmit[lang]}
+            content={
+                <YearAndStudioWrapper>
+                    <Select
+                        categories={yearCategories}
+                        label={inputCategories.year[lang]}
+                        name={"year"}
+                        register={register}
+                        errorMessage={errors.year?.message}
+                        type={"radio"}
+                    />
+                    <Input
+                        label={inputCategories.studio[lang]}
+                        subLabel={inputCategories.inputKorean[lang]}
+                        type={"text"}
+                        id={"studio"}
+                        name={"studio"}
+                        placeholder={placeholderCategories.studio[lang]}
+                        register={register}
+                        errorMessage={errors.studio?.message}
+                    />
+                </YearAndStudioWrapper>
+            }
             leftBtn={
                 <Button
                     type={"button"}
@@ -301,28 +323,6 @@ const TestStartPage:FC = () => {
                     width={"full"}
                     onClick={handleSubmit(submitTest)}
                 />
-            }
-            additionalComponent={
-                <YearAndStudioWrapper>
-                    <Select
-                        categories={yearCategories}
-                        label={inputCategories.year[lang]}
-                        name={"year"}
-                        register={register}
-                        errorMessage={errors.year?.message}
-                        type={"radio"}
-                    />
-                    <Input
-                        label={inputCategories.studio[lang]}
-                        subLabel={inputCategories.inputKorean[lang]}
-                        type={"text"}
-                        id={"studio"}
-                        name={"studio"}
-                        placeholder={placeholderCategories.studio[lang]}
-                        register={register}
-                        errorMessage={errors.studio?.message}
-                    />
-                </YearAndStudioWrapper>
             }
         />
     );

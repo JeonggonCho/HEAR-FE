@@ -1,9 +1,11 @@
-import {FC} from "react";
+import {FC, useState} from "react";
+
+import Image from "@components/common/Image";
 
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {printerInstruction} from "@constants/instruction/printerInstruction.ts";
 
-import {Container, ImageWrapper} from "../../instruction.style.ts";
+import {Container} from "../../instruction.style.ts";
 
 import on from "@assets/instruction_images/printer/3d_printer_on.jpg";
 import thermal from "@assets/instruction_images/printer/3d_printer_thermal.jpg";
@@ -27,7 +29,32 @@ import touch from "@assets/instruction_images/printer/3d_printer_touch.jpg";
 
 
 const Usage: FC = () => {
+    const [currentImage, setCurrentImage] = useState<number>(0);
+
     const {lang} = useThemeStore();
+
+    const images = [
+        on,
+        thermal,
+        ingredient,
+        thermalSetup,
+        usb,
+        copy1,
+        copy2,
+        copy3,
+        copy4,
+        copy5,
+        copy6,
+        copy7,
+        removeUsb,
+        autoLeveling,
+        cleaner,
+        nozzle,
+        axis,
+        sharp,
+        touch,
+    ];
+
 
     return (
         <Container>
@@ -35,96 +62,60 @@ const Usage: FC = () => {
 
             <section>
                 <p>{printerInstruction.usage.turnOn[lang]}</p>
-                <ImageWrapper>
-                    <img src={on} alt="전원 켜기"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={0} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{printerInstruction.usage.selectTemperature[lang]}</p>
-                <ImageWrapper>
-                    <img src={thermal} alt="온도"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={1} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{printerInstruction.usage.selectMaterial[lang]}</p>
-                <ImageWrapper>
-                    <img src={ingredient} alt="재료"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={2} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{printerInstruction.usage.settingTemperature[lang]}</p>
-                <ImageWrapper>
-                    <img src={thermalSetup} alt="온도 설정"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={3} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{printerInstruction.usage.linkUsb[lang]}</p>
                 <span>{printerInstruction.usage.usbFormat[lang]}</span>
                 <span>{printerInstruction.usage.usbIcon[lang]}</span>
-                <ImageWrapper>
-                    <img src={usb} alt="usb 결합"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={4} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{printerInstruction.usage.copyMethod1[lang]}</p>
                 <span>{printerInstruction.usage.copyMethod1Sequence[lang]}</span>
-                <ImageWrapper>
-                    <img src={copy1} alt="복사 방법 1"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={5} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
-                <ImageWrapper>
-                    <img src={copy2} alt="복사 방법 2"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={6} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
-                <ImageWrapper>
-                    <img src={copy3} alt="복사 방법 3"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={7} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{printerInstruction.usage.copyMethod2[lang]}</p>
                 <span>{printerInstruction.usage.copyMethod2Sequence[lang]}</span>
-                <ImageWrapper>
-                    <img src={copy4} alt="복사 방법 4"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={8} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
-                <ImageWrapper>
-                    <img src={copy5} alt="복사 방법 5"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={9} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
-                <ImageWrapper>
-                    <img src={copy6} alt="복사 방법 6"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={10} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
-                <ImageWrapper>
-                    <img src={copy7} alt="복사 방법 7"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={11} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{printerInstruction.usage.removeUsb[lang]}</p>
-                <ImageWrapper>
-                    <img src={removeUsb} alt="usb 제거"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={12} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{printerInstruction.usage.autoLeveling[lang]}</p>
                 <span>{printerInstruction.usage.defAutoLeveling[lang]}</span>
                 <span>{printerInstruction.usage.autoLevelingTime[lang]}</span>
-                <ImageWrapper>
-                    <img src={autoLeveling} alt="오토 레벨링"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={13} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{printerInstruction.usage.failAutoLeveling[lang]}</p>
                 <span>{printerInstruction.usage.toolWarning[lang]}</span>
                 <span>{printerInstruction.usage.removeFilament[lang]}</span>
-                <ImageWrapper>
-                    <img src={cleaner} alt="청소 도구"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={14} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
-                <ImageWrapper>
-                    <img src={nozzle} alt="노즐 청소"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={15} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <span>{printerInstruction.usage.cleaningWorktable[lang]}</span>
                 <span>{printerInstruction.usage.warningSharp[lang]}</span>
-                <ImageWrapper>
-                    <img src={axis} alt="베드 청소"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={16} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
-                <ImageWrapper>
-                    <img src={sharp} alt="경고"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={17} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{printerInstruction.usage.reAutoLeveling[lang]}</p>
 
@@ -135,9 +126,7 @@ const Usage: FC = () => {
                 <span>{printerInstruction.usage.warningBurn[lang]}</span>
                 <span>{printerInstruction.usage.warningDetach[lang]}</span>
                 <span>{printerInstruction.usage.warningShrink[lang]}</span>
-                <ImageWrapper>
-                    <img src={touch} alt="화상 주의"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={18} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
             </section>
         </Container>
     );

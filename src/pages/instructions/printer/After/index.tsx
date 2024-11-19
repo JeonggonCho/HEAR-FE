@@ -1,16 +1,23 @@
-import {FC} from "react";
+import {FC, useState} from "react";
+
+import Image from "@components/common/Image";
 
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {printerInstruction} from "@constants/instruction/printerInstruction.ts";
 
-import {Container, ImageWrapper} from "../../instruction.style.ts";
+import {Container} from "../../instruction.style.ts";
 
 import off from "@assets/instruction_images/printer/3d_printer_off.jpg";
 import clean from "@assets/instruction_images/printer/3d_printer_clean.jpg";
 
 
 const After:FC = () => {
+    const [currentImage, setCurrentImage] = useState<number>(0);
+
     const {lang} = useThemeStore();
+
+    const images = [off, clean];
+
 
     return (
         <Container>
@@ -18,15 +25,11 @@ const After:FC = () => {
 
             <section>
                 <p>{printerInstruction.after.turnOff[lang]}</p>
-                <ImageWrapper>
-                    <img src={off} alt="전원 끄기"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={0} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{printerInstruction.after.cleaning[lang]}</p>
                 <span>{printerInstruction.after.warningCleaning[lang]}</span>
-                <ImageWrapper>
-                    <img src={clean} alt="청소"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={1} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
             </section>
         </Container>
     );

@@ -3,7 +3,7 @@ import {FC} from "react";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 
-import useScrollbarWidth from "@hooks/useScrollbarWidth.ts";
+import useScrollbarSize from "@hooks/useScrollbarSize.ts";
 import {ITestListItemProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
@@ -14,7 +14,7 @@ import {ChoiceWrapper, Container, ResetButtonWrapper, ShortAnswerWrapper} from "
 
 const TestListItem:FC<ITestListItemProps> = ({question, testAnswers, setTestAnswers, isAnswerFilled, inputAnswer, isChecked}) => {
     const {lang} = useThemeStore();
-    const scrollbarWidth = useScrollbarWidth();
+    const {scrollbarWidth} = useScrollbarSize();
 
     // 단답형 답 채우기
     const initialShortAnswer = () => {

@@ -1,22 +1,25 @@
 import {FC} from "react";
 
+import Image from "@components/common/Image";
+
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {laserInstruction} from "@constants/instruction/laserInstruction.ts";
 
-import {Container, ImageWrapper} from "../../instruction.style.ts";
+import {Container} from "../../instruction.style.ts";
 
 import laserMachine from "@assets/instruction_images/laser/laser_machine.jpg";
 
+
 const Introduction:FC = () => {
     const {lang} = useThemeStore();
+
+    const images = [laserMachine];
 
     return (
         <Container>
             <h3>{laserInstruction.introduction.laserMachine[lang]}</h3>
 
-            <ImageWrapper>
-                <img src={laserMachine} alt="레이저 커팅기 기기"/>
-            </ImageWrapper>
+            <Image images={images} targetIndex={0}/>
 
             <section>
                 <div>

@@ -1,15 +1,22 @@
-import {FC} from 'react';
+import {FC, useState} from 'react';
+
+import Image from "@components/common/Image";
 
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {printerInstruction} from "@constants/instruction/printerInstruction.ts";
 
-import {Container, ImageWrapper} from "../../instruction.style.ts";
+import {Container} from "../../instruction.style.ts";
 
 import printerMachine from "@assets/instruction_images/printer/3d_printer_machine.jpg";
 import printerMachine2 from "@assets/instruction_images/printer/3d_printer_machine2.jpg";
 
+
 const Introduction:FC = () => {
+    const [currentImage, setCurrentImage] = useState<number>(0);
+
     const {lang} = useThemeStore();
+
+    const images = [printerMachine, printerMachine2];
 
     return (
         <Container>
@@ -17,9 +24,7 @@ const Introduction:FC = () => {
 
             <p>1-1. Cubicon</p>
 
-            <ImageWrapper>
-                <img src={printerMachine} alt="큐비콘 3D 프린터 기기"/>
-            </ImageWrapper>
+            <Image images={images} targetIndex={0} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
             <section>
                 <div>
@@ -51,9 +56,7 @@ const Introduction:FC = () => {
 
             <p>1-2. Creality</p>
 
-            <ImageWrapper>
-                <img src={printerMachine2} alt="creality 3D 프린터 기기"/>
-            </ImageWrapper>
+            <Image images={images} targetIndex={1} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
             <section>
                 <div>

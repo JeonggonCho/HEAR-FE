@@ -34,7 +34,7 @@ export interface IConfirmContentProps {
     description?: string;
     leftBtn: React.ReactElement;
     rightBtn: React.ReactElement;
-    additionalComponent?: React.ReactElement;
+    content?: React.ReactElement;
 }
 
 
@@ -510,3 +510,23 @@ export interface ITestListItemProps {
     inputAnswer: (e: any, question: EducationType) => void;
     isChecked: (optionId: string, question:EducationType) => boolean;
 }
+
+
+// 이미지(Image) props
+export interface IImageProps {
+    images: string[];
+    targetIndex: number;
+    currentImage?: number;
+    setCurrentImage?: React.Dispatch<React.SetStateAction<number>>;
+}
+
+
+// 갤러리(Gallery) props
+export interface IGalleryProps {
+    images: string[];
+    setGallery: React.Dispatch<React.SetStateAction<boolean>>;
+    currentImage?: number;
+    setCurrentImage?: React.Dispatch<React.SetStateAction<number>>;
+}
+
+

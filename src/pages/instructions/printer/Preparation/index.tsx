@@ -1,9 +1,11 @@
-import {FC} from "react";
+import {FC, useState} from "react";
+
+import Image from "@components/common/Image";
 
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {printerInstruction} from "@constants/instruction/printerInstruction.ts";
 
-import {Container, ImageWrapper} from "../../instruction.style.ts";
+import {Container} from "../../instruction.style.ts";
 
 import modeling1 from "@assets/instruction_images/printer/3d_printer_1-1.jpg";
 import modeling2 from "@assets/instruction_images/printer/3d_printer_1-2.jpg";
@@ -16,7 +18,21 @@ import modeling8 from "@assets/instruction_images/printer/3d_printer_1-8.jpg";
 
 
 const Preparation:FC = () => {
+    const [currentImage, setCurrentImage] = useState<number>(0);
+
     const {lang} = useThemeStore();
+
+    const images = [
+        modeling1,
+        modeling2,
+        modeling3,
+        modeling4,
+        modeling5,
+        modeling6,
+        modeling7,
+        modeling8
+    ];
+
 
     return (
         <Container>
@@ -24,45 +40,31 @@ const Preparation:FC = () => {
 
             <section>
                 <p>{printerInstruction.preparation.worktable[lang]}</p>
-                <ImageWrapper>
-                    <img src={modeling1} alt="라이노 모델링"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={0} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{printerInstruction.preparation.save[lang]}</p>
-                <ImageWrapper>
-                    <img src={modeling2} alt="확장자 저장"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={1} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
             </section>
 
             <h3>{printerInstruction.preparation.conversion[lang]}</h3>
 
             <section>
                 <p>{printerInstruction.preparation.activateProgram[lang]}</p>
-                <ImageWrapper>
-                    <img src={modeling3} alt="기기선택"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={2} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{printerInstruction.preparation.importFile[lang]}</p>
-                <ImageWrapper>
-                    <img src={modeling4} alt="파일 불러오기"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={3} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{printerInstruction.preparation.selectMaterial[lang]}</p>
-                <ImageWrapper>
-                    <img src={modeling5} alt="출력옵션"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={4} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{printerInstruction.preparation.ready[lang]}</p>
                 <span>{printerInstruction.preparation.checkTime[lang]}</span>
-                <ImageWrapper>
-                    <img src={modeling6} alt="출력준비"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={5} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{printerInstruction.preparation.saveGCode[lang]}</p>
                 <span>{printerInstruction.preparation.checkSetting[lang]}</span>
-                <ImageWrapper>
-                    <img src={modeling7} alt="gcode 저장"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={6} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
             </section>
 
             <h3>{printerInstruction.preparation.assistantCheck[lang]}</h3>
@@ -70,9 +72,7 @@ const Preparation:FC = () => {
             <section>
                 <p>{printerInstruction.preparation.usb[lang]}</p>
                 <span>{printerInstruction.preparation.usbFormat[lang]}</span>
-                <ImageWrapper>
-                    <img src={modeling8} alt="파일 저장"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={7} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{printerInstruction.preparation.visitAssistant[lang]}</p>
                 <span>{printerInstruction.preparation.call[lang]}</span>

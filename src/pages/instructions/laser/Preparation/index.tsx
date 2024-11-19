@@ -1,9 +1,11 @@
-import {FC} from "react";
+import {FC, useState} from "react";
+
+import Image from "@components/common/Image";
 
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {laserInstruction} from "@constants/instruction/laserInstruction.ts";
 
-import {Container, ImageWrapper} from "../../instruction.style.ts";
+import {Container} from "../../instruction.style.ts";
 
 import cadLine from "@assets/instruction_images/laser/cad_line.jpg";
 import cadLayer from "@assets/instruction_images/laser/cad_layer.jpeg";
@@ -14,50 +16,75 @@ import rhinoDxf from "@assets/instruction_images/laser/rhino_dxf.jpeg";
 
 
 const Preparation:FC = () => {
+    const [currentImage, setCurrentImage] = useState<number>(0);
+
+    const images = [cadLine, cadLayer, cadDxf, rhinoLine, rhinoLayer, rhinoDxf];
+
     const {lang} = useThemeStore();
 
+
     return (
-        <Container>
-            <h3>{laserInstruction.preparation.usageCad[lang]}</h3>
+        <>
+            <Container>
+                <h3>{laserInstruction.preparation.usageCad[lang]}</h3>
 
-            <section>
-                <p>{laserInstruction.preparation.cadWork[lang]}</p>
-                <span>{laserInstruction.preparation.origin[lang]}</span>
-                <ImageWrapper>
-                    <img src={cadLine} alt="캐드 선"/>
-                </ImageWrapper>
+                <section>
+                    <p>{laserInstruction.preparation.cadWork[lang]}</p>
+                    <span>{laserInstruction.preparation.origin[lang]}</span>
+                    <Image
+                        images={images}
+                        targetIndex={0}
+                        currentImage={currentImage}
+                        setCurrentImage={setCurrentImage}
+                    />
 
-                <p>{laserInstruction.preparation.cadLayer[lang]}</p>
-                <ImageWrapper>
-                    <img src={cadLayer} alt="캐드 레이어"/>
-                </ImageWrapper>
+                    <p>{laserInstruction.preparation.cadLayer[lang]}</p>
+                    <Image
+                        images={images}
+                        targetIndex={1}
+                        currentImage={currentImage}
+                        setCurrentImage={setCurrentImage}
+                    />
 
-                <p>{laserInstruction.preparation.cadSave[lang]}</p>
-                <ImageWrapper>
-                    <img src={cadDxf} alt="캐드 내보내기"/>
-                </ImageWrapper>
-            </section>
+                    <p>{laserInstruction.preparation.cadSave[lang]}</p>
+                    <Image
+                        images={images}
+                        targetIndex={2}
+                        currentImage={currentImage}
+                        setCurrentImage={setCurrentImage}
+                    />
+                </section>
 
-            <h3>{laserInstruction.preparation.usageRhino[lang]}</h3>
+                <h3>{laserInstruction.preparation.usageRhino[lang]}</h3>
 
-            <section>
-                <p>{laserInstruction.preparation.rhinoWork[lang]}</p>
-                <span>{laserInstruction.preparation.origin[lang]}</span>
-                <ImageWrapper>
-                    <img src={rhinoLine} alt="라이노 선"/>
-                </ImageWrapper>
+                <section>
+                    <p>{laserInstruction.preparation.rhinoWork[lang]}</p>
+                    <span>{laserInstruction.preparation.origin[lang]}</span>
+                    <Image
+                        images={images}
+                        targetIndex={3}
+                        currentImage={currentImage}
+                        setCurrentImage={setCurrentImage}
+                    />
 
-                <p>{laserInstruction.preparation.rhinoLayer[lang]}</p>
-                <ImageWrapper>
-                    <img src={rhinoLayer} alt="라이노 레이어"/>
-                </ImageWrapper>
+                    <p>{laserInstruction.preparation.rhinoLayer[lang]}</p>
+                    <Image
+                        images={images}
+                        currentImage={currentImage}
+                        targetIndex={4}
+                        setCurrentImage={setCurrentImage}
+                    />
 
-                <p>{laserInstruction.preparation.rhinoSave[lang]}</p>
-                <ImageWrapper>
-                    <img src={rhinoDxf} alt="라이노 내보내기"/>
-                </ImageWrapper>
-            </section>
-        </Container>
+                    <p>{laserInstruction.preparation.rhinoSave[lang]}</p>
+                    <Image
+                        images={images}
+                        targetIndex={5}
+                        currentImage={currentImage}
+                        setCurrentImage={setCurrentImage}
+                    />
+                </section>
+            </Container>
+        </>
     );
 };
 

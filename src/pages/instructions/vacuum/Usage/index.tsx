@@ -1,9 +1,11 @@
-import {FC} from 'react';
+import {FC, useState} from 'react';
+
+import Image from "@components/common/Image";
 
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {vacuumInstruction} from "@constants/instruction/vacuumInstruction.ts";
 
-import {Container, ImageWrapper} from "../../instruction.style.ts";
+import {Container} from "../../instruction.style.ts";
 
 import controllers from "@assets/instruction_images/vacuum/vacuum_controllers.jpg";
 import on from "@assets/instruction_images/vacuum/vacuum_on.jpg";
@@ -23,8 +25,32 @@ import mouldUp from "@assets/instruction_images/vacuum/vacuum_mould_up.jpg";
 import remove from "@assets/instruction_images/vacuum/vacuum_remove.jpg";
 import finish from "@assets/instruction_images/vacuum/vacuum_finish.jpg";
 
+
 const Usage:FC = () => {
+    const [currentImage, setCurrentImage] = useState<number>(0);
+
     const {lang} = useThemeStore();
+
+    const images = [
+        controllers,
+        on,
+        heat,
+        mould,
+        leverUp,
+        modelDown,
+        material,
+        fit,
+        pullHeat,
+        timer,
+        pushHeat,
+        vacuumPump,
+        pushLever,
+        pressure,
+        mouldUp,
+        remove,
+        finish,
+    ];
+
 
     return (
         <Container>
@@ -35,89 +61,53 @@ const Usage:FC = () => {
                 <span>③ {vacuumInstruction.usage.heat[lang]}</span>
                 <span>④ {vacuumInstruction.usage.pressure[lang]}</span>
                 <span>⑤ {vacuumInstruction.usage.timer[lang]}</span>
-                <ImageWrapper>
-                    <img src={controllers} alt="조작부 설명"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={0} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{vacuumInstruction.usage.on[lang]}</p>
-                <ImageWrapper>
-                    <img src={on} alt="전원 켜기"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={1} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{vacuumInstruction.usage.onHeating[lang]}</p>
-                <ImageWrapper>
-                    <img src={heat} alt="가열판 켜기"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={2} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{vacuumInstruction.usage.putMold[lang]}</p>
-                <ImageWrapper>
-                    <img src={mould} alt="거푸집 놓기"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={3} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{vacuumInstruction.usage.liftLever[lang]}</p>
-                <ImageWrapper>
-                    <img src={leverUp} alt="레버 올리기"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={4} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
-                <ImageWrapper>
-                    <img src={modelDown} alt="거푸집이 내려감"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={5} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{vacuumInstruction.usage.placeMaterial[lang]}</p>
-                <ImageWrapper>
-                    <img src={material} alt="재료 놓기"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={6} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
-                <ImageWrapper>
-                    <img src={fit} alt="고정시키기"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={7} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{vacuumInstruction.usage.positionHeatingPlate[lang]}</p>
-                <ImageWrapper>
-                    <img src={pullHeat} alt="가열판 위치시키기"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={8} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{vacuumInstruction.usage.settingTimer[lang]}</p>
-                <ImageWrapper>
-                    <img src={timer} alt="타이머 시간 설정"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={9} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{vacuumInstruction.usage.onVacuumPump[lang]}</p>
-                <ImageWrapper>
-                    <img src={pushHeat} alt="가열판 밀기"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={10} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
-                <ImageWrapper>
-                    <img src={vacuumPump} alt="펌프 작동"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={11} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{vacuumInstruction.usage.pushLever[lang]}</p>
-                <ImageWrapper>
-                    <img src={pushLever} alt="레버 누르기"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={12} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
-                <ImageWrapper>
-                    <img src={mouldUp} alt="거푸집 올리기"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={13} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{vacuumInstruction.usage.pushPressureButton[lang]}</p>
-                <ImageWrapper>
-                    <img src={pressure} alt="양음압 조절기 누르기"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={14} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{vacuumInstruction.usage.downMold[lang]}</p>
-                <ImageWrapper>
-                    <img src={leverUp} alt="레버 올리기"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={15} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{vacuumInstruction.usage.complete[lang]}</p>
-                <ImageWrapper>
-                    <img src={remove} alt="고정 핀 제거"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={16} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
-                <ImageWrapper>
-                    <img src={finish} alt="완료"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={17} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{vacuumInstruction.usage.turnOff[lang]}</p>
             </section>

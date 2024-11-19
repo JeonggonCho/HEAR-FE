@@ -1,22 +1,25 @@
 import {FC} from "react";
 
+import Image from "@components/common/Image";
+
 import {heatInstruction} from "@constants/instruction/heatInstruction.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
-import {Container, ImageWrapper} from "../../instruction.style.ts";
+import {Container} from "../../instruction.style.ts";
 
 import heatMachine from "@assets/instruction_images/heat/heat_machine.jpg";
 
+
 const Introduction:FC = () => {
     const {lang} = useThemeStore();
+
+    const images= [heatMachine];
 
     return (
         <Container>
             <h3>{heatInstruction.introduction.heatMachine[lang]}</h3>
 
-            <ImageWrapper>
-                <img src={heatMachine} alt="열선 기기"/>
-            </ImageWrapper>
+            <Image images={images} targetIndex={0}/>
 
             <section>
                 <div>

@@ -1,17 +1,24 @@
-import {FC} from "react";
+import {FC, useState} from "react";
+
+import Image from "@components/common/Image";
 
 import {sawInstruction} from "@constants/instruction/sawInstruction.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
-import {Container, ImageWrapper} from "../../instruction.style.ts";
+import {Container} from "../../instruction.style.ts";
 
 import cover from "@assets/instruction_images/saw/saw_cover.jpg";
 import push from "@assets/instruction_images/saw/saw_push.jpg";
 import plug from "@assets/instruction_images/saw/saw_plug.jpg";
 import cleaning from "@assets/instruction_images/saw/saw_cleaning.jpg";
 
+
 const After:FC = () => {
+    const [currentImage, setCurrentImage] = useState<number>(0);
+
     const {lang} = useThemeStore();
+
+    const images = [cover, push, plug, cleaning];
 
     return (
         <Container>
@@ -21,27 +28,19 @@ const After:FC = () => {
                 <p>{sawInstruction.after.hideBlade[lang]}</p>
                 <span>{sawInstruction.after.warning1[lang]}</span>
                 <span>{sawInstruction.after.warning2[lang]}</span>
-                <ImageWrapper>
-                    <img src={cover} alt="덮개 사용"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={0} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
-                <ImageWrapper>
-                    <img src={push} alt="톱날 내리기"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={1} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
             </section>
 
             <h3>{sawInstruction.after.cleaningStudio[lang]}</h3>
 
             <section>
                 <p>{sawInstruction.after.pullPlug[lang]}</p>
-                <ImageWrapper>
-                    <img src={plug} alt="플러그 뽑기"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={2} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
                 <p>{sawInstruction.after.cleaner[lang]}</p>
-                <ImageWrapper>
-                    <img src={cleaning} alt="청소 및 정리"/>
-                </ImageWrapper>
+                <Image images={images} targetIndex={3} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
             </section>
 
             <span>{sawInstruction.after.warning3[lang]}</span>

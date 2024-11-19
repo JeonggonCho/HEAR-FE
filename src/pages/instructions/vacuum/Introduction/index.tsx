@@ -1,22 +1,25 @@
 import {FC} from 'react';
 
+import Image from "@components/common/Image";
+
 import {vacuumInstruction} from "@constants/instruction/vacuumInstruction.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
-import {Container, ImageWrapper} from "../../instruction.style.ts";
+import {Container} from "../../instruction.style.ts";
 
 import vacuumMachine from "@assets/instruction_images/vacuum/vacuum_machine.jpg";
 
+
 const Introduction:FC = () => {
     const {lang} = useThemeStore();
+
+    const images = [vacuumMachine];
 
     return (
         <Container>
             <h3>{vacuumInstruction.introduction.vacuumMachine[lang]}</h3>
 
-            <ImageWrapper>
-                <img src={vacuumMachine} alt="사출 성형기 기기"/>
-            </ImageWrapper>
+            <Image images={images} targetIndex={0}/>
 
             <section>
                 <div>

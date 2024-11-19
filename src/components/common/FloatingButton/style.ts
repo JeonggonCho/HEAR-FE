@@ -6,6 +6,7 @@ import { css, Theme } from "@emotion/react";
 const commonStyles = (theme: Theme) => css`
     position: fixed;
     bottom: 112px;
+    right: calc((100vw - 600px) / 2 + 32px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,10 +28,6 @@ const commonStyles = (theme: Theme) => css`
 
     @media (max-width: 600px) {
         right: 32px;
-    }
-
-    @media (min-width: 600px) {
-        right: calc((100vw - 600px) / 2 + 32px);
     }
 `;
 

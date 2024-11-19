@@ -13,6 +13,11 @@ const SideMenu:FC<ISideMenuProps> = ({setSideMenu, direction, content}) => {
     const sideMenuRef = useRef<HTMLDivElement>(null);
     const backgroundRef = useRef<HTMLDivElement>(null);
 
+    useEffect(() => {
+        document.body.classList.add("no-scroll");
+        return () => document.body.classList.remove("no-scroll");
+    }, []);
+
     // 사이드 메뉴 외부 background 클릭 시, 사이드 메뉴 닫히게 하기
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {

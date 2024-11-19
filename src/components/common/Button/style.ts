@@ -57,7 +57,7 @@ const BaseComponent = styled.div<{
     padding: ${({ scale }) => ({
         small: "8px 14px", 
         normal: "12px 18px", 
-        big: "12px 18px"
+        big: "16px 18px"
     }[scale])};
     
     border-radius: ${({ scale }) => (scale === "big" ? "12px" : scale === "normal" ? "10px" : "8px")};
