@@ -8,8 +8,8 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import Dropdown from "@components/common/Dropdown";
 import HeadTag from "@components/common/HeadTag";
 import Button from "@components/common/Button";
-import Modal from "@components/common/Modal";
-import ModalConfirmContent from "@components/common/ModalConfirmContent";
+import {Modal} from "@components/common/Modal/Modal.tsx";
+import ModalConfirmContent from "@components/common/ConfirmModal";
 import Comments from "@components/board/Comments";
 
 import useRequest from "@hooks/useRequest.ts";

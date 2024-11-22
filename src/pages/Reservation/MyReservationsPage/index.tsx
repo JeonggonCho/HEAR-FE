@@ -7,8 +7,8 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import Empty from "@components/common/Empty";
 import ReservationListItem from "@components/reservation/ReservationListItem";
-import Modal from "@components/common/Modal";
-import ModalConfirmContent from "@components/common/ModalConfirmContent";
+import {Modal} from "@components/common/Modal/Modal.tsx";
+import ModalConfirmContent from "@components/common/ConfirmModal";
 import Button from "@components/common/Button";
 
 import useRequest from "@hooks/useRequest.ts";

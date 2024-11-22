@@ -55,7 +55,7 @@ const SignupPage:FC = () => {
 
     type SignupFormData = z.infer<typeof signupSchema>;
 
-    const {register, handleSubmit, formState:{errors}, clearErrors} = useForm<SignupFormData>({
+    const {register, handleSubmit, formState:{errors, isValid}, clearErrors} = useForm<SignupFormData>({
         resolver: zodResolver(signupSchema),
         defaultValues: {
             username: "",
@@ -67,7 +67,8 @@ const SignupPage:FC = () => {
             studio: "",
             tel: "",
             code: "",
-        }
+        },
+        mode: "onChange",
     });
 
     // 회원가입 요청하기
@@ -206,6 +207,7 @@ const SignupPage:FC = () => {
                             width={"full"}
                             color={"primary"}
                             scale={"big"}
+                            disabled={!isValid}
                         />
                     </form>
                     <Link

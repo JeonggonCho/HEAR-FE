@@ -7,7 +7,7 @@ import ArrowBack from "@components/common/ArrowBack";
 import RoomMap from "@components/reservation/RoomMap";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
-import Modal from "@components/common/Modal";
+import Modal from "@components/common/Modal/Modal.tsx";
 import LoadingLoop from "@components/common/LoadingLoop";
 import LaserSelectContent from "@components/reservation/LaserSelectContent";
 import HeadTag from "@components/common/HeadTag";

@@ -1,28 +1,37 @@
-import {FC} from "react";
+import React, {ReactNode} from "react";
 
-import {IButtonProps} from "@/types/componentProps.ts";
 
-import {ButtonWrapper, LinkWrapper, SubmitWrapper} from "./style.ts";
-import {useThemeStore} from "@store/useThemeStore.ts";
+type ButtonVariant = "text" | "filled";
+type ButtonSize = "sm" | "md" | "lg";
+type ButtonTheme = "primary" | "approval" | "second" | "third" | "danger";
 
-const Button:FC<IButtonProps> = ({type = "button", to, content, width, color, scale, onClick, disabled}) => {
-    const { isDarkMode } = useThemeStore();
+export interface IButton {
+    type?: ButtonVariant;
+    width: "full" | "fit";
+    color: ButtonTheme;
+    scale: ButtonSize;
+    disabled?: boolean;
+}
 
-    if (type === "button") {
-        return (
-            <ButtonWrapper type="button" width={width} color={color} scale={scale} onClick={onClick} disabled={disabled} aria-disabled={disabled} darkmode={isDarkMode.toString()}>{content}</ButtonWrapper>
-        );
-    } else if (type === "link" && to) {
-        return (
-            <LinkWrapper to={to} width={width} color={color} scale={scale} disabled={disabled} darkmode={isDarkMode.toString()}>{content}</LinkWrapper>
-        );
-    } else if (type === "submit") {
-        return (
-            <SubmitWrapper type="submit" width={width} color={color} scale={scale} onClick={onClick} disabled={disabled} darkmode={isDarkMode.toString()}>{content}</SubmitWrapper>
-        );
-    } else {
-        return null;
-    }
+interface IButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+    children: string | ReactNode;
+    onClick: () => void;
+    loading?: boolean;
+    disabled?: boolean;
+}
+
+const Button = ({children, loading, ...props}: IButtonProps) => {
+    return (
+        <button
+            {...props}
+        >
+            {loading ?
+                (<></>)
+                :
+                (children)
+            }
+        </button>
+    );
 };
 
 export default Button;

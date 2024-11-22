@@ -34,12 +34,13 @@ const FindPasswordPage:FC = () => {
 
     type FindPasswordForm = z.infer<typeof findPasswordSchema>;
 
-    const {register, handleSubmit, formState:{errors}} = useForm<FindPasswordForm>({
+    const {register, handleSubmit, formState:{errors, isValid}} = useForm<FindPasswordForm>({
         resolver: zodResolver(findPasswordSchema),
         defaultValues: {
             username: "",
             email: "",
-        }
+        },
+        mode: "onChange",
     });
 
     // 비밀번호 찾기 요청
@@ -94,7 +95,14 @@ const FindPasswordPage:FC = () => {
                         register={register}
                         errorMessage={errors.email?.message}
                     />
-                    <Button type={"submit"} content={buttonCategories.findPassword[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                    <Button
+                        type={"submit"}
+                        content={buttonCategories.findPassword[lang]}
+                        width={"full"}
+                        color={"primary"}
+                        scale={"big"}
+                        disabled={!isValid}
+                    />
                 </form>
             }
         </Container>

@@ -1,9 +1,9 @@
 import React, {FC, useCallback, useEffect, useState} from "react";
 
-import Modal from "@components/common/Modal";
+import {Modal} from "@components/common/Modal/Modal.tsx";
 import UserInfoCard from "@components/common/UserInfoCard";
 import Button from "@components/common/Button";
-import ModalConfirmContent from "@components/common/ModalConfirmContent";
+import ModalConfirmContent from "@components/common/ConfirmModal";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IUserInfo} from "@/types/user.ts";

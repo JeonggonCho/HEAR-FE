@@ -1,9 +1,7 @@
-import {FC, useEffect, useMemo, useRef, useState} from "react";
+import {FC, MouseEvent, useEffect, useMemo, useRef, useState} from "react";
 
-import Button from "@components/common/Button";
+// import Button from "@components/common/Button";
 import Dropdown from "@components/common/Dropdown";
-import Modal from "@components/common/Modal";
-import ModalConfirmContent from "@components/common/ModalConfirmContent";
 import Textarea from "@components/common/Textarea";
 import ProfileImage from "@components/common/ProfileImage";
 
@@ -34,10 +32,11 @@ import {
 
 import deleteIcon from "@assets/icons/delete.svg";
 import editIcon from "@assets/icons/edit.svg";
+import useModal from "@hooks/useModal.ts";
+import ConfirmModal from "@components/common/ConfirmModal";
 
 
 const CommentListItem:FC<IComment> = (props) => {
-    const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
     const [isEditMode, setIsEditMode] = useState<boolean>(false);
     const [isLiked, setIsLiked] = useState<boolean>(props.isLiked);
     const [countOfLike, setCountOfLike] = useState(props.likes);
@@ -47,6 +46,7 @@ const CommentListItem:FC<IComment> = (props) => {
     const {showToast} = useToastStore();
     const {text, countOfText, handleTextChange, setText} = useTextarea();
     const {errorText, clearError, sendRequest} = useRequest();
+    const {showModal, open, close} = useModal();
 
     // 댓글 링크 처리
     const transformedContent = useMemo(() => {
@@ -65,7 +65,7 @@ const CommentListItem:FC<IComment> = (props) => {
 
     // 댓글 삭제 확인 모달 띄우기
     const deleteCommentConfirm = () => {
-        setShowConfirmModal(true);
+        open();
     };
 
     // 댓글 삭제
@@ -75,7 +75,7 @@ const CommentListItem:FC<IComment> = (props) => {
                 url: `/comments/${props._id}`,
                 method: "delete",
             });
-            setShowConfirmModal(false);
+            close();
             // 댓글 목록에서 삭제된 댓글 제거
             props.setComments(prevState => prevState.filter((comment) => comment._id !== props._id));
             // 문의, 피드백, 공지에서 댓글 개수 1 빼기
@@ -214,18 +214,27 @@ const CommentListItem:FC<IComment> = (props) => {
                 }
             </RightPartWrapper>
 
-            {showConfirmModal &&
-              <Modal
-                content={
-                    <ModalConfirmContent
-                        text={messageCategories.delete[lang]}
-                        leftBtn={<Button type={"button"} content={buttonCategories.close[lang]} color={"third"} scale={"normal"} width={"full"} onClick={() => setShowConfirmModal(false)}/> }
-                        rightBtn={<Button type={"submit"} content={buttonCategories.delete[lang]} color={"danger"} scale={"normal"} width={"full"} onClick={deleteComment}/>}
-                    />
-                }
-                setModal={() => setShowConfirmModal(false)}
-                type={"popup"}
-              />
+            {/*{showConfirmModal &&*/}
+            {/*  <Modal*/}
+            {/*    content={*/}
+            {/*        <ModalConfirmContent*/}
+            {/*            text={messageCategories.delete[lang]}*/}
+            {/*            leftBtn={<Button type={"button"} content={buttonCategories.close[lang]} color={"third"} scale={"normal"} width={"full"} onClick={() => setShowConfirmModal(false)}/> }*/}
+            {/*            rightBtn={<Button type={"submit"} content={buttonCategories.delete[lang]} color={"danger"} scale={"normal"} width={"full"} onClick={deleteComment}/>}*/}
+            {/*        />*/}
+            {/*    }*/}
+            {/*    setModal={() => setShowConfirmModal(false)}*/}
+            {/*  />*/}
+            {/*}*/}
+
+
+            {showModal &&
+                <ConfirmModal
+                  message={messageCategories.delete[lang]}
+                  onClick={() => {}}
+                  onClose={(e: MouseEvent) => close(e)}
+                  footer={<>jhjhjk</>}
+                />
             }
         </Container>
     );

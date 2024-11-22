@@ -1,16 +1,6 @@
 import styled from "@emotion/styled";
 import {keyframes} from "@emotion/react";
 
-const fadeIn = keyframes`
-    0% {
-        opacity: 0;
-        transform: translateX(-50%) scale(0.8);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(-50%) scale(1);
-    }
-`;
 
 const moveUp = keyframes`
     0% {
@@ -24,43 +14,7 @@ const moveUp = keyframes`
     }
 `;
 
-export const Container = styled.div`
-    position: fixed;
-    top: 0;
-    left: 50%;
-    bottom: 50px;
-    transform: translateX(-50%);
-    width: 600px;
-    height: 100%;
-    background: rgba(100, 100, 100, 0.5);
-    backdrop-filter: blur(2px);
-    z-index: 5;
-    
-    h3 {
-        font-weight: 500;
-    }
-`;
-
-export const PopupWrapper = styled.div`
-    padding: 12px;
-    height: auto;
-    max-width: 80%;
-    min-width: 55%;
-    border-radius: 16px;
-    background-color: ${({theme}) => theme.colors.bg.main};
-    color: ${({theme}) => theme.colors.font.main};
-    position: absolute;
-    transform: translateX(-50%);
-    left: 50%;
-    top: 40px;
-    animation: ${fadeIn} 0.3s;
-
-    @media (max-width: 600px) {
-        max-width: calc(100vw - 40px);
-    }
-`;
-
-export const BottomSheetWrapper = styled.div`
+const BottomSheetWrapper = styled.div`
     width: 100%;
     padding: 12px 0 80px 0;
     background-color: ${({theme}) => theme.colors.bg.main};
@@ -129,3 +83,15 @@ export const BottomSheetWrapper = styled.div`
         }
     }
 `;
+
+
+
+const BottomSheet = () => {
+    return (
+        <BottomSheetWrapper>
+            {}
+        </BottomSheetWrapper>
+    );
+};
+
+export default BottomSheet;

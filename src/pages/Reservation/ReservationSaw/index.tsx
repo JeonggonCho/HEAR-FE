@@ -9,7 +9,7 @@ import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
-import Modal from "@components/common/Modal";
+import Modal from "@components/common/Modal/Modal.tsx";
 import Calendar from "@components/common/Calendar";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";

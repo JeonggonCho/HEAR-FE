@@ -10,8 +10,8 @@ import HeadTag from "@components/common/HeadTag";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Modal from "@components/common/Modal";
-import ModalConfirmContent from "@components/common/ModalConfirmContent";
+import {Modal} from "@components/common/Modal/Modal.tsx";
+import ModalConfirmContent from "@components/common/ConfirmModal";
 
 import useRequest from "@hooks/useRequest.ts";
 import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
@@ -39,13 +39,14 @@ const UpdatePasswordPage:FC = () => {
 
     type UpdatePasswordForm = z.infer<typeof updatePasswordSchema>;
 
-    const {register, handleSubmit, formState: {errors}} = useForm<UpdatePasswordForm>({
+    const {register, handleSubmit, formState: {errors, isValid}} = useForm<UpdatePasswordForm>({
         resolver: zodResolver(updatePasswordSchema),
         defaultValues: {
             password: "",
             newPassword: "",
             confirmPassword: "",
         },
+        mode: "onChange",
     });
 
     // 비밀번호 변경 버튼 클릭 시, 유효성 검사 및 confirm 모달 보이기
@@ -80,31 +81,31 @@ const UpdatePasswordPage:FC = () => {
     }, [errorText]);
 
     // 비밀번호 변경 확인 모달 컨텐츠
-    const UpdatePasswordModalContent = () => (
-        <ModalConfirmContent
-            text={messageCategories.confirmUpdatePassword[lang]}
-            leftBtn={
-                <Button
-                    type={"button"}
-                    content={buttonCategories.close[lang]}
-                    width={"full"}
-                    color={"third"}
-                    scale={"normal"}
-                    onClick={() => setUpdatePasswordModal(false)}
-                />
-            }
-            rightBtn={
-                <Button
-                    type={"submit"}
-                    content={buttonCategories.editing[lang]}
-                    width={"full"}
-                    color={"approval"}
-                    scale={"normal"}
-                    onClick={handleConfirmUpdate}
-                />
-            }
-        />
-    );
+    // const UpdatePasswordModalContent = () => (
+    //     <ModalConfirmContent
+    //         text={messageCategories.confirmUpdatePassword[lang]}
+    //         leftBtn={
+    //             <Button
+    //                 type={"button"}
+    //                 content={buttonCategories.close[lang]}
+    //                 width={"full"}
+    //                 color={"third"}
+    //                 scale={"normal"}
+    //                 onClick={() => setUpdatePasswordModal(false)}
+    //             />
+    //         }
+    //         rightBtn={
+    //             <Button
+    //                 type={"submit"}
+    //                 content={buttonCategories.editing[lang]}
+    //                 width={"full"}
+    //                 color={"approval"}
+    //                 scale={"normal"}
+    //                 onClick={handleConfirmUpdate}
+    //             />
+    //         }
+    //     />
+    // );
 
 
     return (
@@ -149,23 +150,24 @@ const UpdatePasswordPage:FC = () => {
                             visibleToggle={true}
                         />
                         <Button
-                            type={"submit"}
+                            type={}
                             content={buttonCategories.passwordChange[lang]}
                             width={"full"}
                             color={"primary"}
                             scale={"big"}
+                            disabled={!isValid}
                         />
                     </form>
                 }
             </Container>
 
-            {updatePasswordModal &&
-              <Modal
-                content={<UpdatePasswordModalContent/>}
-                setModal={setUpdatePasswordModal}
-                type={"popup"}
-              />
-            }
+            {/*{updatePasswordModal &&*/}
+            {/*  <Modal*/}
+            {/*    content={<UpdatePasswordModalContent/>}*/}
+            {/*    setModal={setUpdatePasswordModal}*/}
+            {/*    type={"popup"}*/}
+            {/*  />*/}
+            {/*}*/}
         </>
     );
 };

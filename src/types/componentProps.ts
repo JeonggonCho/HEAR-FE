@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, JSX, MutableRefObject, ReactElement, ReactNode} from "react";
+import React, {ChangeEvent, FormEvent, JSX, MutableRefObject, ReactNode} from "react";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 import {To} from "react-router-dom";
 import {ITab} from "@/types/tab.ts";
@@ -13,29 +13,6 @@ import {
 } from "@/types/reservation.ts";
 import {IComment} from "@/types/comment.ts";
 import {EducationType, IEducationSettings, ITestAnswer} from "@/types/education.ts";
-
-
-// 버튼(Button) props
-export interface IButtonProps {
-    type: "button" | "link" | "submit";
-    to?: string;
-    content : string | ReactElement;
-    width: "full" | "fit";
-    color: "primary" | "approval" | "second" | "third" | "danger";
-    scale: "small" | "normal" | "big";
-    onClick?: (e: any) => void;
-    disabled?: boolean;
-}
-
-
-// 확인 내용(ConfirmContent) props
-export interface IConfirmContentProps {
-    text: string;
-    description?: string;
-    leftBtn: React.ReactElement;
-    rightBtn: React.ReactElement;
-    content?: React.ReactElement;
-}
 
 
 // 헤더(Header) props

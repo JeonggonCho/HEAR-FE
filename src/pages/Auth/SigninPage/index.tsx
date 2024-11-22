@@ -43,12 +43,13 @@ const SigninPage:FC = () => {
 
     type LoginFormData = z.infer<typeof loginSchema>;
 
-    const {register, handleSubmit, formState:{errors}} = useForm<LoginFormData>({
+    const {register, handleSubmit, formState:{errors, isValid}} = useForm<LoginFormData>({
         resolver: zodResolver(loginSchema),
         defaultValues: {
             email: "",
             password: "",
-        }
+        },
+        mode: "onChange",
     });
 
     // 로그인 요청
@@ -123,6 +124,7 @@ const SigninPage:FC = () => {
                     width={"full"}
                     color={"primary"}
                     scale={"big"}
+                    disabled={!isValid}
                 />
             </form>
 

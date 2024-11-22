@@ -8,8 +8,8 @@ import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
-import Modal from "@components/common/Modal";
-import ModalConfirmContent from "@components/common/ModalConfirmContent";
+import {Modal} from "@components/common/Modal/Modal.tsx";
+import ModalConfirmContent from "@components/common/ConfirmModal";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 
@@ -71,6 +71,7 @@ const UpdateAccountPage:FC = () => {
         handleSubmit: studentHandleSubmit,
         formState: {
             errors: studentErrors,
+            isValid: studentIsValid,
         },
         reset: studentReset,
     } = useForm<UpdateStudentAccountFormData>({
@@ -80,6 +81,7 @@ const UpdateAccountPage:FC = () => {
             studentId: "",
             tel: "",
         },
+        mode: "onChange",
     });
 
     // 조교 유저의 폼
@@ -88,6 +90,7 @@ const UpdateAccountPage:FC = () => {
         handleSubmit: assistantHandleSubmit,
         formState: {
             errors: assistantErrors,
+            isValid: assistantIsValid,
         },
         reset: assistantReset,
     } = useForm<UpdateAssistantAccountFormData>({
@@ -225,6 +228,7 @@ const UpdateAccountPage:FC = () => {
                                 width={"full"}
                                 color={"primary"}
                                 scale={"big"}
+                                disabled={!studentIsValid}
                             />
                         </form>
                         : userData?.role === "assistant" ?
@@ -275,6 +279,7 @@ const UpdateAccountPage:FC = () => {
                                     width={"full"}
                                     color={"primary"}
                                     scale={"big"}
+                                    disabled={!assistantIsValid}
                                 />
                             </form>
                             : null

@@ -8,12 +8,12 @@ import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Select from "@components/common/Select";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Modal from "@components/common/Modal";
+import {Modal} from "@components/common/Modal/Modal.tsx";
 import HeadTag from "@components/common/HeadTag";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import Textarea from "@components/common/Textarea";
-import ModalConfirmContent from "@components/common/ModalConfirmContent";
+import ModalConfirmContent from "@components/common/ConfirmModal";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
