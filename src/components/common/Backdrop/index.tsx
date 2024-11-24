@@ -1,34 +1,18 @@
-import React, {MouseEvent, ReactNode} from "react";
-import styled from "@emotion/styled";
+import React, {forwardRef, ReactNode} from "react";
 
+import {BackdropWrapper} from "@components/common/Backdrop/style.ts";
 
-const BackdropWrapper = styled.div`
-    position: fixed;
-    top: 0;
-    left: 50%;
-    bottom: 50px;
-    transform: translateX(-50%);
-    width: 600px;
-    height: 100%;
-    background: rgba(100, 100, 100, 0.5);
-    backdrop-filter: blur(2px);
-    z-index: 5;
-`;
 
 interface IBackdropProps extends React.HTMLAttributes<HTMLDivElement> {
     children?: ReactNode;
-    onClick?: (e: MouseEvent) => void;
 }
 
-const Backdrop = ({children, onClick, ...props}: IBackdropProps) => {
+const Backdrop = forwardRef<HTMLDivElement, IBackdropProps>(({children, ...props}, ref) => {
     return (
-        <BackdropWrapper
-            onClick={onClick}
-            {...props}
-        >
+        <BackdropWrapper ref={ref}{...props}>
             {children}
         </BackdropWrapper>
     );
-};
+});
 
 export default Backdrop;

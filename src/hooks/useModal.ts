@@ -1,34 +1,37 @@
-import {MouseEvent, useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
+
 
 const useModal = () => {
     const [showModal, setShowModal] = useState<boolean>(false);
+
+    const modalRef = useRef<HTMLDivElement>(null);
+    const backdropRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         document.body.classList.add("no-scroll");
         return () => document.body.classList.remove("no-scroll");
     }, []);
 
-    const open = () => {
-        setShowModal(true);
-    };
+    // 모달 창 외부의 backdrop 클릭 시, 모달 닫히게 하기
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            const target = e.target as Node;
 
-    const close = (e: MouseEvent) => {
-        e.stopPropagation();
-        setShowModal(false);
-    };
+            if (
+                backdropRef.current &&
+                modalRef.current &&
+                backdropRef.current.contains(target) &&
+                !modalRef.current.contains(target)
+            ) {
+                setShowModal(false);
+            }
+        };
 
-    // 모달 창 외부의 background 클릭 시, 모달 닫히게 하기
-    // useEffect(() => {
-    //     const handleClickOutside = (e: MouseEvent) => {
-    //         if (backdropRef.current && modalRef.current && backdropRef.current.contains(e.target as Node) && !modalRef.current.contains(e.target as Node)) {
-    //             setShowModal(false);
-    //         }
-    //     };
-    //     document.addEventListener('mousedown', handleClickOutside);
-    //     return () => document.removeEventListener('mousedown', handleClickOutside);
-    // }, [modalRef, setShowModal]);
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [backdropRef, modalRef, setShowModal]);
 
-    return {showModal, open, close};
+    return {showModal, setShowModal, modalRef, backdropRef};
 };
 
 export default useModal;

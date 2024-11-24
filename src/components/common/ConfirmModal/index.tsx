@@ -3,23 +3,33 @@ import React, {MouseEvent, ReactNode} from "react";
 import {Modal} from "@components/common/Modal/Modal.tsx";
 import Backdrop from "@components/common/Backdrop";
 
-
 interface IConfirmModalProps extends React.HTMLAttributes<HTMLDivElement> {
-    message: string;
+    header: ReactNode;
     subMessage?: string;
     children?: ReactNode;
     footer?: ReactNode;
     onClose?: (e: MouseEvent) => void;
+    modalRef?: React.Ref<HTMLDivElement>;
+    backdropRef?: React.Ref<HTMLDivElement>;
 }
 
 const ConfirmModal = (
-    ({ message, subMessage = "", children = null, footer, onClose, ...props }: IConfirmModalProps) => {
+    ({
+         header,
+         subMessage = "",
+         children = null,
+         footer,
+         onClose,
+         modalRef,
+         backdropRef,
+         ...props
+    }: IConfirmModalProps) => {
         return (
             <Modal.Portal>
-                <Backdrop onClick={onClose}>
-                    <Modal {...props}>
-                        <Modal.Header>{message}</Modal.Header>
-                        {subMessage && <p>{subMessage}</p>}
+                <Backdrop ref={backdropRef}>
+                    <Modal ref={modalRef} {...props}>
+                        <Modal.Header>{header}</Modal.Header>
+                        {subMessage}
                         <Modal.Body>{children}</Modal.Body>
                         <Modal.Footer>{footer}</Modal.Footer>
                     </Modal>
@@ -28,6 +38,5 @@ const ConfirmModal = (
         );
     }
 );
-
 
 export default ConfirmModal;

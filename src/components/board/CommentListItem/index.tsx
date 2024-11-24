@@ -1,15 +1,17 @@
-import {FC, MouseEvent, useEffect, useMemo, useRef, useState} from "react";
+import {FC, useEffect, useMemo, useRef, useState} from "react";
 
 // import Button from "@components/common/Button";
 import Dropdown from "@components/common/Dropdown";
 import Textarea from "@components/common/Textarea";
 import ProfileImage from "@components/common/ProfileImage";
+import ConfirmModal from "@components/common/ConfirmModal";
 
 import getTimeStamp from "@util/getTimeStamp.ts";
 import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
 import stripHtml from "@util/stripHtml.ts";
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
+import useModal from "@hooks/useModal.ts";
 import {IComment} from "@/types/comment.ts";
 import {useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
@@ -32,8 +34,8 @@ import {
 
 import deleteIcon from "@assets/icons/delete.svg";
 import editIcon from "@assets/icons/edit.svg";
-import useModal from "@hooks/useModal.ts";
-import ConfirmModal from "@components/common/ConfirmModal";
+import Button from "@components/common/Button";
+import {confirmModalHeader} from "@components/common/ConfirmModal/style.ts";
 
 
 const CommentListItem:FC<IComment> = (props) => {
@@ -46,7 +48,7 @@ const CommentListItem:FC<IComment> = (props) => {
     const {showToast} = useToastStore();
     const {text, countOfText, handleTextChange, setText} = useTextarea();
     const {errorText, clearError, sendRequest} = useRequest();
-    const {showModal, open, close} = useModal();
+    const {showModal:showDeleteConfirmModal, modalRef:deleteModalRef, backdropRef:deleteBackdropRef, setShowModal:setShowDeleteConfirmModal} = useModal();
 
     // 댓글 링크 처리
     const transformedContent = useMemo(() => {
@@ -65,7 +67,7 @@ const CommentListItem:FC<IComment> = (props) => {
 
     // 댓글 삭제 확인 모달 띄우기
     const deleteCommentConfirm = () => {
-        open();
+        setShowDeleteConfirmModal(true);
     };
 
     // 댓글 삭제
@@ -228,12 +230,18 @@ const CommentListItem:FC<IComment> = (props) => {
             {/*}*/}
 
 
-            {showModal &&
+            {showDeleteConfirmModal &&
                 <ConfirmModal
-                  message={messageCategories.delete[lang]}
-                  onClick={() => {}}
-                  onClose={(e: MouseEvent) => close(e)}
-                  footer={<>jhjhjk</>}
+                  modalRef={deleteModalRef}
+                  backdropRef={deleteBackdropRef}
+                  header={<h4 css={confirmModalHeader}>{messageCategories.delete[lang]}</h4>}
+                  onClose={() => setShowDeleteConfirmModal(false)}
+                  footer={
+                      <>
+                          <Button onClick={() => setShowDeleteConfirmModal(false)}>{buttonCategories.close[lang]}</Button>
+                          <Button onClick={deleteComment}>{buttonCategories.delete[lang]}</Button>
+                      </>
+                  }
                 />
             }
         </Container>

@@ -20,11 +20,9 @@ interface IButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
     disabled?: boolean;
 }
 
-const Button = ({children, loading, ...props}: IButtonProps) => {
+const Button = ({children, loading, onClick, disabled, ...props}: IButtonProps) => {
     return (
-        <button
-            {...props}
-        >
+        <button onClick={onClick} disabled={disabled} {...props}>
             {loading ?
                 (<></>)
                 :
