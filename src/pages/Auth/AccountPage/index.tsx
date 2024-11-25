@@ -7,7 +7,7 @@ import ArrowBack from "@components/common/ArrowBack";
 import ProfileCard from "@components/account/ProfileCard";
 import Button from "@components/common/Button";
 import StatusCard from "@components/account/StatusCard";
-import {Modal} from "@components/common/Modal/Modal.tsx";
+import {Modal} from "@components/common/Modal";
 import ModalConfirmContent from "@components/common/ConfirmModal";
 import Link from "@components/common/Link";
 import Divider from "@components/common/Divider";

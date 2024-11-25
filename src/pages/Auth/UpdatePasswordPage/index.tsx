@@ -10,7 +10,7 @@ import HeadTag from "@components/common/HeadTag";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import LoadingLoop from "@components/common/LoadingLoop";
-import {Modal} from "@components/common/Modal/Modal.tsx";
+import {Modal} from "@components/common/Modal";
 import ModalConfirmContent from "@components/common/ConfirmModal";
 
 import useRequest from "@hooks/useRequest.ts";
@@ -162,7 +162,7 @@ const UpdatePasswordPage:FC = () => {
             </Container>
 
             {/*{updatePasswordModal &&*/}
-            {/*  <Modal*/}
+            {/*  <Index*/}
             {/*    content={<UpdatePasswordModalContent/>}*/}
             {/*    setModal={setUpdatePasswordModal}*/}
             {/*    type={"popup"}*/}

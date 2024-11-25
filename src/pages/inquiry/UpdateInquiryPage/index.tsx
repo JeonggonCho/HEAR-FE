@@ -8,7 +8,7 @@ import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Select from "@components/common/Select";
 import LoadingLoop from "@components/common/LoadingLoop";
-import {Modal} from "@components/common/Modal/Modal.tsx";
+import {Modal} from "@components/common/Modal";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";

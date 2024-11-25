@@ -1,6 +1,6 @@
 import React, {FC, useCallback, useEffect, useState} from "react";
 
-import {Modal} from "@components/common/Modal/Modal.tsx";
+import {Modal} from "@components/common/Modal";
 import UserInfoCard from "@components/common/UserInfoCard";
 import Button from "@components/common/Button";
 import ModalConfirmContent from "@components/common/ConfirmModal";

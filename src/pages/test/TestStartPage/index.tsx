@@ -12,7 +12,7 @@ import HeadTag from "@components/common/HeadTag";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Button from "@components/common/Button";
 import SideMenu from "@components/common/SideMenu";
-import {Modal} from "@components/common/Modal/Modal.tsx";
+import {Modal} from "@components/common/Modal";
 import ModalConfirmContent from "@components/common/ConfirmModal";
 import ProgressBar from "@components/common/ProgressBar";
 import TestListItem from "@components/test/TestListItem";

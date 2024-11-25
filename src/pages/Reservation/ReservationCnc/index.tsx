@@ -10,7 +10,7 @@ import ArrowBack from "@components/common/ArrowBack";
 import RoomMap from "@components/reservation/RoomMap";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
-import Modal from "@components/common/Modal/Modal.tsx";
+import Modal from "@components/common/Modal";
 import Calendar from "@components/common/Calendar";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";

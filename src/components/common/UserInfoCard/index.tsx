@@ -7,7 +7,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
-import {Modal} from "@components/common/Modal/Modal.tsx";
+import {Modal} from "@components/common/Modal";
 import ModalConfirmContent from "@components/common/ConfirmModal";
 import ProfileImage from "@components/common/ProfileImage";
 

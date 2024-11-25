@@ -1,7 +1,7 @@
 import {FC, useState} from "react";
 import {ReactSVG} from "react-svg";
 
-import {Modal} from "@components/common/Modal/Modal.tsx";
+import {Modal} from "@components/common/Modal";
 import ModalConfirmContent from "@components/common/ConfirmModal";
 import Button from "@components/common/Button";
 

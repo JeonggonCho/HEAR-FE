@@ -1,6 +1,6 @@
 import React, {MouseEvent, ReactNode} from "react";
 
-import {Modal} from "@components/common/Modal/Modal.tsx";
+import {Modal} from "@components/common/Modal";
 import Backdrop from "@components/common/Backdrop";
 
 interface IConfirmModalProps extends React.HTMLAttributes<HTMLDivElement> {

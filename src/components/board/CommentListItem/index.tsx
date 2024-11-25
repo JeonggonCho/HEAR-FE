@@ -36,6 +36,7 @@ import deleteIcon from "@assets/icons/delete.svg";
 import editIcon from "@assets/icons/edit.svg";
 import Button from "@components/common/Button";
 import {confirmModalHeader} from "@components/common/ConfirmModal/style.ts";
+import Flex from "@components/common/Flex";
 
 
 const CommentListItem:FC<IComment> = (props) => {
@@ -217,7 +218,7 @@ const CommentListItem:FC<IComment> = (props) => {
             </RightPartWrapper>
 
             {/*{showConfirmModal &&*/}
-            {/*  <Modal*/}
+            {/*  <Index*/}
             {/*    content={*/}
             {/*        <ModalConfirmContent*/}
             {/*            text={messageCategories.delete[lang]}*/}
@@ -237,10 +238,10 @@ const CommentListItem:FC<IComment> = (props) => {
                   header={<h4 css={confirmModalHeader}>{messageCategories.delete[lang]}</h4>}
                   onClose={() => setShowDeleteConfirmModal(false)}
                   footer={
-                      <>
+                      <Flex align={"center"} justify={"space-between"} gap={12}>
                           <Button onClick={() => setShowDeleteConfirmModal(false)}>{buttonCategories.close[lang]}</Button>
                           <Button onClick={deleteComment}>{buttonCategories.delete[lang]}</Button>
-                      </>
+                      </Flex>
                   }
                 />
             }

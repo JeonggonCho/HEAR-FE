@@ -5,7 +5,7 @@ import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import UserListItem from "@components/management/UserListItem";
 import Input from "@components/common/Input";
-import Modal from "@components/common/Modal/Modal.tsx";
+import Modal from "@components/common/Modal";
 import Empty from "@components/common/Empty";
 import UsersFilterContent from "@components/management/UsersFilterContent";
 import Button from "@components/common/Button";

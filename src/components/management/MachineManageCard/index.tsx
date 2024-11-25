@@ -5,7 +5,7 @@ import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 
 import Toggle from "@components/common/Toggle";
-import Modal from "@components/common/Modal/Modal.tsx";
+import Modal from "@components/common/Modal";
 import MachineListItem from "@components/management/MachineListItem";
 import NewMachineContent from "@components/management/NewMachineContent";
 import Input from "@components/common/Input";

@@ -81,7 +81,7 @@ export interface ILinkProps {
 }
 
 
-// 모달 (Modal) props
+// 모달 (Index) props
 export interface IModalProps {
     title?: string | React.ReactElement;
     content: React.ReactElement;

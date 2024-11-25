@@ -7,7 +7,7 @@ import ArrowBack from "@components/common/ArrowBack";
 import HeadTag from "@components/common/HeadTag";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Button from "@components/common/Button";
-import {Modal} from "@components/common/Modal/Modal.tsx";
+import {Modal} from "@components/common/Modal";
 import Empty from "@components/common/Empty";
 import ModalConfirmContent from "@components/common/ConfirmModal";
 import QuestionListContent from "@components/management/QuestionListContent";
