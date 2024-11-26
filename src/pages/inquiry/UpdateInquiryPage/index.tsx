@@ -12,7 +12,7 @@ import {Modal} from "@components/common/Modal";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
-import ModalConfirmContent from "@components/common/ConfirmModal";
+import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import HeadTag from "@components/common/HeadTag";
 
 import useRequest from "@hooks/useRequest.ts";

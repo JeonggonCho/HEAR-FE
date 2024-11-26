@@ -1,4 +1,5 @@
-import React, {ReactNode} from "react";
+import {ReactNode} from "react";
+
 
 interface IFlexProps {
     children: ReactNode;
@@ -8,7 +9,6 @@ interface IFlexProps {
     wrap?: "nowrap" | "wrap" | "wrap-reverse";
     gap?: string | number;
     style?: React.CSSProperties;
-    as?: keyof JSX.IntrinsicElements;
 }
 
 const Flex = (
@@ -19,12 +19,11 @@ const Flex = (
         align = "stretch",
         wrap = "nowrap",
         gap = 0,
-        style = {},
-        as: Component = "div",
+        style,
         ...props
     }: IFlexProps) => {
     return (
-        <Component
+        <div
             style={{
                 display: "flex",
                 flexDirection: direction,
@@ -37,7 +36,7 @@ const Flex = (
             {...props}
         >
             {children}
-        </Component>
+        </div>
     );
 };
 

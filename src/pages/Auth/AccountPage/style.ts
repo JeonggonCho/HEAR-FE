@@ -36,23 +36,6 @@ export const SettingWrapper = styled.div`
     }
 `;
 
-export const DeleteUserWrapper = styled.span`
-    width: fit-content;
-    margin: auto;
-    color: ${({theme}) => theme.colors.font.sub};
-    cursor: pointer;
-`;
-
-export const BtnsWrapper = styled.div`
-    padding: 36px 24px 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    border-top: 1px solid ${({theme}) => theme.colors.line.main};
-`;
-
 export const LinkWrapper = styled.div`
     h3 {
         margin: 20px 0 16px 24px;

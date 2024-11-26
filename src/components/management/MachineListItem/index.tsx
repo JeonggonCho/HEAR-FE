@@ -6,7 +6,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import Toggle from "@components/common/Toggle";
 import Button from "@components/common/Button";
 import {Modal} from "@components/common/Modal";
-import ModalConfirmContent from "@components/common/ConfirmModal";
+import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import Input from "@components/common/Input";
 
 import useToggle from "@hooks/useToggle.ts";

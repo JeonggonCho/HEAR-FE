@@ -97,19 +97,14 @@ const TestListItem:FC<ITestListItemProps> = ({question, testAnswers, setTestAnsw
                                 </div>
                             ))}
                         </ChoiceWrapper>
-                        : <></>
+                        : null
             }
 
             {isAnswerFilled &&
               <ResetButtonWrapper>
-                <Button
-                  type={"button"}
-                  content={buttonCategories.erase[lang]}
-                  width={"fit"}
-                  color={"third"}
-                  scale={"small"}
-                  onClick={eraseAnswer}
-                />
+                <Button variant={"filled"} width={"fit"} color={"third"} size={"sm"} onClick={eraseAnswer}>
+                    {buttonCategories.erase[lang]}
+                </Button>
               </ResetButtonWrapper>
             }
         </Container>

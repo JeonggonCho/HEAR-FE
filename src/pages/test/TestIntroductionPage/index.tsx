@@ -145,14 +145,15 @@ const TestIntroductionPage:FC = () => {
                     </div>
 
                     <Button
-                        type={"button"}
-                        content={buttonCategories.startTest[lang]}
+                        variant={"filled"}
                         width={"full"}
                         color={"primary"}
-                        scale={"big"}
-                        disabled={!availableDate || !availableStatus}
+                        size={"lg"}
                         onClick={checkUserTestStatus}
-                    />
+                        disabled={!availableDate || !availableStatus}
+                    >
+                        {buttonCategories.startTest[lang]}
+                    </Button>
                 </ContentWrapper>
             </Container>
         </>

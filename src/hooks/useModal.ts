@@ -8,9 +8,11 @@ const useModal = () => {
     const backdropRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        document.body.classList.add("no-scroll");
+        if (showModal) {
+            document.body.classList.add("no-scroll");
+        }
         return () => document.body.classList.remove("no-scroll");
-    }, []);
+    }, [showModal]);
 
     // 모달 창 외부의 backdrop 클릭 시, 모달 닫히게 하기
     useEffect(() => {

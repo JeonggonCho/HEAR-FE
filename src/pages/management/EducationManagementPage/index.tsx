@@ -9,7 +9,7 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import Button from "@components/common/Button";
 import {Modal} from "@components/common/Modal";
 import Empty from "@components/common/Empty";
-import ModalConfirmContent from "@components/common/ConfirmModal";
+import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import QuestionListContent from "@components/management/QuestionListContent";
 import EducationSettingsContent from "@components/management/EducationSettingsContent";
 import SideMenu from "@components/common/SideMenu";

@@ -9,7 +9,7 @@ import Dropdown from "@components/common/Dropdown";
 import HeadTag from "@components/common/HeadTag";
 import Button from "@components/common/Button";
 import {Modal} from "@components/common/Modal";
-import ModalConfirmContent from "@components/common/ConfirmModal";
+import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import Comments from "@components/board/Comments";
 import ProfileImage from "@components/common/ProfileImage";
 

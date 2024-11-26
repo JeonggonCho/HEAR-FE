@@ -12,15 +12,15 @@ import HeadTag from "@components/common/HeadTag";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Button from "@components/common/Button";
 import SideMenu from "@components/common/SideMenu";
-import {Modal} from "@components/common/Modal";
-import ModalConfirmContent from "@components/common/ConfirmModal";
 import ProgressBar from "@components/common/ProgressBar";
 import TestListItem from "@components/test/TestListItem";
 import Empty from "@components/common/Empty";
 import Input from "@components/common/Input";
+import ConfirmModal from "@components/common/Modal/ConfirmModal.tsx";
 
 import useRequest from "@hooks/useRequest.ts";
 import useScrollbarSize from "@hooks/useScrollbarSize.ts";
+import useModal from "@hooks/useModal.ts";
 import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
 import {EducationType, IMultipleChoice, ISingleChoice, ITestAnswer} from "@/types/education.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
@@ -42,6 +42,7 @@ import {
     SideMenuBtnWrapper, SideMenuQuestionsWrapper,
     SideMenuQuestionWrapper, YearAndStudioWrapper
 } from "./style.ts";
+import {confirmModalHeader, confirmModalSubMessage} from "@components/common/ConfirmModal/style.ts";
 
 import menu from "@assets/icons/menu.svg";
 
@@ -51,8 +52,6 @@ const TestStartPage:FC = () => {
     const [currentQuestion, setCurrentQuestion] = useState<number>(0);
     const [testAnswers, setTestAnswers] = useState<ITestAnswer[]>([]);
     const [showSideMenu, setShowSideMenu] = useState<boolean>(false);
-    const [showSubmitConfirmModal, setShowSubmitConfirmModal] = useState<boolean>(false);
-    const [showResetConfirmModal, setShowResetConfirmModal] = useState<boolean>(false);
 
     const navigate = useNavigate();
 
@@ -61,6 +60,18 @@ const TestStartPage:FC = () => {
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
     const {scrollbarWidth} = useScrollbarSize();
     const {updateYearAndStudioSchema} = UserSchemaProvider();
+    const {
+        showModal: showSubmitConfirmModal,
+        setShowModal: setShowSubmitConfirmModal,
+        modalRef: submitModalRef,
+        backdropRef: submitBackdropRef,
+    } = useModal();
+    const {
+        showModal: showResetConfirmModal,
+        setShowModal: setShowResetConfirmModal,
+        modalRef: resetModalRef,
+        backdropRef: resetBackdropRef,
+    } = useModal();
 
     // 학년 카테고리
     const yearCategories = [
@@ -240,93 +251,6 @@ const TestStartPage:FC = () => {
         return () => clearTimeout(errorTimer);
     }, [errorText]);
 
-    // 지우기 확인 모달 내용
-    const EraseConfirmContent = () => (
-        <ModalConfirmContent
-            text={cardCategories.eraseAnswers[lang]}
-            description={messageCategories.warningEraseAnswers[lang]}
-            leftBtn={
-                <Button
-                    type={"button"}
-                    content={buttonCategories.cancel[lang]}
-                    color={"third"}
-                    scale={"normal"}
-                    width={"full"}
-                    onClick={() => setShowResetConfirmModal(false)}
-                />
-            }
-            rightBtn={
-                <Button
-                    type={"button"}
-                    content={buttonCategories.reset[lang]}
-                    color={"danger"}
-                    scale={"normal"}
-                    width={"full"}
-                    onClick={() => {
-                        eraseAnswers();
-                        setShowResetConfirmModal(false);
-                    }}
-                />
-            }
-        />
-    );
-
-    // 제출 확인 모달 내용
-    const SubmitConfirmContent = () => (
-        <ModalConfirmContent
-            text={cardCategories.submit[lang]}
-            description={messageCategories.warningSubmit[lang]}
-            content={
-                <YearAndStudioWrapper>
-                    <Select
-                        categories={yearCategories}
-                        label={inputCategories.year[lang]}
-                        name={"year"}
-                        register={register}
-                        errorMessage={errors.year?.message}
-                        type={"radio"}
-                    />
-                    <Input
-                        label={inputCategories.studio[lang]}
-                        subLabel={inputCategories.inputKorean[lang]}
-                        type={"text"}
-                        id={"studio"}
-                        name={"studio"}
-                        placeholder={placeholderCategories.studio[lang]}
-                        register={register}
-                        errorMessage={errors.studio?.message}
-                    />
-                </YearAndStudioWrapper>
-            }
-            leftBtn={
-                <Button
-                    type={"button"}
-                    content={buttonCategories.cancel[lang]}
-                    color={"third"}
-                    scale={"normal"}
-                    width={"full"}
-                    onClick={() => {
-                        reset({
-                            year: "1",
-                            studio: "",
-                        });
-                        setShowSubmitConfirmModal(false);
-                    }}
-                />
-            }
-            rightBtn={
-                <Button
-                    type={"submit"}
-                    content={buttonCategories.submit[lang]}
-                    color={"approval"}
-                    scale={"normal"}
-                    width={"full"}
-                    onClick={handleSubmit(submitTest)}
-                />
-            }
-        />
-    );
-
     // 사이드 메뉴 문제 답안 내용
     const TestAnswersContent = () => (
         <SideMenuQuestionsWrapper>
@@ -421,21 +345,23 @@ const TestStartPage:FC = () => {
                                         <span>{`${currentQuestion + 1} / ${questions.length}`}</span>
                                         <div>
                                             <Button
-                                                type={"button"}
-                                                content={buttonCategories.reset[lang]}
+                                                variant={"filled"}
                                                 width={"fit"}
                                                 color={"second"}
-                                                scale={"small"}
+                                                size={"sm"}
                                                 onClick={() => setShowResetConfirmModal(true)}
-                                            />
+                                            >
+                                                {buttonCategories.reset[lang]}
+                                            </Button>
                                             <Button
-                                                type={"button"}
-                                                content={buttonCategories.submit[lang]}
+                                                variant={"filled"}
                                                 width={"fit"}
                                                 color={"primary"}
-                                                scale={"small"}
+                                                size={"sm"}
                                                 onClick={() => setShowSubmitConfirmModal(true)}
-                                            />
+                                            >
+                                                {buttonCategories.submit[lang]}
+                                            </Button>
                                         </div>
                                     </div>
                                     <ProgressBar total={questions.length} current={currentQuestion + 1}/>
@@ -464,23 +390,25 @@ const TestStartPage:FC = () => {
 
                                 <BtnsWrapper>
                                     <Button
-                                        type={"button"}
-                                        content={buttonCategories.previous[lang]}
+                                        variant={"filled"}
                                         width={"full"}
                                         color={"second"}
-                                        scale={"normal"}
-                                        disabled={currentQuestion === 0}
+                                        size={"md"}
                                         onClick={movePrevQuestion}
-                                    />
+                                        disabled={currentQuestion === 0}
+                                    >
+                                        {buttonCategories.previous[lang]}
+                                    </Button>
                                     <Button
-                                        type={"button"}
-                                        content={buttonCategories.next[lang]}
+                                        variant={"filled"}
                                         width={"full"}
                                         color={"second"}
-                                        scale={"normal"}
-                                        disabled={currentQuestion === questions.length - 1}
+                                        size={"md"}
                                         onClick={moveNextQuestion}
-                                    />
+                                        disabled={currentQuestion === questions.length - 1}
+                                    >
+                                        {buttonCategories.next[lang]}
+                                    </Button>
                                 </BtnsWrapper>
                             </>
                             :
@@ -499,19 +427,95 @@ const TestStartPage:FC = () => {
             }
 
             {showSubmitConfirmModal &&
-              <Modal
-                content={<SubmitConfirmContent/>}
-                setModal={setShowSubmitConfirmModal}
-                type={"popup"}
-              />
+              <ConfirmModal
+                modalRef={submitModalRef}
+                backdropRef={submitBackdropRef}
+                header={<h4 css={confirmModalHeader}>{cardCategories.submit[lang]}</h4>}
+                subMessage={<p css={confirmModalSubMessage}>{messageCategories.warningSubmit[lang]}</p>}
+                leftBtn={
+                    <Button
+                        variant={"filled"}
+                        color={"third"}
+                        size={"md"}
+                        width={"full"}
+                        onClick={() => {
+                            reset({
+                                year: "1",
+                                studio: "",
+                            });
+                            setShowSubmitConfirmModal(false);
+                        }}
+                    >
+                        {buttonCategories.cancel[lang]}
+                    </Button>
+                }
+                rightBtn={
+                    <Button
+                        variant={"filled"}
+                        size={"md"}
+                        color={"approval"}
+                        width={"full"}
+                        onClick={handleSubmit(submitTest)}
+                    >
+                        {buttonCategories.submit[lang]}
+                    </Button>
+                }
+              >
+                <YearAndStudioWrapper>
+                  <Select
+                    categories={yearCategories}
+                    label={inputCategories.year[lang]}
+                    name={"year"}
+                    register={register}
+                    errorMessage={errors.year?.message}
+                    type={"radio"}
+                  />
+                  <Input
+                    label={inputCategories.studio[lang]}
+                    subLabel={inputCategories.inputKorean[lang]}
+                    type={"text"}
+                    id={"studio"}
+                    name={"studio"}
+                    placeholder={placeholderCategories.studio[lang]}
+                    register={register}
+                    errorMessage={errors.studio?.message}
+                  />
+                </YearAndStudioWrapper>
+              </ConfirmModal>
             }
 
             {showResetConfirmModal &&
-                <Modal
-                  content={<EraseConfirmContent/>}
-                  setModal={setShowResetConfirmModal}
-                  type={"popup"}
-                />
+              <ConfirmModal
+                modalRef={resetModalRef}
+                backdropRef={resetBackdropRef}
+                header={<h4 css={confirmModalHeader}>{cardCategories.eraseAnswers[lang]}</h4>}
+                subMessage={<p css={confirmModalSubMessage}>{messageCategories.warningEraseAnswers[lang]}</p>}
+                leftBtn={
+                    <Button
+                        variant={"filled"}
+                        width={"full"}
+                        color={"third"}
+                        size={"md"}
+                        onClick={() => setShowResetConfirmModal(false)}
+                    >
+                        {buttonCategories.cancel[lang]}
+                    </Button>
+                }
+                rightBtn={
+                    <Button
+                        variant={"filled"}
+                        width={"full"}
+                        color={"danger"}
+                        size={"md"}
+                        onClick={() => {
+                            eraseAnswers();
+                            setShowResetConfirmModal(false);
+                        }}
+                    >
+                        {buttonCategories.reset[lang]}
+                    </Button>
+                }
+              />
             }
         </>
     );

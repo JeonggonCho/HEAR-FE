@@ -1,32 +1,34 @@
-import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
+import { css } from "@emotion/react";
 import { darken, lighten } from "polished";
 
-const commonBtnStyle = `
+// 공통 스타일
+const commonBtnStyle = css`
     text-align: center;
-    transition: all 0.1s ease-in-out 0s;
+    transition: all 0.1s ease-in-out;
     display: flex;
     align-items: center;
     justify-content: center;
     vertical-align: middle;
     border: none;
-    text-wrap: nowrap;
+    white-space: nowrap;
+    cursor: pointer;
 `;
 
-const getBackgroundColor = (theme: any, color: "primary" | "approval" | "second" | "third" | "danger", darkmode: string) => {
+// 배경색 계산 함수
+const getBackgroundColor = (theme: any, color: string, darkMode: string) => {
     const baseColor = theme.colors.button[color];
-    return darkmode === "true" ? lighten(0.05, baseColor) : darken(0.05, baseColor);
+    return darkMode === "true" ? lighten(0.05, baseColor) : darken(0.05, baseColor);
 };
 
-const getTextColor = (theme: any, color: "primary" | "approval" | "second" | "third" | "danger", darkmode: string) => {
+// 텍스트 색상 계산 함수
+const getTextColor = (theme: any, color: string, darkMode: string) => {
     switch (color) {
         case "primary":
             return "white";
         case "second":
-            if (darkmode === "true") {
-                return lighten(0.1, theme.colors.font.sub);
-            }
-            return "white";
+            return darkMode === "true"
+                ? lighten(0.1, theme.colors.font.sub)
+                : "white";
         case "approval":
             return theme.colors.font.primary;
         case "third":
@@ -34,71 +36,63 @@ const getTextColor = (theme: any, color: "primary" | "approval" | "second" | "th
         case "danger":
             return theme.colors.font.danger;
         default:
-            return;
+            return "inherit";
     }
 };
 
-const BaseComponent = styled.div<{
-    width: "full" | "fit";
-    color: "primary" | "approval" | "second" | "third" | "danger";
-    scale: "small" | "normal" | "big";
-    disabled: boolean | undefined;
-    darkmode: string;
-}>`
+// 버튼 스타일 정의
+export const buttonStyles = (
+    {
+        variant,
+        width,
+        color,
+        size,
+        disabled,
+        darkMode,
+    }: {
+        variant: "text" | "filled";
+        width: "full" | "fit";
+        color: "primary" | "approval" | "second" | "third" | "danger";
+        size: "sm" | "md" | "lg";
+        disabled: boolean;
+        darkMode: string;
+    }) => (theme: any) => css`
     ${commonBtnStyle};
-    
-    width: ${({ width }) => (width === "full" ? "100%" : "fit-content")};
-    font-size: ${({ scale }) => ({
-        small: "1rem", 
-        normal: "1.15rem", 
-        big: "1.25rem"
-    }[scale])};
-    
-    padding: ${({ scale }) => ({
-        small: "8px 14px", 
-        normal: "12px 18px", 
-        big: "16px 18px"
-    }[scale])};
-    
-    border-radius: ${({ scale }) => (scale === "big" ? "12px" : scale === "normal" ? "10px" : "8px")};
-    background-color: ${({ theme, color, disabled, darkmode }) => {
-        return disabled && darkmode === "false" ? darken(0.05, theme.colors.button.third) 
-                : disabled && darkmode === "true" ? theme.colors.button.third 
-                        : theme.colors.button[color]
-    }};
-    color: ${({ theme, color, disabled, darkmode }) => {
-        return disabled && darkmode === "false" ? lighten(0.2, theme.colors.font.sub)
-                : disabled && darkmode === "true" ? theme.colors.font.placeholder
-                        : getTextColor(theme, color, darkmode);
-    }};
-    cursor: ${({disabled}) => disabled ? "not-allowed" : "pointer"};
-    
-    & > div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
+    width: ${width === "full" ? "100%" : "fit-content"};
+    font-size: ${{
+        sm: "1rem", 
+        md: "1.15rem", 
+        lg: "1.25rem",
+    }[size]};
+    padding: ${{
+        sm: "8px 14px",
+        md: "12px 18px",
+        lg: "16px 18px",
+    }[size]};
+    border-radius: ${size === "lg" ? "12px" : size === "md" ? "10px" : "8px"};
+    background-color: ${variant === "text" ? "transparent" 
+            : disabled && darkMode === "false" ? darken(0.05, theme.colors.button.third) 
+                    : disabled && darkMode === "true" ? theme.colors.button.third 
+                            : theme.colors.button[color]};
+    color: ${disabled && darkMode === "false" ? lighten(0.2, theme.colors.font.sub) 
+            : disabled && darkMode === "true" ? theme.colors.font.placeholder 
+                    : getTextColor(theme, color, darkMode)};
+    cursor: ${disabled ? "not-allowed" : "pointer"};
+
     svg {
         margin-top: 4px;
-        fill: ${({theme, color, darkmode, disabled}) => {
-            return disabled && darkmode === "false" ? lighten(0.2, theme.colors.font.sub)
-                    : disabled && darkmode === "true" ? theme.colors.font.placeholder 
-                            : getTextColor(theme, color, darkmode);
-        }};
+        fill: ${disabled && darkMode === "false" ? lighten(0.2, theme.colors.font.sub) 
+                : disabled && darkMode === "true" ? theme.colors.font.placeholder 
+                        : getTextColor(theme, color, darkMode)};
         width: 20px;
         height: 20px;
     }
-    
+
     &:hover {
-        background-color: ${({ theme, color, disabled, darkmode }) => !disabled && getBackgroundColor(theme, color, darkmode)};
+        background-color: ${(variant !== "text" && !disabled) && getBackgroundColor(theme, color, darkMode)};
     }
-    
+
     &:active {
-        transform: ${({disabled}) => !disabled && 'scale(0.95)'};
+        transform: ${!disabled && "scale(0.95)"};
     }
 `;
-
-export const ButtonWrapper = BaseComponent.withComponent("button");
-export const LinkWrapper = BaseComponent.withComponent(Link);
-export const SubmitWrapper = BaseComponent.withComponent("button");

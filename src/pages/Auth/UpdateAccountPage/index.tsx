@@ -9,7 +9,7 @@ import ArrowBack from "@components/common/ArrowBack";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import {Modal} from "@components/common/Modal";
-import ModalConfirmContent from "@components/common/ConfirmModal";
+import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 

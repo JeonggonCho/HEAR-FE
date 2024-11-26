@@ -11,7 +11,7 @@ import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import LoadingLoop from "@components/common/LoadingLoop";
 import {Modal} from "@components/common/Modal";
-import ModalConfirmContent from "@components/common/ConfirmModal";
+import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 
 import useRequest from "@hooks/useRequest.ts";
 import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";

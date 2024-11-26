@@ -2,7 +2,7 @@ import {FC, useState} from "react";
 import {ReactSVG} from "react-svg";
 
 import {Modal} from "@components/common/Modal";
-import ModalConfirmContent from "@components/common/ConfirmModal";
+import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import Button from "@components/common/Button";
 
 import {IReservationListItemProps} from "@/types/componentProps.ts";

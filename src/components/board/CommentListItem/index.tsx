@@ -1,10 +1,10 @@
 import {FC, useEffect, useMemo, useRef, useState} from "react";
 
-// import Button from "@components/common/Button";
 import Dropdown from "@components/common/Dropdown";
 import Textarea from "@components/common/Textarea";
 import ProfileImage from "@components/common/ProfileImage";
-import ConfirmModal from "@components/common/ConfirmModal";
+import ConfirmModal from "@components/common/Modal/ConfirmModal.tsx";
+import Button from "@components/common/Button";
 
 import getTimeStamp from "@util/getTimeStamp.ts";
 import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
@@ -31,12 +31,10 @@ import {
     RightPartWrapper,
     TimeWrapper
 } from "./style.ts";
+import {confirmModalHeader} from "@components/common/ConfirmModal/style.ts";
 
 import deleteIcon from "@assets/icons/delete.svg";
 import editIcon from "@assets/icons/edit.svg";
-import Button from "@components/common/Button";
-import {confirmModalHeader} from "@components/common/ConfirmModal/style.ts";
-import Flex from "@components/common/Flex";
 
 
 const CommentListItem:FC<IComment> = (props) => {
@@ -49,7 +47,12 @@ const CommentListItem:FC<IComment> = (props) => {
     const {showToast} = useToastStore();
     const {text, countOfText, handleTextChange, setText} = useTextarea();
     const {errorText, clearError, sendRequest} = useRequest();
-    const {showModal:showDeleteConfirmModal, modalRef:deleteModalRef, backdropRef:deleteBackdropRef, setShowModal:setShowDeleteConfirmModal} = useModal();
+    const {
+        showModal:showDeleteConfirmModal,
+        modalRef:deleteModalRef,
+        backdropRef:deleteBackdropRef,
+        setShowModal:setShowDeleteConfirmModal
+    } = useModal();
 
     // 댓글 링크 처리
     const transformedContent = useMemo(() => {
@@ -78,7 +81,6 @@ const CommentListItem:FC<IComment> = (props) => {
                 url: `/comments/${props._id}`,
                 method: "delete",
             });
-            close();
             // 댓글 목록에서 삭제된 댓글 제거
             props.setComments(prevState => prevState.filter((comment) => comment._id !== props._id));
             // 문의, 피드백, 공지에서 댓글 개수 1 빼기
@@ -217,33 +219,23 @@ const CommentListItem:FC<IComment> = (props) => {
                 }
             </RightPartWrapper>
 
-            {/*{showConfirmModal &&*/}
-            {/*  <Index*/}
-            {/*    content={*/}
-            {/*        <ModalConfirmContent*/}
-            {/*            text={messageCategories.delete[lang]}*/}
-            {/*            leftBtn={<Button type={"button"} content={buttonCategories.close[lang]} color={"third"} scale={"normal"} width={"full"} onClick={() => setShowConfirmModal(false)}/> }*/}
-            {/*            rightBtn={<Button type={"submit"} content={buttonCategories.delete[lang]} color={"danger"} scale={"normal"} width={"full"} onClick={deleteComment}/>}*/}
-            {/*        />*/}
-            {/*    }*/}
-            {/*    setModal={() => setShowConfirmModal(false)}*/}
-            {/*  />*/}
-            {/*}*/}
-
 
             {showDeleteConfirmModal &&
-                <ConfirmModal
-                  modalRef={deleteModalRef}
-                  backdropRef={deleteBackdropRef}
-                  header={<h4 css={confirmModalHeader}>{messageCategories.delete[lang]}</h4>}
-                  onClose={() => setShowDeleteConfirmModal(false)}
-                  footer={
-                      <Flex align={"center"} justify={"space-between"} gap={12}>
-                          <Button onClick={() => setShowDeleteConfirmModal(false)}>{buttonCategories.close[lang]}</Button>
-                          <Button onClick={deleteComment}>{buttonCategories.delete[lang]}</Button>
-                      </Flex>
-                  }
-                />
+              <ConfirmModal
+                modalRef={deleteModalRef}
+                backdropRef={deleteBackdropRef}
+                header={<h4 css={confirmModalHeader}>{messageCategories.delete[lang]}</h4>}
+                leftBtn={
+                    <Button variant={"filled"} width={"full"} color={"third"} size={"md"} onClick={() => setShowDeleteConfirmModal(false)}>
+                        {buttonCategories.close[lang]}
+                    </Button>
+                }
+                rightBtn={
+                    <Button variant={"filled"} width={"full"} color={"danger"} size={"md"} onClick={deleteComment}>
+                        {buttonCategories.delete[lang]}
+                    </Button>
+                }
+              />
             }
         </Container>
     );

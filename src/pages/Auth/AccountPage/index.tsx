@@ -1,17 +1,17 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {FC, useCallback, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 
 import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
+import Flex from "@components/common/Flex";
 import ProfileCard from "@components/account/ProfileCard";
-import Button from "@components/common/Button";
 import StatusCard from "@components/account/StatusCard";
-import {Modal} from "@components/common/Modal";
-import ModalConfirmContent from "@components/common/ConfirmModal";
 import Link from "@components/common/Link";
 import Divider from "@components/common/Divider";
 import HeadTag from "@components/common/HeadTag";
+import DeleteAccount from "@components/account/DeleteAccount";
+import LogoutAccount from "@components/account/LogoutAccount";
 
 import useRequest from "@hooks/useRequest.ts";
 import useAuth from "@hooks/useAuth.ts";
@@ -22,7 +22,7 @@ import {messageCategories} from "@constants/messageCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {navCategories} from "@constants/navCategories.ts";
 
-import {BtnsWrapper, Container, DeleteUserWrapper, LinkWrapper, SettingWrapper} from "./style.ts";
+import {Container, LinkWrapper, SettingWrapper} from "./style.ts";
 
 import userImg from "@assets/images/assistant.png";
 import machine from "@assets/images/machine.png";
@@ -35,15 +35,12 @@ import test from "@assets/images/test.png";
 
 
 const AccountPage:FC = () => {
-    const [logoutModal, setLogoutModal] = useState<boolean>(false);
-    const [unregisterModal, setUnregisterModal] = useState<boolean>(false);
-
     const navigate = useNavigate();
 
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
-    const {userInfo, setUserInfo, clearUserInfo} = useUserInfoStore();
-    const {userData, setUserData, clearUserData} = useUserDataStore();
+    const {userInfo, setUserInfo} = useUserInfoStore();
+    const {userData, setUserData} = useUserDataStore();
     const {logout} = useAuth();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
@@ -72,14 +69,6 @@ const AccountPage:FC = () => {
         return () => clearTimeout(errorTimer);
     }, [errorText]);
 
-    // 로그아웃 동작
-    const handleLogout = () => {
-        logout();
-        clearUserInfo();
-        clearUserData();
-        navigate("/login");
-    };
-
     // 회원탈퇴 요청
     const unregisterHandler = useCallback(async () => {
         if (!userInfo) return;
@@ -96,7 +85,7 @@ const AccountPage:FC = () => {
         } catch (err) {
             console.log("회원탈퇴 요청 중 에러 발생: ", err);
         } finally {
-            setUnregisterModal(false);
+            setShowUnregisterConfirmModal(false);
         }
     }, [sendRequest, userInfo]);
 
@@ -105,63 +94,6 @@ const AccountPage:FC = () => {
             <ReactSVG src={setting}/>
         </SettingWrapper>
     );
-
-    const LogoutContent = () => {
-        const leftBtn = (
-            <Button
-                type={"button"}
-                content={buttonCategories.close[lang]}
-                width={"full"}
-                color={"third"}
-                scale={"normal"}
-                onClick={() => setLogoutModal(false)}
-            />
-        );
-        const rightBtn = (
-            <Button
-                type={"submit"}
-                content={buttonCategories.signOut[lang]}
-                width={"full"}
-                color={"danger"}
-                scale={"normal"}
-                onClick={handleLogout}
-            />
-        );
-        return (
-            <ModalConfirmContent text={messageCategories.signOut[lang]} leftBtn={leftBtn} rightBtn={rightBtn}/>
-        );
-    };
-
-    const UnregisterContent = () => {
-        const leftBtn = (
-            <Button
-                type={"button"}
-                content={buttonCategories.close[lang]}
-                width={"full"}
-                color={"third"}
-                scale={"normal"}
-                onClick={() => setUnregisterModal(false)}
-            />
-        );
-        const rightBtn = (
-            <Button
-                type={"submit"}
-                content={buttonCategories.accountDeletion[lang]}
-                width={"full"}
-                color={"danger"}
-                scale={"normal"}
-                onClick={unregisterHandler}
-            />
-        );
-        return (
-            <ModalConfirmContent
-                text={messageCategories.accountDeletion[lang]}
-                description={messageCategories.ifDeletingAccount[lang]}
-                leftBtn={leftBtn}
-                rightBtn={rightBtn}
-            />
-        );
-    };
 
     return (
         <>
@@ -196,37 +128,16 @@ const AccountPage:FC = () => {
                     </LinkWrapper>
                 )}
 
-                <BtnsWrapper>
-                    <Button
-                        type={"button"}
-                        content={buttonCategories.signOut[lang]}
-                        width={"full"}
-                        color={"third"}
-                        scale={"big"}
-                        onClick={() => setLogoutModal(true)}
-                    />
-
-                    <DeleteUserWrapper onClick={() => setUnregisterModal(true)}>
-                        {buttonCategories.accountDeletion[lang]}
-                    </DeleteUserWrapper>
-                </BtnsWrapper>
+                <Flex
+                    align={"center"}
+                    direction={"column"}
+                    gap={16}
+                    style={{padding: "24px"}}
+                >
+                    <LogoutAccount/>
+                    <DeleteAccount/>
+                </Flex>
             </Container>
-
-            {logoutModal &&
-              <Modal
-                content={<LogoutContent/>}
-                setModal={setLogoutModal}
-                type={"popup"}
-              />
-            }
-
-            {unregisterModal &&
-              <Modal
-                content={<UnregisterContent/>}
-                setModal={setUnregisterModal}
-                type={"popup"}
-              />
-            }
         </>
     );
 };
