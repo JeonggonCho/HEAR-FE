@@ -1,15 +1,15 @@
-import React, {FC} from "react";
+import React from "react";
 import {ReactSVG} from "react-svg";
 import {useNavigate} from "react-router-dom";
-
-import {IArrowBack} from "@/types/componentProps.ts";
-
-
-import {Container} from "./style.ts";
-
+import {ArrowBackWrapper} from "./style.ts";
 import arrowBack from "@assets/icons/arrow_back.svg";
 
-const ArrowBack:FC<IArrowBack> = ({action}) => {
+
+interface IArrowBack {
+    action?: () => void;
+}
+
+const ArrowBack = ({action}: IArrowBack) => {
     const navigate = useNavigate();
 
     const handleGoBack = () => {
@@ -17,9 +17,9 @@ const ArrowBack:FC<IArrowBack> = ({action}) => {
     };
 
     return (
-        <Container onClick={action || handleGoBack}>
+        <ArrowBackWrapper onClick={action || handleGoBack}>
             <ReactSVG src={arrowBack}/>
-        </Container>
+        </ArrowBackWrapper>
     );
 };
 

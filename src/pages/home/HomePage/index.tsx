@@ -1,7 +1,6 @@
-import {FC, useCallback, useEffect, useMemo, useState} from "react";
-import {ReactSVG} from "react-svg";
+import {useCallback, useEffect, useMemo, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
-import Header from "@components/common/Header";
 import AssistantCard from "@components/home/AssistantCard";
 import NoticeCard from "@components/home/NoticeCard";
 import Carousel from "@components/common/Carousel";
@@ -16,47 +15,14 @@ import HeatReservationConditionContent from "@components/home/HeatReservationCon
 import SawReservationConditionContent from "@components/home/SawReservationConditionContent";
 import VacuumReservationConditionContent from "@components/home/VacuumReservationConditionContent";
 import CncReservationConditionContent from "@components/home/CncReservationConditionContent";
+import HomeHeader from "@components/home/HomeHeader";
 
 import useRequest from "@hooks/useRequest.ts";
 import {getLaserReservationRate} from "@util/getReservationRate.ts";
 import {ILaserStatus} from "@/types/reservation.ts";
-import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
 
-import {
-    AlarmWrapper,
-    Container,
-    HeaderElementWrapper,
-    Logo,
-    LogoWrapper,
-    Title
-} from "./style.ts";
-
-import logo from "@assets/logo.svg";
-import alarm from "@assets/icons/alarm.svg";
-
-
-const HomeHeaderLeft:FC = () => {
-    return (
-        <HeaderElementWrapper>
-            <LogoWrapper>
-                <Logo src={logo}/>
-            </LogoWrapper>
-            <Title>HEAR</Title>
-        </HeaderElementWrapper>
-    );
-};
-
-
-const HomeHeaderRight:FC = () => {
-    const {isDarkMode} = useThemeStore();
-
-    return (
-        <AlarmWrapper to={"/alarm"} darkmode={isDarkMode.toString()}>
-            <ReactSVG src={alarm}/>
-        </AlarmWrapper>
-    );
-};
+import {Container} from "./style.ts";
 
 
 const HomePage = () => {
@@ -67,6 +33,8 @@ const HomePage = () => {
     const [sawStatus, setSawStatus] = useState([]);
     const [vacuumStatus, setVacuumStatus] = useState([]);
     const [cncStatus, setCncStatus] = useState([]);
+
+    const navigate = useNavigate();
 
     const {showToast} = useToastStore();
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
@@ -129,13 +97,7 @@ const HomePage = () => {
     return (
         <Container>
             <HeadTag title={"HEAR"}/>
-
-            <Header
-                leftChild={<HomeHeaderLeft/>}
-                rightChild={<HomeHeaderRight/>}
-                type={"flex"}
-            />
-
+            <HomeHeader/>
             <div>
                 {isLoading ?
                     <CardLoading heightValue={"300px"}/>

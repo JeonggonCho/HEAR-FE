@@ -1,9 +1,9 @@
-import {FC} from "react";
 import {ReactSVG} from "react-svg";
 
 import HeadTag from "@components/common/HeadTag";
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
+import Grid from "@components/common/Grid";
 
 import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
@@ -11,19 +11,30 @@ import {cardCategories} from "@constants/cardCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 
 import {LanguageCheckMark, LanguageWrapper, ThemeCheckMark, ThemeImgWrapper, ThemeWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 import check from "@assets/icons/check.svg";
 import light from "@assets/images/light.png";
 import dark from "@assets/images/dark.png";
 
-const ThemeSettingPage:FC = () => {
+
+const ThemeSettingPage = () => {
     const {lang, setLang, isDarkMode, setTheme} = useThemeStore();
 
     return (
         <>
             <HeadTag title={headerCategories.themeSetting[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.themeSetting[lang]}/>
+            <Header>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{headerCategories.themeSetting[lang]}</h2>
+                    </Header.Center>
+                </Grid>
+            </Header>
 
             <ThemeWrapper>
                 <div>

@@ -12,10 +12,9 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 
 const LogoutAccount = () => {
     const navigate = useNavigate();
-
     const {modalRef, backdropRef, showModal, setShowModal} = useModal();
-    const {lang} = useThemeStore();
     const {logout} = useAuth();
+    const {lang} = useThemeStore();
     const {clearUserInfo} = useUserInfoStore();
     const {clearUserData} = useUserDataStore();
 
@@ -32,7 +31,11 @@ const LogoutAccount = () => {
             modalRef={modalRef}
             backdropRef={backdropRef}
             showModal={showModal}
-            header={<h4 css={confirmModalHeader}>{messageCategories.signOut[lang]}</h4>}
+            header={
+                <h4 css={confirmModalHeader}>
+                    {messageCategories.signOut[lang]}
+                </h4>
+            }
             trigger={
                 <Button
                     width={"full"}

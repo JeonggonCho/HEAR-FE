@@ -1,11 +1,12 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
 
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import HeadTag from "@components/common/HeadTag";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Empty from "@components/common/Empty";
+import Grid from "@components/common/Grid";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IWarning} from "@/types/warning.ts";
@@ -15,11 +16,12 @@ import {headerCategories} from "@constants/headerCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
 import {WarningsListItem, WarningsListItemWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 import error from "@assets/icons/error.svg";
 
 
-const MyWarningPage:FC = () => {
+const MyWarningPage = () => {
     const [warnings, setWarnings] = useState<IWarning[]>([]);
 
     const {lang} = useThemeStore();
@@ -55,7 +57,16 @@ const MyWarningPage:FC = () => {
         <>
             <HeadTag title={headerCategories.myWarning[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.myWarning[lang]}/>
+            <Header>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{headerCategories.myWarning[lang]}</h2>
+                    </Header.Center>
+                </Grid>
+            </Header>
 
             {isLoading ?
                 <LoadingLoop/>

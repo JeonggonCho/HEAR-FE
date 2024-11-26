@@ -1,15 +1,16 @@
-import {FC, useCallback, useEffect} from "react";
+import {useCallback, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import z from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
+import Grid from "@components/common/Grid";
 
 import useRequest from "@hooks/useRequest.ts";
 import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
@@ -22,9 +23,10 @@ import {headerCategories} from "@constants/headerCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
 import {Container} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 
-const FindPasswordPage:FC = () => {
+const FindPasswordPage = () => {
     const navigate = useNavigate();
 
     const {lang} = useThemeStore();
@@ -71,12 +73,21 @@ const FindPasswordPage:FC = () => {
         <Container>
             <HeadTag title={headerCategories.findPassword[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.findPassword[lang]}/>
+            <Header>
+                <Grid columns={3} align={"center"} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{headerCategories.findPassword[lang]}</h2>
+                    </Header.Center>
+                </Grid>
+            </Header>
 
             {isLoading ?
                 <LoadingLoop/>
                 :
-                <form onSubmit={handleSubmit(submitHandler)}>
+                <form>
                     <Input
                         label={inputCategories.username[lang]}
                         type={"text"}
@@ -96,13 +107,15 @@ const FindPasswordPage:FC = () => {
                         errorMessage={errors.email?.message}
                     />
                     <Button
-                        type={"submit"}
-                        content={buttonCategories.findPassword[lang]}
+                        variant={"filled"}
                         width={"full"}
                         color={"primary"}
-                        scale={"big"}
+                        size={"lg"}
+                        onSubmit={handleSubmit(submitHandler)}
                         disabled={!isValid}
-                    />
+                    >
+                        {buttonCategories.findPassword[lang]}
+                    </Button>
                 </form>
             }
         </Container>

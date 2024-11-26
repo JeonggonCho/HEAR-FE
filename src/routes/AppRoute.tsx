@@ -17,9 +17,9 @@ const CreateFeedbackPage = lazy(() => import("@pages/feedback/CreateFeedbackPage
 const UpdateFeedbackPage = lazy(() => import("@pages/feedback/UpdateFeedbackPage"));
 const AccountPage = lazy(() => import("@pages/auth/AccountPage"));
 const UpdateAccountPage = lazy(() => import("@pages/auth/UpdateAccountPage"));
-const SigninPage = lazy(() => import("@pages/auth/SigninPage"));
-const SignupPage = lazy(() => import("@pages/auth/SignupPage"));
-const SignupDonePage = lazy(() => import("@pages/auth/SignupDonePage"));
+const SignInPage = lazy(() => import("@pages/auth/SignInPage"));
+const SignUpPage = lazy(() => import("@pages/auth/SignUpPage"));
+const SignUpDonePage = lazy(() => import("@pages/auth/SignUpDonePage"));
 const FindPasswordPage = lazy(() => import("@pages/auth/FindPasswordPage"));
 const UpdatePasswordPage = lazy(() => import("@pages/auth/UpdatePasswordPage"));
 const NoticePage = lazy(() => import("@pages/notice/NoticePage"));
@@ -68,7 +68,7 @@ const AppRoute = () => {
                         <>
                             {/*로그인 유저 라우트*/}
                             <Route path="home" element={<HomePage/>}/>
-                            <Route path="signup/done" element={<SignupDonePage/>}/>
+                            <Route path="signup/done" element={<SignUpDonePage/>}/>
                             <Route path="account" element={<AccountPage/>}/>
                             <Route path="account/update" element={<UpdateAccountPage/>}/>
                             <Route path="password/reset" element={<FindPasswordPage/>}/>
@@ -127,9 +127,9 @@ const AppRoute = () => {
                         <>
                             {/*비로그인 유저 라우트*/}
                             <Route index element={<Navigate to="/login"/>}/>
-                            <Route path="login" element={<SigninPage/>}/>
-                            <Route path="signup" element={<SignupPage/>}/>
-                            <Route path="signup/done" element={<SignupDonePage/>}/>
+                            <Route path="login" element={<SignInPage/>}/>
+                            <Route path="signup" element={<SignUpPage/>}/>
+                            <Route path="signup/done" element={<SignUpDonePage/>}/>
                             <Route path="password/reset" element={<FindPasswordPage/>}/>
                         </>
                     }

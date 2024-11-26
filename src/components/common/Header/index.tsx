@@ -1,17 +1,25 @@
-import React, {FC} from "react";
+import React, {ReactNode} from "react";
+import HeaderLeft from "@components/common/Header/HeaderLeft.tsx";
+import HeaderCenter from "@components/common/Header/HeaderCenter.tsx";
+import HeaderRight from "@components/common/Header/HeaderRight.tsx";
+import {HeaderWrapper} from "./style.ts";
 
-import {IHeaderProps} from "@/types/componentProps.ts";
 
-import {CenterTextWrapper, Container, LeftChildWrapper, RightChildWrapper} from "./style.ts";
+interface IHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+    children: ReactNode;
+    bgColor?: boolean;
+}
 
-const Header: FC<IHeaderProps> = ({leftChild, centerText, rightChild, type="grid", bgColor=false}) => {
+const HeaderMain = ({children, bgColor = false, ...props}: IHeaderProps) => {
     return (
-        <Container type={type} bgColor={bgColor}>
-            <LeftChildWrapper>{leftChild}</LeftChildWrapper>
-            <CenterTextWrapper>{centerText}</CenterTextWrapper>
-            <RightChildWrapper>{rightChild}</RightChildWrapper>
-        </Container>
+        <HeaderWrapper bgColor={bgColor} {...props}>
+            {children}
+        </HeaderWrapper>
     );
 };
 
-export default React.memo(Header);
+export const Header = Object.assign(HeaderMain, {
+    Left: HeaderLeft,
+    Center: HeaderCenter,
+    Right: HeaderRight,
+});

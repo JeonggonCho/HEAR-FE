@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, JSX, MutableRefObject, ReactNode} from "react";
+import React, {ChangeEvent, FormEvent, JSX, MutableRefObject} from "react";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 import {To} from "react-router-dom";
 import {ITab} from "@/types/tab.ts";
@@ -13,16 +13,6 @@ import {
 } from "@/types/reservation.ts";
 import {IComment} from "@/types/comment.ts";
 import {EducationType, IEducationSettings, ITestAnswer} from "@/types/education.ts";
-
-
-// 헤더(Header) props
-export interface IHeaderProps {
-    leftChild?: ReactNode;
-    centerText?: string;
-    rightChild?: ReactNode;
-    type?: "grid" | "flex";
-    bgColor?: boolean;
-}
 
 
 // 인풋(Input) props
@@ -323,12 +313,6 @@ export interface IPrinterSelectContentProps {
     selectedMachine: string;
     setReservation: React.Dispatch<React.SetStateAction<IPrinterReservation | undefined>>;
     setSelectedMachine: React.Dispatch<React.SetStateAction<string>>;
-}
-
-
-// 뒤로가기 (ArrowBack) props
-export interface IArrowBack {
-    action?: () => void;
 }
 
 

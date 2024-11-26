@@ -15,27 +15,6 @@ export const Container = styled.div`
     }
 `;
 
-export const SettingWrapper = styled.div`
-    margin-right: 4px;
-    width: 28px;
-    height: 28px;
-    overflow: hidden;
-    cursor: pointer;
-    
-    &:hover {
-        svg {
-            fill: ${({theme}) => theme.colors.font.main};
-        }
-    }
-    
-    svg {
-        width: 100%;
-        height: 100%;
-        fill: ${({theme}) => theme.colors.icon.fill};
-        transition: all 0.2s ease-in-out 0s;
-    }
-`;
-
 export const LinkWrapper = styled.div`
     h3 {
         margin: 20px 0 16px 24px;

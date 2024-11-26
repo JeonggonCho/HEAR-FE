@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.div`
+export const ArrowBackWrapper = styled.div`
+    width: fit-content;
     cursor: pointer;
     
     &:hover {

@@ -1,9 +1,9 @@
-import {FC, useCallback, useEffect} from "react";
+import {useCallback, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 
-import Header from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
+import {Header} from "@components/common/Header";
 import Flex from "@components/common/Flex";
 import ProfileCard from "@components/account/ProfileCard";
 import StatusCard from "@components/account/StatusCard";
@@ -12,17 +12,16 @@ import Divider from "@components/common/Divider";
 import HeadTag from "@components/common/HeadTag";
 import DeleteAccount from "@components/account/DeleteAccount";
 import LogoutAccount from "@components/account/LogoutAccount";
+import Button from "@components/common/Button";
 
 import useRequest from "@hooks/useRequest.ts";
-import useAuth from "@hooks/useAuth.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {navCategories} from "@constants/navCategories.ts";
 
-import {Container, LinkWrapper, SettingWrapper} from "./style.ts";
+import {Container, LinkWrapper} from "./style.ts";
 
 import userImg from "@assets/images/assistant.png";
 import machine from "@assets/images/machine.png";
@@ -34,14 +33,12 @@ import notice from "@assets/images/notice.png";
 import test from "@assets/images/test.png";
 
 
-const AccountPage:FC = () => {
+const AccountPage = () => {
     const navigate = useNavigate();
-
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
     const {userInfo, setUserInfo} = useUserInfoStore();
     const {userData, setUserData} = useUserDataStore();
-    const {logout} = useAuth();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
 
     // 유저 정보 조회
@@ -69,38 +66,30 @@ const AccountPage:FC = () => {
         return () => clearTimeout(errorTimer);
     }, [errorText]);
 
-    // 회원탈퇴 요청
-    const unregisterHandler = useCallback(async () => {
-        if (!userInfo) return;
-        try {
-            const response = await sendRequest({
-                url: `/users/${userInfo.userId}`,
-                method: "delete",
-            });
-            if (response.data) {
-                showToast(messageCategories.unregisterDone[lang], "success");
-                logout();
-                navigate("/login", {replace: true});
-            }
-        } catch (err) {
-            console.log("회원탈퇴 요청 중 에러 발생: ", err);
-        } finally {
-            setShowUnregisterConfirmModal(false);
-        }
-    }, [sendRequest, userInfo]);
-
-    const AccountHeaderRight:FC = () => (
-        <SettingWrapper onClick={() => navigate("/setting")}>
-            <ReactSVG src={setting}/>
-        </SettingWrapper>
-    );
-
     return (
         <>
             <Container>
                 <HeadTag title={userInfo?.username || navCategories.account[lang]}/>
 
-                <Header leftChild={<ArrowBack/>} rightChild={<AccountHeaderRight/>} type={"flex"}/>
+                <Header>
+                    <Flex align={"center"} justify={"space-between"} style={{width: "100%"}}>
+                        <Header.Left>
+                            <ArrowBack/>
+                        </Header.Left>
+                        <Header.Right>
+                            <Button
+                                type={"button"}
+                                variant={"text"}
+                                width={"fit"}
+                                color={"third"}
+                                size={"sm"}
+                                onClick={() => navigate("/setting")}
+                            >
+                                <ReactSVG src={setting}/>
+                            </Button>
+                        </Header.Right>
+                    </Flex>
+                </Header>
 
                 <ProfileCard isLoading={isLoading}/>
 
@@ -118,7 +107,6 @@ const AccountPage:FC = () => {
                     </LinkWrapper>
                   </>
                 }
-
                 {(userData?.role === "assistant" || userData?.role === "admin") && (
                     <LinkWrapper>
                         <Link image={reservation} name={buttonCategories.reservationManagement[lang]} to={"/management/reservations"} type={"card"} isLoading={isLoading}/>

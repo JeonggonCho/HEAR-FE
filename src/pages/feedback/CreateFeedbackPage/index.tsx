@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Select from "@components/common/Select";
 import Textarea from "@components/common/Textarea";
@@ -88,6 +88,7 @@ const CreateFeedbackPage:FC = () => {
             <HeadTag title={headerCategories.feedback[lang]}/>
 
             <Header leftChild={<ArrowBack/>} centerText={headerCategories.feedback[lang]}/>
+
             {isLoading ?
                 <LoadingLoop/>
                 :
