@@ -1,20 +1,11 @@
-import {ChangeEvent, FC, useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import {ReactSVG} from "react-svg";
 import { v4 as uuidv4 } from "uuid";
 import {Draggable} from "@hello-pangea/dnd";
-
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import OptionListContent from "@components/management/OptionListContent";
-
-import {IQuestionListItemProps} from "@/types/componentProps.ts";
-import {EducationType, IMultipleChoice, IShortAnswer, ISingleChoice} from "@/types/education.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {placeholderCategories} from "@constants/placeholderCategories.ts";
-import {filterCategories} from "@constants/filterCategories.ts";
-import {inputCategories} from "@constants/inputCategories.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
-
 import {
     Container,
     DragIndicator, ExplanationWrapper,
@@ -23,13 +14,32 @@ import {
     RemoveWrapper,
     TextAnswerWrapper
 } from "./style.ts";
-
+import {EducationType, IMultipleChoice, IShortAnswer, ISingleChoice} from "@/types/education.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
+import {filterCategories} from "@constants/filterCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 import close from "@assets/icons/close.svg";
 import drag from "@assets/icons/drag_line.svg";
 import add from "@assets/icons/add.svg";
 
 
-const QuestionListItem:FC<IQuestionListItemProps> = ({index, removeQuestion, question, setQuestions}) => {
+interface IQuestionListItemProps {
+    index: number;
+    removeQuestion: (questionId: string) => void;
+    question: EducationType;
+    setQuestions: React.Dispatch<React.SetStateAction<EducationType[]>>;
+}
+
+
+const QuestionListItem = (
+    {
+        index,
+        removeQuestion,
+        question,
+        setQuestions
+    }: IQuestionListItemProps
+) => {
     const [questionType, setQuestionType] = useState<"shortAnswer" | "singleChoice" | "multipleChoice">(question.questionType || "shortAnswer");
     const [showExplanation, setShowExplanation] = useState<boolean>(false);
 

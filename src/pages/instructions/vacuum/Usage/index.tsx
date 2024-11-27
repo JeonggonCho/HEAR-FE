@@ -1,12 +1,8 @@
-import {FC, useState} from 'react';
-
+import {useState} from 'react';
 import Image from "@components/common/Image";
-
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {vacuumInstruction} from "@constants/instruction/vacuumInstruction.ts";
-
 import {Container} from "../../instruction.style.ts";
-
+import {vacuumInstruction} from "@constants/instruction/vacuumInstruction.ts";
 import controllers from "@assets/instruction_images/vacuum/vacuum_controllers.jpg";
 import on from "@assets/instruction_images/vacuum/vacuum_on.jpg";
 import heat from "@assets/instruction_images/vacuum/vacuum_heat.jpg";
@@ -26,7 +22,7 @@ import remove from "@assets/instruction_images/vacuum/vacuum_remove.jpg";
 import finish from "@assets/instruction_images/vacuum/vacuum_finish.jpg";
 
 
-const Usage:FC = () => {
+const Usage = () => {
     const [currentImage, setCurrentImage] = useState<number>(0);
 
     const {lang} = useThemeStore();
@@ -50,7 +46,6 @@ const Usage:FC = () => {
         remove,
         finish,
     ];
-
 
     return (
         <Container>

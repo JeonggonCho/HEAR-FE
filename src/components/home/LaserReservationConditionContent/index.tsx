@@ -1,21 +1,24 @@
-import {FC} from "react";
 import {ReactSVG} from "react-svg";
-
 import Chart from "@components/common/Chart";
-
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {cardCategories} from "@constants/cardCategories.ts";
 import useListCollapse from "@hooks/useListCollapse.ts";
-import {ILaserReservationConditionContentProps} from "@/types/componentProps.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
-
 import {Container, ReservationListWrapper, ReservationStatusWrapper, TimeStamp} from "./style.ts";
 import {MoreWrapper} from "@components/management/MachineManageCard/style.ts";
-
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
 import laser from "@assets/images/laser_cut.png";
 import more from "@assets/icons/arrow_down.svg";
+import {ILaserStatus} from "@/types/reservation.ts";
 
-const LaserReservationConditionContent: FC<ILaserReservationConditionContentProps> = ({laserStatus, rate, color}) => {
+
+interface ILaserReservationConditionContentProps {
+    laserStatus: ILaserStatus[];
+    rate: number;
+    color: "primary" | "green" | "danger" | "orange" | "purple";
+}
+
+
+const LaserReservationConditionContent = ({laserStatus, rate, color}: ILaserReservationConditionContentProps) => {
     const {lang} = useThemeStore();
 
     const {maxHeight, isOpen, listRef, handleList} = useListCollapse();

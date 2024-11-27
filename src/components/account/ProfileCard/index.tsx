@@ -1,16 +1,17 @@
-import {FC} from "react";
-
 import CardLoading from "@components/skeleton/CardLoading";
 import ProfileImage from "@components/common/ProfileImage";
-
 import {useUserInfoStore, useUserDataStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {Container, LabNameWrapper, NameEmailWrapper} from "./style.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 
-import {Container, LabNameWrapper, NameEmailWrapper} from "./style.ts";
+
+interface IProfileCardProps {
+    isLoading: boolean;
+}
 
 
-const ProfileCard:FC<{isLoading: boolean}> = ({isLoading}) => {
+const ProfileCard = ({isLoading}: IProfileCardProps) => {
     const {userInfo} = useUserInfoStore();
     const {userData} = useUserDataStore();
     const {lang} = useThemeStore();

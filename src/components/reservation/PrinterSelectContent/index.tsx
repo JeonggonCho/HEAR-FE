@@ -1,21 +1,47 @@
-import {FC} from "react";
+import React from "react";
 import {ReactSVG} from "react-svg";
-
 import Calendar from "@components/common/Calendar";
 import Select from "@components/common/Select";
 import Button from "@components/common/Button";
-
-import {IPrinterSelectContentProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {Container, DateTag, SelectPrinterWrapper} from "./style.ts";
+import {IPrinterReservation} from "@/types/reservation.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
-
-import {Container, DateTag, SelectPrinterWrapper} from "./style.ts";
-
 import dateIcon from "@assets/icons/date.svg";
 
-const PrinterSelectContent:FC<IPrinterSelectContentProps> = (
-    {setModal, onSelectDate, selectedDate, selectMachineMode, setSelectMachineMode, selectedMachine, setSelectedMachine, setReservation}
+
+interface IPrinterSelectContentProps {
+    setModal: () => void;
+    onSelectDate: (date: string) => void;
+    selectedDate: string | undefined;
+    selectMachineMode: boolean;
+    setSelectMachineMode: React.Dispatch<React.SetStateAction<boolean>>;
+    selectedMachine: string;
+    setReservation: React.Dispatch<React.SetStateAction<IPrinterReservation | undefined>>;
+    setSelectedMachine: React.Dispatch<React.SetStateAction<string>>;
+}
+
+// 더미
+const machineType = [
+    {label: "1호기", value: "1", id: "radio-1"},
+    {label: "2호기", value: "2", id: "radio-2"},
+    {label: "2호기", value: "2", id: "radio-2"},
+    {label: "2호기", value: "2", id: "radio-2"},
+];
+
+
+const PrinterSelectContent = (
+    {
+        setModal,
+        onSelectDate,
+        selectedDate,
+        selectMachineMode,
+        setSelectMachineMode,
+        selectedMachine,
+        setSelectedMachine,
+        setReservation
+    }: IPrinterSelectContentProps
 ) => {
     const {lang} = useThemeStore();
 
@@ -62,11 +88,3 @@ const PrinterSelectContent:FC<IPrinterSelectContentProps> = (
 };
 
 export default PrinterSelectContent;
-
-
-export const machineType = [
-    {label: "1호기", value: "1", id: "radio-1"},
-    {label: "2호기", value: "2", id: "radio-2"},
-    {label: "2호기", value: "2", id: "radio-2"},
-    {label: "2호기", value: "2", id: "radio-2"},
-];

@@ -1,20 +1,17 @@
-import React, {FC, useEffect, useState} from "react";
-
-import Header from "@components/common/Header";
+import React, {useEffect, useState} from "react";
+import {Header} from "@components/common/Header";
+import HeadTag from "@components/common/HeadTag";
+import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
-import HeadTag from "@components/common/HeadTag";
-
-import {ITab} from "@/types/tab.ts";
-import {machineInstructionTabCategories} from "@constants/machineCategories.ts";
 import {machineName} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {MachineImgWrapper, Container} from "./style.ts";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
-
+import {headerCenter} from "@components/common/Header/style.ts";
+import {ITab} from "@/types/tab.ts";
+import {machineInstructionTabCategories} from "@constants/machineCategories.ts";
 import laser from "@assets/images/laser_cut.png";
-
 import Introduction from "../Introduction";
 import Usage from "../Usage";
 import After from "../After";
@@ -27,7 +24,8 @@ const LaserImage = React.memo(() => (
     </MachineImgWrapper>
 ));
 
-const InstructionLaser:FC = () => {
+
+const InstructionLaser = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     const {lang} = useThemeStore();
@@ -47,7 +45,17 @@ const InstructionLaser:FC = () => {
         <Container>
             <HeadTag title={machineName.laser[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={machineName.laser[lang]}/>
+            <Header>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{machineName.laser[lang]}</h2>
+                    </Header.Center>
+                </Grid>
+            </Header>
+
             <LaserImage/>
             <Tab type={"button"} tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
             <Content>{tabs[activeIndex].content}</Content>

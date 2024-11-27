@@ -2,7 +2,7 @@ import {Header} from "@components/common/Header";
 import Link from "@components/common/Link";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
-import SignInForm from "src/components/account/SignInForm";
+import SignInForm from "@components/account/SignInForm";
 import ArrowBack from "@components/common/ArrowBack";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {Container, LinkWrapper} from "./style.ts";

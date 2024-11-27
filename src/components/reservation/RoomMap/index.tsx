@@ -1,17 +1,19 @@
-import {FC} from "react";
 import {ReactSVG} from "react-svg";
-
-import {IRoomMapProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {CncWrapper, Container, LaserWrapper, MapWrapper, PrinterWrapper, VacuumWrapper} from "./style.ts";
 import {machineName} from "@constants/machineCategories.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
-
-import {CncWrapper, Container, LaserWrapper, MapWrapper, PrinterWrapper, VacuumWrapper} from "./style.ts";
-
 import close from "@assets/icons/close.svg";
+import React from "react";
 
 
-const RoomMap:FC<IRoomMapProps> = ({machine, setModal}) => {
+interface IRoomMapProps {
+    machine : "cnc" | "laser" | "printer" | "vacuum";
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+
+const RoomMap = ({machine, setModal}: IRoomMapProps) => {
     const {lang} = useThemeStore();
 
     return (

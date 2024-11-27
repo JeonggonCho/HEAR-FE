@@ -1,16 +1,23 @@
-import {FC} from "react";
-
 import Link from "@components/common/Link";
-
-
-import {machineReservationCategories} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {Container} from "./style.ts";
+import {machineReservationCategories} from "@constants/machineCategories.ts";
 import {machineName} from "@constants/machineCategories.ts";
 import {MachineNameType} from "@/types/machine.ts";
 
-import {Container} from "./style.ts";
 
-const ReservationCard:FC<{laser: boolean, printer: boolean, heat: boolean, saw: boolean, vacuum: boolean, cnc: boolean, isLoading: boolean}> = ({laser, printer, heat, saw, vacuum, cnc, isLoading}) => {
+interface IReservationCardProps {
+    laser: boolean;
+    printer: boolean;
+    heat: boolean;
+    saw: boolean;
+    vacuum: boolean;
+    cnc: boolean;
+    isLoading: boolean;
+}
+
+
+const ReservationCard = ({laser, printer, heat, saw, vacuum, cnc, isLoading}: IReservationCardProps) => {
     const {lang} = useThemeStore();
 
     const machineStatus = {laser, printer, heat, saw, vacuum, cnc};

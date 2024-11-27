@@ -1,11 +1,12 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
-import Header from "@components/common/Header";
-import ArrowBack from "@components/common/ArrowBack";
+import {Header} from "@components/common/Header";
 import HeadTag from "@components/common/HeadTag";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Empty from "@components/common/Empty";
 import ReservationListItem from "@components/reservation/ReservationListItem";
+import Grid from "@components/common/Grid";
+import ArrowBack from "@components/common/ArrowBack";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IReservation} from "@/types/componentProps.ts";
@@ -17,9 +18,10 @@ import {machineName} from "@constants/machineCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
 import {HistoryListItemWrapper, UsageControlWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 
-const MyUsagePage:FC = () => {
+const MyUsagePage = () => {
     const [history, setHistory] = useState<IReservation[]>([]);
     const [startDate, setStartDate] = useState(); // Date range picker 적용
     const [endDate, setEndDate] = useState();
@@ -58,7 +60,16 @@ const MyUsagePage:FC = () => {
         <>
             <HeadTag title={headerCategories.myUsage[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.myUsage[lang]}/>
+            <Header>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{headerCategories.myUsage[lang]}</h2>
+                    </Header.Center>
+                </Grid>
+            </Header>
 
             <UsageControlWrapper>
                 {/*날짜 범위 필터링*/}

@@ -1,12 +1,8 @@
-import {FC, useState} from "react";
-
+import {useState} from "react";
 import Image from "@components/common/Image";
-
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {printerInstruction} from "@constants/instruction/printerInstruction.ts";
-
 import {Container} from "../../instruction.style.ts";
-
+import {printerInstruction} from "@constants/instruction/printerInstruction.ts";
 import on from "@assets/instruction_images/printer/3d_printer_on.jpg";
 import thermal from "@assets/instruction_images/printer/3d_printer_thermal.jpg";
 import ingredient from "@assets/instruction_images/printer/3d_printer_indredient.jpg";
@@ -28,7 +24,7 @@ import sharp from "@assets/instruction_images/printer/3d_printer_sharp.jpg";
 import touch from "@assets/instruction_images/printer/3d_printer_touch.jpg";
 
 
-const Usage: FC = () => {
+const Usage = () => {
     const [currentImage, setCurrentImage] = useState<number>(0);
 
     const {lang} = useThemeStore();
@@ -54,7 +50,6 @@ const Usage: FC = () => {
         sharp,
         touch,
     ];
-
 
     return (
         <Container>

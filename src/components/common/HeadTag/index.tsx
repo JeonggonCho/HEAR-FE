@@ -1,7 +1,11 @@
-import {FC} from "react";
 import {Helmet} from "react-helmet-async";
 
-const HeadTag:FC<{title: string}> = ({title}) => {
+interface IHeadTagProps {
+    title: string;
+}
+
+
+const HeadTag = ({title}: IHeadTagProps) => {
     return (
         <Helmet>
             <title>{title}</title>

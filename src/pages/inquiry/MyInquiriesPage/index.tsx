@@ -1,11 +1,12 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import InquiryFeedbackListItem from "@components/board/InquiryFeedbackListItem";
 import Empty from "@components/common/Empty";
+import Grid from "@components/common/Grid";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IInquiryProps} from "@/types/componentProps.ts";
@@ -15,9 +16,10 @@ import {headerCategories} from "@constants/headerCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
 import {InquiryListItemWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 
-const MyInquiriesPage:FC = () => {
+const MyInquiriesPage = () => {
     const [inquiries, setInquiries] = useState<IInquiryProps[]>([]);
 
     const {lang} = useThemeStore();
@@ -53,7 +55,16 @@ const MyInquiriesPage:FC = () => {
         <>
             <HeadTag title={headerCategories.myInquiries[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.myInquiries[lang]}/>
+            <Header>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{headerCategories.myInquiries[lang]}</h2>
+                    </Header.Center>
+                </Grid>
+            </Header>
 
             {isLoading ?
                 <LoadingLoop/>

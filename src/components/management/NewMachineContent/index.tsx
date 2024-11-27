@@ -1,27 +1,38 @@
-import {FC, useCallback, useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
-
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
-import {INewMachineContentProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
+import {Container} from "./style.ts";
+import {ILasers, IPrinters} from "@/types/machine.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
-
-import {Container} from "./style.ts";
-
 import close from "@assets/icons/close.svg";
 
 
-const NewMachineContent:FC<INewMachineContentProps> = ({title, setModal, machine, setMachines}) => {
+interface INewMachineContentProps {
+    title: string;
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
+    machine: "laser" | "printer";
+    setMachines: React.Dispatch<React.SetStateAction<ILasers[]>> | React.Dispatch<React.SetStateAction<IPrinters[]>>
+}
+
+
+const NewMachineContent = (
+    {
+        title,
+        setModal,
+        machine,
+        setMachines
+    }: INewMachineContentProps
+) => {
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
     const {sendRequest, errorText, clearError} = useRequest();

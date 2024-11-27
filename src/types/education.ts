@@ -44,7 +44,7 @@ export interface ITestAnswer {
     myAnswer: string | string[];
 }
 
-export type QuestionResultType = {
+export interface QuestionResultType {
     question: string;
     explanation?: string;
     questionType: "shortAnswer" | "singleChoice" | "multipleChoice";

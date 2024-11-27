@@ -1,11 +1,14 @@
-import {FC} from "react";
-
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {Container} from "./style.ts";
 
 
-const ProgressBar:FC<{total: number, current: number}> = ({total, current}) => {
+interface IProgressBarProps {
+    total: number;
+    current: number;
+}
+
+
+const ProgressBar = ({total, current}: IProgressBarProps) => {
     const {isDarkMode} = useThemeStore();
 
     return (

@@ -1,16 +1,17 @@
-import {ChangeEvent, FC, useEffect} from "react";
+import {ChangeEvent, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Input from "@components/common/Input";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
+import Grid from "@components/common/Grid";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
@@ -23,9 +24,10 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 
-const CreateNoticePage:FC = () => {
+const CreateNoticePage = () => {
     const navigate = useNavigate();
 
     const {lang} = useThemeStore();
@@ -76,7 +78,17 @@ const CreateNoticePage:FC = () => {
         <Container>
             <HeadTag title={headerCategories.createNotice[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.createNotice[lang]}/>
+            <Header>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{headerCategories.createNotice[lang]}</h2>
+                    </Header.Center>
+                </Grid>
+            </Header>
+
             {isLoading ?
                 <LoadingLoop/>
                 :
@@ -91,7 +103,6 @@ const CreateNoticePage:FC = () => {
                             register={register}
                             errorMessage={errors.title?.message}
                         />
-
                         <Textarea
                             register={register}
                             name={"content"}
@@ -100,8 +111,15 @@ const CreateNoticePage:FC = () => {
                             countOfText={countOfText}
                             changeTextareaHandler={changeTextareaHandler}
                         />
-
-                        <Button type={"submit"} content={buttonCategories.createNotice[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button
+                            type={"submit"}
+                            variant={"filled"}
+                            width={"full"}
+                            color={"primary"}
+                            size={"lg"}
+                        >
+                            {buttonCategories.createNotice[lang]}
+                        </Button>
                     </form>
                 </>
             }

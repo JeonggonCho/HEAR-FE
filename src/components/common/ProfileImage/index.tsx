@@ -1,12 +1,15 @@
-import {FC} from "react";
 import {ReactSVG} from "react-svg";
-
 import {ProfileImageWrapper} from "./style.ts";
-
 import noProfile from "@assets/icons/no_profile.svg";
 
 
-const ProfileImage:FC<{image?: string, size: number}> = ({image, size=28}) => {
+interface IProfileImageProps {
+    image?: string;
+    size: number;
+}
+
+
+const ProfileImage = ({image, size = 28}: IProfileImageProps) => {
     return (
         <ProfileImageWrapper size={size}>
             {image ?

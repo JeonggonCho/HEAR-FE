@@ -1,17 +1,13 @@
-import {FC, useState} from "react";
-
+import {useState} from "react";
 import Image from "@components/common/Image";
-
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {laserInstruction} from "@constants/instruction/laserInstruction.ts";
-
 import {Container} from "../../instruction.style.ts";
-
+import {laserInstruction} from "@constants/instruction/laserInstruction.ts";
 import off from "@assets/instruction_images/laser/laser_on.jpg";
 import fan from "@assets/instruction_images/laser/laser_fan.jpg";
 
 
-const After:FC = () => {
+const After = () => {
     const [currentImage, setCurrentImage] = useState<number>(0);
 
     const {lang} = useThemeStore();

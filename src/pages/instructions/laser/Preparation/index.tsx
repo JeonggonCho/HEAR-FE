@@ -1,12 +1,8 @@
-import {FC, useState} from "react";
-
+import {useState} from "react";
 import Image from "@components/common/Image";
-
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {laserInstruction} from "@constants/instruction/laserInstruction.ts";
-
 import {Container} from "../../instruction.style.ts";
-
+import {laserInstruction} from "@constants/instruction/laserInstruction.ts";
 import cadLine from "@assets/instruction_images/laser/cad_line.jpg";
 import cadLayer from "@assets/instruction_images/laser/cad_layer.jpeg";
 import cadDxf from "@assets/instruction_images/laser/cad_dxf.jpeg";
@@ -15,13 +11,12 @@ import rhinoLayer from "@assets/instruction_images/laser/rhino_layer.jpeg";
 import rhinoDxf from "@assets/instruction_images/laser/rhino_dxf.jpeg";
 
 
-const Preparation:FC = () => {
+const Preparation = () => {
     const [currentImage, setCurrentImage] = useState<number>(0);
 
     const images = [cadLine, cadLayer, cadDxf, rhinoLine, rhinoLayer, rhinoDxf];
 
     const {lang} = useThemeStore();
-
 
     return (
         <>

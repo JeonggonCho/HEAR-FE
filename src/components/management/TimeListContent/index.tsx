@@ -1,28 +1,31 @@
-import {FC, useEffect} from "react";
+import React, {useEffect} from "react";
 import {useForm} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {v4 as uuidv4} from "uuid";
 import {DragDropContext, Droppable} from '@hello-pangea/dnd';
-
 import TimeListItem from "@components/management/TimeListItem";
 import Button from "@components/common/Button";
 import InputMessage from "@components/common/InputMessage";
-
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
-import {ITimeListContentProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
+import {Container, TimeSelectsWrapper,} from "./style.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
+import {ILaserTimes} from "@/types/machine.ts";
 
-import {Container, TimeSelectsWrapper,} from "./style.ts";
+
+interface ITimeListContentProps {
+    timeList: ILaserTimes[];
+    setTimeList?: React.Dispatch<React.SetStateAction<ILaserTimes[]>>;
+}
 
 
-const TimeListContent:FC<ITimeListContentProps> = ({timeList, setTimeList}) => {
+const TimeListContent = ({timeList, setTimeList}: ITimeListContentProps) => {
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
     const {errorText, sendRequest, clearError} = useRequest();

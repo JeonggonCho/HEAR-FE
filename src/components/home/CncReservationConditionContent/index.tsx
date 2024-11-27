@@ -1,14 +1,10 @@
-import {FC} from "react";
-
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {cardCategories} from "@constants/cardCategories.ts";
-
 import {Container} from "./style.ts";
-
+import {cardCategories} from "@constants/cardCategories.ts";
 import cnc from "@assets/images/cnc.png";
 
 
-const CncReservationConditionContent: FC = () => {
+const CncReservationConditionContent = () => {
     const {lang} = useThemeStore();
 
     return (

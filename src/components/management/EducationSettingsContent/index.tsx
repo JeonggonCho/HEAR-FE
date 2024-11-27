@@ -1,27 +1,20 @@
-import {ChangeEvent, FC, useCallback, useEffect, useState} from "react";
+import React, {ChangeEvent, useCallback, useEffect, useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-
 import Input from "@components/common/Input";
-import Modal from "@components/common/Modal";
+import {Modal} from "@components/common/Modal";
 import Toggle from "@components/common/Toggle";
 import Calendar from "@components/common/Calendar";
 import Button from "@components/common/Button";
 import InputMessage from "@components/common/InputMessage";
-
 import {getFormattedDate} from "@util/calculateDate.ts";
 import useToggle from "@hooks/useToggle.ts";
 import useRequest from "@hooks/useRequest.ts";
 import EducationSchemaProvider from "@schemata/EducationSchemaProvider.ts";
-import {IEducationSettingsContentProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
-import {inputCategories} from "@constants/inputCategories.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
-
 import {
     Container,
     CutOffPointSettingWrapper,
@@ -29,12 +22,33 @@ import {
     DateSettingWrapper,
     StatusSettingWrapper
 } from "./style.ts";
-
+import {IEducationSettings} from "@/types/education.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 import erase from "@assets/icons/erase.svg";
 import resetIcon from "@assets/icons/reset.svg";
 
 
-const EducationSettingsContent:FC<IEducationSettingsContentProps> = ({settings, setSettings, initialDateSetting, setInitialDateSetting, initialCutOffPoint, setInitialCutOffPoint}) => {
+interface IEducationSettingsContentProps {
+    settings: IEducationSettings;
+    setSettings: React.Dispatch<React.SetStateAction<IEducationSettings>>;
+    initialDateSetting: {startDate: string | undefined, endDate: string | undefined};
+    setInitialDateSetting: React.Dispatch<React.SetStateAction<{startDate: string | undefined, endDate: string | undefined}>>;
+    initialCutOffPoint: {cutOffPoint: string};
+    setInitialCutOffPoint: React.Dispatch<React.SetStateAction<{cutOffPoint: string}>>;
+}
+
+
+const EducationSettingsContent = (
+    {
+        settings,
+        setSettings,
+        initialDateSetting,
+        setInitialDateSetting,
+        initialCutOffPoint,
+        setInitialCutOffPoint
+    }: IEducationSettingsContentProps) => {
     const [showStartDateCalendarModal, setShowStartDateCalendarModal] = useState<boolean>(false);
     const [showEndDateCalendarModal, setShowEndDateCalendarModal] = useState<boolean>(false);
     const [isDateModified, setIsDateModified] = useState<boolean>(false);
@@ -177,9 +191,11 @@ const EducationSettingsContent:FC<IEducationSettingsContentProps> = ({settings, 
                         <div>
                             <Button
                                 type={"button"}
-                                content={<div style={{display: "flex", alignItems: "center", gap: "4px"}}>
-                                    <span>{buttonCategories.reset[lang]}</span> <ReactSVG src={resetIcon}/>
-                                </div>}
+                                content={
+                                    <div style={{display: "flex", alignItems: "center", gap: "4px"}}>
+                                        <span>{buttonCategories.reset[lang]}</span> <ReactSVG src={resetIcon}/>
+                                    </div>
+                                }
                                 width={"fit"}
                                 color={"second"}
                                 scale={"small"}
@@ -188,9 +204,11 @@ const EducationSettingsContent:FC<IEducationSettingsContentProps> = ({settings, 
                             />
                             <Button
                                 type={"button"}
-                                content={<div style={{display: "flex", alignItems: "center", gap: "4px"}}>
-                                    <span>{buttonCategories.erase[lang]}</span> <ReactSVG src={erase}/>
-                                </div>}
+                                content={
+                                    <div style={{display: "flex", alignItems: "center", gap: "4px"}}>
+                                        <span>{buttonCategories.erase[lang]}</span> <ReactSVG src={erase}/>
+                                    </div>
+                                }
                                 width={"fit"}
                                 color={"second"}
                                 scale={"small"}

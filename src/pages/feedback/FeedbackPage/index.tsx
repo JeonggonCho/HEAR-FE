@@ -1,6 +1,6 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import Tab from "@components/common/Tab";
 import InquiryFeedbackListItem from "@components/board/InquiryFeedbackListItem";
 import FloatingButton from "@components/common/FloatingButton";
@@ -18,13 +18,13 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import {navCategories} from "@constants/navCategories.ts";
 
 import {Container} from "./style.ts";
-import {HeaderWrapper} from "@pages/notice/NoticePage/style.ts";
+import {LogoAndTitleWrapper} from "@components/common/Header/style.ts";
 
 import notice from "@assets/images/notice.png";
 import write from "@assets/icons/write.svg";
 
 
-const FeedbackPage:FC = () => {
+const FeedbackPage = () => {
     const [feedback, setFeedback] = useState<IFeedbackProps[]>([]);
 
     const {lang} = useThemeStore();
@@ -64,15 +64,14 @@ const FeedbackPage:FC = () => {
         <Container>
             <HeadTag title={buttonCategories.feedback[lang]}/>
 
-            <Header leftChild={
-                <HeaderWrapper>
-                    <img src={notice} alt="피드백"/>
-                    <h2>{navCategories.board[lang]}</h2>
-                </HeaderWrapper>
-            }
-                    type={"flex"}
-                    bgColor={true}
-            />
+            <Header bgColor={true}>
+                <Header.Left>
+                    <LogoAndTitleWrapper>
+                        <img src={notice} alt="피드백"/>
+                        <h2>{navCategories.board[lang]}</h2>
+                    </LogoAndTitleWrapper>
+                </Header.Left>
+            </Header>
 
             <Tab type={"line"} tabs={tabs}/>
 

@@ -1,12 +1,24 @@
-import {FC, useMemo} from "react";
-
+import {useMemo} from "react";
 import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
-import {IChatBubbleProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {Container} from "./style.ts";
 
-const ChatBubble:FC<IChatBubbleProps> = ({text, isMine, showProfile, profile}) => {
+
+interface IChatBubbleProps {
+    text: string;
+    isMine: boolean;
+    showProfile: boolean;
+    profile: string;
+}
+
+
+const ChatBubble = (
+    {
+        text,
+        isMine,
+        showProfile,
+        profile
+    }: IChatBubbleProps) => {
     const memoizedText = useMemo(() => generateLinksAndLineBreaks(text), [text]);
 
     const {isDarkMode} = useThemeStore();

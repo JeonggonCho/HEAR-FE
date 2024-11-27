@@ -1,16 +1,11 @@
-import {FC} from "react";
-
 import Image from "@components/common/Image";
-
-import {heatInstruction} from "@constants/instruction/heatInstruction.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {Container} from "../../instruction.style.ts";
-
+import {heatInstruction} from "@constants/instruction/heatInstruction.ts";
 import heatMachine from "@assets/instruction_images/heat/heat_machine.jpg";
 
 
-const Introduction:FC = () => {
+const Introduction = () => {
     const {lang} = useThemeStore();
 
     const images= [heatMachine];

@@ -40,3 +40,18 @@ export const headerRight = css`
     justify-content: end;
     text-align: end;
 `;
+
+export const LogoAndTitleWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    h2 {
+        font-weight: 500;
+        font-size: 1.25rem;
+    }
+    
+    img {
+        width: 36px;
+    }
+`;

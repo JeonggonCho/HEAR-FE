@@ -1,8 +1,8 @@
-import React, {FC, FormEvent, useCallback, useEffect, useMemo, useState} from "react";
+import React, {FormEvent, useCallback, useEffect, useMemo, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Dropdown from "@components/common/Dropdown";
@@ -11,6 +11,7 @@ import Button from "@components/common/Button";
 import {Modal} from "@components/common/Modal";
 import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import Comments from "@components/board/Comments";
+import Grid from "@components/common/Grid";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
@@ -26,6 +27,7 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
 import {Container, DateAndCountsWrapper, NoticeContent, NoticeInfoWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 import deleteIcon from "@assets/icons/delete.svg";
 import editIcon from "@assets/icons/edit.svg";
@@ -33,7 +35,7 @@ import views from "@assets/icons/visible.svg";
 import chat from "@assets/icons/chat.svg";
 
 
-const NoticeDetailPage:FC = () => {
+const NoticeDetailPage = () => {
     const [notice, setNotice] = useState<INotice>();
     const [comments, setComments] = useState<IComment[]>([]);
     const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
@@ -168,7 +170,17 @@ const NoticeDetailPage:FC = () => {
             <Container>
                 <HeadTag title={notice?.title || headerCategories.noticeDetail[lang]}/>
 
-                <Header leftChild={<ArrowBack/>} centerText={headerCategories.noticeDetail[lang]}/>
+                <Header>
+                    <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                        <Header.Left>
+                            <ArrowBack/>
+                        </Header.Left>
+                        <Header.Center>
+                            <h2 css={headerCenter}>{headerCategories.noticeDetail[lang]}</h2>
+                        </Header.Center>
+                    </Grid>
+                </Header>
+
                 {!isLoading && notice ?
                     <>
                         {/*공지 정보 부분*/}

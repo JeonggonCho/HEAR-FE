@@ -1,35 +1,49 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import {Modal} from "@components/common/Modal";
 import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import ProfileImage from "@components/common/ProfileImage";
-
 import useRequest from "@hooks/useRequest.ts";
 import useAuth from "@hooks/useAuth.ts";
 import WarningSchemaProvider from "@schemata/WarningSchemaProvider.ts";
-import {IUserInfoContentProps} from "@/types/componentProps.ts";
-import {IUserInfo} from "@/types/user.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
+import {Buttons, CloseButton, Container, FieldWrapper, PassTag, PassWrapper, WarningWrapper} from "./style.ts";
+import {IUserInfo} from "@/types/user.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
-
-import {Buttons, CloseButton, Container, FieldWrapper, PassTag, PassWrapper, WarningWrapper} from "./style.ts";
-
 import close from "@assets/icons/close.svg";
 
 
-const UserInfoCard:FC<IUserInfoContentProps> = ({userId, setModal, onUserInfoUpdate, userList, setUserList, setShowUserInfoModal}) => {
+interface IUserInfoContentProps {
+    userId: string;
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
+    onUserInfoUpdate?: (updatedUser: IUserInfo) => void;
+    userList: IUserInfo[];
+    setUserList: React.Dispatch<React.SetStateAction<IUserInfo[]>>;
+    setShowUserInfoModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+
+const UserInfoCard = (
+    {
+        userId,
+        setModal,
+        onUserInfoUpdate,
+        userList,
+        setUserList,
+        setShowUserInfoModal
+    }: IUserInfoContentProps
+) => {
     const [user, setUser] = useState<IUserInfo>();
     const [showWarning, setShowWarning] = useState<boolean>(false);
     const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState<boolean>(false);

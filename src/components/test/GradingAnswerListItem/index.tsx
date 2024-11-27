@@ -1,12 +1,6 @@
-import {FC} from "react";
 import {ReactSVG} from "react-svg";
-
 import useListCollapse from "@hooks/useListCollapse.ts";
-import {QuestionResultType} from "@/types/education.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {cardCategories} from "@constants/cardCategories.ts";
-import {inputCategories} from "@constants/inputCategories.ts";
-
 import {
     AnswersWrapper,
     Container,
@@ -14,14 +8,27 @@ import {
     OptionListItemWrapper,
     QuestionWrapper, ShortAnswer, ShortAnswerWrapper, SolutionWrapper,
 } from "./style.ts";
-
+import {QuestionResultType} from "@/types/education.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
 import more from "@assets/icons/arrow_down.svg";
 import check from "@assets/icons/check.svg";
 import circle from "@assets/icons/circle.svg";
 import close from  "@assets/icons/close.svg";
 
 
-const GradingAnswerListItem:FC<QuestionResultType & {index:number}> = ({index, question, explanation, questionType, options, answer, myAnswer, isCorrect}) => {
+const GradingAnswerListItem = (
+    {
+        index,
+        question,
+        explanation,
+        questionType,
+        options,
+        answer,
+        myAnswer,
+        isCorrect
+    }: QuestionResultType & {index:number}
+) => {
     const {lang} = useThemeStore();
     const {isOpen, listRef, maxHeight, handleList} = useListCollapse();
 

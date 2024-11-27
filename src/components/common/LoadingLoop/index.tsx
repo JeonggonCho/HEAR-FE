@@ -1,8 +1,7 @@
-import {FC} from "react";
-
 import {Container, Ring} from "./style.ts";
 
-const LoadingLoop:FC = () => {
+
+const LoadingLoop = () => {
     return (
         <Container>
             <Ring/>

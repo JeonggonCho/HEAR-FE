@@ -1,12 +1,17 @@
-import {FC} from 'react';
+import {To} from "react-router-dom";
 import {ReactSVG} from "react-svg";
-
-import {IFloatingButtonProps} from "@/types/componentProps.ts";
-
 import {LinkWrapper, ButtonWrapper} from "./style.ts";
 
 
-const FloatingButton:FC<IFloatingButtonProps> = ({type, to, action, icon}) => {
+interface IFloatingButtonProps {
+    type: "link" | "button";
+    to?: To;
+    action?: () => void;
+    icon: string;
+}
+
+
+const FloatingButton = ({type, to, action, icon}: IFloatingButtonProps) => {
     return (
         <>
             {type === "link" && to ?

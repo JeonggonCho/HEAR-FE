@@ -1,11 +1,11 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Select from "@components/common/Select";
 import HeadTag from "@components/common/HeadTag";
@@ -17,6 +17,7 @@ import TestListItem from "@components/test/TestListItem";
 import Empty from "@components/common/Empty";
 import Input from "@components/common/Input";
 import ConfirmModal from "@components/common/Modal/ConfirmModal.tsx";
+import Grid from "@components/common/Grid";
 
 import useRequest from "@hooks/useRequest.ts";
 import useScrollbarSize from "@hooks/useScrollbarSize.ts";
@@ -42,12 +43,13 @@ import {
     SideMenuBtnWrapper, SideMenuQuestionsWrapper,
     SideMenuQuestionWrapper, YearAndStudioWrapper
 } from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 import {confirmModalHeader, confirmModalSubMessage} from "@components/common/ConfirmModal/style.ts";
 
 import menu from "@assets/icons/menu.svg";
 
 
-const TestStartPage:FC = () => {
+const TestStartPage = () => {
     const [questions, setQuestions] = useState<EducationType[]>([]);
     const [currentQuestion, setCurrentQuestion] = useState<number>(0);
     const [testAnswers, setTestAnswers] = useState<ITestAnswer[]>([]);
@@ -324,15 +326,21 @@ const TestStartPage:FC = () => {
             <Container>
             <HeadTag title={navCategories.test[lang]}/>
 
-                <Header
-                    leftChild={<ArrowBack/>}
-                    centerText={headerCategories.test[lang]}
-                    rightChild={
-                        <SideMenuBtnWrapper onClick={() => setShowSideMenu(true)}>
-                            <ReactSVG src={menu}/>
-                        </SideMenuBtnWrapper>
-                    }
-                />
+                <Header>
+                    <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                        <Header.Left>
+                            <ArrowBack/>
+                        </Header.Left>
+                        <Header.Center>
+                            <h2 css={headerCenter}>{headerCategories.test[lang]}</h2>
+                        </Header.Center>
+                        <Header.Right>
+                            <SideMenuBtnWrapper onClick={() => setShowSideMenu(true)}>
+                                <ReactSVG src={menu}/>
+                            </SideMenuBtnWrapper>
+                        </Header.Right>
+                    </Grid>
+                </Header>
 
                 {isLoading ?
                     <LoadingLoop/>
@@ -345,6 +353,7 @@ const TestStartPage:FC = () => {
                                         <span>{`${currentQuestion + 1} / ${questions.length}`}</span>
                                         <div>
                                             <Button
+                                                type={"button"}
                                                 variant={"filled"}
                                                 width={"fit"}
                                                 color={"second"}
@@ -354,6 +363,7 @@ const TestStartPage:FC = () => {
                                                 {buttonCategories.reset[lang]}
                                             </Button>
                                             <Button
+                                                type={"button"}
                                                 variant={"filled"}
                                                 width={"fit"}
                                                 color={"primary"}
@@ -390,6 +400,7 @@ const TestStartPage:FC = () => {
 
                                 <BtnsWrapper>
                                     <Button
+                                        type={"button"}
                                         variant={"filled"}
                                         width={"full"}
                                         color={"second"}
@@ -400,6 +411,7 @@ const TestStartPage:FC = () => {
                                         {buttonCategories.previous[lang]}
                                     </Button>
                                     <Button
+                                        type={"button"}
                                         variant={"filled"}
                                         width={"full"}
                                         color={"second"}
@@ -434,6 +446,7 @@ const TestStartPage:FC = () => {
                 subMessage={<p css={confirmModalSubMessage}>{messageCategories.warningSubmit[lang]}</p>}
                 leftBtn={
                     <Button
+                        type={"button"}
                         variant={"filled"}
                         color={"third"}
                         size={"md"}
@@ -451,6 +464,7 @@ const TestStartPage:FC = () => {
                 }
                 rightBtn={
                     <Button
+                        type={"submit"}
                         variant={"filled"}
                         size={"md"}
                         color={"approval"}
@@ -492,6 +506,7 @@ const TestStartPage:FC = () => {
                 subMessage={<p css={confirmModalSubMessage}>{messageCategories.warningEraseAnswers[lang]}</p>}
                 leftBtn={
                     <Button
+                        type={"button"}
                         variant={"filled"}
                         width={"full"}
                         color={"third"}
@@ -503,6 +518,7 @@ const TestStartPage:FC = () => {
                 }
                 rightBtn={
                     <Button
+                        type={"button"}
                         variant={"filled"}
                         width={"full"}
                         color={"danger"}

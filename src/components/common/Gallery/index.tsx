@@ -1,9 +1,6 @@
-import React, {FC, useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import ReactDOM from "react-dom";
 import {ReactSVG} from "react-svg";
-
-import {IGalleryProps} from "@/types/componentProps.ts";
-
 import {
     TopWrapper,
     Container,
@@ -12,14 +9,28 @@ import {
     ZoomedImage,
     BtnsWrapper, ZoomButtonWrapper, ResetButtonWrapper
 } from "./style.ts";
-
 import close from "@assets/icons/close.svg";
 import zoomIn from "@assets/icons/add.svg";
 import zoomOut from "@assets/icons/remove.svg";
 import reset from "@assets/icons/reset.svg";
 
 
-const Gallery:FC<IGalleryProps> = ({images, currentImage, setGallery, setCurrentImage}) => {
+interface IGalleryProps {
+    images: string[];
+    setGallery: React.Dispatch<React.SetStateAction<boolean>>;
+    currentImage?: number;
+    setCurrentImage?: React.Dispatch<React.SetStateAction<number>>;
+}
+
+
+const Gallery = (
+    {
+        images,
+        currentImage,
+        setGallery,
+        setCurrentImage
+    }: IGalleryProps
+) => {
     const [zoomRate, setZoomRate] = useState<number>(1);
     const [isDragging, setIsDragging] = useState<boolean>(false);
     const [dragPosition, setDragPosition] = useState({x:0, y:0});

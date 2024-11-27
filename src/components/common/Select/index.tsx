@@ -1,11 +1,8 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {ReactSVG} from "react-svg";
-
+import {UseFormRegister} from "react-hook-form";
 import InputMessage from "@components/common/InputMessage";
-
-import {ISelectProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {
     CheckboxListWrapper,
     CheckboxWrapper,
@@ -14,10 +11,37 @@ import {
     RadioListWrapper,
     RadioWrapper
 } from "./style.ts";
-
 import check from "@assets/icons/check.svg";
 
-const Select:FC<ISelectProps> = ({label, categories, register, name, errorMessage, type="radio", onSelectChange, values=[]}) => {
+
+interface ISelectProps {
+    register?: UseFormRegister<any>;
+    name: string;
+    errorMessage?: string;
+    label?: string;
+    categories: {
+        label: string;
+        value: any;
+        id: string;
+        status?: boolean;
+    }[];
+    type: "radio" | "checkbox";
+    onSelectChange?: (selectedValue: any, categories: any) => void;
+    values?: any[];
+}
+
+
+const Select = (
+    {
+        label,
+        categories,
+        register,
+        name,
+        errorMessage,
+        type = "radio",
+        onSelectChange,
+        values=[]
+    }: ISelectProps) => {
     const {lang, isDarkMode} = useThemeStore();
 
     return (

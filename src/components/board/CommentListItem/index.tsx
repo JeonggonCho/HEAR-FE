@@ -1,25 +1,18 @@
-import {FC, useEffect, useMemo, useRef, useState} from "react";
-
+import {useEffect, useMemo, useRef, useState} from "react";
 import Dropdown from "@components/common/Dropdown";
 import Textarea from "@components/common/Textarea";
 import ProfileImage from "@components/common/ProfileImage";
 import ConfirmModal from "@components/common/Modal/ConfirmModal.tsx";
 import Button from "@components/common/Button";
-
 import getTimeStamp from "@util/getTimeStamp.ts";
 import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
 import stripHtml from "@util/stripHtml.ts";
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
 import useModal from "@hooks/useModal.ts";
-import {IComment} from "@/types/comment.ts";
 import {useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
-import {placeholderCategories} from "@constants/placeholderCategories.ts";
-
 import {
     AuthorWrapper,
     BtnsWrapper, CancelBtnWrapper,
@@ -31,13 +24,16 @@ import {
     RightPartWrapper,
     TimeWrapper
 } from "./style.ts";
-import {confirmModalHeader} from "@components/common/ConfirmModal/style.ts";
-
+import {confirmModalHeader} from "@components/common/Modal/style.ts";
+import {IComment} from "@/types/comment.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import deleteIcon from "@assets/icons/delete.svg";
 import editIcon from "@assets/icons/edit.svg";
 
 
-const CommentListItem:FC<IComment> = (props) => {
+const CommentListItem = (props: IComment) => {
     const [isEditMode, setIsEditMode] = useState<boolean>(false);
     const [isLiked, setIsLiked] = useState<boolean>(props.isLiked);
     const [countOfLike, setCountOfLike] = useState(props.likes);
@@ -224,14 +220,30 @@ const CommentListItem:FC<IComment> = (props) => {
               <ConfirmModal
                 modalRef={deleteModalRef}
                 backdropRef={deleteBackdropRef}
+                showModal={}
+                trigger={}
                 header={<h4 css={confirmModalHeader}>{messageCategories.delete[lang]}</h4>}
                 leftBtn={
-                    <Button variant={"filled"} width={"full"} color={"third"} size={"md"} onClick={() => setShowDeleteConfirmModal(false)}>
+                    <Button
+                        type={"button"}
+                        variant={"filled"}
+                        width={"full"}
+                        color={"third"}
+                        size={"md"}
+                        onClick={() => setShowDeleteConfirmModal(false)}
+                    >
                         {buttonCategories.close[lang]}
                     </Button>
                 }
                 rightBtn={
-                    <Button variant={"filled"} width={"full"} color={"danger"} size={"md"} onClick={deleteComment}>
+                    <Button
+                        type={"button"}
+                        variant={"filled"}
+                        width={"full"}
+                        color={"danger"}
+                        size={"md"}
+                        onClick={deleteComment}
+                    >
                         {buttonCategories.delete[lang]}
                     </Button>
                 }

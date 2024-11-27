@@ -1,29 +1,20 @@
-import React, {ChangeEvent, FC, useCallback, useEffect, useState} from "react";
+import React, {ChangeEvent, useCallback, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-
 import Toggle from "@components/common/Toggle";
-import Modal from "@components/common/Modal";
+import {Modal} from "@components/common/Modal";
 import MachineListItem from "@components/management/MachineListItem";
 import NewMachineContent from "@components/management/NewMachineContent";
 import Input from "@components/common/Input";
 import TimeListContent from "@components/management/TimeListContent";
-
 import useListCollapse from "@hooks/useListCollapse.ts";
 import useToggle from "@hooks/useToggle.ts";
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
-import {IMachineManageCardProps} from "@/types/componentProps.ts";
-import {IHeats, ILasers, IPrinters} from "@/types/machine.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
-import {headerCategories} from "@constants/headerCategories.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
-import {inputCategories} from "@constants/inputCategories.ts";
-
 import {
     BtnsWrapper,
     Container,
@@ -33,11 +24,36 @@ import {
     MoreWrapper,
     NoMachines
 } from "./style.ts";
-
+import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
 import more from "@assets/icons/arrow_down.svg";
 
 
-const MachineManageCard:FC<IMachineManageCardProps> = ({name, img, machineData, machineType, setMachines, timeData, setTimes}) => {
+interface IMachineManageCardProps {
+    name: string;
+    img: string;
+    machineData: ILasers[] | IPrinters[] | IHeats[] | ICommonMachine[];
+    machineType: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc";
+    setMachines?: React.Dispatch<React.SetStateAction<ILasers[]>> | React.Dispatch<React.SetStateAction<IPrinters[]>>;
+    timeData?: ILaserTimes[];
+    setTimes?: React.Dispatch<React.SetStateAction<ILaserTimes[]>>;
+}
+
+
+const MachineManageCard = (
+    {
+        name,
+        img,
+        machineData,
+        machineType,
+        setMachines,
+        timeData,
+        setTimes
+    }: IMachineManageCardProps
+) => {
     const [showEdit, setShowEdit] = useState<boolean>(false);
     const [newLaserModal, setNewLaserModal] = useState<boolean>(false);
     const [newPrinterModal, setNewPrinterModal] = useState<boolean>(false);

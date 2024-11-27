@@ -1,19 +1,15 @@
-import {FC, useState} from "react";
-
+import {useState} from "react";
 import Image from "@components/common/Image";
-
-import {sawInstruction} from "@constants/instruction/sawInstruction.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {Container} from "../../instruction.style.ts";
-
+import {sawInstruction} from "@constants/instruction/sawInstruction.ts";
 import cover from "@assets/instruction_images/saw/saw_cover.jpg";
 import push from "@assets/instruction_images/saw/saw_push.jpg";
 import plug from "@assets/instruction_images/saw/saw_plug.jpg";
 import cleaning from "@assets/instruction_images/saw/saw_cleaning.jpg";
 
 
-const After:FC = () => {
+const After = () => {
     const [currentImage, setCurrentImage] = useState<number>(0);
 
     const {lang} = useThemeStore();

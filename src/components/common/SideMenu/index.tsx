@@ -1,15 +1,18 @@
-import {FC, useEffect, useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import ReactDOM from "react-dom";
 import {ReactSVG} from "react-svg";
-
-import {ISideMenuProps} from "@/types/componentProps.ts";
-
 import {CloseBtnWrapper, Container, SideMenuWrapper} from "./style.ts";
-
 import close from "@assets/icons/close.svg";
 
 
-const SideMenu:FC<ISideMenuProps> = ({setSideMenu, direction, content}) => {
+interface ISideMenuProps {
+    direction: "left" | "right";
+    setSideMenu: (() => void) | React.Dispatch<React.SetStateAction<boolean>>;
+    content: React.ReactElement;
+}
+
+
+const SideMenu= ({setSideMenu, direction, content}: ISideMenuProps) => {
     const sideMenuRef = useRef<HTMLDivElement>(null);
     const backgroundRef = useRef<HTMLDivElement>(null);
 

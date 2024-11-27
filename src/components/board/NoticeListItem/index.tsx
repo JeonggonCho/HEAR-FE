@@ -1,19 +1,15 @@
-import {FC, useMemo} from "react";
+import {useMemo} from "react";
 import {ReactSVG} from "react-svg";
-
 import ArrowForward from "@components/common/ArrowForward";
-
-import {INotice} from "@/types/componentProps.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {Container, NoticeInfoWrapper} from "./style.ts";
-
+import {INotice} from "@/types/componentProps.ts";
 import views from "@assets/icons/visible.svg";
 import chat from "@assets/icons/chat.svg";
 
 
-const NoticeListItem:FC<INotice> = (props) => {
+const NoticeListItem = (props: INotice) => {
     const {lang} = useThemeStore();
 
     const timeStamp = useMemo(() => getTimeStamp(props.createdAt, lang), [props.createdAt]);

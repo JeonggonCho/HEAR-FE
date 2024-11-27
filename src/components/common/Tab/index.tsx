@@ -1,12 +1,11 @@
-import React, {FC, useMemo} from 'react';
+import React, {useMemo} from 'react';
 import {useLocation} from "react-router-dom";
-
-import {ITabProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {ButtonTapWrapper, ButtonTap, Background, LineTapWrapper, LineTap} from "./style.ts";
+import {ITabProps} from "@/types/componentProps.ts";
 
-const Tab:FC<ITabProps> = (props) => {
+
+const Tab = (props: ITabProps) => {
     const {type, tabs} = props;
 
     const location = useLocation();

@@ -1,8 +1,8 @@
-import React, {FC, FormEvent, MutableRefObject, useCallback, useEffect, useMemo, useRef, useState} from "react";
+import React, {FormEvent, MutableRefObject, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Dropdown from "@components/common/Dropdown";
@@ -12,6 +12,7 @@ import {Modal} from "@components/common/Modal";
 import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import Comments from "@components/board/Comments";
 import ProfileImage from "@components/common/ProfileImage";
+import Grid from "@components/common/Grid";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
@@ -37,6 +38,7 @@ import {
     InquiryWrapper, LikeBtnWrapper
 } from "./style.ts";
 import {TagWrapper, WriterWrapper} from "@components/board/InquiryFeedbackListItem/style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 import views from "@assets/icons/visible.svg";
 import likes from "@assets/icons/feedback.svg";
@@ -45,7 +47,7 @@ import deleteIcon from "@assets/icons/delete.svg";
 import editIcon from "@assets/icons/edit.svg";
 
 
-const InquiryDetailPage:FC = () => {
+const InquiryDetailPage = () => {
     const [inquiry, setInquiry] = useState<IInquiryProps>();
     const [comments, setComments] = useState<IComment[]>([]);
     const [isLiked, setIsLiked] = useState<boolean>(false);
@@ -220,7 +222,16 @@ const InquiryDetailPage:FC = () => {
             <Container>
                 <HeadTag title={inquiry?.title || headerCategories.inquiryDetail[lang]}/>
 
-                <Header leftChild={<ArrowBack/>} centerText={headerCategories.inquiryDetail[lang]}/>
+                <Header>
+                    <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                        <Header.Left>
+                            <ArrowBack/>
+                        </Header.Left>
+                        <Header.Center>
+                            <h2 css={headerCenter}>{headerCategories.inquiryDetail[lang]}</h2>
+                        </Header.Center>
+                    </Grid>
+                </Header>
 
                 {!isLoading && inquiry ?
                     <>

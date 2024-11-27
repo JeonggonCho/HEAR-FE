@@ -1,11 +1,8 @@
-import {FC, useEffect} from "react";
+import {useEffect} from "react";
 import ReactDOM from "react-dom";
 import {ReactSVG} from "react-svg";
-
 import {useToastStore} from "@store/useToastStore.ts";
-
 import {Container} from "./style.ts";
-
 import close from "@assets/icons/close.svg";
 import error from "@assets/icons/error.svg";
 import checkCircle from "@assets/icons/check_circle.svg";
@@ -13,7 +10,8 @@ import checkCircle from "@assets/icons/check_circle.svg";
 
 const TOAST_DISPLAY_TIME = 6000;
 
-const Toast:FC = () => {
+
+const Toast = () => {
     const {text, type, hideToast, key} = useToastStore();
 
     const toastRoot = document.getElementById("toast-hook");

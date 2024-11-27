@@ -1,15 +1,10 @@
-import {FC, useCallback, useEffect, useState} from "react";
-
+import {useCallback, useEffect, useState} from "react";
 import ArrowForward from "@components/common/ArrowForward";
 import CardLoading from "@components/skeleton/CardLoading";
-
 import useRequest from "@hooks/useRequest.ts";
 import useRolling from "@hooks/useRolling.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
-
 import {
     Container,
     EmptyNotice,
@@ -19,11 +14,12 @@ import {
     RollingContent,
     RollingWrapper
 } from "./style.ts";
-
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 import notice from "@assets/images/notice.png";
 
 
-const NoticeCard:FC = () => {
+const NoticeCard = () => {
     const [latestNotices, setLatestNotices] = useState<{noticeId: string, title: string}[]>([]);
 
     const {lang} = useThemeStore();

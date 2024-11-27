@@ -1,9 +1,10 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import HeadTag from "@components/common/HeadTag";
 import Button from "@components/common/Button";
+import Flex from "@components/common/Flex";
 
 import useRequest from "@hooks/useRequest.ts";
 import {getFormattedDate, isBetweenDate} from "@util/calculateDate.ts";
@@ -16,11 +17,12 @@ import {messageCategories} from "@constants/messageCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container, ContentWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 import test from "@assets/images/test.png";
 
 
-const TestIntroductionPage:FC = () => {
+const TestIntroductionPage = () => {
     const [startDate, setStartDate] = useState<string>("");
     const [endDate, setEndDate] = useState<string>("");
     const [availableDate, setAvailableDate] = useState<boolean>(false);
@@ -109,7 +111,13 @@ const TestIntroductionPage:FC = () => {
             <Container>
                 <HeadTag title={navCategories.test[lang]}/>
 
-                <Header centerText={headerCategories.test[lang]}/>
+                <Header>
+                    <Flex align={"center"} justify={"center"} style={{width: "100%"}}>
+                        <Header.Center>
+                            <h2 css={headerCenter}>{headerCategories.test[lang]}</h2>
+                        </Header.Center>
+                    </Flex>
+                </Header>
 
                 <ContentWrapper>
                     <div>
@@ -145,6 +153,7 @@ const TestIntroductionPage:FC = () => {
                     </div>
 
                     <Button
+                        type={"button"}
                         variant={"filled"}
                         width={"full"}
                         color={"primary"}

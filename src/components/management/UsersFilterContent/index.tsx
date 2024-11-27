@@ -1,18 +1,22 @@
-import {FC, FormEvent} from "react";
-
+import React, {FormEvent} from "react";
 import Select from "@components/common/Select";
 import Button from "@components/common/Button";
-
-import {IFilterContentProps} from "@types/componentProps.ts";
 import useCheckbox from "@hooks/useCheckbox.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {Container} from "./style.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {filterCategories} from "@constants/filterCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 
-import {Container} from "./style.ts";
 
-const UsersFilterContent:FC<IFilterContentProps> = ({filter, setFilter, setModal}) => {
+interface IFilterContentProps {
+    filter: any;
+    setFilter: React.Dispatch<React.SetStateAction<any>>;
+    setModal: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+
+const UsersFilterContent = ({filter, setFilter, setModal}: IFilterContentProps) => {
     const {lang} = useThemeStore();
 
     const yearFilterCategories = [
@@ -75,11 +79,13 @@ const UsersFilterContent:FC<IFilterContentProps> = ({filter, setFilter, setModal
             />
             <Button
                 type={"submit"}
-                content={buttonCategories.apply[lang]}
+                variant={"filled"}
                 width={"full"}
                 color={"primary"}
-                scale={"big"}
-            />
+                size={"lg"}
+            >
+                {buttonCategories.apply[lang]}
+            </Button>
         </Container>
     );
 };

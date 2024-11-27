@@ -1,10 +1,10 @@
-import {ChangeEvent, FC, useEffect} from "react";
+import {ChangeEvent, useEffect} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Select from "@components/common/Select";
 import Button from "@components/common/Button";
@@ -12,6 +12,7 @@ import Textarea from "@components/common/Textarea";
 import Input from "@components/common/Input";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
+import Grid from "@components/common/Grid";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
@@ -26,9 +27,10 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 
-const CreateInquiryPage:FC = () => {
+const CreateInquiryPage = () => {
     const navigate = useNavigate();
 
     const {lang} = useThemeStore();
@@ -87,7 +89,17 @@ const CreateInquiryPage:FC = () => {
         <Container>
             <HeadTag title={headerCategories.inquiry[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.inquiry[lang]}/>
+            <Header>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{headerCategories.inquiry[lang]}</h2>
+                    </Header.Center>
+                </Grid>
+            </Header>
+
             {isLoading ?
                 <LoadingLoop/>
                 :
@@ -104,7 +116,6 @@ const CreateInquiryPage:FC = () => {
                             register={register}
                             errorMessage={errors.title?.message}
                         />
-
                         <Select
                             categories={inquiryInfoCategories}
                             name={"category"}
@@ -112,7 +123,6 @@ const CreateInquiryPage:FC = () => {
                             errorMessage={errors.category?.message}
                             type={"radio"}
                         />
-
                         <Textarea
                             register={register}
                             name={"content"}
@@ -121,8 +131,15 @@ const CreateInquiryPage:FC = () => {
                             countOfText={countOfText}
                             changeTextareaHandler={changeTextareaHandler}
                         />
-
-                        <Button type={"submit"} content={buttonCategories.sendInquiry[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button
+                            type={"submit"}
+                            variant={"filled"}
+                            width={"full"}
+                            color={"primary"}
+                            size={"lg"}
+                        >
+                            {buttonCategories.sendInquiry[lang]}
+                        </Button>
                     </form>
                 </>
             }

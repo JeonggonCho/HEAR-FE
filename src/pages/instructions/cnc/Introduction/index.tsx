@@ -1,16 +1,11 @@
-import {FC} from "react";
-
 import Image from "@components/common/Image";
-
-import {cncInstruction} from "@constants/instruction/cncInstruction.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {Container} from "../../instruction.style.ts";
-
+import {cncInstruction} from "@constants/instruction/cncInstruction.ts";
 import cncMachine from "@assets/instruction_images/cnc/cnc_machine.jpg";
 
 
-const Introduction:FC = () => {
+const Introduction = () => {
     const {lang} = useThemeStore();
 
     const images = [cncMachine];

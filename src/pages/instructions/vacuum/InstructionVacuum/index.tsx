@@ -1,22 +1,20 @@
-import React, {FC, useEffect, useState} from "react";
-
-import Header from "@components/common/Header";
+import React, {useEffect, useState} from "react";
+import {Header} from "@components/common/Header";
+import HeadTag from "@components/common/HeadTag";
+import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
-import HeadTag from "@components/common/HeadTag";
-
-import {ITab} from "@/types/tab.ts";
-import {machineName, machineInstructionTabCategories} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {Container, MachineImgWrapper} from "./style.ts";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
-
+import {headerCenter} from "@components/common/Header/style.ts";
+import {ITab} from "@/types/tab.ts";
+import {machineName, machineInstructionTabCategories} from "@constants/machineCategories.ts";
 import vacuum from "@assets/images/vacuum.png";
-
 import Introduction from "../Introduction";
 import Preparation from "../Preparation";
 import Usage from "../Usage";
+
 
 const VacuumImage = React.memo(() => (
     <MachineImgWrapper>
@@ -24,7 +22,8 @@ const VacuumImage = React.memo(() => (
     </MachineImgWrapper>
 ));
 
-const InstructionVacuum:FC = () => {
+
+const InstructionVacuum = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     const {lang} = useThemeStore();
@@ -43,7 +42,17 @@ const InstructionVacuum:FC = () => {
         <Container>
             <HeadTag title={machineName.vacuum[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={machineName.vacuum[lang]}/>
+            <Header>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{machineName.vacuum[lang]}</h2>
+                    </Header.Center>
+                </Grid>
+            </Header>
+
             <VacuumImage/>
             <Tab type={"button"} tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
             <Content>{tabs[activeIndex].content}</Content>

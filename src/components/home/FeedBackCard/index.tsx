@@ -1,17 +1,14 @@
-import {FC, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
-
 import ArrowForward from "@components/common/ArrowForward";
 import CardLoading from "@components/skeleton/CardLoading";
-
-import {buttonCategories} from "@constants/buttonCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {Container} from "./style.ts";
-
+import {buttonCategories} from "@constants/buttonCategories.ts";
 import feedbackLogo from "@assets/icons/feedback.svg";
 
-const FeedBackCard:FC = () => {
+
+const FeedBackCard = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     const {lang} = useThemeStore();

@@ -1,4 +1,3 @@
-import {FC} from "react";
 import ReactDOM from "react-dom";
 import {ReactSVG} from "react-svg";
 
@@ -9,7 +8,8 @@ import {Container} from "./style.ts";
 
 import logo from "@assets/logo.svg";
 
-const SplashPage:FC = () => {
+
+const SplashPage = () => {
     const splashRoot = document.getElementById("splash-hook");
 
     const {lang} = useThemeStore();

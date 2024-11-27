@@ -1,17 +1,14 @@
-import {FC, useEffect, useState} from "react";
-
+import {useEffect, useState} from "react";
 import ArrowForward from "@components/common/ArrowForward";
 import CardLoading from "@components/skeleton/CardLoading";
-
-import {cardCategories} from "@constants/cardCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
-
 import {Container} from "./style.ts";
-
+import {cardCategories} from "@constants/cardCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 import cafeLogo from "@assets/images/cafe_logo.png";
 
-const CafeSiteCard:FC = () => {
+
+const CafeSiteCard = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     const {lang} = useThemeStore();

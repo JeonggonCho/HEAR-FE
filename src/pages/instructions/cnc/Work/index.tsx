@@ -1,19 +1,15 @@
-import {FC, useState} from "react";
-
+import {useState} from "react";
 import Image from "@components/common/Image";
-
-import {cncInstruction} from "@constants/instruction/cncInstruction.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {Container} from "../../instruction.style.ts";
-
+import {cncInstruction} from "@constants/instruction/cncInstruction.ts";
 import ballEndmill from "@assets/instruction_images/cnc/cnc_ballEndmill.jpg";
 import flatEndmill from "@assets/instruction_images/cnc/cnc_flatEndmill.jpg";
 import cncLine from "@assets/instruction_images/cnc/cnc_line.jpg";
 import cncVolume from "@assets/instruction_images/cnc/cnc_volume.jpg";
 
 
-const Work:FC = () => {
+const Work = () => {
     const [currentImage, setCurrentImage] = useState<number>(0);
 
     const {lang} = useThemeStore();

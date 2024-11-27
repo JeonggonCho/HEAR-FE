@@ -1,8 +1,8 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
 import { v4 as uuidv4 } from "uuid";
 
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import HeadTag from "@components/common/HeadTag";
 import LoadingLoop from "@components/common/LoadingLoop";
@@ -28,9 +28,11 @@ import add from "@assets/icons/add.svg";
 import tune from "@assets/icons/tune.svg"
 import reset from "@assets/icons/reset.svg";
 import menu from "@assets/icons/menu.svg";
+import Grid from "@components/common/Grid";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 
-const EducationManagementPage:FC = () => {
+const EducationManagementPage = () => {
     const [questions, setQuestions] = useState<EducationType[]>([]);
     const [initialQuestions, setInitialQuestions] = useState<EducationType[]>([]);
     const [settings, setSettings] = useState<IEducationSettings>({startDate: "", endDate: "", status: false, cutOffPoint: ""});
@@ -209,16 +211,21 @@ const EducationManagementPage:FC = () => {
         <>
             <HeadTag title={headerCategories.educationManagementHeader[lang]}/>
 
-            <Header
-                leftChild={<ArrowBack/>}
-                centerText={headerCategories.educationManagementHeader[lang]}
-                rightChild={
-                    <MenuButtonWrapper onClick={() => setShowSideMenu(true)}>
-                        <ReactSVG src={menu}/>
-                    </MenuButtonWrapper>
-                }
-                bgColor={true}
-            />
+            <Header bgColor={true}>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{headerCategories.educationManagementHeader[lang]}</h2>
+                    </Header.Center>
+                    <Header.Right>
+                        <MenuButtonWrapper onClick={() => setShowSideMenu(true)}>
+                            <ReactSVG src={menu}/>
+                        </MenuButtonWrapper>
+                    </Header.Right>
+                </Grid>
+            </Header>
 
             <MenusWrapper>
                 <div onClick={clickMenuHandler}>

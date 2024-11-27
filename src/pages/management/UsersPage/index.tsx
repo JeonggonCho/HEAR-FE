@@ -1,16 +1,17 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
 
-import Header from "@components/common/Header";
-import ArrowBack from "@components/common/ArrowBack";
+import {Header} from "@components/common/Header";
 import UserListItem from "@components/management/UserListItem";
 import Input from "@components/common/Input";
-import Modal from "@components/common/Modal";
+import {Modal} from "@components/common/Modal";
 import Empty from "@components/common/Empty";
 import UsersFilterContent from "@components/management/UsersFilterContent";
 import Button from "@components/common/Button";
 import CardLoading from "@components/skeleton/CardLoading";
 import HeadTag from "@components/common/HeadTag";
+import Grid from "@components/common/Grid";
+import ArrowBack from "@components/common/ArrowBack";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IUserFilter, IUserInfo} from "@/types/user.ts";
@@ -23,13 +24,14 @@ import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 
 import {Badge, Container, UserControlWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 import tune from "@assets/icons/tune.svg";
 import search from "@assets/icons/search.svg";
 import close from "@assets/icons/close.svg";
 
 
-const UsersPage:FC = () => {
+const UsersPage = () => {
     const [userList, setUserList] = useState<IUserInfo[]>([]);
     const [showFilter, setShowFilter] = useState<boolean>(false);
     const [filter, setFilter] = useState<IUserFilter>({year: ["all"], passEducation: ["all"], countOfWarning:["all"]});
@@ -75,7 +77,16 @@ const UsersPage:FC = () => {
             <Container>
                 <HeadTag title={headerCategories.userManagementHeader[lang]}/>
 
-                <Header leftChild={<ArrowBack/>} centerText={headerCategories.userManagementHeader[lang]} bgColor={true}/>
+                <Header bgColor={true}>
+                    <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                        <Header.Left>
+                            <ArrowBack/>
+                        </Header.Left>
+                        <Header.Center>
+                            <h2 css={headerCenter}>{headerCategories.userManagementHeader[lang]}</h2>
+                        </Header.Center>
+                    </Grid>
+                </Header>
 
                 <UserControlWrapper usernameInputText={usernameInputText}>
                     <span>{userList.length} {inputCategories.userUnit[lang]}</span>

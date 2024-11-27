@@ -1,19 +1,20 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 
-import Header from "@components/common/Header";
-import ArrowBack from "@components/common/ArrowBack";
+import {Header} from "@components/common/Header";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
-import Modal from "@components/common/Modal";
+import {Modal} from "@components/common/Modal";
 import Calendar from "@components/common/Calendar";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import InputMessage from "@components/common/InputMessage";
+import Grid from "@components/common/Grid";
+import ArrowBack from "@components/common/ArrowBack";
 
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
@@ -26,12 +27,13 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container, ImageWrapper, TimeWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 import saw from "@assets/images/saw.png";
 import close from "@assets/icons/close.svg";
 
 
-const ReservationSaw:FC = () => {
+const ReservationSaw = () => {
     const [condition, setCondition] = useState([]);
     const [showCalendar, setShowCalendar] = useState<boolean>(false);
     const [showTooltip, setShowTooltip] = useState<boolean>(true);
@@ -110,7 +112,17 @@ const ReservationSaw:FC = () => {
             <Container tooltip={showTooltip}>
                 <HeadTag title={headerCategories.sawReservationHeader[lang]}/>
 
-                <Header leftChild={<ArrowBack/>} centerText={headerCategories.sawReservationHeader[lang]}/>
+                <Header>
+                    <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                        <Header.Left>
+                            <ArrowBack/>
+                        </Header.Left>
+                        <Header.Center>
+                            <h2 css={headerCenter}>{headerCategories.sawReservationHeader[lang]}</h2>
+                        </Header.Center>
+                    </Grid>
+                </Header>
+
                 <ImageWrapper>
                     <img src={saw} alt={"톱"}/>
                 </ImageWrapper>

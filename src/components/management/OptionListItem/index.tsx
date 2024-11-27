@@ -1,21 +1,29 @@
-import {FC} from "react";
 import {ReactSVG} from "react-svg";
 import {Draggable} from "@hello-pangea/dnd";
-
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
-
-import {IOptionListItem} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {placeholderCategories} from "@constants/placeholderCategories.ts";
-
 import {OptionListItemWrapper} from "./style.ts";
-
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import drag from "@assets/icons/drag.svg";
 import remove from "@assets/icons/remove.svg";
 
 
-const OptionListItem:FC<IOptionListItem> = (
+interface IOptionListItem {
+    questionType: "singleChoice" | "multipleChoice";
+    index: number;
+    option: {
+        optionId: string;
+        content: string;
+        isAnswer: boolean;
+    };
+    changeOptionContentHandler: (targetOptionId: string, content: string) => void;
+    changeChoiceAnswerHandler: (targetOptionId: string) => void;
+    removeOption: (targetOptionId: string) => void;
+}
+
+
+const OptionListItem = (
     {
         questionType,
         index,
@@ -23,7 +31,7 @@ const OptionListItem:FC<IOptionListItem> = (
         changeOptionContentHandler,
         changeChoiceAnswerHandler,
         removeOption,
-    }
+    }: IOptionListItem
 ) => {
     const {lang} = useThemeStore();
 

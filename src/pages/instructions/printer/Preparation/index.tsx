@@ -1,12 +1,8 @@
-import {FC, useState} from "react";
-
+import {useState} from "react";
 import Image from "@components/common/Image";
-
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {printerInstruction} from "@constants/instruction/printerInstruction.ts";
-
 import {Container} from "../../instruction.style.ts";
-
+import {printerInstruction} from "@constants/instruction/printerInstruction.ts";
 import modeling1 from "@assets/instruction_images/printer/3d_printer_1-1.jpg";
 import modeling2 from "@assets/instruction_images/printer/3d_printer_1-2.jpg";
 import modeling3 from "@assets/instruction_images/printer/3d_printer_1-3.jpg";
@@ -17,7 +13,7 @@ import modeling7 from "@assets/instruction_images/printer/3d_printer_1-7.jpg";
 import modeling8 from "@assets/instruction_images/printer/3d_printer_1-8.jpg";
 
 
-const Preparation:FC = () => {
+const Preparation = () => {
     const [currentImage, setCurrentImage] = useState<number>(0);
 
     const {lang} = useThemeStore();
@@ -32,7 +28,6 @@ const Preparation:FC = () => {
         modeling7,
         modeling8
     ];
-
 
     return (
         <Container>

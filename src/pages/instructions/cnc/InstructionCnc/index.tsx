@@ -1,23 +1,21 @@
-import React, {useState, useEffect, FC} from "react";
-
-import Header from "@components/common/Header";
+import React, {useState, useEffect} from "react";
+import {Header} from "@components/common/Header";
+import HeadTag from "@components/common/HeadTag";
+import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
-import HeadTag from "@components/common/HeadTag";
-
-import {ITab} from "@/types/tab.ts";
-import {machineName, machineInstructionTabCategories} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {Container, MachineImgWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
-
-import cnc from "@assets/images/cnc.png";
-
+import {machineName, machineInstructionTabCategories} from "@constants/machineCategories.ts";
 import Introduction from "../Introduction";
 import Work from "../Work";
+import cnc from "@assets/images/cnc.png";
+import {ITab} from "@/types/tab.ts";
 
-const InstructionCnc:FC = () => {
+
+const InstructionCnc = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     const {lang} = useThemeStore();
@@ -35,7 +33,17 @@ const InstructionCnc:FC = () => {
         <Container>
             <HeadTag title={machineName.cnc[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={machineName.cnc[lang]}/>
+            <Header>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{machineName.cnc[lang]}</h2>
+                    </Header.Center>
+                </Grid>
+            </Header>
+
             <MachineImgWrapper>
                 <img src={cnc} alt="CNC"/>
             </MachineImgWrapper>

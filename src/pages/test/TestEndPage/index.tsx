@@ -1,31 +1,29 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
-
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import HeadTag from "@components/common/HeadTag";
 import LoadingLoop from "@components/common/LoadingLoop";
 import GradingAnswerListItem from "@components/test/GradingAnswerListItem";
-
+import Flex from "@components/common/Flex";
 import useRequest from "@hooks/useRequest.ts";
-import {ITestResult, QuestionResultType} from "@/types/education.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
-import {navCategories} from "@constants/navCategories.ts";
-import {cardCategories} from "@constants/cardCategories.ts";
-import {headerCategories} from "@constants/headerCategories.ts";
-
 import {
     QuestionsWrapper,
     ResultCard,
     ResultSignWrapper,
     ResultWrapper
 } from "./style.ts";
-
+import {headerCenter} from "@components/common/Header/style.ts";
+import {ITestResult, QuestionResultType} from "@/types/education.ts";
+import {navCategories} from "@constants/navCategories.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
 import checkCircle from "@assets/icons/check_circle.svg";
 import cancelCircle from "@assets/icons/cancel_circle.svg";
 
 
-const TestEndPage:FC = () => {
+const TestEndPage = () => {
     const [testResult, setTestResult] = useState<ITestResult>();
 
     const {lang} = useThemeStore();
@@ -71,7 +69,13 @@ const TestEndPage:FC = () => {
         <>
             <HeadTag title={navCategories.test[lang]}/>
 
-            <Header centerText={headerCategories.testDone[lang]}/>
+            <Header>
+                <Flex align={"center"} justify={"center"} style={{width: "100%"}}>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{headerCategories.testDone[lang]}</h2>
+                    </Header.Center>
+                </Flex>
+            </Header>
 
             {isLoading ?
                 <LoadingLoop/>

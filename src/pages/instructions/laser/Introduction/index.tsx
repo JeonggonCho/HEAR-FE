@@ -1,16 +1,11 @@
-import {FC} from "react";
-
 import Image from "@components/common/Image";
-
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {laserInstruction} from "@constants/instruction/laserInstruction.ts";
-
 import {Container} from "../../instruction.style.ts";
-
+import {laserInstruction} from "@constants/instruction/laserInstruction.ts";
 import laserMachine from "@assets/instruction_images/laser/laser_machine.jpg";
 
 
-const Introduction:FC = () => {
+const Introduction = () => {
     const {lang} = useThemeStore();
 
     const images = [laserMachine];

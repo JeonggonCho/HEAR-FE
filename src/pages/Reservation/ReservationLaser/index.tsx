@@ -1,16 +1,17 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
 import {useNavigate} from "react-router-dom";
 
-import Header from "@components/common/Header";
-import ArrowBack from "@components/common/ArrowBack";
+import {Header} from "@components/common/Header";
 import RoomMap from "@components/reservation/RoomMap";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
-import Modal from "@components/common/Modal";
+import {Modal} from "@components/common/Modal";
 import LoadingLoop from "@components/common/LoadingLoop";
 import LaserSelectContent from "@components/reservation/LaserSelectContent";
 import HeadTag from "@components/common/HeadTag";
+import Grid from "@components/common/Grid";
+import ArrowBack from "@components/common/ArrowBack";
 
 import useRequest from "@hooks/useRequest.ts";
 import {getTomorrowDate} from "@util/calculateDate.ts";
@@ -25,13 +26,14 @@ import {headerCategories} from "@constants/headerCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 
 import {Container, EmptyMessage, ImageWrapper, MapIcon, SelectedItemWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 import laser from "@assets/images/laser_cut.png";
 import mapIcon from "@assets/icons/map.svg";
 import close from "@assets/icons/close.svg";
 
 
-const ReservationLaser: FC = () => {
+const ReservationLaser = () => {
     const [reservationList, setReservationList] = useState<ILaserReservation[]>([]);
     const [laserInfo, setLaserInfo] = useState<ILaserInfo[]>([]);
     const [laserTimesInfo, setLaserTimesInfo] = useState<ILaserTimesinfo[]>([]);
@@ -132,16 +134,23 @@ const ReservationLaser: FC = () => {
         <>
             <Container>
                 <HeadTag title={headerCategories.laserReservationHeader[lang]}/>
-                <Header
-                    leftChild={<ArrowBack/>}
-                    centerText={headerCategories.laserReservationHeader[lang]}
-                    rightChild={
-                        <MapIcon onClick={() => setShowMap(true)}>
-                            <ReactSVG src={mapIcon}/>
-                        </MapIcon>
-                    }
-                    bgColor={true}
-                />
+
+                <Header bgColor={true}>
+                    <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                        <Header.Left>
+                            <ArrowBack/>
+                        </Header.Left>
+                        <Header.Center>
+                            <h2 css={headerCenter}>{headerCategories.laserReservationHeader[lang]}</h2>
+                        </Header.Center>
+                        <Header.Right>
+                            <MapIcon onClick={() => setShowMap(true)}>
+                                <ReactSVG src={mapIcon}/>
+                            </MapIcon>
+                        </Header.Right>
+                    </Grid>
+                </Header>
+
                 <ImageWrapper>
                     <img src={laser} alt={"레이저 커팅기"}/>
                 </ImageWrapper>

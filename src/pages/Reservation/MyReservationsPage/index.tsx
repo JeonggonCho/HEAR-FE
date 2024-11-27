@@ -1,8 +1,7 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
 
-import Header from "@components/common/Header";
-import ArrowBack from "@components/common/ArrowBack";
+import {Header} from "@components/common/Header";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import Empty from "@components/common/Empty";
@@ -10,6 +9,8 @@ import ReservationListItem from "@components/reservation/ReservationListItem";
 import {Modal} from "@components/common/Modal";
 import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import Button from "@components/common/Button";
+import Grid from "@components/common/Grid";
+import ArrowBack from "@components/common/ArrowBack";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IReservation} from "@/types/componentProps.ts";
@@ -21,13 +22,14 @@ import {machineName} from "@constants/machineCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 
 import {ReservationControlWrapper, ReservationListItemWrapper, SelectAllWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 import check from "@assets/icons/check.svg";
 
 type ReservationArgumentsType = {_id: string, machine: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc", date: string}
 
 
-const MyReservationsPage:FC = () => {
+const MyReservationsPage = () => {
     const [reservations, setReservations] = useState<IReservation[]>([]);
     const [filter, setFilter] = useState("all");
     const [selectedReservations, setSelectedReservations] = useState<ReservationArgumentsType[]>([]);
@@ -152,7 +154,16 @@ const MyReservationsPage:FC = () => {
         <>
             <HeadTag title={headerCategories.myReservations[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.myReservations[lang]}/>
+            <Header>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{headerCategories.myReservations[lang]}</h2>
+                    </Header.Center>
+                </Grid>
+            </Header>
 
             <ReservationControlWrapper>
                 <div>

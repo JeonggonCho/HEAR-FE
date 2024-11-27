@@ -1,23 +1,21 @@
-import React, {FC, useEffect, useState} from "react";
-
-import Header from "@components/common/Header";
+import React, {useEffect, useState} from "react";
+import {Header} from "@components/common/Header";
+import HeadTag from "@components/common/HeadTag";
+import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
-import HeadTag from "@components/common/HeadTag";
-
-import {ITab} from "@/types/tab.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {Container, Content, MachineImgWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 import {machineInstructionTabCategories} from "@constants/machineCategories.ts";
 import {machineName} from "@constants/machineCategories.ts";
-import {useThemeStore} from "@store/useThemeStore.ts";
-
-import {Container, Content, MachineImgWrapper} from "./style.ts";
-
 import printer from "@assets/images/3d_printer.png";
-
+import {ITab} from "@/types/tab.ts";
 import Introduction from "../Introduction";
 import Preparation from "../Preparation";
 import After from "../After";
 import Usage from "../Usage";
+
 
 const PrinterImage = React.memo(() => (
     <MachineImgWrapper>
@@ -25,7 +23,8 @@ const PrinterImage = React.memo(() => (
     </MachineImgWrapper>
 ));
 
-const InstructionPrinter:FC = () => {
+
+const InstructionPrinter = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     const {lang} = useThemeStore();
@@ -45,7 +44,17 @@ const InstructionPrinter:FC = () => {
         <Container>
             <HeadTag title={machineName.printer[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={machineName.printer[lang]}/>
+            <Header>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{machineName.printer[lang]}</h2>
+                    </Header.Center>
+                </Grid>
+            </Header>
+
             <PrinterImage/>
             <Tab type={"button"} tabs={tabs} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
             <Content>{tabs[activeIndex].content}</Content>

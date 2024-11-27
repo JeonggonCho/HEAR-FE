@@ -1,10 +1,15 @@
-import {FC, useEffect, useState} from "react";
-
+import {useEffect, useState} from "react";
 import {TimerContainer} from "@components/common/Timer/style.ts";
 
-import {ITimerProps} from "@/types/componentProps.ts";
 
-const Timer:FC<ITimerProps> = ({defaultTime = 180, action, resetTrigger}) => {
+interface ITimerProps {
+    defaultTime: number,
+    action: () => void;
+    resetTrigger: number;
+}
+
+
+const Timer = ({defaultTime = 180, action, resetTrigger}: ITimerProps) => {
     const [time, setTime] = useState<number>(defaultTime);
 
     useEffect(() => {

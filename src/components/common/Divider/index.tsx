@@ -1,7 +1,7 @@
-import {FC} from "react";
 import {useTheme} from "@emotion/react";
 
-const Divider:FC = () => {
+
+const Divider = () => {
     const theme = useTheme();
 
     return (

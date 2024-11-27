@@ -1,11 +1,15 @@
-import {FC} from "react";
-
-import {IToggleProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {Container} from "./style.ts";
 
-const Toggle:FC<IToggleProps> = ({status, isLoading, click}) => {
+
+interface IToggleProps {
+    click: () => void;
+    status: boolean;
+    isLoading: boolean;
+}
+
+
+const Toggle = ({status, isLoading, click}: IToggleProps) => {
     const {isDarkMode} = useThemeStore();
 
     return (

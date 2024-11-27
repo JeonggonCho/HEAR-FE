@@ -1,27 +1,25 @@
-import React, {FC, useCallback, useEffect, useState} from "react";
-
+import React, {useCallback, useEffect, useState} from "react";
 import {Modal} from "@components/common/Modal";
 import UserInfoCard from "@components/common/UserInfoCard";
 import Button from "@components/common/Button";
 import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
-
 import useRequest from "@hooks/useRequest.ts";
-import {IUserInfo} from "@/types/user.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
+import { Container } from "./style.ts";
+import {IUserInfo} from "@/types/user.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
-import { Container } from "./style.ts";
 
-
-const UserListItem: FC<IUserInfo & { userList: IUserInfo[], setUserList: React.Dispatch<React.SetStateAction<IUserInfo[]>> }> =
-    ({
-         userList,
-         setUserList,
-         ...props
-    }) => {
+const UserListItem = (
+    {
+        userList,
+        setUserList,
+        ...props
+    }: IUserInfo & {userList: IUserInfo[], setUserList: React.Dispatch<React.SetStateAction<IUserInfo[]>>}
+) => {
     const [userInfo, setUserInfo] = useState<IUserInfo>(props);
     const [showUserInfoModal, setShowUserInfoModal] = useState<boolean>(false);
     const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState<boolean>(false);

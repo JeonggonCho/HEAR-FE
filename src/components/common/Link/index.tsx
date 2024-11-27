@@ -1,8 +1,6 @@
-import { FC } from 'react';
-
+import {To} from "react-router-dom";
 import ArrowForward from "@components/common/ArrowForward";
-
-import { ILinkProps } from "@/types/componentProps.ts";
+import CardLoading from "@components/skeleton/CardLoading";
 import {
     TextLinkWrapper,
     CardLinkCardWrapper,
@@ -10,19 +8,32 @@ import {
     ButtonLinkCardWrapper,
     ButtonImgWrapper
 } from "./style.ts";
-import CardLoading from "@components/skeleton/CardLoading";
+
 
 type LinkType = "text" | "card" | "button";
 
-const Link: FC<ILinkProps> = ({
-                                  image,
-                                  name,
-                                  to,
-                                  type,
-                                  color = "primary",
-                                  isDisabled = false,
-                                  isLoading = false
-                              }) => {
+
+interface ILinkProps {
+    type: "text" | "card" | "button";
+    name: string;
+    to: To;
+    image?: string;
+    color?: "primary" | "second";
+    isDisabled?: boolean;
+    isLoading?: boolean;
+}
+
+
+const Link = (
+    {
+        image,
+        name,
+        to,
+        type,
+        color = "primary",
+        isDisabled = false,
+        isLoading = false
+    }: ILinkProps) => {
     const commonProps = { disabled: isDisabled, loading: isLoading ? "true" : "false" };
 
     const renderTextLink = () => (

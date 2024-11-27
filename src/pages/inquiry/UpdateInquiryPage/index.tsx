@@ -1,10 +1,10 @@
-import {ChangeEvent, FC, useCallback, useEffect, useState} from "react";
+import {ChangeEvent, useCallback, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Select from "@components/common/Select";
 import LoadingLoop from "@components/common/LoadingLoop";
@@ -14,6 +14,7 @@ import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import HeadTag from "@components/common/HeadTag";
+import Grid from "@components/common/Grid";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
@@ -25,12 +26,13 @@ import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
-
-import {Container} from "./style.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
+import {Container} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
-const UpdateInquiryPage:FC = () => {
+
+const UpdateInquiryPage = () => {
     const [inquiry, setInquiry] = useState<any>();
     const [updateInquiryModal, setUpdateInquiryModal] = useState<boolean>(false);
 
@@ -157,7 +159,17 @@ const UpdateInquiryPage:FC = () => {
             <Container>
                 <HeadTag title={headerCategories.editInquiry[lang]}/>
 
-                <Header leftChild={<ArrowBack/>} centerText={headerCategories.editInquiry[lang]}/>
+                <Header>
+                    <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                        <Header.Left>
+                            <ArrowBack/>
+                        </Header.Left>
+                        <Header.Center>
+                            <h2 css={headerCenter}>{headerCategories.editInquiry[lang]}</h2>
+                        </Header.Center>
+                    </Grid>
+                </Header>
+
                 {isLoading ?
                     <LoadingLoop/>
                     :

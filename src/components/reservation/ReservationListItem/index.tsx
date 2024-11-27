@@ -1,17 +1,9 @@
-import {FC, useState} from "react";
+import {useState} from "react";
 import {ReactSVG} from "react-svg";
-
 import {Modal} from "@components/common/Modal";
 import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import Button from "@components/common/Button";
-
-import {IReservationListItemProps} from "@/types/componentProps.ts";
-import {machineName} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
-import {cardCategories} from "@constants/cardCategories.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
-
 import {
     Container, DateTag,
     DateText, DeleteBtnWrapper,
@@ -21,7 +13,11 @@ import {
     ReservationInfoWrapper,
     TimeWrapper
 } from "./style.ts";
-
+import {IReservation} from "@/types/componentProps.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
+import {machineName} from "@constants/machineCategories.ts";
 import laser from "@assets/images/laser_cut.png";
 import printer from "@assets/images/3d_printer.png";
 import heat from "@assets/images/heat_cutter.png";
@@ -31,7 +27,23 @@ import cnc from "@assets/images/cnc.png";
 import close from "@assets/icons/close.svg";
 import check from "@assets/icons/check.svg";
 
-const ReservationListItem:FC<IReservationListItemProps> = ({reservation, deleteHandler, isSelected, selectHandler}) => {
+
+interface IReservationListItemProps {
+    reservation: IReservation;
+    deleteHandler?: (reservations: {machine: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc", _id: string, date: string}[]) => void;
+    isSelected?: boolean;
+    selectHandler?: () => void;
+}
+
+
+const ReservationListItem = (
+    {
+        reservation,
+        deleteHandler,
+        isSelected,
+        selectHandler
+    }: IReservationListItemProps
+) => {
     const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
 
     const {lang} = useThemeStore();

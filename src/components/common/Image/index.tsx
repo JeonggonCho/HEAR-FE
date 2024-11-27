@@ -1,13 +1,24 @@
-import {FC, useState} from "react";
-
+import React, {useState} from "react";
 import Gallery from "@components/common/Gallery";
-
-import {IImageProps} from "@/types/componentProps.ts";
-
 import {Container} from "./style.ts";
 
 
-const Image:FC<IImageProps> = ({images, targetIndex, currentImage, setCurrentImage}) => {
+interface IImageProps {
+    images: string[];
+    targetIndex: number;
+    currentImage?: number;
+    setCurrentImage?: React.Dispatch<React.SetStateAction<number>>;
+}
+
+
+const Image = (
+    {
+        images,
+        targetIndex,
+        currentImage,
+        setCurrentImage
+    }: IImageProps
+) => {
     const [showGallery, setShowGallery] = useState<boolean>(false);
 
     const clickImageHandler = (targetIndex:number) => {

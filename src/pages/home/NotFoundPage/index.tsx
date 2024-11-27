@@ -1,32 +1,51 @@
-import {FC} from "react";
-
-import Header from "@components/common/Header";
-import ArrowBack from "@components/common/ArrowBack";
+import {useNavigate} from "react-router-dom";
+import {Header} from "@components/common/Header";
 import Button from "@components/common/Button";
-
+import Grid from "@components/common/Grid";
+import ArrowBack from "@components/common/ArrowBack";
 import {useAuthStore} from "@store/useAuthStore.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
-
 import {Container} from "./style.ts";
-
+import {headerCenter} from "@components/common/Header/style.ts";
 import logo from "@assets/images/404_logo.png";
+import {messageCategories} from "@constants/messageCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 
-const NotFoundPage:FC = () => {
+
+const NotFoundPage = () => {
+    const navigate = useNavigate();
+
     const {isLoggedIn} = useAuthStore();
     const {lang} = useThemeStore();
 
     return (
         <Container>
-            <Header leftChild={<ArrowBack/>} centerText={"404"}/>
+            <Header>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{"404"}</h2>
+                    </Header.Center>
+                </Grid>
+            </Header>
+
             <div>
                 <div>
                     <img src={logo}/>
                 </div>
                 <p>{messageCategories.emptyPage[lang]}</p>
-                <Button type={"link"} content={isLoggedIn ? buttonCategories.goHome[lang] : buttonCategories.signIn[lang]} width={"full"} color={"primary"}
-                        scale={"big"} to={"/"}/>
+                <Button
+                    type={"button"}
+                    variant={"filled"}
+                    width={"full"}
+                    color={"primary"}
+                    size={"lg"}
+                    onClick={() => navigate("/", {replace: true})}
+                >
+                    {isLoggedIn ? buttonCategories.goHome[lang] : buttonCategories.signIn[lang]}
+                </Button>
             </div>
         </Container>
     );

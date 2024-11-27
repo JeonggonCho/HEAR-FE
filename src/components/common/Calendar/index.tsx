@@ -1,4 +1,4 @@
-import {FC, useMemo, useState} from "react";
+import {useMemo, useState} from "react";
 import {ReactSVG} from "react-svg";
 
 import Button from "@components/common/Button";
@@ -25,7 +25,7 @@ import arrowBack from "@assets/icons/arrow_back_small.svg";
 import arrowForward from "@assets/icons/arrow_forward_small.svg";
 
 
-const Calendar:FC<ICalendarProps> = ({calendarType="normal", onSelectDate, date, machine, condition, setModal, selectWeekend=false}) => {
+const Calendar = ({calendarType="normal", onSelectDate, date, machine, condition, setModal, selectWeekend=false}: ICalendarProps) => {
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
     const [selectedDate, setSelectedDate] = useState<Date | null>(date ? new Date(date) : null);
     const [isEmpty, setIsEmpty] = useState<boolean>(false);

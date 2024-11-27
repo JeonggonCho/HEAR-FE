@@ -1,5 +1,3 @@
-import {FC} from "react";
-
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 
@@ -12,7 +10,7 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import {ChoiceWrapper, Container, ResetButtonWrapper, ShortAnswerWrapper} from "./style.ts";
 
 
-const TestListItem:FC<ITestListItemProps> = ({question, testAnswers, setTestAnswers, isAnswerFilled, inputAnswer, isChecked}) => {
+const TestListItem = ({question, testAnswers, setTestAnswers, isAnswerFilled, inputAnswer, isChecked}: ITestListItemProps) => {
     const {lang} = useThemeStore();
     const {scrollbarWidth} = useScrollbarSize();
 
@@ -102,7 +100,14 @@ const TestListItem:FC<ITestListItemProps> = ({question, testAnswers, setTestAnsw
 
             {isAnswerFilled &&
               <ResetButtonWrapper>
-                <Button variant={"filled"} width={"fit"} color={"third"} size={"sm"} onClick={eraseAnswer}>
+                <Button
+                  type={"button"}
+                  variant={"filled"}
+                  width={"fit"}
+                  color={"third"}
+                  size={"sm"}
+                  onClick={eraseAnswer}
+                >
                     {buttonCategories.erase[lang]}
                 </Button>
               </ResetButtonWrapper>

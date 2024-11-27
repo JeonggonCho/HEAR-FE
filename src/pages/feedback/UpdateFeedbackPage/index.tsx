@@ -1,10 +1,10 @@
-import {ChangeEvent, FC, useCallback, useEffect, useState} from "react";
+import {ChangeEvent, useCallback, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Select from "@components/common/Select";
 import LoadingLoop from "@components/common/LoadingLoop";
@@ -14,6 +14,7 @@ import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import Textarea from "@components/common/Textarea";
 import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
+import Grid from "@components/common/Grid";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
@@ -28,9 +29,10 @@ import {headerCategories} from "@constants/headerCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
 import {Container} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 
-const UpdateFeedbackPage:FC = () => {
+const UpdateFeedbackPage = () => {
     const [feedback, setFeedback] = useState<{title: string, category: "good" | "bad" | "suggest" | "etc" , content: string}>();
     const [updateFeedbackModal, setUpdateFeedbackModal] = useState<boolean>(false);
 
@@ -160,7 +162,17 @@ const UpdateFeedbackPage:FC = () => {
             <Container>
                 <HeadTag title={headerCategories.editFeedback[lang]}/>
 
-                <Header leftChild={<ArrowBack/>} centerText={headerCategories.editFeedback[lang]}/>
+                <Header>
+                    <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                        <Header.Left>
+                            <ArrowBack/>
+                        </Header.Left>
+                        <Header.Center>
+                            <h2 css={headerCenter}>{headerCategories.editFeedback[lang]}</h2>
+                        </Header.Center>
+                    </Grid>
+                </Header>
+
                 {isLoading ?
                     <LoadingLoop/>
                     :

@@ -1,18 +1,24 @@
-import {FC} from "react";
+import React from "react";
 import {DragDropContext, Droppable} from "@hello-pangea/dnd";
-
 import QuestionListItem from "@components/management/QuestionListItem";
+import {EducationType} from "@/types/education.ts";
 
-import {IQuestionListContentProps} from "@/types/componentProps.ts";
+
+interface IQuestionListContentProps {
+    onDragEnd: (result: any) => void;
+    questions: EducationType[];
+    removeQuestion: (targetIndex: string) => void;
+    setQuestions: React.Dispatch<React.SetStateAction<EducationType[]>>;
+}
 
 
-const QuestionListContent:FC<IQuestionListContentProps> = (
+const QuestionListContent = (
     {
         onDragEnd,
         questions,
         removeQuestion,
         setQuestions,
-    }
+    }: IQuestionListContentProps
 ) => {
     return (
         <DragDropContext onDragEnd={onDragEnd}>

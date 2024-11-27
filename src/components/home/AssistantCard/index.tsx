@@ -1,26 +1,25 @@
-import {FC, useCallback, useEffect, useState} from "react";
-
+import {useCallback, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import Button from "@components/common/Button";
 import CardLoading from "@components/skeleton/CardLoading";
-
 import useRequest from "@hooks/useRequest.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
-import {cardCategories} from "@constants/cardCategories.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
-
 import {
     AssistantCardTitleWrapper, AssistantInfoWrapper,
     Container, EmptyAssistantInfo,
 } from "./style.ts";
-
+import {cardCategories} from "@constants/cardCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 import assistant from "@assets/images/assistant.png";
 
 
-const AssistantCard:FC = () => {
+const AssistantCard = () => {
     const [assistantInfo, setAssistantInfo] = useState<{username: string, lab: string}>();
+
+    const navigate = useNavigate();
 
     const {userData} = useUserDataStore();
     const {lang} = useThemeStore();
@@ -71,12 +70,15 @@ const AssistantCard:FC = () => {
 
                     {userData?.role !== "assistant" &&
                       <Button
-                        type={"link"} to={"/board/inquiry/new"}
-                        content={buttonCategories.inquiry[lang]}
+                        type={"button"}
+                        variant={"filled"}
                         width={"fit"}
                         color={"third"}
-                        scale={"small"}
-                      />
+                        size={"sm"}
+                        onClick={() => navigate("/board/inquiry/new")}
+                      >
+                          {buttonCategories.inquiry[lang]}
+                      </Button>
                     }
                 </AssistantInfoWrapper>
                 :

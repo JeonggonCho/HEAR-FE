@@ -1,14 +1,20 @@
-import {FC, useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {ReactSVG} from "react-svg";
-
-import {IDropdownProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {Container, DropdownMenu, DropdownWrapper} from "./style.ts";
-
 import more from "@assets/icons/more.svg";
 
-const Dropdown:FC<IDropdownProps> = ({dropdownMenus}) => {
+
+interface IDropdownProps {
+    dropdownMenus: {
+        icon: string;
+        label: string;
+        action: () => void;
+    }[]
+}
+
+
+const Dropdown = ({dropdownMenus}: IDropdownProps) => {
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
     const {isDarkMode} = useThemeStore();

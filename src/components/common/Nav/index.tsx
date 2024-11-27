@@ -1,13 +1,10 @@
-import React, {FC} from "react";
+import React from "react";
 import {ReactSVG} from "react-svg";
 import {useLocation} from "react-router-dom";
-
-import {ICategory} from "@/types/navCategory.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {navCategories} from "@constants/navCategories.ts";
-
 import {Container, NavButton} from "./style.ts";
-
+import {navCategories} from "@constants/navCategories.ts";
+import {ICategory} from "@/types/navCategory.ts";
 import home from "@assets/icons/home.svg";
 import note from "@assets/icons/note.svg";
 import test from "@assets/icons/edu.svg";
@@ -15,7 +12,7 @@ import inquiry from "@assets/icons/inquiry.svg";
 import account from "@assets/icons/account.svg";
 
 
-const Nav:FC = () => {
+const Nav = () => {
     const {pathname} = useLocation();
     const {lang, isDarkMode} = useThemeStore();
 

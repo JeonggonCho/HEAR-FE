@@ -1,16 +1,17 @@
-import {ChangeEvent, FC, useCallback, useEffect, useState} from "react";
+import {ChangeEvent, useCallback, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Input from "@components/common/Input";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
 import HeadTag from "@components/common/HeadTag";
+import Grid from "@components/common/Grid";
 
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
@@ -23,9 +24,10 @@ import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 
 import {Container} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 
-const UpdateNoticePage:FC = () => {
+const UpdateNoticePage = () => {
     const [notice, setNotice] = useState<{title: string, content: string}>();
 
     const navigate = useNavigate();
@@ -103,7 +105,17 @@ const UpdateNoticePage:FC = () => {
         <Container>
             <HeadTag title={headerCategories.updateNotice[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.updateNotice[lang]}/>
+            <Header>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{headerCategories.updateNotice[lang]}</h2>
+                    </Header.Center>
+                </Grid>
+            </Header>
+
             {isLoading ?
                 <LoadingLoop/>
                 :

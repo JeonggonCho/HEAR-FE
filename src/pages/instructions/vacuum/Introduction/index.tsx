@@ -1,16 +1,11 @@
-import {FC} from 'react';
-
-import Image from "@components/common/Image";
-
-import {vacuumInstruction} from "@constants/instruction/vacuumInstruction.ts";
+import Image from "@components/common/Image"
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {Container} from "../../instruction.style.ts";
-
+import {vacuumInstruction} from "@constants/instruction/vacuumInstruction.ts";
 import vacuumMachine from "@assets/instruction_images/vacuum/vacuum_machine.jpg";
 
 
-const Introduction:FC = () => {
+const Introduction = () => {
     const {lang} = useThemeStore();
 
     const images = [vacuumMachine];

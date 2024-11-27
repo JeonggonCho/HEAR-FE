@@ -1,14 +1,16 @@
-import {FC} from "react";
-
 import CardLoading from "@components/skeleton/CardLoading";
-
 import {useUserDataStore} from "@store/useUserStore.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {Container, PassStatus, WarningStatus} from "./style.ts";
 
-const StatusCard:FC<{isLoading: boolean}> = ({isLoading}) => {
+
+interface IStatusCardProps {
+    isLoading: boolean;
+}
+
+
+const StatusCard = ({isLoading}: IStatusCardProps) => {
     const {userData} = useUserDataStore();
     const {lang} = useThemeStore();
 

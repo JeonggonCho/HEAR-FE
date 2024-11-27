@@ -1,22 +1,36 @@
-import {FC, useCallback, useEffect, useMemo, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-
 import Select from "@components/common/Select";
 import Button from "@components/common/Button";
-
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
-import {ILaserSelectContentProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
+import {Container, CountOfLaserPerDayWrapper, CountOfLaserPerWeekWrapper, CountOfLaserWrapper} from "./style.ts";
+import {ILaserInfo, ILaserReservation, ILaserTimesinfo} from "@/types/reservation.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 
-import {Container, CountOfLaserPerDayWrapper, CountOfLaserPerWeekWrapper, CountOfLaserWrapper} from "./style.ts";
+
+interface ILaserSelectContentProps {
+    laserInfo: ILaserInfo[];
+    laserTimesInfo: ILaserTimesinfo[];
+    reservationList: ILaserReservation[];
+    setReservationList: React.Dispatch<React.SetStateAction<ILaserReservation[]>>;
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 
-const LaserSelectContent:FC<ILaserSelectContentProps> = ({laserInfo, laserTimesInfo, reservationList, setReservationList, setModal}) => {
+const LaserSelectContent = (
+    {
+        laserInfo,
+        laserTimesInfo,
+        reservationList,
+        setReservationList,
+        setModal
+    }: ILaserSelectContentProps
+) => {
     const {userData} = useUserDataStore();
     const {lang} = useThemeStore();
     const {laserTimeSchema} = MachineSchemaProvider();

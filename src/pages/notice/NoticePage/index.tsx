@@ -1,6 +1,6 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import Tab from "@components/common/Tab";
 import FloatingButton from "@components/common/FloatingButton";
 import Empty from "@components/common/Empty";
@@ -18,13 +18,14 @@ import {navCategories} from "@constants/navCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
-import {Container, HeaderWrapper, NoticeListItemWrapper} from "./style.ts";
+import {Container, NoticeListItemWrapper} from "./style.ts";
+import {LogoAndTitleWrapper} from "@components/common/Header/style.ts";
 
 import notice from "@assets/images/notice.png";
 import write from "@assets/icons/write.svg";
 
 
-const NoticePage:FC = () => {
+const NoticePage = () => {
     const [notices, setNotices] = useState<INotice[]>([]);
 
     const {userData} = useUserDataStore();
@@ -64,12 +65,14 @@ const NoticePage:FC = () => {
         <Container>
             <HeadTag title={buttonCategories.notice[lang]}/>
 
-            <Header leftChild={
-                <HeaderWrapper>
-                    <img src={notice} alt="피드백"/>
-                    <h2>{navCategories.board[lang]}</h2>
-                </HeaderWrapper>
-            } type={"flex"}/>
+            <Header>
+                <Header.Left>
+                    <LogoAndTitleWrapper>
+                        <img src={notice} alt="피드백"/>
+                        <h2>{navCategories.board[lang]}</h2>
+                    </LogoAndTitleWrapper>
+                </Header.Left>
+            </Header>
 
             <Tab type={"line"} tabs={tabs}/>
 

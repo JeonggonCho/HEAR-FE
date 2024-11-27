@@ -1,15 +1,16 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
 import {useNavigate} from "react-router-dom";
 
-import Header from "@components/common/Header";
-import ArrowBack from "@components/common/ArrowBack";
+import {Header} from "@components/common/Header";
 import RoomMap from "@components/reservation/RoomMap";
 import Button from "@components/common/Button";
-import Modal from "@components/common/Modal";
+import {Modal} from "@components/common/Modal";
 import PrinterSelectContent from "@components/reservation/PrinterSelectContent";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
+import Grid from "@components/common/Grid";
+import ArrowBack from "@components/common/ArrowBack";
 
 import useRequest from "@hooks/useRequest.ts";
 import {IPrinterReservation} from "@/types/reservation.ts";
@@ -21,12 +22,13 @@ import {messageCategories} from "@constants/messageCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 
 import {Container, DateMachineSelectWrapper, EmptyMessage, ImageWrapper, MapIcon} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 import printer from "@assets/images/3d_printer.png";
 import mapIcon from "@assets/icons/map.svg";
 
 
-const ReservationPrinter:FC = () => {
+const ReservationPrinter = () => {
     const [reservation, setReservation] = useState<IPrinterReservation>();
     const [selectedDate, setSelectedDate] = useState<string>();
     const [selectMachineMode, setSelectMachineMode] = useState<boolean>(false);
@@ -110,15 +112,22 @@ const ReservationPrinter:FC = () => {
             <Container>
                 <HeadTag title={headerCategories.printerReservationHeader[lang]}/>
 
-                <Header
-                    leftChild={<ArrowBack/>}
-                    centerText={headerCategories.printerReservationHeader[lang]}
-                    rightChild={
-                        <MapIcon onClick={() => setShowMap(true)}>
-                            <ReactSVG src={mapIcon}/>
-                        </MapIcon>
-                    }
-                />
+                <Header>
+                    <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                        <Header.Left>
+                            <ArrowBack/>
+                        </Header.Left>
+                        <Header.Center>
+                            <h2 css={headerCenter}>{headerCategories.printerReservationHeader[lang]}</h2>
+                        </Header.Center>
+                        <Header.Right>
+                            <MapIcon onClick={() => setShowMap(true)}>
+                                <ReactSVG src={mapIcon}/>
+                            </MapIcon>
+                        </Header.Right>
+                    </Grid>
+                </Header>
+
                 <ImageWrapper>
                     <img src={printer} alt={"3d 프린터"}/>
                 </ImageWrapper>

@@ -1,16 +1,17 @@
-import {FC, useCallback, useEffect} from "react";
+import {useCallback, useEffect} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 
-import Header from "@components/common/Header";
-import ArrowBack from "@components/common/ArrowBack";
+import {Header} from "@components/common/Header";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
+import Grid from "@components/common/Grid";
+import ArrowBack from "@components/common/ArrowBack";
 
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
@@ -25,12 +26,13 @@ import {headerCategories} from "@constants/headerCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 
 import {Container, HeatCheckWrapper, ImageWrapper, ReturnDateWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 
 import heat from "@assets/images/heat_cutter.png";
 import check from "@assets/icons/check.svg";
 
 
-const ReservationHeat:FC = () => {
+const ReservationHeat = () => {
     const navigate = useNavigate();
 
     const {lang} = useThemeStore();
@@ -82,7 +84,17 @@ const ReservationHeat:FC = () => {
         <Container>
             <HeadTag title={headerCategories.heatReservationHeader[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.heatReservationHeader[lang]}/>
+            <Header>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{headerCategories.heatReservationHeader[lang]}</h2>
+                    </Header.Center>
+                </Grid>
+            </Header>
+
             <ImageWrapper>
                 <img src={heat} alt={"열선"}/>
             </ImageWrapper>
@@ -129,7 +141,15 @@ const ReservationHeat:FC = () => {
                         {cardCategories.return[lang]} <span>{formattedReturnDate}</span>
                     </ReturnDateWrapper>
 
-                    <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                    <Button
+                        type={"submit"}
+                        variant={"filled"}
+                        width={"full"}
+                        color={"primary"}
+                        size={"lg"}
+                    >
+                        {buttonCategories.reservation[lang]}
+                    </Button>
                 </form>
             }
         </Container>

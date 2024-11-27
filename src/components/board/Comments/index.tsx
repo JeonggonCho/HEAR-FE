@@ -1,22 +1,41 @@
-import React, {FC, ReactElement} from "react";
+import React, {ChangeEvent, FormEvent, MutableRefObject, ReactElement} from "react";
 import {ReactSVG} from "react-svg";
-
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
 import CommentListItem from "@components/board/CommentListItem";
 import ProfileImage from "@components/common/ProfileImage";
-
-import {ICommentsProps, IFeedbackProps, IInquiryProps, INotice} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {CommentListWrapper, Container, TextareaWrapper, EmptyMessage} from "./style.ts";
+import {IFeedbackProps, IInquiryProps, INotice} from "@/types/componentProps.ts";
+import {IComment} from "@/types/comment.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
-
-import {CommentListWrapper, Container, TextareaWrapper, EmptyMessage} from "./style.ts";
-
 import send from "@assets/icons/send.svg";
 
 
-const Comments:FC<ICommentsProps> = ({text, textareaRef, countOfText, handleTextChange, comments, setComments, setRefDoc, submitHandler}) => {
+interface ICommentsProps {
+    text: string;
+    textareaRef?: MutableRefObject<HTMLTextAreaElement>;
+    countOfText: number;
+    handleTextChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+    comments: IComment[];
+    setComments: React.Dispatch<React.SetStateAction<IComment[]>>;
+    setRefDoc: React.Dispatch<React.SetStateAction<IInquiryProps | IFeedbackProps | INotice>>;
+    submitHandler: (e: FormEvent<HTMLFormElement>) => Promise<void>;
+}
+
+
+const Comments = (
+    {
+        text,
+        textareaRef,
+        countOfText,
+        handleTextChange,
+        comments,
+        setComments,
+        setRefDoc,
+        submitHandler
+    }: ICommentsProps) => {
     const {lang} = useThemeStore();
 
     return (

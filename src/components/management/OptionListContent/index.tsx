@@ -1,13 +1,19 @@
-import {FC} from "react";
 import {DragDropContext, Droppable} from "@hello-pangea/dnd";
-
 import OptionListItem from "@components/management/OptionListItem";
-
-import {IOptionListContentProps} from "@/types/componentProps.ts";
-import {IMultipleChoice, ISingleChoice} from "@/types/education.ts";
+import {EducationType, IMultipleChoice, ISingleChoice} from "@/types/education.ts";
 
 
-const OptionListContent: FC<IOptionListContentProps> = (
+interface IOptionListContentProps {
+    onDragEnd: (result: any) => void;
+    question: EducationType;
+    questionType: "singleChoice" | "multipleChoice";
+    changeOptionContentHandler: (targetOptionId: string, content: string) => void;
+    changeChoiceAnswerHandler: (targetOptionId: string) => void;
+    removeOption: (targetOptionId: string) => void;
+}
+
+
+const OptionListContent = (
     {
         onDragEnd,
         question,
@@ -15,7 +21,7 @@ const OptionListContent: FC<IOptionListContentProps> = (
         changeOptionContentHandler,
         changeChoiceAnswerHandler,
         removeOption,
-    }
+    }: IOptionListContentProps
 ) => {
     return (
         <DragDropContext onDragEnd={onDragEnd}>

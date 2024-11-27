@@ -1,11 +1,15 @@
-import {FC} from "react";
-
-import {ICardLoadingProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {Container} from "./style.ts";
 
-const CardLoading:FC<ICardLoadingProps> = ({widthValue, heightValue, bgColor}) => {
+
+interface ICardLoadingProps {
+    bgColor?: "dark" | "light";
+    widthValue?: string;
+    heightValue?: string;
+}
+
+
+const CardLoading = ({widthValue, heightValue, bgColor}: ICardLoadingProps) => {
     const {isDarkMode} = useThemeStore();
 
     return (

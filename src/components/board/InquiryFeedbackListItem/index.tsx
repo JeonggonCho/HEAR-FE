@@ -1,22 +1,18 @@
-import {FC, useMemo} from 'react';
+import {useMemo} from 'react';
 import {ReactSVG} from "react-svg";
-
 import ProfileImage from "@components/common/ProfileImage";
-
 import getTimeStamp from "@util/getTimeStamp.ts";
-import {IFeedbackProps, IInquiryProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {BottomWrapper, Container, InfoWrapper, TagWrapper, TitleWrapper, WriterWrapper} from "./style.ts";
+import {IFeedbackProps, IInquiryProps} from "@/types/componentProps.ts";
 import {inquiryCategories} from "@constants/inquiryCategories.ts";
 import {feedbackCategories} from "@constants/feedbackCategories.ts";
-
-import {BottomWrapper, Container, InfoWrapper, TagWrapper, TitleWrapper, WriterWrapper} from "./style.ts";
-
 import views from "@assets/icons/visible.svg";
 import likes from "@assets/icons/feedback.svg";
 import comments from "@assets/icons/chat.svg";
 
 
-const InquiryFeedbackListItem:FC<IInquiryProps | IFeedbackProps> = (props) => {
+const InquiryFeedbackListItem = (props: IInquiryProps | IFeedbackProps) => {
     const {lang, isDarkMode} = useThemeStore();
 
     const timeStamp = useMemo(() => getTimeStamp(props.createdAt, lang), [props.createdAt]);

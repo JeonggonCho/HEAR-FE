@@ -1,13 +1,36 @@
-import {FC} from "react";
 import ReactApexChart from "react-apexcharts";
 import {useTheme} from "@emotion/react";
-
-import {IChartProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {Container} from "./style.ts";
 
-const Chart:FC<IChartProps> = ({containerWidth="8rem", containerHeight="8rem", type, colors=["primary"], labels, values, startAngle=0, endAngle=360, labelOffset, valueOffset}) => {
+
+interface IChartProps {
+    containerWidth?: string;
+    containerHeight?: string;
+    colors?: ("primary" | "green" | "danger" | "orange" | "purple")[];
+    labels: string[];
+    values: number[];
+    type: "radialBar" | "line" | "bar" | "area" | "rangeArea" | "rangeBar" | "pie" | "donut" | "scatter" | "bubble" | "heatmap" | "candlestick" | "boxPlot" | "radar" | "polarArea" | "treemap" | undefined;
+    startAngle?: number;
+    endAngle?: number;
+    labelOffset?: number;
+    valueOffset?: number;
+}
+
+
+const Chart = (
+    {
+        containerWidth = "8rem",
+        containerHeight = "8rem",
+        type,
+        colors = ["primary"],
+        labels,
+        values,
+        startAngle = 0,
+        endAngle = 360,
+        labelOffset,
+        valueOffset
+    }: IChartProps) => {
     const theme = useTheme();
     const {lang} = useThemeStore();
 

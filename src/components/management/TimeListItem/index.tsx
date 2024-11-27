@@ -1,16 +1,21 @@
-import React, {FC} from "react";
+import React from "react";
 import {ReactSVG} from "react-svg";
 import {Draggable} from "@hello-pangea/dnd";
-
-import {ITimeListItemProps} from "@/types/componentProps.ts";
-
 import {Container} from "./style.ts";
-
 import remove from "@assets/icons/close.svg";
 import drag from "@assets/icons/drag.svg";
 
 
-const TimeListItem:FC<ITimeListItemProps> = ({index, id, startTime, endTime, onDelete}) => {
+interface ITimeListItemProps {
+    index: number;
+    id: string;
+    startTime: string;
+    endTime: string;
+    onDelete: () => void;
+}
+
+
+const TimeListItem = ({index, id, startTime, endTime, onDelete}: ITimeListItemProps) => {
     return (
         <Draggable draggableId={id} index={index}>
             {(provided, snapshot) => (

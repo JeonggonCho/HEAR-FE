@@ -1,23 +1,18 @@
-import {FC, useState} from "react";
-
+import {useState} from "react";
 import Image from "@components/common/Image";
-
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {printerInstruction} from "@constants/instruction/printerInstruction.ts";
-
 import {Container} from "../../instruction.style.ts";
-
+import {printerInstruction} from "@constants/instruction/printerInstruction.ts";
 import off from "@assets/instruction_images/printer/3d_printer_off.jpg";
 import clean from "@assets/instruction_images/printer/3d_printer_clean.jpg";
 
 
-const After:FC = () => {
+const After = () => {
     const [currentImage, setCurrentImage] = useState<number>(0);
 
     const {lang} = useThemeStore();
 
     const images = [off, clean];
-
 
     return (
         <Container>

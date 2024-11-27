@@ -1,17 +1,11 @@
-import {FC} from "react";
-
-import Header from "@components/common/Header";
+import {Header} from "@components/common/Header";
 import Link from "@components/common/Link";
 import HeadTag from "@components/common/HeadTag";
-
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {Container, HeaderWrapper} from "./style.ts";
+import {navCategories} from '@constants/navCategories.ts';
 import {pageDescriptionCategories} from "@constants/pageDescriptionCategories.ts";
 import {machineName} from "@constants/machineCategories.ts";
-import {useThemeStore} from "@store/useThemeStore.ts";
-import {MachineNameType} from "@/types/machine.ts";
-import {navCategories} from '@constants/navCategories.ts';
-
-import {Container, HeaderWrapper} from "./style.ts";
-
 import instruction from "@assets/images/instruction.png";
 import printer from "@assets/images/printer_icon.png";
 import laser from "@assets/images/laser_icon.png";
@@ -19,12 +13,15 @@ import heat from "@assets/images/heat_icon.png"
 import cnc from "@assets/images/cnc_icon.png";
 import saw from "@assets/images/saw_icon.png";
 import vacuum from "@assets/images/vacuum_icon.png"
+import {MachineNameType} from "@/types/machine.ts";
+
 
 interface IMachine {
     name: string;
     image: string;
     link: string;
 }
+
 
 const machines: IMachine[] = [
     {name: "laser", image: laser, link: "/instruction/laser"},
@@ -34,6 +31,7 @@ const machines: IMachine[] = [
     {name: "vacuum", image: vacuum, link: "/instruction/vacuum"},
     {name: "cnc", image: cnc, link: "/instruction/cnc"},
 ];
+
 
 const InstructionHeaderLeft = () => {
     const {lang} = useThemeStore();
@@ -47,14 +45,20 @@ const InstructionHeaderLeft = () => {
     );
 };
 
-const InstructionPage:FC = () => {
+
+const InstructionPage = () => {
     const {lang} = useThemeStore();
 
     return (
         <Container>
             <HeadTag title={navCategories.instruction[lang]}/>
 
-            <Header leftChild={<InstructionHeaderLeft/>} type={"flex"}/>
+            <Header>
+                <Header.Left>
+                    <InstructionHeaderLeft/>
+                </Header.Left>
+            </Header>
+
             <p>{pageDescriptionCategories.instruction[lang]}</p>
             <div>
                 {machines.map((machine, index) => {

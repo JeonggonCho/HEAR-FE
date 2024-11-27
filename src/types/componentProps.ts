@@ -1,18 +1,7 @@
-import React, {ChangeEvent, FormEvent, JSX, MutableRefObject} from "react";
+import React, {ChangeEvent, MutableRefObject} from "react";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
-import {To} from "react-router-dom";
 import {ITab} from "@/types/tab.ts";
-import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
-import {IUserInfo} from "@/types/user.ts";
-import {
-    ILaserInfo,
-    ILaserReservation,
-    ILaserStatus,
-    ILaserTimesinfo,
-    IPrinterReservation
-} from "@/types/reservation.ts";
-import {IComment} from "@/types/comment.ts";
-import {EducationType, IEducationSettings, ITestAnswer} from "@/types/education.ts";
+import {EducationType, ITestAnswer} from "@/types/education.ts";
 
 
 // 인풋(Input) props
@@ -59,49 +48,12 @@ export interface ICalendarProps {
 }
 
 
-// 링크(Link) props
-export interface ILinkProps {
-    type: "text" | "card" | "button";
-    name: string;
-    to: To;
-    image?: string;
-    color?: "primary" | "second";
-    isDisabled?: boolean;
-    isLoading?: boolean;
-}
-
-
 // 모달 (Index) props
 export interface IModalProps {
     title?: string | React.ReactElement;
     content: React.ReactElement;
     setModal: (() => void) | React.Dispatch<React.SetStateAction<boolean>>;
     type: "popup" | "bottomSheet";
-}
-
-
-// 모형제작실 약도(RoomMap) props
-export interface IRoomMapProps {
-    machine : "cnc" | "laser" | "printer" | "vacuum";
-    setModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-
-// 선택(Select) props
-export interface ISelectProps {
-    register?: UseFormRegister<any>;
-    name: string;
-    errorMessage?: string;
-    label?: string;
-    categories: {
-        label: string;
-        value: any;
-        id: string;
-        status?: boolean;
-    }[];
-    type: "radio" | "checkbox";
-    onSelectChange?: (selectedValue: any, categories: any) => void;
-    values?: any[];
 }
 
 
@@ -162,30 +114,6 @@ export interface INotice {
 }
 
 
-// 플로팅 버튼(FloatingButton) props
-export interface IFloatingButtonProps {
-    type: "link" | "button";
-    to?: To;
-    action?: () => void;
-    icon: string;
-}
-
-
-// 빈 내용(Empty) props
-export interface IEmptyProps {
-    image?: string;
-    title: string;
-    message?: string;
-}
-
-
-// 인풋 메시지(InputMessage) props
-export interface IInputMessageProps {
-    message: string;
-    type: "error" | "approval";
-}
-
-
 // 텍스트 영역(Textarea) props
 export interface ITextareaProps {
     register?: UseFormRegister<any>;
@@ -201,150 +129,6 @@ export interface ITextareaProps {
 }
 
 
-// 드롭다운(Dropdown) props
-export interface IDropdownProps {
-    dropdownMenus: {
-        icon: string;
-        label: string;
-        action: () => void;
-    }[]
-}
-
-
-// 말풍선(ChatBubble) props
-export interface IChatBubbleProps {
-    text: string;
-    isMine: boolean;
-    showProfile: boolean;
-    profile: string;
-}
-
-
-// 기기 관리 카드(MachineManageCard) props
-export interface IMachineManageCardProps {
-    name: string;
-    img: string;
-    machineData: ILasers[] | IPrinters[] | IHeats[] | ICommonMachine[];
-    machineType: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc";
-    setMachines?: React.Dispatch<React.SetStateAction<ILasers[]>> | React.Dispatch<React.SetStateAction<IPrinters[]>>;
-    timeData?: ILaserTimes[];
-    setTimes?: React.Dispatch<React.SetStateAction<ILaserTimes[]>>;
-}
-
-
-// 토글(Toggle) props
-export interface IToggleProps {
-    click: () => void;
-    status: boolean;
-    isLoading: boolean;
-}
-
-
-// 기기추가 모달 내용(NewMachineContent) props
-export interface INewMachineContentProps {
-    title: string;
-    setModal: React.Dispatch<React.SetStateAction<boolean>>;
-    machine: "laser" | "printer";
-    setMachines: React.Dispatch<React.SetStateAction<ILasers[]>> | React.Dispatch<React.SetStateAction<IPrinters[]>>
-}
-
-
-// 레이저 커팅기 시간 목록(TimeListContent) props
-export interface ITimeListContentProps {
-    timeList: ILaserTimes[];
-    setTimeList?: React.Dispatch<React.SetStateAction<ILaserTimes[]>>;
-}
-
-
-// 시간 목록 아이템(TimeListItem) props
-export interface ITimeListItemProps {
-    index: number;
-    id: string;
-    startTime: string;
-    endTime: string;
-    onDelete: () => void;
-}
-
-
-// 유저 정보 모달(UserInfoContent) props
-export interface IUserInfoContentProps {
-    userId: string;
-    setModal: React.Dispatch<React.SetStateAction<boolean>>;
-    onUserInfoUpdate?: (updatedUser: IUserInfo) => void;
-    userList: IUserInfo[];
-    setUserList: React.Dispatch<React.SetStateAction<IUserInfo[]>>;
-    setShowUserInfoModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-
-// 필터 내용(FilterContent) props
-export interface IFilterContentProps {
-    filter: any;
-    setFilter: React.Dispatch<React.SetStateAction<any>>;
-    setModal: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-
-// 레이저 커팅기 기기 및 시간 선택(LaserSelectContent) props
-export interface ILaserSelectContentProps {
-    laserInfo: ILaserInfo[];
-    laserTimesInfo: ILaserTimesinfo[];
-    reservationList: ILaserReservation[];
-    setReservationList: React.Dispatch<React.SetStateAction<ILaserReservation[]>>;
-    setModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-
-// 카드 로딩 스켈레톤(CardLoading) Props
-export interface ICardLoadingProps {
-    bgColor?: "dark" | "light";
-    widthValue?: string;
-    heightValue?: string;
-}
-
-
-// 3D 프린터 날짜 및 기기 선택(PrinterSelectContent) props
-export interface IPrinterSelectContentProps {
-    setModal: () => void;
-    onSelectDate: (date: string) => void;
-    selectedDate: string | undefined;
-    selectMachineMode: boolean;
-    setSelectMachineMode: React.Dispatch<React.SetStateAction<boolean>>;
-    selectedMachine: string;
-    setReservation: React.Dispatch<React.SetStateAction<IPrinterReservation | undefined>>;
-    setSelectedMachine: React.Dispatch<React.SetStateAction<string>>;
-}
-
-
-// 캐로젤 (Carousel) props
-export interface ICarouselProps {
-    contents: JSX.Element[];
-}
-
-
-// 차트 (Chart) props
-export interface IChartProps {
-    containerWidth?: string;
-    containerHeight?: string;
-    colors?: ("primary" | "green" | "danger" | "orange" | "purple")[];
-    labels: string[];
-    values: number[];
-    type: "radialBar" | "line" | "bar" | "area" | "rangeArea" | "rangeBar" | "pie" | "donut" | "scatter" | "bubble" | "heatmap" | "candlestick" | "boxPlot" | "radar" | "polarArea" | "treemap" | undefined;
-    startAngle?: number;
-    endAngle?: number;
-    labelOffset?: number;
-    valueOffset?: number;
-}
-
-
-// 레이저 커팅기 예약 현황 내역(LaserReservationConditionContent) props
-export interface ILaserReservationConditionContentProps {
-    laserStatus: ILaserStatus[];
-    rate: number;
-    color: "primary" | "green" | "danger" | "orange" | "purple";
-}
-
-
 // 예약 내역 타입
 export interface IReservation {
     machine: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc";
@@ -353,23 +137,6 @@ export interface IReservation {
     machineName?: string;
     startTime?: string;
     endTime?: string;
-}
-
-
-// 예약 내역 아이템(ReservationListItem) props
-export interface IReservationListItemProps {
-    reservation: IReservation;
-    deleteHandler?: (reservations: {machine: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc", _id: string, date: string}[]) => void;
-    isSelected?: boolean;
-    selectHandler?: () => void;
-}
-
-
-// 타이머(Timer) props
-export interface ITimerProps {
-    defaultTime: number,
-    action: () => void;
-    resetTrigger: number;
 }
 
 
@@ -386,82 +153,6 @@ export interface IEmailVerificationProps<T extends FieldValues> {
 }
 
 
-// 댓글 목록(Comments) props
-export interface ICommentsProps {
-    text: string;
-    textareaRef?: MutableRefObject<HTMLTextAreaElement>;
-    countOfText: number;
-    handleTextChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-    comments: IComment[];
-    setComments: React.Dispatch<React.SetStateAction<IComment[]>>;
-    setRefDoc: React.Dispatch<React.SetStateAction<IInquiryProps | IFeedbackProps | INotice>>;
-    submitHandler: (e: FormEvent<HTMLFormElement>) => Promise<void>;
-}
-
-
-// 문제 목록(QuestionListContent) props
-export interface IQuestionListContentProps {
-    onDragEnd: (result: any) => void;
-    questions: EducationType[];
-    removeQuestion: (targetIndex: string) => void;
-    setQuestions: React.Dispatch<React.SetStateAction<EducationType[]>>;
-}
-
-
-// 문제 리스트 아이템(QuestionListItem) props
-export interface IQuestionListItemProps {
-    index: number;
-    removeQuestion: (questionId: string) => void;
-    question: EducationType;
-    setQuestions: React.Dispatch<React.SetStateAction<EducationType[]>>;
-}
-
-
-// 옵션 목록(OptionListContent) props
-export interface IOptionListContentProps {
-    onDragEnd: (result: any) => void;
-    question: EducationType;
-    questionType: "singleChoice" | "multipleChoice";
-    changeOptionContentHandler: (targetOptionId: string, content: string) => void;
-    changeChoiceAnswerHandler: (targetOptionId: string) => void;
-    removeOption: (targetOptionId: string) => void;
-}
-
-
-// 옵션 목록 아이템(OptionListItem) props
-export interface IOptionListItem {
-    questionType: "singleChoice" | "multipleChoice";
-    index: number;
-    option: {
-        optionId: string;
-        content: string;
-        isAnswer: boolean;
-    };
-    changeOptionContentHandler: (targetOptionId: string, content: string) => void;
-    changeChoiceAnswerHandler: (targetOptionId: string) => void;
-    removeOption: (targetOptionId: string) => void;
-}
-
-
-// 교육 설정 내용(EducationSettingsContent) props
-export interface IEducationSettingsContentProps {
-    settings: IEducationSettings;
-    setSettings: React.Dispatch<React.SetStateAction<IEducationSettings>>;
-    initialDateSetting: {startDate: string | undefined, endDate: string | undefined};
-    setInitialDateSetting: React.Dispatch<React.SetStateAction<{startDate: string | undefined, endDate: string | undefined}>>;
-    initialCutOffPoint: {cutOffPoint: string};
-    setInitialCutOffPoint: React.Dispatch<React.SetStateAction<{cutOffPoint: string}>>;
-}
-
-
-// 사이드 메뉴(SideMenu) props
-export interface ISideMenuProps {
-    direction: "left" | "right";
-    setSideMenu: (() => void) | React.Dispatch<React.SetStateAction<boolean>>;
-    content: React.ReactElement;
-}
-
-
 // 테스트 문제 리스트 아이템(TestListItem) props
 export interface ITestListItemProps {
     question: EducationType;
@@ -471,23 +162,3 @@ export interface ITestListItemProps {
     inputAnswer: (e: any, question: EducationType) => void;
     isChecked: (optionId: string, question:EducationType) => boolean;
 }
-
-
-// 이미지(Image) props
-export interface IImageProps {
-    images: string[];
-    targetIndex: number;
-    currentImage?: number;
-    setCurrentImage?: React.Dispatch<React.SetStateAction<number>>;
-}
-
-
-// 갤러리(Gallery) props
-export interface IGalleryProps {
-    images: string[];
-    setGallery: React.Dispatch<React.SetStateAction<boolean>>;
-    currentImage?: number;
-    setCurrentImage?: React.Dispatch<React.SetStateAction<number>>;
-}
-
-

@@ -1,13 +1,15 @@
-import {FC, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Outlet, useLocation} from "react-router-dom";
-
 import Nav from "@components/common/Nav";
-
-import {ILayoutProps} from "@/types/layoutProps.ts";
-
 import {Container, OutletWrapper} from "./style.ts";
 
-const Layout: FC<ILayoutProps> = ({showNav=true}) => {
+
+interface ILayoutProps {
+    showNav?: boolean;
+}
+
+
+const Layout = ({showNav = true}: ILayoutProps) => {
     const location = useLocation();
     const [showBackground, setShowBackground] = useState<boolean>(true);
 

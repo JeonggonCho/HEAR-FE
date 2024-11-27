@@ -1,16 +1,18 @@
-import {FC} from 'react';
+import {JSX} from "react";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation, Pagination, Keyboard} from "swiper/modules";
-
-import {ICarouselProps} from "@/types/componentProps.ts";
-
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-
 import {Container} from "./style.ts";
 
-const Carousel:FC<ICarouselProps> = ({contents}) => {
+
+interface ICarouselProps {
+    contents: JSX.Element[];
+}
+
+
+const Carousel = ({contents}: ICarouselProps) => {
     return (
         <Container>
             <Swiper

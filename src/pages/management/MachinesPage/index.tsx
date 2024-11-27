@@ -1,11 +1,12 @@
-import {FC, useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
-import Header from "@components/common/Header";
-import ArrowBack from "@components/common/ArrowBack";
+import {Header} from "@components/common/Header";
 import MachineManageCard from "@components/management/MachineManageCard";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Divider from "@components/common/Divider";
 import HeadTag from "@components/common/HeadTag";
+import Grid from "@components/common/Grid";
+import ArrowBack from "@components/common/ArrowBack";
 
 import useRequest from "@hooks/useRequest.ts";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
@@ -13,6 +14,8 @@ import {useToastStore} from "@store/useToastStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {machineName} from "@constants/machineCategories.ts";
+
+import {headerCenter} from "@components/common/Header/style.ts";
 
 import laser_icon from "@assets/images/laser_icon.png";
 import printer_icon from "@assets/images/printer_icon.png";
@@ -22,7 +25,7 @@ import vacuum_icon from "@assets/images/vacuum_icon.png";
 import cnc_icon from "@assets/images/cnc_icon.png";
 
 
-const MachinesPage:FC = () => {
+const MachinesPage = () => {
     const [lasers, setLasers] = useState<ILasers[]>([]);
     const [printers, setPrinters] = useState<IPrinters[]>([]);
     const [heats, setHeats] = useState<IHeats[]>([]);
@@ -88,7 +91,16 @@ const MachinesPage:FC = () => {
         <>
             <HeadTag title={headerCategories.machineManagementHeader[lang]}/>
 
-            <Header leftChild={<ArrowBack/>} centerText={headerCategories.machineManagementHeader[lang]} bgColor={true}/>
+            <Header bgColor={true}>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{headerCategories.machineManagementHeader[lang]}</h2>
+                    </Header.Center>
+                </Grid>
+            </Header>
 
             {isLoading?
                 <LoadingLoop/>

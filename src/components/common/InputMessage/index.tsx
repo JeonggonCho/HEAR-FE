@@ -1,10 +1,13 @@
-import {FC} from 'react';
-
-import {IInputMessageProps} from "@/types/componentProps.ts";
-
 import {Container} from "./style.ts";
 
-const InputMessage:FC<IInputMessageProps> = ({message, type="error"}) => {
+
+export interface IInputMessageProps {
+    message: string;
+    type: "error" | "approval";
+}
+
+
+const InputMessage = ({message, type = "error"}: IInputMessageProps) => {
     return (
         <Container type={type}>{message}</Container>
     );
