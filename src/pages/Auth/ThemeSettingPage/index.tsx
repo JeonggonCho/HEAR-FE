@@ -1,18 +1,14 @@
 import {ReactSVG} from "react-svg";
-
 import HeadTag from "@components/common/HeadTag";
 import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Grid from "@components/common/Grid";
-
-import {headerCategories} from "@constants/headerCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {cardCategories} from "@constants/cardCategories.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
-
 import {LanguageCheckMark, LanguageWrapper, ThemeCheckMark, ThemeImgWrapper, ThemeWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
-
+import {headerCategories} from "@constants/headerCategories.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 import check from "@assets/icons/check.svg";
 import light from "@assets/images/light.png";
 import dark from "@assets/images/dark.png";

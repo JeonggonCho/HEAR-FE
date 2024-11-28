@@ -1,14 +1,17 @@
 import {useCallback, useState} from "react";
 import axiosInstance from "@api/axiosInstance.ts";
 
-interface IRequestProps {
+
+export interface IRequestProps {
     url: string;
     method?: "get" | "post" | "put" | "patch" | "delete";
     data?: any;
     header?: any;
 }
 
+
 const MIN_LOADING_TIME = 1000;
+
 
 const useRequest = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);

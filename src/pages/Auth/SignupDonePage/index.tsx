@@ -3,7 +3,7 @@ import {Header} from "@components/common/Header";
 import Button from "@components/common/Button";
 import Flex from "@components/common/Flex";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {Container, LottieWrapper} from "./style.ts";
+import {LottieAndBtnWrapper, LottieWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
@@ -16,7 +16,7 @@ const SignUpDonePage = () => {
     const {lang} = useThemeStore();
 
     return (
-        <Container>
+        <>
             <Header>
                 <Flex align={"center"} justify={"center"} style={{width: "100%"}}>
                     <Header.Center>
@@ -25,7 +25,7 @@ const SignUpDonePage = () => {
                 </Flex>
             </Header>
 
-            <div>
+            <LottieAndBtnWrapper>
                 <LottieWrapper animationData={done}/>
                 <p>{messageCategories.doneSignUp[lang]}</p>
                 <Button
@@ -38,8 +38,8 @@ const SignUpDonePage = () => {
                 >
                     {buttonCategories.goHome[lang]}
                 </Button>
-            </div>
-        </Container>
+            </LottieAndBtnWrapper>
+        </>
     );
 };
 

@@ -1,9 +1,10 @@
 import {useNavigate} from "react-router-dom";
 import useAuth from "@hooks/useAuth.ts";
 import useModal from "@hooks/useModal.ts";
+import useRequest from "@hooks/useRequest.ts";
 import ConfirmModal from "@components/common/Modal/ConfirmModal.tsx";
 import Button from "@components/common/Button";
-import {unregisterUser} from "@api/userApis.ts";
+import unregisterUserApi from "@api/auth/unregisterUserApi.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useUserInfoStore} from "@store/useUserStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
@@ -15,16 +16,17 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 const DeleteAccount = () => {
     const navigate = useNavigate();
     const {modalRef, backdropRef, showModal, setShowModal} = useModal();
+    const {sendRequest} = useRequest();
     const {lang} = useThemeStore();
-    const {logout} = useAuth();
     const {userInfo} = useUserInfoStore();
     const {showToast} = useToastStore();
+    const {logout} = useAuth();
 
-    // 회원탈퇴
+
     const unregisterHandler = async () => {
         if (!userInfo) return;
         try {
-            await unregisterUser(userInfo.userId);
+            await unregisterUserApi({userId: userInfo.userId, sendRequest});
             showToast(messageCategories.unregisterDone[lang], "success");
             logout();
             navigate("/login", {replace: true});

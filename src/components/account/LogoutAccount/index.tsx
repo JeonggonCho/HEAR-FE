@@ -18,7 +18,6 @@ const LogoutAccount = () => {
     const {clearUserInfo} = useUserInfoStore();
     const {clearUserData} = useUserDataStore();
 
-    // 로그아웃
     const logoutHandler = () => {
         logout();
         clearUserInfo();
@@ -38,6 +37,7 @@ const LogoutAccount = () => {
             }
             trigger={
                 <Button
+                    type={"button"}
                     width={"full"}
                     onClick={() => setShowModal(true)}
                     color={"third"}
@@ -49,6 +49,7 @@ const LogoutAccount = () => {
             }
             leftBtn={
                 <Button
+                    type={"button"}
                     width={"full"}
                     color={"third"}
                     onClick={() => setShowModal(false)}
@@ -60,6 +61,7 @@ const LogoutAccount = () => {
             }
             rightBtn={
                 <Button
+                    type={"button"}
                     width={"full"}
                     color={"danger"}
                     onClick={logoutHandler}

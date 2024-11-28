@@ -5,6 +5,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import Input from "@components/common/Input";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
+import Flex from "@components/common/Flex";
 import Select from "@components/common/Select";
 import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
 import useTextarea from "@hooks/useTextarea.ts";
@@ -65,39 +66,41 @@ const CreateFeedbackForm = () => {
 
     return (
         <form onSubmit={handleSubmit(submitHandler)}>
-            <Input
-                label={inputCategories.title[lang]}
-                type={"text"}
-                id={"inquiry-title"}
-                name={"title"}
-                placeholder={placeholderCategories.title[lang]}
-                register={register}
-                errorMessage={errors.title?.message}
-            />
-            <Select
-                categories={feedbackInfoCategories}
-                name={"category"}
-                register={register}
-                errorMessage={errors.category?.message}
-                type={"radio"}
-            />
-            <Textarea
-                register={register}
-                name={"content"}
-                errorMessage={errors.content?.message}
-                text={text}
-                countOfText={countOfText}
-                changeTextareaHandler={changeTextareaHandler}
-            />
-            <Button
-                type={"submit"}
-                variant={"filled"}
-                width={"full"}
-                color={"primary"}
-                size={"lg"}
-            >
-                {buttonCategories.sendFeedback[lang]}
-            </Button>
+            <Flex direction={"column"} gap={14} style={{margin: "0 24px"}}>
+                <Input
+                    label={inputCategories.title[lang]}
+                    type={"text"}
+                    id={"inquiry-title"}
+                    name={"title"}
+                    placeholder={placeholderCategories.title[lang]}
+                    register={register}
+                    errorMessage={errors.title?.message}
+                />
+                <Select
+                    categories={feedbackInfoCategories}
+                    name={"category"}
+                    register={register}
+                    errorMessage={errors.category?.message}
+                    type={"radio"}
+                />
+                <Textarea
+                    register={register}
+                    name={"content"}
+                    errorMessage={errors.content?.message}
+                    text={text}
+                    countOfText={countOfText}
+                    changeTextareaHandler={changeTextareaHandler}
+                />
+                <Button
+                    type={"submit"}
+                    variant={"filled"}
+                    width={"full"}
+                    color={"primary"}
+                    size={"lg"}
+                >
+                    {buttonCategories.sendFeedback[lang]}
+                </Button>
+            </Flex>
         </form>
     );
 };

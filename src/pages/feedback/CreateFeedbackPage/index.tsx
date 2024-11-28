@@ -4,7 +4,7 @@ import Grid from "@components/common/Grid";
 import CreateFeedbackForm from "@components/board/CreateFeedbackForm";
 import ArrowBack from "@components/common/ArrowBack";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {Container} from "./style.ts";
+import {DescriptionWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {pageDescriptionCategories} from "@constants/pageDescriptionCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
@@ -14,7 +14,7 @@ const CreateFeedbackPage = () => {
     const {lang} = useThemeStore();
 
     return (
-        <Container>
+        <>
             <HeadTag title={headerCategories.feedback[lang]}/>
 
             <Header>
@@ -28,10 +28,10 @@ const CreateFeedbackPage = () => {
                 </Grid>
             </Header>
 
-            <p>{pageDescriptionCategories.createFeedback[lang]}</p>
+            <DescriptionWrapper>{pageDescriptionCategories.createFeedback[lang]}</DescriptionWrapper>
 
             <CreateFeedbackForm/>
-        </Container>
+        </>
     );
 };
 

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const WarningsListItemWrapper = styled.div`
+export const WarningsListWrapper = styled.div`
     margin: 8px 24px;
 `;
 

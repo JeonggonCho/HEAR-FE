@@ -1,17 +1,14 @@
 import HeadTag from "@components/common/HeadTag";
 import {Header} from "@components/common/Header";
-import ArrowBack from "@components/common/ArrowBack";
 import Link from "@components/common/Link";
 import Divider from "@components/common/Divider";
 import Grid from "@components/common/Grid";
-
-import {headerCategories} from "@constants/headerCategories.ts";
+import ArrowBack from "@components/common/ArrowBack";
 import {useThemeStore} from "@store/useThemeStore.ts";
-
 import {LinkWrapper} from "@pages/auth/AccountPage/style.ts";
 import {Container} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
-
+import {headerCategories} from "@constants/headerCategories.ts";
 import manageAccountIcon from "@assets/images/manageAccount.png";
 import privacyIcon from "@assets/images/privacy.png";
 import passwordIcon from "@assets/images/password.png";

@@ -8,12 +8,7 @@ import Flex from "@components/common/Flex";
 import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
-import {
-    QuestionsWrapper,
-    ResultCard,
-    ResultSignWrapper,
-    ResultWrapper
-} from "./style.ts";
+import {QuestionsWrapper, ResultCard, ResultSignWrapper, ResultWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {ITestResult, QuestionResultType} from "@/types/education.ts";
 import {navCategories} from "@constants/navCategories.ts";

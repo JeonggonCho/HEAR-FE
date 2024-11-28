@@ -5,7 +5,7 @@ import Grid from "@components/common/Grid";
 import SignInForm from "@components/account/SignInForm";
 import ArrowBack from "@components/common/ArrowBack";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {Container, LinkWrapper} from "./style.ts";
+import {LinkWrapper, LogoWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
@@ -16,7 +16,7 @@ const SignInPage = () => {
     const {lang} = useThemeStore();
 
     return (
-        <Container>
+        <>
             <HeadTag title={headerCategories.signIn[lang]}/>
 
             <Header>
@@ -30,13 +30,10 @@ const SignInPage = () => {
                 </Grid>
             </Header>
 
-            <div>
-                <div>
-                    <img src={logo} alt="로고"/>
-                </div>
-
+            <LogoWrapper>
+                <img src={logo} alt="로고"/>
                 <h3>HEAR</h3>
-            </div>
+            </LogoWrapper>
 
             <SignInForm/>
 
@@ -54,7 +51,7 @@ const SignInPage = () => {
                     color={"second"}
                 />
             </LinkWrapper>
-        </Container>
+        </>
     );
 };
 

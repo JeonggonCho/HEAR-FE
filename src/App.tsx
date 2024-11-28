@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {Global, ThemeProvider} from "@emotion/react";
+import {Helmet} from "react-helmet-async";
 import {global} from "@styles/global.ts";
 
 import SplashPage from "@pages/home/SplashPage";
@@ -11,7 +12,7 @@ import {useThemeStore} from "@store/useThemeStore.ts";
 import {darkTheme, lightTheme} from "@styles/theme.ts";
 
 import './App.css';
-import {Helmet} from "react-helmet-async";
+
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);

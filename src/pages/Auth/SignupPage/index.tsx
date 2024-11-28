@@ -7,7 +7,6 @@ import ArrowBack from "@components/common/ArrowBack";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
-import {Container} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 
 
@@ -15,7 +14,7 @@ const SignUpPage = () => {
     const {lang} = useThemeStore();
 
     return (
-        <Container>
+        <>
             <HeadTag title={headerCategories.signUp[lang]}/>
 
             <Header>
@@ -37,7 +36,7 @@ const SignUpPage = () => {
                 to={"/login"}
                 color={"primary"}
             />
-        </Container>
+        </>
     );
 };
 
