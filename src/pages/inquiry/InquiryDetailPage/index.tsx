@@ -10,7 +10,7 @@ import HeadTag from "@components/common/HeadTag";
 import Button from "@components/common/Button";
 import {Modal} from "@components/common/Modal";
 import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
-import Comments from "@components/board/Comments";
+import Comments from "@components/comment/Comments";
 import ProfileImage from "@components/common/ProfileImage";
 import Grid from "@components/common/Grid";
 
@@ -37,7 +37,7 @@ import {
     InquiryInfoWrapper,
     InquiryWrapper, LikeBtnWrapper
 } from "./style.ts";
-import {TagWrapper, WriterWrapper} from "@components/board/InquiryFeedbackListItem/style.ts";
+import {TagWrapper, WriterWrapper} from "@components/feedback/InquiryFeedbackListItem/style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 
 import views from "@assets/icons/visible.svg";

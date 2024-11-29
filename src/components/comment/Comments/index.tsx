@@ -2,7 +2,7 @@ import React, {ChangeEvent, FormEvent, MutableRefObject, ReactElement} from "rea
 import {ReactSVG} from "react-svg";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
-import CommentListItem from "@components/board/CommentListItem";
+import CommentListItem from "@components/comment/CommentListItem";
 import ProfileImage from "@components/common/ProfileImage";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {CommentListWrapper, Container, TextareaWrapper, EmptyMessage} from "./style.ts";

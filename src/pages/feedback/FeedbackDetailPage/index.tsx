@@ -5,7 +5,7 @@ import {Header} from "@components/common/Header";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Dropdown from "@components/common/Dropdown";
 import HeadTag from "@components/common/HeadTag";
-import Comments from "@components/board/Comments";
+import Comments from "@components/comment/Comments";
 import ProfileImage from "@components/common/ProfileImage";
 import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
@@ -26,7 +26,7 @@ import {
     FeedbackInfoWrapper,
     FeedbackWrapper, LikeBtnWrapper
 } from "./style.ts";
-import {TagWrapper, WriterWrapper} from "@components/board/InquiryFeedbackListItem/style.ts";
+import {TagWrapper, WriterWrapper} from "@components/feedback/InquiryFeedbackListItem/style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {feedbackCategories} from "@constants/feedbackCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";

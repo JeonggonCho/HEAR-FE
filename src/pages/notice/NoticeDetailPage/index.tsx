@@ -10,7 +10,7 @@ import HeadTag from "@components/common/HeadTag";
 import Button from "@components/common/Button";
 import {Modal} from "@components/common/Modal";
 import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
-import Comments from "@components/board/Comments";
+import Comments from "@components/comment/Comments";
 import Grid from "@components/common/Grid";
 
 import useRequest from "@hooks/useRequest.ts";

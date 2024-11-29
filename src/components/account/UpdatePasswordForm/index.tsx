@@ -6,12 +6,15 @@ import Input from "@components/common/Input";
 import Flex from "@components/common/Flex";
 import UpdatePassword from "@components/account/UpdatePassword";
 import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
-import {useThemeStore} from "@store/useThemeStore.ts";
 
 
-const UpdatePasswordContext = createContext<{ formData: any; isValid: boolean }>({ formData: null, isValid: false });
+const UpdatePasswordContext = createContext<{ formData: any; isValid: boolean }>({
+    formData: null,
+    isValid: false
+});
 
 
 const UpdatePasswordForm = () => {

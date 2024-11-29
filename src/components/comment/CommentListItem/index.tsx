@@ -25,7 +25,7 @@ import {
     TimeWrapper
 } from "./style.ts";
 import {confirmModalHeader} from "@components/common/Modal/style.ts";
-import {IComment} from "@/types/comment.ts";
+import {IComment} from "@types/comment.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";

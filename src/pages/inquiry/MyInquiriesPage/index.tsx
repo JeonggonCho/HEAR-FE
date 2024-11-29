@@ -4,7 +4,7 @@ import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
-import InquiryFeedbackListItem from "@components/board/InquiryFeedbackListItem";
+import InquiryFeedbackListItem from "@components/feedback/InquiryFeedbackListItem";
 import Empty from "@components/common/Empty";
 import Grid from "@components/common/Grid";
 

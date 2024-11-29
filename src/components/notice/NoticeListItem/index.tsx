@@ -4,7 +4,7 @@ import ArrowForward from "@components/common/ArrowForward";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {Container, NoticeInfoWrapper} from "./style.ts";
-import {INotice} from "@/types/componentProps.ts";
+import {INotice} from "@types/componentProps.ts";
 import views from "@assets/icons/visible.svg";
 import chat from "@assets/icons/chat.svg";
 

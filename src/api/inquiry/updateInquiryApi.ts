@@ -2,22 +2,26 @@ import {AxiosResponse} from "axios";
 import {IRequestProps} from "@hooks/useRequest.ts";
 
 
-interface IFetchFeedbackApiProps {
+interface IUpdateInquiryApiProps {
+    data: any;
+    inquiryId: string;
     sendRequest: ({url, method, data, header}: IRequestProps) => Promise<AxiosResponse<any, any>>;
 }
 
 
-const fetchFeedbacksApi = async ({sendRequest}: IFetchFeedbackApiProps) => {
+const updateInquiryApi = async ({data, inquiryId, sendRequest}: IUpdateInquiryApiProps) => {
     try {
         const response = await sendRequest({
-            url: "/feedback",
+            url: `/inquiries/${inquiryId}`,
+            method: "patch",
+            data: data,
         });
         if (response.data) {
             return response.data;
         }
     } catch (err) {
-        console.error("피드백 목록 조회 중 에러 발생: ", err);
+        console.error("문의 수정 에러: ", err);
     }
 };
 
-export default fetchFeedbacksApi;
+export default updateInquiryApi;

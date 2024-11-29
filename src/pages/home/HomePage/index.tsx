@@ -1,6 +1,5 @@
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {useNavigate} from "react-router-dom";
-
 import AssistantCard from "@components/home/AssistantCard";
 import NoticeCard from "@components/home/NoticeCard";
 import Carousel from "@components/common/Carousel";
@@ -9,6 +8,8 @@ import ReservationCard from "@components/home/ReservationCard";
 import CardLoading from "@components/skeleton/CardLoading";
 import CafeSiteCard from "@components/home/CafeSiteCard";
 import HeadTag from "@components/common/HeadTag";
+import Grid from "@components/common/Grid";
+import Flex from "@components/common/Flex";
 import LaserReservationConditionContent from "@components/home/LaserReservationConditionContent";
 import PrinterReservationConditionContent from "@components/home/PrinterReservationConditionContent";
 import HeatReservationConditionContent from "@components/home/HeatReservationConditionContent";
@@ -16,13 +17,10 @@ import SawReservationConditionContent from "@components/home/SawReservationCondi
 import VacuumReservationConditionContent from "@components/home/VacuumReservationConditionContent";
 import CncReservationConditionContent from "@components/home/CncReservationConditionContent";
 import HomeHeader from "@components/home/HomeHeader";
-
 import useRequest from "@hooks/useRequest.ts";
 import {getLaserReservationRate} from "@util/getReservationRate.ts";
 import {ILaserStatus} from "@/types/reservation.ts";
 import {useToastStore} from "@store/useToastStore.ts";
-
-import {Container} from "./style.ts";
 
 
 const HomePage = () => {
@@ -35,7 +33,6 @@ const HomePage = () => {
     const [cncStatus, setCncStatus] = useState([]);
 
     const navigate = useNavigate();
-
     const {showToast} = useToastStore();
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
@@ -95,10 +92,10 @@ const HomePage = () => {
 
 
     return (
-        <Container>
+        <>
             <HeadTag title={"HEAR"}/>
             <HomeHeader/>
-            <div>
+            <Flex direction={"column"} gap={16} style={{margin: "0 24px"}}>
                 {isLoading ?
                     <CardLoading heightValue={"300px"}/>
                     :
@@ -117,12 +114,13 @@ const HomePage = () => {
                 />
                 <NoticeCard/>
                 <AssistantCard/>
-                <div>
+
+                <Grid align={"center"} columns={2} gap={16}>
                     <CafeSiteCard/>
                     <FeedBackCard/>
-                </div>
-            </div>
-        </Container>
+                </Grid>
+            </Flex>
+        </>
     );
 };
 

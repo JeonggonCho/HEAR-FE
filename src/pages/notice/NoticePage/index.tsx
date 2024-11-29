@@ -4,7 +4,7 @@ import {Header} from "@components/common/Header";
 import Tab from "@components/common/Tab";
 import FloatingButton from "@components/common/FloatingButton";
 import Empty from "@components/common/Empty";
-import NoticeListItem from "@components/board/NoticeListItem";
+import NoticeListItem from "@components/notice/NoticeListItem";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 

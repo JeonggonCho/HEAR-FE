@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 
-export const DescriptionWrapper = styled.div`
+export const DescriptionWrapper = styled.p`
     width: 80%;
     color: ${({theme}) => theme.colors.font.sub};
     line-height: 1.5;
