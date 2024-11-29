@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import {Link} from "react-router-dom";
 
+
 export const Container = styled(Link)`
     width: 100%;
     background-color: ${({theme}) => theme.colors.bg.main};

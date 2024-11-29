@@ -1,35 +1,21 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.div`
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
 
-    & > div:first-of-type, & > div:last-of-type {
-        text-align: center;
-        width: 100%;
-        line-height: 1.2;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
+export const StatusLabelWrapper = styled.p`
+    margin: 0 0 -2px;
+    font-size: 1rem;
+    line-height: 1.2;
+`;
 
-        p {
-            margin: 0 0 -2px;
-            font-size: 1rem;
-        }
+export const StatusMessageWrapper = styled.span`
+    font-size: 0.75rem;
+    color: ${({theme}) => theme.colors.font.sub};
+    line-height: 1.2;
+`;
 
-        span {
-            font-size: 0.75rem;
-            color: ${({theme}) => theme.colors.font.sub};
-        }
-    }
-
-    & > div:nth-of-type(2) {
-        min-height: 60px;
-        border-left: 1px solid ${({theme}) => theme.colors.font.placeholder};
-    }
+export const CenterBar = styled.div`
+    min-height: 60px;
+    border-left: 1px solid ${({theme}) => theme.colors.font.placeholder};
 `;
 
 export const PassStatus = styled.h3<{pass: boolean}>`

@@ -1,5 +1,7 @@
 import {useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {Card} from "@components/common/Card";
+import Flex from "@components/common/Flex";
 import Button from "@components/common/Button";
 import CardLoading from "@components/skeleton/CardLoading";
 import useRequest from "@hooks/useRequest.ts";
@@ -7,8 +9,8 @@ import {useUserDataStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
 import {
-    AssistantCardTitleWrapper, AssistantInfoWrapper,
-    Container, EmptyAssistantInfo,
+    AssistantLabWrapper, AssistantNameWrapper, CardTitleWrapper,
+    EmptyAssistantInfo, ImageWrapper,
 } from "./style.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
@@ -55,38 +57,44 @@ const AssistantCard = () => {
     }
 
     return (
-        <Container>
-            <AssistantCardTitleWrapper valid={!!assistantInfo}>
-                <img src={assistant} alt="관리 조교"/>
-                <h3>{cardCategories.assistant[lang]}</h3>
-            </AssistantCardTitleWrapper>
+        <Card padding={18} borderRadius={16} bgColor={true}>
+            <Flex direction={"column"} gap={16}>
+                <Card.Header>
+                    <Flex align={"center"} gap={12}>
+                        <ImageWrapper src={assistant} valid={!!assistantInfo} alt="관리 조교"/>
+                        <CardTitleWrapper valid={!!assistantInfo}>{cardCategories.assistant[lang]}</CardTitleWrapper>
+                    </Flex>
+                </Card.Header>
 
-            {assistantInfo ?
-                <AssistantInfoWrapper>
-                    <div>
-                        <span>{assistantInfo.username}</span>
-                        <span>{assistantInfo.lab}</span>
-                    </div>
+                <Card.Footer>
+                    {assistantInfo ?
+                        <Flex align={"flex-end"} justify={"space-between"}>
+                            <Flex align={"center"} gap={8} style={{marginBottom: "4px"}}>
+                                <AssistantNameWrapper>{assistantInfo.username}</AssistantNameWrapper>
+                                <AssistantLabWrapper>{assistantInfo.lab}</AssistantLabWrapper>
+                            </Flex>
 
-                    {userData?.role !== "assistant" &&
-                      <Button
-                        type={"button"}
-                        variant={"filled"}
-                        width={"fit"}
-                        color={"third"}
-                        size={"sm"}
-                        onClick={() => navigate("/board/inquiry/new")}
-                      >
-                          {buttonCategories.inquiry[lang]}
-                      </Button>
+                            {userData?.role !== "assistant" &&
+                              <Button
+                                type={"button"}
+                                variant={"filled"}
+                                width={"fit"}
+                                color={"third"}
+                                size={"sm"}
+                                onClick={() => navigate("/board/inquiry/new")}
+                              >
+                                  {buttonCategories.inquiry[lang]}
+                              </Button>
+                            }
+                        </Flex>
+                        :
+                        <EmptyAssistantInfo>
+                            {messageCategories.emptyAssistantInfo[lang]}
+                        </EmptyAssistantInfo>
                     }
-                </AssistantInfoWrapper>
-                :
-                <EmptyAssistantInfo>
-                    {messageCategories.emptyAssistantInfo[lang]}
-                </EmptyAssistantInfo>
-            }
-        </Container>
+                </Card.Footer>
+            </Flex>
+        </Card>
     );
 };
 
