@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import AssistantCard from "@components/home/AssistantCard";
 import NoticeCard from "@components/home/NoticeCard";
 import Carousel from "@components/common/Carousel";
-import FeedBackCard from "@components/home/FeedBackCard";
+import FeedbackCard from "@components/home/FeedbackCard";
 import ReservationCard from "@components/home/ReservationCard";
 import CardLoading from "@components/skeleton/CardLoading";
 import CafeSiteCard from "@components/home/CafeSiteCard";
@@ -117,7 +117,7 @@ const HomePage = () => {
 
                 <Grid align={"center"} columns={2} gap={16}>
                     <CafeSiteCard/>
-                    <FeedBackCard/>
+                    <FeedbackCard/>
                 </Grid>
             </Flex>
         </>

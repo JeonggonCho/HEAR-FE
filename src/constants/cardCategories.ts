@@ -120,7 +120,7 @@ export const cardCategories = {
         ch: "数字模型制作室（301号）地图",
     },
     cafe: {
-        ko: "불꽃건축 카페",
+        ko: "불꽃건축",
         en: "Website",
         ch: "建筑网站",
     },

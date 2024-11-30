@@ -2,27 +2,20 @@ import styled from "@emotion/styled";
 import {Link} from "react-router-dom";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
+
 export const Container = styled(Link)`
     width: 100%;
-    height: 132px;
-    border-radius: 16px;
-    background-color: ${({theme}) => theme.colors.bg.main};
-    padding: 18px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 1px solid ${({theme}) => theme.colors.bg.main};
+    height: 100%;
     transition: all 0.2s ease-in-out 0s;
     
     &:hover {
-        box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
-        
-        & > div:last-of-type {
-            svg {
-                fill: ${({theme}) => theme.colors.font.main};
-                transform: scale(1.05);
-            }   
+        & > div:first-of-type {
+            box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
+        }
+
+        svg {
+            fill: ${({theme}) => theme.colors.font.main};
+            transform: scale(1.05);
         }
     }
 
