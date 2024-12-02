@@ -1,12 +1,13 @@
 import {useCallback, useEffect, useState} from "react";
 import ArrowForward from "@components/common/ArrowForward";
 import CardLoading from "@components/skeleton/CardLoading";
+import Card from "@components/common/Card";
+import Flex from "@components/common/Flex";
 import useRequest from "@hooks/useRequest.ts";
 import useRolling from "@hooks/useRolling.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
 import {
-    Container,
     EmptyNotice,
     ImgWrapper,
     More,
@@ -59,36 +60,41 @@ const NoticeCard = () => {
     }
 
     return (
-        <Container>
-            <ImgWrapper valid={latestNotices.length > 0}>
-                <img src={notice} alt="notice"/>
-            </ImgWrapper>
+        <Card
+            padding={"12px 14px"}
+            borderRadius={16}
+        >
+            <Flex align={"center"}>
+                <ImgWrapper valid={latestNotices.length > 0}>
+                    <img src={notice} alt="notice"/>
+                </ImgWrapper>
 
-            {latestNotices.length > 0 ?
-                <>
-                    <RollingWrapper
-                        onMouseEnter={() => setIsHovered(true)}
-                        onMouseLeave={() => setIsHovered(false)}
-                        rollingHeight={rollingHeight}
-                    >
-                        <RollingContent ref={rollingRef}>
-                            {latestNotices.map(value => (
-                                    <Notice key={value.noticeId} to={`/board/notice/${value.noticeId}`}>
-                                        {value.title}
-                                    </Notice>
-                                )
-                            )}
-                        </RollingContent>
-                    </RollingWrapper>
+                {latestNotices.length > 0 ?
+                    <>
+                        <RollingWrapper
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
+                            rollingHeight={rollingHeight}
+                        >
+                            <RollingContent ref={rollingRef}>
+                                {latestNotices.map(value => (
+                                        <Notice key={value.noticeId} to={`/board/notice/${value.noticeId}`}>
+                                            {value.title}
+                                        </Notice>
+                                    )
+                                )}
+                            </RollingContent>
+                        </RollingWrapper>
 
-                    <More to={"/board/notice"}>
-                        {buttonCategories.more[lang]} <ArrowForward/>
-                    </More>
-                </>
-                :
-                <EmptyNotice>{messageCategories.emptyNotice[lang]}</EmptyNotice>
-            }
-        </Container>
+                        <More to={"/board/notice"}>
+                            {buttonCategories.more[lang]} <ArrowForward/>
+                        </More>
+                    </>
+                    :
+                    <EmptyNotice>{messageCategories.emptyNotice[lang]}</EmptyNotice>
+                }
+            </Flex>
+        </Card>
     );
 };
 

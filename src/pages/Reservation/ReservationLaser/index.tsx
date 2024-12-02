@@ -1,9 +1,7 @@
 import {useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
 import {useNavigate} from "react-router-dom";
-
 import {Header} from "@components/common/Header";
-import RoomMap from "@components/reservation/RoomMap";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import {Modal} from "@components/common/Modal";
@@ -11,23 +9,21 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import LaserSelectContent from "@components/reservation/LaserSelectContent";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
+import MapModal from "@components/common/Modal/MapModal.tsx";
 import ArrowBack from "@components/common/ArrowBack";
-
 import useRequest from "@hooks/useRequest.ts";
 import {getTomorrowDate} from "@util/calculateDate.ts";
 import {ILaserInfo, ILaserReservation, ILaserTimesinfo} from "@/types/reservation.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
+import {Container, EmptyMessage, ImageWrapper, MapIcon, SelectedItemWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
-
-import {Container, EmptyMessage, ImageWrapper, MapIcon, SelectedItemWrapper} from "./style.ts";
-import {headerCenter} from "@components/common/Header/style.ts";
-
 import laser from "@assets/images/laser_cut.png";
 import mapIcon from "@assets/icons/map.svg";
 import close from "@assets/icons/close.svg";
@@ -38,11 +34,9 @@ const ReservationLaser = () => {
     const [laserInfo, setLaserInfo] = useState<ILaserInfo[]>([]);
     const [laserTimesInfo, setLaserTimesInfo] = useState<ILaserTimesinfo[]>([]);
     const [showModal, setShowModal] = useState<boolean>(false);
-    const [showMap, setShowMap] = useState<boolean>(false);
     const [showEmptyError, setShowEmptyError] = useState<boolean>(false);
 
     const navigate = useNavigate();
-
     const {userData, setUserData} = useUserDataStore();
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
@@ -144,9 +138,14 @@ const ReservationLaser = () => {
                             <h2 css={headerCenter}>{headerCategories.laserReservationHeader[lang]}</h2>
                         </Header.Center>
                         <Header.Right>
-                            <MapIcon onClick={() => setShowMap(true)}>
-                                <ReactSVG src={mapIcon}/>
-                            </MapIcon>
+                            <MapModal
+                                trigger={
+                                    <MapIcon>
+                                        <ReactSVG src={mapIcon}/>
+                                    </MapIcon>
+                                }
+                                machine={"laser"}
+                            />
                         </Header.Right>
                     </Grid>
                 </Header>
@@ -194,16 +193,27 @@ const ReservationLaser = () => {
 
                                 <Button
                                     type={"button"}
-                                    content={buttonCategories.selectMachineAndTime[lang]}
+                                    variant={"filled"}
                                     width={"full"}
                                     color={"approval"}
-                                    scale={"normal"}
+                                    size={"md"}
                                     onClick={() => setShowModal(true)}
-                                />
+                                >
+                                    {buttonCategories.selectMachineAndTime[lang]}
+                                </Button>
                             </div>
                         </div>
 
-                        <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button
+                            type={"submit"}
+                            variant={"filled"}
+                            width={"full"}
+                            color={"primary"}
+                            size={"lg"}
+                            disabled={reservationList.length === 0}
+                        >
+                            {buttonCategories.reservation[lang]}
+                        </Button>
                     </form>
                 }
             </Container>
@@ -222,14 +232,6 @@ const ReservationLaser = () => {
                 }
                 setModal={setShowModal}
                 type={"bottomSheet"}
-              />
-            }
-
-            {showMap &&
-              <Modal
-                content={<RoomMap machine={"laser"} setModal={setShowMap}/>}
-                setModal={setShowMap}
-                type={"popup"}
               />
             }
         </>

@@ -1,13 +1,12 @@
 import {useEffect, useState} from "react";
-import {ReactSVG} from "react-svg";
 import ArrowForward from "@components/common/ArrowForward";
 import CardLoading from "@components/skeleton/CardLoading";
-import {useThemeStore} from "@store/useThemeStore.ts";
-import {Container} from "./style.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
-import feedbackLogo from "@assets/icons/feedback.svg";
-import {Card} from "@components/common/Card";
+import Card from "@components/common/Card";
 import Flex from "@components/common/Flex";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {CardTitleWrapper, Container} from "./style.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import feedbackLogo from "@assets/images/thumb_up.png";
 
 
 const FeedbackCard = () => {
@@ -27,20 +26,23 @@ const FeedbackCard = () => {
 
     return (
         <Container to={"/board/feedback/new"}>
-            <Card padding={18} bgColor={true} borderRadius={16}>
-                <Flex direction={"column"} gap={24} style={{width: "100%"}}>
-                    <Card.Header>
-                        <Flex direction={"row"} gap={16}>
-                            <ReactSVG src={feedbackLogo}/>
-                            <h3>{buttonCategories.appFeedback[lang]}</h3>
-                        </Flex>
-                    </Card.Header>
+            <Card
+                padding={18}
+                borderRadius={16}
+            >
+                <Flex
+                    direction={"column"}
+                    justify={"space-between"}
+                    style={{width: "100%", height: "100%"}}
+                >
+                    <Flex direction={"row"} gap={16}>
+                        <img width={24} height={24} src={feedbackLogo} alt={"logo"}/>
+                        <CardTitleWrapper>{buttonCategories.appFeedback[lang]}</CardTitleWrapper>
+                    </Flex>
 
-                    <Card.Footer>
-                        <Flex justify={"flex-end"}>
-                            <ArrowForward/>
-                        </Flex>
-                    </Card.Footer>
+                    <Flex justify={"flex-end"}>
+                        <ArrowForward/>
+                    </Flex>
                 </Flex>
             </Card>
         </Container>

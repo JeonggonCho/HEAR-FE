@@ -35,7 +35,7 @@ const CreateInquiryForm = () => {
 
     type InquiryFormData = z.infer<typeof inquirySchema>;
 
-    const {register, handleSubmit, setValue, formState:{errors}} = useForm<InquiryFormData>({
+    const {register, handleSubmit, setValue, formState:{errors, isValid}} = useForm<InquiryFormData>({
         resolver: zodResolver(inquirySchema),
         defaultValues: {
             title: "",
@@ -93,6 +93,7 @@ const CreateInquiryForm = () => {
                     width={"full"}
                     color={"primary"}
                     size={"lg"}
+                    disabled={!isValid}
                 >
                     {buttonCategories.sendInquiry[lang]}
                 </Button>

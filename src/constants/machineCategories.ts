@@ -1,11 +1,11 @@
 import {IMachine, MachineNameType} from "@/types/machine.ts";
-
 import printer from "@assets/images/printer_icon.png";
 import laser from "@assets/images/laser_icon.png";
 import heat from "@assets/images/heat_icon.png";
 import cnc from "@assets/images/cnc_icon.png";
 import saw from "@assets/images/saw_icon.png";
 import vacuum from "@assets/images/vacuum_icon.png";
+
 
 export const machineReservationCategories:IMachine[] = [
     {image: laser, link: "/reservation/laser", type: "laser"},
@@ -15,6 +15,7 @@ export const machineReservationCategories:IMachine[] = [
     {image: vacuum, link: "/reservation/vacuum", type: "vacuum"},
     {image: cnc, link: "/reservation/cnc", type: "cnc"},
 ];
+
 
 export const machineName: MachineNameType = {
     laser: {

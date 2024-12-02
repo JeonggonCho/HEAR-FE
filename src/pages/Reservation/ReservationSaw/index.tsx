@@ -186,7 +186,15 @@ const ReservationSaw = () => {
                             {errors.endTime?.message && <InputMessage message={errors.endTime.message} type={"error"}/>}
                         </TimeWrapper>
 
-                        <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button
+                            type={"submit"}
+                            variant={"filled"}
+                            width={"full"}
+                            color={"primary"}
+                            size={"lg"}
+                        >
+                            {buttonCategories.reservation[lang]}
+                        </Button>
                     </form>
                 }
             </Container>

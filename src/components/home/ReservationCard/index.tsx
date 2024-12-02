@@ -1,6 +1,7 @@
 import Link from "@components/common/Link";
+import Card from "@components/common/Card";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {Container} from "./style.ts";
+import {ReservationLinksWrapper} from "./style.ts";
 import {machineReservationCategories} from "@constants/machineCategories.ts";
 import {machineName} from "@constants/machineCategories.ts";
 import {MachineNameType} from "@/types/machine.ts";
@@ -23,8 +24,12 @@ const ReservationCard = ({laser, printer, heat, saw, vacuum, cnc, isLoading}: IR
     const machineStatus = {laser, printer, heat, saw, vacuum, cnc};
 
     return (
-        <Container>
-            <div>
+        <Card
+            borderRadius={0}
+            padding={"12px 8px 20px"}
+            bgColor={"sub"}
+        >
+            <ReservationLinksWrapper>
                 {machineReservationCategories.map((machine, index) => {
                     const nameKey = machine.type as keyof MachineNameType;
                     const machineNameEntry = machineName[nameKey];
@@ -42,8 +47,8 @@ const ReservationCard = ({laser, printer, heat, saw, vacuum, cnc, isLoading}: IR
                         />
                     );
                 })}
-            </div>
-        </Container>
+            </ReservationLinksWrapper>
+        </Card>
     );
 };
 

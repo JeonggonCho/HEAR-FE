@@ -2,18 +2,6 @@ import styled from "@emotion/styled";
 import {Link} from "react-router-dom";
 
 
-export const Container = styled.div`
-    margin-top: 8px;
-    width: 100%;
-    background-color: ${({theme}) => theme.colors.bg.main};
-    border-radius: 16px;
-    padding: 12px 14px;
-    transition: all 0.2s ease-in-out 0s;
-    border: 1px solid ${({theme}) => theme.colors.bg.main};
-    display: flex;
-    align-items: center;
-`;
-
 export const ImgWrapper = styled.div<{valid: boolean}>`
     width: 24px;
     max-width: 24px;

@@ -5,8 +5,13 @@ import {Link} from "react-router-dom";
 export const Container = styled(Link)`
     width: 100%;
     height: 100%;
-    transition: all 0.2s ease-in-out 0s;
+    display: block;
 
+    & > div:first-of-type {
+        height: 100%;
+        transition: all 0.2s ease-in-out 0s;
+    }
+    
     h3 {
         margin: 4px 0 0;
         font-weight: 500;

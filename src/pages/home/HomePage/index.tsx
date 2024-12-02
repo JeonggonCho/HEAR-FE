@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useMemo, useState} from "react";
-import {useNavigate} from "react-router-dom";
 import AssistantCard from "@components/home/AssistantCard";
 import NoticeCard from "@components/home/NoticeCard";
 import Carousel from "@components/common/Carousel";
@@ -8,7 +7,6 @@ import ReservationCard from "@components/home/ReservationCard";
 import CardLoading from "@components/skeleton/CardLoading";
 import CafeSiteCard from "@components/home/CafeSiteCard";
 import HeadTag from "@components/common/HeadTag";
-import Grid from "@components/common/Grid";
 import Flex from "@components/common/Flex";
 import LaserReservationConditionContent from "@components/home/LaserReservationConditionContent";
 import PrinterReservationConditionContent from "@components/home/PrinterReservationConditionContent";
@@ -32,7 +30,6 @@ const HomePage = () => {
     const [vacuumStatus, setVacuumStatus] = useState([]);
     const [cncStatus, setCncStatus] = useState([]);
 
-    const navigate = useNavigate();
     const {showToast} = useToastStore();
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
 
@@ -114,11 +111,14 @@ const HomePage = () => {
                 />
                 <NoticeCard/>
                 <AssistantCard/>
-
-                <Grid align={"center"} columns={2} gap={16}>
+                <Flex
+                    align={"center"}
+                    gap={16}
+                    style={{height: "128px"}}
+                >
                     <CafeSiteCard/>
                     <FeedbackCard/>
-                </Grid>
+                </Flex>
             </Flex>
         </>
     );

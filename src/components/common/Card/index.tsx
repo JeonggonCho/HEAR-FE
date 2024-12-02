@@ -1,40 +1,41 @@
-import {ReactNode} from "react";
-import CardHeader from "@components/common/Card/CardHeader.tsx";
-import CardBody from "@components/common/Card/CardBody.tsx";
-import CardFooter from "@components/common/Card/CardFooter.tsx";
-import {CardWrapper} from "@components/common/Card/style.ts";
+import {ElementType, ReactNode} from "react";
+import {useTheme} from "@emotion/react";
 
 
 interface ICardProps {
     children: ReactNode | string;
     padding: string | number;
-    bgColor: boolean;
     borderRadius: number | string;
+    as?: ElementType;
+    bgColor?: "main" | "sub";
+    style?: Object;
 }
 
 
-const CardMain = (
+const Card = (
     {
         children,
         padding,
-        bgColor,
         borderRadius,
+        as: Component = "div",
+        bgColor = "main",
+        style = {},
     }: ICardProps
 ) => {
+    const theme = useTheme();
 
     return (
-        <CardWrapper
-            padding={padding}
-            bgColor={bgColor}
-            borderRadius={borderRadius}
+        <Component
+            style={{
+                padding: `${typeof padding === "number" ? `${padding}px` : padding}`,
+                borderRadius: `${typeof borderRadius === "number" ? `${borderRadius}px` : borderRadius}`,
+                backgroundColor: theme.colors.bg[bgColor],
+                ...style,
+            }}
         >
             {children}
-        </CardWrapper>
+        </Component>
     );
 };
 
-export const Card = Object.assign(CardMain, {
-    Header: CardHeader,
-    Body: CardBody,
-    Footer: CardFooter,
-});
+export default Card;

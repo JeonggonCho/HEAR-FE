@@ -4,10 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-
 import {Header} from "@components/common/Header";
-import ArrowBack from "@components/common/ArrowBack";
-import RoomMap from "@components/reservation/RoomMap";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import {Modal} from "@components/common/Modal";
@@ -15,20 +12,19 @@ import Calendar from "@components/common/Calendar";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
-
+import MapModal from "@components/common/Modal/MapModal.tsx";
+import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
+import {CncCheckWrapper, Container, ImageWrapper, MapIcon} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
-
-import {CncCheckWrapper, Container, ImageWrapper, MapIcon} from "./style.ts";
-import {headerCenter} from "@components/common/Header/style.ts";
-
 import cnc from "@assets/images/cnc.png";
 import mapIcon from "@assets/icons/map.svg";
 import check from "@assets/icons/check.svg";
@@ -37,10 +33,8 @@ import check from "@assets/icons/check.svg";
 const ReservationCnc = () => {
     const [condition, setCondition] = useState([]);
     const [showCalendar, setShowCalendar] = useState<boolean>(false);
-    const [showMap, setShowMap] = useState<boolean>(false);
 
     const navigate = useNavigate();
-
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
@@ -122,9 +116,14 @@ const ReservationCnc = () => {
                             <h2 css={headerCenter}>{headerCategories.cncReservationHeader[lang]}</h2>
                         </Header.Center>
                         <Header.Right>
-                            <MapIcon onClick={() => setShowMap(true)}>
-                                <ReactSVG src={mapIcon}/>
-                            </MapIcon>
+                            <MapModal
+                                trigger={
+                                    <MapIcon>
+                                        <ReactSVG src={mapIcon}/>
+                                    </MapIcon>
+                                }
+                                machine={"cnc"}
+                            />
                         </Header.Right>
                     </Grid>
                 </Header>
@@ -193,14 +192,6 @@ const ReservationCnc = () => {
                 }
                 setModal={setShowCalendar}
                 type={"bottomSheet"}
-              />
-            }
-
-            {showMap &&
-              <Modal
-                content={<RoomMap machine={"cnc"} setModal={setShowMap}/>}
-                setModal={setShowMap}
-                type={"popup"}
               />
             }
         </>

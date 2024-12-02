@@ -1,29 +1,25 @@
 import {useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
 import {useNavigate} from "react-router-dom";
-
 import {Header} from "@components/common/Header";
-import RoomMap from "@components/reservation/RoomMap";
 import Button from "@components/common/Button";
 import {Modal} from "@components/common/Modal";
 import PrinterSelectContent from "@components/reservation/PrinterSelectContent";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
+import MapModal from "@components/common/Modal/MapModal.tsx";
 import ArrowBack from "@components/common/ArrowBack";
-
 import useRequest from "@hooks/useRequest.ts";
 import {IPrinterReservation} from "@/types/reservation.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
+import {Container, DateMachineSelectWrapper, EmptyMessage, ImageWrapper, MapIcon} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
-
-import {Container, DateMachineSelectWrapper, EmptyMessage, ImageWrapper, MapIcon} from "./style.ts";
-import {headerCenter} from "@components/common/Header/style.ts";
-
 import printer from "@assets/images/3d_printer.png";
 import mapIcon from "@assets/icons/map.svg";
 
@@ -34,14 +30,12 @@ const ReservationPrinter = () => {
     const [selectMachineMode, setSelectMachineMode] = useState<boolean>(false);
     const [selectedMachine, setSelectedMachine] = useState<string>("");
     const [showSelectModal, setShowSelectModal] = useState<boolean>(false);
-    const [showMap, setShowMap] = useState<boolean>(false);
     const [showEmptyError, setShowEmptyError] = useState<boolean>(false);
 
+    const navigate = useNavigate();
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
-
-    const navigate = useNavigate();
 
     const fetchValidPrinterInfo = useCallback(async () => {
         try {
@@ -121,9 +115,14 @@ const ReservationPrinter = () => {
                             <h2 css={headerCenter}>{headerCategories.printerReservationHeader[lang]}</h2>
                         </Header.Center>
                         <Header.Right>
-                            <MapIcon onClick={() => setShowMap(true)}>
-                                <ReactSVG src={mapIcon}/>
-                            </MapIcon>
+                            <MapModal
+                                trigger={
+                                    <MapIcon>
+                                        <ReactSVG src={mapIcon}/>
+                                    </MapIcon>
+                                }
+                                machine={"printer"}
+                            />
                         </Header.Right>
                     </Grid>
                 </Header>
@@ -148,17 +147,26 @@ const ReservationPrinter = () => {
 
                                 <Button
                                     type={"button"}
-                                    content={reservation ? `${buttonCategories.change[lang]}` : `${buttonCategories.selectDateAndMachine[lang]}`}
+                                    variant={"filled"}
                                     width={"full"}
                                     color={"approval"}
-                                    scale={"normal"}
+                                    size={"md"}
                                     onClick={() => setShowSelectModal(true)}
-                                />
+                                >
+                                    {reservation ? `${buttonCategories.change[lang]}` : `${buttonCategories.selectDateAndMachine[lang]}`}
+                                </Button>
                             </div>
                         </DateMachineSelectWrapper>
 
-                        <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"}
-                                color={"primary"} scale={"big"}/>
+                        <Button
+                            type={"submit"}
+                            variant={"filled"}
+                            width={"full"}
+                            color={"primary"}
+                            size={"lg"}
+                        >
+                            {buttonCategories.reservation[lang]}
+                        </Button>
                     </form>
                 }
             </Container>
@@ -183,14 +191,6 @@ const ReservationPrinter = () => {
                 />}
                 setModal={handleCloseModal}
                 type={"bottomSheet"}
-              />
-            }
-
-            {showMap &&
-              <Modal
-                content={<RoomMap machine={"printer"} setModal={setShowMap}/>}
-                setModal={setShowMap}
-                type={"popup"}
               />
             }
         </>

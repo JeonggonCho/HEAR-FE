@@ -6,7 +6,13 @@ interface IHeaderRightProps {
 
 const HeaderRight = ({children}: IHeaderRightProps) => {
     return (
-        <div>{children}</div>
+        <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "end"
+        }}>
+            {children}
+        </div>
     );
 };
 

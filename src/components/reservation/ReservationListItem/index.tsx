@@ -112,22 +112,26 @@ const ReservationListItem = (
                         leftBtn={
                             <Button
                                 type={"button"}
-                                content={buttonCategories.close[lang]}
+                                variant={"filled"}
                                 width={"full"}
-                                scale={"normal"}
+                                size={"md"}
                                 color={"third"}
                                 onClick={() => setShowConfirmModal(false)}
-                            />
+                            >
+                                {buttonCategories.close[lang]}
+                            </Button>
                         }
                         rightBtn={
                             <Button
                                 type={"button"}
-                                content={buttonCategories.delete[lang]}
+                                variant={"filled"}
                                 width={"full"}
-                                scale={"normal"}
+                                size={"md"}
                                 color={"danger"}
                                 onClick={() => deleteHandler([{machine: reservation.machine, _id: reservation._id, date: reservation.date}])}
-                            />
+                            >
+                                {buttonCategories.delete[lang]}
+                            </Button>
                         }
                     />
                 }

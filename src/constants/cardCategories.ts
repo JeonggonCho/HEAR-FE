@@ -224,4 +224,9 @@ export const cardCategories = {
         en: "Profile Update > Fill in Lab",
         ch: "个人资料修改 > 填写研究室",
     },
+    entrance: {
+        ko: "입구",
+        en: "Entrance",
+        ch: "入口",
+    }
 };

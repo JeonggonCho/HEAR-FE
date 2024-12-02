@@ -1,4 +1,4 @@
-import {Card} from "@components/common/Card";
+import Card from "@components/common/Card";
 import Flex from "@components/common/Flex";
 import CardLoading from "@components/skeleton/CardLoading";
 import {useUserDataStore} from "@store/useUserStore.ts";
@@ -23,7 +23,10 @@ const StatusCard = ({isLoading}: IStatusCardProps) => {
     const {lang} = useThemeStore();
 
     return (
-        <Card bgColor={true} borderRadius={0} padding={"16px 24px"}>
+        <Card
+            borderRadius={0}
+            padding={"16px 24px"}
+        >
             <Flex direction={"row"} align={"center"} justify={"space-evenly"}>
                 <Flex direction={"column"} align={"center"} gap={6}>
                     {isLoading ?

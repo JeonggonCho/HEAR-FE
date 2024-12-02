@@ -1,10 +1,10 @@
+import React from "react";
 import {ReactSVG} from "react-svg";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {CncWrapper, Container, LaserWrapper, MapWrapper, PrinterWrapper, VacuumWrapper} from "./style.ts";
 import {machineName} from "@constants/machineCategories.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 import close from "@assets/icons/close.svg";
-import React from "react";
 
 
 interface IRoomMapProps {
@@ -47,7 +47,7 @@ const RoomMap = ({machine, setModal}: IRoomMapProps) => {
                     </div>
                     <div>
                         ▴<br/>
-                        입구
+                        {cardCategories.entrance[lang]}
                     </div>
                     <div>
                         <PrinterWrapper machine={machine}>

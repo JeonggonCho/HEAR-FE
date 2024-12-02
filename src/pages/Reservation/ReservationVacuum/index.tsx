@@ -4,10 +4,8 @@ import {useNavigate} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-
 import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
-import RoomMap from "@components/reservation/RoomMap";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
 import {Modal} from "@components/common/Modal";
@@ -16,20 +14,18 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import InputMessage from "@components/common/InputMessage";
 import Grid from "@components/common/Grid";
-
+import MapModal from "@components/common/Modal/MapModal.tsx";
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
+import {Container, ImageWrapper, MapIcon, TimeWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
-
-import {Container, ImageWrapper, MapIcon, TimeWrapper} from "./style.ts";
-import {headerCenter} from "@components/common/Header/style.ts";
-
 import vacuum from "@assets/images/vacuum.png";
 import mapIcon from "@assets/icons/map.svg";
 import close from "@assets/icons/close.svg";
@@ -38,11 +34,9 @@ import close from "@assets/icons/close.svg";
 const ReservationVacuum = () => {
     const [condition, setCondition] = useState([]);
     const [showCalendar, setShowCalendar] = useState<boolean>(false);
-    const [showMap, setShowMap] = useState<boolean>(false);
     const [showTooltip, setShowTooltip] = useState<boolean>(true);
 
     const navigate = useNavigate();
-
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
     const {isLoading, sendRequest, errorText, clearError} = useRequest();
@@ -123,9 +117,14 @@ const ReservationVacuum = () => {
                             <h2 css={headerCenter}>{headerCategories.vacuumReservationHeader[lang]}</h2>
                         </Header.Center>
                         <Header.Right>
-                            <MapIcon onClick={() => setShowMap(true)}>
-                                <ReactSVG src={mapIcon}/>
-                            </MapIcon>
+                            <MapModal
+                                trigger={
+                                    <MapIcon>
+                                        <ReactSVG src={mapIcon}/>
+                                    </MapIcon>
+                                }
+                                machine={"printer"}
+                            />
                         </Header.Right>
                     </Grid>
                 </Header>
@@ -194,7 +193,15 @@ const ReservationVacuum = () => {
                             {errors.endTime?.message && <InputMessage message={errors.endTime.message} type={"error"}/>}
                         </TimeWrapper>
 
-                        <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button
+                            type={"submit"}
+                            variant={"filled"}
+                            width={"full"}
+                            color={"primary"}
+                            size={"lg"}
+                        >
+                            {buttonCategories.reservation[lang]}
+                        </Button>
                     </form>
                 }
             </Container>
@@ -215,14 +222,6 @@ const ReservationVacuum = () => {
                 }
                 setModal={setShowCalendar}
                 type={"bottomSheet"}
-              />
-            }
-
-            {showMap &&
-              <Modal
-                content={<RoomMap machine={"vacuum"} setModal={setShowMap}/>}
-                setModal={setShowMap}
-                type={"popup"}
               />
             }
         </>
