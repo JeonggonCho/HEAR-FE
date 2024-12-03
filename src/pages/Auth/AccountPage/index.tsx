@@ -1,8 +1,6 @@
 import {useCallback, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {ReactSVG} from "react-svg";
-
-import ArrowBack from "@components/common/ArrowBack";
 import {Header} from "@components/common/Header";
 import Flex from "@components/common/Flex";
 import ProfileCard from "@components/account/ProfileCard";
@@ -13,16 +11,14 @@ import HeadTag from "@components/common/HeadTag";
 import DeleteAccount from "@components/account/DeleteAccount";
 import LogoutAccount from "@components/account/LogoutAccount";
 import Button from "@components/common/Button";
-
+import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
+import {Container, LinkWrapper} from "./style.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {navCategories} from "@constants/navCategories.ts";
-
-import {Container, LinkWrapper} from "./style.ts";
-
 import userImg from "@assets/images/assistant.png";
 import machine from "@assets/images/machine.png";
 import reservation from "@assets/images/my_reservation.png";

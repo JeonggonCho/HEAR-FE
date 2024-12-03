@@ -5,14 +5,14 @@ import Tab from "@components/common/Tab";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {ITab} from "@/types/tab.ts";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
 import {MachineImgWrapper, Container} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {machineName, machineInstructionTabCategories} from "@constants/machineCategories.ts";
-import saw from "@assets/images/saw.png";
-import {ITab} from "@/types/tab.ts";
 import Warning from "../Warning";
 import After from "../After";
+import saw from "@assets/images/saw.png";
 
 
 const InstructionSaw = () => {

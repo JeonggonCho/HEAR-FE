@@ -4,7 +4,6 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-
 import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Select from "@components/common/Select";
@@ -18,7 +17,6 @@ import Empty from "@components/common/Empty";
 import Input from "@components/common/Input";
 import ConfirmModal from "@components/common/Modal/ConfirmModal.tsx";
 import Grid from "@components/common/Grid";
-
 import useRequest from "@hooks/useRequest.ts";
 import useScrollbarSize from "@hooks/useScrollbarSize.ts";
 import useModal from "@hooks/useModal.ts";
@@ -26,14 +24,6 @@ import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
 import {EducationType, IMultipleChoice, ISingleChoice, ITestAnswer} from "@/types/education.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
-import {navCategories} from "@constants/navCategories.ts";
-import {headerCategories} from "@constants/headerCategories.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
-import {cardCategories} from "@constants/cardCategories.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
-import {inputCategories} from "@constants/inputCategories.ts";
-import {placeholderCategories} from "@constants/placeholderCategories.ts";
-
 import {
     AnswerWrapper,
     BtnsWrapper,
@@ -44,8 +34,14 @@ import {
     SideMenuQuestionWrapper, YearAndStudioWrapper
 } from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
-import {confirmModalHeader, confirmModalSubMessage} from "@components/common/ConfirmModal/style.ts";
-
+import {confirmModalHeader, confirmModalSubMessage} from "@components/common/Modal/style.ts";
+import {navCategories} from "@constants/navCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
+import {inputCategories} from "@constants/inputCategories.ts";
+import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import menu from "@assets/icons/menu.svg";
 
 

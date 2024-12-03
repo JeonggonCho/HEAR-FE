@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useState} from "react";
-
 import {Header} from "@components/common/Header";
 import MachineManageCard from "@components/management/MachineManageCard";
 import LoadingLoop from "@components/common/LoadingLoop";
@@ -7,16 +6,13 @@ import Divider from "@components/common/Divider";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
-
 import useRequest from "@hooks/useRequest.ts";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
 import {useToastStore} from "@store/useToastStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {machineName} from "@constants/machineCategories.ts";
-
-import {headerCenter} from "@components/common/Header/style.ts";
-
 import laser_icon from "@assets/images/laser_icon.png";
 import printer_icon from "@assets/images/printer_icon.png";
 import heat_icon from "@assets/images/heat_icon.png";

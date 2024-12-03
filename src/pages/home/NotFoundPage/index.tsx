@@ -7,9 +7,9 @@ import {useAuthStore} from "@store/useAuthStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {Container} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
-import logo from "@assets/images/404_logo.png";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
+import logo from "@assets/images/404_logo.png";
 
 
 const NotFoundPage = () => {

@@ -5,13 +5,13 @@ import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {ITab} from "@/types/tab.ts";
 import {Container, MachineImgWrapper} from "./style.ts";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {machineName, machineInstructionTabCategories} from "@constants/machineCategories.ts";
 import Introduction from "../Introduction";
 import heat from "@assets/images/heat_cutter.png";
-import {ITab} from "@/types/tab.ts";
 
 
 const InstructionHeat = () => {

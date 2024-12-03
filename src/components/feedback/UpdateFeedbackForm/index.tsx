@@ -89,7 +89,7 @@ const UpdateFeedbackForm = () => {
     return (
         <UpdateFeedbackFormContext.Provider value={{formData: feedback, isValid, feedbackId}}>
             <form onSubmit={handleSubmit(submitHandler)}>
-                <Flex direction={"column"} gap={14} style={{width: "100%"}}>
+                <Flex direction={"column"} gap={14} style={{margin: "0 24px"}}>
                     <Input
                         label={inputCategories.title[lang]}
                         type={"text"}

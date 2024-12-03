@@ -1,6 +1,5 @@
 import {useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
-
 import {Header} from "@components/common/Header";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
@@ -11,20 +10,18 @@ import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import Button from "@components/common/Button";
 import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
-
 import useRequest from "@hooks/useRequest.ts";
 import {IReservation} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
+import {ReservationControlWrapper, ReservationListItemWrapper, SelectAllWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {machineName} from "@constants/machineCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
-
-import {ReservationControlWrapper, ReservationListItemWrapper, SelectAllWrapper} from "./style.ts";
-import {headerCenter} from "@components/common/Header/style.ts";
-
 import check from "@assets/icons/check.svg";
+
 
 type ReservationArgumentsType = {_id: string, machine: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc", date: string}
 

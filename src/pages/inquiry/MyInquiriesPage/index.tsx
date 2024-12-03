@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useState} from "react";
-
 import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import LoadingLoop from "@components/common/LoadingLoop";
@@ -7,16 +6,14 @@ import HeadTag from "@components/common/HeadTag";
 import InquiryFeedbackListItem from "@components/feedback/InquiryFeedbackListItem";
 import Empty from "@components/common/Empty";
 import Grid from "@components/common/Grid";
-
 import useRequest from "@hooks/useRequest.ts";
 import {IInquiryProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
-import {headerCategories} from "@constants/headerCategories.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
-
 import {InquiryListItemWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 
 
 const MyInquiriesPage = () => {

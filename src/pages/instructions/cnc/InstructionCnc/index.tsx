@@ -5,6 +5,7 @@ import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {ITab} from "@/types/tab.ts";
 import {Container, MachineImgWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
@@ -12,7 +13,6 @@ import {machineName, machineInstructionTabCategories} from "@constants/machineCa
 import Introduction from "../Introduction";
 import Work from "../Work";
 import cnc from "@assets/images/cnc.png";
-import {ITab} from "@/types/tab.ts";
 
 
 const InstructionCnc = () => {

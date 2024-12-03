@@ -1,4 +1,4 @@
-import React, {ReactNode} from "react";
+import React, {ElementType, ReactNode} from "react";
 import {Modal} from "@components/common/Modal/index.tsx";
 import Backdrop from "@components/common/Backdrop";
 import Flex from "@components/common/Flex";
@@ -10,7 +10,8 @@ interface IConfirmModalProps {
     header: ReactNode;
     subMessage?: string | ReactNode;
     children?: ReactNode;
-    trigger: JSX.Element;
+    trigger: ReactNode;
+    triggerAs?: ElementType;
     leftBtn?: ReactNode;
     rightBtn: ReactNode;
 }
@@ -24,12 +25,13 @@ const ConfirmModal = (
          subMessage = "",
          children = null,
          trigger,
+         triggerAs,
          leftBtn,
          rightBtn,
     }: IConfirmModalProps) => {
         return (
             <>
-                <Modal.Trigger as={trigger}/>
+                <Modal.Trigger as={triggerAs}>{trigger}</Modal.Trigger>
                 {showModal &&
                   <Modal.Portal>
                     <Backdrop ref={backdropRef}>

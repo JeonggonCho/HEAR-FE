@@ -4,7 +4,6 @@ import {useNavigate} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-
 import {Header} from "@components/common/Header";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
@@ -15,20 +14,17 @@ import HeadTag from "@components/common/HeadTag";
 import InputMessage from "@components/common/InputMessage";
 import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
-
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
+import {Container, ImageWrapper, TimeWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
-
-import {Container, ImageWrapper, TimeWrapper} from "./style.ts";
-import {headerCenter} from "@components/common/Header/style.ts";
-
 import saw from "@assets/images/saw.png";
 import close from "@assets/icons/close.svg";
 

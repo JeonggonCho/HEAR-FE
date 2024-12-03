@@ -1,15 +1,14 @@
 import {useEffect, useMemo, useRef, useState} from "react";
-import Dropdown from "@components/common/Dropdown";
-import Textarea from "@components/common/Textarea";
+import {ReactSVG} from "react-svg";
 import ProfileImage from "@components/common/ProfileImage";
-import ConfirmModal from "@components/common/Modal/ConfirmModal.tsx";
-import Button from "@components/common/Button";
+import Textarea from "@components/common/Textarea";
+import MoreDropdown from "@components/common/Dropdown/MoreDropdown.tsx";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
 import stripHtml from "@util/stripHtml.ts";
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
-import useModal from "@hooks/useModal.ts";
+import {IComment} from "@/types/comment.ts";
 import {useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
@@ -24,13 +23,9 @@ import {
     RightPartWrapper,
     TimeWrapper
 } from "./style.ts";
-import {confirmModalHeader} from "@components/common/Modal/style.ts";
-import {IComment} from "@types/comment.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
-import deleteIcon from "@assets/icons/delete.svg";
-import editIcon from "@assets/icons/edit.svg";
+import more from "@assets/icons/more.svg";
 
 
 const CommentListItem = (props: IComment) => {
@@ -43,12 +38,6 @@ const CommentListItem = (props: IComment) => {
     const {showToast} = useToastStore();
     const {text, countOfText, handleTextChange, setText} = useTextarea();
     const {errorText, clearError, sendRequest} = useRequest();
-    const {
-        showModal:showDeleteConfirmModal,
-        modalRef:deleteModalRef,
-        backdropRef:deleteBackdropRef,
-        setShowModal:setShowDeleteConfirmModal
-    } = useModal();
 
     // 댓글 링크 처리
     const transformedContent = useMemo(() => {
@@ -65,31 +54,6 @@ const CommentListItem = (props: IComment) => {
         return props.createdAt ? getTimeStamp(props.createdAt, lang) : '';
     }, [props.createdAt]);
 
-    // 댓글 삭제 확인 모달 띄우기
-    const deleteCommentConfirm = () => {
-        setShowDeleteConfirmModal(true);
-    };
-
-    // 댓글 삭제
-    const deleteComment = async () => {
-        try {
-            await sendRequest({
-                url: `/comments/${props._id}`,
-                method: "delete",
-            });
-            // 댓글 목록에서 삭제된 댓글 제거
-            props.setComments(prevState => prevState.filter((comment) => comment._id !== props._id));
-            // 문의, 피드백, 공지에서 댓글 개수 1 빼기
-            if (props.setRefDoc) {
-                props.setRefDoc(prevState => ({
-                    ...prevState,
-                    comments: Math.max((prevState.comments as number) - 1, 0), // 0 미만 방지하기
-                }));
-            }
-        } catch (err) {
-            console.error("댓글 삭제 중 에러 발생: ", err);
-        }
-    };
 
     // 댓글 수정 모드로 변경
     const updateCommentMode = () => {
@@ -156,12 +120,6 @@ const CommentListItem = (props: IComment) => {
         return () => clearTimeout(errorTimer);
     }, [errorText]);
 
-    // 댓글 드롭다운 메뉴 목록
-    const commentDropdownMenus = [
-        {icon: editIcon, label: buttonCategories.edit[lang], action: updateCommentMode},
-        {icon: deleteIcon, label: buttonCategories.delete[lang], action: deleteCommentConfirm},
-    ];
-
     return (
         <Container>
             <LeftPartWrapper>
@@ -172,7 +130,15 @@ const CommentListItem = (props: IComment) => {
             <RightPartWrapper>
                 <div>
                     <AuthorWrapper>{props.author}</AuthorWrapper>
-                    {!isEditMode && props.authorId === userInfo?.userId && <Dropdown dropdownMenus={commentDropdownMenus}/>}
+                    {!isEditMode && props.authorId === userInfo?.userId &&
+                      <MoreDropdown
+                        trigger={<ReactSVG src={more}/>}
+                        options={[
+                            <div onClick={updateCommentMode}>{buttonCategories.edit[lang]}</div>,
+                            <div onClick={() => {}}>{buttonCategories.delete[lang]}</div>
+                        ]}
+                      />
+                    }
                 </div>
                 {isEditMode ?
                     <>
@@ -214,41 +180,6 @@ const CommentListItem = (props: IComment) => {
                     </>
                 }
             </RightPartWrapper>
-
-
-            {showDeleteConfirmModal &&
-              <ConfirmModal
-                modalRef={deleteModalRef}
-                backdropRef={deleteBackdropRef}
-                showModal={}
-                trigger={}
-                header={<h4 css={confirmModalHeader}>{messageCategories.delete[lang]}</h4>}
-                leftBtn={
-                    <Button
-                        type={"button"}
-                        variant={"filled"}
-                        width={"full"}
-                        color={"third"}
-                        size={"md"}
-                        onClick={() => setShowDeleteConfirmModal(false)}
-                    >
-                        {buttonCategories.close[lang]}
-                    </Button>
-                }
-                rightBtn={
-                    <Button
-                        type={"button"}
-                        variant={"filled"}
-                        width={"full"}
-                        color={"danger"}
-                        size={"md"}
-                        onClick={deleteComment}
-                    >
-                        {buttonCategories.delete[lang]}
-                    </Button>
-                }
-              />
-            }
         </Container>
     );
 };

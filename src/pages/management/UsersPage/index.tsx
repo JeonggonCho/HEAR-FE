@@ -1,6 +1,5 @@
 import {useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
-
 import {Header} from "@components/common/Header";
 import UserListItem from "@components/management/UserListItem";
 import Input from "@components/common/Input";
@@ -12,20 +11,17 @@ import CardLoading from "@components/skeleton/CardLoading";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
-
 import useRequest from "@hooks/useRequest.ts";
 import {IUserFilter, IUserInfo} from "@/types/user.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
+import {Badge, Container, UserControlWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
-
-import {Badge, Container, UserControlWrapper} from "./style.ts";
-import {headerCenter} from "@components/common/Header/style.ts";
-
 import tune from "@assets/icons/tune.svg";
 import search from "@assets/icons/search.svg";
 import close from "@assets/icons/close.svg";

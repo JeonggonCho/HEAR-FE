@@ -3,10 +3,10 @@ import {useNavigate, useParams} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 import {Header} from "@components/common/Header";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Dropdown from "@components/common/Dropdown";
 import HeadTag from "@components/common/HeadTag";
 import Comments from "@components/comment/Comments";
 import ProfileImage from "@components/common/ProfileImage";
+import MoreDropdown from "@components/common/Dropdown/MoreDropdown.tsx";
 import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
@@ -34,8 +34,7 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import views from "@assets/icons/visible.svg";
 import likes from "@assets/icons/feedback.svg";
 import chat from "@assets/icons/chat.svg";
-import deleteIcon from "@assets/icons/delete.svg";
-import editIcon from "@assets/icons/edit.svg";
+import more from "@assets/icons/more.svg";
 
 
 const FeedbackDetailPage = () => {
@@ -44,10 +43,8 @@ const FeedbackDetailPage = () => {
     const [isLiked, setIsLiked] = useState<boolean>(false);
 
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-
     const navigate = useNavigate();
     const {feedbackId} = useParams();
-
     const {userInfo} = useUserInfoStore();
     const {lang, isDarkMode} = useThemeStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
@@ -111,12 +108,6 @@ const FeedbackDetailPage = () => {
             console.error("피드백 좋아요 처리 중 에러 발생: ", err);
         }
     };
-
-    // 피드백 드롭다운 메뉴목록
-    const feedbackDropdownMenus = [
-        {icon: editIcon, label: buttonCategories.edit[lang], action: updateFeedback},
-        {icon: deleteIcon, label: buttonCategories.delete[lang], action: deleteFeedbackConfirm},
-    ];
 
     // 댓글 생성 요청하기
     const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
@@ -185,7 +176,13 @@ const FeedbackDetailPage = () => {
                                     <TagWrapper tag={feedback.category} darkmode={isDarkMode.toString()}>{feedbackCategories[feedback.category][lang]}</TagWrapper>
                                     <div>
                                         {feedbackId && feedback.creatorId === userInfo?.userId &&
-                                          <Dropdown dropdownMenus={feedbackDropdownMenus}/>
+                                          <MoreDropdown
+                                            trigger={<ReactSVG src={more}/>}
+                                            options={[
+                                                <div onClick={updateFeedback}>{buttonCategories.edit[lang]}</div>,
+                                                <div onClick={() => {}}>{buttonCategories.delete[lang]}</div>,
+                                            ]}
+                                          />
                                         }
                                     </div>
                                 </div>

@@ -1,24 +1,20 @@
 import {useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-
 import {Header} from "@components/common/Header";
 import HeadTag from "@components/common/HeadTag";
 import Button from "@components/common/Button";
 import Flex from "@components/common/Flex";
-
 import useRequest from "@hooks/useRequest.ts";
 import {getFormattedDate, isBetweenDate} from "@util/calculateDate.ts";
 import {useToastStore} from "@store/useToastStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {Container, ContentWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 import {navCategories} from "@constants/navCategories.ts";
 import {educationCategories} from "@constants/educationCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
-
-import {Container, ContentWrapper} from "./style.ts";
-import {headerCenter} from "@components/common/Header/style.ts";
-
 import test from "@assets/images/test.png";
 
 

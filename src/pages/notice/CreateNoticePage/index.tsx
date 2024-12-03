@@ -3,28 +3,25 @@ import {useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-
 import {Header} from "@components/common/Header";
-import ArrowBack from "@components/common/ArrowBack";
 import Input from "@components/common/Input";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
-
+import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
 import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
+import {Container} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
-
-import {Container} from "./style.ts";
-import {headerCenter} from "@components/common/Header/style.ts";
 
 
 const CreateNoticePage = () => {

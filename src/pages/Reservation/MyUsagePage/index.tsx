@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useState} from "react";
-
 import {Header} from "@components/common/Header";
 import HeadTag from "@components/common/HeadTag";
 import LoadingLoop from "@components/common/LoadingLoop";
@@ -7,18 +6,16 @@ import Empty from "@components/common/Empty";
 import ReservationListItem from "@components/reservation/ReservationListItem";
 import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
-
 import useRequest from "@hooks/useRequest.ts";
 import {IReservation} from "@/types/componentProps.ts";
 import {useToastStore} from "@store/useToastStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {HistoryListItemWrapper, UsageControlWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {machineName} from "@constants/machineCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
-
-import {HistoryListItemWrapper, UsageControlWrapper} from "./style.ts";
-import {headerCenter} from "@components/common/Header/style.ts";
 
 
 const MyUsagePage = () => {

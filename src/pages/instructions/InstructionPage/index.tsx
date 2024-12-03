@@ -2,6 +2,7 @@ import {Header} from "@components/common/Header";
 import Link from "@components/common/Link";
 import HeadTag from "@components/common/HeadTag";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {MachineNameType} from "@/types/machine.ts";
 import {Container, HeaderWrapper} from "./style.ts";
 import {navCategories} from '@constants/navCategories.ts';
 import {pageDescriptionCategories} from "@constants/pageDescriptionCategories.ts";
@@ -13,7 +14,6 @@ import heat from "@assets/images/heat_icon.png"
 import cnc from "@assets/images/cnc_icon.png";
 import saw from "@assets/images/saw_icon.png";
 import vacuum from "@assets/images/vacuum_icon.png"
-import {MachineNameType} from "@/types/machine.ts";
 
 
 interface IMachine {

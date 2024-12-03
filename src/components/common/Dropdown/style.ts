@@ -1,32 +1,21 @@
 import styled from "@emotion/styled";
 import {lighten} from "polished";
 
-export const Container = styled.div`
-    position: relative;
 
-    svg {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        fill: ${({theme}) => theme.colors.font.sub};
-        cursor: pointer;
-    }
-`;
-
-export const DropdownWrapper = styled.div<{darkmode: string}>`
+export const DropdownMenuWrapper = styled.ul`
     position: absolute;
     padding: 6px 0;
-    top: 32px;
-    right: 4px;
+    top: 12px;
+    right: 0;
     border-radius: 6px;
-    background-color: ${({theme, darkmode}) => darkmode === "true" ? lighten(0.1, theme.colors.bg.main) : theme.colors.bg.main};
+    background-color: ${({theme}) => lighten(0.1, theme.colors.bg.main)};
     box-shadow: 0 0 10px ${({theme}) => theme.colors.bg.shadow};
     display: flex;
     flex-direction: column;
     z-index: 2;
 `;
 
-export const DropdownMenu = styled.div<{darkmode: string}>`
+export const DropdownItemWrapper = styled.li`
     display: flex;
     align-items: center;
     gap: 8px;
@@ -38,12 +27,12 @@ export const DropdownMenu = styled.div<{darkmode: string}>`
     color: ${({theme}) => theme.colors.font.sub};
 
     &:hover {
-        background-color: ${({theme, darkmode}) => darkmode === "true" ? theme.colors.bg.main : theme.colors.button.third};
+        background-color: ${({theme}) => theme.colors.button.third};
     }
 
     svg {
         width: 20px;
         height: 20px;
-        fill: ${({theme, darkmode}) => darkmode === "true" ? lighten(0.2, theme.colors.icon.fill) : theme.colors.icon.fill};
+        fill: ${({theme}) => lighten(0.2, theme.colors.icon.fill)};
     }
 `;

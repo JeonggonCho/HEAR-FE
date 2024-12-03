@@ -6,16 +6,16 @@ import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
 import {machineName} from "@constants/machineCategories.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {ITab} from "@/types/tab.ts";
 import {MachineImgWrapper, Container} from "./style.ts";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
-import {ITab} from "@/types/tab.ts";
 import {machineInstructionTabCategories} from "@constants/machineCategories.ts";
-import laser from "@assets/images/laser_cut.png";
 import Introduction from "../Introduction";
 import Usage from "../Usage";
 import After from "../After";
 import Preparation from "../Preparation";
+import laser from "@assets/images/laser_cut.png";
 
 
 const LaserImage = React.memo(() => (

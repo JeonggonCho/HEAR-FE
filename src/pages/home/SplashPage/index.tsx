@@ -1,11 +1,8 @@
 import ReactDOM from "react-dom";
 import {ReactSVG} from "react-svg";
-
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
-
 import {Container} from "./style.ts";
-
+import {messageCategories} from "@constants/messageCategories.ts";
 import logo from "@assets/logo.svg";
 
 

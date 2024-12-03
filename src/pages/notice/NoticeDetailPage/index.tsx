@@ -1,9 +1,7 @@
 import React, {FormEvent, useCallback, useEffect, useMemo, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {ReactSVG} from "react-svg";
-
 import {Header} from "@components/common/Header";
-import ArrowBack from "@components/common/ArrowBack";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Dropdown from "@components/common/Dropdown";
 import HeadTag from "@components/common/HeadTag";
@@ -12,7 +10,7 @@ import {Modal} from "@components/common/Modal";
 import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import Comments from "@components/comment/Comments";
 import Grid from "@components/common/Grid";
-
+import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
@@ -22,13 +20,11 @@ import {IComment} from "@/types/comment.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
+import {Container, DateAndCountsWrapper, NoticeContent, NoticeInfoWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
-
-import {Container, DateAndCountsWrapper, NoticeContent, NoticeInfoWrapper} from "./style.ts";
-import {headerCenter} from "@components/common/Header/style.ts";
-
 import deleteIcon from "@assets/icons/delete.svg";
 import editIcon from "@assets/icons/edit.svg";
 import views from "@assets/icons/visible.svg";

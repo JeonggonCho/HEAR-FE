@@ -5,15 +5,15 @@ import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {ITab} from "@/types/tab.ts";
 import {Container, MachineImgWrapper} from "./style.ts";
 import {Content} from "../../printer/InstructionPrinter/style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
-import {ITab} from "@/types/tab.ts";
 import {machineName, machineInstructionTabCategories} from "@constants/machineCategories.ts";
-import vacuum from "@assets/images/vacuum.png";
 import Introduction from "../Introduction";
 import Preparation from "../Preparation";
 import Usage from "../Usage";
+import vacuum from "@assets/images/vacuum.png";
 
 
 const VacuumImage = React.memo(() => (

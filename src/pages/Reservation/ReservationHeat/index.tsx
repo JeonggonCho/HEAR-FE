@@ -4,7 +4,6 @@ import {useNavigate} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-
 import {Header} from "@components/common/Header";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
@@ -12,22 +11,19 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
-
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {getTomorrowDate, getAfterWeekDate} from "@util/calculateDate.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
+import {Container, HeatCheckWrapper, ImageWrapper, ReturnDateWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
-
-import {Container, HeatCheckWrapper, ImageWrapper, ReturnDateWrapper} from "./style.ts";
-import {headerCenter} from "@components/common/Header/style.ts";
-
 import heat from "@assets/images/heat_cutter.png";
 import check from "@assets/icons/check.svg";
 

@@ -1,9 +1,7 @@
 import {useCallback, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
 import { v4 as uuidv4 } from "uuid";
-
 import {Header} from "@components/common/Header";
-import ArrowBack from "@components/common/ArrowBack";
 import HeadTag from "@components/common/HeadTag";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Button from "@components/common/Button";
@@ -13,23 +11,21 @@ import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import QuestionListContent from "@components/management/QuestionListContent";
 import EducationSettingsContent from "@components/management/EducationSettingsContent";
 import SideMenu from "@components/common/SideMenu";
-
+import Grid from "@components/common/Grid";
+import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import {EducationType, IEducationSettings} from "@/types/education.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
+import {MenuButtonWrapper, MenusWrapper, QuestionsWrapper, ResetButtonWrapper} from "./style.ts";
+import {headerCenter} from "@components/common/Header/style.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
-
-import {MenuButtonWrapper, MenusWrapper, QuestionsWrapper, ResetButtonWrapper} from "./style.ts";
-
 import add from "@assets/icons/add.svg";
 import tune from "@assets/icons/tune.svg"
 import reset from "@assets/icons/reset.svg";
 import menu from "@assets/icons/menu.svg";
-import Grid from "@components/common/Grid";
-import {headerCenter} from "@components/common/Header/style.ts";
 
 
 const EducationManagementPage = () => {

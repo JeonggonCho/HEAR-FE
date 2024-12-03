@@ -1,13 +1,21 @@
-import React from "react";
+import {ElementType, ReactNode} from "react";
 
 
 interface IModalTriggerProps {
-    as?: JSX.Element;
+    children: ReactNode;
+    as?: ElementType;
 }
 
 
-const ModalTrigger = ({as: Component = <div/>}: IModalTriggerProps) => {
-    return React.cloneElement(Component);
+const ModalTrigger = (
+    {
+        children,
+        as: Component = "div"
+    }: IModalTriggerProps
+) => {
+    return (
+        <Component>{children}</Component>
+    );
 };
 
 export default ModalTrigger;

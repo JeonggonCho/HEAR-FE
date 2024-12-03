@@ -1,7 +1,6 @@
 import React, {FormEvent, MutableRefObject, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {ReactSVG} from "react-svg";
-
 import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import LoadingLoop from "@components/common/LoadingLoop";
@@ -13,7 +12,6 @@ import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import Comments from "@components/comment/Comments";
 import ProfileImage from "@components/common/ProfileImage";
 import Grid from "@components/common/Grid";
-
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
@@ -23,11 +21,6 @@ import {IComment} from "@/types/comment.ts";
 import {useUserInfoStore} from "@store/useUserStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {inquiryCategories} from "@constants/inquiryCategories.ts";
-import {headerCategories} from "@constants/headerCategories.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
-
 import {
     BtnsWrapper, CommentBtnWrapper,
     Container,
@@ -39,7 +32,10 @@ import {
 } from "./style.ts";
 import {TagWrapper, WriterWrapper} from "@components/feedback/InquiryFeedbackListItem/style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
-
+import {inquiryCategories} from "@constants/inquiryCategories.ts";
+import {headerCategories} from "@constants/headerCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 import views from "@assets/icons/visible.svg";
 import likes from "@assets/icons/feedback.svg";
 import chat from "@assets/icons/chat.svg";

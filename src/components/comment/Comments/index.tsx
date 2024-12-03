@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, MutableRefObject, ReactElement} from "react";
+import React, {ChangeEvent, FormEvent, MutableRefObject} from "react";
 import {ReactSVG} from "react-svg";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
@@ -56,11 +56,13 @@ const Comments = (
                     {text.trim().length > 0 &&
                       <Button
                         type={"submit"}
-                        content={<ReactSVG src={send}/> as ReactElement}
+                        variant={"filled"}
                         width={"fit"}
                         color={"approval"}
-                        scale={"small"}
-                      />
+                        size={"sm"}
+                      >
+                        <ReactSVG src={send}/>
+                      </Button>
                     }
                 </TextareaWrapper>
             </Container>

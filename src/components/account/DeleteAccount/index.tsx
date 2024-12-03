@@ -31,7 +31,7 @@ const DeleteAccount = () => {
             logout();
             navigate("/login", {replace: true});
         } catch (err) {
-
+            console.log("회원탈퇴 요청 중 에러 발생: ", err);
         }
         setShowModal(false);
     };
@@ -92,24 +92,3 @@ const DeleteAccount = () => {
 };
 
 export default DeleteAccount;
-
-
-// 회원탈퇴 요청
-// const unregisterHandler = useCallback(async () => {
-//     if (!userInfo) return;
-//     try {
-//         const response = await sendRequest({
-//             url: `/users/${userInfo.userId}`,
-//             method: "delete",
-//         });
-//         if (response.data) {
-//             showToast(messageCategories.unregisterDone[lang], "success");
-//             logout();
-//             navigate("/login", {replace: true});
-//         }
-//     } catch (err) {
-//         console.log("회원탈퇴 요청 중 에러 발생: ", err);
-//     } finally {
-//         setShowUnregisterConfirmModal(false);
-//     }
-// }, [sendRequest, userInfo]);

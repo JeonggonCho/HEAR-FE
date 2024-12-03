@@ -5,16 +5,16 @@ import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
 import Tab from "@components/common/Tab";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {ITab} from "@/types/tab.ts";
 import {Container, Content, MachineImgWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {machineInstructionTabCategories} from "@constants/machineCategories.ts";
 import {machineName} from "@constants/machineCategories.ts";
-import printer from "@assets/images/3d_printer.png";
-import {ITab} from "@/types/tab.ts";
 import Introduction from "../Introduction";
 import Preparation from "../Preparation";
 import After from "../After";
 import Usage from "../Usage";
+import printer from "@assets/images/3d_printer.png";
 
 
 const PrinterImage = React.memo(() => (
