@@ -29,6 +29,7 @@ const LogoutAccount = () => {
         <ConfirmModal
             modalRef={modalRef}
             backdropRef={backdropRef}
+            setShowModal={setShowModal}
             showModal={showModal}
             header={
                 <h4 css={confirmModalHeader}>

@@ -1,7 +1,7 @@
 import Backdrop from "@components/common/Backdrop";
-import {Modal} from "@components/common/Modal/index.tsx";
-import useModal from "@hooks/useModal.ts";
 import RoomMap from "@components/reservation/RoomMap";
+import useModal from "@hooks/useModal.ts";
+import {Modal} from "@components/common/Modal/index.tsx";
 
 
 interface IMapModalProps {
@@ -20,7 +20,7 @@ const MapModal = (
 
     return (
         <>
-            <Modal.Trigger as={trigger}/>
+            <Modal.Trigger onOpen={() => setShowModal(true)}>{trigger}</Modal.Trigger>
             {showModal &&
               <Backdrop ref={backdropRef}>
                 <Modal ref={modalRef}>

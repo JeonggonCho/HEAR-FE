@@ -1,199 +1,51 @@
-import {useCallback, useEffect, useState} from "react";
-import {SubmitHandler, useForm} from "react-hook-form";
-import {useNavigate} from "react-router-dom";
 import {ReactSVG} from "react-svg";
-import {z} from "zod";
-import {zodResolver} from "@hookform/resolvers/zod";
 import {Header} from "@components/common/Header";
-import Input from "@components/common/Input";
-import Button from "@components/common/Button";
-import {Modal} from "@components/common/Modal";
-import Calendar from "@components/common/Calendar";
-import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
 import MapModal from "@components/common/Modal/MapModal.tsx";
+import {CncReservationForm} from "@components/reservation/CncReservationForm";
 import ArrowBack from "@components/common/ArrowBack";
-import useRequest from "@hooks/useRequest.ts";
-import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
-import {CncCheckWrapper, Container, ImageWrapper, MapIcon} from "./style.ts";
+import {ImageWrapper, MapIcon} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
-import {inputCategories} from "@constants/inputCategories.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
-import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import cnc from "@assets/images/cnc.png";
 import mapIcon from "@assets/icons/map.svg";
-import check from "@assets/icons/check.svg";
 
 
 const ReservationCnc = () => {
-    const [condition, setCondition] = useState([]);
-    const [showCalendar, setShowCalendar] = useState<boolean>(false);
-
-    const navigate = useNavigate();
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
-    const {cncHeatSchema} = MachineSchemaProvider();
-
-    // 현재 CNC 예약 현황 조회
-    const fetchAllCncReservationInfo = useCallback(async () => {
-        try {
-            const response = await sendRequest({
-                url: "/reservations/cncs",
-            });
-            if (response.data) {
-                setCondition(response.data);
-            }
-        } catch (err) {
-            console.error("cnc 예약 현황 조회 중 에러 발생: ", err);
-        }
-    }, [sendRequest, setCondition]);
-
-    useEffect(() => {
-        fetchAllCncReservationInfo();
-    }, [fetchAllCncReservationInfo]);
-
-    type CncFormData = z.infer<typeof cncHeatSchema>;
-
-    const {register, handleSubmit, formState: {errors}, setValue, getValues, reset} = useForm<CncFormData>({
-        resolver: zodResolver(cncHeatSchema),
-        defaultValues: {
-            check: false,
-            date: "",
-        }
-    });
-
-    // 예약 날짜 선택
-    const handleDateSelect = (date: string) => {
-        setValue("date", date);
-        setShowCalendar(false);
-    };
-
-    // CNC 예약 요청
-    const submitHandler:SubmitHandler<CncFormData> = useCallback(async (data) => {
-        try {
-            const response = await sendRequest({
-                url: "/reservations/cncs",
-                method: "post",
-                data: data,
-            });
-            if (response.data) {
-                // 예약 완료 페이지로 이동
-                setTimeout(() => {
-                    navigate("/reservation/done", {replace:true});
-                }, 300);
-            }
-        } catch (err) {
-            console.error("CNC 예약 요청 중 에러 발생: ", err);
-            reset();
-        }
-    }, [sendRequest]);
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
-
 
     return (
         <>
-            <Container>
-                <HeadTag title={headerCategories.cncReservationHeader[lang]}/>
+            <HeadTag title={headerCategories.cncReservationHeader[lang]}/>
 
-                <Header>
-                    <Grid align={"center"} columns={3} style={{width: "100%"}}>
-                        <Header.Left>
-                            <ArrowBack/>
-                        </Header.Left>
-                        <Header.Center>
-                            <h2 css={headerCenter}>{headerCategories.cncReservationHeader[lang]}</h2>
-                        </Header.Center>
-                        <Header.Right>
-                            <MapModal
-                                trigger={
-                                    <MapIcon>
-                                        <ReactSVG src={mapIcon}/>
-                                    </MapIcon>
-                                }
-                                machine={"cnc"}
-                            />
-                        </Header.Right>
-                    </Grid>
-                </Header>
-
-                <ImageWrapper>
-                    <img src={cnc} alt={"cnc"}/>
-                </ImageWrapper>
-                {isLoading ?
-                    <LoadingLoop/>
-                    :
-                    <form onSubmit={handleSubmit(submitHandler)}>
-                        <CncCheckWrapper>
-                            <div>
-                                <input
-                                    type={"checkbox"}
-                                    id={"cncWarning"}
-                                    onClick={() => setValue("check", !getValues("check"))}
-                                />
-                                <label htmlFor={"cncWarning"}>
-                                    <div><ReactSVG src={check}/></div>
-                                    {inputCategories.check[lang]}
-                                </label>
-                            </div>
-
-                            <div>
-                                <span>{messageCategories.cncRule[lang]}</span>
-                                <p>{messageCategories.cncDescription[lang]}</p>
-                            </div>
-
-                            {errors.check?.message &&
-                              <p>{errors.check.message}</p>
+            <Header bgColor={true}>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{headerCategories.cncReservationHeader[lang]}</h2>
+                    </Header.Center>
+                    <Header.Right>
+                        <MapModal
+                            trigger={
+                                <MapIcon>
+                                    <ReactSVG src={mapIcon}/>
+                                </MapIcon>
                             }
-                        </CncCheckWrapper>
-
-                        <Input
-                            label={inputCategories.twoDayLaterDate[lang]}
-                            subLabel={messageCategories.noWeekendAndHoliday[lang]}
-                            type={"text"}
-                            id={"cnc-reservation-date"}
-                            name={"date"}
-                            placeholder={placeholderCategories.date[lang]}
-                            register={register}
-                            errorMessage={errors.date?.message}
-                            onClick={() => setShowCalendar(true)}
-                            readonly
+                            machine={"cnc"}
                         />
+                    </Header.Right>
+                </Grid>
+            </Header>
 
-                        <Button type={"submit"} content={buttonCategories.reservation[lang]} width={"full"} color={"primary"} scale={"big"}/>
-                    </form>
-                }
-            </Container>
+            <ImageWrapper>
+                <img src={cnc} alt={"cnc"}/>
+            </ImageWrapper>
 
-            {showCalendar &&
-              <Modal
-                title={headerCategories.date[lang]}
-                content={
-                    <Calendar
-                        calendarType={"reservation"}
-                        setModal={setShowCalendar}
-                        onSelectDate={handleDateSelect}
-                        date={getValues("date")}
-                        machine={"cnc"}
-                        condition={condition}
-                        selectWeekend={false}
-                    />
-                }
-                setModal={setShowCalendar}
-                type={"bottomSheet"}
-              />
-            }
+            <CncReservationForm/>
         </>
     );
 };

@@ -1,20 +1,22 @@
-import {ElementType, ReactNode} from "react";
+import {ReactNode} from "react";
 
 
 interface IModalTriggerProps {
     children: ReactNode;
-    as?: ElementType;
+    onOpen: () => void;
 }
 
 
 const ModalTrigger = (
     {
         children,
-        as: Component = "div"
+        onOpen,
     }: IModalTriggerProps
 ) => {
     return (
-        <Component>{children}</Component>
+        <div onClick={onOpen}>
+            {children}
+        </div>
     );
 };
 

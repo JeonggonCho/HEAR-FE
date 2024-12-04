@@ -36,6 +36,7 @@ const UpdateInquiry = () => {
         <ConfirmModal
             modalRef={modalRef}
             backdropRef={backdropRef}
+            setShowModal={setShowModal}
             showModal={showModal}
             trigger={
                 <Button

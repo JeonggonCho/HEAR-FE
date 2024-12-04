@@ -16,7 +16,7 @@ import useRequest from "@hooks/useRequest.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
-import {Container, LinkWrapper} from "./style.ts";
+import {LinkWrapper} from "./style.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {navCategories} from "@constants/navCategories.ts";
 import userImg from "@assets/images/assistant.png";
@@ -64,64 +64,61 @@ const AccountPage = () => {
 
     return (
         <>
-            <Container>
-                <HeadTag title={userInfo?.username || navCategories.account[lang]}/>
+            <HeadTag title={userInfo?.username || navCategories.account[lang]}/>
 
-                <Header>
-                    <Flex align={"center"} justify={"space-between"} style={{width: "100%"}}>
-                        <Header.Left>
-                            <ArrowBack/>
-                        </Header.Left>
-                        <Header.Right>
-                            <Button
-                                type={"button"}
-                                variant={"text"}
-                                width={"fit"}
-                                color={"third"}
-                                size={"sm"}
-                                onClick={() => navigate("/setting")}
-                            >
-                                <ReactSVG src={setting}/>
-                            </Button>
-                        </Header.Right>
-                    </Flex>
-                </Header>
-
-                <ProfileCard isLoading={isLoading}/>
-
-                <Divider/>
-
-                {userData?.role === "student" &&
-                  <>
-                    <StatusCard isLoading={isLoading}/>
-                    <Divider/>
-                    <LinkWrapper>
-                      <Link image={reservation} type={"card"} name={buttonCategories.myReservations[lang]} to={"/my-reservations"} isLoading={isLoading}/>
-                      <Link image={history} type={"card"} name={buttonCategories.myUsage[lang]} to={"/my-usage"} isLoading={isLoading}/>
-                      <Link image={notice} type={"card"} name={buttonCategories.myInquiries[lang]} to={"/my-inquiries"} isLoading={isLoading}/>
-                      <Link image={siren} type={"card"} name={buttonCategories.myWarning[lang]} to={"/my-warning"} isLoading={isLoading}/>
-                    </LinkWrapper>
-                  </>
-                }
-                {(userData?.role === "assistant" || userData?.role === "admin") && (
-                    <LinkWrapper>
-                        <Link image={reservation} name={buttonCategories.reservationManagement[lang]} to={"/management/reservations"} type={"card"} isLoading={isLoading}/>
-                        <Link image={userImg} name={buttonCategories.userManagement[lang]} to={"/management/users"} type={"card"} isLoading={isLoading}/>
-                        <Link image={machine} name={buttonCategories.machineManagement[lang]} to={"/management/machines"} type={"card"} isLoading={isLoading}/>
-                        <Link image={test} name={buttonCategories.eduManagement[lang]} to={"/management/education"} type={"card"} isLoading={isLoading}/>
-                    </LinkWrapper>
-                )}
-
-                <Flex
-                    align={"center"}
-                    direction={"column"}
-                    gap={16}
-                    style={{padding: "24px"}}
-                >
-                    <LogoutAccount/>
-                    <DeleteAccount/>
+            <Header bgColor={true}>
+                <Flex align={"center"} justify={"space-between"} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Right>
+                        <Button
+                            type={"button"}
+                            variant={"text"}
+                            width={"fit"}
+                            color={"third"}
+                            size={"sm"}
+                            onClick={() => navigate("/setting")}
+                        >
+                            <ReactSVG src={setting}/>
+                        </Button>
+                    </Header.Right>
                 </Flex>
-            </Container>
+            </Header>
+
+            <ProfileCard isLoading={isLoading}/>
+
+            <Divider/>
+
+            {userData?.role === "student" &&
+              <>
+                <StatusCard isLoading={isLoading}/>
+                <Divider/>
+                <LinkWrapper>
+                  <Link image={reservation} type={"card"} name={buttonCategories.myReservations[lang]} to={"/my-reservations"} isLoading={isLoading}/>
+                  <Link image={history} type={"card"} name={buttonCategories.myUsage[lang]} to={"/my-usage"} isLoading={isLoading}/>
+                  <Link image={notice} type={"card"} name={buttonCategories.myInquiries[lang]} to={"/my-inquiries"} isLoading={isLoading}/>
+                  <Link image={siren} type={"card"} name={buttonCategories.myWarning[lang]} to={"/my-warning"} isLoading={isLoading}/>
+                </LinkWrapper>
+              </>
+            }
+            {(userData?.role === "assistant" || userData?.role === "admin") && (
+                <LinkWrapper>
+                    <Link image={reservation} name={buttonCategories.reservationManagement[lang]} to={"/management/reservations"} type={"card"} isLoading={isLoading}/>
+                    <Link image={userImg} name={buttonCategories.userManagement[lang]} to={"/management/users"} type={"card"} isLoading={isLoading}/>
+                    <Link image={machine} name={buttonCategories.machineManagement[lang]} to={"/management/machines"} type={"card"} isLoading={isLoading}/>
+                    <Link image={test} name={buttonCategories.eduManagement[lang]} to={"/management/education"} type={"card"} isLoading={isLoading}/>
+                </LinkWrapper>
+            )}
+
+            <Flex
+                direction={"column"}
+                gap={16}
+                style={{padding: "24px"}}
+            >
+                <LogoutAccount/>
+                <DeleteAccount/>
+            </Flex>
         </>
     );
 };

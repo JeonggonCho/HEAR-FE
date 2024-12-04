@@ -13,7 +13,10 @@ interface IModalProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const ModalMain = forwardRef<HTMLDivElement, IModalProps>(({ children, ...props }, ref) => {
     return (
-        <ModalWrapper ref={ref} {...props}>
+        <ModalWrapper
+            ref={ref}
+            {...props}
+        >
             {children}
         </ModalWrapper>
     );

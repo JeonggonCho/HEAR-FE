@@ -1,122 +1,32 @@
 import styled from "@emotion/styled";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
-export const Container = styled.div`
-    width: 100%;
-    
-    padding: 12px 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    
-    & > p:first-of-type {
-        margin-bottom: 24px;
-    }
-    
-    & > div:first-of-type {
-        margin-bottom: 12px;
-        position: relative;
-        
-        // date 날짜 선택 부분
-        & > div:last-of-type {
-            height: 55vh;
-            width: calc(100% + 16px);
-            overflow-y: auto;
-            padding-right: 16px;
 
-            &::-webkit-scrollbar {
-                width: 6px;
-                right: 100px;
-            }
-
-            &::-webkit-scrollbar-thumb {
-                background-color: ${({theme}) => theme.colors.font.placeholder};
-                border-radius: 10px;
-            }
-            
-            @media (max-width: 500px) {
-                max-height: 50vh;
-            }
-        }
-    }
+export const MonthWrapper = styled.h4`
+    color: ${({theme}) => theme.colors.font.main};
+    margin: 12px 0 0 4px;
+    font-weight: 500;
+    font-size: 1.15rem;
 `;
 
-export const CalendarMonthWrapper = styled.div<{preventPrevBtn: boolean, preventNextBtn:boolean}>`
-    display: flex;
-    align-items: start;
-    justify-content: space-between;
-    padding-right: 6px;
-    margin-bottom: 28px;
+export const CalendarBoardWrapper = styled.div`
+    height: 55vh;
+    width: calc(100% + 16px);
+    overflow-y: auto;
+    padding-right: 16px;
 
-    h4 {
-        color: ${({theme}) => theme.colors.font.main};
-        margin: 12px 0 0 4px;
-        font-weight: 500;
-        font-size: 1.15rem;
+    &::-webkit-scrollbar {
+        width: 6px;
+        right: 100px;
     }
 
-    & > div:first-of-type {
-        display: flex;
-        flex-direction: column;
-        align-items: end;
-        gap: 12px;
-        
-        & > div:first-of-type {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            
-            button {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 6px 6px 4px 6px;
-            }
-            
-            div {
-                margin: 0;
-                padding: 0;
-                width: fit-content;
-                height: 24px;
-            }
-    
-            & > button:first-of-type {
-                opacity: ${({preventPrevBtn}) => preventPrevBtn && "0.5"};
-                cursor: ${({preventPrevBtn}) => preventPrevBtn && "not-allowed"};
-            }
-    
-            & > button:last-of-type {
-                opacity: ${({preventNextBtn}) => preventNextBtn && "0.5"};
-                cursor: ${({preventNextBtn}) => preventNextBtn && "not-allowed"};
-            }
-    
-            svg {
-                fill: ${({theme}) => theme.colors.font.sub};
-                margin: 0;
-            }
-        }
+    &::-webkit-scrollbar-thumb {
+        background-color: ${({theme}) => theme.colors.font.placeholder};
+        border-radius: 10px;
+    }
 
-        & > div:last-of-type {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-right: 3px;
-
-            & > span:first-of-type {
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background-color: ${({theme}) => theme.colors.font.placeholder};
-            }
-
-            & > span:last-of-type {
-                color: ${({theme}) => theme.colors.font.sub};
-                font-size: 0.87rem;
-                line-height: 1.3;
-                text-wrap: wrap;
-                word-break: keep-all;
-            }
-        }
+    @media (max-width: 500px) {
+        max-height: 50vh;
     }
 `;
 
@@ -204,4 +114,25 @@ export const DateButton = styled.button<{selected: boolean | null, disabled: boo
     text-align: center;
     cursor: ${({disabled, holiday}) => disabled || holiday ? "not-allowed" : "pointer"};
     transition: all 0.1s ease-in-out 0s;
+`;
+
+export const CalendarReservationLegendWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    & > span:first-of-type {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: ${({theme}) => theme.colors.font.placeholder};
+    }
+
+    & > span:last-of-type {
+        color: ${({theme}) => theme.colors.font.sub};
+        font-size: 0.87rem;
+        line-height: 1.3;
+        text-wrap: wrap;
+        word-break: keep-all;
+    }
 `;

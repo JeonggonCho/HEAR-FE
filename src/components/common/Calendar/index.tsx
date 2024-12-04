@@ -1,26 +1,24 @@
 import {useMemo, useState} from "react";
 import {ReactSVG} from "react-svg";
-
 import Button from "@components/common/Button";
+import Flex from "@components/common/Flex";
 import InputMessage from "@components/common/InputMessage";
-
 import generateCalendar from "@util/generateCalendar.ts";
 import {ICalendarProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {calendarInformation, days} from "@constants/calendarCategories.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
-
 import {
-    Container,
-    CalendarMonthWrapper,
     HolidayName,
     CalendarDateWrapper,
     DateButtonWrapper,
     DateButton,
     DayWrapper,
+    CalendarBoardWrapper,
+    CalendarReservationLegendWrapper,
+    MonthWrapper,
 } from "./style.ts";
-
+import {calendarInformation, days} from "@constants/calendarCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
+import {messageCategories} from "@constants/messageCategories.ts";
 import arrowBack from "@assets/icons/arrow_back_small.svg";
 import arrowForward from "@assets/icons/arrow_forward_small.svg";
 
@@ -79,92 +77,100 @@ const Calendar = ({calendarType="normal", onSelectDate, date, machine, condition
     };
 
     return (
-        <Container>
-            <div>
-                {/*달력 월 조작 부분*/}
-                <CalendarMonthWrapper preventPrevBtn={isPrevMonthDisabled} preventNextBtn={isNextMonthDisabled}>
-                    <h4>{`${currentDate.getFullYear()}. ${(currentDate.getMonth() + 1).toString().padStart(2, '0')}`}</h4>
+        <>
+            {/*달력 월 조작 부분*/}
+            <Flex
+                direction={"row"}
+                align={"flex-start"}
+                justify={"space-between"}
+                style={{marginBottom: "28px"}}
+            >
+                <MonthWrapper>{`${currentDate.getFullYear()}. ${(currentDate.getMonth() + 1).toString().padStart(2, '0')}`}</MonthWrapper>
 
-                    <div>
-                        <div>
-                            <Button
-                                type={"button"}
-                                content={<ReactSVG src={arrowBack}/>}
-                                width={"fit"}
-                                color={"third"}
-                                scale={"small"}
-                                onClick={handlePrevMonth}
-                                disabled={isPrevMonthDisabled}
-                            />
-                            <Button
-                                type={"button"}
-                                content={<ReactSVG src={arrowForward}/>}
-                                width={"fit"}
-                                color={"third"}
-                                scale={"small"}
-                                onClick={handleNextMonth}
-                                disabled={isNextMonthDisabled}
-                            />
-                        </div>
-                        {calendarType === "reservation" &&
-                          <div>
-                            <span/>
-                            <span>{calendarInformation.reservation[lang]}</span>
-                          </div>
-                        }
-                    </div>
-                </CalendarMonthWrapper>
+                <Flex direction={"column"} gap={12}>
+                    <Flex direction={"row"} align={"center"} gap={12}>
+                        <Button
+                            type={"button"}
+                            variant={"filled"}
+                            width={"fit"}
+                            color={"third"}
+                            size={"sm"}
+                            onClick={handlePrevMonth}
+                            disabled={isPrevMonthDisabled}
+                            style={{padding: "4px 6px"}}
+                        >
+                            <ReactSVG src={arrowBack}/>
+                        </Button>
+                        <Button
+                            type={"button"}
+                            variant={"filled"}
+                            width={"fit"}
+                            color={"third"}
+                            size={"sm"}
+                            onClick={handleNextMonth}
+                            disabled={isNextMonthDisabled}
+                            style={{padding: "4px 6px"}}
+                        >
+                            <ReactSVG src={arrowForward}/>
+                        </Button>
+                    </Flex>
 
-                <div>
-                    {/*요일 부분*/}
-                    <DayWrapper>
-                        {days[lang].map((day, idx) => (
-                            <span key={idx}>{day}</span>
-                        ))}
-                    </DayWrapper>
+                    {calendarType === "reservation" &&
+                      <CalendarReservationLegendWrapper>
+                        <span/>
+                        <span>{calendarInformation.reservation[lang]}</span>
+                      </CalendarReservationLegendWrapper>
+                    }
+                </Flex>
+            </Flex>
 
-                    {/*날짜 버튼 부분*/}
-                    <CalendarDateWrapper>
-                        {dateList.map((d, idx) => (
-                            <DateButtonWrapper
-                                key={`${idx} ${d.date}`}
+            <CalendarBoardWrapper>
+                {/*요일 부분*/}
+                <DayWrapper>
+                    {days[lang].map((day, idx) => (
+                        <span key={idx}>{day}</span>
+                    ))}
+                </DayWrapper>
+
+                {/*날짜 버튼 부분*/}
+                <CalendarDateWrapper>
+                    {dateList.map((d, idx) => (
+                        <DateButtonWrapper key={`${idx} ${d.date}`}>
+                            <DateButton
+                                onClick={() => handleSelectDay(d.date)}
+                                selected={selectedDate && d.date.toDateString() === selectedDate.toDateString()}
+                                disabled={d.holidayInfo.status || d.disabled}
+                                sunday={d.sunday}
+                                saturday={d.saturday}
+                                today={d.today}
+                                holiday={d.holidayInfo.status}
                             >
-                                <DateButton
-                                    onClick={() => handleSelectDay(d.date)}
-                                    selected={selectedDate && d.date.toDateString() === selectedDate.toDateString()}
-                                    disabled={d.holidayInfo.status || d.disabled}
-                                    sunday={d.sunday}
-                                    saturday={d.saturday}
-                                    today={d.today}
-                                    holiday={d.holidayInfo.status}
-                                >
-                                    {d.date.getDate()}
-                                </DateButton>
+                                {d.date.getDate()}
+                            </DateButton>
 
-                                <div>
-                                    {d.holidayInfo.name &&
-                                      <HolidayName>{d.holidayInfo.name}</HolidayName>}
-                                    {d.isReserved && <span/>}
-                                </div>
-                            </DateButtonWrapper>
-                        ))}
-                    </CalendarDateWrapper>
-                </div>
-            </div>
+                            <div>
+                                {d.holidayInfo.name && <HolidayName>{d.holidayInfo.name}</HolidayName>}
+                                {d.isReserved && <span/>}
+                            </div>
+                        </DateButtonWrapper>
+                    ))}
+                </CalendarDateWrapper>
+            </CalendarBoardWrapper>
 
             {isEmpty && <InputMessage message={messageCategories.emptyDate[lang]} type={"error"}/>}
-
 
             {/*날짜 선택 완료 부분*/}
             <Button
                 type={"button"}
-                content={`${selectedDate ? selectedDate.toLocaleDateString('default', {year: "numeric", month: "numeric", day: 'numeric'}) : ""} ${buttonCategories.select[lang]}`}
+                variant={"filled"}
                 width={"full"}
                 color={"primary"}
-                scale={"big"}
+                size={"lg"}
                 onClick={() => !selectedDate ? setIsEmpty(true) : handleRegisterDate(selectedDate)}
-            />
-        </Container>
+            >
+                {`${selectedDate ? selectedDate.toLocaleDateString('default', {year: "numeric", month: "numeric", day: 'numeric'}) : ""} ${buttonCategories.select[lang]}`}
+            </Button>
+        </>
     );
 };
 

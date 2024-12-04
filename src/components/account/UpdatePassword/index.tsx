@@ -38,6 +38,7 @@ const UpdatePassword = () => {
         <ConfirmModal
             modalRef={modalRef}
             backdropRef={backdropRef}
+            setShowModal={setShowModal}
             showModal={showModal}
             trigger={
                 <Button

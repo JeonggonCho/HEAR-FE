@@ -4,12 +4,11 @@ import {useNavigate} from "react-router-dom";
 import {Header} from "@components/common/Header";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
-import {Modal} from "@components/common/Modal";
 import LoadingLoop from "@components/common/LoadingLoop";
-import LaserSelectContent from "@components/reservation/LaserSelectContent";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
 import MapModal from "@components/common/Modal/MapModal.tsx";
+import LaserSelect from "@components/reservation/LaserSelect";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import {getTomorrowDate} from "@util/calculateDate.ts";
@@ -33,7 +32,6 @@ const ReservationLaser = () => {
     const [reservationList, setReservationList] = useState<ILaserReservation[]>([]);
     const [laserInfo, setLaserInfo] = useState<ILaserInfo[]>([]);
     const [laserTimesInfo, setLaserTimesInfo] = useState<ILaserTimesinfo[]>([]);
-    const [showModal, setShowModal] = useState<boolean>(false);
     const [showEmptyError, setShowEmptyError] = useState<boolean>(false);
 
     const navigate = useNavigate();
@@ -191,16 +189,12 @@ const ReservationLaser = () => {
                                     </>
                                 }
 
-                                <Button
-                                    type={"button"}
-                                    variant={"filled"}
-                                    width={"full"}
-                                    color={"approval"}
-                                    size={"md"}
-                                    onClick={() => setShowModal(true)}
-                                >
-                                    {buttonCategories.selectMachineAndTime[lang]}
-                                </Button>
+                                <LaserSelect
+                                    laserInfo={laserInfo}
+                                    laserTimesInfo={laserTimesInfo}
+                                    reservationList={reservationList}
+                                    setReservationList={setReservationList}
+                                />
                             </div>
                         </div>
 
@@ -217,23 +211,6 @@ const ReservationLaser = () => {
                     </form>
                 }
             </Container>
-
-            {showModal &&
-              <Modal
-                title={buttonCategories.selectMachineAndTime[lang]}
-                content={
-                    <LaserSelectContent
-                        laserInfo={laserInfo}
-                        laserTimesInfo={laserTimesInfo}
-                        reservationList={reservationList}
-                        setReservationList={setReservationList}
-                        setModal={setShowModal}
-                    />
-                }
-                setModal={setShowModal}
-                type={"bottomSheet"}
-              />
-            }
         </>
     );
 };

@@ -1,19 +1,20 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
-import {SubmitHandler, useForm} from "react-hook-form";
+import React, {useEffect, useMemo, useState} from "react";
+import {useForm} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import Select from "@components/common/Select";
 import Button from "@components/common/Button";
+import Flex from "@components/common/Flex";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
-import {Container, CountOfLaserPerDayWrapper, CountOfLaserPerWeekWrapper, CountOfLaserWrapper} from "./style.ts";
+import {CountOfLaserPerDayWrapper, CountOfLaserPerWeekWrapper, CountOfLaserWrapper} from "./style.ts";
 import {ILaserInfo, ILaserReservation, ILaserTimesinfo} from "@/types/reservation.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 
 
-interface ILaserSelectContentProps {
+interface ILaserSelectBottomSheetContentProps {
     laserInfo: ILaserInfo[];
     laserTimesInfo: ILaserTimesinfo[];
     reservationList: ILaserReservation[];
@@ -22,14 +23,14 @@ interface ILaserSelectContentProps {
 }
 
 
-const LaserSelectContent = (
+const LaserSelectBottomSheetContent = (
     {
         laserInfo,
         laserTimesInfo,
         reservationList,
         setReservationList,
         setModal
-    }: ILaserSelectContentProps
+    }: ILaserSelectBottomSheetContentProps
 ) => {
     const {userData} = useUserDataStore();
     const {lang} = useThemeStore();
@@ -40,7 +41,13 @@ const LaserSelectContent = (
 
     type LaserTimeFormData = z.infer<typeof laserTimeSchema>;
 
-    const {register, handleSubmit, formState:{errors}, getValues, setValue, watch} = useForm<LaserTimeFormData>({
+    const {
+        register,
+        formState: {errors},
+        getValues,
+        setValue,
+        watch
+    } = useForm<LaserTimeFormData>({
         resolver: zodResolver(laserTimeSchema),
         defaultValues: {
             laser: "",
@@ -91,7 +98,7 @@ const LaserSelectContent = (
     }, [laserTimes, countOfLaserPerWeek, countOfLaserPerDay, getValues]);
 
     // 시간 선택 핸들러
-    const handleTimeChange = (timeId: string) => {
+    const selectTimeHandler = (timeId: string) => {
         const currentTimes = getValues("times") || [];
         const maxAllowedTimes = Math.min(countOfLaserPerWeek, countOfLaserPerDay);
 
@@ -108,69 +115,70 @@ const LaserSelectContent = (
         }
     };
 
-    const submitHandler: SubmitHandler<LaserTimeFormData> = useCallback(async (data) => {
-        // 선택된 레이저 커팅기 및 시간 가져오기
+    const addReservationHandler = () => {
+        const data = getValues();
         const selectedInfo = data.times.map(value => ({
             laserId: value.split(" ")[0],
             startTime: value.split(" ")[1],
             endTime: value.split(" ")[2],
         }));
-
-        // 기존 예약 목록에 추가
         setReservationList(selectedInfo);
-
-        // 모달 닫기
         setModal(false);
-    }, [laserInfo, setReservationList, setModal]);
+    };
 
     return (
-        <Container onSubmit={handleSubmit(submitHandler)}>
-            <CountOfLaserWrapper>
-                <label>{inputCategories.countOfLaser[lang]}</label>
-                <div>
-                    <CountOfLaserPerDayWrapper count={countOfLaserPerDay}>
-                        <span>{inputCategories.today[lang]}</span>
-                        <span>{countOfLaserPerDay}</span>
-                    </CountOfLaserPerDayWrapper>
-                    <CountOfLaserPerWeekWrapper count={countOfLaserPerWeek}>
-                        <span>{inputCategories.week[lang]}</span>
-                        <span>{countOfLaserPerWeek}</span>
-                    </CountOfLaserPerWeekWrapper>
-                </div>
-            </CountOfLaserWrapper>
+        <>
+            <Flex direction={"column"} gap={40}>
+                <CountOfLaserWrapper lang={lang}>
+                    <label>{inputCategories.countOfLaser[lang]}</label>
+                    <div>
+                        <CountOfLaserPerDayWrapper count={countOfLaserPerDay}>
+                            <span>{inputCategories.today[lang]}</span>
+                            <span>{countOfLaserPerDay}</span>
+                        </CountOfLaserPerDayWrapper>
+                        <CountOfLaserPerWeekWrapper count={countOfLaserPerWeek}>
+                            <span>{inputCategories.week[lang]}</span>
+                            <span>{countOfLaserPerWeek}</span>
+                        </CountOfLaserPerWeekWrapper>
+                    </div>
+                </CountOfLaserWrapper>
 
-            <Select
-                label={inputCategories.selectMachine[lang]}
-                type={"radio"}
-                name={"laser"}
-                categories={laserCategories}
-                register={register}
-                errorMessage={errors.laser?.message}
-            />
+                <Select
+                    label={inputCategories.selectMachine[lang]}
+                    type={"radio"}
+                    name={"laser"}
+                    categories={laserCategories}
+                    register={register}
+                    errorMessage={errors.laser?.message}
+                />
 
-            {/*선택된 레이저 커팅기가 있을 경우 시간목록 보이게 하기*/}
-            {selectedLaser &&
-              <Select
-                label={inputCategories.selectTime[lang]}
-                type={"checkbox"}
-                name={"times"}
-                register={register}
-                categories={timeCategories}
-                values={selectedTimes}
-                onSelectChange={handleTimeChange}
-                errorMessage={errors.times?.message}
-              />
-            }
+                {/*레이저 커팅기 선택 시, 시간목록 보이게 하기*/}
+                {selectedLaser &&
+                  <Select
+                    label={inputCategories.selectTime[lang]}
+                    type={"checkbox"}
+                    name={"times"}
+                    register={register}
+                    categories={timeCategories}
+                    values={selectedTimes}
+                    onSelectChange={selectTimeHandler}
+                    errorMessage={errors.times?.message}
+                  />
+                }
 
-            <Button
-                type={"submit"}
-                content={buttonCategories.add[lang]}
-                width={"full"}
-                color={"primary"}
-                scale={"normal"}
-            />
-        </Container>
+                <Button
+                    type={"button"}
+                    variant={"filled"}
+                    width={"full"}
+                    color={"primary"}
+                    size={"lg"}
+                    onClick={addReservationHandler}
+                >
+                    {buttonCategories.add[lang]}
+                </Button>
+            </Flex>
+        </>
     );
 };
 
-export default LaserSelectContent;
+export default LaserSelectBottomSheetContent;

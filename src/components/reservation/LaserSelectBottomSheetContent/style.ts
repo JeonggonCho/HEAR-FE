@@ -1,16 +1,5 @@
 import styled from "@emotion/styled";
-import {useThemeStore} from "@store/useThemeStore.ts";
 
-export const Container = styled.form`
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    
-    & > label {
-        color: ${({theme}) => theme.colors.font.main};
-    }
-`;
 
 export const CountOfLaserPerDayWrapper = styled.div<{count: number}>`
     display: flex;
@@ -64,7 +53,7 @@ export const CountOfLaserPerWeekWrapper = styled.div<{count: number}>`
     }
 `;
 
-export const CountOfLaserWrapper = styled.div`
+export const CountOfLaserWrapper = styled.div<{lang: "ko" | "en" | "ch"}>`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -87,27 +76,15 @@ export const CountOfLaserWrapper = styled.div`
     }
     
     @media (max-width: 500px) {
-        align-items: ${() => {
-            const {lang} = useThemeStore();
-            return lang === "en" ? "start" : "center";
-        }};
+        align-items: ${({lang}) => lang === "en" ? "start" : "center"};
         
         & > label:first-of-type {
-            margin-top: ${() => {
-                const {lang} = useThemeStore();
-                return lang === "en" ? "4px" : "0";
-            }};
+            margin-top: ${({lang}) => lang === "en" ? "4px" : "0"};
         }
         
         & > div:first-of-type {
-            flex-direction: ${() => {
-                const {lang} = useThemeStore();
-                return lang === "en" ? "column" : "row";
-            }};
-            align-items: ${() => {
-                const {lang} = useThemeStore();
-                return lang === "en" ? "end" : "center";
-            }};
+            flex-direction: ${({lang}) => lang === "en" ? "column" : "row"};
+            align-items: ${({lang}) => lang === "en" ? "end" : "center"};
         }
     }
 `;

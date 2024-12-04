@@ -1,13 +1,9 @@
 import {useState} from "react";
 import {ReactSVG} from "react-svg";
 import {FieldValues} from "react-hook-form";
-
 import InputMessage from "@components/common/InputMessage";
-
 import {IInputProps} from "@/types/componentProps.ts";
-
 import {Container} from "./style.ts";
-
 import visible from "@assets/icons/visible.svg";
 import invisible from "@assets/icons/invisible.svg";
 
