@@ -87,7 +87,7 @@ const Calendar = ({calendarType="normal", onSelectDate, date, machine, condition
             >
                 <MonthWrapper>{`${currentDate.getFullYear()}. ${(currentDate.getMonth() + 1).toString().padStart(2, '0')}`}</MonthWrapper>
 
-                <Flex direction={"column"} gap={12}>
+                <Flex direction={"column"} align={"flex-end"} gap={12}>
                     <Flex direction={"row"} align={"center"} gap={12}>
                         <Button
                             type={"button"}
@@ -127,9 +127,7 @@ const Calendar = ({calendarType="normal", onSelectDate, date, machine, condition
             <CalendarBoardWrapper>
                 {/*요일 부분*/}
                 <DayWrapper>
-                    {days[lang].map((day, idx) => (
-                        <span key={idx}>{day}</span>
-                    ))}
+                    {days[lang].map((day, idx) => (<span key={idx}>{day}</span>))}
                 </DayWrapper>
 
                 {/*날짜 버튼 부분*/}
@@ -147,7 +145,6 @@ const Calendar = ({calendarType="normal", onSelectDate, date, machine, condition
                             >
                                 {d.date.getDate()}
                             </DateButton>
-
                             <div>
                                 {d.holidayInfo.name && <HolidayName>{d.holidayInfo.name}</HolidayName>}
                                 {d.isReserved && <span/>}
@@ -167,6 +164,7 @@ const Calendar = ({calendarType="normal", onSelectDate, date, machine, condition
                 color={"primary"}
                 size={"lg"}
                 onClick={() => !selectedDate ? setIsEmpty(true) : handleRegisterDate(selectedDate)}
+                disabled={!selectedDate}
             >
                 {`${selectedDate ? selectedDate.toLocaleDateString('default', {year: "numeric", month: "numeric", day: 'numeric'}) : ""} ${buttonCategories.select[lang]}`}
             </Button>

@@ -120,6 +120,7 @@ export const CalendarReservationLegendWrapper = styled.div`
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-right: 3px;
 
     & > span:first-of-type {
         width: 8px;
