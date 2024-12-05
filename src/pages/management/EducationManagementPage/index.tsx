@@ -5,27 +5,24 @@ import {Header} from "@components/common/Header";
 import HeadTag from "@components/common/HeadTag";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Button from "@components/common/Button";
-import {Modal} from "@components/common/Modal";
 import Empty from "@components/common/Empty";
-import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import QuestionListContent from "@components/management/QuestionListContent";
-import EducationSettingsContent from "@components/management/EducationSettingsContent";
-import SideMenu from "@components/common/SideMenu";
 import Grid from "@components/common/Grid";
+import EducationManagementMenu from "@components/management/EducationManagementMenu";
+import EducationManagementSave from "@components/management/EducationManagementSave";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import {EducationType, IEducationSettings} from "@/types/education.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
-import {MenuButtonWrapper, MenusWrapper, QuestionsWrapper, ResetButtonWrapper} from "./style.ts";
+import EducationManagementContext from "@context/EducationManagementContext.ts";
+import {MenusWrapper, QuestionsWrapper, ResetButtonWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import add from "@assets/icons/add.svg";
-import tune from "@assets/icons/tune.svg"
 import reset from "@assets/icons/reset.svg";
-import menu from "@assets/icons/menu.svg";
+import EducationManagementSideMenu from "@components/management/EducationManagementSideMenu";
 
 
 const EducationManagementPage = () => {
@@ -34,14 +31,10 @@ const EducationManagementPage = () => {
     const [settings, setSettings] = useState<IEducationSettings>({startDate: "", endDate: "", status: false, cutOffPoint: ""});
     const [initialDateSetting, setInitialDateSetting] = useState<{startDate: string | undefined, endDate: string | undefined}>({startDate: "", endDate: ""});
     const [initialCutOffPoint, setInitialCutOffPoint] = useState<{cutOffPoint: string}>({cutOffPoint: ""});
-    const [showSettings, setShowSettings] = useState<boolean>(false);
-    const [showSideMenu, setShowSideMenu] = useState<boolean>(false);
-    const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
     const [isModified, setIsModified] = useState<boolean>(false);
 
     const {lang, isDarkMode} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
 
     // 문제 조회
     const fetchQuestions = useCallback(async () => {
@@ -105,43 +98,6 @@ const EducationManagementPage = () => {
         setQuestions(initialQuestions);
     };
 
-    // 문제 저장하기
-    const saveQuestions = useCallback(async () => {
-        const data = {questions: questions};
-        try {
-            const response = await sendRequest({
-                url: "/education",
-                method: "patch",
-                data: data,
-            });
-            if (response.data) {
-                showToast(messageCategories.questionSaveDone[lang], "success");
-                setInitialQuestions(questions);
-            }
-        } catch (err) {
-            console.error("문제 저장 중 에러 발생: ", err);
-        } finally {
-            setShowConfirmModal(false);
-        }
-    }, [sendRequest, questions]);
-
-    // 메뉴 bottom sheet 열기
-    const clickMenuHandler = () => {
-        setShowSettings(true);
-    };
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
-
-    // 문제 저장 확인 모달 띄우기
-    const showConfirmModalHandler = () => {
-        setShowConfirmModal(true);
-    };
-
     // 문제 목록 변경 여부 체크
     useEffect(() => {
         if (JSON.stringify(questions) !== JSON.stringify(initialQuestions)) {
@@ -150,57 +106,6 @@ const EducationManagementPage = () => {
             setIsModified(false);
         }
     }, [questions, initialQuestions]);
-
-    // 문제 저장 확인 모달내용
-    const SaveConfirmModalContent = () => (
-        <ModalConfirmContent
-            text={messageCategories.confirmSaveQuestions[lang]}
-            description={messageCategories.warningSaveQuestions[lang]}
-            leftBtn={
-                <Button
-                    type={"button"}
-                    content={buttonCategories.close[lang]}
-                    width={"full"}
-                    scale={"normal"}
-                    color={"third"}
-                    onClick={() => setShowConfirmModal(false)}
-                />
-            }
-            rightBtn={
-                <Button
-                    type={"button"}
-                    content={buttonCategories.save[lang]}
-                    width={"full"}
-                    scale={"normal"}
-                    color={"approval"}
-                    onClick={saveQuestions}
-                />
-            }
-        />
-    );
-
-    // 사이드 메뉴 컨텐츠
-    const SideMenuContent = () => (
-        <div style={{display: "flex", flexDirection: "column", gap: "20px"}}>
-            <Button
-                type={"button"}
-                content={buttonCategories.preview[lang]}
-                width={"full"}
-                color={"third"}
-                scale={"normal"}
-                onClick={() => {}}
-                disabled={questions.length === 0}
-            />
-            <Button
-                type={"button"}
-                content={buttonCategories.response[lang]}
-                width={"full"}
-                color={"third"}
-                scale={"normal"}
-                onClick={() => {}}
-            />
-        </div>
-    );
 
 
     return (
@@ -216,93 +121,63 @@ const EducationManagementPage = () => {
                         <h2 css={headerCenter}>{headerCategories.educationManagementHeader[lang]}</h2>
                     </Header.Center>
                     <Header.Right>
-                        <MenuButtonWrapper onClick={() => setShowSideMenu(true)}>
-                            <ReactSVG src={menu}/>
-                        </MenuButtonWrapper>
+                        <EducationManagementSideMenu/>
                     </Header.Right>
                 </Grid>
             </Header>
 
-            <MenusWrapper>
-                <div onClick={clickMenuHandler}>
-                    <ReactSVG src={tune}/>
-                </div>
-                <div>
-                    <ResetButtonWrapper onClick={resetQuestions} modified={isModified.toString()} darkmode={isDarkMode.toString()}>
-                        <span>{buttonCategories.reset[lang]}</span> <ReactSVG src={reset}/>
-                    </ResetButtonWrapper>
-                    <Button
-                        type={"button"}
-                        content={buttonCategories.save[lang]}
-                        width={"fit"}
-                        color={"primary"}
-                        scale={"small"}
-                        disabled={!isModified}
-                        onClick={showConfirmModalHandler}
-                    />
-                </div>
-            </MenusWrapper>
+            <EducationManagementContext.Provider value={{
+                questions,
+                setInitialQuestions,
+                settings,
+                setSettings,
+                initialDateSetting,
+                setInitialDateSetting,
+                initialCutOffPoint,
+                setInitialCutOffPoint,
+                isModified,
+            }}>
+                <MenusWrapper>
+                    <EducationManagementMenu/>
 
-            <QuestionsWrapper>
-                {isLoading ?
-                    <LoadingLoop/>
-                    :
-                    <>
-                        {questions.length > 0 ?
-                            <QuestionListContent
-                                onDragEnd={onDragEnd}
-                                questions={questions}
-                                removeQuestion={removeQuestion}
-                                setQuestions={setQuestions}
-                            />
-                            :
-                            <Empty title={messageCategories.emptyQuestion[lang]}/>
-                        }
-                        <Button
-                            type={"button"}
-                            content={<ReactSVG src={add}/>}
-                            width={"full"}
-                            scale={"big"}
-                            color={"second"}
-                            onClick={addQuestion}
-                        />
-                    </>
-                }
-            </QuestionsWrapper>
+                    <div>
+                        <ResetButtonWrapper onClick={resetQuestions} modified={isModified.toString()} darkmode={isDarkMode.toString()}>
+                            <span>{buttonCategories.reset[lang]}</span> <ReactSVG src={reset}/>
+                        </ResetButtonWrapper>
 
-            {showSettings &&
-              <Modal
-                title={headerCategories.educationSettings[lang]}
-                content={
-                    <EducationSettingsContent
-                        settings={settings}
-                        setSettings={setSettings}
-                        initialDateSetting={initialDateSetting}
-                        setInitialDateSetting={setInitialDateSetting}
-                        initialCutOffPoint={initialCutOffPoint}
-                        setInitialCutOffPoint={setInitialCutOffPoint}
-                    />
-                }
-                setModal={setShowSettings}
-                type={"bottomSheet"}
-              />
-            }
+                        <EducationManagementSave/>
+                    </div>
+                </MenusWrapper>
 
-            {showConfirmModal &&
-                <Modal
-                  content={<SaveConfirmModalContent/>}
-                  setModal={setShowConfirmModal}
-                  type={"popup"}
-                />
-            }
-
-            {showSideMenu &&
-                <SideMenu
-                  content={<SideMenuContent/>}
-                  direction={"right"}
-                  setSideMenu={setShowSideMenu}
-                />
-            }
+                <QuestionsWrapper>
+                    {isLoading ?
+                        <LoadingLoop/>
+                        :
+                        <>
+                            {questions.length > 0 ?
+                                <QuestionListContent
+                                    onDragEnd={onDragEnd}
+                                    questions={questions}
+                                    removeQuestion={removeQuestion}
+                                    setQuestions={setQuestions}
+                                />
+                                :
+                                <Empty title={messageCategories.emptyQuestion[lang]}/>
+                            }
+                            <Button
+                                type={"button"}
+                                variant={"filled"}
+                                width={"full"}
+                                size={"lg"}
+                                color={"second"}
+                                onClick={addQuestion}
+                            >
+                                <ReactSVG src={add}/>
+                            </Button>
+                        </>
+                    }
+                </QuestionsWrapper>
+            </EducationManagementContext.Provider>
         </>
     );
 };

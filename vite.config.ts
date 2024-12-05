@@ -18,6 +18,7 @@ export default defineConfig({
       {find: "@api", replacement: "/src/api"},
       {find: "@hooks", replacement: "/src/hooks"},
       {find: "@styles", replacement: "/src/styles"},
+      {find: "@context", replacement: "/src/context"},
       {find: "@", replacement: "/src"},
     ],
   }

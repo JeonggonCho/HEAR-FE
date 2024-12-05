@@ -1,11 +1,5 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.div`
-    margin: 24px 24px 64px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 64px;
-`;
 
 export const DateSettingWrapper = styled.div`
     width: 100%;
