@@ -1,52 +1,16 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.div`
-    width: 100%;
 
-    // 프로필 이미지
-    & > div:nth-of-type(2) {
-        margin: 20px auto 12px;
-    }
-
-    h3 {
-        margin: auto auto 20px;
-        text-align: center;
-        font-weight: 500;
-        border: none;
-    }
-    
-    & > div:nth-of-type(3) {
-        border-radius: 8px;
-        border: 1px solid ${({theme}) => theme.colors.line.main};
-        overflow: hidden;
-        margin-bottom: 12px;
-    }
+export const UsernameWrapper = styled.h3`
+    margin: 0;
+    font-weight: 500;
 `;
 
-export const CloseButton = styled.div`
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: ${({theme}) => theme.colors.bg.sub};
-    position: absolute;
-    right: 12px;
-    top: 12px;
-    cursor: pointer;
-
-    svg {
-        margin-top: 2px;
-        fill: ${({theme}) => theme.colors.icon.fill};
-        transition: all 0.2s ease-in-out 0s;
-    }
-
-    &:hover {
-        svg {
-            fill: ${({theme}) => theme.colors.font.main};
-        }
-    }
+export const TableWrapper = styled.div`
+    border-radius: 8px;
+    border: 1px solid ${({theme}) => theme.colors.line.main};
+    overflow: hidden;
+    margin-bottom: 12px;
 `;
 
 export const FieldWrapper = styled.div`
@@ -162,10 +126,3 @@ export const PassWrapper = styled.div`
 export const PassTag = styled.span<{pass: boolean}>`
     color: ${({theme, pass}) => pass ? theme.colors.font.primary : theme.colors.font.danger} !important;
 `;
-
-export const Buttons = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 6px;
-`;
-

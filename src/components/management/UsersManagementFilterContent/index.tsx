@@ -1,9 +1,9 @@
 import React, {FormEvent} from "react";
 import Select from "@components/common/Select";
 import Button from "@components/common/Button";
+import Flex from "@components/common/Flex";
 import useCheckbox from "@hooks/useCheckbox.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {Container} from "./style.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {filterCategories} from "@constants/filterCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
@@ -52,41 +52,43 @@ const UsersFilterContent = ({filter, setFilter, setModal}: IFilterContentProps) 
     };
 
     return (
-        <Container onSubmit={handleSubmit}>
-            <Select
-                label={inputCategories.selectYear[lang]}
-                name={"years"}
-                categories={yearFilterCategories}
-                type={"checkbox"}
-                onSelectChange={handleYears}
-                values={year}
-            />
-            <Select
-                label={inputCategories.selectWarning[lang]}
-                name={"warnings"}
-                categories={warningFilterCategories}
-                type={"checkbox"}
-                onSelectChange={handleWarnings}
-                values={countOfWarning}
-            />
-            <Select
-                label={inputCategories.selectPass[lang]}
-                name={"passEducation"}
-                categories={passEducationFilterCategories}
-                type={"checkbox"}
-                onSelectChange={handlePassEducation}
-                values={passEducation}
-            />
-            <Button
-                type={"submit"}
-                variant={"filled"}
-                width={"full"}
-                color={"primary"}
-                size={"lg"}
-            >
-                {buttonCategories.apply[lang]}
-            </Button>
-        </Container>
+        <form onSubmit={handleSubmit}>
+            <Flex direction={"column"} gap={42}>
+                <Select
+                    label={inputCategories.selectYear[lang]}
+                    name={"years"}
+                    categories={yearFilterCategories}
+                    type={"checkbox"}
+                    onSelectChange={handleYears}
+                    values={year}
+                />
+                <Select
+                    label={inputCategories.selectWarning[lang]}
+                    name={"warnings"}
+                    categories={warningFilterCategories}
+                    type={"checkbox"}
+                    onSelectChange={handleWarnings}
+                    values={countOfWarning}
+                />
+                <Select
+                    label={inputCategories.selectPass[lang]}
+                    name={"passEducation"}
+                    categories={passEducationFilterCategories}
+                    type={"checkbox"}
+                    onSelectChange={handlePassEducation}
+                    values={passEducation}
+                />
+                <Button
+                    type={"submit"}
+                    variant={"filled"}
+                    width={"full"}
+                    color={"primary"}
+                    size={"lg"}
+                >
+                    {buttonCategories.apply[lang]}
+                </Button>
+            </Flex>
+        </form>
     );
 };
 

@@ -7,12 +7,13 @@ import Button from "@components/common/Button";
 import {Modal} from "@components/common/Modal";
 import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import Input from "@components/common/Input";
+import Flex from "@components/common/Flex";
 import useToggle from "@hooks/useToggle.ts";
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
-import {Buttons, Container, ControlWrapper} from "./style.ts";
+import {Container, ControlWrapper} from "./style.ts";
 import {ILasers, IPrinters} from "@/types/machine.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
@@ -121,7 +122,7 @@ const MachineListItem = (
                 : "name" in props && <h3>{props.name}</h3>
             }
 
-            <Buttons>
+            <Flex align={"center"}>
                 {!props.showEdit && "status" in props &&
                   <Toggle
                     click={handleToggle}
@@ -135,64 +136,78 @@ const MachineListItem = (
                         <>
                             <Button
                                 type={"button"}
-                                content={buttonCategories.cancel[lang]}
+                                variant={"filled"}
                                 width={"fit"}
                                 color={"third"}
-                                scale={"small"}
+                                size={"sm"}
                                 onClick={handleCancelEdit}
-                            />
+                            >
+                                {buttonCategories.cancel[lang]}
+                            </Button>
                             <Button
                                 type={"button"}
-                                content={buttonCategories.complete[lang]}
+                                variant={"filled"}
                                 width={"fit"}
                                 color={"primary"}
-                                scale={"small"}
+                                size={"sm"}
                                 onClick={handleSubmit(handleEdit)}
-                            />
+                            >
+                                {buttonCategories.complete[lang]}
+                            </Button>
                         </>
                         :
                         <>
                             <Button
                                 type={"button"}
-                                content={buttonCategories.editing[lang]}
+                                variant={"filled"}
                                 width={"fit"}
                                 color={"third"}
-                                scale={"small"}
+                                size={"sm"}
                                 onClick={() => setIsEdit(true)}
-                            />
+                            >
+                                {buttonCategories.editing[lang]}
+                            </Button>
                             <Button
                                 type={"button"}
-                                content={buttonCategories.deletion[lang]}
+                                variant={"filled"}
                                 width={"fit"}
                                 color={"danger"}
-                                scale={"small"}
+                                size={"sm"}
                                 onClick={() => setShowDeleteModal(true)}
-                            />
+                            >
+                                {buttonCategories.deletion[lang]}
+                            </Button>
                         </>
                     }
                 </ControlWrapper>
-            </Buttons>
+            </Flex>
 
             {showDeleteModal &&
               <Modal
                 content={<ModalConfirmContent
                     text={messageCategories.machineDelete[lang]}
-                    leftBtn={<Button
-                        type={"button"}
-                        content={buttonCategories.close[lang]}
-                        color={"third"}
-                        width={"full"}
-                        scale={"normal"}
-                        onClick={() => setShowDeleteModal(false)}
-                    />}
+                    leftBtn={
+                        <Button
+                            type={"button"}
+                            variant={"filled"}
+                            color={"third"}
+                            width={"full"}
+                            size={"md"}
+                            onClick={() => setShowDeleteModal(false)}
+                        >
+                            {buttonCategories.close[lang]}
+                        </Button>
+                    }
                     rightBtn={<Button
                         type={"button"}
-                        scale={"normal"}
+                        variant={"filled"}
                         color={"danger"}
                         width={"full"}
-                        content={buttonCategories.deletion[lang]}
+                        size={"md"}
                         onClick={handleDelete}
-                    />}
+                    >
+                        {buttonCategories.deletion[lang]}
+                    </Button>}
                 />}
                 setModal={setShowDeleteModal}
                 type={"popup"}

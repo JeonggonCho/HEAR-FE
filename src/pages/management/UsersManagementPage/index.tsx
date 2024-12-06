@@ -3,33 +3,33 @@ import {ReactSVG} from "react-svg";
 import {Header} from "@components/common/Header";
 import UserListItem from "@components/management/UserListItem";
 import Input from "@components/common/Input";
-import {Modal} from "@components/common/Modal";
 import Empty from "@components/common/Empty";
-import UsersFilterContent from "@components/management/UsersFilterContent";
 import Button from "@components/common/Button";
 import CardLoading from "@components/skeleton/CardLoading";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
+import Flex from "@components/common/Flex";
+import UsersManagementFilter from "@components/management/UsersManagementFilter";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import {IUserFilter, IUserInfo} from "@/types/user.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
-import {Badge, Container, UserControlWrapper} from "./style.ts";
+import UsersManagementContext from "@context/UsersManagementContext.ts";
+import UsersManagementFilterContext from "@context/UsersManagementFilterContext.ts";
+import {TableHeadsWrapper, UserControlWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
-import tune from "@assets/icons/tune.svg";
 import search from "@assets/icons/search.svg";
 import close from "@assets/icons/close.svg";
 
 
-const UsersPage = () => {
+const UsersManagementPage = () => {
     const [userList, setUserList] = useState<IUserInfo[]>([]);
-    const [showFilter, setShowFilter] = useState<boolean>(false);
     const [filter, setFilter] = useState<IUserFilter>({year: ["all"], passEducation: ["all"], countOfWarning:["all"]});
     const [usernameInputText, setUsernameInputText] = useState<string>("");
     const [username, setUsername] = useState<string>(usernameInputText.trim());
@@ -67,23 +67,22 @@ const UsersPage = () => {
         setUsername(usernameInputText.trim());
     };
 
-
     return (
         <>
-            <Container>
-                <HeadTag title={headerCategories.userManagementHeader[lang]}/>
+            <HeadTag title={headerCategories.userManagementHeader[lang]}/>
 
-                <Header bgColor={true}>
-                    <Grid align={"center"} columns={3} style={{width: "100%"}}>
-                        <Header.Left>
-                            <ArrowBack/>
-                        </Header.Left>
-                        <Header.Center>
-                            <h2 css={headerCenter}>{headerCategories.userManagementHeader[lang]}</h2>
-                        </Header.Center>
-                    </Grid>
-                </Header>
+            <Header bgColor={true}>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{headerCategories.userManagementHeader[lang]}</h2>
+                    </Header.Center>
+                </Grid>
+            </Header>
 
+            <UsersManagementFilterContext.Provider value={{filter, setFilter}}>
                 <UserControlWrapper usernameInputText={usernameInputText}>
                     <span>{userList.length} {inputCategories.userUnit[lang]}</span>
 
@@ -104,29 +103,27 @@ const UsersPage = () => {
 
                             <Button
                                 type={"submit"}
-                                content={<ReactSVG src={search}/>}
+                                variant={"filled"}
                                 width={"fit"}
                                 color={"second"}
-                                scale={"small"}
-                            />
+                                size={"sm"}
+                            >
+                                <ReactSVG src={search}/>
+                            </Button>
                         </div>
-
-                        <div onClick={() => setShowFilter(true)}>
-                            {!(filter.year.includes("all") && filter.countOfWarning.includes("all") && filter.passEducation.includes("all")) &&
-                              <Badge/>
-                            }
-                            <ReactSVG src={tune}/>
-                        </div>
+                        <UsersManagementFilter/>
                     </form>
                 </UserControlWrapper>
 
-                <div>
-                    <span>{inputCategories.username[lang]}</span>
-                    <span>{inputCategories.year[lang]}</span>
-                    <span>{inputCategories.warning[lang]}</span>
-                    <span>{inputCategories.status[lang]}</span>
-                    <span>{buttonCategories.deletion[lang]}</span>
-                </div>
+                <TableHeadsWrapper>
+                    <Flex direction={"row"} align={"center"}>
+                        <span>{inputCategories.username[lang]}</span>
+                        <span>{inputCategories.year[lang]}</span>
+                        <span>{inputCategories.warning[lang]}</span>
+                        <span>{inputCategories.status[lang]}</span>
+                        <span>{buttonCategories.deletion[lang]}</span>
+                    </Flex>
+                </TableHeadsWrapper>
 
                 {isLoading ?
                     <div style={{display: "flex", flexDirection: "column", gap: "12px"}}>
@@ -140,28 +137,22 @@ const UsersPage = () => {
                         <CardLoading heightValue={"55px"}/>
                     </div>
                     :
-                    <>
+                    <UsersManagementContext.Provider value={{userList, setUserList}}>
                         {userList.length === 0 ?
                             <Empty title={messageCategories.emptyUsers[lang]}/>
                             :
                             userList.map((user) => (
-                                <UserListItem key={user.userId} userList={userList} setUserList={setUserList} {...user}/>
+                                <UserListItem
+                                    key={user.userId}
+                                    {...user}
+                                />
                             ))
                         }
-                    </>
+                    </UsersManagementContext.Provider>
                 }
-            </Container>
-
-            {showFilter &&
-              <Modal
-                title={headerCategories.userFilter[lang]}
-                content={<UsersFilterContent filter={filter} setFilter={setFilter} setModal={setShowFilter}/>}
-                setModal={setShowFilter}
-                type={"bottomSheet"}
-              />
-            }
+            </UsersManagementFilterContext.Provider>
         </>
     );
 };
 
-export default UsersPage;
+export default UsersManagementPage;

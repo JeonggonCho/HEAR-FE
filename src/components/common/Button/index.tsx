@@ -1,19 +1,19 @@
-import React, {ReactNode} from "react";
+import {CSSProperties, HTMLAttributes, ReactNode, MouseEvent} from "react";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {buttonStyles} from "@components/common/Button/style.ts";
 
 
-interface IButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+interface IButtonProps extends HTMLAttributes<HTMLButtonElement> {
     children: string | ReactNode;
     type: "button" | "submit" | "reset";
     variant: "text" | "filled";
     width: "full" | "fit";
     color: "primary" | "approval" | "second" | "third" | "danger";
     size: "sm" | "md" | "lg";
-    onClick?: () => void;
+    onClick?: (e?: MouseEvent) => void;
     loading?: boolean;
     disabled?: boolean;
-    style?: React.CSSProperties;
+    style?: CSSProperties;
 }
 
 const Button = (

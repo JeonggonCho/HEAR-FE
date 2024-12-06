@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
+
 export const Container = styled.div<{isEdit: boolean, showEdit: boolean}>`
     width: 100%;
     min-height: 72px;
@@ -27,12 +28,6 @@ export const Container = styled.div<{isEdit: boolean, showEdit: boolean}>`
     & + & {
         margin-top: 0;
     }
-`;
-
-export const Buttons = styled.div`
-    display: flex;
-    align-items: center;
-    margin: 0;
 `;
 
 export const ControlWrapper = styled.div<{showEdit: boolean, lang: "ko" | "en" | "ch"}>`

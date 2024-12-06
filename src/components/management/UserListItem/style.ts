@@ -9,7 +9,7 @@ export const Container = styled.div<{pass: boolean}>`
     cursor: pointer;
     
     & > span:first-of-type {
-        width: 20%;
+        width: 25%;
         line-height: 1.3;
     }
 
@@ -26,19 +26,10 @@ export const Container = styled.div<{pass: boolean}>`
     & > span:nth-of-type(4) {
         width: 20%;
         text-align: center;
+        color: ${({pass, theme}) => pass ? theme.colors.font.primary : theme.colors.font.danger};
     }
 
     & > div:first-of-type {
-        width: 20%;
-        text-align: center;
-
-        span {
-            color: ${({pass, theme}) => pass ? theme.colors.font.primary : theme.colors.font.danger};
-        }
-    }
-    
-    & > button:last-of-type {
-        margin: auto;
-        z-index: 1;
+        width: 15%;
     }
 `;

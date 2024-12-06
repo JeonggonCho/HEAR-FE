@@ -1,26 +1,24 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import Button from "@components/common/Button";
 import Input from "@components/common/Input";
-import {Modal} from "@components/common/Modal";
-import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import ProfileImage from "@components/common/ProfileImage";
+import Flex from "@components/common/Flex";
+import Grid from "@components/common/Grid";
+import DeleteUser from "@components/management/DeleteUser";
+import HandoverUser from "@components/management/HandoverUser";
 import useRequest from "@hooks/useRequest.ts";
-import useAuth from "@hooks/useAuth.ts";
 import WarningSchemaProvider from "@schemata/WarningSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
-import {Buttons, CloseButton, Container, FieldWrapper, PassTag, PassWrapper, WarningWrapper} from "./style.ts";
+import {FieldWrapper, PassTag, PassWrapper, TableWrapper, UsernameWrapper, WarningWrapper} from "./style.ts";
 import {IUserInfo} from "@/types/user.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
 import close from "@assets/icons/close.svg";
 
 
@@ -28,9 +26,6 @@ interface IUserInfoContentProps {
     userId: string;
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
     onUserInfoUpdate?: (updatedUser: IUserInfo) => void;
-    userList: IUserInfo[];
-    setUserList: React.Dispatch<React.SetStateAction<IUserInfo[]>>;
-    setShowUserInfoModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
@@ -39,27 +34,23 @@ const UserInfoCard = (
         userId,
         setModal,
         onUserInfoUpdate,
-        userList,
-        setUserList,
-        setShowUserInfoModal
     }: IUserInfoContentProps
 ) => {
     const [user, setUser] = useState<IUserInfo>();
     const [showWarning, setShowWarning] = useState<boolean>(false);
-    const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState<boolean>(false);
-    const [showHandoverConfirmModal, setShowHandoverConfirmModal] = useState<boolean>(false);
-
-    const navigate = useNavigate();
 
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {logout} = useAuth();
-    const {isLoading, errorText, sendRequest, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
     const {warningSchema} = WarningSchemaProvider();
 
     type WarningFormData = z.infer<typeof warningSchema>;
 
-    const {register, handleSubmit, formState:{errors}, reset} = useForm<WarningFormData>({
+    const {
+        register,
+        handleSubmit,
+        formState: {errors},
+        reset
+    } = useForm<WarningFormData>({
         resolver: zodResolver(warningSchema),
         defaultValues: {
             message: "",
@@ -81,11 +72,6 @@ const UserInfoCard = (
     useEffect(() => {
         fetchUser();
     }, [fetchUser]);
-
-    // 경고 사유 인풋 띄우기
-    const handleShowWarning = () => {
-        setShowWarning(true);
-    };
 
     // 경고 부과하기
     const handleAddWarning = useCallback(async (data: WarningFormData) => {
@@ -176,286 +162,180 @@ const UserInfoCard = (
         }
     }, [isLoading, sendRequest, userId, user, onUserInfoUpdate]);
 
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
-
-    // 유저 삭제 확인 모달 띄우기
-    const deleteConfirmHandler = () => {
-        setShowDeleteConfirmModal(true);
-    };
-
-    // 유저 삭제하기
-    const deleteUser = useCallback(async () => {
-        try {
-            const response = await sendRequest({
-                url: `/users/${userId}`,
-                method: "delete",
-            });
-            if (response.data) {
-                const remainedUsers = userList.filter(user => user.userId.toString() !== response.data.deletedUserId.toString());
-                setUserList(remainedUsers);
-                showToast(messageCategories.deleteUserDone[lang], "success");
-                setShowUserInfoModal(false);
-            }
-        } catch (err) {
-            console.error("유저 삭제 중 에러 발생: ", err);
-        } finally {
-            setShowDeleteConfirmModal(false);
-        }
-    }, [sendRequest, user]);
-
-    // 유저 조교 인수인계 확인 모달 띄우기
-    const handoverConfirmHandler = () => {
-        setShowHandoverConfirmModal(true);
-    };
-
-    // 조교 역할 인수인계 하기
-    const handoverAssistant = useCallback(async () => {
-        try {
-            const response = await sendRequest({
-                url: `/users/handover-assistant/${userId}`,
-                method: "patch",
-                data: {},
-            });
-            if (response.data) {
-                showToast(messageCategories.handoverDone[lang], "success");
-                logout();
-                navigate("/login", {replace: true});
-            }
-        } catch (err) {
-            console.error("조교 역할 인수 인계 중 에러 발생: ", err);
-        } finally {
-            setShowHandoverConfirmModal(false);
-        }
-    }, [sendRequest, user]);
-
-
-    // 유저 삭제 확인 모달 내용
-    const DeleteConfirmModalContent = () => (
-        <ModalConfirmContent
-            text={messageCategories.delete[lang]}
-            leftBtn={<Button
-                type={"button"}
-                content={buttonCategories.cancel[lang]}
-                scale={"normal"}
-                color={"third"}
-                width={"full"}
-                onClick={() => setShowDeleteConfirmModal(false)}
-            />}
-            rightBtn={<Button
-                type={"button"}
-                content={buttonCategories.deletion[lang]}
-                scale={"normal"}
-                color={"danger"}
-                width={"full"}
-                onClick={deleteUser}
-            />}
-        />
-    );
-
-    // 유저 조교 인수인계 확인 모달 내용
-    const HandoverConfirmModalContent = () => (
-        <ModalConfirmContent
-            text={messageCategories.handover[lang]}
-            description={messageCategories.warningHandover[lang]}
-            leftBtn={<Button
-                type={"button"}
-                content={buttonCategories.cancel[lang]}
-                color={"third"}
-                scale={"normal"}
-                width={"full"}
-                onClick={() => setShowHandoverConfirmModal(false)}
-            />}
-            rightBtn={<Button
-                type={"button"}
-                content={buttonCategories.handover[lang]}
-                color={"danger"}
-                scale={"normal"}
-                width={"full"}
-                onClick={handoverAssistant}
-            />}
-        />
-    );
-
-
     return (
-        <Container>
+        <>
             {user &&
-                <>
-                  <CloseButton onClick={(e) => {
-                      e.stopPropagation();
-                      setModal(false)
-                  }}>
-                    <ReactSVG src={close}/>
-                  </CloseButton>
+              <>
+                <Button
+                  type={"button"}
+                  variant={"filled"}
+                  width={"fit"}
+                  color={"third"}
+                  size={"sm"}
+                  onClick={() => setModal(false)}
+                  style={{
+                      position: "absolute",
+                      right: "12px",
+                      width: "36px",
+                      height: "36px",
+                      borderRadius: "50%",
+                  }}
+                >
+                  <ReactSVG src={close}/>
+                </Button>
 
-                  <ProfileImage size={72}/>
+                <Flex
+                  direction={"column"}
+                  align={"center"}
+                  gap={12}
+                  style={{margin: "12px auto 24px"}}
+                >
+                  <ProfileImage size={64}/>
+                  <UsernameWrapper>{user?.username}</UsernameWrapper>
+                </Flex>
 
-                  <h3>{user?.username}</h3>
 
-                  <div>
-                    <FieldWrapper>
-                      <div>{inputCategories.year[lang]}</div>
-                      <span>{user?.year}</span>
-                    </FieldWrapper>
+                <TableWrapper>
+                  <FieldWrapper>
+                    <div>{inputCategories.year[lang]}</div>
+                    <span>{user?.year}</span>
+                  </FieldWrapper>
 
-                    <FieldWrapper>
-                      <div>{inputCategories.studentId[lang]}</div>
-                      <span>{user?.studentId}</span>
-                    </FieldWrapper>
+                  <FieldWrapper>
+                    <div>{inputCategories.studentId[lang]}</div>
+                    <span>{user?.studentId}</span>
+                  </FieldWrapper>
 
-                    <FieldWrapper>
-                      <div>{cardCategories.email[lang]}</div>
-                      <span>{user?.email}</span>
-                    </FieldWrapper>
+                  <FieldWrapper>
+                    <div>{cardCategories.email[lang]}</div>
+                    <span>{user?.email}</span>
+                  </FieldWrapper>
 
-                    <FieldWrapper>
-                      <div>{inputCategories.tel[lang]}</div>
-                      <span>{user?.tel}</span>
-                    </FieldWrapper>
+                  <FieldWrapper>
+                    <div>{inputCategories.tel[lang]}</div>
+                    <span>{user?.tel}</span>
+                  </FieldWrapper>
 
-                    <FieldWrapper>
-                      <div>{cardCategories.studio[lang]}</div>
-                      <span>{user?.studio}</span>
-                    </FieldWrapper>
+                  <FieldWrapper>
+                    <div>{cardCategories.studio[lang]}</div>
+                    <span>{user?.studio}</span>
+                  </FieldWrapper>
 
-                    <WarningWrapper>
-                      <div>{inputCategories.warning[lang]}</div>
-                        {showWarning ?
-                            <form onSubmit={handleSubmit(handleAddWarning)}>
-                                <Input
-                                    type={"text"}
-                                    id={"warning-message"}
-                                    name={"message"}
-                                    register={register}
-                                    placeholder={placeholderCategories.reason[lang]}
-                                    errorMessage={errors.message?.message}
-                                />
-                                <div>
+                  <WarningWrapper>
+                    <div>{inputCategories.warning[lang]}</div>
+                      {showWarning ?
+                          <form onSubmit={handleSubmit(handleAddWarning)}>
+                              <Input
+                                  type={"text"}
+                                  id={"warning-message"}
+                                  name={"message"}
+                                  register={register}
+                                  placeholder={placeholderCategories.reason[lang]}
+                                  errorMessage={errors.message?.message}
+                              />
+                              <div>
+                                  <Button
+                                      type={"button"}
+                                      variant={"filled"}
+                                      width={"full"}
+                                      color={"third"}
+                                      size={"sm"}
+                                      onClick={() => {
+                                          setShowWarning(false);
+                                          reset({message: "",});
+                                      }}
+                                  >
+                                      {buttonCategories.cancel[lang]}
+                                  </Button>
+                                  <Button
+                                      type={"submit"}
+                                      variant={"filled"}
+                                      width={"full"}
+                                      color={"danger"}
+                                      size={"sm"}
+                                  >
+                                      {buttonCategories.imposition[lang]}
+                                  </Button>
+                              </div>
+                          </form>
+                          :
+                          <div>
+                              <span>{user?.countOfWarning}</span>
+                              <Flex align={"center"} gap={6}>
+                                  {(user?.countOfWarning > 0) &&
                                     <Button
-                                        type={"button"}
-                                        content={buttonCategories.cancel[lang]}
-                                        width={"full"}
-                                        color={"third"}
-                                        scale={"small"}
-                                        onClick={() => {
-                                            setShowWarning(false);
-                                            reset({message: "",});
-                                        }}
-                                    />
+                                      type={"button"}
+                                      variant={"filled"}
+                                      width={"fit"}
+                                      color={"third"}
+                                      size={"sm"}
+                                      onClick={handleMinusWarning}
+                                    >
+                                        {buttonCategories.deduction[lang]}
+                                    </Button>
+                                  }
+                                  {(user?.countOfWarning < 2) &&
                                     <Button
-                                        type={"submit"}
-                                        content={buttonCategories.imposition[lang]}
-                                        width={"full"}
-                                        color={"danger"}
-                                        scale={"small"}
-                                    />
-                                </div>
-                            </form>
-                            :
-                            <div>
-                                <span>{user?.countOfWarning}</span>
-                                <Buttons>
-                                    {(user?.countOfWarning > 0) &&
-                                      <Button
-                                        type={"button"}
-                                        content={buttonCategories.deduction[lang]}
-                                        width={"fit"}
-                                        color={"third"}
-                                        scale={"small"}
-                                        onClick={handleMinusWarning}
-                                      />
-                                    }
-                                    {(user?.countOfWarning < 2) &&
-                                      <Button
-                                        type={"button"}
-                                        content={buttonCategories.imposition[lang]}
-                                        width={"fit"}
-                                        color={"danger"}
-                                        scale={"small"}
-                                        onClick={handleShowWarning}
-                                      />
-                                    }
-                                </Buttons>
-                            </div>
-                        }
-                    </WarningWrapper>
+                                      type={"button"}
+                                      variant={"filled"}
+                                      width={"fit"}
+                                      color={"danger"}
+                                      size={"sm"}
+                                      onClick={() => setShowWarning(true)}
+                                    >
+                                        {buttonCategories.imposition[lang]}
+                                    </Button>
+                                  }
+                              </Flex>
+                          </div>
+                      }
+                  </WarningWrapper>
 
-                    <PassWrapper>
-                      <div>{inputCategories.status[lang]}</div>
-                      <div>
-                        <PassTag
-                          pass={user?.passEducation || false}
-                        >
-                            {user?.passEducation ? cardCategories.pass[lang] : cardCategories.fail[lang]}
-                        </PassTag>
-                        <Buttons>
-                            {!user?.passEducation && (
-                                <Button
-                                    type={"button"}
-                                    content={buttonCategories.pass[lang]}
-                                    width={"fit"}
-                                    color={"third"}
-                                    scale={"small"}
-                                    onClick={handlePassEducation}
-                                />
-                            )}
-                            {user?.passEducation && (
-                                <Button
-                                    type={"button"}
-                                    content={buttonCategories.fail[lang]}
-                                    width={"fit"}
-                                    color={"third"}
-                                    scale={"small"}
-                                    onClick={handleResetEducation}
-                                />
-                            )}
-                        </Buttons>
-                      </div>
-                    </PassWrapper>
-                  </div>
+                  <PassWrapper>
+                    <div>{inputCategories.status[lang]}</div>
+                    <div>
+                      <PassTag
+                        pass={user?.passEducation || false}
+                      >
+                          {user?.passEducation ? cardCategories.pass[lang] : cardCategories.fail[lang]}
+                      </PassTag>
+                      <Flex align={"center"} gap={6}>
+                          {!user?.passEducation && (
+                              <Button
+                                  type={"button"}
+                                  variant={"filled"}
+                                  width={"fit"}
+                                  color={"third"}
+                                  size={"sm"}
+                                  onClick={handlePassEducation}
+                              >
+                                  {buttonCategories.pass[lang]}
+                              </Button>
+                          )}
+                          {user?.passEducation && (
+                              <Button
+                                  type={"button"}
+                                  variant={"filled"}
+                                  width={"fit"}
+                                  color={"third"}
+                                  size={"sm"}
+                                  onClick={handleResetEducation}
+                              >
+                                  {buttonCategories.fail[lang]}
+                              </Button>
+                          )}
+                      </Flex>
+                    </div>
+                  </PassWrapper>
+                </TableWrapper>
 
-                  <Buttons>
-                    <Button
-                      type={"button"}
-                      content={buttonCategories.deletion[lang]}
-                      width={"full"}
-                      color={"second"}
-                      scale={"small"}
-                      onClick={deleteConfirmHandler}
-                    />
-                    <Button
-                      type={"button"}
-                      content={buttonCategories.handover[lang]}
-                      width={"full"}
-                      color={"second"}
-                      scale={"small"}
-                      onClick={handoverConfirmHandler}
-                    />
-                  </Buttons>
-                </>
+                <Grid align={"center"} columns={2} gap={12}>
+                  <DeleteUser userId={userId}/>
+                  <HandoverUser userId={userId}/>
+                </Grid>
+              </>
             }
-
-            {showDeleteConfirmModal &&
-                <Modal
-                  content={<DeleteConfirmModalContent/>}
-                  setModal={setShowDeleteConfirmModal}
-                  type={"popup"}
-                />
-            }
-
-            {showHandoverConfirmModal &&
-                <Modal
-                  content={<HandoverConfirmModalContent/>}
-                  setModal={setShowHandoverConfirmModal}
-                  type={"popup"}
-                />
-            }
-        </Container>
+        </>
     );
 };
 

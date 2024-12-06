@@ -1,44 +1,38 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.div`
-    width: 100%;
-    height: 100%;
-    
-    & > div:nth-of-type(3) {
-        display: flex;
-        align-items: center;
-        background-color: ${({theme}) => theme.colors.button.third};        
-        padding: 12px 24px;
-        margin-bottom: 8px;
-        position: sticky;
-        top: 126px;
-        color: ${({theme}) => theme.colors.font.sub};
-        font-size: 0.9rem;
-        z-index: 3;
-        
-        & > span:first-of-type {
-            width: 20%;
-        }
-        
-        & > span:nth-of-type(2) {
-            width: 20%;
-            text-align: center;
-        }
-        
-        & > span:nth-of-type(3) {
-            width: 20%;
-            text-align: center;
-        }
 
-        & > span:nth-of-type(4) {
-            width: 20%;
-            text-align: center;
-        }
+export const TableHeadsWrapper = styled.div`
+    background-color: ${({theme}) => theme.colors.button.third};
+    padding: 12px 24px;
+    margin-bottom: 8px;
+    position: sticky;
+    top: 126px;
+    color: ${({theme}) => theme.colors.font.sub};
+    font-size: 0.9rem;
+    z-index: 3;
 
-        & > span:nth-of-type(5) {
-            width: 20%;
-            text-align: center;
-        }
+    span:first-of-type {
+        width: 25%;
+    }
+
+    span:nth-of-type(2) {
+        width: 20%;
+        text-align: center;
+    }
+
+    span:nth-of-type(3) {
+        width: 20%;
+        text-align: center;
+    }
+
+    span:nth-of-type(4) {
+        width: 20%;
+        text-align: center;
+    }
+
+    span:nth-of-type(5) {
+        width: 15%;
+        text-align: center;
     }
 `;
 
@@ -138,16 +132,4 @@ export const UserControlWrapper = styled.div<{usernameInputText: string}>`
             }
         }
     }
-`;
-
-export const Badge = styled.div`
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: ${({theme}) => theme.colors.font.primary};
-    border-radius: 50%;
-    border: 3px solid ${({theme}) => theme.colors.bg.sub};
-    right: -6px;
-    top: -4px;
-    z-index: 2;
 `;
