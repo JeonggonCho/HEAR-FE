@@ -179,12 +179,14 @@ const TimeListContent = ({timeList, setTimeList}: ITimeListContentProps) => {
 
                 <Button
                     type={"button"}
-                    content={buttonCategories.add[lang]}
+                    variant={"filled"}
                     width={"full"}
                     color={"approval"}
-                    scale={"small"}
+                    size={"sm"}
                     onClick={timeHandleSubmit(addTime)}
-                />
+                >
+                    {buttonCategories.add[lang]}
+                </Button>
             </TimeSelectsWrapper>
 
             <div style={{display:"flex", flexDirection:"column", gap:"8px"}}>

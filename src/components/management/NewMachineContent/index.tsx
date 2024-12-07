@@ -5,11 +5,12 @@ import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
+import Flex from "@components/common/Flex";
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
-import {Container} from "./style.ts";
+import {TitleWrapper} from "./style.ts";
 import {ILasers, IPrinters} from "@/types/machine.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
@@ -96,39 +97,63 @@ const NewMachineContent = (
     }, [errorText]);
 
     return (
-        <Container>
-            <div>
-                <h3>{title}</h3>
-                <div onClick={(e) => {
-                    e.stopPropagation();
-                    setModal(false)
-                }}>
+        <>
+            <Flex
+                direction={"row"}
+                align={"center"}
+                justify={"space-between"}
+                style={{
+                    marginBottom: "24px",
+                    padding: "0 0 0 4px",
+                }}
+            >
+                <TitleWrapper>{title}</TitleWrapper>
+                <Button
+                    type={"button"}
+                    variant={"filled"}
+                    width={"fit"}
+                    size={"sm"}
+                    color={"third"}
+                    style={{
+                        width: "32px",
+                        height: "32px",
+                        borderRadius: "50%",
+                    }}
+                    onClick={(e) => {
+                        e?.stopPropagation();
+                        setModal(false);
+                    }}
+                >
                     <ReactSVG src={close}/>
-                </div>
-            </div>
+                </Button>
+            </Flex>
 
             {(machine === "laser" || machine === "printer") &&
                 <form onSubmit={machine === "laser" ? machineHandleSubmit(submitLaserHandler) : machine === "printer" ? machineHandleSubmit(submitPrinterHandler) : undefined}>
+                  <Flex direction={"column"} gap={24}>
                     <Input
-                        label={inputCategories.machineName[lang]}
-                        type={"text"}
-                        id={"laser-name"}
-                        name={"name"}
-                        placeholder={placeholderCategories.machineName[lang]}
-                        register={machineRegister}
-                        errorMessage={machineErrors.name?.message}
+                      label={inputCategories.machineName[lang]}
+                      type={"text"}
+                      id={"laser-name"}
+                      name={"name"}
+                      placeholder={placeholderCategories.machineName[lang]}
+                      register={machineRegister}
+                      errorMessage={machineErrors.name?.message}
                     />
 
                     <Button
-                        type={"submit"}
-                        content={buttonCategories.add[lang]}
-                        width={"full"}
-                        color={"primary"}
-                        scale={"big"}
-                    />
+                      type={"submit"}
+                      variant={"filled"}
+                      width={"full"}
+                      color={"primary"}
+                      size={"lg"}
+                    >
+                        {buttonCategories.add[lang]}
+                    </Button>
+                  </Flex>
                 </form>
             }
-        </Container>
+        </>
     );
 };
 

@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
-import {useThemeStore} from "@store/useThemeStore.ts";
 
 
-export const Container = styled.div<{isEdit: boolean, showEdit: boolean}>`
+export const Container = styled.div<{isEdit: boolean, showEdit: boolean, lang: "ko" | "en" | "ch"}>`
     width: 100%;
     min-height: 72px;
     padding-left: ${({isEdit, showEdit}) => isEdit && showEdit ? "1px" : "8px"};
@@ -13,10 +12,7 @@ export const Container = styled.div<{isEdit: boolean, showEdit: boolean}>`
     position: relative;
     
     input {
-        width: ${() => {
-            const {lang} = useThemeStore();
-            return lang === "en" && "172px";
-        }};
+        width: ${({lang}) => lang === "en" && "172px"};
     }
     
     h3 {

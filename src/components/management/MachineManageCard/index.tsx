@@ -1,20 +1,19 @@
-import React, {ChangeEvent, useCallback, useEffect, useState} from "react";
+import React, {ChangeEvent, useCallback, useState} from "react";
 import {useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import Toggle from "@components/common/Toggle";
-import {Modal} from "@components/common/Modal";
 import MachineListItem from "@components/management/MachineListItem";
-import NewMachineContent from "@components/management/NewMachineContent";
 import Input from "@components/common/Input";
 import TimeListContent from "@components/management/TimeListContent";
+import Button from "@components/common/Button";
+import AddMachine from "@components/management/AddMachine";
 import useListCollapse from "@hooks/useListCollapse.ts";
 import useToggle from "@hooks/useToggle.ts";
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
 import {
     BtnsWrapper,
     Container,
@@ -26,7 +25,6 @@ import {
 } from "./style.ts";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
-import {headerCategories} from "@constants/headerCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import more from "@assets/icons/arrow_down.svg";
@@ -55,16 +53,13 @@ const MachineManageCard = (
     }: IMachineManageCardProps
 ) => {
     const [showEdit, setShowEdit] = useState<boolean>(false);
-    const [newLaserModal, setNewLaserModal] = useState<boolean>(false);
-    const [newPrinterModal, setNewPrinterModal] = useState<boolean>(false);
     const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(null);
     const [rangeValue, setRangeValue] = useState<number | undefined>(machineType === "heat" ? (machineData[0] as IHeats)?.count : undefined);
 
     const {lang, isDarkMode} = useThemeStore();
-    const {showToast} = useToastStore();
     const {isOpen, listRef, maxHeight, handleList} = useListCollapse(machineData.length, timeData?.length);
-    const {sendRequest, errorText, clearError} = useRequest();
-    const {status, handleToggle, isLoading, errorText:toggleErrorText, clearError:clearToggleError} = useToggle(machineData[0]?.status, machineData[0]?.url);
+    const {sendRequest} = useRequest();
+    const {status, handleToggle, isLoading} = useToggle(machineData[0]?.status, machineData[0]?.url);
     const {updateHeatCountSchema} = MachineSchemaProvider();
 
     type UpdateHeatCountFormType = z.infer<typeof updateHeatCountSchema>;
@@ -103,20 +98,6 @@ const MachineManageCard = (
         // 4. 새로 설정한 타이머를 상태로 저장
         setDebounceTimeout(newTimeout);
     }, [debounceTimeout, sendRequest, machineData]);
-
-    // 열선 개수 수정 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
-
-    // 토글 에러 메시지
-    useEffect(() => {
-        if (toggleErrorText) showToast(toggleErrorText, "error");
-        const errorTimer = setTimeout(clearToggleError, 6000);
-        return () => clearTimeout(errorTimer);
-    }, [toggleErrorText]);
 
     return (
         <Container>
@@ -157,14 +138,20 @@ const MachineManageCard = (
                         <span>{machineData.length} {inputCategories.machineUnit[lang]}</span>
 
                         <div>
-                          <button
+                          <Button
+                            type={"button"}
+                            variant={"text"}
+                            width={"fit"}
+                            color={"second"}
+                            size={"sm"}
                             onClick={() => setShowEdit(prevState => !prevState)}
-                          >{buttonCategories.editing[lang]}</button>
-                          <button
-                            onClick={() => machineType === "laser" ? setNewLaserModal(true)
-                                : machineType === "printer" ? setNewPrinterModal(true)
-                                    : null}
-                          >{buttonCategories.add[lang]}</button>
+                          >
+                              {buttonCategories.editing[lang]}
+                          </Button>
+                          <AddMachine
+                            machineType={machineType}
+                            setMachines={setMachines}
+                          />
                         </div>
                       </BtnsWrapper>
                     }
@@ -224,34 +211,6 @@ const MachineManageCard = (
                     }
                 </>
             </MachineListWrapper>
-
-            {/*레이저 커팅기 추가 모달*/}
-            {newLaserModal &&
-              <Modal
-                content={<NewMachineContent
-                    title={headerCategories.addLaser[lang]}
-                    setModal={setNewLaserModal}
-                    machine={"laser"}
-                    setMachines={setMachines as React.Dispatch<React.SetStateAction<ILasers[]>>}
-                />}
-                setModal={setNewLaserModal}
-                type={"popup"}
-              />
-            }
-
-            {/*3d 프린터 추가 모달*/}
-            {newPrinterModal &&
-              <Modal
-                content={<NewMachineContent
-                    title={headerCategories.addPrinter[lang]}
-                    setModal={setNewPrinterModal}
-                    machine={"printer"}
-                    setMachines={setMachines as React.Dispatch<React.SetStateAction<IPrinters[]>>}
-                />}
-                setModal={setNewPrinterModal}
-                type={"popup"}
-              />
-            }
         </Container>
     );
 };

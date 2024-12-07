@@ -1,38 +1,33 @@
-import React, {useCallback, useEffect, useState} from "react";
+import {Dispatch, SetStateAction, useCallback, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import z from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import Toggle from "@components/common/Toggle";
 import Button from "@components/common/Button";
-import {Modal} from "@components/common/Modal";
-import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import Input from "@components/common/Input";
 import Flex from "@components/common/Flex";
+import DeleteMachine from "@components/management/DeleteMachine";
 import useToggle from "@hooks/useToggle.ts";
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
-import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
-import {Container, ControlWrapper} from "./style.ts";
 import {ILasers, IPrinters} from "@/types/machine.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
+import {Container, ControlWrapper} from "./style.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
 
 
 const MachineListItem = (
     props: (ILasers | IPrinters) & {
         showEdit: boolean;
-        setMachines: React.Dispatch<React.SetStateAction<ILasers[]>> | React.Dispatch<React.SetStateAction<IPrinters[]>>;
+        setMachines: Dispatch<SetStateAction<ILasers[]>> | Dispatch<SetStateAction<IPrinters[]>>;
     }
 ) => {
-    const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const [isEdit, setIsEdit] = useState<boolean>(false);
 
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
     const {handleToggle, status, isLoading} = useToggle(props.status, props.url);
-    const {sendRequest, errorText, clearError} = useRequest();
+    const {sendRequest} = useRequest();
     const {newMachineSchema} = MachineSchemaProvider();
 
     type MachineFormData = z.infer<typeof newMachineSchema>;
@@ -86,30 +81,12 @@ const MachineListItem = (
         }
     }, [setIsEdit, props.name]);
 
-    // 기기 삭제
-    const handleDelete = useCallback(async () => {
-        try {
-            await sendRequest({
-                url: props.url,
-                method: "delete",
-            });
-            props.setMachines((prevState:any) => prevState.filter((value:any) => value._id !== props._id));
-        } catch (err) {
-            console.error("기기 삭제 중 에러: ", err);
-        } finally {
-            setShowDeleteModal(false);
-        }
-    }, [sendRequest, props._id]);
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
-
     return (
-        <Container isEdit={isEdit} showEdit={props.showEdit}>
+        <Container
+            isEdit={isEdit}
+            showEdit={props.showEdit}
+            lang={lang}
+        >
             {isEdit && props.showEdit ?
                 <Input
                     type={"text"}
@@ -167,52 +144,11 @@ const MachineListItem = (
                             >
                                 {buttonCategories.editing[lang]}
                             </Button>
-                            <Button
-                                type={"button"}
-                                variant={"filled"}
-                                width={"fit"}
-                                color={"danger"}
-                                size={"sm"}
-                                onClick={() => setShowDeleteModal(true)}
-                            >
-                                {buttonCategories.deletion[lang]}
-                            </Button>
+                            <DeleteMachine/>
                         </>
                     }
                 </ControlWrapper>
             </Flex>
-
-            {showDeleteModal &&
-              <Modal
-                content={<ModalConfirmContent
-                    text={messageCategories.machineDelete[lang]}
-                    leftBtn={
-                        <Button
-                            type={"button"}
-                            variant={"filled"}
-                            color={"third"}
-                            width={"full"}
-                            size={"md"}
-                            onClick={() => setShowDeleteModal(false)}
-                        >
-                            {buttonCategories.close[lang]}
-                        </Button>
-                    }
-                    rightBtn={<Button
-                        type={"button"}
-                        variant={"filled"}
-                        color={"danger"}
-                        width={"full"}
-                        size={"md"}
-                        onClick={handleDelete}
-                    >
-                        {buttonCategories.deletion[lang]}
-                    </Button>}
-                />}
-                setModal={setShowDeleteModal}
-                type={"popup"}
-              />
-            }
         </Container>
     );
 };
