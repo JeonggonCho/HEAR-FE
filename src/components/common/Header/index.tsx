@@ -10,6 +10,7 @@ interface IHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
     bgColor?: boolean;
 }
 
+
 const HeaderMain = ({children, bgColor = false, ...props}: IHeaderProps) => {
     return (
         <HeaderWrapper bgColor={bgColor} {...props}>

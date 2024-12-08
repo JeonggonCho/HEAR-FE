@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback, useState} from "react";
+import {ChangeEvent, Dispatch, SetStateAction, useCallback, useState} from "react";
 import {useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
@@ -35,9 +35,9 @@ interface IMachineManageCardProps {
     img: string;
     machineData: ILasers[] | IPrinters[] | IHeats[] | ICommonMachine[];
     machineType: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc";
-    setMachines?: React.Dispatch<React.SetStateAction<ILasers[]>> | React.Dispatch<React.SetStateAction<IPrinters[]>>;
+    setMachines?: Dispatch<SetStateAction<ILasers[]>> | Dispatch<SetStateAction<IPrinters[]>>;
     timeData?: ILaserTimes[];
-    setTimes?: React.Dispatch<React.SetStateAction<ILaserTimes[]>>;
+    setTimes?: Dispatch<SetStateAction<ILaserTimes[]>>;
 }
 
 

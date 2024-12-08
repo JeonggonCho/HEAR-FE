@@ -234,8 +234,30 @@ const MyReservationsPage = () => {
                   content={
                     <ModalConfirmContent
                         text={messageCategories.confirmDeleteSelectedReservation[lang]}
-                        leftBtn={<Button type={"button"} content={buttonCategories.close[lang]} color={"third"} scale={"normal"} width={"full"} onClick={() => setShowConfirmModal(false)}/>}
-                        rightBtn={<Button type={"button"} content={buttonCategories.delete[lang]} color={"danger"} scale={"normal"} width={"full"} onClick={() => deleteSelectedReservations()}/>}
+                        leftBtn={
+                            <Button
+                                type={"button"}
+                                variant={"filled"}
+                                color={"third"}
+                                size={"md"}
+                                width={"full"}
+                                onClick={() => setShowConfirmModal(false)}
+                            >
+                                {buttonCategories.close[lang]}
+                            </Button>
+                        }
+                        rightBtn={
+                            <Button
+                                type={"button"}
+                                variant={"filled"}
+                                color={"danger"}
+                                size={"md"}
+                                width={"full"}
+                                onClick={() => deleteSelectedReservations()}
+                            >
+                                {buttonCategories.delete[lang]}
+                            </Button>
+                        }
                     />}
                   setModal={() => setShowConfirmModal(false)}
                   type={"popup"}

@@ -26,7 +26,6 @@ import {headerCategories} from "@constants/headerCategories.ts";
 
 const CreateNoticePage = () => {
     const navigate = useNavigate();
-
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();

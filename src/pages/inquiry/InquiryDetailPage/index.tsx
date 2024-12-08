@@ -1,10 +1,9 @@
-import React, {FormEvent, MutableRefObject, useCallback, useEffect, useMemo, useRef, useState} from "react";
+import {FormEvent, MutableRefObject, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Dropdown from "@components/common/Dropdown";
 import HeadTag from "@components/common/HeadTag";
 import Button from "@components/common/Button";
 import {Modal} from "@components/common/Modal";
@@ -308,8 +307,30 @@ const InquiryDetailPage = () => {
                 content={
                     <ModalConfirmContent
                         text={messageCategories.delete[lang]}
-                        leftBtn={<Button type={"button"} content={buttonCategories.close[lang]} color={"third"} scale={"normal"} width={"full"} onClick={() => setShowConfirmModal(false)}/> }
-                        rightBtn={<Button type={"submit"} content={buttonCategories.delete[lang]} color={"danger"} scale={"normal"} width={"full"} onClick={deleteInquiry}/>}
+                        leftBtn={
+                            <Button
+                                type={"button"}
+                                variant={"filled"}
+                                color={"third"}
+                                size={"md"}
+                                width={"full"}
+                                onClick={() => setShowConfirmModal(false)}
+                            >
+                                {buttonCategories.close[lang]}
+                            </Button>
+                        }
+                        rightBtn={
+                            <Button
+                                type={"submit"}
+                                variant={"filled"}
+                                color={"danger"}
+                                size={"md"}
+                                width={"full"}
+                                onClick={deleteInquiry}
+                            >
+                                {buttonCategories.delete[lang]}
+                            </Button>
+                        }
                     />
                 }
                 setModal={() => setShowConfirmModal(false)}

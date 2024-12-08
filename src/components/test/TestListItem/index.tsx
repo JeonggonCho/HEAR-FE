@@ -1,16 +1,33 @@
+import {Dispatch, SetStateAction} from "react";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
-
 import useScrollbarSize from "@hooks/useScrollbarSize.ts";
-import {ITestListItemProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {EducationType, ITestAnswer} from "@/types/education.ts";
+import {ChoiceWrapper, Container, ResetButtonWrapper, ShortAnswerWrapper} from "./style.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 
-import {ChoiceWrapper, Container, ResetButtonWrapper, ShortAnswerWrapper} from "./style.ts";
+
+interface ITestListItemProps {
+    question: EducationType;
+    testAnswers: ITestAnswer[];
+    setTestAnswers: Dispatch<SetStateAction<ITestAnswer[]>>;
+    isAnswerFilled: boolean;
+    inputAnswer: (e: any, question: EducationType) => void;
+    isChecked: (optionId: string, question:EducationType) => boolean;
+}
 
 
-const TestListItem = ({question, testAnswers, setTestAnswers, isAnswerFilled, inputAnswer, isChecked}: ITestListItemProps) => {
+const TestListItem = (
+    {
+        question,
+        testAnswers,
+        setTestAnswers,
+        isAnswerFilled,
+        inputAnswer,
+        isChecked}: ITestListItemProps
+) => {
     const {lang} = useThemeStore();
     const {scrollbarWidth} = useScrollbarSize();
 

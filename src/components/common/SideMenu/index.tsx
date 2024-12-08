@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from "react";
+import {Dispatch, ReactElement, SetStateAction, useEffect, useRef} from "react";
 import ReactDOM from "react-dom";
 import {ReactSVG} from "react-svg";
 import {CloseBtnWrapper, Container, SideMenuWrapper} from "./style.ts";
@@ -7,8 +7,8 @@ import close from "@assets/icons/close.svg";
 
 interface ISideMenuProps {
     direction: "left" | "right";
-    setSideMenu: (() => void) | React.Dispatch<React.SetStateAction<boolean>>;
-    content: React.ReactElement;
+    setSideMenu: (() => void) | Dispatch<SetStateAction<boolean>>;
+    content: ReactElement;
 }
 
 

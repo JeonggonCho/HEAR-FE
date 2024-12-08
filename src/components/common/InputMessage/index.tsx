@@ -1,7 +1,7 @@
 import {Container} from "./style.ts";
 
 
-export interface IInputMessageProps {
+interface IInputMessageProps {
     message: string;
     type: "error" | "approval";
 }

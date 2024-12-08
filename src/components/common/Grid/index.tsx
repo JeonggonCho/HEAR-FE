@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 
+
 interface IGridProps {
     children: ReactNode;
     columns?: number | string;
@@ -9,6 +10,7 @@ interface IGridProps {
     align?: "start" | "center" | "end" | "stretch";
     style?: React.CSSProperties;
 }
+
 
 const Grid = ({
                   children,

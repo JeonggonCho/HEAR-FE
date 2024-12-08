@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from "react";
+import {Dispatch, SetStateAction, useCallback, useEffect} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
@@ -20,9 +20,9 @@ import close from "@assets/icons/close.svg";
 
 interface INewMachineContentProps {
     title: string;
-    setModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setModal: Dispatch<SetStateAction<boolean>>;
     machine: "laser" | "printer";
-    setMachines: React.Dispatch<React.SetStateAction<ILasers[]>> | React.Dispatch<React.SetStateAction<IPrinters[]>>
+    setMachines: Dispatch<SetStateAction<ILasers[]>> | Dispatch<SetStateAction<IPrinters[]>>
 }
 
 

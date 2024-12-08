@@ -1,5 +1,6 @@
 import {Helmet} from "react-helmet-async";
 
+
 interface IHeadTagProps {
     title: string;
 }

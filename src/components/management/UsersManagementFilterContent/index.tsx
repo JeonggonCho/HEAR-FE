@@ -1,4 +1,4 @@
-import React, {FormEvent} from "react";
+import {Dispatch, FormEvent, SetStateAction} from "react";
 import Select from "@components/common/Select";
 import Button from "@components/common/Button";
 import Flex from "@components/common/Flex";
@@ -11,8 +11,8 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 
 interface IFilterContentProps {
     filter: any;
-    setFilter: React.Dispatch<React.SetStateAction<any>>;
-    setModal: React.Dispatch<React.SetStateAction<boolean>>
+    setFilter: Dispatch<SetStateAction<any>>;
+    setModal: Dispatch<SetStateAction<boolean>>
 }
 
 

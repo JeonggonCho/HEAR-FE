@@ -1,4 +1,4 @@
-import React from "react";
+import {Dispatch, SetStateAction} from "react";
 import {ReactSVG} from "react-svg";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {CncWrapper, Container, LaserWrapper, MapWrapper, PrinterWrapper, VacuumWrapper} from "./style.ts";
@@ -9,7 +9,7 @@ import close from "@assets/icons/close.svg";
 
 interface IRoomMapProps {
     machine : "cnc" | "laser" | "printer" | "vacuum";
-    setModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setModal: Dispatch<SetStateAction<boolean>>;
 }
 
 

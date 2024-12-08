@@ -1,4 +1,4 @@
-import React from "react";
+import {Dispatch, SetStateAction} from "react";
 import {DragDropContext, Droppable} from "@hello-pangea/dnd";
 import QuestionListItem from "@components/management/QuestionListItem";
 import {EducationType} from "@/types/education.ts";
@@ -8,7 +8,7 @@ interface IQuestionListContentProps {
     onDragEnd: (result: any) => void;
     questions: EducationType[];
     removeQuestion: (targetIndex: string) => void;
-    setQuestions: React.Dispatch<React.SetStateAction<EducationType[]>>;
+    setQuestions: Dispatch<SetStateAction<EducationType[]>>;
 }
 
 

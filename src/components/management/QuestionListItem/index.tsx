@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import {ChangeEvent, Dispatch, SetStateAction, useState} from "react";
 import {ReactSVG} from "react-svg";
 import { v4 as uuidv4 } from "uuid";
 import {Draggable} from "@hello-pangea/dnd";
@@ -28,7 +28,7 @@ interface IQuestionListItemProps {
     index: number;
     removeQuestion: (questionId: string) => void;
     question: EducationType;
-    setQuestions: React.Dispatch<React.SetStateAction<EducationType[]>>;
+    setQuestions: Dispatch<SetStateAction<EducationType[]>>;
 }
 
 
@@ -339,22 +339,26 @@ const QuestionListItem = (
                                 />
                                 <Button
                                     type={"button"}
-                                    content={<ReactSVG src={close}/>}
+                                    variant={"filled"}
                                     width={"fit"}
                                     color={"third"}
-                                    scale={"small"}
+                                    size={"sm"}
                                     onClick={closeExplanationHandler}
-                                />
+                                >
+                                    <ReactSVG src={close}/>
+                                </Button>
                             </ExplanationWrapper>
                             :
                             <Button
                                 type={"button"}
-                                content={buttonCategories.addExplanation[lang]}
+                                variant={"filled"}
                                 width={"full"}
                                 color={"third"}
-                                scale={"small"}
+                                size={"sm"}
                                 onClick={openExplanationHandler}
-                            />
+                            >
+                                {buttonCategories.addExplanation[lang]}
+                            </Button>
                         }
 
                         {/*옵션 및 답 지정 부분*/}
@@ -377,12 +381,14 @@ const QuestionListItem = (
                                         <label>{`${inputCategories.option[lang]} (${(question as ISingleChoice).options.length})`}</label>
                                         <Button
                                             type={"button"}
-                                            content={<ReactSVG src={add}/>}
+                                            variant={"filled"}
                                             width={"fit"}
                                             color={"third"}
-                                            scale={"small"}
+                                            size={"sm"}
                                             onClick={addOption}
-                                        />
+                                        >
+                                            <ReactSVG src={add}/>
+                                        </Button>
                                     </div>
                                     <OptionListContent
                                         onDragEnd={onDragEnd}
@@ -400,12 +406,14 @@ const QuestionListItem = (
                                             <label>{`${inputCategories.option[lang]} (${(question as IMultipleChoice).options.length})`}</label>
                                             <Button
                                                 type={"button"}
-                                                content={<ReactSVG src={add}/>}
+                                                variant={"filled"}
                                                 width={"fit"}
                                                 color={"third"}
-                                                scale={"small"}
+                                                size={"sm"}
                                                 onClick={addOption}
-                                            />
+                                            >
+                                                <ReactSVG src={add}/>
+                                            </Button>
                                         </div>
                                         <OptionListContent
                                             onDragEnd={onDragEnd}

@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import {Dispatch, SetStateAction, useCallback, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
@@ -24,7 +24,7 @@ import close from "@assets/icons/close.svg";
 
 interface IUserInfoContentProps {
     userId: string;
-    setModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setModal: Dispatch<SetStateAction<boolean>>;
     onUserInfoUpdate?: (updatedUser: IUserInfo) => void;
 }
 

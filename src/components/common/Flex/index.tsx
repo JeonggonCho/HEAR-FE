@@ -1,4 +1,4 @@
-import React, {ReactNode} from "react";
+import {CSSProperties, ReactNode} from "react";
 
 
 interface IFlexProps {
@@ -8,8 +8,9 @@ interface IFlexProps {
     align?: "flex-start" | "center" | "flex-end" | "stretch" | "baseline";
     wrap?: "nowrap" | "wrap" | "wrap-reverse";
     gap?: string | number;
-    style?: React.CSSProperties;
+    style?: CSSProperties;
 }
+
 
 const Flex = (
     {

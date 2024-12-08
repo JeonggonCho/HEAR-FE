@@ -29,7 +29,6 @@ const UpdateNoticePage = () => {
 
     const navigate = useNavigate();
     const {noticeId} = useParams();
-
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
     const {isLoading, errorText, sendRequest, clearError} = useRequest();
@@ -137,7 +136,15 @@ const UpdateNoticePage = () => {
                             countOfText={countOfText}
                         />
 
-                        <Button type={"submit"} content={buttonCategories.editing[lang]} width={"full"} color={"primary"} scale={"big"}/>
+                        <Button
+                            type={"submit"}
+                            variant={"filled"}
+                            width={"full"}
+                            color={"primary"}
+                            size={"lg"}
+                        >
+                            {buttonCategories.editing[lang]}
+                        </Button>
                     </form>
                 </>
             }

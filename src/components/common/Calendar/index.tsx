@@ -1,10 +1,9 @@
-import {useMemo, useState} from "react";
+import {Dispatch, SetStateAction, useMemo, useState} from "react";
 import {ReactSVG} from "react-svg";
 import Button from "@components/common/Button";
 import Flex from "@components/common/Flex";
 import InputMessage from "@components/common/InputMessage";
 import generateCalendar from "@util/generateCalendar.ts";
-import {ICalendarProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {
     HolidayName,
@@ -23,7 +22,27 @@ import arrowBack from "@assets/icons/arrow_back_small.svg";
 import arrowForward from "@assets/icons/arrow_forward_small.svg";
 
 
-const Calendar = ({calendarType="normal", onSelectDate, date, machine, condition, setModal, selectWeekend=false}: ICalendarProps) => {
+interface ICalendarProps {
+    calendarType: "normal" | "reservation";
+    setModal: Dispatch<SetStateAction<boolean>>;
+    onSelectDate: (date:string) => void;
+    date?: string;
+    machine?: "printer" | "saw" | "vacuum" | "cnc";
+    condition?: any[];
+    selectWeekend: boolean;
+}
+
+
+const Calendar = (
+    {
+        calendarType = "normal",
+        onSelectDate,
+        date,
+        machine,
+        condition,
+        setModal,
+        selectWeekend = false}: ICalendarProps
+) => {
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
     const [selectedDate, setSelectedDate] = useState<Date | null>(date ? new Date(date) : null);
     const [isEmpty, setIsEmpty] = useState<boolean>(false);

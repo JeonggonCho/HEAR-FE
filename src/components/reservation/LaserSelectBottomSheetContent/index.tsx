@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import {Dispatch, SetStateAction, useEffect, useMemo, useState} from "react";
 import {useForm} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -18,8 +18,8 @@ interface ILaserSelectBottomSheetContentProps {
     laserInfo: ILaserInfo[];
     laserTimesInfo: ILaserTimesinfo[];
     reservationList: ILaserReservation[];
-    setReservationList: React.Dispatch<React.SetStateAction<ILaserReservation[]>>;
-    setModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setReservationList: Dispatch<SetStateAction<ILaserReservation[]>>;
+    setModal: Dispatch<SetStateAction<boolean>>;
 }
 
 

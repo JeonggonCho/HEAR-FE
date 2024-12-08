@@ -26,7 +26,6 @@ const TestIntroductionPage = () => {
     const [cutOffPoint, setCutOffPoint] = useState<number>(0);
 
     const navigate = useNavigate();
-
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
     const {sendRequest, errorText, clearError} = useRequest();

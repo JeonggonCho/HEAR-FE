@@ -1,15 +1,15 @@
-import React, {FormEvent, useCallback, useEffect, useMemo, useState} from "react";
+import {FormEvent, useCallback, useEffect, useMemo, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 import {Header} from "@components/common/Header";
 import LoadingLoop from "@components/common/LoadingLoop";
-import Dropdown from "@components/common/Dropdown";
 import HeadTag from "@components/common/HeadTag";
 import Button from "@components/common/Button";
 import {Modal} from "@components/common/Modal";
 import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import Comments from "@components/comment/Comments";
 import Grid from "@components/common/Grid";
+import {Dropdown} from "@components/common/Dropdown";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
@@ -39,7 +39,6 @@ const NoticeDetailPage = () => {
 
     const navigate = useNavigate();
     const {noticeId} = useParams();
-
     const {userData} = useUserDataStore();
     const {lang, isDarkMode} = useThemeStore();
     const {showToast} = useToastStore();
@@ -225,8 +224,30 @@ const NoticeDetailPage = () => {
                 content={
                     <ModalConfirmContent
                         text={messageCategories.delete[lang]}
-                        leftBtn={<Button type={"button"} content={buttonCategories.close[lang]} color={"third"} scale={"normal"} width={"full"} onClick={() => setShowConfirmModal(false)}/> }
-                        rightBtn={<Button type={"submit"} content={buttonCategories.delete[lang]} color={"danger"} scale={"normal"} width={"full"} onClick={deleteNotice}/>}
+                        leftBtn={
+                            <Button
+                                type={"button"}
+                                variant={"filled"}
+                                color={"third"}
+                                size={"md"}
+                                width={"full"}
+                                onClick={() => setShowConfirmModal(false)}
+                            >
+                                {buttonCategories.close[lang]}
+                            </Button>
+                        }
+                        rightBtn={
+                            <Button
+                                type={"submit"}
+                                variant={"filled"}
+                                color={"danger"}
+                                size={"md"}
+                                width={"full"}
+                                onClick={deleteNotice}
+                            >
+                                {buttonCategories.delete[lang]}
+                            </Button>
+                        }
                     />
                 }
                 setModal={() => setShowConfirmModal(false)}

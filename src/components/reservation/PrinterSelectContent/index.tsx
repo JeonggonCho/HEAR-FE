@@ -1,4 +1,4 @@
-import React from "react";
+import {Dispatch, SetStateAction} from "react";
 import {ReactSVG} from "react-svg";
 import Calendar from "@components/common/Calendar";
 import Select from "@components/common/Select";
@@ -16,10 +16,10 @@ interface IPrinterSelectContentProps {
     onSelectDate: (date: string) => void;
     selectedDate: string | undefined;
     selectMachineMode: boolean;
-    setSelectMachineMode: React.Dispatch<React.SetStateAction<boolean>>;
+    setSelectMachineMode: Dispatch<SetStateAction<boolean>>;
     selectedMachine: string;
-    setReservation: React.Dispatch<React.SetStateAction<IPrinterReservation | undefined>>;
-    setSelectedMachine: React.Dispatch<React.SetStateAction<string>>;
+    setReservation: Dispatch<SetStateAction<IPrinterReservation | undefined>>;
+    setSelectedMachine: Dispatch<SetStateAction<string>>;
 }
 
 // 더미
@@ -77,11 +77,13 @@ const PrinterSelectContent = (
 
                 <Button
                     type={"button"}
-                    content={buttonCategories.add[lang]}
+                    variant={"filled"}
                     width={"full"}
                     color={"primary"}
-                    scale={"big"}
-                />
+                    size={"lg"}
+                >
+                    {buttonCategories.add[lang]}
+                </Button>
             </SelectPrinterWrapper>
         </Container>
     );

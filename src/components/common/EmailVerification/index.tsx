@@ -1,28 +1,44 @@
-import {useCallback, useEffect, useState} from "react";
-import {FieldPath, FieldValues} from "react-hook-form";
-
+import {ChangeEvent, Dispatch, SetStateAction, useCallback, useEffect, useState} from "react";
+import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import InputMessage from "@components/common/InputMessage";
 import Timer from "@components/common/Timer";
-
 import useRequest from "@hooks/useRequest.ts";
 import useDebounce from "@hooks/useDebounce.ts";
 import isEmailValid from "@util/isEmailValid.ts";
 import isNumber from "@util/isNumber.ts";
-import {IEmailVerificationProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
+import {ChangeAndResendBtnsWrapper, Container, EmailInputWrapper, VerificationCodeInputWrapper} from "./style.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
-import {ChangeAndResendBtnsWrapper, Container, EmailInputWrapper, VerificationCodeInputWrapper} from "./style.ts";
+
+interface IEmailVerificationProps<T extends FieldValues> {
+    email: string;
+    setEmail: Dispatch<SetStateAction<string>>;
+    verificationCode: string;
+    setVerificationCode: Dispatch<SetStateAction<string>>;
+    inputChangeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+    register: UseFormRegister<T>;
+    emailErrorMessage?: string;
+    verificationCodeErrorMessage?: string;
+}
 
 
 const EmailVerification = <T extends FieldValues>(
-    {email, setEmail, verificationCode, setVerificationCode, inputChangeHandler, register, emailErrorMessage, verificationCodeErrorMessage}: IEmailVerificationProps<T>
+    {
+        email,
+        setEmail,
+        verificationCode,
+        setVerificationCode,
+        inputChangeHandler,
+        register,
+        emailErrorMessage,
+        verificationCodeErrorMessage}: IEmailVerificationProps<T>
 ) => {
     const [resetTrigger, setResetTrigger] = useState<number>(0);
     const [fixEmail, setFixEmail] = useState<boolean>(false);
@@ -187,42 +203,50 @@ const EmailVerification = <T extends FieldValues>(
                 {isVerified ?
                     <Button
                         type={"button"}
-                        content={buttonCategories.changing[lang]}
+                        variant={"filled"}
                         width={"fit"}
                         color={"second"}
-                        scale={"small"}
+                        size={"sm"}
                         onClick={emailResetHandler}
-                    />
+                    >
+                        {buttonCategories.changing[lang]}
+                    </Button>
                     :
                     <>
                         {!sendVerificationCodeMode ?
                             <Button
                               type={"button"}
-                              content={buttonCategories.verification[lang]}
+                              variant={"filled"}
                               width={"fit"}
                               color={"approval"}
-                              scale={"small"}
+                              size={"sm"}
                               disabled={disabledVerificationBtn}
                               onClick={sendVerificationCodeClickHandler}
-                            />
+                            >
+                                {buttonCategories.verification[lang]}
+                            </Button>
                             :
                             <ChangeAndResendBtnsWrapper sendVerificationCodeMode={sendVerificationCodeMode}>
                                 <Button
                                     type={"button"}
-                                    content={buttonCategories.changing[lang]}
+                                    variant={"filled"}
                                     width={"fit"}
                                     color={"second"}
-                                    scale={"small"}
+                                    size={"sm"}
                                     onClick={emailResetHandler}
-                                />
+                                >
+                                    {buttonCategories.changing[lang]}
+                                </Button>
                                 <Button
                                     type={"button"}
-                                    content={buttonCategories.resend[lang]}
+                                    variant={"filled"}
                                     width={"fit"}
                                     color={"approval"}
-                                    scale={"small"}
+                                    size={"sm"}
                                     onClick={sendVerificationCodeClickHandler}
-                                />
+                                >
+                                    {buttonCategories.resend[lang]}
+                                </Button>
                             </ChangeAndResendBtnsWrapper>
                         }
                     </>
@@ -249,13 +273,15 @@ const EmailVerification = <T extends FieldValues>(
                     />
                     <Button
                       type={"button"}
-                      content={buttonCategories.confirm[lang]}
+                      variant={"filled"}
                       width={"fit"}
                       color={"approval"}
-                      scale={"small"}
+                      size={"sm"}
                       disabled={disabledConfirmBtn}
                       onClick={verifyEmailCodeClickHandler}
-                    />
+                    >
+                        {buttonCategories.confirm[lang]}
+                    </Button>
                 </VerificationCodeInputWrapper>
             }
         </Container>

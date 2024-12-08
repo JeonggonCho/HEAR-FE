@@ -1,8 +1,5 @@
 import styled from "@emotion/styled";
 
-export const Container = styled.div`
-    width: 100%;
-`;
 
 export const SideMenuBtnWrapper = styled.div`
     width: 28px;
@@ -85,13 +82,6 @@ export const QuestionsWrapper = styled.div<{currentQuestion: number, scrollbarWi
     }
 `;
 
-export const BtnsWrapper = styled.div`
-    margin: 0 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-`;
-
 export const SideMenuQuestionsWrapper = styled.ul`
     display: flex;
     flex-direction: column;
@@ -167,11 +157,4 @@ export const AnswerWrapper = styled.div`
         cursor: pointer;
         margin: 0;
     }
-`;
-
-export const YearAndStudioWrapper = styled.form`
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    margin: 32px 0;
 `;

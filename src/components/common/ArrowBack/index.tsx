@@ -9,6 +9,7 @@ interface IArrowBack {
     action?: () => void;
 }
 
+
 const ArrowBack = ({action}: IArrowBack) => {
     const navigate = useNavigate();
 

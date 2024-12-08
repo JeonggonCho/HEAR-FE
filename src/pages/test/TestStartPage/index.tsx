@@ -1,12 +1,7 @@
 import {useCallback, useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {SubmitHandler, useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
-import {z} from "zod";
-import {zodResolver} from "@hookform/resolvers/zod";
 import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
-import Select from "@components/common/Select";
 import HeadTag from "@components/common/HeadTag";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Button from "@components/common/Button";
@@ -14,34 +9,27 @@ import SideMenu from "@components/common/SideMenu";
 import ProgressBar from "@components/common/ProgressBar";
 import TestListItem from "@components/test/TestListItem";
 import Empty from "@components/common/Empty";
-import Input from "@components/common/Input";
-import ConfirmModal from "@components/common/Modal/ConfirmModal.tsx";
 import Grid from "@components/common/Grid";
+import Flex from "@components/common/Flex";
+import SubmitTest from "@components/test/SubmitTest";
+import ResetTest from "@components/test/ResetTest";
 import useRequest from "@hooks/useRequest.ts";
 import useScrollbarSize from "@hooks/useScrollbarSize.ts";
-import useModal from "@hooks/useModal.ts";
-import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
 import {EducationType, IMultipleChoice, ISingleChoice, ITestAnswer} from "@/types/education.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
+import TestContext from "@context/TestContext.ts";
 import {
     AnswerWrapper,
-    BtnsWrapper,
-    Container,
     MenusWrapper,
     QuestionsWrapper, SideMenuAnswerWrapper,
     SideMenuBtnWrapper, SideMenuQuestionsWrapper,
-    SideMenuQuestionWrapper, YearAndStudioWrapper
+    SideMenuQuestionWrapper
 } from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
-import {confirmModalHeader, confirmModalSubMessage} from "@components/common/Modal/style.ts";
 import {navCategories} from "@constants/navCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
-import {cardCategories} from "@constants/cardCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
-import {inputCategories} from "@constants/inputCategories.ts";
-import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import menu from "@assets/icons/menu.svg";
 
 
@@ -51,44 +39,9 @@ const TestStartPage = () => {
     const [testAnswers, setTestAnswers] = useState<ITestAnswer[]>([]);
     const [showSideMenu, setShowSideMenu] = useState<boolean>(false);
 
-    const navigate = useNavigate();
-
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
     const {scrollbarWidth} = useScrollbarSize();
-    const {updateYearAndStudioSchema} = UserSchemaProvider();
-    const {
-        showModal: showSubmitConfirmModal,
-        setShowModal: setShowSubmitConfirmModal,
-        modalRef: submitModalRef,
-        backdropRef: submitBackdropRef,
-    } = useModal();
-    const {
-        showModal: showResetConfirmModal,
-        setShowModal: setShowResetConfirmModal,
-        modalRef: resetModalRef,
-        backdropRef: resetBackdropRef,
-    } = useModal();
-
-    // 학년 카테고리
-    const yearCategories = [
-        {label: inputCategories.first[lang], value: "1", id: "select-1"},
-        {label: inputCategories.second[lang], value: "2", id: "select-2"},
-        {label: inputCategories.third[lang], value: "3", id: "select-3"},
-        {label: inputCategories.fourth[lang], value: "4", id: "select-4"},
-        {label: inputCategories.fifth[lang], value: "5", id: "select-5"},
-    ];
-
-    type UpdateYearAndStudioForm = z.infer<typeof updateYearAndStudioSchema>;
-
-    const {register, handleSubmit, formState:{errors}, getValues, reset} = useForm<UpdateYearAndStudioForm>({
-        resolver: zodResolver(updateYearAndStudioSchema),
-        defaultValues: {
-            year: "1",
-            studio: "",
-        },
-    });
 
     // 기존 답변 스토리지에서 로드하기
     const loadAnswersFromStorage = (): ITestAnswer[] => {
@@ -106,7 +59,7 @@ const TestStartPage = () => {
         setTestAnswers(loadAnswersFromStorage());
     }, []);
 
-    // testAnswers가 변경될 때마다 스토리지에 저장
+    // testAnswers 변경될 때마다 스토리지에 저장
     useEffect(() => {
         saveAnswersToStorage(testAnswers);
     }, [testAnswers]);
@@ -184,16 +137,6 @@ const TestStartPage = () => {
         });
     };
 
-    // 작성된 답안 모두 지우기
-    const eraseAnswers = () => {
-        setTestAnswers(prevState => {
-            return prevState.map(answer => ({
-                ...answer,
-                myAnswer: Array.isArray(answer.myAnswer) ? [] : "",
-            }));
-        });
-    };
-
     // 선택형 문제 체크 확인
     const isChecked = (optionId: string, question:EducationType) => {
         const targetIndex = testAnswers.findIndex((answer) => answer.questionId === question._id);
@@ -218,36 +161,6 @@ const TestStartPage = () => {
         }
         return false;
     };
-
-    // 문제 제출하기
-    const submitTest:SubmitHandler<UpdateYearAndStudioForm> = async () => {
-        try {
-            const response = await sendRequest({
-                url: "/education/check",
-                method: "post",
-                data: {
-                    testAnswers: testAnswers,
-                    year: getValues("year"),
-                    studio: getValues("studio"),
-                },
-            });
-            if (response.data) {
-                sessionStorage.removeItem("testAnswers");
-                navigate("/test/end", {replace: true});
-            }
-        } catch (err) {
-            console.error("문제 제출 중 에러 발생: ", err);
-        } finally {
-            setShowSubmitConfirmModal(false);
-        }
-    };
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
 
     // 사이드 메뉴 문제 답안 내용
     const TestAnswersContent = () => (
@@ -318,113 +231,96 @@ const TestStartPage = () => {
 
 
     return (
-        <>
-            <Container>
+        <TestContext.Provider value={{
+            testAnswers,
+            setTestAnswers,
+        }}>
             <HeadTag title={navCategories.test[lang]}/>
 
-                <Header>
-                    <Grid align={"center"} columns={3} style={{width: "100%"}}>
-                        <Header.Left>
-                            <ArrowBack/>
-                        </Header.Left>
-                        <Header.Center>
-                            <h2 css={headerCenter}>{headerCategories.test[lang]}</h2>
-                        </Header.Center>
-                        <Header.Right>
-                            <SideMenuBtnWrapper onClick={() => setShowSideMenu(true)}>
-                                <ReactSVG src={menu}/>
-                            </SideMenuBtnWrapper>
-                        </Header.Right>
-                    </Grid>
-                </Header>
+            <Header>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{headerCategories.test[lang]}</h2>
+                    </Header.Center>
+                    <Header.Right>
+                        <SideMenuBtnWrapper onClick={() => setShowSideMenu(true)}>
+                            <ReactSVG src={menu}/>
+                        </SideMenuBtnWrapper>
+                    </Header.Right>
+                </Grid>
+            </Header>
 
-                {isLoading ?
-                    <LoadingLoop/>
-                    :
-                    <>
-                        {questions.length > 0 ?
-                            <>
-                                <MenusWrapper>
+            {isLoading ?
+                <LoadingLoop/>
+                :
+                <>
+                    {questions.length > 0 ?
+                        <>
+                            <MenusWrapper>
+                                <div>
+                                    <span>{`${currentQuestion + 1} / ${questions.length}`}</span>
                                     <div>
-                                        <span>{`${currentQuestion + 1} / ${questions.length}`}</span>
-                                        <div>
-                                            <Button
-                                                type={"button"}
-                                                variant={"filled"}
-                                                width={"fit"}
-                                                color={"second"}
-                                                size={"sm"}
-                                                onClick={() => setShowResetConfirmModal(true)}
-                                            >
-                                                {buttonCategories.reset[lang]}
-                                            </Button>
-                                            <Button
-                                                type={"button"}
-                                                variant={"filled"}
-                                                width={"fit"}
-                                                color={"primary"}
-                                                size={"sm"}
-                                                onClick={() => setShowSubmitConfirmModal(true)}
-                                            >
-                                                {buttonCategories.submit[lang]}
-                                            </Button>
-                                        </div>
+                                        <ResetTest/>
+                                        <SubmitTest/>
                                     </div>
-                                    <ProgressBar total={questions.length} current={currentQuestion + 1}/>
-                                </MenusWrapper>
+                                </div>
+                                <ProgressBar total={questions.length} current={currentQuestion + 1}/>
+                            </MenusWrapper>
 
-                                <QuestionsWrapper
-                                    currentQuestion={currentQuestion}
-                                    scrollbarWidth={scrollbarWidth}
+                            <QuestionsWrapper
+                                currentQuestion={currentQuestion}
+                                scrollbarWidth={scrollbarWidth}
+                            >
+                                <div>
+                                    <div>
+                                        {questions.map((q, index) => (
+                                            <TestListItem
+                                                key={index}
+                                                question={q}
+                                                testAnswers={testAnswers}
+                                                setTestAnswers={setTestAnswers}
+                                                isAnswerFilled={isAnswerFilled(q)}
+                                                inputAnswer={inputAnswer}
+                                                isChecked={isChecked}
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
+                            </QuestionsWrapper>
+
+                            <Flex align={"center"} gap={12} style={{margin: "0 24px"}}>
+                                <Button
+                                    type={"button"}
+                                    variant={"filled"}
+                                    width={"full"}
+                                    color={"second"}
+                                    size={"md"}
+                                    onClick={movePrevQuestion}
+                                    disabled={currentQuestion === 0}
                                 >
-                                    <div>
-                                        <div>
-                                            {questions.map((q, index) => (
-                                                <TestListItem
-                                                    key={index}
-                                                    question={q}
-                                                    testAnswers={testAnswers}
-                                                    setTestAnswers={setTestAnswers}
-                                                    isAnswerFilled={isAnswerFilled(q)}
-                                                    inputAnswer={inputAnswer}
-                                                    isChecked={isChecked}
-                                                />
-                                            ))}
-                                        </div>
-                                    </div>
-                                </QuestionsWrapper>
-
-                                <BtnsWrapper>
-                                    <Button
-                                        type={"button"}
-                                        variant={"filled"}
-                                        width={"full"}
-                                        color={"second"}
-                                        size={"md"}
-                                        onClick={movePrevQuestion}
-                                        disabled={currentQuestion === 0}
-                                    >
-                                        {buttonCategories.previous[lang]}
-                                    </Button>
-                                    <Button
-                                        type={"button"}
-                                        variant={"filled"}
-                                        width={"full"}
-                                        color={"second"}
-                                        size={"md"}
-                                        onClick={moveNextQuestion}
-                                        disabled={currentQuestion === questions.length - 1}
-                                    >
-                                        {buttonCategories.next[lang]}
-                                    </Button>
-                                </BtnsWrapper>
-                            </>
-                            :
-                            <Empty title={messageCategories.emptyQuestion[lang]}/>
-                        }
-                    </>
-                }
-            </Container>
+                                    {buttonCategories.previous[lang]}
+                                </Button>
+                                <Button
+                                    type={"button"}
+                                    variant={"filled"}
+                                    width={"full"}
+                                    color={"second"}
+                                    size={"md"}
+                                    onClick={moveNextQuestion}
+                                    disabled={currentQuestion === questions.length - 1}
+                                >
+                                    {buttonCategories.next[lang]}
+                                </Button>
+                            </Flex>
+                        </>
+                        :
+                        <Empty title={messageCategories.emptyQuestion[lang]}/>
+                    }
+                </>
+            }
 
             {showSideMenu &&
               <SideMenu
@@ -433,103 +329,7 @@ const TestStartPage = () => {
                 setSideMenu={setShowSideMenu}
               />
             }
-
-            {showSubmitConfirmModal &&
-              <ConfirmModal
-                modalRef={submitModalRef}
-                backdropRef={submitBackdropRef}
-                header={<h4 css={confirmModalHeader}>{cardCategories.submit[lang]}</h4>}
-                subMessage={<p css={confirmModalSubMessage}>{messageCategories.warningSubmit[lang]}</p>}
-                leftBtn={
-                    <Button
-                        type={"button"}
-                        variant={"filled"}
-                        color={"third"}
-                        size={"md"}
-                        width={"full"}
-                        onClick={() => {
-                            reset({
-                                year: "1",
-                                studio: "",
-                            });
-                            setShowSubmitConfirmModal(false);
-                        }}
-                    >
-                        {buttonCategories.cancel[lang]}
-                    </Button>
-                }
-                rightBtn={
-                    <Button
-                        type={"submit"}
-                        variant={"filled"}
-                        size={"md"}
-                        color={"approval"}
-                        width={"full"}
-                        onClick={handleSubmit(submitTest)}
-                    >
-                        {buttonCategories.submit[lang]}
-                    </Button>
-                }
-              >
-                <YearAndStudioWrapper>
-                  <Select
-                    categories={yearCategories}
-                    label={inputCategories.year[lang]}
-                    name={"year"}
-                    register={register}
-                    errorMessage={errors.year?.message}
-                    type={"radio"}
-                  />
-                  <Input
-                    label={inputCategories.studio[lang]}
-                    subLabel={inputCategories.inputKorean[lang]}
-                    type={"text"}
-                    id={"studio"}
-                    name={"studio"}
-                    placeholder={placeholderCategories.studio[lang]}
-                    register={register}
-                    errorMessage={errors.studio?.message}
-                  />
-                </YearAndStudioWrapper>
-              </ConfirmModal>
-            }
-
-            {showResetConfirmModal &&
-              <ConfirmModal
-                modalRef={resetModalRef}
-                backdropRef={resetBackdropRef}
-                header={<h4 css={confirmModalHeader}>{cardCategories.eraseAnswers[lang]}</h4>}
-                subMessage={<p css={confirmModalSubMessage}>{messageCategories.warningEraseAnswers[lang]}</p>}
-                leftBtn={
-                    <Button
-                        type={"button"}
-                        variant={"filled"}
-                        width={"full"}
-                        color={"third"}
-                        size={"md"}
-                        onClick={() => setShowResetConfirmModal(false)}
-                    >
-                        {buttonCategories.cancel[lang]}
-                    </Button>
-                }
-                rightBtn={
-                    <Button
-                        type={"button"}
-                        variant={"filled"}
-                        width={"full"}
-                        color={"danger"}
-                        size={"md"}
-                        onClick={() => {
-                            eraseAnswers();
-                            setShowResetConfirmModal(false);
-                        }}
-                    >
-                        {buttonCategories.reset[lang]}
-                    </Button>
-                }
-              />
-            }
-        </>
+        </TestContext.Provider>
     );
 };
 

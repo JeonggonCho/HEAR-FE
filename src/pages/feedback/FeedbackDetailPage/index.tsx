@@ -1,4 +1,4 @@
-import React, {FormEvent, MutableRefObject, useCallback, useEffect, useMemo, useRef, useState} from "react";
+import {FormEvent, MutableRefObject, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 import {Header} from "@components/common/Header";

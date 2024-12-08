@@ -30,7 +30,6 @@ import check from "@assets/icons/check.svg";
 
 const ReservationHeat = () => {
     const navigate = useNavigate();
-
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
     const {isLoading, sendRequest, errorText, clearError} = useRequest();

@@ -10,6 +10,7 @@ import QuestionListContent from "@components/management/QuestionListContent";
 import Grid from "@components/common/Grid";
 import EducationManagementMenu from "@components/management/EducationManagementMenu";
 import EducationManagementSave from "@components/management/EducationManagementSave";
+import EducationManagementSideMenu from "@components/management/EducationManagementSideMenu";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import {EducationType, IEducationSettings} from "@/types/education.ts";
@@ -22,7 +23,6 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import add from "@assets/icons/add.svg";
 import reset from "@assets/icons/reset.svg";
-import EducationManagementSideMenu from "@components/management/EducationManagementSideMenu";
 
 
 const EducationManagementPage = () => {
