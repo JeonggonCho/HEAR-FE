@@ -8,7 +8,6 @@ import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import {IReservation} from "@/types/componentProps.ts";
-import {useToastStore} from "@store/useToastStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {HistoryListItemWrapper, UsageControlWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
@@ -25,8 +24,7 @@ const MyUsagePage = () => {
     const [filter, setFilter] = useState("all");
 
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
 
     // 내 이용 내역 조회
     const fetchMyHistory = useCallback(async () => {
@@ -45,13 +43,6 @@ const MyUsagePage = () => {
     useEffect(() => {
         fetchMyHistory();
     }, [fetchMyHistory, filter]);
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
 
     return (
         <>

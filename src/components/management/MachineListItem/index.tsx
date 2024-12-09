@@ -32,7 +32,12 @@ const MachineListItem = (
 
     type MachineFormData = z.infer<typeof newMachineSchema>;
 
-    const {register, handleSubmit, formState: {errors}, reset} = useForm<MachineFormData>({
+    const {
+        register,
+        handleSubmit,
+        formState: {errors},
+        reset
+    } = useForm<MachineFormData>({
         resolver: zodResolver(newMachineSchema),
         defaultValues: {
             name: "",

@@ -1,15 +1,13 @@
-import {FormEvent, useCallback, useEffect, useMemo, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState} from "react";
+import {useParams} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 import {Header} from "@components/common/Header";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
-import Button from "@components/common/Button";
-import {Modal} from "@components/common/Modal";
-import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
 import Comments from "@components/comment/Comments";
 import Grid from "@components/common/Grid";
-import {Dropdown} from "@components/common/Dropdown";
+import Flex from "@components/common/Flex";
+import NoticeDropdown from "@components/notice/NoticeDropdown";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
@@ -19,14 +17,9 @@ import {IFeedbackProps, IInquiryProps, INotice} from "@/types/componentProps.ts"
 import {IComment} from "@/types/comment.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
-import {Container, DateAndCountsWrapper, NoticeContent, NoticeInfoWrapper} from "./style.ts";
+import {DateAndCountsWrapper, NoticeContent, NoticeInfoWrapper, NoticeTitleWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
-import {messageCategories} from "@constants/messageCategories.ts";
-import deleteIcon from "@assets/icons/delete.svg";
-import editIcon from "@assets/icons/edit.svg";
 import views from "@assets/icons/visible.svg";
 import chat from "@assets/icons/chat.svg";
 
@@ -34,16 +27,11 @@ import chat from "@assets/icons/chat.svg";
 const NoticeDetailPage = () => {
     const [notice, setNotice] = useState<INotice>();
     const [comments, setComments] = useState<IComment[]>([]);
-    const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
-    const [emptyCommentContent, setEmptyCommentContent] = useState<boolean>(false);
 
-    const navigate = useNavigate();
     const {noticeId} = useParams();
     const {userData} = useUserDataStore();
     const {lang, isDarkMode} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {isLoading, errorText, sendRequest, clearError} = useRequest();
-    const {errorText:commentErrorText, sendRequest:commentSendRequest, clearError:commentClearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
     const {text, countOfText, handleTextChange, setText} = useTextarea();
 
     // 공지 생성 일자
@@ -73,186 +61,63 @@ const NoticeDetailPage = () => {
         fetchNotice();
     }, [fetchNotice]);
 
-    // 공지 삭제 확인 모달 띄우기
-    const deleteNoticeConfirm = () => {
-        setShowConfirmModal(true);
-    };
-
-    // 공지 삭제
-    const deleteNotice = useCallback(async () => {
-        try {
-            await sendRequest({
-                url: `/notices/${noticeId}`,
-                method: "delete",
-            });
-            navigate(-1);
-        } catch (err) {
-            console.error("공지 삭제 중 에러 발생: ", err);
-        }
-    }, [sendRequest, noticeId]);
-
-    // 공지 수정
-    const updateNotice = () => {
-        navigate(`/board/notice/${noticeId}/update`);
-    };
-
-    // 공지 드롭다운 메뉴목록
-    const noticeDropdownMenus = [
-        {icon: editIcon, label: buttonCategories.edit[lang], action: updateNotice},
-        {icon: deleteIcon, label: buttonCategories.delete[lang], action: deleteNoticeConfirm},
-    ];
-
-    // 댓글 생성 요청하기
-    const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (text.trim().length === 0) {
-            setEmptyCommentContent(true);
-            return;
-        }
-
-        const data = {
-            content: text.trim(),
-            refId: noticeId,
-            refType: "notice",
-        };
-
-        try {
-            const response = await commentSendRequest({
-                url: "/comments",
-                method: "post",
-                data: data,
-            });
-            if (response.data) {
-                setComments(prevState => [response.data, ...prevState]);
-                setNotice(prevState => {
-                    if (!prevState) return prevState;
-                    return ({
-                        ...prevState,
-                        comments: prevState.comments + 1
-                    });
-                });
-            }
-            setText("");
-        } catch (err) {
-            console.error("공지 댓글 생성 요청 중 에러 발생: ", err);
-        }
-    };
-
-    // 댓글 공란 에러 메시지
-    useEffect(() => {
-        if (emptyCommentContent) showToast(messageCategories.emptyCommentError[lang], "error");
-        const errorTimer = setTimeout(() => setEmptyCommentContent(false), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [emptyCommentContent]);
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
-
-    // 댓글 에러 메시지
-    useEffect(() => {
-        if (commentErrorText) showToast(commentErrorText, "error");
-        const errorTimer = setTimeout(() => commentClearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [commentErrorText]);
-
-
     return (
         <>
-            <Container>
-                <HeadTag title={notice?.title || headerCategories.noticeDetail[lang]}/>
+            <HeadTag title={notice?.title || headerCategories.noticeDetail[lang]}/>
 
-                <Header>
-                    <Grid align={"center"} columns={3} style={{width: "100%"}}>
-                        <Header.Left>
-                            <ArrowBack/>
-                        </Header.Left>
-                        <Header.Center>
-                            <h2 css={headerCenter}>{headerCategories.noticeDetail[lang]}</h2>
-                        </Header.Center>
-                    </Grid>
-                </Header>
+            <Header bgColor={true}>
+                <Grid align={"center"} columns={3} style={{width: "100%"}}>
+                    <Header.Left>
+                        <ArrowBack/>
+                    </Header.Left>
+                    <Header.Center>
+                        <h2 css={headerCenter}>{headerCategories.noticeDetail[lang]}</h2>
+                    </Header.Center>
+                </Grid>
+            </Header>
 
-                {!isLoading && notice ?
-                    <>
-                        {/*공지 정보 부분*/}
-                        <NoticeInfoWrapper>
-                            <h2>{notice.title}</h2>
-                            <div>
-                                <DateAndCountsWrapper>
-                                    <span>{timeStamp}</span>
-                                    <div>
-                                        <ReactSVG src={views}/>
-                                        <span>{notice.views || 0}</span>
-                                    </div>
-                                    <div>
-                                        <ReactSVG src={chat}/>
-                                        <span>{notice.comments || 0}</span>
-                                    </div>
-                                </DateAndCountsWrapper>
+            {!isLoading && notice ?
+                <>
+                    {/*공지 정보 부분*/}
+                    <NoticeInfoWrapper>
+                        <NoticeTitleWrapper>{notice.title}</NoticeTitleWrapper>
+                        <Flex align={"center"} justify={"space-between"}>
+                            <DateAndCountsWrapper>
+                                <span>{timeStamp}</span>
+                                <div>
+                                    <ReactSVG src={views}/>
+                                    <span>{notice.views || 0}</span>
+                                </div>
+                                <div>
+                                    <ReactSVG src={chat}/>
+                                    <span>{notice.comments || 0}</span>
+                                </div>
+                            </DateAndCountsWrapper>
 
-                                {userData?.role === "admin" || userData?.role === "assistant" && noticeId &&
-                                  <Dropdown dropdownMenus={noticeDropdownMenus}/>
-                                }
-                            </div>
-                        </NoticeInfoWrapper>
+                            {userData?.role === "admin" || userData?.role === "assistant" && noticeId &&
+                              <NoticeDropdown/>
+                            }
+                        </Flex>
+                    </NoticeInfoWrapper>
 
-                        {/*공지 내용 부분*/}
-                        <NoticeContent darkmode={isDarkMode.toString()} dangerouslySetInnerHTML={{__html: transformedText}}/>
+                    {/*공지 내용 부분*/}
+                    <NoticeContent darkmode={isDarkMode.toString()} dangerouslySetInnerHTML={{__html: transformedText}}/>
 
-                        {/*댓글 부분*/}
-                        <Comments
-                            text={text}
-                            countOfText={countOfText}
-                            handleTextChange={handleTextChange}
-                            comments={comments}
-                            setComments={setComments}
-                            setRefDoc={setNotice as React.Dispatch<React.SetStateAction<IInquiryProps | IFeedbackProps | INotice>>}
-                            submitHandler={submitHandler}
-                        />
-                    </>
-                    :
-                    <LoadingLoop/>
-                }
-            </Container>
-
-            {showConfirmModal &&
-              <Modal
-                content={
-                    <ModalConfirmContent
-                        text={messageCategories.delete[lang]}
-                        leftBtn={
-                            <Button
-                                type={"button"}
-                                variant={"filled"}
-                                color={"third"}
-                                size={"md"}
-                                width={"full"}
-                                onClick={() => setShowConfirmModal(false)}
-                            >
-                                {buttonCategories.close[lang]}
-                            </Button>
-                        }
-                        rightBtn={
-                            <Button
-                                type={"submit"}
-                                variant={"filled"}
-                                color={"danger"}
-                                size={"md"}
-                                width={"full"}
-                                onClick={deleteNotice}
-                            >
-                                {buttonCategories.delete[lang]}
-                            </Button>
-                        }
+                    {/*댓글 부분*/}
+                    <Comments
+                        refId={noticeId as string}
+                        refType={"notice"}
+                        text={text}
+                        setText={setText}
+                        countOfText={countOfText}
+                        handleTextChange={handleTextChange}
+                        comments={comments}
+                        setComments={setComments}
+                        setRefDoc={setNotice as Dispatch<SetStateAction<IInquiryProps | IFeedbackProps | INotice>>}
                     />
-                }
-                setModal={() => setShowConfirmModal(false)}
-                type={"popup"}
-              />
+                </>
+                :
+                <LoadingLoop/>
             }
         </>
     );

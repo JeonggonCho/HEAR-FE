@@ -20,7 +20,6 @@ interface ILaserReservationConditionContentProps {
 
 const LaserReservationConditionContent = ({laserStatus, rate, color}: ILaserReservationConditionContentProps) => {
     const {lang} = useThemeStore();
-
     const {maxHeight, isOpen, listRef, handleList} = useListCollapse();
 
     return (

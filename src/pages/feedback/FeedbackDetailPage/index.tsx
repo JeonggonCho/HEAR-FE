@@ -1,13 +1,22 @@
-import {FormEvent, MutableRefObject, useCallback, useEffect, useMemo, useRef, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {
+    Dispatch,
+    MutableRefObject,
+    SetStateAction,
+    useCallback,
+    useEffect,
+    useMemo,
+    useState
+} from "react";
+import {useParams} from "react-router-dom";
 import {ReactSVG} from "react-svg";
 import {Header} from "@components/common/Header";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import Comments from "@components/comment/Comments";
 import ProfileImage from "@components/common/ProfileImage";
-import MoreDropdown from "@components/common/Dropdown/MoreDropdown.tsx";
 import Grid from "@components/common/Grid";
+import FeedbackDropdown from "@components/feedback/FeedbackDropdown";
+import LikeFeedback from "@components/feedback/LikeFeedback";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
@@ -19,12 +28,11 @@ import {useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {
     BtnsWrapper, CommentBtnWrapper,
-    Container,
     ContentWrapper,
     CountsWrapper,
     DateWrapper,
     FeedbackInfoWrapper,
-    FeedbackWrapper, LikeBtnWrapper
+    FeedbackWrapper,
 } from "./style.ts";
 import {TagWrapper, WriterWrapper} from "@components/feedback/InquiryFeedbackListItem/style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
@@ -34,7 +42,6 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import views from "@assets/icons/visible.svg";
 import likes from "@assets/icons/feedback.svg";
 import chat from "@assets/icons/chat.svg";
-import more from "@assets/icons/more.svg";
 
 
 const FeedbackDetailPage = () => {
@@ -42,15 +49,11 @@ const FeedbackDetailPage = () => {
     const [comments, setComments] = useState<IComment[]>([]);
     const [isLiked, setIsLiked] = useState<boolean>(false);
 
-    const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-    const navigate = useNavigate();
     const {feedbackId} = useParams();
     const {userInfo} = useUserInfoStore();
     const {lang, isDarkMode} = useThemeStore();
-    const {isLoading, errorText, sendRequest, clearError} = useRequest();
-    const {errorText:likeErrorText, sendRequest:likeSendRequest, clearError:likeClearError} = useRequest();
-    const {errorText:commentErrorText, sendRequest:commentSendRequest, clearError:commentClearError} = useRequest();
-    const {text, countOfText, handleTextChange, setText} = useTextarea();
+    const {isLoading, sendRequest} = useRequest();
+    const {text, countOfText, handleTextChange, setText, textareaRef} = useTextarea();
 
     // 피드백 생성 일자
     const timeStamp = useMemo(() => {
@@ -81,78 +84,14 @@ const FeedbackDetailPage = () => {
     }, [fetchFeedback]);
 
 
-    // 피드백 수정
-    const updateFeedback = () => {
-        navigate(`/board/feedback/${feedbackId}/update`);
-    };
-
-    // 피드백 좋아요
-    const likeFeedback = async () => {
-        try {
-            const response = await likeSendRequest({
-                url: `/feedback/like/${feedbackId}`,
-                method: "post",
-                data: {},
-            });
-            if (response.data) {
-                setIsLiked(response.data.isLiked);
-                setFeedback((prevState) => {
-                    if (!prevState) return prevState;
-                    return {
-                        ...prevState,
-                        likes: response.data.likes,
-                    };
-                });
-            }
-        } catch (err) {
-            console.error("피드백 좋아요 처리 중 에러 발생: ", err);
-        }
-    };
-
-    // 댓글 생성 요청하기
-    const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (text.trim().length === 0) {
-            setEmptyCommentContent(true);
-            return;
-        }
-
-        const data = {
-            content: text.trim(),
-            refId: feedbackId,
-            refType: "feedback",
-        };
-
-        try {
-            const response = await commentSendRequest({
-                url: "/comments",
-                method: "post",
-                data: data,
-            });
-            if (response.data) {
-                setComments(prevState => [response.data, ...prevState]);
-                setFeedback(prevState => {
-                    if (!prevState) return prevState;
-                    return ({
-                        ...prevState,
-                        comments: prevState.comments + 1
-                    });
-                });
-            }
-            setText("");
-        } catch (err) {
-            console.error("피드백 댓글 생성 요청 중 에러 발생: ", err);
-        }
-    };
 
     // 댓글 버튼 클릭 시
     const commentClickHandler = () => {
         textareaRef.current?.focus();
     };
 
-
     return (
-        <Container>
+        <>
             <HeadTag title={feedback?.title || headerCategories.feedbackDetail[lang]}/>
 
             <Header>
@@ -176,13 +115,7 @@ const FeedbackDetailPage = () => {
                                     <TagWrapper tag={feedback.category} darkmode={isDarkMode.toString()}>{feedbackCategories[feedback.category][lang]}</TagWrapper>
                                     <div>
                                         {feedbackId && feedback.creatorId === userInfo?.userId &&
-                                          <MoreDropdown
-                                            trigger={<ReactSVG src={more}/>}
-                                            options={[
-                                                <div onClick={updateFeedback}>{buttonCategories.edit[lang]}</div>,
-                                                <div onClick={() => {}}>{buttonCategories.delete[lang]}</div>,
-                                            ]}
-                                          />
+                                            <FeedbackDropdown/>
                                         }
                                     </div>
                                 </div>
@@ -218,10 +151,12 @@ const FeedbackDetailPage = () => {
                         </ContentWrapper>
 
                         <BtnsWrapper>
-                            <LikeBtnWrapper onClick={likeFeedback} isLiked={isLiked}>
-                                <ReactSVG src={likes}/>
-                                <span>{buttonCategories.like[lang]}</span>
-                            </LikeBtnWrapper>
+                            <LikeFeedback
+                                feedbackId={feedbackId as string}
+                                isLiked={isLiked}
+                                setIsLiked={setIsLiked}
+                                setFeedback={setFeedback as Dispatch<SetStateAction<IFeedbackProps>>}
+                            />
                             <CommentBtnWrapper onClick={commentClickHandler}>
                                 <ReactSVG src={chat}/>
                                 <span>{buttonCategories.comment[lang]}</span>
@@ -231,20 +166,22 @@ const FeedbackDetailPage = () => {
 
                     {/*댓글 부분*/}
                     <Comments
+                        refId={feedbackId as string}
+                        refType={"feedback"}
                         text={text}
+                        setText={setText}
                         textareaRef={textareaRef as MutableRefObject<HTMLTextAreaElement>}
                         countOfText={countOfText}
                         handleTextChange={handleTextChange}
                         comments={comments}
                         setComments={setComments}
-                        setRefDoc={setFeedback as React.Dispatch<React.SetStateAction<IInquiryProps | IFeedbackProps | INotice>>}
-                        submitHandler={submitHandler}
+                        setRefDoc={setFeedback as Dispatch<SetStateAction<IInquiryProps | IFeedbackProps | INotice>>}
                     />
                 </>
                 :
                 <LoadingLoop/>
             }
-        </Container>
+        </>
     );
 };
 

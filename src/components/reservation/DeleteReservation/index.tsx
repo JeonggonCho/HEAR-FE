@@ -1,33 +1,25 @@
-import {useNavigate, useParams} from "react-router-dom";
-import Button from "@components/common/Button";
+import {ReactSVG} from "react-svg";
 import ConfirmModal from "@components/common/Modal/ConfirmModal.tsx";
+import Button from "@components/common/Button";
 import useModal from "@hooks/useModal.ts";
-import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
+import {IReservation} from "@/types/componentProps.ts";
+import {DeleteBtnWrapper} from "@components/reservation/DeleteReservation/style.ts";
 import {confirmModalHeader} from "@components/common/Modal/style.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
+import close from "@assets/icons/close.svg";
 
 
-const DeleteFeedback = () => {
-    const navigate = useNavigate();
+interface IDeleteReservationProps {
+    reservation: IReservation;
+    deleteHandler: (reservations: {machine: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc", _id: string, date: string}[]) => void;
+}
+
+
+const DeleteReservation = ({reservation, deleteHandler}: IDeleteReservationProps) => {
     const {lang} = useThemeStore();
     const {modalRef, backdropRef, showModal, setShowModal} = useModal();
-    const {sendRequest} = useRequest();
-    const {feedbackId} = useParams();
-
-    // 피드백 삭제
-    const deleteFeedback = async () => {
-        try {
-            await sendRequest({
-                url: `/feedback/${feedbackId}`,
-                method: "delete",
-            });
-            navigate(-1);
-        } catch (err) {
-            console.error("피드백 삭제 중 에러 발생: ", err);
-        }
-    };
 
     return (
         <ConfirmModal
@@ -35,15 +27,19 @@ const DeleteFeedback = () => {
             backdropRef={backdropRef}
             showModal={showModal}
             setShowModal={setShowModal}
-            trigger={<>{buttonCategories.delete[lang]}</>}
-            header={<h4 css={confirmModalHeader}>{messageCategories.delete[lang]}</h4>}
+            trigger={
+                <DeleteBtnWrapper>
+                    <ReactSVG src={close}/>
+                </DeleteBtnWrapper>
+            }
+            header={<h4 css={confirmModalHeader}>{messageCategories.deleteReservation[lang]}</h4>}
             leftBtn={
                 <Button
                     type={"button"}
                     variant={"filled"}
                     width={"full"}
-                    color={"third"}
                     size={"md"}
+                    color={"third"}
                     onClick={() => setShowModal(false)}
                 >
                     {buttonCategories.close[lang]}
@@ -54,15 +50,15 @@ const DeleteFeedback = () => {
                     type={"button"}
                     variant={"filled"}
                     width={"full"}
-                    color={"danger"}
                     size={"md"}
-                    onClick={deleteFeedback}
+                    color={"danger"}
+                    onClick={() => deleteHandler([{machine: reservation.machine, _id: reservation._id, date: reservation.date}])}
                 >
-                    {buttonCategories.deletion[lang]}
+                    {buttonCategories.delete[lang]}
                 </Button>
             }
         />
     );
 };
 
-export default DeleteFeedback;
+export default DeleteReservation;

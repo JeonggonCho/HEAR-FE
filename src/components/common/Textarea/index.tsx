@@ -11,7 +11,7 @@ interface ITextareaProps {
     showCount?: boolean;
     isScrolled?: boolean;
     placeholder?: string;
-    countOfText: number;
+    countOfText?: number;
     text: string;
     changeTextareaHandler: (e: ChangeEvent<HTMLTextAreaElement>) => void;
     ref?: MutableRefObject<HTMLTextAreaElement | null>;
@@ -20,7 +20,7 @@ interface ITextareaProps {
 
 const Textarea = forwardRef<HTMLTextAreaElement, ITextareaProps>( // forwardRef를 통해 부모 요소로부터 ref 받기
     (
-        {register, name, errorMessage, showCount=true, placeholder, countOfText, text, changeTextareaHandler, isScrolled=true},
+        {register, name, errorMessage, showCount = true, placeholder, countOfText, text, changeTextareaHandler, isScrolled=true},
         ref
     ) => {
 

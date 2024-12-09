@@ -1,39 +1,31 @@
-import {useContext} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 import ConfirmModal from "@components/common/Modal/ConfirmModal.tsx";
 import Button from "@components/common/Button";
 import useModal from "@hooks/useModal.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import CommentContext from "@context/CommentContext.ts";
 import {confirmModalHeader} from "@components/common/Modal/style.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 
 
-const DeleteComment = () => {
+const DeleteNotice = () => {
+    const navigate = useNavigate();
     const {lang} = useThemeStore();
-    const {showModal, modalRef, backdropRef, setShowModal} = useModal();
+    const {modalRef, backdropRef, showModal, setShowModal} = useModal();
     const {sendRequest} = useRequest();
-    const {commentId, setComments, setRefDoc} = useContext(CommentContext);
+    const {noticeId} = useParams();
 
-    // 댓글 삭제
-    const deleteComment = async () => {
+    // 공지 삭제
+    const deleteNotice = async () => {
         try {
             await sendRequest({
-                url: `/comments/${commentId}`,
+                url: `/notices/${noticeId}`,
                 method: "delete",
             });
-            // 댓글 목록에서 삭제된 댓글 제거
-            setComments(prevState => prevState.filter((comment) => comment._id !== commentId));
-            // 문의, 피드백, 공지에서 댓글 개수 1 빼기
-            if (setRefDoc) {
-                setRefDoc(prevState => ({
-                    ...prevState,
-                    comments: Math.max((prevState.comments as number) - 1, 0), // 0 미만 방지하기
-                }));
-            }
+            navigate(-1);
         } catch (err) {
-            console.error("댓글 삭제 중 에러 발생: ", err);
+            console.error("공지 삭제 중 에러 발생: ", err);
         }
     };
 
@@ -49,9 +41,9 @@ const DeleteComment = () => {
                 <Button
                     type={"button"}
                     variant={"filled"}
-                    width={"full"}
                     color={"third"}
                     size={"md"}
+                    width={"full"}
                     onClick={() => setShowModal(false)}
                 >
                     {buttonCategories.close[lang]}
@@ -61,10 +53,10 @@ const DeleteComment = () => {
                 <Button
                     type={"button"}
                     variant={"filled"}
-                    width={"full"}
                     color={"danger"}
                     size={"md"}
-                    onClick={deleteComment}
+                    width={"full"}
+                    onClick={deleteNotice}
                 >
                     {buttonCategories.deletion[lang]}
                 </Button>
@@ -73,4 +65,4 @@ const DeleteComment = () => {
     );
 };
 
-export default DeleteComment;
+export default DeleteNotice;

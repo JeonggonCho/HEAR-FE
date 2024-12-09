@@ -15,7 +15,7 @@ interface IOptionListItem {
     option: {
         optionId: string;
         content: string;
-        isAnswer: boolean;
+        isAnswer?: boolean;
     };
     changeOptionContentHandler: (targetOptionId: string, content: string) => void;
     changeChoiceAnswerHandler: (targetOptionId: string) => void;
@@ -72,12 +72,14 @@ const OptionListItem = (
                         }
                         <Button
                             type={"button"}
-                            content={<ReactSVG src={remove}/>}
+                            variant={"filled"}
                             width={"fit"}
                             color={"third"}
-                            scale={"small"}
+                            size={"sm"}
                             onClick={() => removeOption(option.optionId)}
-                        />
+                        >
+                            <ReactSVG src={remove}/>
+                        </Button>
                     </OptionListItemWrapper>
                 </div>
             )}

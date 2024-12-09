@@ -1,11 +1,6 @@
 import styled from "@emotion/styled";
 import {darken, lighten} from "polished";
 
-export const Container = styled.div`
-    & > div:first-of-type {
-        width: 100%;
-    }
-`;
 
 export const InquiryWrapper = styled.div`
     border-radius: 12px;

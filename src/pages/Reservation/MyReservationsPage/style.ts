@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import {useThemeStore} from "@store/useThemeStore.ts";
 
+
 export const ReservationListItemWrapper = styled.div`
     margin: 8px 24px;
 `;
@@ -31,21 +32,6 @@ export const ReservationControlWrapper = styled.div`
                 const {lang} = useThemeStore();
                 return lang === "en" ? "column" : "row";
             }}
-        }
-        
-        // 선택 예약취소
-        & > div:last-of-type {
-            & > span {
-                font-size: 0.9rem;
-                text-decoration: underline;
-                color: ${({theme}) => theme.colors.font.sub};
-                cursor: pointer;
-                transition: all 0.2s ease-in-out 0s;
-                
-                &:hover {
-                    color: ${({theme}) => theme.colors.font.main};
-                }
-            }
         }
     }
     

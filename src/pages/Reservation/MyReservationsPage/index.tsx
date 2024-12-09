@@ -5,15 +5,12 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import Empty from "@components/common/Empty";
 import ReservationListItem from "@components/reservation/ReservationListItem";
-import {Modal} from "@components/common/Modal";
-import ModalConfirmContent from "@components/common/Modal/ConfirmModal.tsx";
-import Button from "@components/common/Button";
+import DeleteSelectedReservations from "@components/reservation/DeleteSelectedReservations";
 import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import {IReservation} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
 import {ReservationControlWrapper, ReservationListItemWrapper, SelectAllWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
@@ -23,20 +20,16 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import check from "@assets/icons/check.svg";
 
 
-type ReservationArgumentsType = {_id: string, machine: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc", date: string}
+export type ReservationArgumentsType = {_id: string, machine: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc", date: string}
 
 
 const MyReservationsPage = () => {
     const [reservations, setReservations] = useState<IReservation[]>([]);
     const [filter, setFilter] = useState("all");
     const [selectedReservations, setSelectedReservations] = useState<ReservationArgumentsType[]>([]);
-    const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
-    const [showEmptySelect, setShowEmptySelect] = useState<boolean>(false);
-    const [successDeleteReservation, setSuccessDeleteReservation] = useState<boolean>(false);
 
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
 
     // 내 예약 내역 조회
     const fetchMyReservations = useCallback(async () => {
@@ -57,7 +50,7 @@ const MyReservationsPage = () => {
     }, [fetchMyReservations, filter]);
 
     // 예약 취소
-    const deleteReservations = useCallback(async (target: ReservationArgumentsType[]) => {
+    const deleteReservations = async (target: ReservationArgumentsType[]) => {
         const query = target.map(r => `ids[]=${r._id}&machines[]=${r.machine}&date[]=${r.date}`).join("&");
 
         const response = await sendRequest({
@@ -74,18 +67,8 @@ const MyReservationsPage = () => {
                     )
                 )
             );
-
-            setSuccessDeleteReservation(true);
         }
-    }, [sendRequest, setReservations]);
-
-    // 선택된 내역 예약 취소
-    const deleteSelectedReservations = useCallback(async () => {
-        if (selectedReservations.length === 0) return;
-        await deleteReservations(selectedReservations);
-        setSelectedReservations([]);
-        setShowConfirmModal(false);
-    }, [selectedReservations, deleteReservations]);
+    };
 
     // 예약 체크 선택하기
     const selectHandler = (target: ReservationArgumentsType) => {
@@ -121,32 +104,6 @@ const MyReservationsPage = () => {
         }
     };
 
-    // 선택된 예약 삭제 확인 모달 핸들러
-    const deleteConfirmHandler = () => {
-        selectedReservations.length === 0 ? setShowEmptySelect(true) : setShowConfirmModal(true);
-    };
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
-
-    // 공란 에러 메시지
-    useEffect(() => {
-        if (showEmptySelect) showToast(messageCategories.emptySelectedReservation[lang], "error");
-        const errorTimer = setTimeout(() => setShowEmptySelect(false), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [showEmptySelect]);
-
-    // 삭제 성공 메시지
-    useEffect(() => {
-        if (successDeleteReservation) showToast(messageCategories.deleteDone[lang], "success");
-        const errorTimer = setTimeout(() => setSuccessDeleteReservation(false), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [successDeleteReservation]);
-
     return (
         <>
             <HeadTag title={headerCategories.myReservations[lang]}/>
@@ -178,11 +135,12 @@ const MyReservationsPage = () => {
                         <label htmlFor={"select-all"}>{buttonCategories.selectAll[lang]}</label>
                     </SelectAllWrapper>
 
-                    {/*선택 예약 취소(삭제)*/}
-                    <div onClick={deleteConfirmHandler}>
-                        <span>{buttonCategories.deleteSelectedReservations[lang]}</span>
-                        {selectedReservations.length > 0 && <span>{`(${ selectedReservations.length})`}</span>}
-                    </div>
+                    {/*선택 삭제*/}
+                    <DeleteSelectedReservations
+                        selectedReservations={selectedReservations}
+                        setSelectedReservations={setSelectedReservations}
+                        deleteReservations={deleteReservations}
+                    />
                 </div>
 
                 {/*기기 필터링*/}
@@ -227,41 +185,6 @@ const MyReservationsPage = () => {
                         />
                     }
                 </>
-            }
-
-            {showConfirmModal &&
-                <Modal
-                  content={
-                    <ModalConfirmContent
-                        text={messageCategories.confirmDeleteSelectedReservation[lang]}
-                        leftBtn={
-                            <Button
-                                type={"button"}
-                                variant={"filled"}
-                                color={"third"}
-                                size={"md"}
-                                width={"full"}
-                                onClick={() => setShowConfirmModal(false)}
-                            >
-                                {buttonCategories.close[lang]}
-                            </Button>
-                        }
-                        rightBtn={
-                            <Button
-                                type={"button"}
-                                variant={"filled"}
-                                color={"danger"}
-                                size={"md"}
-                                width={"full"}
-                                onClick={() => deleteSelectedReservations()}
-                            >
-                                {buttonCategories.delete[lang]}
-                            </Button>
-                        }
-                    />}
-                  setModal={() => setShowConfirmModal(false)}
-                  type={"popup"}
-                />
             }
         </>
     );

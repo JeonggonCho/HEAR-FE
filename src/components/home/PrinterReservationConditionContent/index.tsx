@@ -1,4 +1,3 @@
-import {useState} from "react";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {Container} from "./style.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
@@ -6,8 +5,6 @@ import printer from "@assets/images/3d_printer.png";
 
 
 const PrinterReservationConditionContent = () => {
-    const [showModal, setShowModal] = useState<boolean>(false);
-
     const {lang} = useThemeStore();
 
     return (

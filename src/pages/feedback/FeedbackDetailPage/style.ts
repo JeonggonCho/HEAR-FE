@@ -1,11 +1,6 @@
 import styled from "@emotion/styled";
 import {darken, lighten} from "polished";
 
-export const Container = styled.div`
-    & > div:first-of-type {
-        width: 100%;
-    }
-`;
 
 export const FeedbackWrapper = styled.div`
     border-radius: 12px;
@@ -132,21 +127,6 @@ export const BtnsWrapper = styled.div`
                 scale: 0.8;
             }
         }
-    }
-`;
-
-export const LikeBtnWrapper = styled.div<{isLiked: boolean}>`
-    svg {
-        margin-top: 2px;
-        width: 20px;
-        height: 20px;
-        transition: all 0.2s ease-in-out 0s;
-        fill: ${({theme, isLiked}) => isLiked ? theme.colors.font.primary : theme.colors.icon.fill};
-    }
-    
-    & > span {
-        color: ${({theme, isLiked}) => isLiked ? theme.colors.font.primary : theme.colors.font.sub};
-        font-weight: ${({isLiked}) => isLiked ? 500 : 400};
     }
 `;
 

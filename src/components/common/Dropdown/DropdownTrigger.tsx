@@ -18,7 +18,7 @@ const DropdownTrigger = (
 ) => {
     return (
         <Component
-            onClick={() => onClick(true)}
+            onClick={() => onClick(prevState => !prevState)}
             style={{cursor: "pointer"}}
             {...props}
         >
