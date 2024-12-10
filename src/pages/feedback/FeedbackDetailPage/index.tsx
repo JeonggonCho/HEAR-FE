@@ -83,8 +83,6 @@ const FeedbackDetailPage = () => {
         fetchFeedback();
     }, [fetchFeedback]);
 
-
-
     // 댓글 버튼 클릭 시
     const commentClickHandler = () => {
         textareaRef.current?.focus();

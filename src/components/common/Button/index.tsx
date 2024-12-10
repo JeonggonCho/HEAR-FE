@@ -30,7 +30,6 @@ const Button = (
         style = {},
         ...props
     }: IButtonProps) => {
-
     const {isDarkMode} = useThemeStore();
 
     return (

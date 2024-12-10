@@ -1,18 +1,32 @@
 import {useNavigate, useParams} from "react-router-dom";
 import ConfirmModal from "@components/common/Modal/ConfirmModal.tsx";
 import Button from "@components/common/Button";
-import useModal from "@hooks/useModal.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {confirmModalHeader} from "@components/common/Modal/style.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
+import {Dispatch, RefObject, SetStateAction} from "react";
 
 
-const DeleteNotice = () => {
+interface IDeleteNoticeProps {
+    modalRef: RefObject<HTMLDivElement>;
+    backdropRef: RefObject<HTMLDivElement>;
+    showModal: boolean;
+    setShowModal: Dispatch<SetStateAction<boolean>>;
+}
+
+
+const DeleteNotice = (
+    {
+        modalRef,
+        backdropRef,
+        showModal,
+        setShowModal
+    }: IDeleteNoticeProps
+) => {
     const navigate = useNavigate();
     const {lang} = useThemeStore();
-    const {modalRef, backdropRef, showModal, setShowModal} = useModal();
     const {sendRequest} = useRequest();
     const {noticeId} = useParams();
 

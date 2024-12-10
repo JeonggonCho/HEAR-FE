@@ -1,7 +1,7 @@
+import {Dispatch, RefObject, SetStateAction} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import Button from "@components/common/Button";
 import ConfirmModal from "@components/common/Modal/ConfirmModal.tsx";
-import useModal from "@hooks/useModal.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {confirmModalHeader} from "@components/common/Modal/style.ts";
@@ -9,10 +9,24 @@ import {messageCategories} from "@constants/messageCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 
 
-const DeleteInquiry = () => {
+interface IDeleteInquiryProps {
+    modalRef: RefObject<HTMLDivElement>;
+    backdropRef: RefObject<HTMLDivElement>;
+    showModal: boolean;
+    setShowModal: Dispatch<SetStateAction<boolean>>;
+}
+
+
+const DeleteInquiry = (
+    {
+        modalRef,
+        backdropRef,
+        showModal,
+        setShowModal
+    }: IDeleteInquiryProps
+) => {
     const navigate = useNavigate();
     const {lang} = useThemeStore();
-    const {modalRef, backdropRef, setShowModal, showModal} = useModal();
     const {sendRequest} = useRequest();
     const {inquiryId} = useParams();
 

@@ -10,7 +10,7 @@ interface IBackdropProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Backdrop = forwardRef<HTMLDivElement, IBackdropProps>(({children, ...props}, ref) => {
     return (
-        <BackdropWrapper ref={ref}{...props}>
+        <BackdropWrapper ref={ref} {...props}>
             {children}
         </BackdropWrapper>
     );

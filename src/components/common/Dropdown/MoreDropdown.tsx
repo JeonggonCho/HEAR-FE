@@ -1,21 +1,31 @@
-import {ElementType, ReactNode} from "react";
+import {Dispatch, ElementType, ReactNode, RefObject, SetStateAction} from "react";
 import {Dropdown} from "@components/common/Dropdown/index.tsx";
-import useDropdown from "@hooks/useDropdown.ts";
 
 
 interface IMoreDropdownProps {
     trigger: ReactNode;
     triggerAs?: ElementType;
     options: ReactNode[];
+    dropdownRef: RefObject<HTMLDivElement>;
+    setShowDropdown: Dispatch<SetStateAction<boolean>>;
+    showDropdown: boolean;
 }
 
 
-const MoreDropdown = ({trigger, triggerAs, options}: IMoreDropdownProps) => {
-    const {dropdownRef, setShowDropdown, showDropdown} = useDropdown();
-
+const MoreDropdown = (
+    {
+        trigger,
+        triggerAs,
+        options,
+        dropdownRef,
+        setShowDropdown,
+        showDropdown
+    }: IMoreDropdownProps
+) => {
     return (
         <Dropdown ref={dropdownRef}>
             <Dropdown.Trigger as={triggerAs} onClick={setShowDropdown}>{trigger}</Dropdown.Trigger>
+
             {showDropdown &&
               <Dropdown.Menu>
                   {options.map((opt, index) => (

@@ -1,7 +1,6 @@
-import {useContext} from "react";
+import {Dispatch, RefObject, SetStateAction, useContext} from "react";
 import ConfirmModal from "@components/common/Modal/ConfirmModal.tsx";
 import Button from "@components/common/Button";
-import useModal from "@hooks/useModal.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import CommentContext from "@context/CommentContext.ts";
@@ -10,9 +9,23 @@ import {messageCategories} from "@constants/messageCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 
 
-const DeleteComment = () => {
+interface IDeleteCommentProps {
+    modalRef: RefObject<HTMLDivElement>;
+    backdropRef: RefObject<HTMLDivElement>;
+    showModal: boolean;
+    setShowModal: Dispatch<SetStateAction<boolean>>;
+}
+
+
+const DeleteComment = (
+    {
+        modalRef,
+        backdropRef,
+        showModal,
+        setShowModal,
+    }: IDeleteCommentProps
+) => {
     const {lang} = useThemeStore();
-    const {showModal, modalRef, backdropRef, setShowModal} = useModal();
     const {sendRequest} = useRequest();
     const {commentId, setComments, setRefDoc} = useContext(CommentContext);
 

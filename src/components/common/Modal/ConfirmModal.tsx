@@ -35,6 +35,7 @@ const ConfirmModal = (
     return (
         <>
             <Modal.Trigger onOpen={() => setShowModal(true)}>{trigger}</Modal.Trigger>
+
             {showModal &&
               <Modal.Portal>
                 <Backdrop ref={backdropRef}>
