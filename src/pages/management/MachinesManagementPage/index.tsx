@@ -8,20 +8,12 @@ import Grid from "@components/common/Grid";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
-import {useToastStore} from "@store/useToastStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
-import {machineName} from "@constants/machineCategories.ts";
-import laser_icon from "@assets/images/laser_icon.png";
-import printer_icon from "@assets/images/printer_icon.png";
-import heat_icon from "@assets/images/heat_icon.png";
-import saw_icon from "@assets/images/saw_icon.png";
-import vacuum_icon from "@assets/images/vacuum_icon.png";
-import cnc_icon from "@assets/images/cnc_icon.png";
 
 
-const MachinesPage = () => {
+const MachinesManagementPage = () => {
     const [lasers, setLasers] = useState<ILasers[]>([]);
     const [printers, setPrinters] = useState<IPrinters[]>([]);
     const [heats, setHeats] = useState<IHeats[]>([]);
@@ -31,8 +23,7 @@ const MachinesPage = () => {
     const [timeList, setTimeList] = useState<ILaserTimes[]>([]);
 
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {isLoading, errorText, sendRequest, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
 
     // 기기 정보들 정보 조회하기
     const fetchMachines = useCallback(async () => {
@@ -75,14 +66,6 @@ const MachinesPage = () => {
         fetchMachines();
     }, [fetchMachines]);
 
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
-
-
     return (
         <>
             <HeadTag title={headerCategories.machineManagementHeader[lang]}/>
@@ -106,8 +89,6 @@ const MachinesPage = () => {
                     {lasers && printers && heats && saws && vacuums && cncs &&
                       <>
                         <MachineManageCard
-                          name={machineName.laser[lang]}
-                          img={laser_icon}
                           machineType={"laser"}
                           machineData={lasers}
                           setMachines={setLasers}
@@ -116,37 +97,27 @@ const MachinesPage = () => {
                         />
                         <Divider/>
                         <MachineManageCard
-                          name={machineName.printer[lang]}
-                          img={printer_icon}
                           machineType={"printer"}
                           machineData={printers}
                           setMachines={setPrinters}
                         />
                         <Divider/>
                         <MachineManageCard
-                          name={machineName.heat[lang]}
-                          img={heat_icon}
                           machineType={"heat"}
                           machineData={heats}
                         />
                         <Divider/>
                         <MachineManageCard
-                          name={machineName.saw[lang]}
-                          img={saw_icon}
                           machineType={"saw"}
                           machineData={saws}
                         />
                         <Divider/>
                         <MachineManageCard
-                          name={machineName.vacuum[lang]}
-                          img={vacuum_icon}
                           machineType={"vacuum"}
                           machineData={vacuums}
                         />
                         <Divider/>
                         <MachineManageCard
-                          name={machineName.cnc[lang]}
-                          img={cnc_icon}
                           machineType={"cnc"}
                           machineData={cncs}
                         />
@@ -159,4 +130,4 @@ const MachinesPage = () => {
     );
 };
 
-export default MachinesPage;
+export default MachinesManagementPage;

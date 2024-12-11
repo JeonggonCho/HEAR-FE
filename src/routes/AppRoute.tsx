@@ -44,7 +44,7 @@ const TestIntroductionPage = lazy(() => import("@pages/test/TestIntroductionPage
 const TestStartPage = lazy(() => import("@pages/test/TestStartPage"));
 const TestEndPage = lazy(() => import("@pages/test/TestEndPage"));
 const NotFoundPage = lazy(() => import("@pages/home/NotFoundPage"));
-const MachinesPage = lazy(() => import("@pages/management/MachinesPage"));
+const MachinesManagementPage = lazy(() => import("@pages/management/MachinesManagementPage"));
 const UsersManagementPage = lazy(() => import("@pages/management/UsersManagementPage"));
 const ReservationsPage = lazy(() => import("@pages/management/ReservationsPage"));
 const EducationManagementPage = lazy(() => import("@pages/management/EducationManagementPage"));
@@ -112,7 +112,7 @@ const AppRoute = () => {
                             <Route path="reservation/saw" element={<ReservationSaw/>}/>
                             <Route path="reservation/vacuum" element={<ReservationVacuum/>}/>
 
-                            <Route path="management/machines" element={<MachinesPage/>}/>
+                            <Route path="management/machines" element={<MachinesManagementPage/>}/>
                             <Route path="management/users" element={<UsersManagementPage/>}/>
                             <Route path="management/reservations" element={<ReservationsPage/>}/>
                             <Route path="management/education" element={<EducationManagementPage/>}/>

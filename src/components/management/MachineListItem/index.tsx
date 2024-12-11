@@ -149,7 +149,11 @@ const MachineListItem = (
                             >
                                 {buttonCategories.editing[lang]}
                             </Button>
-                            <DeleteMachine/>
+                            <DeleteMachine
+                                setMachines={props.setMachines}
+                                _id={props._id}
+                                url={props.url}
+                            />
                         </>
                     }
                 </ControlWrapper>

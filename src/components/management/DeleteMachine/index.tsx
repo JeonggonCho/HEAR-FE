@@ -1,14 +1,23 @@
+import {Dispatch, SetStateAction} from "react";
 import ConfirmModal from "@components/common/Modal/ConfirmModal.tsx";
 import Button from "@components/common/Button";
 import useModal from "@hooks/useModal.ts";
 import useRequest from "@hooks/useRequest.ts";
+import {ILasers, IPrinters} from "@/types/machine.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {confirmModalHeader} from "@components/common/Modal/style.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 
 
-const DeleteMachine = () => {
+interface IDeleteMachineProps {
+    url: string;
+    _id: string;
+    setMachines: Dispatch<SetStateAction<ILasers[]>> | Dispatch<SetStateAction<IPrinters[]>>;
+}
+
+
+const DeleteMachine = (props: IDeleteMachineProps) => {
     const {lang} = useThemeStore();
     const {modalRef, backdropRef, showModal, setShowModal} = useModal();
     const {sendRequest} = useRequest();

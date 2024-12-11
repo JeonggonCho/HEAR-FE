@@ -16,7 +16,12 @@ interface IAddMachineProps {
 }
 
 
-const AddMachine = ({machineType, setMachines}: IAddMachineProps) => {
+const AddMachine = (
+    {
+        machineType,
+        setMachines
+    }: IAddMachineProps
+) => {
     const {lang} = useThemeStore();
     const {modalRef, backdropRef, showModal, setShowModal} = useModal();
 

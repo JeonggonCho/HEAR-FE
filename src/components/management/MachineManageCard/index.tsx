@@ -27,14 +27,19 @@ import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/m
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
+import {machineName} from "@constants/machineCategories.ts";
 import more from "@assets/icons/arrow_down.svg";
+import laser_icon from "@assets/images/laser_icon.png";
+import printer_icon from "@assets/images/printer_icon.png";
+import heat_icon from "@assets/images/heat_icon.png";
+import saw_icon from "@assets/images/saw_icon.png";
+import vacuum_icon from "@assets/images/vacuum_icon.png";
+import cnc_icon from "@assets/images/cnc_icon.png";
 
 
 interface IMachineManageCardProps {
-    name: string;
-    img: string;
-    machineData: ILasers[] | IPrinters[] | IHeats[] | ICommonMachine[];
     machineType: "laser" | "printer" | "heat" | "saw" | "vacuum" | "cnc";
+    machineData: ILasers[] | IPrinters[] | IHeats[] | ICommonMachine[];
     setMachines?: Dispatch<SetStateAction<ILasers[]>> | Dispatch<SetStateAction<IPrinters[]>>;
     timeData?: ILaserTimes[];
     setTimes?: Dispatch<SetStateAction<ILaserTimes[]>>;
@@ -43,10 +48,8 @@ interface IMachineManageCardProps {
 
 const MachineManageCard = (
     {
-        name,
-        img,
-        machineData,
         machineType,
+        machineData,
         setMachines,
         timeData,
         setTimes
@@ -72,7 +75,7 @@ const MachineManageCard = (
     });
 
     // 열선 개수 수정 요청 (디바운스를 사용하여 단일 요청만 보내기)
-    const submitHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    const changeCountOfHeatsHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         const newCount = Number(e.target.value);
         setRangeValue(newCount);
 
@@ -106,11 +109,28 @@ const MachineManageCard = (
                     : (machineType === "saw" || machineType === "vacuum" || machineType === "cnc") ? handleToggle
                         :() => {}
             }>
+                {/*기기명과 아이콘*/}
                 <div>
                     <IconWrapper>
-                        <img src={img} alt="기기 이미지"/>
+                        <img src={
+                            machineType === "laser" ? laser_icon
+                                : machineType === "printer" ? printer_icon
+                                    : machineType === "saw" ? saw_icon
+                                        : machineType === "heat" ? heat_icon
+                                            : machineType === "vacuum" ? vacuum_icon
+                                                : machineType === "cnc" ? cnc_icon
+                                                    : undefined}
+                             alt="기기 이미지"/>
                     </IconWrapper>
-                    <h3>{name}</h3>
+                    <h3>{
+                        machineType === "laser" ? machineName.laser[lang]
+                            : machineType === "printer" ? machineName.printer[lang]
+                                : machineType === "heat" ? machineName.heat[lang]
+                                    : machineType === "saw" ? machineName.saw[lang]
+                                        : machineType === "vacuum" ? machineName.vacuum[lang]
+                                            : machineType === "cnc" ? machineName.cnc[lang]
+                                                : undefined
+                    }</h3>
                 </div>
 
                 {/*기기 목록보기 버튼 배치*/}
@@ -201,7 +221,7 @@ const MachineManageCard = (
                                     id={"heat-count"}
                                     name={"count"}
                                     register={register}
-                                    onChange={submitHandler}
+                                    onChange={changeCountOfHeatsHandler}
                                     errorMessage={errors.count?.message}
                                 />
                                 <span>{rangeValue}</span>
