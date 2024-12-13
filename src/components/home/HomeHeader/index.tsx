@@ -6,15 +6,10 @@ import Icon from "@components/common/Icon";
 import {Logo, LogoWrapper, Title} from "@components/home/HomeHeader/style.ts";
 import logo from "@assets/logo.svg";
 import alarm from "@assets/icons/alarm.svg";
-import {useEffect} from "react";
 
 
 const HomeHeader = () => {
     const navigate = useNavigate();
-
-    useEffect(() => {
-        throw new Error("aaa");
-    }, []);
 
     return (
         <Header>
