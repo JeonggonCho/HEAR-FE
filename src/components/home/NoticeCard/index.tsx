@@ -6,7 +6,6 @@ import Flex from "@components/common/Flex";
 import useRequest from "@hooks/useRequest.ts";
 import useRolling from "@hooks/useRolling.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
 import {
     EmptyNotice,
     ImgWrapper,
@@ -24,8 +23,7 @@ const NoticeCard = () => {
     const [latestNotices, setLatestNotices] = useState<{noticeId: string, title: string}[]>([]);
 
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
     const {setIsHovered, rollingRef, rollingHeight} = useRolling(latestNotices.length, 5000, "18px");
 
     const fetchLatestNotices = useCallback(async () => {
@@ -45,14 +43,6 @@ const NoticeCard = () => {
     useEffect(() => {
         fetchLatestNotices();
     }, [fetchLatestNotices]);
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
-
 
     // 로딩 중인 경우, 스켈레톤 렌더링
     if (isLoading) {

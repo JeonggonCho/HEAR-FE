@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useState} from "react";
-import {ReactSVG} from "react-svg";
 import {useNavigate} from "react-router-dom";
 import {Header} from "@components/common/Header";
 import Button from "@components/common/Button";
@@ -14,7 +13,7 @@ import useRequest from "@hooks/useRequest.ts";
 import {IPrinterReservation} from "@/types/reservation.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
-import {Container, DateMachineSelectWrapper, EmptyMessage, ImageWrapper, MapIcon} from "./style.ts";
+import {Container, DateMachineSelectWrapper, EmptyMessage, ImageWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
@@ -22,6 +21,7 @@ import {messageCategories} from "@constants/messageCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import printer from "@assets/images/3d_printer.png";
 import mapIcon from "@assets/icons/map.svg";
+import Icon from "@components/common/Icon";
 
 
 const ReservationPrinter = () => {
@@ -35,14 +35,14 @@ const ReservationPrinter = () => {
     const navigate = useNavigate();
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
 
     const fetchValidPrinterInfo = useCallback(async () => {
         try {
             const response = await sendRequest({
                 url: "/reservations/printers"
             });
-            if (response.data) {
+            if (response?.data) {
                 console.log(response.data);
             }
         } catch (err) {
@@ -53,13 +53,6 @@ const ReservationPrinter = () => {
     useEffect(() => {
         fetchValidPrinterInfo();
     }, [fetchValidPrinterInfo]);
-
-    // 요청 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
 
     // 공란 에러 메시지
     useEffect(() => {
@@ -91,7 +84,7 @@ const ReservationPrinter = () => {
                 method: "post",
                 data: reservation,
             });
-            if (response.data) {
+            if (response?.data) {
                 setTimeout(() => {
                     navigate("/reservation/done", {replace:true});
                 }, 300);
@@ -116,11 +109,7 @@ const ReservationPrinter = () => {
                         </Header.Center>
                         <Header.Right>
                             <MapModal
-                                trigger={
-                                    <MapIcon>
-                                        <ReactSVG src={mapIcon}/>
-                                    </MapIcon>
-                                }
+                                trigger={<Icon svg={mapIcon} isHovered={true}/>}
                                 machine={"printer"}
                             />
                         </Header.Right>

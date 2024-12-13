@@ -68,7 +68,6 @@ const useAuth = () => {
         }
     }, [accessToken, accessTokenExpirationDate, logout, login]);
 
-
     // 에러 메시지
     useEffect(() => {
         if (errorText) showToast(errorText, "error");

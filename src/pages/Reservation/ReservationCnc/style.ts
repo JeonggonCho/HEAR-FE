@@ -1,25 +1,5 @@
 import styled from "@emotion/styled";
 
-export const MapIcon = styled.div`
-    width: 36px;
-    height: 36px;
-    overflow: hidden;
-    cursor: pointer;
-
-    svg {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        fill: ${({theme}) => theme.colors.icon.fill};
-        transition: all 0.2s ease-in-out 0s;
-    }
-
-    &:hover {
-        svg {
-            fill: ${({theme}) => theme.colors.font.main};
-        }
-    }
-`;
 
 export const ImageWrapper = styled.div`
     display: flex;

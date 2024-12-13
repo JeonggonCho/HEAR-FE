@@ -11,7 +11,6 @@ import {INotice} from "@/types/componentProps.ts";
 import {ITab} from "@/types/tab.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
 import {Container, NoticeListItemWrapper} from "./style.ts";
 import {LogoAndTitleWrapper} from "@components/common/Header/style.ts";
 import {navCategories} from "@constants/navCategories.ts";
@@ -26,8 +25,7 @@ const NoticePage = () => {
 
     const {userData} = useUserDataStore();
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {isLoading, errorText, sendRequest, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
 
     const tabs: ITab[] = [
         { name: buttonCategories.notice[lang], path: "/board/notice", },
@@ -49,13 +47,6 @@ const NoticePage = () => {
     useEffect(() => {
         fetchNotices();
     }, [fetchNotices]);
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
 
     return (
         <Container>

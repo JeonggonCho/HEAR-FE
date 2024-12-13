@@ -1,6 +1,5 @@
 import {useCallback, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
-import {ReactSVG} from "react-svg";
 import {Header} from "@components/common/Header";
 import Flex from "@components/common/Flex";
 import ProfileCard from "@components/account/ProfileCard";
@@ -15,7 +14,6 @@ import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
 import {LinkWrapper} from "./style.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {navCategories} from "@constants/navCategories.ts";
@@ -27,15 +25,15 @@ import history from "@assets/images/history.png";
 import siren from "@assets/images/siren.png";
 import notice from "@assets/images/notice.png";
 import test from "@assets/images/test.png";
+import Icon from "@components/common/Icon";
 
 
 const AccountPage = () => {
     const navigate = useNavigate();
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
     const {userInfo, setUserInfo} = useUserInfoStore();
     const {userData, setUserData} = useUserDataStore();
-    const {isLoading, errorText, sendRequest, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
 
     // 유저 정보 조회
     const fetchUser = useCallback(async () => {
@@ -43,7 +41,7 @@ const AccountPage = () => {
             const response = await sendRequest({
                 url: "/users",
             });
-            const {userId, username, email, year, studentId, studio, passEducation, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role, lab} = response.data;
+            const {userId, username, email, year, studentId, studio, passEducation, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role, lab} = response?.data;
             setUserData({year, studio, passEducation, countOfLaserPerWeek, countOfLaserPerDay, countOfWarning, tel, role, lab});
             setUserInfo({userId, username, email, studentId});
         } catch (err) {
@@ -54,13 +52,6 @@ const AccountPage = () => {
     useEffect(() => {
         fetchUser();
     }, [fetchUser]);
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
 
     return (
         <>
@@ -80,7 +71,7 @@ const AccountPage = () => {
                             size={"sm"}
                             onClick={() => navigate("/setting")}
                         >
-                            <ReactSVG src={setting}/>
+                            <Icon svg={setting} isHovered={true}/>
                         </Button>
                     </Header.Right>
                 </Flex>

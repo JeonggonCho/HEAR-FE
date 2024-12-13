@@ -6,7 +6,6 @@ import Button from "@components/common/Button";
 import Flex from "@components/common/Flex";
 import useRequest from "@hooks/useRequest.ts";
 import {getFormattedDate, isBetweenDate} from "@util/calculateDate.ts";
-import {useToastStore} from "@store/useToastStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {Container, ContentWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
@@ -27,8 +26,7 @@ const TestIntroductionPage = () => {
 
     const navigate = useNavigate();
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {sendRequest, errorText, clearError} = useRequest();
+    const {sendRequest} = useRequest();
 
     // 교육 설정 조회
     const fetchEducationSettings = useCallback(async () => {
@@ -79,13 +77,6 @@ const TestIntroductionPage = () => {
         }
     }, [sendRequest]);
 
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
-
     // 커트라인 텍스트 생성
     const getCutOffMessage = (lang: "ko" | "en" | "ch", cutOffPoint: number): string => {
         switch (lang) {
@@ -99,7 +90,6 @@ const TestIntroductionPage = () => {
                 return "";
         }
     };
-
 
     return (
         <>

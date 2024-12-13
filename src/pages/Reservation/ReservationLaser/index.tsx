@@ -16,7 +16,7 @@ import {ILaserInfo, ILaserReservation, ILaserTimesinfo} from "@/types/reservatio
 import {useUserDataStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
-import {Container, EmptyMessage, ImageWrapper, MapIcon, SelectedItemWrapper} from "./style.ts";
+import {Container, EmptyMessage, ImageWrapper, SelectedItemWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
@@ -26,6 +26,7 @@ import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import laser from "@assets/images/laser_cut.png";
 import mapIcon from "@assets/icons/map.svg";
 import close from "@assets/icons/close.svg";
+import Icon from "@components/common/Icon";
 
 
 const ReservationLaser = () => {
@@ -38,7 +39,7 @@ const ReservationLaser = () => {
     const {userData, setUserData} = useUserDataStore();
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
 
     // 레이저 커팅기 이용 날짜인 내일 날짜 계산
     const formattedDate = getTomorrowDate();
@@ -49,7 +50,7 @@ const ReservationLaser = () => {
             const response = await sendRequest({
                 url: "/reservations/lasers",
             });
-            if (response.data) {
+            if (response?.data) {
                 setLaserInfo(response.data.laserInfo);
                 setLaserTimesInfo(response.data.laserTimesInfo);
             }
@@ -87,7 +88,7 @@ const ReservationLaser = () => {
                     endTime: value.endTime,
                 })),
             });
-            if (response.data && userData) {
+            if (response?.data && userData) {
                 // 레이저 커팅기 예약 가능 일주일 횟수와 오늘 횟수 차감하기
                 const updatedUserData = {
                     ...userData,
@@ -105,13 +106,6 @@ const ReservationLaser = () => {
             console.error("레이저 커팅기 예약 중 에러 발생: ", err);
         }
     }, [sendRequest, reservationList]);
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
 
     // 공란 에러 메시지
     useEffect(() => {
@@ -137,11 +131,7 @@ const ReservationLaser = () => {
                         </Header.Center>
                         <Header.Right>
                             <MapModal
-                                trigger={
-                                    <MapIcon>
-                                        <ReactSVG src={mapIcon}/>
-                                    </MapIcon>
-                                }
+                                trigger={<Icon svg={mapIcon} isHovered={true}/>}
                                 machine={"laser"}
                             />
                         </Header.Right>

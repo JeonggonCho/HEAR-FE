@@ -1,15 +1,20 @@
 import {useNavigate} from "react-router-dom";
-import {ReactSVG} from "react-svg";
 import {Header} from "@components/common/Header";
 import Flex from "@components/common/Flex";
 import Button from "@components/common/Button";
-import styled from "@emotion/styled";
+import Icon from "@components/common/Icon";
+import {Logo, LogoWrapper, Title} from "@components/home/HomeHeader/style.ts";
 import logo from "@assets/logo.svg";
 import alarm from "@assets/icons/alarm.svg";
+import {useEffect} from "react";
 
 
 const HomeHeader = () => {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        throw new Error("aaa");
+    }, []);
 
     return (
         <Header>
@@ -31,29 +36,12 @@ const HomeHeader = () => {
                         size={"sm"}
                         onClick={() => navigate("/alarm")}
                     >
-                        <ReactSVG src={alarm}/>
+                        <Icon svg={alarm} isHovered={true}/>
                     </Button>
                 </Header.Right>
             </Flex>
         </Header>
     );
 };
-
-const LogoWrapper = styled.div`
-    width: 36px;
-    height: 36px;
-`;
-
-const Logo = styled.img`
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-`;
-
-const Title = styled.h1`
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: ${({theme}) => theme.colors.font.primary};
-`;
 
 export default HomeHeader;

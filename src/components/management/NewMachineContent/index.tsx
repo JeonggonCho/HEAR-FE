@@ -1,4 +1,4 @@
-import {Dispatch, SetStateAction, useCallback, useEffect} from "react";
+import {Dispatch, SetStateAction, useCallback} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {ReactSVG} from "react-svg";
 import {z} from "zod";
@@ -9,7 +9,6 @@ import Flex from "@components/common/Flex";
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
 import {TitleWrapper} from "./style.ts";
 import {ILasers, IPrinters} from "@/types/machine.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
@@ -35,8 +34,7 @@ const NewMachineContent = (
     }: INewMachineContentProps
 ) => {
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {sendRequest, errorText, clearError} = useRequest();
+    const {sendRequest} = useRequest();
     const {newMachineSchema} = MachineSchemaProvider();
 
     type MachineFormData = z.infer<typeof newMachineSchema>;
@@ -88,13 +86,6 @@ const NewMachineContent = (
             setModal(false);
         }
     }, [sendRequest]);
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
 
     return (
         <>

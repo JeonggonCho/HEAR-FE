@@ -1,4 +1,4 @@
-import {Dispatch, SetStateAction, useEffect} from "react";
+import {Dispatch, SetStateAction} from "react";
 import {useForm} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -10,7 +10,6 @@ import InputMessage from "@components/common/InputMessage";
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
 import {Container, TimeSelectsWrapper,} from "./style.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
@@ -27,8 +26,7 @@ interface ITimeListContentProps {
 
 const TimeListContent = ({timeList, setTimeList}: ITimeListContentProps) => {
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {errorText, sendRequest, clearError} = useRequest();
+    const {sendRequest} = useRequest();
     const {timeRangeSchema} = MachineSchemaProvider();
 
     type TimeFormData = z.infer<typeof timeRangeSchema>;
@@ -113,14 +111,6 @@ const TimeListContent = ({timeList, setTimeList}: ITimeListContentProps) => {
             setTimeList && setTimeList(timeList);
         }
     };
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
-
 
     return (
         <Container>

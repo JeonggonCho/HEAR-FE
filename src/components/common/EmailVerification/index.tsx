@@ -53,8 +53,7 @@ const EmailVerification = <T extends FieldValues>(
 
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
-    const {sendRequest, errorText, clearError} = useRequest();
-
+    const {sendRequest} = useRequest();
 
     // 이메일 디바운스 적용하기
     const debouncedEmail = useDebounce(email, 1000);
@@ -162,13 +161,6 @@ const EmailVerification = <T extends FieldValues>(
             setDisabledConfirmBtn(true);
         }
     }, [verificationCode]);
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
 
     // 인증 번호 전송 성공 메시지
     useEffect(() => {

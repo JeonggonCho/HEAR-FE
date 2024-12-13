@@ -15,7 +15,6 @@ import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {getTomorrowDate, getAfterWeekDate} from "@util/calculateDate.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
 import {Container, HeatCheckWrapper, ImageWrapper, ReturnDateWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
@@ -31,8 +30,7 @@ import check from "@assets/icons/check.svg";
 const ReservationHeat = () => {
     const navigate = useNavigate();
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
     const {cncHeatSchema} = MachineSchemaProvider();
 
     type HeatFormData = z.infer<typeof cncHeatSchema>;
@@ -52,13 +50,6 @@ const ReservationHeat = () => {
     useEffect(() => {
         setValue("date", formattedDate);
     }, []);
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
 
     // 열선 예약 요청
     const submitHandler:SubmitHandler<HeatFormData> = useCallback(async (data) => {

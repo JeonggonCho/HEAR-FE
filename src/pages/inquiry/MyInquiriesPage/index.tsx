@@ -9,7 +9,6 @@ import Grid from "@components/common/Grid";
 import useRequest from "@hooks/useRequest.ts";
 import {IInquiryProps} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
 import {InquiryListItemWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
@@ -20,8 +19,7 @@ const MyInquiriesPage = () => {
     const [inquiries, setInquiries] = useState<IInquiryProps[]>([]);
 
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
 
     // 내 문의 내역 조회
     const fetchMyInquiries = useCallback(async () => {
@@ -40,13 +38,6 @@ const MyInquiriesPage = () => {
     useEffect(() => {
         fetchMyInquiries();
     }, [fetchMyInquiries]);
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
 
     return (
         <>

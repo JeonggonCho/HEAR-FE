@@ -18,7 +18,6 @@ import HomeHeader from "@components/home/HomeHeader";
 import useRequest from "@hooks/useRequest.ts";
 import {getLaserReservationRate} from "@util/getReservationRate.ts";
 import {ILaserStatus} from "@/types/reservation.ts";
-import {useToastStore} from "@store/useToastStore.ts";
 
 
 const HomePage = () => {
@@ -30,8 +29,7 @@ const HomePage = () => {
     const [vacuumStatus, setVacuumStatus] = useState([]);
     const [cncStatus, setCncStatus] = useState([]);
 
-    const {showToast} = useToastStore();
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
 
     const {rate, color} = useMemo(() =>  getLaserReservationRate(laserStatus), [laserStatus]);
 
@@ -72,13 +70,6 @@ const HomePage = () => {
         fetchAllReservations();
     }, [fetchAllReservations, fetchMachineStatus]);
 
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
-
     const carouselContents = [];
     if (machineStatus.laser) carouselContents.push(<LaserReservationConditionContent laserStatus={laserStatus} rate={rate} color={color || "primary"}/>);
     if (machineStatus.printer) carouselContents.push(<PrinterReservationConditionContent/>);
@@ -86,7 +77,6 @@ const HomePage = () => {
     if (machineStatus.saw) carouselContents.push(<SawReservationConditionContent/>);
     if (machineStatus.vacuum) carouselContents.push(<VacuumReservationConditionContent/>);
     if (machineStatus.cnc) carouselContents.push(<CncReservationConditionContent/>);
-
 
     return (
         <>

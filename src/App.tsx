@@ -2,15 +2,13 @@ import {useEffect, useState} from "react";
 import {Global, ThemeProvider} from "@emotion/react";
 import {Helmet} from "react-helmet-async";
 import {global} from "@styles/global.ts";
-
 import SplashPage from "@pages/home/SplashPage";
 import AppRoute from "@routes/AppRoute.tsx";
 import ScrollToTop from "@components/common/ScrollToTop";
+import ErrorBoundary from "@components/common/ErrorBoundary";
 import Toast from "@components/common/Toast";
-
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {darkTheme, lightTheme} from "@styles/theme.ts";
-
 import './App.css';
 
 
@@ -50,7 +48,9 @@ const App = () => {
                 {isLoading ?
                     <SplashPage/>
                 :
-                    <AppRoute/>
+                    <ErrorBoundary>
+                        <AppRoute/>
+                    </ErrorBoundary>
                 }
                 <Toast/>
             </ThemeProvider>

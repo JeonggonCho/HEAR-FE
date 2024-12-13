@@ -1,5 +1,6 @@
 import {create} from 'zustand';
 
+
 interface IToastState {
     text: string | null;
     type: "success" | "error" | "normal";
@@ -7,6 +8,7 @@ interface IToastState {
     showToast: (text: string, type: "success" | "error" | "normal", time?: number) => void;
     hideToast: () => void;
 }
+
 
 export const useToastStore = create<IToastState>((set) => ({
     text: null,

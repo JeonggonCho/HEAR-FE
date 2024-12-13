@@ -13,7 +13,6 @@ const TOAST_DISPLAY_TIME = 6000;
 
 const Toast = () => {
     const {text, type, hideToast, key} = useToastStore();
-
     const toastRoot = document.getElementById("toast-hook");
 
     useEffect(() => {

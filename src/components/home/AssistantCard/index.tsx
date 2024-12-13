@@ -7,7 +7,6 @@ import CardLoading from "@components/skeleton/CardLoading";
 import useRequest from "@hooks/useRequest.ts";
 import {useUserDataStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
 import {
     AssistantLabWrapper, AssistantNameWrapper, CardTitleWrapper,
     EmptyAssistantInfo, ImageWrapper,
@@ -25,8 +24,7 @@ const AssistantCard = () => {
 
     const {userData} = useUserDataStore();
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
 
     const fetchAssistantInfo = useCallback(async () => {
         try {
@@ -44,13 +42,6 @@ const AssistantCard = () => {
     useEffect(() => {
         fetchAssistantInfo();
     }, [fetchAssistantInfo]);
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
 
     if (isLoading) {
         return <CardLoading heightValue={"120px"}/>;

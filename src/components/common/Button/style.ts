@@ -84,8 +84,8 @@ export const buttonStyles = (
         fill: ${disabled && darkMode === "false" ? lighten(0.2, theme.colors.font.sub) 
                 : disabled && darkMode === "true" ? theme.colors.font.placeholder 
                         : getTextColor(theme, color, darkMode)};
-        width: 20px;
-        height: 20px;
+        width: 32px;
+        height: 32px;
     }
 
     &:hover {

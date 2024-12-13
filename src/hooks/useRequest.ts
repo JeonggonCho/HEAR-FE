@@ -1,5 +1,6 @@
 import {useCallback, useState} from "react";
 import axiosInstance from "@api/axiosInstance.ts";
+import {useErrorStore} from "@store/useErrorStore.ts";
 
 
 export interface IRequestProps {
@@ -15,7 +16,8 @@ const MIN_LOADING_TIME = 1000;
 
 const useRequest = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [errorText, setErrorText] = useState<string | null>(null);
+
+    const { setError } = useErrorStore();
 
     const sendRequest = useCallback(
         async ({url, method = "get", data = null, header = {}}: IRequestProps) => {
@@ -48,27 +50,27 @@ const useRequest = () => {
                 }
 
                 const elapsedTime = Date.now() - startTime;
+                setTimeout(() => {
+                    setIsLoading(false);
+                }, Math.max(0, MIN_LOADING_TIME - elapsedTime));
 
                 if (response.status < 200 || response.status >= 300) {
                     throw new Error(`HTTP 오류 발생: ${response.status}`);
                 }
 
-                setTimeout(() => {
-                    setIsLoading(false);
-                }, Math.max(0, MIN_LOADING_TIME - elapsedTime));
                 return response;
-            } catch (err: any) {
-                setErrorText(err.message);
+            } catch (error: any) {
                 setIsLoading(false);
-                throw err;
+                setError({
+                    name: error.name || "API 요청 오류",
+                    message: error.message || "요청 중 오류가 발생했습니다.",
+                    displayMode: "toast",
+                });
+                throw error;
             }
         }, []);
 
-    const clearError = () => {
-        setErrorText(null);
-    };
-
-    return {isLoading, errorText, sendRequest, clearError}
+    return {isLoading, sendRequest}
 };
 
 export default useRequest;

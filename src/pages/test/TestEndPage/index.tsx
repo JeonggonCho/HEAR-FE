@@ -7,7 +7,6 @@ import GradingAnswerListItem from "@components/test/GradingAnswerListItem";
 import Flex from "@components/common/Flex";
 import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
 import {QuestionsWrapper, ResultCard, ResultSignWrapper, ResultWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {ITestResult, QuestionResultType} from "@/types/education.ts";
@@ -22,8 +21,7 @@ const TestEndPage = () => {
     const [testResult, setTestResult] = useState<ITestResult>();
 
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {isLoading, sendRequest, errorText, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
 
     // 유저의 시험 결과 조회
     const fetchTestResult = useCallback(async () => {
@@ -51,14 +49,6 @@ const TestEndPage = () => {
         }
         return count;
     };
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
-
 
     return (
         <>

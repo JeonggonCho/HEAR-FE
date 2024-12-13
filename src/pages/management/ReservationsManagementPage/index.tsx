@@ -7,7 +7,7 @@ import {headerCenter} from "@components/common/Header/style.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 
 
-const ReservationsPage = () => {
+const ReservationsManagementPage = () => {
     const {lang} = useThemeStore();
 
     return (
@@ -28,4 +28,4 @@ const ReservationsPage = () => {
     );
 };
 
-export default ReservationsPage;
+export default ReservationsManagementPage;

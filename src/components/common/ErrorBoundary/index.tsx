@@ -1,5 +1,6 @@
-import React, {ReactNode} from "react";
-
+import { Component, ReactNode } from "react";
+import { useErrorStore, RequestErrorType } from "@store/useErrorStore.ts";
+import { useToastStore } from "@store/useToastStore.ts";
 
 interface ErrorBoundaryProps {
     children: ReactNode;
@@ -7,26 +8,49 @@ interface ErrorBoundaryProps {
 
 interface ErrorBoundaryState {
     hasError: boolean;
+    error: Error | null;
 }
 
-class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     constructor(props: ErrorBoundaryProps) {
         super(props);
-        this.state = {hasError: false};
+        this.state = {
+            hasError: false,
+            error: null,
+        };
     }
 
     static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-        return {hasError: true};
+        return { hasError: true, error };
     }
 
-    componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
-        logErrorToMyService(error, errorInfo);
+    componentDidCatch(error: Error) {
+        const { setError } = useErrorStore.getState();
+        const { showToast } = useToastStore.getState();
+
+        // 에러 객체 준비
+        const errorData: RequestErrorType = {
+            name: error.name || "에러",
+            message: error.message || "알 수 없는 오류 발생",
+            displayMode: "toast", // toast 또는 fallback 처리
+        };
+
+        // 에러 상태를 global store에 저장
+        setError(errorData);
+        // 토스트 메시지 표시
+        showToast(error.message, "error");
     }
 
     render() {
         if (this.state.hasError) {
-            return <h1>에러 발생!!</h1>;
+            return (
+                <>
+                    <h1>에러가 발생했습니다</h1>
+                    {this.state.error && <p>{this.state.error.message}</p>}
+                </>
+            );
         }
+
         return this.props.children;
     }
 }

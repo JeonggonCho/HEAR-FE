@@ -14,7 +14,6 @@ import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import {IUserFilter, IUserInfo} from "@/types/user.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
 import UsersManagementContext from "@context/UsersManagementContext.ts";
 import UsersManagementFilterContext from "@context/UsersManagementFilterContext.ts";
 import {TableHeadsWrapper, UserControlWrapper} from "./style.ts";
@@ -35,8 +34,7 @@ const UsersManagementPage = () => {
     const [username, setUsername] = useState<string>(usernameInputText.trim());
 
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {isLoading, errorText, sendRequest, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
 
     // 유저 목록 조회
     const fetchUserList = useCallback(async () => {
@@ -53,13 +51,6 @@ const UsersManagementPage = () => {
     useEffect(() => {
         fetchUserList();
     }, [fetchUserList]);
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
 
     // 유저 이름 검색
     const handleSearchUsername = (e: React.FormEvent<HTMLFormElement>) => {

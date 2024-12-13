@@ -15,7 +15,6 @@ import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
 import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
 import {Container} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
@@ -30,8 +29,7 @@ const UpdateNoticePage = () => {
     const navigate = useNavigate();
     const {noticeId} = useParams();
     const {lang} = useThemeStore();
-    const {showToast} = useToastStore();
-    const {isLoading, errorText, sendRequest, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
     const {text, handleTextChange, countOfText, setCountOfText, setText} = useTextarea();
     const {noticeSchema} = BoardSchemaProvider();
 
@@ -89,13 +87,6 @@ const UpdateNoticePage = () => {
         handleTextChange(e);
         setValue("content", e.target.value);
     };
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
 
     return (
         <Container>
