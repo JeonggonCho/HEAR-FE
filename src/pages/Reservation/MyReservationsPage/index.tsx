@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useState} from "react";
-import {ReactSVG} from "react-svg";
 import {Header} from "@components/common/Header";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
@@ -7,6 +6,7 @@ import Empty from "@components/common/Empty";
 import ReservationListItem from "@components/reservation/ReservationListItem";
 import DeleteSelectedReservations from "@components/reservation/DeleteSelectedReservations";
 import Grid from "@components/common/Grid";
+import Icon from "@components/common/Icon";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import {IReservation} from "@/types/componentProps.ts";
@@ -130,7 +130,7 @@ const MyReservationsPage = () => {
                             checked={reservations.length > 0 && selectedReservations.length === reservations.length}
                         />
                         <label htmlFor={"select-all"}>
-                            <ReactSVG src={check}/>
+                            <Icon svg={check}/>
                         </label>
                         <label htmlFor={"select-all"}>{buttonCategories.selectAll[lang]}</label>
                     </SelectAllWrapper>

@@ -1,6 +1,6 @@
 import {Dispatch, ReactElement, SetStateAction, useEffect, useRef} from "react";
 import ReactDOM from "react-dom";
-import {ReactSVG} from "react-svg";
+import Icon from "@components/common/Icon";
 import {CloseBtnWrapper, Container, SideMenuWrapper} from "./style.ts";
 import close from "@assets/icons/close.svg";
 
@@ -47,7 +47,7 @@ const SideMenu= ({setSideMenu, direction, content}: ISideMenuProps) => {
                         e.stopPropagation();
                         setSideMenu(false);
                     }}>
-                        <ReactSVG src={close}/>
+                        <Icon svg={close}/>
                     </CloseBtnWrapper>
                 </div>
                 {content}

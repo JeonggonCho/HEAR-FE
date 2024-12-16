@@ -1,13 +1,13 @@
 import {createContext, useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {FieldErrors, SubmitHandler, useForm, UseFormGetValues, UseFormRegister, UseFormSetValue} from "react-hook-form";
-import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import InputMessage from "@components/common/InputMessage";
 import Button from "@components/common/Button";
 import SawSelect from "@components/reservation/SawSelect";
 import Flex from "@components/common/Flex";
+import Icon from "@components/common/Icon";
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
@@ -111,7 +111,7 @@ const SawReservationForm = () => {
                             {showTooltip &&
                               <div>
                                 <span>{messageCategories.changeTime[lang]}</span>
-                                <ReactSVG src={close} onClick={() => setShowTooltip(false)}/>
+                                <Icon svg={close} onClick={() => setShowTooltip(false)}/>
                               </div>
                             }
                         </div>

@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import ReactDOM from "react-dom";
-import {ReactSVG} from "react-svg";
+import Icon from "@components/common/Icon";
+import Button from "@components/common/Button";
 import {
     TopWrapper,
     Container,
@@ -119,9 +120,22 @@ const Gallery = (
             <Container>
                 <TopWrapper>
                     <p>{`${(currentImage || 0) + 1} / ${images.length}`}</p>
-                    <div onClick={() => setGallery(false)}>
-                        <ReactSVG src={close}/>
-                    </div>
+                    <Button
+                        type={"button"}
+                        variant={"text"}
+                        size={"sm"}
+                        color={"third"}
+                        width={"fit"}
+                        style={{
+                            padding: 0,
+                            position: "absolute",
+                            top: "16px",
+                            right: "16px",
+                        }}
+                        onClick={() => setGallery(false)}
+                    >
+                        <Icon svg={close} isHovered={true}/>
+                    </Button>
                 </TopWrapper>
 
                 <ZoomedImage
@@ -169,15 +183,15 @@ const Gallery = (
             <BtnsWrapper>
                 <ZoomButtonWrapper>
                     <div onClick={clickZoomInHandler}>
-                        <ReactSVG src={zoomIn}/>
+                        <Icon svg={zoomIn}/>
                     </div>
                     <div onClick={clickZoomOutHandler}>
-                        <ReactSVG src={zoomOut}/>
+                        <Icon svg={zoomOut}/>
                     </div>
                 </ZoomButtonWrapper>
 
                 <ResetButtonWrapper onClick={resetZoomHandler}>
-                    <ReactSVG src={reset}/>
+                    <Icon svg={reset}/>
                 </ResetButtonWrapper>
             </BtnsWrapper>
         </>

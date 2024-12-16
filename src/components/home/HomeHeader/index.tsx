@@ -28,7 +28,7 @@ const HomeHeader = () => {
                         variant={"text"}
                         width={"fit"}
                         color={"third"}
-                        size={"sm"}
+                        size={"md"}
                         onClick={() => navigate("/alarm")}
                     >
                         <Icon svg={alarm} isHovered={true}/>

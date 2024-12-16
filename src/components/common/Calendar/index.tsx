@@ -1,8 +1,8 @@
 import {Dispatch, SetStateAction, useMemo, useState} from "react";
-import {ReactSVG} from "react-svg";
 import Button from "@components/common/Button";
 import Flex from "@components/common/Flex";
 import InputMessage from "@components/common/InputMessage";
+import Icon from "@components/common/Icon";
 import generateCalendar from "@util/generateCalendar.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {
@@ -112,25 +112,25 @@ const Calendar = (
                             type={"button"}
                             variant={"filled"}
                             width={"fit"}
-                            color={"third"}
+                            color={"second"}
                             size={"sm"}
                             onClick={handlePrevMonth}
                             disabled={isPrevMonthDisabled}
-                            style={{padding: "4px 6px"}}
+                            style={{padding: "3px"}}
                         >
-                            <ReactSVG src={arrowBack}/>
+                            <Icon svg={arrowBack}/>
                         </Button>
                         <Button
                             type={"button"}
                             variant={"filled"}
                             width={"fit"}
-                            color={"third"}
+                            color={"second"}
                             size={"sm"}
                             onClick={handleNextMonth}
                             disabled={isNextMonthDisabled}
-                            style={{padding: "4px 6px"}}
+                            style={{padding: "3px"}}
                         >
-                            <ReactSVG src={arrowForward}/>
+                            <Icon svg={arrowForward}/>
                         </Button>
                     </Flex>
 

@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import {ReactSVG} from "react-svg";
+import Icon from "@components/common/Icon";
 import BasicBottomSheet from "@components/common/BottomSheet/BasicBottomSheet.tsx";
 import UsersManagementFilterContent from "@components/management/UsersManagementFilterContent";
 import useModal from "@hooks/useModal.ts";
@@ -26,7 +26,7 @@ const UsersManagementFilter = () => {
                     {!(filter.year.includes("all") && filter.countOfWarning.includes("all") && filter.passEducation.includes("all")) &&
                       <Badge/>
                     }
-                    <ReactSVG src={tune}/>
+                    <Icon svg={tune}/>
                 </div>
             }
             header={headerCategories.userFilter[lang]}

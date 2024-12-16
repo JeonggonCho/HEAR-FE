@@ -1,9 +1,9 @@
 import {ChangeEvent, Dispatch, FormEvent, MutableRefObject, SetStateAction} from "react";
-import {ReactSVG} from "react-svg";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
 import CommentListItem from "@components/comment/CommentListItem";
 import ProfileImage from "@components/common/ProfileImage";
+import Icon from "@components/common/Icon";
 import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {IFeedbackProps, IInquiryProps, INotice} from "@/types/componentProps.ts";
@@ -100,8 +100,9 @@ const Comments = (
                         width={"fit"}
                         color={"approval"}
                         size={"sm"}
+                        style={{padding: "4px 8px"}}
                       >
-                        <ReactSVG src={send}/>
+                        <Icon svg={send} size={24}/>
                       </Button>
                     }
                 </TextareaWrapper>

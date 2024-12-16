@@ -9,13 +9,13 @@ import {
     useState
 } from "react";
 import {useParams} from "react-router-dom";
-import {ReactSVG} from "react-svg";
 import {Header} from "@components/common/Header";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import Comments from "@components/comment/Comments";
 import ProfileImage from "@components/common/ProfileImage";
 import Grid from "@components/common/Grid";
+import Icon from "@components/common/Icon";
 import ArrowBack from "@components/common/ArrowBack";
 import InquiryDropdown from "@components/inquiry/InquiryDropdown";
 import useRequest from "@hooks/useRequest.ts";
@@ -154,15 +154,15 @@ const InquiryDetailPage = () => {
 
                                 <CountsWrapper>
                                     <div>
-                                        <ReactSVG src={views}/>
+                                        <Icon svg={views}/>
                                         <span>{inquiry.views || 0}</span>
                                     </div>
                                     <div>
-                                        <ReactSVG src={likes}/>
+                                        <Icon svg={likes}/>
                                         <span>{inquiry.likes || 0}</span>
                                     </div>
                                     <div>
-                                        <ReactSVG src={chat}/>
+                                        <Icon svg={chat}/>
                                         <span>{inquiry.comments || 0}</span>
                                     </div>
                                 </CountsWrapper>
@@ -175,11 +175,11 @@ const InquiryDetailPage = () => {
 
                         <BtnsWrapper>
                             <LikeBtnWrapper onClick={likeInquiry} isLiked={isLiked}>
-                                <ReactSVG src={likes}/>
+                                <Icon svg={likes}/>
                                 <span>{buttonCategories.like[lang]}</span>
                             </LikeBtnWrapper>
                             <CommentBtnWrapper onClick={commentClickHandler}>
-                                <ReactSVG src={chat}/>
+                                <Icon svg={chat}/>
                                 <span>{buttonCategories.comment[lang]}</span>
                             </CommentBtnWrapper>
                         </BtnsWrapper>

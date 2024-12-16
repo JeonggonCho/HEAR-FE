@@ -1,6 +1,6 @@
 import {useMemo} from 'react';
-import {ReactSVG} from "react-svg";
 import ProfileImage from "@components/common/ProfileImage";
+import Icon from "@components/common/Icon";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {BottomWrapper, Container, InfoWrapper, TagWrapper, TitleWrapper, WriterWrapper} from "./style.ts";
@@ -46,15 +46,15 @@ const InquiryFeedbackListItem = (props: IInquiryProps | IFeedbackProps) => {
             <BottomWrapper darkmode={isDarkMode.toString()}>
                 <InfoWrapper>
                     <div>
-                        <ReactSVG src={views}/>
+                        <Icon svg={views}/>
                         <span>{props.views || 0}</span>
                     </div>
                     <div>
-                        <ReactSVG src={likes}/>
+                        <Icon svg={likes}/>
                         <span>{props.likes || 0}</span>
                     </div>
                     <div>
-                        <ReactSVG src={comments}/>
+                        <Icon svg={comments}/>
                         <span>{props.comments || 0}</span>
                     </div>
                 </InfoWrapper>

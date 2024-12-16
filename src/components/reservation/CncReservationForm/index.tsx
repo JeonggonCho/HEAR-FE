@@ -1,12 +1,12 @@
 import {createContext, useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm, UseFormRegister, UseFormSetValue, UseFormGetValues, FieldErrors} from "react-hook-form";
-import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import CncSelect from "@components/reservation/CncSelect";
 import Button from "@components/common/Button";
 import Flex from "@components/common/Flex";
+import Icon from "@components/common/Icon";
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
@@ -107,7 +107,7 @@ const CncReservationForm = () => {
                                 onClick={() => setValue("check", !getValues("check"))}
                             />
                             <label htmlFor={"cncWarning"}>
-                                <div><ReactSVG src={check}/></div>
+                                <div><Icon svg={check}/></div>
                                 {inputCategories.check[lang]}
                             </label>
                         </div>

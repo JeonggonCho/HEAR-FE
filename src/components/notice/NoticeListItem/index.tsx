@@ -1,6 +1,6 @@
 import {useMemo} from "react";
-import {ReactSVG} from "react-svg";
 import ArrowForward from "@components/common/ArrowForward";
+import Icon from "@components/common/Icon";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import {INotice} from "@/types/componentProps.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
@@ -21,11 +21,11 @@ const NoticeListItem = (props: INotice) => {
                 <NoticeInfoWrapper>
                     <span>{timeStamp}</span>
                     <div>
-                        <ReactSVG src={views}/>
+                        <Icon svg={views}/>
                         <span>{props.views}</span>
                     </div>
                     <div>
-                        <ReactSVG src={chat}/>
+                        <Icon svg={chat}/>
                         <span>{props.comments}</span>
                     </div>
                 </NoticeInfoWrapper>

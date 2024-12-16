@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import ReactDOM from "react-dom";
-import {ReactSVG} from "react-svg";
+import Icon from "@components/common/Icon";
 import {useToastStore} from "@store/useToastStore.ts";
 import {Container} from "./style.ts";
 import close from "@assets/icons/close.svg";
@@ -25,13 +25,13 @@ const Toast = () => {
     const toastContent = (
         <Container key={key} time={TOAST_DISPLAY_TIME} type={type}>
             <div>
-                {type === "error" && <ReactSVG src={error}/>}
-                {type === "success" && <ReactSVG src={checkCircle}/>}
+                {type === "error" && <Icon svg={error}/>}
+                {type === "success" && <Icon svg={checkCircle}/>}
                 <p>{text}</p>
             </div>
 
             <div onClick={hideToast}>
-                <ReactSVG src={close}/>
+                <Icon svg={close}/>
             </div>
         </Container>
     );

@@ -1,5 +1,5 @@
-import {ReactSVG} from "react-svg";
 import Chart from "@components/common/Chart";
+import Icon from "@components/common/Icon";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import useListCollapse from "@hooks/useListCollapse.ts";
 import {Container, ReservationListWrapper, ReservationStatusWrapper, TimeStamp} from "./style.ts";
@@ -49,7 +49,7 @@ const LaserReservationConditionContent = ({laserStatus, rate, color}: ILaserRese
             <div onClick={handleList}>
                 <p>{buttonCategories.reservationStatus[lang]}</p>
                 <MoreWrapper isOpen={isOpen}>
-                    <ReactSVG src={more}/>
+                    <Icon svg={more}/>
                 </MoreWrapper>
             </div>
 

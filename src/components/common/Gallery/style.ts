@@ -32,27 +32,6 @@ export const TopWrapper = styled.div`
         font-size: 1.15rem;
         margin: 0;
     }
-    
-    & > div:last-of-type {
-        position: absolute;
-        right: 24px;
-        top: 16px;
-        cursor: pointer;
-        width: 32px;
-        height: 32px;
-        overflow: hidden;
-        transition: all 0.2s ease-in-out 0s;
-        
-        &:hover {
-            transform: scale(1.25);
-        }
-        
-        svg {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    }
 `;
 
 export const ZoomedImage = styled.div<{zoomRate: number, dragPosition: {x: number, y: number}}>`

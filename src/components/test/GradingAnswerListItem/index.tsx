@@ -1,4 +1,4 @@
-import {ReactSVG} from "react-svg";
+import Icon from "@components/common/Icon";
 import useListCollapse from "@hooks/useListCollapse.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {
@@ -41,10 +41,10 @@ const GradingAnswerListItem = (
             >
                 <label>{index + 1}</label>
                 <div>
-                    <span>{isCorrect ? cardCategories.correct[lang] : cardCategories.incorrect[lang]}</span> <ReactSVG src={isCorrect ? circle : close}/>
+                    <span>{isCorrect ? cardCategories.correct[lang] : cardCategories.incorrect[lang]}</span> <Icon svg={isCorrect ? circle : close}/>
                 </div>
                 <div>
-                    <ReactSVG src={more}/>
+                    <Icon svg={more}/>
                 </div>
             </LabelAndMoreWrapper>
 
@@ -82,7 +82,7 @@ const GradingAnswerListItem = (
                                         >
                                             <p>{opt.content}</p>
                                             <div>
-                                                <ReactSVG src={check}/>
+                                                <Icon svg={check}/>
                                             </div>
                                         </OptionListItemWrapper>
                                     ))}

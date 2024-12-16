@@ -1,5 +1,5 @@
 import {Dispatch, SetStateAction} from "react";
-import {ReactSVG} from "react-svg";
+import Icon from "@components/common/Icon";
 import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {IFeedbackProps} from "@/types/componentProps.ts";
@@ -55,7 +55,7 @@ const LikeFeedback = (
             onClick={likeFeedback}
             isLiked={isLiked}
         >
-            <ReactSVG src={likes}/>
+            <Icon svg={likes}/>
             <span>{buttonCategories.like[lang]}</span>
         </LikeBtnWrapper>
     );

@@ -4,25 +4,21 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
-    gap: 8px;
-    
-    & > div:first-of-type {
-        display: flex;
-        flex-direction: column;
-        
-        label {
-            width: fit-content;
-            color: ${({theme}) => theme.colors.font.main};
-            margin-left: 4px;
-            line-height: 1.5;
-        }
 
-        & > span:first-of-type {
-            font-size: 0.85rem;
-            color: ${({theme}) => theme.colors.font.sub};
-            margin-left: 4px;
-            line-height: 1.5;
-        }   
+    label {
+        display: inline-flex;
+        width: fit-content;
+        color: ${({theme}) => theme.colors.font.main};
+        margin-left: 4px;
+        line-height: 1.5;
+    }
+
+    & > span:first-of-type {
+        display: inline-block;
+        font-size: 0.85rem;
+        color: ${({theme}) => theme.colors.font.sub};
+        margin-left: 4px;
+        line-height: 1.5;
     }
     
     input {
@@ -35,6 +31,7 @@ export const Container = styled.div`
         font-size: 1rem;
         font-family: Pretendard, Helvetica, sans-serif;
         cursor: pointer;
+        margin-bottom: 8px;
 
         &::placeholder {
             color: ${({theme}) => theme.colors.font.placeholder};
@@ -50,14 +47,6 @@ export const Container = styled.div`
         &:focus {
             outline: 1px solid ${({theme}) => theme.colors.line.primary};
         }
-    }
-    
-    svg {
-        fill: ${({theme}) => theme.colors.icon.fill};
-        position: absolute;
-        right: 12px;
-        top: 40px;
-        cursor: pointer;
     }
 
     input[type="date"]::-webkit-calendar-picker-indicator {
@@ -82,4 +71,11 @@ export const Container = styled.div`
         -webkit-box-shadow: 0 0 0 1000px ${({theme}) => theme.colors.bg.main} inset;
         transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
     }
+`;
+
+export const VisibleToggleWrapper = styled.div`
+    position: absolute;
+    right: 12px;
+    top: 34px;
+    cursor: pointer;
 `;

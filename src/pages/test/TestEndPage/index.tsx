@@ -1,8 +1,8 @@
 import {useCallback, useEffect, useState} from "react";
-import {ReactSVG} from "react-svg";
 import {Header} from "@components/common/Header";
 import HeadTag from "@components/common/HeadTag";
 import LoadingLoop from "@components/common/LoadingLoop";
+import Icon from "@components/common/Icon";
 import GradingAnswerListItem from "@components/test/GradingAnswerListItem";
 import Flex from "@components/common/Flex";
 import useRequest from "@hooks/useRequest.ts";
@@ -76,7 +76,7 @@ const TestEndPage = () => {
                             <label>{cardCategories.result[lang]}</label>
                             <ResultSignWrapper pass={(String(testResult?.isPassed) as "true" | "false") || "false"}>
                                 <span>{testResult?.isPassed ? cardCategories.pass[lang] : cardCategories.fail[lang]}</span>
-                                <ReactSVG src={testResult?.isPassed ? checkCircle : cancelCircle}/>
+                                <Icon svg={testResult?.isPassed ? checkCircle : cancelCircle}/>
                             </ResultSignWrapper>
                         </div>
                     </ResultCard>

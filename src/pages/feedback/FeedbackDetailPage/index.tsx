@@ -8,13 +8,13 @@ import {
     useState
 } from "react";
 import {useParams} from "react-router-dom";
-import {ReactSVG} from "react-svg";
 import {Header} from "@components/common/Header";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import Comments from "@components/comment/Comments";
 import ProfileImage from "@components/common/ProfileImage";
 import Grid from "@components/common/Grid";
+import Icon from "@components/common/Icon";
 import FeedbackDropdown from "@components/feedback/FeedbackDropdown";
 import LikeFeedback from "@components/feedback/LikeFeedback";
 import ArrowBack from "@components/common/ArrowBack";
@@ -129,15 +129,15 @@ const FeedbackDetailPage = () => {
 
                                 <CountsWrapper>
                                     <div>
-                                        <ReactSVG src={views}/>
+                                        <Icon svg={views}/>
                                         <span>{feedback.views || 0}</span>
                                     </div>
                                     <div>
-                                        <ReactSVG src={likes}/>
+                                        <Icon svg={likes}/>
                                         <span>{feedback.likes || 0}</span>
                                     </div>
                                     <div>
-                                        <ReactSVG src={chat}/>
+                                        <Icon svg={chat}/>
                                         <span>{feedback.comments || 0}</span>
                                     </div>
                                 </CountsWrapper>
@@ -156,7 +156,7 @@ const FeedbackDetailPage = () => {
                                 setFeedback={setFeedback as Dispatch<SetStateAction<IFeedbackProps>>}
                             />
                             <CommentBtnWrapper onClick={commentClickHandler}>
-                                <ReactSVG src={chat}/>
+                                <Icon svg={chat}/>
                                 <span>{buttonCategories.comment[lang]}</span>
                             </CommentBtnWrapper>
                         </BtnsWrapper>

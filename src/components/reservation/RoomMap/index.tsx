@@ -1,5 +1,5 @@
 import {Dispatch, SetStateAction} from "react";
-import {ReactSVG} from "react-svg";
+import Icon from "@components/common/Icon";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {CncWrapper, Container, LaserWrapper, MapWrapper, PrinterWrapper, VacuumWrapper} from "./style.ts";
 import {machineName} from "@constants/machineCategories.ts";
@@ -25,7 +25,7 @@ const RoomMap = ({machine, setModal}: IRoomMapProps) => {
                     e.stopPropagation();
                     setModal(false)
                 }}>
-                    <ReactSVG src={close}/>
+                    <Icon svg={close}/>
                 </div>
             </div>
 

@@ -1,10 +1,9 @@
 import {useContext, useState} from "react";
-import {ReactSVG} from "react-svg";
+import Icon from "@components/common/Icon";
 import SideMenu from "@components/common/SideMenu";
 import Button from "@components/common/Button";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import EducationManagementContext from "@context/EducationManagementContext.ts";
-import {MenuButtonWrapper} from "@components/management/EducationManagementSideMenu/style.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import menu from "@assets/icons/menu.svg";
 
@@ -17,9 +16,17 @@ const EducationManagementSideMenu = () => {
 
     return (
         <>
-            <MenuButtonWrapper onClick={() => setShowSideMenu(true)}>
-                <ReactSVG src={menu}/>
-            </MenuButtonWrapper>
+            <Button
+                type={"button"}
+                variant={"text"}
+                width={"fit"}
+                size={"sm"}
+                color={"third"}
+                style={{padding: 0}}
+                onClick={() => setShowSideMenu(true)}
+            >
+                <Icon svg={menu} isHovered={true}/>
+            </Button>
 
             {showSideMenu &&
               <SideMenu

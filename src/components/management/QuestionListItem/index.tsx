@@ -1,9 +1,9 @@
 import {ChangeEvent, Dispatch, SetStateAction, useState} from "react";
-import {ReactSVG} from "react-svg";
 import { v4 as uuidv4 } from "uuid";
 import {Draggable} from "@hello-pangea/dnd";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
+import Icon from "@components/common/Icon";
 import OptionListContent from "@components/management/OptionListContent";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {
@@ -290,11 +290,11 @@ const QuestionListItem = (
                     <Container isDragging={snapshot.isDragging}>
                         <div>
                             <DragIndicator {...provided.dragHandleProps}>
-                                <ReactSVG src={drag}/>
+                                <Icon svg={drag}/>
                             </DragIndicator>
                             <IndexWrapper>{index + 1}</IndexWrapper>
                             <RemoveWrapper onClick={() => removeQuestion(question._id)}>
-                                <ReactSVG src={close}/>
+                                <Icon svg={close}/>
                             </RemoveWrapper>
                         </div>
 
@@ -343,9 +343,10 @@ const QuestionListItem = (
                                     width={"fit"}
                                     color={"third"}
                                     size={"sm"}
+                                    style={{padding: "10px"}}
                                     onClick={closeExplanationHandler}
                                 >
-                                    <ReactSVG src={close}/>
+                                    <Icon svg={close} size={20}/>
                                 </Button>
                             </ExplanationWrapper>
                             :
@@ -385,9 +386,10 @@ const QuestionListItem = (
                                             width={"fit"}
                                             color={"third"}
                                             size={"sm"}
+                                            style={{padding: "4px"}}
                                             onClick={addOption}
                                         >
-                                            <ReactSVG src={add}/>
+                                            <Icon svg={add} size={20}/>
                                         </Button>
                                     </div>
                                     <OptionListContent
@@ -410,9 +412,10 @@ const QuestionListItem = (
                                                 width={"fit"}
                                                 color={"third"}
                                                 size={"sm"}
+                                                style={{padding: "4px"}}
                                                 onClick={addOption}
                                             >
-                                                <ReactSVG src={add}/>
+                                                <Icon svg={add} size={20}/>
                                             </Button>
                                         </div>
                                         <OptionListContent

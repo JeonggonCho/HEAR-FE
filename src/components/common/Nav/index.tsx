@@ -1,5 +1,5 @@
 import React from "react";
-import {ReactSVG} from "react-svg";
+import Icon from "@components/common/Icon";
 import {useLocation} from "react-router-dom";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {Container, NavButton} from "./style.ts";
@@ -34,7 +34,7 @@ const Nav = () => {
                     darkmode={isDarkMode.toString()}
                 >
                     <div>
-                        <ReactSVG src={category.icon} />
+                        <Icon svg={category.icon} />
                         {category.label}
                     </div>
                 </NavButton>

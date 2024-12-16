@@ -1,13 +1,10 @@
-import {ReactSVG} from "react-svg";
-import {Container} from "./style.ts";
+import Icon from "@components/common/Icon";
 import arrowForward from "@assets/icons/arrow_forward_small.svg"
 
 
 const ArrowForward = () => {
     return (
-        <Container>
-            <ReactSVG src={arrowForward}/>
-        </Container>
+        <Icon svg={arrowForward}/>
     );
 };
 

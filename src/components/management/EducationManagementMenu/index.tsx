@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import {ReactSVG} from "react-svg";
+import Icon from "@components/common/Icon";
 import BasicBottomSheet from "@components/common/BottomSheet/BasicBottomSheet.tsx";
 import EducationManagementMenuContent from "@components/management/EducationManagementMenuContent";
 import useModal from "@hooks/useModal.ts";
@@ -28,7 +28,7 @@ const EducationManagementMenu = () => {
             showModal={showModal}
             setShowModal={setShowModal}
             trigger={
-                <ReactSVG src={tune} onClick={() => setShowModal(true)}/>
+                <Icon svg={tune} onClick={() => setShowModal(true)}/>
             }
             header={headerCategories.educationSettings[lang]}
             body={

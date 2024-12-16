@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useState} from "react";
-import {ReactSVG} from "react-svg";
 import {Header} from "@components/common/Header";
 import UserListItem from "@components/management/UserListItem";
 import Input from "@components/common/Input";
@@ -9,6 +8,7 @@ import CardLoading from "@components/skeleton/CardLoading";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
 import Flex from "@components/common/Flex";
+import Icon from "@components/common/Icon";
 import UsersManagementFilter from "@components/management/UsersManagementFilter";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
@@ -89,7 +89,7 @@ const UsersManagementPage = () => {
                             />
 
                             <div onClick={() => setUsernameInputText("")}>
-                                <ReactSVG src={close}/>
+                                <Icon svg={close}/>
                             </div>
 
                             <Button
@@ -99,7 +99,7 @@ const UsersManagementPage = () => {
                                 color={"second"}
                                 size={"sm"}
                             >
-                                <ReactSVG src={search}/>
+                                <Icon svg={search} size={22} isHovered={true}/>
                             </Button>
                         </div>
                         <UsersManagementFilter/>

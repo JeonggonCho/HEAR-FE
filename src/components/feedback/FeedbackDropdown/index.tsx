@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {ReactSVG} from "react-svg";
+import Icon from "@components/common/Icon";
 import DeleteFeedback from "@components/feedback/DeleteFeedback";
 import MoreDropdown from "@components/common/Dropdown/MoreDropdown.tsx";
 import useModal from "@hooks/useModal.ts";
@@ -24,7 +24,7 @@ const FeedbackDropdown = () => {
 
     return (
         <MoreDropdown
-            trigger={<ReactSVG src={more}/>}
+            trigger={<Icon svg={more} isHovered={true}/>}
             options={[
                 <div onClick={updateFeedback}>{buttonCategories.edit[lang]}</div>,
                 <DeleteFeedback

@@ -1,8 +1,8 @@
-import {ReactSVG} from "react-svg";
 import HeadTag from "@components/common/HeadTag";
 import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import Grid from "@components/common/Grid";
+import Icon from "@components/common/Icon";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {LanguageCheckMark, LanguageWrapper, ThemeCheckMark, ThemeImgWrapper, ThemeWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
@@ -48,7 +48,7 @@ const ThemeSettingPage = () => {
                     <label htmlFor={"lightMode"}>
                         {isDarkMode === false &&
                           <ThemeCheckMark>
-                            <ReactSVG src={check}/>
+                            <Icon svg={check}/>
                           </ThemeCheckMark>
                         }
                         <ThemeImgWrapper>
@@ -67,7 +67,7 @@ const ThemeSettingPage = () => {
                     <label htmlFor={"darkMode"}>
                         {isDarkMode === true &&
                           <ThemeCheckMark>
-                            <ReactSVG src={check}/>
+                            <Icon svg={check}/>
                           </ThemeCheckMark>
                         }
                         <ThemeImgWrapper>
@@ -95,7 +95,7 @@ const ThemeSettingPage = () => {
                         <span>한국어</span>
                         {lang === "ko" &&
                           <LanguageCheckMark>
-                            <ReactSVG src={check}/>
+                            <Icon svg={check}/>
                           </LanguageCheckMark>
                         }
                     </label>
@@ -111,7 +111,7 @@ const ThemeSettingPage = () => {
                         <span>English</span>
                         {lang === "en" &&
                           <LanguageCheckMark>
-                            <ReactSVG src={check}/>
+                            <Icon svg={check}/>
                           </LanguageCheckMark>
                         }
                     </label>
@@ -127,7 +127,7 @@ const ThemeSettingPage = () => {
                         <span>中文</span>
                         {lang === "ch" &&
                           <LanguageCheckMark>
-                            <ReactSVG src={check}/>
+                            <Icon svg={check}/>
                           </LanguageCheckMark>
                         }
                     </label>

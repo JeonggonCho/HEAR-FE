@@ -1,8 +1,8 @@
 import {Dispatch, SetStateAction} from "react";
-import {ReactSVG} from "react-svg";
 import Calendar from "@components/common/Calendar";
 import Select from "@components/common/Select";
 import Button from "@components/common/Button";
+import Icon from "@components/common/Icon";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {Container, DateTag, SelectPrinterWrapper} from "./style.ts";
 import {IPrinterReservation} from "@/types/reservation.ts";
@@ -58,7 +58,7 @@ const PrinterSelectContent = (
             <SelectPrinterWrapper>
                 {selectedDate && (
                     <DateTag>
-                        <ReactSVG src={dateIcon}/><span>{cardCategories.selectedDate[lang]}</span>
+                        <Icon svg={dateIcon}/><span>{cardCategories.selectedDate[lang]}</span>
                         <p>{(new Date(selectedDate)).toLocaleDateString('default', {
                             year: "numeric",
                             month: "numeric",

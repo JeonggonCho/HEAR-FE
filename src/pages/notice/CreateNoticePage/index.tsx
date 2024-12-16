@@ -32,7 +32,12 @@ const CreateNoticePage = () => {
 
     type NoticeFormData = z.infer<typeof noticeSchema>;
 
-    const {register, handleSubmit, formState: {errors}, setValue} = useForm<NoticeFormData>({
+    const {
+        register,
+        handleSubmit,
+        formState: {errors, isValid},
+        setValue
+    } = useForm<NoticeFormData>({
         resolver: zodResolver(noticeSchema),
         defaultValues: {
             title: "",
@@ -104,6 +109,7 @@ const CreateNoticePage = () => {
                             width={"full"}
                             color={"primary"}
                             size={"lg"}
+                            disabled={!isValid}
                         >
                             {buttonCategories.createNotice[lang]}
                         </Button>

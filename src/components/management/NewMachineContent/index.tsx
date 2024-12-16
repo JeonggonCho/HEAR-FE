@@ -1,11 +1,11 @@
 import {Dispatch, SetStateAction, useCallback} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import Flex from "@components/common/Flex";
+import Icon from "@components/common/Icon";
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
@@ -106,8 +106,7 @@ const NewMachineContent = (
                     size={"sm"}
                     color={"third"}
                     style={{
-                        width: "32px",
-                        height: "32px",
+                        padding: "4px",
                         borderRadius: "50%",
                     }}
                     onClick={(e) => {
@@ -115,7 +114,7 @@ const NewMachineContent = (
                         setModal(false);
                     }}
                 >
-                    <ReactSVG src={close}/>
+                    <Icon svg={close} size={22} isHovered={true}/>
                 </Button>
             </Flex>
 

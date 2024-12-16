@@ -1,6 +1,5 @@
 import {Dispatch, SetStateAction, useCallback, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
-import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import Button from "@components/common/Button";
@@ -8,6 +7,7 @@ import Input from "@components/common/Input";
 import ProfileImage from "@components/common/ProfileImage";
 import Flex from "@components/common/Flex";
 import Grid from "@components/common/Grid";
+import Icon from "@components/common/Icon";
 import DeleteUser from "@components/management/DeleteUser";
 import HandoverUser from "@components/management/HandoverUser";
 import useRequest from "@hooks/useRequest.ts";
@@ -176,12 +176,11 @@ const UserInfoCard = (
                   style={{
                       position: "absolute",
                       right: "12px",
-                      width: "36px",
-                      height: "36px",
+                      padding: "4px",
                       borderRadius: "50%",
                   }}
                 >
-                  <ReactSVG src={close}/>
+                  <Icon svg={close} size={22} isHovered={true}/>
                 </Button>
 
                 <Flex

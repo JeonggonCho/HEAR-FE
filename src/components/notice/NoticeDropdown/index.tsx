@@ -1,12 +1,12 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {ReactSVG} from "react-svg";
+import Icon from "@components/common/Icon";
 import MoreDropdown from "@components/common/Dropdown/MoreDropdown.tsx";
 import DeleteNotice from "@components/notice/DeleteNotice";
+import useModal from "@hooks/useModal.ts";
+import useDropdown from "@hooks/useDropdown.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import more from "@assets/icons/more.svg";
-import useModal from "@hooks/useModal.ts";
-import useDropdown from "@hooks/useDropdown.ts";
 
 
 const NoticeDropdown = () => {
@@ -23,7 +23,7 @@ const NoticeDropdown = () => {
 
     return (
         <MoreDropdown
-            trigger={<ReactSVG src={more}/>}
+            trigger={<Icon svg={more} isHovered={true}/>}
             options={[
                 <div onClick={updateNotice}>{buttonCategories.edit[lang]}</div>,
                 <DeleteNotice

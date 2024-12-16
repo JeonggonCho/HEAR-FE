@@ -1,7 +1,6 @@
 import {useCallback, useEffect} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
-import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Header} from "@components/common/Header";
@@ -10,6 +9,7 @@ import Input from "@components/common/Input";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
+import Icon from "@components/common/Icon";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
@@ -96,7 +96,7 @@ const ReservationHeat = () => {
                                 onClick={() => setValue("check", !getValues("check"))}
                             />
                             <label htmlFor={"heatWarning"}>
-                                <div><ReactSVG src={check}/></div>
+                                <div><Icon svg={check}/></div>
                                 {inputCategories.check[lang]}
                             </label>
                         </div>

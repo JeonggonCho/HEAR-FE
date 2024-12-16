@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import {ReactSVG} from "react-svg";
+import Icon from "@components/common/Icon";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {Container} from "./style.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
@@ -19,7 +19,7 @@ const SplashPage = () => {
                 <div>
                     <span>{messageCategories.school[lang]}<br/>{messageCategories.splashMessage[lang]}</span>
                     <div>
-                        <ReactSVG src={logo}/>
+                        <Icon svg={logo} size={56}/>
                         <h1>HEAR</h1>
                     </div>
                 </div>

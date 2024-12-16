@@ -1,12 +1,12 @@
 import {Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState} from "react";
 import {useParams} from "react-router-dom";
-import {ReactSVG} from "react-svg";
 import {Header} from "@components/common/Header";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import Comments from "@components/comment/Comments";
 import Grid from "@components/common/Grid";
 import Flex from "@components/common/Flex";
+import Icon from "@components/common/Icon";
 import NoticeDropdown from "@components/notice/NoticeDropdown";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
@@ -85,11 +85,11 @@ const NoticeDetailPage = () => {
                             <DateAndCountsWrapper>
                                 <span>{timeStamp}</span>
                                 <div>
-                                    <ReactSVG src={views}/>
+                                    <Icon svg={views}/>
                                     <span>{notice.views || 0}</span>
                                 </div>
                                 <div>
-                                    <ReactSVG src={chat}/>
+                                    <Icon svg={chat}/>
                                     <span>{notice.comments || 0}</span>
                                 </div>
                             </DateAndCountsWrapper>

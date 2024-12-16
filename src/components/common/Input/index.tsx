@@ -1,8 +1,9 @@
 import {ChangeEvent, useState} from "react";
-import {ReactSVG} from "react-svg";
 import {FieldPath, FieldValues, UseFormRegister} from "react-hook-form";
 import InputMessage from "@components/common/InputMessage";
-import {Container} from "./style.ts";
+import Icon from "@components/common/Icon";
+import Flex from "@components/common/Flex";
+import {Container, VisibleToggleWrapper} from "./style.ts";
 import visible from "@assets/icons/visible.svg";
 import invisible from "@assets/icons/invisible.svg";
 
@@ -49,10 +50,12 @@ const Input = <T extends FieldValues>(
 
     return (
         <Container>
-            <div>
-                {label && <label htmlFor={id}>{label}</label>}
-                {subLabel && <span>{subLabel}</span>}
-            </div>
+            {(label || subLabel) &&
+                <Flex direction={"column"} gap={8} style={{marginBottom: "8px"}}>
+                    {label && <label htmlFor={id}>{label}</label>}
+                    {subLabel && <span>{subLabel}</span>}
+                </Flex>
+            }
 
             {type === "range" ?
                 <input
@@ -82,18 +85,23 @@ const Input = <T extends FieldValues>(
 
             {errorMessage && <InputMessage message={errorMessage} type={"error"}/>}
 
-            {visibleToggle && inputType === "password"
-                ? <ReactSVG
-                    src={visible}
-                    onClick={() => setInputType("text")}
-                />
-                : visibleToggle && inputType === "text"
-                    ? <ReactSVG
-                        src={invisible}
-                        onClick={() => setInputType("password")}
+            <VisibleToggleWrapper>
+                {visibleToggle && inputType === "password"
+                    ?
+                    <Icon
+                        svg={visible}
+                        isHovered={true}
+                        onClick={() => setInputType("text")}
                     />
-                    : null
-            }
+                    : visibleToggle && inputType === "text"
+                        ? <Icon
+                            svg={invisible}
+                            isHovered={true}
+                            onClick={() => setInputType("password")}
+                        />
+                        : null
+                }
+            </VisibleToggleWrapper>
         </Container>
     );
 };

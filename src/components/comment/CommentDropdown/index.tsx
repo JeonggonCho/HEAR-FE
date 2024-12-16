@@ -1,7 +1,7 @@
 import {useContext} from "react";
-import {ReactSVG} from "react-svg";
 import MoreDropdown from "@components/common/Dropdown/MoreDropdown.tsx";
 import DeleteComment from "@components/comment/DeleteComment";
+import Icon from "@components/common/Icon";
 import stripHtml from "@util/stripHtml.ts";
 import useDropdown from "@hooks/useDropdown.ts";
 import useModal from "@hooks/useModal.ts";
@@ -26,7 +26,7 @@ const CommentDropdown = () => {
 
     return (
         <MoreDropdown
-            trigger={<ReactSVG src={more}/>}
+            trigger={<Icon svg={more} isHovered={true}/>}
             options={[
                 <div onClick={updateCommentMode}>{buttonCategories.edit[lang]}</div>,
                 <DeleteComment

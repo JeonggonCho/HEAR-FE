@@ -34,29 +34,30 @@ const EducationManagementEndDateSetting = (
             showModal={showModal}
             setShowModal={setShowModal}
             trigger={
-                <Input
-                    type={"text"}
-                    id={"endDate"}
-                    name={"endDate"}
-                    placeholder={inputCategories.endDate[lang]}
-                    register={register}
-                    onClick={() => setShowModal(true)}
-                    disabled={!settings.startDate}
-                    readonly
-                />
-            }
+                <div style={{width: "45%"}}>
+                    <Input
+                        type={"text"}
+                        id={"endDate"}
+                        name={"endDate"}
+                        placeholder={inputCategories.endDate[lang]}
+                        register={register}
+                        onClick={() => setShowModal(true)}
+                        disabled={!settings.startDate}
+                        readonly
+                    />
+                </div>
+        }
             header={inputCategories.endDate[lang]}
             body={
-                <Calendar
-                    calendarType={"normal"}
-                    setModal={setShowModal}
-                    onSelectDate={selectEndDate}
-                    date={getValues("endDate")}
-                    selectWeekend={true}
-                />
-            }
+            <Calendar
+                calendarType={"normal"}
+                setModal={setShowModal}
+                onSelectDate={selectEndDate}
+                date={getValues("endDate")}
+                selectWeekend={true}
+            />
+        }
         />
     );
 };
-
-export default EducationManagementEndDateSetting;
+ export default EducationManagementEndDateSetting;

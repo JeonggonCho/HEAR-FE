@@ -1,7 +1,7 @@
 import React from 'react';
-import {ReactSVG} from "react-svg";
 import {UseFormRegister} from "react-hook-form";
 import InputMessage from "@components/common/InputMessage";
+import Icon from "@components/common/Icon";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {
     CheckboxListWrapper,
@@ -87,7 +87,7 @@ const Select = (
                                     disabled={category.status}
                                 />
                                 <label htmlFor={category.id}>
-                                    <div><ReactSVG src={check}/></div> {category.label}
+                                    <div><Icon svg={check}/></div> {category.label}
                                 </label>
                             </CheckboxWrapper>
                         );

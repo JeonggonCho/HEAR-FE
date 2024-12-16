@@ -1,11 +1,11 @@
 import {useCallback, useEffect, useState} from "react";
-import {ReactSVG} from "react-svg";
 import { v4 as uuidv4 } from "uuid";
 import {Header} from "@components/common/Header";
 import HeadTag from "@components/common/HeadTag";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Button from "@components/common/Button";
 import Empty from "@components/common/Empty";
+import Icon from "@components/common/Icon";
 import QuestionListContent from "@components/management/QuestionListContent";
 import Grid from "@components/common/Grid";
 import EducationManagementMenu from "@components/management/EducationManagementMenu";
@@ -141,8 +141,12 @@ const EducationManagementPage = () => {
                     <EducationManagementMenu/>
 
                     <div>
-                        <ResetButtonWrapper onClick={resetQuestions} modified={isModified.toString()} darkmode={isDarkMode.toString()}>
-                            <span>{buttonCategories.reset[lang]}</span> <ReactSVG src={reset}/>
+                        <ResetButtonWrapper
+                            onClick={resetQuestions}
+                            modified={isModified.toString()}
+                            darkmode={isDarkMode.toString()}
+                        >
+                            <span>{buttonCategories.reset[lang]}</span> <Icon svg={reset}/>
                         </ResetButtonWrapper>
 
                         <EducationManagementSave/>
@@ -172,7 +176,7 @@ const EducationManagementPage = () => {
                                 color={"second"}
                                 onClick={addQuestion}
                             >
-                                <ReactSVG src={add}/>
+                                <Icon svg={add} size={24}/>
                             </Button>
                         </>
                     }

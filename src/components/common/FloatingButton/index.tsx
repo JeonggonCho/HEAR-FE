@@ -1,5 +1,5 @@
 import {To} from "react-router-dom";
-import {ReactSVG} from "react-svg";
+import Icon from "@components/common/Icon";
 import {LinkWrapper, ButtonWrapper} from "./style.ts";
 
 
@@ -16,10 +16,10 @@ const FloatingButton = ({type, to, action, icon}: IFloatingButtonProps) => {
         <>
             {type === "link" && to ?
                 <LinkWrapper to={to}>
-                    <ReactSVG src={icon}/>
+                    <Icon svg={icon}/>
                 </LinkWrapper> :
                 <ButtonWrapper onClick={action}>
-                    <ReactSVG src={icon}/>
+                    <Icon svg={icon}/>
                 </ButtonWrapper>
             }
         </>

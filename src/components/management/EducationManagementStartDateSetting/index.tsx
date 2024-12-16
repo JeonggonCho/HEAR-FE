@@ -31,15 +31,17 @@ const EducationManagementStartDateSetting = (
             showModal={showModal}
             setShowModal={setShowModal}
             trigger={
-                <Input
-                    type={"text"}
-                    id={"startDate"}
-                    name={"startDate"}
-                    placeholder={inputCategories.startDate[lang]}
-                    register={register}
-                    onClick={() => setShowModal(true)}
-                    readonly
-                />
+                <div style={{width: "45%"}}>
+                    <Input
+                        type={"text"}
+                        id={"startDate"}
+                        name={"startDate"}
+                        placeholder={inputCategories.startDate[lang]}
+                        register={register}
+                        onClick={() => setShowModal(true)}
+                        readonly
+                    />
+                </div>
             }
             header={inputCategories.startDate[lang]}
             body={

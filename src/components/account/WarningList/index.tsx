@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {ReactSVG} from "react-svg";
+import Icon from "@components/common/Icon";
 import Empty from "@components/common/Empty";
 import useRequest from "@hooks/useRequest.ts";
 import fetchWarningsApi from "@api/auth/fetchWarningsApi.ts";
@@ -36,7 +36,7 @@ const WarningList = () => {
                     {warnings.map((warning) => (
                         <WarningsListItem key={warning._id}>
                             <div>
-                                <ReactSVG src={error}/>
+                                <Icon svg={error}/>
                             </div>
                             <div>
                                 <p>{warning.message}</p>

@@ -40,7 +40,7 @@ axiosInstance.interceptors.response.use(
         // 에러 발생 시, Toast 표시하기
         const errorData: RequestErrorType = {
             name: error.name || "네트워크 에러",
-            message: error.message || "네트워크 요청 실패",
+            message: (error as any).response.data.message || error.message || "네트워크 요청 실패",
             displayMode: "toast",
         };
 

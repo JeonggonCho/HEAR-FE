@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {ReactSVG} from "react-svg";
 import MoreDropdown from "@components/common/Dropdown/MoreDropdown.tsx";
 import DeleteInquiry from "@components/inquiry/DeleteInquiry";
+import Icon from "@components/common/Icon";
 import useModal from "@hooks/useModal.ts";
 import useDropdown from "@hooks/useDropdown.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
@@ -24,7 +24,7 @@ const InquiryDropdown = () => {
     return (
         <>
             <MoreDropdown
-                trigger={<ReactSVG src={more}/>}
+                trigger={<Icon svg={more} isHovered={true}/>}
                 options={[
                     <div onClick={updateInquiry}>{buttonCategories.edit[lang]}</div>,
                     <DeleteInquiry

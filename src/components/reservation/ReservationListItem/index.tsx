@@ -1,6 +1,6 @@
-import {ReactSVG} from "react-svg";
-import {useThemeStore} from "@store/useThemeStore.ts";
+import Icon from "@components/common/Icon";
 import DeleteReservation from "@components/reservation/DeleteReservation";
+import {useThemeStore} from "@store/useThemeStore.ts";
 import {
     Container, DateTag,
     DateText,
@@ -55,7 +55,7 @@ const ReservationListItem = (
                     <>
                         <input type={"checkbox"} id={reservation._id} onChange={selectHandler} checked={isSelected}/>
                         <label htmlFor={reservation._id}>
-                            <ReactSVG src={check}/>
+                            <Icon svg={check}/>
                         </label>
                     </>
                 }

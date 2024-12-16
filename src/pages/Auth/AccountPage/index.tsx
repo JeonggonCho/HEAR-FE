@@ -7,6 +7,7 @@ import StatusCard from "@components/account/StatusCard";
 import Link from "@components/common/Link";
 import Divider from "@components/common/Divider";
 import HeadTag from "@components/common/HeadTag";
+import Icon from "@components/common/Icon";
 import DeleteAccount from "@components/account/DeleteAccount";
 import LogoutAccount from "@components/account/LogoutAccount";
 import Button from "@components/common/Button";
@@ -25,7 +26,6 @@ import history from "@assets/images/history.png";
 import siren from "@assets/images/siren.png";
 import notice from "@assets/images/notice.png";
 import test from "@assets/images/test.png";
-import Icon from "@components/common/Icon";
 
 
 const AccountPage = () => {
@@ -71,7 +71,7 @@ const AccountPage = () => {
                             size={"sm"}
                             onClick={() => navigate("/setting")}
                         >
-                            <Icon svg={setting} isHovered={true}/>
+                            <Icon svg={setting} isHovered={true} size={32}/>
                         </Button>
                     </Header.Right>
                 </Flex>

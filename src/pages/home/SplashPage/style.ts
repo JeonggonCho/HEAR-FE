@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import {keyframes} from "@emotion/react";
 
+
 const fadeOutAnimation = keyframes` 
     from {
         opacity: 1;
@@ -42,15 +43,10 @@ export const Container = styled.div`
                 word-break: keep-all;
             }
 
-            div {
+            & > div:first-of-type {
                 display: flex;
                 align-items: center;
-
-                svg {
-                    width: 56px;
-                    height: auto;
-                    margin-right: 12px;
-                }
+                gap: 12px;
 
                 h1 {
                     margin: 0;

@@ -1,6 +1,6 @@
-import {ReactSVG} from "react-svg";
 import ConfirmModal from "@components/common/Modal/ConfirmModal.tsx";
 import Button from "@components/common/Button";
+import Icon from "@components/common/Icon";
 import useModal from "@hooks/useModal.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {IReservation} from "@/types/componentProps.ts";
@@ -29,7 +29,7 @@ const DeleteReservation = ({reservation, deleteHandler}: IDeleteReservationProps
             setShowModal={setShowModal}
             trigger={
                 <DeleteBtnWrapper>
-                    <ReactSVG src={close}/>
+                    <Icon svg={close}/>
                 </DeleteBtnWrapper>
             }
             header={<h4 css={confirmModalHeader}>{messageCategories.deleteReservation[lang]}</h4>}

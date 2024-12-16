@@ -1,11 +1,11 @@
 import {ChangeEvent, Dispatch, SetStateAction, useCallback, useState} from "react";
 import {useForm} from "react-hook-form";
-import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import Toggle from "@components/common/Toggle";
 import MachineListItem from "@components/management/MachineListItem";
 import Input from "@components/common/Input";
+import Icon from "@components/common/Icon";
 import TimeListContent from "@components/management/TimeListContent";
 import Button from "@components/common/Button";
 import AddMachine from "@components/management/AddMachine";
@@ -136,7 +136,7 @@ const MachineManageCard = (
                 {/*기기 목록보기 버튼 배치*/}
                 {(machineType === "laser" || machineType === "printer" || machineType === "heat") && (
                     <MoreWrapper isOpen={isOpen}>
-                        <ReactSVG src={more} />
+                        <Icon svg={more} />
                     </MoreWrapper>
                 )}
 

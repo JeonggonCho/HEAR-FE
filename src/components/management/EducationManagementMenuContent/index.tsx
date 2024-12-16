@@ -1,11 +1,11 @@
 import React, {ChangeEvent, useCallback, useEffect, useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {ReactSVG} from "react-svg";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import Input from "@components/common/Input";
 import Toggle from "@components/common/Toggle";
 import Button from "@components/common/Button";
+import Icon from "@components/common/Icon";
 import InputMessage from "@components/common/InputMessage";
 import Flex from "@components/common/Flex";
 import EducationManagementStartDateSetting from "@components/management/EducationManagementStartDateSetting";
@@ -14,15 +14,12 @@ import {getFormattedDate} from "@util/calculateDate.ts";
 import useToggle from "@hooks/useToggle.ts";
 import useRequest from "@hooks/useRequest.ts";
 import EducationSchemaProvider from "@schemata/EducationSchemaProvider.ts";
+import {IEducationSettings} from "@/types/education.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {useToastStore} from "@store/useToastStore.ts";
 import {
-    CutOffPointSettingWrapper,
-    DateSelectWrapper,
-    DateSettingWrapper,
-    StatusSettingWrapper
+    CutOffPointSettingDescriptionWrapper, LabelWrapper,
 } from "./style.ts";
-import {IEducationSettings} from "@/types/education.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
@@ -173,10 +170,10 @@ const EducationManagementMenuContent = (
 
     return (
         <Flex direction={"column"} gap={64} style={{margin: "0 0 12px"}}>
-            <DateSettingWrapper>
-                <div>
-                    <label>{inputCategories.durationSettings[lang]}</label>
-                    <div>
+            <Flex direction={"column"} gap={20}>
+                <Flex direction={"row"} align={"center"} justify={"space-between"}>
+                    <LabelWrapper>{inputCategories.durationSettings[lang]}</LabelWrapper>
+                    <Flex align={"center"} gap={8}>
                         <Button
                             type={"button"}
                             variant={"filled"}
@@ -184,10 +181,11 @@ const EducationManagementMenuContent = (
                             color={"second"}
                             size={"sm"}
                             onClick={resetDate}
+                            style={{padding: "4px 8px"}}
                             disabled={!isDateModified}
                         >
                             <div style={{display: "flex", alignItems: "center", gap: "4px"}}>
-                                <span>{buttonCategories.reset[lang]}</span> <ReactSVG src={resetIcon}/>
+                                <span>{buttonCategories.reset[lang]}</span> <Icon svg={resetIcon}/>
                             </div>
                         </Button>
                         <Button
@@ -197,64 +195,75 @@ const EducationManagementMenuContent = (
                             color={"second"}
                             size={"sm"}
                             onClick={eraseDate}
+                            style={{padding: "4px 8px"}}
                             disabled={!settings.startDate && !settings.endDate}
                         >
                             <div style={{display: "flex", alignItems: "center", gap: "4px"}}>
-                                <span>{buttonCategories.erase[lang]}</span> <ReactSVG src={erase}/>
+                                <span>{buttonCategories.erase[lang]}</span> <Icon svg={erase}/>
                             </div>
                         </Button>
-                    </div>
-                </div>
-                <DateSelectWrapper onSubmit={handleSubmit(submitHandler)}>
-                    <div>
-                        <div>
-                            <EducationManagementStartDateSetting
-                                register={register}
-                                selectStartDate={selectStartDate}
-                                getValues={getValues}
-                            />
-                            <span>-</span>
-                            <EducationManagementEndDateSetting
-                                register={register}
-                                selectEndDate={selectEndDate}
-                                getValues={getValues}
-                            />
-                        </div>
-                        <div>
-                            {errors.startDate?.message &&
-                              <InputMessage message={errors.startDate.message} type={"error"}/>}
-                            {errors.endDate?.message &&
-                              <InputMessage message={errors.endDate.message} type={"error"}/>}
-                        </div>
-                    </div>
+                    </Flex>
+                </Flex>
+                <form onSubmit={handleSubmit(submitHandler)}>
+                    <Flex direction={"column"} gap={12}>
+                        <Flex align={"center"} justify={"space-between"} gap={16}>
+                            <Flex align={"center"} gap={8} style={{width: "75%"}}>
+                                <EducationManagementStartDateSetting
+                                    register={register}
+                                    selectStartDate={selectStartDate}
+                                    getValues={getValues}
+                                />
+                                <span>-</span>
+                                <EducationManagementEndDateSetting
+                                    register={register}
+                                    selectEndDate={selectEndDate}
+                                    getValues={getValues}
+                                />
+                            </Flex>
+                            <Button
+                                type={"submit"}
+                                variant={"filled"}
+                                width={"fit"}
+                                color={"approval"}
+                                size={"md"}
+                                disabled={!isDateModified}
+                            >
+                                {buttonCategories.save[lang]}
+                            </Button>
+                        </Flex>
+                        {(errors.startDate || errors.endDate) &&
+                            <Flex direction={"column"} gap={8}>
+                                {errors.startDate?.message &&
+                                  <InputMessage message={errors.startDate.message} type={"error"}/>}
+                                {errors.endDate?.message &&
+                                  <InputMessage message={errors.endDate.message} type={"error"}/>}
+                            </Flex>
+                        }
+                    </Flex>
+                </form>
+            </Flex>
 
-                    <Button
-                        type={"submit"}
-                        variant={"filled"}
-                        width={"fit"}
-                        color={"approval"}
-                        size={"md"}
-                        disabled={!isDateModified}
-                    >
-                        {buttonCategories.save[lang]}
-                    </Button>
-                </DateSelectWrapper>
-            </DateSettingWrapper>
-
-            <CutOffPointSettingWrapper>
-                <div>
-                    <label>{inputCategories.cutOffPointSettings[lang]}</label>
-                    <p>{inputCategories.descriptionOfCutOffPointSettings[lang]}</p>
-                </div>
-                <div>
-                    <Input
-                        type={"number"}
-                        id={"cutOffPoint"}
-                        name={"cutOffPoint"}
-                        onChange={changeCutOffPoint}
-                        value={settings.cutOffPoint}
-                        maxLength={1}
-                    />
+            <Flex
+                direction={"row"}
+                align={"center"}
+                justify={"space-between"}
+                gap={24}
+            >
+                <Flex direction={"column"} gap={8}>
+                    <LabelWrapper>{inputCategories.cutOffPointSettings[lang]}</LabelWrapper>
+                    <CutOffPointSettingDescriptionWrapper>{inputCategories.descriptionOfCutOffPointSettings[lang]}</CutOffPointSettingDescriptionWrapper>
+                </Flex>
+                <Flex direction={"row"} align={"center"} gap={16}>
+                    <div style={{width: "36px"}}>
+                        <Input
+                            type={"number"}
+                            id={"cutOffPoint"}
+                            name={"cutOffPoint"}
+                            onChange={changeCutOffPoint}
+                            value={settings.cutOffPoint}
+                            maxLength={1}
+                        />
+                    </div>
                     <Button
                         type={"button"}
                         variant={"filled"}
@@ -266,17 +275,17 @@ const EducationManagementMenuContent = (
                     >
                         {buttonCategories.save[lang]}
                     </Button>
-                </div>
-            </CutOffPointSettingWrapper>
+                </Flex>
+            </Flex>
 
-            <StatusSettingWrapper>
-                <label>{inputCategories.onEducation[lang]}</label>
+            <Flex direction={"row"} align={"center"} justify={"space-between"}>
+                <LabelWrapper>{inputCategories.onEducation[lang]}</LabelWrapper>
                 <Toggle
                     click={handleToggle}
                     status={status}
                     isLoading={isLoading}
                 />
-            </StatusSettingWrapper>
+            </Flex>
         </Flex>
     );
 };

@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useState} from "react";
-import {ReactSVG} from "react-svg";
 import {useNavigate} from "react-router-dom";
 import {Header} from "@components/common/Header";
 import Button from "@components/common/Button";
@@ -7,6 +6,7 @@ import Input from "@components/common/Input";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
+import Icon from "@components/common/Icon";
 import MapModal from "@components/common/Modal/MapModal.tsx";
 import LaserSelect from "@components/reservation/LaserSelect";
 import ArrowBack from "@components/common/ArrowBack";
@@ -26,7 +26,6 @@ import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import laser from "@assets/images/laser_cut.png";
 import mapIcon from "@assets/icons/map.svg";
 import close from "@assets/icons/close.svg";
-import Icon from "@components/common/Icon";
 
 
 const ReservationLaser = () => {
@@ -171,7 +170,7 @@ const ReservationLaser = () => {
                                                     <span>{selectedLaserInfo.laserName}</span>
                                                     <span>{`${selectedLaserTimeInfo.startTime} - ${selectedLaserTimeInfo.endTime}`}</span>
                                                     <div onClick={() => handleRemoveReservationItem(reservation)}>
-                                                        <ReactSVG src={close}/>
+                                                        <Icon svg={close}/>
                                                     </div>
                                                 </SelectedItemWrapper>
                                             );

@@ -1,6 +1,6 @@
-import {ReactSVG} from "react-svg";
 import {Draggable} from "@hello-pangea/dnd";
 import Input from "@components/common/Input";
+import Icon from "@components/common/Icon";
 import Button from "@components/common/Button";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {OptionListItemWrapper} from "./style.ts";
@@ -45,7 +45,7 @@ const OptionListItem = (
                 >
                     <OptionListItemWrapper isDragging={snapshot.isDragging}>
                         <div {...provided.dragHandleProps}>
-                            <ReactSVG src={drag}/>
+                            <Icon svg={drag}/>
                         </div>
                         <Input
                             placeholder={placeholderCategories.optionContent[lang]}
@@ -76,9 +76,10 @@ const OptionListItem = (
                             width={"fit"}
                             color={"third"}
                             size={"sm"}
+                            style={{padding: "4px"}}
                             onClick={() => removeOption(option.optionId)}
                         >
-                            <ReactSVG src={remove}/>
+                            <Icon svg={remove} size={20}/>
                         </Button>
                     </OptionListItemWrapper>
                 </div>

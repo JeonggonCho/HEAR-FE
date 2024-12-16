@@ -5,7 +5,7 @@ import {global} from "@styles/global.ts";
 import SplashPage from "@pages/home/SplashPage";
 import AppRoute from "@routes/AppRoute.tsx";
 import ScrollToTop from "@components/common/ScrollToTop";
-import ErrorBoundary from "@components/common/ErrorBoundary";
+import GlobalErrorBoundary from "@components/common/ErrorBoundary/GlobalErrorBoundary.tsx";
 import Toast from "@components/common/Toast";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {darkTheme, lightTheme} from "@styles/theme.ts";
@@ -48,9 +48,9 @@ const App = () => {
                 {isLoading ?
                     <SplashPage/>
                 :
-                    <ErrorBoundary>
+                    <GlobalErrorBoundary>
                         <AppRoute/>
-                    </ErrorBoundary>
+                    </GlobalErrorBoundary>
                 }
                 <Toast/>
             </ThemeProvider>

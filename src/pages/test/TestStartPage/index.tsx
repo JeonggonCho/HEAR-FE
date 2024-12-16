@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useState} from "react";
-import {ReactSVG} from "react-svg";
 import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import HeadTag from "@components/common/HeadTag";
@@ -11,6 +10,7 @@ import TestListItem from "@components/test/TestListItem";
 import Empty from "@components/common/Empty";
 import Grid from "@components/common/Grid";
 import Flex from "@components/common/Flex";
+import Icon from "@components/common/Icon";
 import SubmitTest from "@components/test/SubmitTest";
 import ResetTest from "@components/test/ResetTest";
 import useRequest from "@hooks/useRequest.ts";
@@ -22,7 +22,7 @@ import {
     AnswerWrapper,
     MenusWrapper,
     QuestionsWrapper, SideMenuAnswerWrapper,
-    SideMenuBtnWrapper, SideMenuQuestionsWrapper,
+    SideMenuQuestionsWrapper,
     SideMenuQuestionWrapper
 } from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
@@ -246,9 +246,17 @@ const TestStartPage = () => {
                         <h2 css={headerCenter}>{headerCategories.test[lang]}</h2>
                     </Header.Center>
                     <Header.Right>
-                        <SideMenuBtnWrapper onClick={() => setShowSideMenu(true)}>
-                            <ReactSVG src={menu}/>
-                        </SideMenuBtnWrapper>
+                        <Button
+                            type={"button"}
+                            variant={"text"}
+                            width={"fit"}
+                            size={"sm"}
+                            color={"third"}
+                            style={{padding: 0}}
+                            onClick={() => setShowSideMenu(true)}
+                        >
+                            <Icon svg={menu} isHovered={true}/>
+                        </Button>
                     </Header.Right>
                 </Grid>
             </Header>
