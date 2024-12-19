@@ -8,6 +8,8 @@ import Input from "@components/common/Input";
 import Icon from "@components/common/Icon";
 import TimeListContent from "@components/management/TimeListContent";
 import Button from "@components/common/Button";
+import Card from "@components/common/Card";
+import Flex from "@components/common/Flex";
 import AddMachine from "@components/management/AddMachine";
 import useListCollapse from "@hooks/useListCollapse.ts";
 import useToggle from "@hooks/useToggle.ts";
@@ -16,10 +18,9 @@ import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {
     BtnsWrapper,
-    Container,
     CountWrapper,
     IconWrapper,
-    MachineListWrapper,
+    MachineListWrapper, MachineTitleWrapper,
     MoreWrapper,
     NoMachines
 } from "./style.ts";
@@ -103,14 +104,17 @@ const MachineManageCard = (
     }, [debounceTimeout, sendRequest, machineData]);
 
     return (
-        <Container>
-            <div onClick={
+        <Card padding={"12px 24px"} borderRadius={0} bgColor={"main"}>
+            <Flex
+                align={"center"}
+                justify={"space-between"}
+                onClick={
                 (machineType === "laser" || machineType === "printer" || machineType === "heat") ? handleList
                     : (machineType === "saw" || machineType === "vacuum" || machineType === "cnc") ? handleToggle
                         :() => {}
             }>
                 {/*기기명과 아이콘*/}
-                <div>
+                <Flex align={"center"} gap={16}>
                     <IconWrapper>
                         <img src={
                             machineType === "laser" ? laser_icon
@@ -122,7 +126,7 @@ const MachineManageCard = (
                                                     : undefined}
                              alt="기기 이미지"/>
                     </IconWrapper>
-                    <h3>{
+                    <MachineTitleWrapper>{
                         machineType === "laser" ? machineName.laser[lang]
                             : machineType === "printer" ? machineName.printer[lang]
                                 : machineType === "heat" ? machineName.heat[lang]
@@ -130,8 +134,8 @@ const MachineManageCard = (
                                         : machineType === "vacuum" ? machineName.vacuum[lang]
                                             : machineType === "cnc" ? machineName.cnc[lang]
                                                 : undefined
-                    }</h3>
-                </div>
+                    }</MachineTitleWrapper>
+                </Flex>
 
                 {/*기기 목록보기 버튼 배치*/}
                 {(machineType === "laser" || machineType === "printer" || machineType === "heat") && (
@@ -144,7 +148,7 @@ const MachineManageCard = (
                 {(machineType === "saw" || machineType === "vacuum" || machineType === "cnc") &&
                   <Toggle click={() => handleToggle} status={status} isLoading={isLoading}/>
                 }
-            </div>
+            </Flex>
 
             {/* 기기 목록 배치 */}
             <MachineListWrapper
@@ -213,7 +217,7 @@ const MachineManageCard = (
 
                     {/*열선 개수 조절*/}
                     {machineType === "heat" &&
-                        <CountWrapper rangeValue={rangeValue as number} darkmode={isDarkMode.toString()}>
+                        <CountWrapper rangeValue={rangeValue as number} darkMode={isDarkMode.toString()}>
                             <div>
                                 <Input
                                     label={inputCategories.count[lang]}
@@ -231,7 +235,7 @@ const MachineManageCard = (
                     }
                 </>
             </MachineListWrapper>
-        </Container>
+        </Card>
     );
 };
 

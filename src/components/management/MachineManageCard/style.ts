@@ -1,34 +1,10 @@
 import styled from "@emotion/styled";
 import {lighten} from "polished";
 
-export const Container = styled.div`
-    padding: 12px 24px;
-    background-color: ${({theme}) => theme.colors.bg.main};
-    display: flex;
-    flex-direction: column;
 
-    h3 {
-        font-size: 1rem;
-        font-weight: 500;
-    }
-
-    & > div:first-of-type {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        cursor: pointer;
-
-        svg {
-            margin-top: 4px;
-            fill: ${({theme}) => theme.colors.font.sub};
-        }
-
-        & > div {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-    }
+export const MachineTitleWrapper = styled.h3`
+    font-size: 1rem;
+    font-weight: 500;
 `;
 
 export const IconWrapper = styled.div`
@@ -101,7 +77,7 @@ export const BtnsWrapper = styled.div`
     }
 `;
 
-export const CountWrapper = styled.div<{rangeValue: number, darkmode: string}>`
+export const CountWrapper = styled.div<{rangeValue: number, darkMode: string}>`
     width: 100%;
     margin-top: 12px;
     display: flex;
@@ -143,7 +119,7 @@ export const CountWrapper = styled.div<{rangeValue: number, darkmode: string}>`
                     width: calc((100% - 16px) * (${({rangeValue}) => rangeValue} / 15));
                     height: 4px;
                     border-radius: 4px;
-                    background-color: ${({theme, darkmode}) => darkmode === "true" ? theme.colors.button.primary : lighten(0.05, theme.colors.button.primary)};
+                    background-color: ${({theme, darkMode}) => darkMode === "true" ? theme.colors.button.primary : lighten(0.05, theme.colors.button.primary)};
                     z-index: 0;
                 }
             }
@@ -153,7 +129,7 @@ export const CountWrapper = styled.div<{rangeValue: number, darkmode: string}>`
                 position: relative;
                 background: white;
                 cursor: pointer;
-                border: 1px solid ${({theme, darkmode}) => darkmode === "true" ? theme.colors.line.main : lighten(0.05, theme.colors.line.main)};
+                border: 1px solid ${({theme, darkMode}) => darkMode === "true" ? theme.colors.line.main : lighten(0.05, theme.colors.line.main)};
                 height: 24px; 
                 width: 24px;
                 margin-top: -9px;

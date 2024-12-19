@@ -10,6 +10,7 @@ import Button from "@components/common/Button";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
+import Flex from "@components/common/Flex";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
@@ -26,7 +27,7 @@ import {headerCategories} from "@constants/headerCategories.ts";
 const CreateNoticePage = () => {
     const navigate = useNavigate();
     const {lang} = useThemeStore();
-    const {isLoading, sendRequest} = useRequest();
+    const {isLoading, sendRequest} = useRequest({loadingTime: 2000});
     const {text, handleTextChange, countOfText} = useTextarea();
     const {noticeSchema} = BoardSchemaProvider();
 
@@ -54,7 +55,11 @@ const CreateNoticePage = () => {
                 data: data,
             });
             const {noticeId} = response.data;
-            navigate(`/board/notice/${noticeId}`, { replace: true });
+            if (noticeId) {
+                setTimeout(() => {
+                    navigate(`/board/notice/${noticeId}`, { replace: true });
+                }, 2000);
+            }
         } catch (err) {
             console.error("공지 등록 중 에러 발생: ", err);
         }
@@ -81,41 +86,40 @@ const CreateNoticePage = () => {
                 </Grid>
             </Header>
 
-            {isLoading ?
-                <LoadingLoop/>
-                :
-                <>
-                    <form onSubmit={handleSubmit(submitHandler)}>
-                        <Input
-                            label={inputCategories.title[lang]}
-                            type={"text"}
-                            id={"notice-title"}
-                            name={"title"}
-                            placeholder={placeholderCategories.title[lang]}
-                            register={register}
-                            errorMessage={errors.title?.message}
-                        />
-                        <Textarea
-                            register={register}
-                            name={"content"}
-                            errorMessage={errors.content?.message}
-                            text={text}
-                            countOfText={countOfText}
-                            changeTextareaHandler={changeTextareaHandler}
-                        />
-                        <Button
-                            type={"submit"}
-                            variant={"filled"}
-                            width={"full"}
-                            color={"primary"}
-                            size={"lg"}
-                            disabled={!isValid}
-                        >
-                            {buttonCategories.createNotice[lang]}
-                        </Button>
-                    </form>
-                </>
-            }
+            <form onSubmit={handleSubmit(submitHandler)}>
+                <Input
+                    label={inputCategories.title[lang]}
+                    type={"text"}
+                    id={"notice-title"}
+                    name={"title"}
+                    placeholder={placeholderCategories.title[lang]}
+                    register={register}
+                    errorMessage={errors.title?.message}
+                />
+                <Textarea
+                    register={register}
+                    name={"content"}
+                    errorMessage={errors.content?.message}
+                    text={text}
+                    countOfText={countOfText}
+                    changeTextareaHandler={changeTextareaHandler}
+                />
+                <Button
+                    type={"submit"}
+                    variant={"filled"}
+                    width={"full"}
+                    color={"primary"}
+                    size={"lg"}
+                    disabled={!isValid}
+                >
+                    <Flex align={"center"} justify={"center"} gap={12}>
+                        {buttonCategories.createNotice[lang]}
+                        {isLoading &&
+                          <LoadingLoop size={24} background={false} thickness={3} ringColor={"main"}/>
+                        }
+                    </Flex>
+                </Button>
+            </form>
         </Container>
     );
 };

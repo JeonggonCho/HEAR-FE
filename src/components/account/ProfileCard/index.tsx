@@ -19,10 +19,7 @@ const ProfileCard = ({isLoading}: IProfileCardProps) => {
     const {lang} = useThemeStore();
 
     return (
-        <Card
-            padding={"4px 24px 24px"}
-            borderRadius={0}
-        >
+        <Card padding={"4px 24px 24px"} borderRadius={0}>
             <Flex direction={"column"} gap={"8"}>
                 <Flex direction={"row"} align={"center"} gap={12} style={{marginBottom: "16px", width: "100%"}}>
                     <ProfileImage size={48}/>

@@ -5,6 +5,8 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import Divider from "@components/common/Divider";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
+import Flex from "@components/common/Flex";
+import Card from "@components/common/Card";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import {ICommonMachine, IHeats, ILasers, ILaserTimes, IPrinters} from "@/types/machine.ts";
@@ -82,7 +84,11 @@ const MachinesManagementPage = () => {
             </Header>
 
             {isLoading?
-                <LoadingLoop/>
+                <Card padding={0} borderRadius={0} bgColor={"sub"}>
+                    <Flex align={"center"} justify={"center"} style={{height: "80vh"}}>
+                        <LoadingLoop/>
+                    </Flex>
+                </Card>
                 :
                 <>
                     <Divider/>

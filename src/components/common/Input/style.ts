@@ -76,6 +76,6 @@ export const Container = styled.div`
 export const VisibleToggleWrapper = styled.div`
     position: absolute;
     right: 12px;
-    top: 34px;
+    top: 36px;
     cursor: pointer;
 `;

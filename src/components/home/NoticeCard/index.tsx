@@ -50,10 +50,7 @@ const NoticeCard = () => {
     }
 
     return (
-        <Card
-            padding={"12px 14px"}
-            borderRadius={16}
-        >
+        <Card padding={"12px 14px"} borderRadius={16}>
             <Flex align={"center"}>
                 <ImgWrapper valid={latestNotices.length > 0}>
                     <img src={notice} alt="notice"/>

@@ -26,10 +26,7 @@ const FeedbackCard = () => {
 
     return (
         <Container to={"/board/feedback/new"}>
-            <Card
-                padding={18}
-                borderRadius={16}
-            >
+            <Card padding={18} borderRadius={16}>
                 <Flex
                     direction={"column"}
                     justify={"space-between"}

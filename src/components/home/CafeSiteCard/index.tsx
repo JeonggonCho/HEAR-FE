@@ -25,14 +25,8 @@ const CafeSiteCard = () => {
     }
 
     return (
-        <Container
-            to={"https://cafe.daum.net/archihanyang"}
-            target={"_blank"}
-        >
-            <Card
-                padding={18}
-                borderRadius={16}
-            >
+        <Container to={"https://cafe.daum.net/archihanyang"} target={"_blank"}>
+            <Card padding={18} borderRadius={16}>
                 <Flex
                     direction={"column"}
                     justify={"space-between"}

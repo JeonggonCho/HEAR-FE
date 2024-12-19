@@ -7,6 +7,7 @@ import Comments from "@components/comment/Comments";
 import Grid from "@components/common/Grid";
 import Flex from "@components/common/Flex";
 import Icon from "@components/common/Icon";
+import Card from "@components/common/Card";
 import NoticeDropdown from "@components/notice/NoticeDropdown";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
@@ -117,7 +118,11 @@ const NoticeDetailPage = () => {
                     />
                 </>
                 :
-                <LoadingLoop/>
+                <Card padding={0} borderRadius={0} bgColor={"sub"}>
+                    <Flex align={"center"} justify={"center"} style={{height: "80vh"}}>
+                        <LoadingLoop/>
+                    </Flex>
+                </Card>
             }
         </>
     );

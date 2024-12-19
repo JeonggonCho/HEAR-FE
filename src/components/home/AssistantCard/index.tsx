@@ -48,10 +48,7 @@ const AssistantCard = () => {
     }
 
     return (
-        <Card
-            padding={18}
-            borderRadius={16}
-        >
+        <Card padding={18} borderRadius={16}>
             <Flex direction={"column"} gap={16}>
                 <Flex align={"center"} gap={12}>
                     <ImageWrapper src={assistant} valid={!!assistantInfo} alt="관리 조교"/>

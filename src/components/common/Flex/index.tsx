@@ -9,6 +9,7 @@ interface IFlexProps {
     wrap?: "nowrap" | "wrap" | "wrap-reverse";
     gap?: string | number;
     style?: CSSProperties;
+    onClick?: () => void;
 }
 
 
@@ -21,10 +22,12 @@ const Flex = (
         wrap = "nowrap",
         gap = 0,
         style,
+        onClick,
         ...props
     }: IFlexProps) => {
     return (
         <div
+            onClick={onClick}
             style={{
                 display: "flex",
                 flexDirection: direction,
@@ -32,6 +35,7 @@ const Flex = (
                 alignItems: align,
                 flexWrap: wrap,
                 gap: typeof gap === "number" ? `${gap}px` : gap,
+                cursor: onClick && "pointer",
                 ...style,
             }}
             {...props}

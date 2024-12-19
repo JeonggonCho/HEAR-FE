@@ -10,10 +10,14 @@ export interface IRequestProps {
 }
 
 
+interface IUseRequestProps {
+    loadingTime?: number;
+}
+
+
 const MIN_LOADING_TIME = 1000;
 
-
-const useRequest = () => {
+const useRequest = ({loadingTime = MIN_LOADING_TIME}: IUseRequestProps = {}) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const sendRequest = useCallback(
@@ -49,7 +53,7 @@ const useRequest = () => {
                 const elapsedTime = Date.now() - startTime;
                 setTimeout(() => {
                     setIsLoading(false);
-                }, Math.max(0, MIN_LOADING_TIME - elapsedTime));
+                }, Math.max(0, loadingTime - elapsedTime));
 
                 if (response.status < 200 || response.status >= 300) {
                     throw new Error(`HTTP 오류 발생: ${response.status}`);

@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import {keyframes} from "@emotion/react";
 
+
 const spin = keyframes`
     0% {
         transform: rotate(0deg);
@@ -10,35 +11,23 @@ const spin = keyframes`
     }
 `;
 
-export const Container = styled.div`
-    height: 100% !important;
-    width: 100% !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    z-index: 3;
-`;
-
-export const Ring = styled.div`
+export const Ring = styled.div<{size: number, thickness: number, background: boolean, ringColor: "main" | "sub"}>`
     position: relative;
-    width: 40px;
-    height: 40px;
+    width: ${({size}) => typeof size === "number" ? `${size}px` : null};
+    height: ${({size}) => typeof size === "number" ? `${size}px` : null};
     border-radius: 50%;
-    border: 5px solid ${({theme}) => theme.colors.font.placeholder};
+    border: ${({theme, thickness, background}) => background ? `${thickness}px solid ${theme.colors.font.placeholder}` : null};
 
     &:after {
-        position: absolute;
-        top: -5px;
-        left: -5px;
         content: '';
-        width: 30px;
-        height: 30px;
+        position: absolute;
+        top: ${({thickness}) => `-${thickness}px`};
+        left: ${({thickness}) => `-${thickness}px`};
+        width: ${({size, thickness}) => typeof size === "number" ? `${size - thickness * 2}px` : null};
+        height: ${({size, thickness}) => typeof size === "number" ? `${size - thickness * 2}px` : null};
         border-radius: 50%;
-        border: 5px solid;
-        border-color: ${({theme}) => theme.colors.font.sub} transparent transparent transparent;
-        animation: ${spin} 0.4s linear infinite;
+        border: ${({thickness}) => `${thickness}px solid`};
+        border-color: ${({ theme, ringColor }) => theme.colors.font[ringColor]} transparent transparent transparent;
+        animation: ${spin} 0.5s linear infinite;
     }
 `;

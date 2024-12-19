@@ -3,6 +3,8 @@ import {Header} from "@components/common/Header";
 import ArrowBack from "@components/common/ArrowBack";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
+import Flex from "@components/common/Flex";
+import Card from "@components/common/Card";
 import InquiryFeedbackListItem from "@components/feedback/InquiryFeedbackListItem";
 import Empty from "@components/common/Empty";
 import Grid from "@components/common/Grid";
@@ -55,7 +57,11 @@ const MyInquiriesPage = () => {
             </Header>
 
             {isLoading ?
-                <LoadingLoop/>
+                <Card padding={0} borderRadius={0} bgColor={"sub"}>
+                    <Flex align={"center"} justify={"center"} style={{height: "80vh"}}>
+                        <LoadingLoop/>
+                    </Flex>
+                </Card>
                 :
                 <>
                     {inquiries.length > 0 ?

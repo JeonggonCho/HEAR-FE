@@ -1,11 +1,28 @@
-import {Container, Ring} from "./style.ts";
+import {Ring} from "./style.ts";
 
 
-const LoadingLoop = () => {
+interface ILoadingLoopProps {
+    size?: number;
+    thickness?: number;
+    background?: boolean;
+    ringColor?: "main" | "sub";
+}
+
+const LoadingLoop = (
+    {
+        size = 40,
+        thickness = 5,
+        background = true,
+        ringColor = "sub",
+    }: ILoadingLoopProps
+) => {
     return (
-        <Container>
-            <Ring/>
-        </Container>
+        <Ring
+            size={size}
+            thickness={thickness}
+            background={background}
+            ringColor={ringColor}
+        />
     );
 };
 

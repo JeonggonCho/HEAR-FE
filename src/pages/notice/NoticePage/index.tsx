@@ -6,6 +6,8 @@ import Empty from "@components/common/Empty";
 import NoticeListItem from "@components/notice/NoticeListItem";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
+import Flex from "@components/common/Flex";
+import Card from "@components/common/Card";
 import useRequest from "@hooks/useRequest.ts";
 import {INotice} from "@/types/componentProps.ts";
 import {ITab} from "@/types/tab.ts";
@@ -64,7 +66,11 @@ const NoticePage = () => {
             <Tab type={"line"} tabs={tabs}/>
 
             {isLoading ?
-                <LoadingLoop/>
+                <Card padding={0} borderRadius={0} bgColor={"sub"}>
+                    <Flex align={"center"} justify={"center"} style={{height: "80vh"}}>
+                        <LoadingLoop/>
+                    </Flex>
+                </Card>
                 :
                 <NoticeListItemWrapper>
                     {notices.length !== 0 ? notices.map((value, idx) => (
