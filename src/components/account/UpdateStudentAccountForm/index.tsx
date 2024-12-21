@@ -25,7 +25,12 @@ const UpdateStudentAccountForm = () => {
 
     type UpdateStudentAccountFormData = z.infer<typeof updateStudentAccountSchema>;
 
-    const {register, handleSubmit, formState: {errors, isValid}, reset} = useForm<UpdateStudentAccountFormData>({
+    const {
+        register,
+        handleSubmit,
+        formState: {errors, isValid},
+        reset
+    } = useForm<UpdateStudentAccountFormData>({
         resolver: zodResolver(updateStudentAccountSchema),
         defaultValues: {
             username: "",

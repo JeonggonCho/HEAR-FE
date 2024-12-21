@@ -42,6 +42,7 @@ const MachineListItem = (
         defaultValues: {
             name: "",
         },
+        mode: "onChange",
     });
 
     // 편집 취소 시, 기기명 수정 취소

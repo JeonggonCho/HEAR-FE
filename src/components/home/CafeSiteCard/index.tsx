@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import Card from "@components/common/Card";
 import Flex from "@components/common/Flex";
-import ArrowForward from "@components/common/ArrowForward";
 import CardLoading from "@components/skeleton/CardLoading";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {Container} from "./style.ts";
@@ -32,13 +31,9 @@ const CafeSiteCard = () => {
                     justify={"space-between"}
                     style={{width: "100%", height: "100%"}}
                 >
-                    <Flex direction={"row"} gap={16}>
-                        <img width={12} src={cafeLogo} alt={"logo"}/>
-                        <h3>{cardCategories.cafe[lang]}</h3>
-                    </Flex>
-
+                    <h3>{cardCategories.cafe[lang]}</h3>
                     <Flex justify={"flex-end"}>
-                        <ArrowForward/>
+                        <img width={24} src={cafeLogo} alt={"logo"}/>
                     </Flex>
                 </Flex>
             </Card>

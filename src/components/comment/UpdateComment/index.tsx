@@ -13,7 +13,7 @@ import {placeholderCategories} from "@constants/placeholderCategories.ts";
 const UpdateComment = () => {
     const {lang} = useThemeStore();
     const {sendRequest} = useRequest();
-    const {commentId, setContent, setIsEditMode, textareaRef, handleTextChange, text} = useContext(CommentContext);
+    const {commentId, setContent, setIsEditMode, textareaRef} = useContext(CommentContext);
 
     // 댓글 수정
     const updateComment = async () => {
@@ -40,8 +40,6 @@ const UpdateComment = () => {
                 name={"comment-content"}
                 showCount={false}
                 placeholder={placeholderCategories.comment[lang]}
-                changeTextareaHandler={handleTextChange}
-                text={text}
                 isScrolled={false}
             />
             <Flex align={"center"} gap={6}>

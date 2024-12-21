@@ -54,7 +54,8 @@ const CncReservationForm = () => {
         defaultValues: {
             check: false,
             date: "",
-        }
+        },
+        mode: "onChange",
     });
 
     // 현재 CNC 예약 현황 조회

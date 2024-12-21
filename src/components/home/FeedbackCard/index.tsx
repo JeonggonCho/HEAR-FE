@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import ArrowForward from "@components/common/ArrowForward";
 import CardLoading from "@components/skeleton/CardLoading";
 import Card from "@components/common/Card";
 import Flex from "@components/common/Flex";
@@ -32,13 +31,9 @@ const FeedbackCard = () => {
                     justify={"space-between"}
                     style={{width: "100%", height: "100%"}}
                 >
-                    <Flex direction={"row"} gap={16}>
-                        <img width={24} height={24} src={feedbackLogo} alt={"logo"}/>
-                        <CardTitleWrapper>{buttonCategories.appFeedback[lang]}</CardTitleWrapper>
-                    </Flex>
-
+                    <CardTitleWrapper>{buttonCategories.appFeedback[lang]}</CardTitleWrapper>
                     <Flex justify={"flex-end"}>
-                        <ArrowForward/>
+                        <img width={32} height={32} src={feedbackLogo} alt={"logo"}/>
                     </Flex>
                 </Flex>
             </Card>

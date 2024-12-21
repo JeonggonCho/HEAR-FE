@@ -2,6 +2,9 @@ import {useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Header} from "@components/common/Header";
 import Button from "@components/common/Button";
+import Icon from "@components/common/Icon";
+import Flex from "@components/common/Flex";
+import Card from "@components/common/Card";
 import {Modal} from "@components/common/Modal";
 import PrinterSelectContent from "@components/reservation/PrinterSelectContent";
 import LoadingLoop from "@components/common/LoadingLoop";
@@ -21,7 +24,6 @@ import {messageCategories} from "@constants/messageCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import printer from "@assets/images/3d_printer.png";
 import mapIcon from "@assets/icons/map.svg";
-import Icon from "@components/common/Icon";
 
 
 const ReservationPrinter = () => {
@@ -119,8 +121,13 @@ const ReservationPrinter = () => {
                 <ImageWrapper>
                     <img src={printer} alt={"3d 프린터"}/>
                 </ImageWrapper>
+
                 {isLoading ?
-                    <LoadingLoop/>
+                    <Card padding={0} borderRadius={0} bgColor={"main"}>
+                        <Flex align={"center"} justify={"center"} style={{height: "50vh"}}>
+                            <LoadingLoop/>
+                        </Flex>
+                    </Card>
                     :
                     <form onSubmit={submitHandler}>
                         <DateMachineSelectWrapper>

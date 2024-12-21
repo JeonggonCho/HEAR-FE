@@ -1,4 +1,4 @@
-import {ChangeEvent, useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
@@ -12,7 +12,6 @@ import Button from "@components/common/Button";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
 import useRequest from "@hooks/useRequest.ts";
-import useTextarea from "@hooks/useTextarea.ts";
 import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {Container} from "./style.ts";
@@ -30,7 +29,6 @@ const UpdateNoticePage = () => {
     const {noticeId} = useParams();
     const {lang} = useThemeStore();
     const {isLoading, sendRequest} = useRequest();
-    const {text, handleTextChange, countOfText, setCountOfText, setText} = useTextarea();
     const {noticeSchema} = BoardSchemaProvider();
 
     // 공지사항 디테일 조회
@@ -52,19 +50,24 @@ const UpdateNoticePage = () => {
 
     type NoticeFormData = z.infer<typeof noticeSchema>;
 
-    const {register, handleSubmit, formState: {errors}, reset, setValue} = useForm<NoticeFormData>({
+    const {
+        register,
+        handleSubmit,
+        formState: {errors},
+        reset,
+        watch,
+    } = useForm<NoticeFormData>({
         resolver: zodResolver(noticeSchema),
         defaultValues: {
             title: "",
             content: "",
         },
+        mode: "onChange",
     });
 
     useEffect(() => {
         if (notice) {
             reset(notice);
-            setText(notice.content);
-            setCountOfText(notice.content.length);
         }
     }, [notice, reset]);
 
@@ -82,11 +85,7 @@ const UpdateNoticePage = () => {
         }
     };
 
-    // 공지 content 작성 시, 호출
-    const changeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>)=> {
-        handleTextChange(e);
-        setValue("content", e.target.value);
-    };
+    const countOfTextarea = watch("content").length;
 
     return (
         <Container>
@@ -122,9 +121,7 @@ const UpdateNoticePage = () => {
                             register={register}
                             name={"content"}
                             errorMessage={errors.content?.message}
-                            text={text}
-                            changeTextareaHandler={changeTextareaHandler}
-                            countOfText={countOfText}
+                            countOfTextarea={countOfTextarea}
                         />
 
                         <Button

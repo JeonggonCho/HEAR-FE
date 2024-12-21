@@ -68,12 +68,11 @@ const Input = <T extends FieldValues>(
                 />
                 :
                 <input
-                    {...register ? register(name) : null}
+                    {...register ? register(name, {onChange}) : null}
                     type={inputType}
                     id={id}
                     placeholder={placeholder}
                     onClick={onClick}
-                    onChange={onChange}
                     readOnly={readonly}
                     disabled={disabled}
                     min={inputType === "number" ? 0 : undefined}

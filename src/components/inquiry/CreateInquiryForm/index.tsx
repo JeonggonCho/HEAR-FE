@@ -1,4 +1,3 @@
-import {ChangeEvent} from "react";
 import {useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
@@ -8,9 +7,9 @@ import Select from "@components/common/Select";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
 import Flex from "@components/common/Flex";
+import LoadingLoop from "@components/common/LoadingLoop";
 import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
 import createInquiryApi from "@api/inquiry/createInquiryApi.ts";
-import useTextarea from "@hooks/useTextarea.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
@@ -22,9 +21,8 @@ import {inquiryCategories} from "@constants/inquiryCategories.ts";
 const CreateInquiryForm = () => {
     const navigate = useNavigate();
     const {lang} = useThemeStore();
-    const {text, handleTextChange, countOfText} = useTextarea();
     const {inquirySchema} = BoardSchemaProvider();
-    const {sendRequest} = useRequest();
+    const {isLoading, sendRequest} = useRequest({loadingTime: 2000});
 
     const inquiryInfoCategories = [
         {label: inquiryCategories.machine[lang], value: "machine", id: "radio-1"},
@@ -35,30 +33,38 @@ const CreateInquiryForm = () => {
 
     type InquiryFormData = z.infer<typeof inquirySchema>;
 
-    const {register, handleSubmit, setValue, formState:{errors, isValid}} = useForm<InquiryFormData>({
+    const {
+        register,
+        handleSubmit,
+        formState:{errors, isValid},
+        watch,
+    } = useForm<InquiryFormData>({
         resolver: zodResolver(inquirySchema),
         defaultValues: {
             title: "",
             category: "machine",
             content: "",
-        }
+        },
+        mode: "all",
     });
 
+    // 문의 생성 요청하기
     const submitHandler:SubmitHandler<InquiryFormData> = async (data) => {
         try {
             const responseData = await createInquiryApi({data, sendRequest})
             const {inquiryId} = responseData;
-            navigate(`/board/inquiry/${inquiryId}`, { replace: true });
+            if (inquiryId) {
+                setTimeout(() => {
+                    navigate(`/board/inquiry/${inquiryId}`, { replace: true });
+                }, 2000);
+            }
         } catch (err) {
             console.error("문의 생성 시 에러 발생: ", err);
         }
     };
 
-    // 문의 content 작성 시, 호출
-    const changeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>)=> {
-        handleTextChange(e);
-        setValue("content", e.target.value);
-    };
+    // 문의 텍스트 글자 수
+    const countOfTextarea = watch("content").length;
 
     return (
         <form onSubmit={handleSubmit(submitHandler)}>
@@ -83,9 +89,8 @@ const CreateInquiryForm = () => {
                     register={register}
                     name={"content"}
                     errorMessage={errors.content?.message}
-                    text={text}
-                    countOfText={countOfText}
-                    changeTextareaHandler={changeTextareaHandler}
+                    maxLength={400}
+                    countOfTextarea={countOfTextarea}
                 />
                 <Button
                     type={"submit"}
@@ -95,7 +100,12 @@ const CreateInquiryForm = () => {
                     size={"lg"}
                     disabled={!isValid}
                 >
-                    {buttonCategories.sendInquiry[lang]}
+                    <Flex align={"center"} justify={"center"} gap={12}>
+                        {buttonCategories.sendInquiry[lang]}
+                        {isLoading &&
+                          <LoadingLoop size={24} background={false} thickness={3} ringColor={"white"}/>
+                        }
+                    </Flex>
                 </Button>
             </Flex>
         </form>

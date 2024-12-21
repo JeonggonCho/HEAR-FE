@@ -52,7 +52,8 @@ const LaserSelectBottomSheetContent = (
         defaultValues: {
             laser: "",
             times: [],
-        }
+        },
+        mode: "onChange",
     });
 
     // `reservationList`에 있는 시간들을 미리 체크된 상태로 추가하기

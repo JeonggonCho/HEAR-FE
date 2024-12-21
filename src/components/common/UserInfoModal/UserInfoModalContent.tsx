@@ -29,7 +29,7 @@ interface IUserInfoContentProps {
 }
 
 
-const UserInfoCard = (
+const UserInfoModalContent = (
     {
         userId,
         setModal,
@@ -55,6 +55,7 @@ const UserInfoCard = (
         defaultValues: {
             message: "",
         },
+        mode: "onChange",
     });
 
     // 유저 정보 요청하기
@@ -176,11 +177,11 @@ const UserInfoCard = (
                   style={{
                       position: "absolute",
                       right: "12px",
-                      padding: "4px",
+                      padding: "6px",
                       borderRadius: "50%",
                   }}
                 >
-                  <Icon svg={close} size={22} isHovered={true}/>
+                  <Icon svg={close} size={20} isHovered={true}/>
                 </Button>
 
                 <Flex
@@ -338,4 +339,4 @@ const UserInfoCard = (
     );
 };
 
-export default UserInfoCard;
+export default UserInfoModalContent;

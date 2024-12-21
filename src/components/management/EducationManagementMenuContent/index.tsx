@@ -57,12 +57,20 @@ const EducationManagementMenuContent = (
 
     type EducationDateFormData = z.infer<typeof dateRangeSchema>;
 
-    const {register, handleSubmit, formState: {errors}, reset, setValue, getValues} = useForm<EducationDateFormData>({
+    const {
+        register,
+        handleSubmit,
+        formState: {errors},
+        reset,
+        setValue,
+        getValues
+    } = useForm<EducationDateFormData>({
         resolver: zodResolver(dateRangeSchema),
         defaultValues: {
             startDate: "",
             endDate: "",
         },
+        mode: "onChange",
     });
 
     useEffect(() => {

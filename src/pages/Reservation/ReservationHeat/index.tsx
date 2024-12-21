@@ -38,12 +38,20 @@ const ReservationHeat = () => {
     const formattedDate = getTomorrowDate();
     const formattedReturnDate = getAfterWeekDate(false);
 
-    const {register, handleSubmit, formState: {errors}, reset, setValue, getValues} = useForm<HeatFormData>({
+    const {
+        register,
+        handleSubmit,
+        formState: {errors},
+        reset,
+        setValue,
+        getValues
+    } = useForm<HeatFormData>({
         resolver: zodResolver(cncHeatSchema),
         defaultValues: {
             check: false,
             date: formattedDate,
-        }
+        },
+        mode: "onChange",
     });
 
     // 예약 날짜 고정

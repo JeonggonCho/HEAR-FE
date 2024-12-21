@@ -2,6 +2,8 @@ import {useContext} from "react";
 import {useNavigate} from "react-router-dom";
 import ConfirmModal from "@components/common/Modal/ConfirmModal.tsx";
 import Button from "@components/common/Button";
+import Flex from "@components/common/Flex";
+import LoadingLoop from "@components/common/LoadingLoop";
 import useModal from "@hooks/useModal.ts";
 import useRequest from "@hooks/useRequest.ts";
 import updateUserApi from "@api/auth/updateUserApi.ts";
@@ -21,7 +23,7 @@ const UpdateAccount = () => {
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
     const {showModal, setShowModal, modalRef, backdropRef} = useModal();
-    const {sendRequest} = useRequest();
+    const {isLoading, sendRequest} = useRequest({loadingTime: 2000});
     const {isValid: studentIsValid, formData: studentFormData} = useContext(UpdateStudentContext);
     const {isValid: assistantIsValid, formData: assistantFormData} = useContext(UpdateAssistantContext);
 
@@ -87,7 +89,12 @@ const UpdateAccount = () => {
                     size={"md"}
                     onClick={submitUpdateAccountHandler}
                 >
-                    {buttonCategories.changing[lang]}
+                    <Flex align={"center"} justify={"center"} gap={12}>
+                        {buttonCategories.changing[lang]}
+                        {isLoading &&
+                          <LoadingLoop size={24} background={false} thickness={3} ringColor={"white"}/>
+                        }
+                    </Flex>
                 </Button>
             }
         />

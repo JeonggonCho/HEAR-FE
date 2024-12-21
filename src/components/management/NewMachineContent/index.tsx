@@ -49,6 +49,7 @@ const NewMachineContent = (
         defaultValues: {
             name: "",
         },
+        mode: "onChange",
     });
 
     // 레이저 커팅기 생성하기

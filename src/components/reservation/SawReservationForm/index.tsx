@@ -76,7 +76,8 @@ const SawReservationForm = () => {
             date: "",
             startTime: "",
             endTime: "",
-        }
+        },
+        mode: "onChange",
     });
 
     // 톱 예약 요청

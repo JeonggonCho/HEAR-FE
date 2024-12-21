@@ -41,7 +41,12 @@ const SignUpForm = () => {
 
     type SignupFormData = z.infer<typeof signupSchema>;
 
-    const {register, handleSubmit, formState:{errors, isValid}, clearErrors} = useForm<SignupFormData>({
+    const {
+        register,
+        handleSubmit,
+        formState: {errors, isValid},
+        clearErrors
+    } = useForm<SignupFormData>({
         resolver: zodResolver(signupSchema),
         defaultValues: {
             username: "",

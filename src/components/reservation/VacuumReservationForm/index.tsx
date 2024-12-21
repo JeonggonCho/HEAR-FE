@@ -76,7 +76,8 @@ const VacuumReservationForm = () => {
             date: "",
             startTime: "",
             endTime: "",
-        }
+        },
+        mode: "onChange",
     });
 
     // 사출 성형기 예약 요청

@@ -14,7 +14,10 @@ const ModalTrigger = (
     }: IModalTriggerProps
 ) => {
     return (
-        <div onClick={onOpen}>
+        <div
+            onClick={onOpen}
+            style={{cursor: "pointer"}}
+        >
             {children}
         </div>
     );

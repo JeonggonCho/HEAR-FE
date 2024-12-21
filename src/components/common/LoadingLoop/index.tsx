@@ -5,7 +5,7 @@ interface ILoadingLoopProps {
     size?: number;
     thickness?: number;
     background?: boolean;
-    ringColor?: "main" | "sub";
+    ringColor?: "white" | "sub";
 }
 
 const LoadingLoop = (

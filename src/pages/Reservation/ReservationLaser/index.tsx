@@ -7,6 +7,8 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
 import Icon from "@components/common/Icon";
+import Flex from "@components/common/Flex";
+import Card from "@components/common/Card";
 import MapModal from "@components/common/Modal/MapModal.tsx";
 import LaserSelect from "@components/reservation/LaserSelect";
 import ArrowBack from "@components/common/ArrowBack";
@@ -140,8 +142,13 @@ const ReservationLaser = () => {
                 <ImageWrapper>
                     <img src={laser} alt={"레이저 커팅기"}/>
                 </ImageWrapper>
+
                 {isLoading ?
-                    <LoadingLoop/>
+                    <Card padding={0} borderRadius={0} bgColor={"main"}>
+                        <Flex align={"center"} justify={"center"} style={{height: "50vh"}}>
+                            <LoadingLoop/>
+                        </Flex>
+                    </Card>
                     :
                     <form onSubmit={submitHandler}>
                         <Input

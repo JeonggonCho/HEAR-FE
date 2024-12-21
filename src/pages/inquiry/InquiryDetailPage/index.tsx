@@ -19,6 +19,7 @@ import Icon from "@components/common/Icon";
 import ArrowBack from "@components/common/ArrowBack";
 import Flex from "@components/common/Flex";
 import Card from "@components/common/Card";
+import UserInfoModal from "@components/common/UserInfoModal";
 import InquiryDropdown from "@components/inquiry/InquiryDropdown";
 import useRequest from "@hooks/useRequest.ts";
 import useTextarea from "@hooks/useTextarea.ts";
@@ -150,7 +151,18 @@ const InquiryDetailPage = () => {
                             <div>
                                 <WriterWrapper>
                                     <ProfileImage size={24}/>
-                                    <span>{inquiry.creator}</span>
+                                    <UserInfoModal
+                                        email={}
+                                        studio={}
+                                        tel={}
+                                        userId={}
+                                        username={}
+                                        year={}
+                                        studentId={}
+                                        passEducation={}
+                                        countOfWarning={}
+                                        trigger={<span>{inquiry.creator}</span>}
+                                    />
                                 </WriterWrapper>
                                 <DateWrapper>{timeStamp}</DateWrapper>
 

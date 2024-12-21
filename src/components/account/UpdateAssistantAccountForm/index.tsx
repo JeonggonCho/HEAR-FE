@@ -25,7 +25,12 @@ const UpdateAssistantAccountForm = () => {
 
     type UpdateAssistantAccountFormData = z.infer<typeof updateAssistantAccountSchema>;
 
-    const {register, handleSubmit, formState: {errors, isValid}, reset,} = useForm<UpdateAssistantAccountFormData>({
+    const {
+        register,
+        handleSubmit,
+        formState: {errors, isValid},
+        reset,
+    } = useForm<UpdateAssistantAccountFormData>({
         resolver: zodResolver(updateAssistantAccountSchema),
         defaultValues: {
             username: "",
@@ -33,6 +38,7 @@ const UpdateAssistantAccountForm = () => {
             tel: "",
             lab: "",
         },
+        mode: "onChange",
     });
 
     useEffect(() => {

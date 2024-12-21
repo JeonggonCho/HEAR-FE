@@ -51,6 +51,7 @@ const SubmitTest = () => {
             year: "1",
             studio: "",
         },
+        mode: "onChange",
     });
 
     // 문제 제출하기

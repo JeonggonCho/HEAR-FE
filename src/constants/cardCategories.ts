@@ -46,7 +46,7 @@ export const cardCategories = {
     },
     passEducation: {
         ko: "교육 이수",
-        en: "Education Pass Status",
+        en: "Test Pass Status",
         ch: "教育通过状态",
     },
     countOfWarning: {

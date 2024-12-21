@@ -43,6 +43,7 @@ const TimeListContent = ({timeList, setTimeList}: ITimeListContentProps) => {
             startTime: "",
             endTime: "",
         },
+        mode: "onChange",
     })
 
     // 목록에 시간 추가

@@ -31,6 +31,7 @@ import {headerCategories} from "@constants/headerCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import menu from "@assets/icons/menu.svg";
+import Card from "@components/common/Card";
 
 
 const TestStartPage = () => {
@@ -262,7 +263,11 @@ const TestStartPage = () => {
             </Header>
 
             {isLoading ?
-                <LoadingLoop/>
+                <Card padding={0} borderRadius={0} bgColor={"sub"}>
+                    <Flex align={"center"} justify={"center"} style={{height: "80vh"}}>
+                        <LoadingLoop/>
+                    </Flex>
+                </Card>
                 :
                 <>
                     {questions.length > 0 ?

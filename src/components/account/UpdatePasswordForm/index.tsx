@@ -25,7 +25,11 @@ const UpdatePasswordForm = () => {
 
     type UpdatePasswordForm = z.infer<typeof updatePasswordSchema>;
 
-    const {register, handleSubmit, formState: {errors, isValid}} = useForm<UpdatePasswordForm>({
+    const {
+        register,
+        handleSubmit,
+        formState: {errors, isValid}
+    } = useForm<UpdatePasswordForm>({
         resolver: zodResolver(updatePasswordSchema),
         defaultValues: {
             password: "",

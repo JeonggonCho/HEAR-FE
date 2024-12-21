@@ -2,6 +2,8 @@ import {useCallback, useEffect, useState} from "react";
 import {Header} from "@components/common/Header";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
+import Flex from "@components/common/Flex";
+import Card from "@components/common/Card";
 import Empty from "@components/common/Empty";
 import ReservationListItem from "@components/reservation/ReservationListItem";
 import DeleteSelectedReservations from "@components/reservation/DeleteSelectedReservations";
@@ -161,7 +163,11 @@ const MyReservationsPage = () => {
             </ReservationControlWrapper>
 
             {isLoading ?
-                <LoadingLoop/>
+                <Card padding={0} borderRadius={0} bgColor={"sub"}>
+                    <Flex align={"center"} justify={"center"} style={{height: "70vh"}}>
+                        <LoadingLoop/>
+                    </Flex>
+                </Card>
                 :
                 <>
                     {reservations.length > 0 ?

@@ -36,7 +36,6 @@ const Comments = (
         setText,
         textareaRef,
         countOfText,
-        handleTextChange,
         comments,
         setComments,
         setRefDoc,
@@ -88,9 +87,7 @@ const Comments = (
                         name={"comment"}
                         showCount={false}
                         placeholder={placeholderCategories.comment[lang]}
-                        countOfText={countOfText}
-                        changeTextareaHandler={handleTextChange}
-                        text={text}
+                        countOfTextarea={countOfText}
                         isScrolled={false}
                     />
                     {text.trim().length > 0 &&

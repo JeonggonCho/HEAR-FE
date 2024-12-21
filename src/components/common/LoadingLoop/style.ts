@@ -11,7 +11,7 @@ const spin = keyframes`
     }
 `;
 
-export const Ring = styled.div<{size: number, thickness: number, background: boolean, ringColor: "main" | "sub"}>`
+export const Ring = styled.div<{size: number, thickness: number, background: boolean, ringColor: "white" | "sub"}>`
     position: relative;
     width: ${({size}) => typeof size === "number" ? `${size}px` : null};
     height: ${({size}) => typeof size === "number" ? `${size}px` : null};
@@ -27,7 +27,7 @@ export const Ring = styled.div<{size: number, thickness: number, background: boo
         height: ${({size, thickness}) => typeof size === "number" ? `${size - thickness * 2}px` : null};
         border-radius: 50%;
         border: ${({thickness}) => `${thickness}px solid`};
-        border-color: ${({ theme, ringColor }) => theme.colors.font[ringColor]} transparent transparent transparent;
+        border-color: ${({ theme, ringColor }) => ringColor === "white" ? "white" : theme.colors.font.sub} transparent transparent transparent;
         animation: ${spin} 0.5s linear infinite;
     }
 `;

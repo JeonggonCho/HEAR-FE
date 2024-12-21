@@ -68,11 +68,15 @@ const MachineManageCard = (
 
     type UpdateHeatCountFormType = z.infer<typeof updateHeatCountSchema>;
 
-    const {register, formState:{errors}} = useForm<UpdateHeatCountFormType>({
+    const {
+        register,
+        formState: {errors}
+    } = useForm<UpdateHeatCountFormType>({
         resolver: zodResolver(updateHeatCountSchema),
         defaultValues: {
             count: machineType === "heat" ? (machineData[0] as IHeats)?.count : undefined,
         },
+        mode: "onChange",
     });
 
     // 열선 개수 수정 요청 (디바운스를 사용하여 단일 요청만 보내기)

@@ -1,4 +1,4 @@
-import {ChangeEvent, createContext, useCallback, useEffect, useState} from "react";
+import {createContext, useCallback, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
@@ -9,7 +9,6 @@ import Flex from "@components/common/Flex";
 import UpdateInquiry from "@components/inquiry/UpdateInquiry";
 import Select from "@components/common/Select";
 import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
-import useTextarea from "@hooks/useTextarea.ts";
 import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
@@ -29,7 +28,6 @@ const UpdateInquiryForm = () => {
 
     const {lang} = useThemeStore();
     const {inquiryId} = useParams();
-    const {text, setText, handleTextChange, countOfText, setCountOfText} = useTextarea();
     const {inquirySchema} = BoardSchemaProvider();
     const {sendRequest} = useRequest();
 
@@ -42,13 +40,20 @@ const UpdateInquiryForm = () => {
 
     type InquiryFormData = z.infer<typeof inquirySchema>;
 
-    const {register, handleSubmit, formState:{errors, isValid}, reset, setValue} = useForm<InquiryFormData>({
+    const {
+        register,
+        handleSubmit,
+        formState: {errors, isValid},
+        reset,
+        watch,
+    } = useForm<InquiryFormData>({
         resolver: zodResolver(inquirySchema),
         defaultValues: {
             title: "",
             category: "machine",
             content: "",
         },
+        mode: "onChange",
     });
 
     const fetchInquiry = useCallback(async () => {
@@ -69,8 +74,6 @@ const UpdateInquiryForm = () => {
     useEffect(() => {
         if (inquiry) {
             reset(inquiry);
-            setText(inquiry.content);
-            setCountOfText(inquiry.content.length);
         }
     }, [inquiry, reset]);
 
@@ -78,11 +81,7 @@ const UpdateInquiryForm = () => {
         setInquiry(data);
     };
 
-    // 문의 content 작성 시, 호출
-    const changeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>)=> {
-        handleTextChange(e);
-        setValue("content", e.target.value);
-    };
+    const countOfTextarea = watch("content").length;
 
     return (
         <UpdateInquiryFormContext.Provider value={{formData: inquiry, isValid, inquiryId}}>
@@ -108,9 +107,7 @@ const UpdateInquiryForm = () => {
                         register={register}
                         name={"content"}
                         errorMessage={errors.content?.message}
-                        countOfText={countOfText}
-                        changeTextareaHandler={changeTextareaHandler}
-                        text={text}
+                        countOfTextarea={countOfTextarea}
                     />
                     <UpdateInquiry/>
                 </Flex>

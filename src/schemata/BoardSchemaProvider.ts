@@ -2,6 +2,7 @@ import {z} from "zod";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
+
 const BoardSchemaProvider = () => {
     const {lang} = useThemeStore();
 

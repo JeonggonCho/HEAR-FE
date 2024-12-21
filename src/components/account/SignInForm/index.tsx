@@ -7,6 +7,7 @@ import useRequest from "@hooks/useRequest.ts";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import Flex from "@components/common/Flex";
+import LoadingLoop from "@components/common/LoadingLoop";
 import signInApi from "@api/auth/signInApi.ts";
 import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
 import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
@@ -23,11 +24,15 @@ const SignInForm = () => {
     const {setUserData} = useUserDataStore();
     const {loginSchema} = UserSchemaProvider();
     const {login} = useAuth();
-    const {sendRequest} = useRequest();
+    const {isLoading, sendRequest} = useRequest({loadingTime: 2000});
 
     type LoginFormData = z.infer<typeof loginSchema>;
 
-    const {register, handleSubmit, formState:{errors, isValid}} = useForm<LoginFormData>({
+    const {
+        register,
+        handleSubmit,
+        formState: {errors, isValid}
+    } = useForm<LoginFormData>({
         resolver: zodResolver(loginSchema),
         defaultValues: {
             email: "",
@@ -92,7 +97,12 @@ const SignInForm = () => {
                     size={"lg"}
                     disabled={!isValid}
                 >
-                    {buttonCategories.signIn[lang]}
+                    <Flex align={"center"} justify={"center"} gap={12}>
+                        {buttonCategories.signIn[lang]}
+                        {isLoading &&
+                          <LoadingLoop size={24} background={false} thickness={3} ringColor={"white"}/>
+                        }
+                    </Flex>
                 </Button>
             </Flex>
         </form>

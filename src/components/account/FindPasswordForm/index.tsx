@@ -25,7 +25,11 @@ const FindPasswordForm = () => {
 
     type FindPasswordForm = z.infer<typeof findPasswordSchema>;
 
-    const {register, handleSubmit, formState:{errors, isValid}} = useForm<FindPasswordForm>({
+    const {
+        register,
+        handleSubmit,
+        formState: {errors, isValid}
+    } = useForm<FindPasswordForm>({
         resolver: zodResolver(findPasswordSchema),
         defaultValues: {
             username: "",

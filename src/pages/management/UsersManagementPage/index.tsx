@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState} from "react";
 import {Header} from "@components/common/Header";
-import UserListItem from "@components/management/UserListItem";
+import UserInfoModal from "@components/common/UserInfoModal";
 import Input from "@components/common/Input";
 import Empty from "@components/common/Empty";
 import Button from "@components/common/Button";
@@ -10,19 +10,21 @@ import Grid from "@components/common/Grid";
 import Flex from "@components/common/Flex";
 import Icon from "@components/common/Icon";
 import UsersManagementFilter from "@components/management/UsersManagementFilter";
+import DeleteUser from "@components/management/DeleteUser";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
 import {IUserFilter, IUserInfo} from "@/types/user.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import UsersManagementContext from "@context/UsersManagementContext.ts";
 import UsersManagementFilterContext from "@context/UsersManagementFilterContext.ts";
-import {TableHeadsWrapper, UserControlWrapper} from "./style.ts";
+import {TableHeadsWrapper, UserControlWrapper, UserListItem} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
 import search from "@assets/icons/search.svg";
 import close from "@assets/icons/close.svg";
 
@@ -88,9 +90,7 @@ const UsersManagementPage = () => {
                                 onChange={(e) => setUsernameInputText(e.target.value)}
                             />
 
-                            <div onClick={() => setUsernameInputText("")}>
-                                <Icon svg={close}/>
-                            </div>
+                            <Icon svg={close} onClick={() => setUsernameInputText("")}/>
 
                             <Button
                                 type={"submit"}
@@ -133,8 +133,21 @@ const UsersManagementPage = () => {
                             <Empty title={messageCategories.emptyUsers[lang]}/>
                             :
                             userList.map((user) => (
-                                <UserListItem
+                                <UserInfoModal
                                     key={user.userId}
+                                    trigger={
+                                        <UserListItem pass={user.passEducation}>
+                                            <span>{user.username}</span>
+                                            <span>{user.year}</span>
+                                            <span>{user.countOfWarning}</span>
+                                            <span>{user.passEducation ? cardCategories.pass[lang] : cardCategories.fail[lang]}</span>
+                                            <Flex align={"center"} justify={"center"}>
+                                                <div onClick={e => e.stopPropagation()}>
+                                                    <DeleteUser userId={user.userId}/>
+                                                </div>
+                                            </Flex>
+                                        </UserListItem>
+                                    }
                                     {...user}
                                 />
                             ))

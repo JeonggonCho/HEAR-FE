@@ -1,4 +1,3 @@
-import {ChangeEvent} from "react";
 import {useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {z} from "zod";
@@ -13,7 +12,6 @@ import Grid from "@components/common/Grid";
 import Flex from "@components/common/Flex";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
-import useTextarea from "@hooks/useTextarea.ts";
 import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {Container} from "./style.ts";
@@ -28,7 +26,6 @@ const CreateNoticePage = () => {
     const navigate = useNavigate();
     const {lang} = useThemeStore();
     const {isLoading, sendRequest} = useRequest({loadingTime: 2000});
-    const {text, handleTextChange, countOfText} = useTextarea();
     const {noticeSchema} = BoardSchemaProvider();
 
     type NoticeFormData = z.infer<typeof noticeSchema>;
@@ -37,13 +34,14 @@ const CreateNoticePage = () => {
         register,
         handleSubmit,
         formState: {errors, isValid},
-        setValue
+        watch,
     } = useForm<NoticeFormData>({
         resolver: zodResolver(noticeSchema),
         defaultValues: {
             title: "",
             content: "",
         },
+        mode: "onChange",
     });
 
     // 공지 생성 요청하기
@@ -65,11 +63,7 @@ const CreateNoticePage = () => {
         }
     };
 
-    // 공지 content 작성 시, 호출
-    const changeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>)=> {
-        handleTextChange(e);
-        setValue("content", e.target.value);
-    };
+    const countOfTextarea = watch("content").length;
 
     return (
         <Container>
@@ -100,9 +94,7 @@ const CreateNoticePage = () => {
                     register={register}
                     name={"content"}
                     errorMessage={errors.content?.message}
-                    text={text}
-                    countOfText={countOfText}
-                    changeTextareaHandler={changeTextareaHandler}
+                    countOfTextarea={countOfTextarea}
                 />
                 <Button
                     type={"submit"}
@@ -115,7 +107,7 @@ const CreateNoticePage = () => {
                     <Flex align={"center"} justify={"center"} gap={12}>
                         {buttonCategories.createNotice[lang]}
                         {isLoading &&
-                          <LoadingLoop size={24} background={false} thickness={3} ringColor={"main"}/>
+                          <LoadingLoop size={24} background={false} thickness={3} ringColor={"white"}/>
                         }
                     </Flex>
                 </Button>
