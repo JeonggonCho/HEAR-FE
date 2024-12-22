@@ -1,10 +1,14 @@
-import {ChangeEvent, Dispatch, FormEvent, MutableRefObject, SetStateAction} from "react";
+import {Dispatch, MutableRefObject, SetStateAction} from "react";
+import {useForm} from "react-hook-form";
+import z from "zod";
+import {zodResolver} from "@hookform/resolvers/zod";
 import Textarea from "@components/common/Textarea";
 import Button from "@components/common/Button";
 import CommentListItem from "@components/comment/CommentListItem";
 import ProfileImage from "@components/common/ProfileImage";
 import Icon from "@components/common/Icon";
 import useRequest from "@hooks/useRequest.ts";
+import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {IFeedbackProps, IInquiryProps, INotice} from "@/types/componentProps.ts";
 import {IComment} from "@/types/comment.ts";
@@ -17,11 +21,7 @@ import send from "@assets/icons/send.svg";
 interface ICommentsProps {
     refId: string;
     refType: "inquiry" | "feedback" | "notice";
-    text: string;
-    setText: Dispatch<SetStateAction<string>>;
     textareaRef?: MutableRefObject<HTMLTextAreaElement>;
-    countOfText: number;
-    handleTextChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
     comments: IComment[];
     setComments: Dispatch<SetStateAction<IComment[]>>;
     setRefDoc: Dispatch<SetStateAction<IInquiryProps | IFeedbackProps | INotice>>;
@@ -32,10 +32,7 @@ const Comments = (
     {
         refId,
         refType,
-        text,
-        setText,
         textareaRef,
-        countOfText,
         comments,
         setComments,
         setRefDoc,
@@ -43,14 +40,31 @@ const Comments = (
 ) => {
     const {lang} = useThemeStore();
     const {sendRequest} = useRequest();
+    const {commentSchema} = BoardSchemaProvider();
+
+    type CommentFormDataType = z.infer<typeof commentSchema>;
+
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        watch,
+    } = useForm<CommentFormDataType>({
+        resolver: zodResolver(commentSchema),
+        defaultValues: {
+            content: "",
+        },
+        mode: "onChange",
+    });
+
+    const countOfTextarea = watch("content").trim().length;
 
     // 댓글 생성 요청하기
-    const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (text.trim().length === 0) return;
+    const submitHandler = async (data: CommentFormDataType) => {
+        if (countOfTextarea === 0) return;
 
-        const data = {
-            content: text.trim(),
+        const commentData = {
+            content: data.content,
             refId: refId,
             refType: refType,
         };
@@ -59,7 +73,7 @@ const Comments = (
             const response = await sendRequest({
                 url: "/comments",
                 method: "post",
-                data: data,
+                data: commentData,
             });
             if (response.data) {
                 setComments(prevState => [response.data, ...prevState]);
@@ -71,7 +85,7 @@ const Comments = (
                     });
                 });
             }
-            setText("");
+            setValue("content", "");
         } catch (err) {
             console.error("댓글 생성 요청 중 에러 발생: ", err);
         }
@@ -79,18 +93,18 @@ const Comments = (
 
     return (
         <>
-            <Container onSubmit={submitHandler}>
+            <Container onSubmit={handleSubmit(submitHandler)}>
                 <ProfileImage size={28}/>
-                <TextareaWrapper textLength={text.length}>
+                <TextareaWrapper textLength={countOfTextarea}>
                     <Textarea
+                        register={register}
                         ref={textareaRef}
-                        name={"comment"}
+                        name={"content"}
                         showCount={false}
                         placeholder={placeholderCategories.comment[lang]}
-                        countOfTextarea={countOfText}
                         isScrolled={false}
                     />
-                    {text.trim().length > 0 &&
+                    {countOfTextarea > 0 &&
                       <Button
                         type={"submit"}
                         variant={"filled"}

@@ -27,7 +27,7 @@ const CommentListItem = (props: IComment) => {
 
     const {lang} = useThemeStore();
     const {userInfo} = useUserInfoStore();
-    const {textareaRef, isEditMode, setIsEditMode} = useTextarea();
+    const {textareaRef, isEditMode, setIsEditMode, text, setText, handleTextChange} = useTextarea();
 
     // 댓글 링크 처리
     const transformedContent = useMemo(() => {
@@ -47,6 +47,9 @@ const CommentListItem = (props: IComment) => {
             setComments: props.setComments,
             setRefDoc: props.setRefDoc as Dispatch<SetStateAction<IInquiryProps | IFeedbackProps | INotice>>,
             textareaRef: textareaRef,
+            text: text,
+            setText: setText,
+            handleTextChange: handleTextChange,
             setIsEditMode: setIsEditMode,
             content: props.content,
             setContent: setContent,

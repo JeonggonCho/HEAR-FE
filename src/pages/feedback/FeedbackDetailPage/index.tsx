@@ -55,7 +55,7 @@ const FeedbackDetailPage = () => {
     const {userInfo} = useUserInfoStore();
     const {lang, isDarkMode} = useThemeStore();
     const {isLoading, sendRequest} = useRequest();
-    const {text, countOfText, handleTextChange, setText, textareaRef} = useTextarea();
+    const {textareaRef} = useTextarea();
 
     // 피드백 생성 일자
     const timeStamp = useMemo(() => {
@@ -168,11 +168,7 @@ const FeedbackDetailPage = () => {
                     <Comments
                         refId={feedbackId as string}
                         refType={"feedback"}
-                        text={text}
-                        setText={setText}
                         textareaRef={textareaRef as MutableRefObject<HTMLTextAreaElement>}
-                        countOfText={countOfText}
-                        handleTextChange={handleTextChange}
                         comments={comments}
                         setComments={setComments}
                         setRefDoc={setFeedback as Dispatch<SetStateAction<IInquiryProps | IFeedbackProps | INotice>>}

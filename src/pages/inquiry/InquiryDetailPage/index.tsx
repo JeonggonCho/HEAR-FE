@@ -5,7 +5,6 @@ import {
     useCallback,
     useEffect,
     useMemo,
-    useRef,
     useState
 } from "react";
 import {useParams} from "react-router-dom";
@@ -52,13 +51,12 @@ const InquiryDetailPage = () => {
     const [comments, setComments] = useState<IComment[]>([]);
     const [isLiked, setIsLiked] = useState<boolean>(false);
 
-    const textareaRef = useRef<HTMLTextAreaElement | null>(null);
     const {inquiryId} = useParams();
     const {userInfo} = useUserInfoStore();
     const {lang, isDarkMode} = useThemeStore();
     const {isLoading, sendRequest} = useRequest();
     const {sendRequest:likeSendRequest} = useRequest();
-    const {text, countOfText, handleTextChange, setText} = useTextarea();
+    const {textareaRef} = useTextarea();
 
     // 문의 생성 날짜 스탬프
     const timeStamp = useMemo(() => {
@@ -203,11 +201,7 @@ const InquiryDetailPage = () => {
                     <Comments
                         refId={inquiryId as string}
                         refType={"inquiry"}
-                        text={text}
-                        setText={setText}
                         textareaRef={textareaRef as MutableRefObject<HTMLTextAreaElement>}
-                        countOfText={countOfText}
-                        handleTextChange={handleTextChange}
                         comments={comments}
                         setComments={setComments}
                         setRefDoc={setInquiry as Dispatch<SetStateAction<IInquiryProps | IFeedbackProps | INotice>>}

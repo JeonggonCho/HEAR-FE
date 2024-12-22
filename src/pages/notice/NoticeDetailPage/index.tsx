@@ -11,7 +11,6 @@ import Card from "@components/common/Card";
 import NoticeDropdown from "@components/notice/NoticeDropdown";
 import ArrowBack from "@components/common/ArrowBack";
 import useRequest from "@hooks/useRequest.ts";
-import useTextarea from "@hooks/useTextarea.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
 import {IFeedbackProps, IInquiryProps, INotice} from "@/types/componentProps.ts";
@@ -33,7 +32,6 @@ const NoticeDetailPage = () => {
     const {userData} = useUserDataStore();
     const {lang, isDarkMode} = useThemeStore();
     const {isLoading, sendRequest} = useRequest();
-    const {text, countOfText, handleTextChange, setText} = useTextarea();
 
     // 공지 생성 일자
     const timeStamp = useMemo(() => {
@@ -108,10 +106,6 @@ const NoticeDetailPage = () => {
                     <Comments
                         refId={noticeId as string}
                         refType={"notice"}
-                        text={text}
-                        setText={setText}
-                        countOfText={countOfText}
-                        handleTextChange={handleTextChange}
                         comments={comments}
                         setComments={setComments}
                         setRefDoc={setNotice as Dispatch<SetStateAction<IInquiryProps | IFeedbackProps | INotice>>}

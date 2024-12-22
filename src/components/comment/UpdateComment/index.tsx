@@ -13,7 +13,7 @@ import {placeholderCategories} from "@constants/placeholderCategories.ts";
 const UpdateComment = () => {
     const {lang} = useThemeStore();
     const {sendRequest} = useRequest();
-    const {commentId, setContent, setIsEditMode, textareaRef} = useContext(CommentContext);
+    const {commentId, setContent, setIsEditMode, textareaRef, text} = useContext(CommentContext);
 
     // 댓글 수정
     const updateComment = async () => {
