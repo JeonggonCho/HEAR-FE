@@ -2,10 +2,16 @@ import {Dispatch, ElementType, ReactNode, RefObject, SetStateAction} from "react
 import {Dropdown} from "@components/common/Dropdown/index.tsx";
 
 
+type OptionType = {
+    component: ReactNode;
+    onClick: () => void;
+};
+
+
 interface IMoreDropdownProps {
     trigger: ReactNode;
     triggerAs?: ElementType;
-    options: ReactNode[];
+    options: OptionType[];
     dropdownRef: RefObject<HTMLDivElement>;
     setShowDropdown: Dispatch<SetStateAction<boolean>>;
     showDropdown: boolean;
@@ -29,7 +35,12 @@ const MoreDropdown = (
             {showDropdown &&
               <Dropdown.Menu>
                   {options.map((opt, index) => (
-                      <Dropdown.Item key={index}>{opt}</Dropdown.Item>
+                      <Dropdown.Item
+                          key={index}
+                          onClick={opt.onClick}
+                      >
+                          {opt.component}
+                      </Dropdown.Item>
                   ))}
               </Dropdown.Menu>
             }

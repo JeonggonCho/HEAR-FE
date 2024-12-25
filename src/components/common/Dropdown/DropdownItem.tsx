@@ -4,12 +4,13 @@ import {DropdownItemWrapper} from "@components/common/Dropdown/style.ts";
 
 interface IDropdownItemProps {
     children: ReactNode;
+    onClick: () => void;
 }
 
 
-const DropdownItem = ({children, ...props}: IDropdownItemProps) => {
+const DropdownItem = ({children, onClick, ...props}: IDropdownItemProps) => {
     return (
-        <DropdownItemWrapper {...props}>
+        <DropdownItemWrapper onClick={onClick} {...props}>
             {children}
         </DropdownItemWrapper>
     );

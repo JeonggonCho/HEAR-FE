@@ -1,4 +1,7 @@
-import {Dispatch, SetStateAction, useMemo, useState} from "react";
+import {Dispatch, SetStateAction, useEffect, useMemo, useState} from "react";
+import {useForm} from "react-hook-form";
+import {z} from "zod";
+import {zodResolver} from "@hookform/resolvers/zod";
 import ProfileImage from "@components/common/ProfileImage";
 import Flex from "@components/common/Flex";
 import LikeComment from "@components/comment/LikeComment";
@@ -7,6 +10,7 @@ import UpdateComment from "@components/comment/UpdateComment";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
 import useTextarea from "@hooks/useTextarea.ts";
+import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
 import {IComment} from "@/types/comment.ts";
 import {IFeedbackProps, IInquiryProps, INotice} from "@/types/componentProps.ts";
 import {useUserInfoStore} from "@store/useUserStore.ts";
@@ -14,11 +18,13 @@ import {useThemeStore} from "@store/useThemeStore.ts";
 import CommentContext from "@context/CommentContext.ts";
 import {
     AuthorWrapper,
-    CommentBtnWrapper,
     ContentWrapper,
-    TimeWrapper, VerticalLine
+    TimeWrapper,
+    // CommentBtnWrapper,
+    // VerticalLine
 } from "./style.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
+import stripHtml from "@util/stripHtml.ts";
+// import {buttonCategories} from "@constants/buttonCategories.ts";
 
 
 const CommentListItem = (props: IComment) => {
@@ -27,14 +33,26 @@ const CommentListItem = (props: IComment) => {
 
     const {lang} = useThemeStore();
     const {userInfo} = useUserInfoStore();
-    const {textareaRef, isEditMode, setIsEditMode, text, setText, handleTextChange} = useTextarea();
+    const {textareaRef, isEditMode, setIsEditMode} = useTextarea();
+    const {commentSchema} = BoardSchemaProvider();
 
-    // 댓글 링크 처리
-    const transformedContent = useMemo(() => {
-        return generateLinksAndLineBreaks(props.content);
-    }, [props.content]);
+    type CommentFormDataType = z.infer<typeof commentSchema>;
 
-    const [content, setContent] = useState(transformedContent);
+    const {
+        register,
+        handleSubmit,
+        reset,
+        getValues,
+        setValue,
+        formState: {isValid},
+    } = useForm<CommentFormDataType>({
+        resolver: zodResolver(commentSchema),
+        mode: "onChange",
+    });
+
+    useEffect(() => {
+        reset({content: stripHtml(props.content)});
+    }, [props.content, reset]);
 
     // 댓글 생성 일자
     const timeStamp = useMemo(() => {
@@ -47,24 +65,29 @@ const CommentListItem = (props: IComment) => {
             setComments: props.setComments,
             setRefDoc: props.setRefDoc as Dispatch<SetStateAction<IInquiryProps | IFeedbackProps | INotice>>,
             textareaRef: textareaRef,
-            text: text,
-            setText: setText,
-            handleTextChange: handleTextChange,
             setIsEditMode: setIsEditMode,
-            content: props.content,
-            setContent: setContent,
             isLiked: isLiked,
             setIsLiked: setIsLiked,
             countOfLike: countOfLike,
             setCountOfLike: setCountOfLike,
+            register: register,
+            isValid: isValid,
+            handleSubmit: handleSubmit,
+            setValue: setValue,
         }}>
             <Flex gap={8} style={{width: "100%", margin: "24px 0"}}>
                 <Flex direction={"column"} align={"center"}>
                     <ProfileImage size={28}/>
-                    <VerticalLine/>
+                    {/*<VerticalLine/>*/}
                 </Flex>
 
-                <Flex direction={"column"} style={{marginTop: "6px", flexGrow: "1"}}>
+                <Flex
+                    direction={"column"}
+                    style={{
+                        flexGrow: "1",
+                        marginTop: !isEditMode && props.authorId === userInfo?.userId ? "-2px" : "6px",
+                    }}
+                >
                     <Flex align={"center"} justify={"space-between"} style={{marginRight: "6px"}}>
                         <AuthorWrapper>{props.author}</AuthorWrapper>
                         {!isEditMode && props.authorId === userInfo?.userId && <CommentDropdown/>}
@@ -74,14 +97,14 @@ const CommentListItem = (props: IComment) => {
                         <UpdateComment/>
                         :
                         <>
-                            <ContentWrapper dangerouslySetInnerHTML={{__html: content}}/>
+                            <ContentWrapper dangerouslySetInnerHTML={{__html: generateLinksAndLineBreaks(getValues("content") || '')}}/>
                             <Flex align={"center"} gap={12} style={{marginLeft: "6px"}}>
                                 <TimeWrapper>{timeStamp}</TimeWrapper>
                                 <Flex align={"center"} gap={12}>
                                     <LikeComment/>
-                                    <CommentBtnWrapper>
-                                        {buttonCategories.comment[lang]}
-                                    </CommentBtnWrapper>
+                                    {/*<CommentBtnWrapper>*/}
+                                    {/*    {buttonCategories.comment[lang]}*/}
+                                    {/*</CommentBtnWrapper>*/}
                                 </Flex>
                             </Flex>
                         </>

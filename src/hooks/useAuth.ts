@@ -1,15 +1,12 @@
 import {useEffect} from "react";
-
 import useRequest from "@hooks/useRequest.ts";
 import {useAuthStore} from "@store/useAuthStore.ts";
-import {useToastStore} from "@store/useToastStore.ts";
 import {useUserInfoStore} from "@store/useUserStore.ts";
 
 
 const useAuth = () => {
-    const {showToast} = useToastStore();
     const {userInfo} = useUserInfoStore();
-    const {sendRequest, clearError, errorText} = useRequest();
+    const {sendRequest} = useRequest();
 
     const {login, logout, accessToken, refreshToken, accessTokenExpirationDate, isLoggedIn} = useAuthStore((state) => ({
         login: state.login,
@@ -67,13 +64,6 @@ const useAuth = () => {
             }
         }
     }, [accessToken, accessTokenExpirationDate, logout, login]);
-
-    // 에러 메시지
-    useEffect(() => {
-        if (errorText) showToast(errorText, "error");
-        const errorTimer = setTimeout(() => clearError(), 6000);
-        return () => clearTimeout(errorTimer);
-    }, [errorText]);
 
     return {accessToken, login, logout, isLoggedIn};
 };

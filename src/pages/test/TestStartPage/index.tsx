@@ -11,6 +11,7 @@ import Empty from "@components/common/Empty";
 import Grid from "@components/common/Grid";
 import Flex from "@components/common/Flex";
 import Icon from "@components/common/Icon";
+import Card from "@components/common/Card";
 import SubmitTest from "@components/test/SubmitTest";
 import ResetTest from "@components/test/ResetTest";
 import useRequest from "@hooks/useRequest.ts";
@@ -31,7 +32,6 @@ import {headerCategories} from "@constants/headerCategories.ts";
 import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 import menu from "@assets/icons/menu.svg";
-import Card from "@components/common/Card";
 
 
 const TestStartPage = () => {
