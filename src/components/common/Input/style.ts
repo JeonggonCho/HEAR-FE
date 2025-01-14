@@ -5,20 +5,22 @@ export const Container = styled.div`
     flex-direction: column;
     position: relative;
 
-    label {
-        display: inline-flex;
-        width: fit-content;
-        color: ${({theme}) => theme.colors.font.main};
-        margin-left: 4px;
-        line-height: 1.5;
-    }
-
-    & > span:first-of-type {
-        display: inline-block;
-        font-size: 0.85rem;
-        color: ${({theme}) => theme.colors.font.sub};
-        margin-left: 4px;
-        line-height: 1.5;
+    & > div:first-of-type {
+        label {
+            display: inline-flex;
+            width: fit-content;
+            color: ${({theme}) => theme.colors.font.main};
+            margin-left: 4px;
+            line-height: 1.5;
+        }
+        
+        span {
+            display: inline-block;
+            font-size: 0.85rem;
+            color: ${({theme}) => theme.colors.font.sub};
+            margin-left: 4px;
+            line-height: 1.5;
+        }
     }
     
     input {

@@ -128,7 +128,6 @@ const FeedbackDetailPage = () => {
                                     <span>{feedback.creator}</span>
                                 </WriterWrapper>
                                 <DateWrapper>{timeStamp}</DateWrapper>
-
                                 <CountsWrapper>
                                     <div>
                                         <Icon svg={views}/>

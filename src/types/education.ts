@@ -41,7 +41,7 @@ export interface IEducationSettings {
 
 export interface ITestAnswer {
     questionId: string;
-    myAnswer: string | string[];
+    myAnswer: string | string[] | undefined;
 }
 
 export interface QuestionResultType {

@@ -63,6 +63,7 @@ export const ContentWrapper = styled.div<{darkmode: string}>`
 export const DateWrapper = styled.span`
     font-size: 0.85rem;
     margin-left: 12px;
+    text-wrap: nowrap;
 `;
 
 export const CountsWrapper = styled.div`
@@ -75,7 +76,6 @@ export const CountsWrapper = styled.div`
     & > div {
         display: flex;
         align-items: center;
-        gap: 4px;
         
         svg {
             width: 16px;

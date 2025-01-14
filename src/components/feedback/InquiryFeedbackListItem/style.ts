@@ -105,6 +105,7 @@ export const WriterWrapper = styled.div`
     
     // 작성자 이름
     & > span:first-of-type {
+        text-wrap: nowrap;
         font-size: 0.9rem;
         color: ${({theme}) => theme.colors.font.main};
     }
@@ -144,12 +145,11 @@ export const BottomWrapper = styled.div<{darkmode: string}>`
 export const InfoWrapper = styled.div`
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
     
     & > div {
         display: flex;
         align-items: center;
-        gap: 4px;
         
         svg {
             fill: ${({theme}) => theme.colors.icon.fill};

@@ -43,12 +43,11 @@ export const Container = styled(Link)`
 export const NoticeInfoWrapper = styled.div`
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
 
     div {
         display: flex;
         align-items: center;
-        gap: 4px;
 
         svg {
             width: 16px;
