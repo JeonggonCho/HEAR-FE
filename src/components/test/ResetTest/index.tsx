@@ -13,17 +13,7 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 const ResetTest = () => {
     const {lang} = useThemeStore();
     const {modalRef, backdropRef, setShowModal, showModal} = useModal();
-    const {setTestAnswers} = useContext(TestContext);
-
-    // 작성된 답안 모두 지우기
-    const eraseAnswers = () => {
-        setTestAnswers(prevState => {
-            return prevState.map(answer => ({
-                ...answer,
-                myAnswer: Array.isArray(answer.myAnswer) ? [] : "",
-            }));
-        });
-    };
+    const {reset} = useContext(TestContext);
 
     return (
         <ConfirmModal
@@ -65,7 +55,7 @@ const ResetTest = () => {
                     color={"danger"}
                     size={"md"}
                     onClick={() => {
-                        eraseAnswers();
+                        reset();
                         setShowModal(false);
                     }}
                 >

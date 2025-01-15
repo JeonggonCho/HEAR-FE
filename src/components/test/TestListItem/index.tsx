@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContext, memo} from "react";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import useScrollbarSize from "@hooks/useScrollbarSize.ts";
@@ -12,40 +12,25 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 
 interface ITestListItemProps {
     question: EducationType;
-    // isAnswerFilled: boolean;
-    // inputAnswer: (e: any, question: EducationType) => void;
-    // isChecked: (optionId: string, question:EducationType) => boolean;
 }
 
 
-const TestListItem = (
-    {
-        question,
-        // isAnswerFilled,
-        // inputAnswer,
-        // isChecked
-    }: ITestListItemProps
-) => {
+const TestListItem = ({question}: ITestListItemProps) => {
     const {lang} = useThemeStore();
     const {scrollbarWidth} = useScrollbarSize();
-    const {register, handleSubmit} = useContext(TestContext);
+    const {register, getValues, setValue} = useContext(TestContext);
 
-    // 답 지우기
-    // const eraseAnswer = () => {
-    //     setTestAnswers(prevState => {
-    //         const answers = [...prevState];
-    //         const targetIndex = answers.findIndex(answer => answer.questionId === question._id);
-    //
-    //         if (targetIndex !== -1) {
-    //             if (question.questionType === "shortAnswer") {
-    //                 answers[targetIndex].myAnswer = "";
-    //             } else if (question.questionType === "singleChoice" || question.questionType === "multipleChoice") {
-    //                 answers[targetIndex].myAnswer = [];
-    //             }
-    //         }
-    //         return answers;
-    //     });
-    // };
+    // 답안이 채워져 있는지 확인하는 함수
+    const isAnswerFilled = (question: EducationType) => {
+        const answer = getValues(question._id);
+        return !!answer;
+    };
+
+    // 답안 지우기 함수
+    const eraseAnswer = (question: EducationType) => {
+        const resetAnswer = question.questionType === "shortAnswer" || "singleChoice" ? "" : [];
+        setValue(question._id, resetAnswer);
+    };
 
     return (
         <Container scrollbarWidth={scrollbarWidth}>
@@ -67,57 +52,40 @@ const TestListItem = (
                         register={register}
                     />
                 </ShortAnswerWrapper>
-                : question.questionType === "singleChoice" ?
+                : question.questionType === "singleChoice" || "multipleChoice" ?
                     <ChoiceWrapper>
                         {question.options.map((opt, index) => (
                             <div key={index}>
                                 <input
-                                    type={"radio"}
-                                    name={`testList ${question._id}`}
-                                    id={`testList ${opt.optionId}`}
-                                    // checked={isChecked(opt.optionId, question)}
-                                    // onClick={e => inputAnswer(e, question)}
+                                    type={question.questionType === "singleChoice" ? "radio" : "checkbox"}
+                                    id={opt.optionId}
+                                    value={opt.optionId}
+                                    {...register(question._id)}
                                     readOnly
                                 />
-                                <label htmlFor={`testList ${opt.optionId}`}>{opt.content}</label>
+                                <label htmlFor={opt.optionId}>{opt.content}</label>
                             </div>
                         ))}
                     </ChoiceWrapper>
-                    : question.questionType === "multipleChoice" ?
-                        <ChoiceWrapper>
-                            {question.options.map((opt, index) => (
-                                <div key={index}>
-                                    <input
-                                        type={"checkbox"}
-                                        name={opt.optionId}
-                                        id={opt.optionId}
-                                        // checked={isChecked(opt.optionId, question)}
-                                        // onClick={e => inputAnswer(e, question)}
-                                        readOnly
-                                    />
-                                    <label htmlFor={opt.optionId}>{opt.content}</label>
-                                </div>
-                            ))}
-                        </ChoiceWrapper>
-                        : null
+                    : null
             }
 
-            {/*{isAnswerFilled &&*/}
-            {/*  <ResetButtonWrapper>*/}
-            {/*    <Button*/}
-            {/*      type={"button"}*/}
-            {/*      variant={"filled"}*/}
-            {/*      width={"fit"}*/}
-            {/*      color={"third"}*/}
-            {/*      size={"sm"}*/}
-            {/*      onClick={eraseAnswer}*/}
-            {/*    >*/}
-            {/*        {buttonCategories.erase[lang]}*/}
-            {/*    </Button>*/}
-            {/*  </ResetButtonWrapper>*/}
-            {/*}*/}
+            {isAnswerFilled(question) &&
+              <ResetButtonWrapper>
+                <Button
+                  type={"button"}
+                  variant={"filled"}
+                  width={"fit"}
+                  color={"third"}
+                  size={"sm"}
+                  onClick={() => eraseAnswer(question)}
+                >
+                    {buttonCategories.erase[lang]}
+                </Button>
+              </ResetButtonWrapper>
+            }
         </Container>
     );
 };
 
-export default TestListItem;
+export default memo(TestListItem);

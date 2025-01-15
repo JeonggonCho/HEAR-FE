@@ -7,7 +7,7 @@ const TestSchemaProvider = (questions: EducationType[]) => {
         Object.fromEntries(
             questions.map((question) => [
                 question._id,
-                question.questionType === "shortAnswer"
+                question.questionType === ("shortAnswer" || "singleChoice")
                     ? z.string().optional()
                     : z.array(z.string()).optional(),
             ])

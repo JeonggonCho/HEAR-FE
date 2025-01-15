@@ -1,5 +1,5 @@
 import {createContext} from "react";
-import {UseFormHandleSubmit, UseFormRegister} from "react-hook-form";
+import {UseFormGetValues, UseFormHandleSubmit, UseFormRegister, UseFormReset, UseFormSetValue} from "react-hook-form";
 
 
 const defaultRegister = (() => ({
@@ -11,15 +11,17 @@ const defaultRegister = (() => ({
 
 
 const TestContext = createContext<{
-    // testAnswers: ITestAnswer[];
-    // setTestAnswers: Dispatch<SetStateAction<ITestAnswer[]>>;
     register: UseFormRegister<any>;
     handleSubmit: UseFormHandleSubmit<any>;
+    setValue: UseFormSetValue<any>;
+    getValues: UseFormGetValues<any>;
+    reset: () => void;
 }>({
-    // testAnswers: [],
-    // setTestAnswers: () => {},
     register: defaultRegister,
     handleSubmit: (() => Promise.resolve()) as unknown as UseFormHandleSubmit<any>,
+    setValue: (() => {}) as unknown as UseFormSetValue<any>,
+    getValues: (() => ({})) as unknown as UseFormGetValues<any>,
+    reset: (() => {}) as unknown as UseFormReset<any>,
 });
 
 export default TestContext;

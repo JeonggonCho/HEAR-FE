@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useReducer, useState} from "react";
 import {useForm} from "react-hook-form";
 import z from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -39,8 +39,19 @@ import menu from "@assets/icons/menu.svg";
 
 
 const TestStartPage = () => {
+    const questionReducer = (state: number, action: any) => {
+        switch (action.type) {
+            case "NEXT":
+                return Math.min(state + 1, questions.length - 1);
+            case "PREV":
+                return Math.max(state - 1, 0);
+            default:
+                return state;
+        }
+    };
+
     const [questions, setQuestions] = useState<EducationType[]>([]);
-    const [currentQuestion, setCurrentQuestion] = useState<number>(0);
+    const [currentQuestion, dispatch] = useReducer(questionReducer, 0);
     // const [showSideMenu, setShowSideMenu] = useState<boolean>(false);
 
     const {lang} = useThemeStore();
@@ -59,9 +70,9 @@ const TestStartPage = () => {
     const {
         register,
         handleSubmit,
+        watch,
         getValues,
         setValue,
-        watch,
         reset,
     } = useForm<TestFormDataType>({
         resolver: zodResolver(testSchema),
@@ -75,20 +86,31 @@ const TestStartPage = () => {
             const savedAnswers = loadAnswersFromStorage();
             const initialValues = questions.reduce((acc, question) => {
                 const existingAnswer = savedAnswers.find(answer => answer.questionId === question._id);
-                const initialAnswer = existingAnswer ? existingAnswer.myAnswer : "";
+                const initialAnswer = existingAnswer ? existingAnswer.myAnswer
+                    : question.questionType === ("shortAnswer" || "singleChoice") ? ""
+                        : [];
                 return { ...acc, [question._id]: initialAnswer };
             }, {});
-
             reset(initialValues);
         }
     }, [questions, reset]);
 
-    // 답안 채워지는지 추적
+    // 초기화 버튼 클릭 시, 답안 비우기
+    const resetTest = () => {
+        const emptyAnswers = questions.reduce((acc, question) => {
+            const emptyAnswer = question.questionType === "shortAnswer" || "singleChoice" ? "" : [];
+            return {...acc, [question._id]: emptyAnswer};
+        }, {});
+        reset(emptyAnswers);
+    };
+
+    // 폼에 답안이 채워지는지 추적
     const watchedAnswers = watch();
 
     // 작성한 답변 세션 스토리지에 저장하는 함수
     const saveAnswersToStorage = (answers: ITestAnswer[]) => {
         sessionStorage.setItem("testAnswers", JSON.stringify(answers));
+        console.log(getValues())
     };
 
     // testAnswers 변경될 때마다 스토리지에 저장
@@ -119,73 +141,14 @@ const TestStartPage = () => {
         fetchQuestions();
     }, [fetchQuestions]);
 
-    // 다음 문제로 이동
-    const moveNextQuestion = () => {
-        if (currentQuestion === questions.length - 1) return;
-        setCurrentQuestion(prevState => prevState + 1);
-    };
+    // 다음/이전 문제 이동 함수
+    const moveNextQuestion = useCallback(() => dispatch({ type: "NEXT" }), []);
+    const movePrevQuestion = useCallback(() => dispatch({ type: "PREV" }), []);
 
-    // 이전 문제로 이동
-    const movePrevQuestion = () => {
-        if (currentQuestion === 0) return;
-        setCurrentQuestion(prevState => prevState - 1);
-    };
-
-    // 사이드 메뉴 문제 클릭
+    // 사이드 메뉴 문제 클릭해서 해당 번호의 문제로 이동하기
     // const clickSideMenuQuestionHandler = (currentQuestion: number) => {
     //     setCurrentQuestion(currentQuestion);
     //     setShowSideMenu(false);
-    // };
-
-    // 문제 답안 입력
-    // const inputAnswer = (e: any, question: EducationType) => {
-    //     const value = e.target.value;
-    //     const id = e.target.id;
-    //
-    //     setTestAnswers((prevState) => {
-    //         const answers = [...prevState];
-    //         const targetIndex = answers.findIndex((answer) => answer.questionId === question._id);
-    //         if (targetIndex !== -1) {
-    //             if (question.questionType === "shortAnswer") {
-    //                 (answers[targetIndex].myAnswer as string) = value;
-    //             } else if (question.questionType === "singleChoice") {
-    //                 (answers[targetIndex].myAnswer as string) = (id as string).split(" ")[1];
-    //             } else if (question.questionType === "multipleChoice") {
-    //                 const currentAnswers = answers[targetIndex].myAnswer as string[];
-    //                 if (currentAnswers.includes(id)) {
-    //                     answers[targetIndex].myAnswer = currentAnswers.filter((item) => item !== id);
-    //                 } else {
-    //                     answers[targetIndex].myAnswer = [...currentAnswers, id];
-    //                 }
-    //             }
-    //         }
-    //         return answers;
-    //     });
-    // };
-
-    // 선택형 문제 체크 확인
-    // const isChecked = (optionId: string, question:EducationType) => {
-    //     const targetIndex = testAnswers.findIndex((answer) => answer.questionId === question._id);
-    //     if (targetIndex === -1) return false;
-    //     if (question.questionType === "singleChoice") {
-    //         return testAnswers[targetIndex].myAnswer === optionId;
-    //     } else if (question.questionType === "multipleChoice") {
-    //         return (testAnswers[targetIndex].myAnswer as string[]).includes(optionId);
-    //     }
-    //     return false;
-    // };
-
-    // 답안이 있는지 확인
-    // const isAnswerFilled = (question: EducationType) => {
-    //     const targetIndex = testAnswers.findIndex((answer) => answer.questionId === question._id);
-    //     if (targetIndex === -1) return false;
-    //     if (question.questionType === "shortAnswer") {
-    //         return (testAnswers[targetIndex].myAnswer as string).trim() !== "";
-    //     } else if (question.questionType === "singleChoice" || question.questionType === "multipleChoice") {
-    //         const selectedAnswers = testAnswers[targetIndex].myAnswer as string[];
-    //         return selectedAnswers.length > 0;
-    //     }
-    //     return false;
     // };
 
     // 사이드 메뉴 문제 답안 내용
@@ -255,11 +218,13 @@ const TestStartPage = () => {
     //     </SideMenuQuestionsWrapper>
     // );
 
-
     return (
         <TestContext.Provider value={{
             register,
             handleSubmit,
+            setValue,
+            getValues,
+            reset: resetTest,
         }}>
             <HeadTag title={navCategories.test[lang]}/>
 
@@ -315,13 +280,7 @@ const TestStartPage = () => {
                                 <div>
                                     <div>
                                         {questions.map((question, index) => (
-                                            <TestListItem
-                                                key={index}
-                                                question={question}
-                                                // isAnswerFilled={isAnswerFilled(question)}
-                                                // inputAnswer={inputAnswer}
-                                                // isChecked={isChecked}
-                                            />
+                                            <TestListItem key={index} question={question}/>
                                         ))}
                                     </div>
                                 </div>
