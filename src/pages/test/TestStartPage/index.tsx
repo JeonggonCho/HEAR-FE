@@ -17,6 +17,7 @@ import Icon from "@components/common/Icon";
 import Card from "@components/common/Card";
 import SubmitTest from "@components/test/SubmitTest";
 import ResetTest from "@components/test/ResetTest";
+import TestSideMenuContent from "@components/test/TestSideMenuContent";
 import useRequest from "@hooks/useRequest.ts";
 import useScrollbarSize from "@hooks/useScrollbarSize.ts";
 import TestSchemaProvider from "@schemata/TestSchemaProvider.ts";
@@ -24,11 +25,8 @@ import {EducationType, ITestAnswer} from "@/types/education.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import TestContext from "@context/TestContext.ts";
 import {
-    AnswerWrapper,
     MenusWrapper,
-    QuestionsWrapper, SideMenuAnswerWrapper,
-    SideMenuQuestionsWrapper,
-    SideMenuQuestionWrapper
+    QuestionsWrapper,
 } from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
 import {navCategories} from "@constants/navCategories.ts";
@@ -45,6 +43,8 @@ const TestStartPage = () => {
                 return Math.min(state + 1, questions.length - 1);
             case "PREV":
                 return Math.max(state - 1, 0);
+            case "MOVE":
+                return action.questionNumber;
             default:
                 return state;
         }
@@ -52,7 +52,7 @@ const TestStartPage = () => {
 
     const [questions, setQuestions] = useState<EducationType[]>([]);
     const [currentQuestion, dispatch] = useReducer(questionReducer, 0);
-    // const [showSideMenu, setShowSideMenu] = useState<boolean>(false);
+    const [showSideMenu, setShowSideMenu] = useState<boolean>(false);
 
     const {lang} = useThemeStore();
     const {isLoading, sendRequest} = useRequest();
@@ -110,7 +110,6 @@ const TestStartPage = () => {
     // 작성한 답변 세션 스토리지에 저장하는 함수
     const saveAnswersToStorage = (answers: ITestAnswer[]) => {
         sessionStorage.setItem("testAnswers", JSON.stringify(answers));
-        console.log(getValues())
     };
 
     // testAnswers 변경될 때마다 스토리지에 저장
@@ -146,77 +145,10 @@ const TestStartPage = () => {
     const movePrevQuestion = useCallback(() => dispatch({ type: "PREV" }), []);
 
     // 사이드 메뉴 문제 클릭해서 해당 번호의 문제로 이동하기
-    // const clickSideMenuQuestionHandler = (currentQuestion: number) => {
-    //     setCurrentQuestion(currentQuestion);
-    //     setShowSideMenu(false);
-    // };
-
-    // 사이드 메뉴 문제 답안 내용
-    // const TestAnswersContent = () => (
-    //     <SideMenuQuestionsWrapper>
-    //         {questions.length > 0 && testAnswers.map((answer, index) => {
-    //             const targetQuestion = questions.find((q) => q._id === answer.questionId);
-    //
-    //             return (
-    //                 <SideMenuQuestionWrapper
-    //                     key={index}
-    //                     onClick={() => clickSideMenuQuestionHandler(index)}
-    //                     filled={
-    //                         ((Array.isArray(answer.myAnswer) && answer.myAnswer.length > 0) ||
-    //                             (typeof answer.myAnswer === "string" && answer.myAnswer.trim() !== ""))
-    //                             ? "true"
-    //                             : "false"
-    //                     }
-    //                 >
-    //                     <label>{index + 1}</label>
-    //                     <SideMenuAnswerWrapper>
-    //                         {targetQuestion && targetQuestion.questionType === "shortAnswer" && answer.myAnswer ? (
-    //                             <p>{answer.myAnswer.toString() as string}</p>
-    //                         ) : targetQuestion && targetQuestion.questionType === "singleChoice" ? (
-    //                             <AnswerWrapper>
-    //                                 {(questions
-    //                                     .filter((q) => q._id === answer.questionId)[0] as ISingleChoice).options
-    //                                     .map((opt, index) => (
-    //                                         <input
-    //                                             key={index}
-    //                                             type={"radio"}
-    //                                             name={`sideMenu ${targetQuestion._id}`}
-    //                                             id={`sideMenu ${opt.optionId}`}
-    //                                             checked={isChecked(opt.optionId, targetQuestion)}
-    //                                             onClick={(e) => {
-    //                                                 e.stopPropagation();
-    //                                                 inputAnswer(e, targetQuestion);
-    //                                             }}
-    //                                             readOnly
-    //                                         />
-    //                                     ))}
-    //                             </AnswerWrapper>
-    //                         ) : targetQuestion && targetQuestion.questionType === "multipleChoice" ? (
-    //                             <AnswerWrapper>
-    //                                 {(questions
-    //                                     .filter((q) => q._id === answer.questionId)[0] as IMultipleChoice).options
-    //                                     .map((opt, index) => (
-    //                                         <input
-    //                                             key={index}
-    //                                             type={"checkbox"}
-    //                                             name={opt.optionId}
-    //                                             id={opt.optionId}
-    //                                             checked={isChecked(opt.optionId, targetQuestion)}
-    //                                             onClick={(e) => {
-    //                                                 e.stopPropagation();
-    //                                                 inputAnswer(e, targetQuestion);
-    //                                             }}
-    //                                             readOnly
-    //                                         />
-    //                                     ))}
-    //                             </AnswerWrapper>
-    //                         ) : null}
-    //                     </SideMenuAnswerWrapper>
-    //                 </SideMenuQuestionWrapper>
-    //             );
-    //         })}
-    //     </SideMenuQuestionsWrapper>
-    // );
+    const moveTargetQuestion = (currentQuestion: number) => {
+        dispatch({type: "MOVE", questionNumber: currentQuestion});
+        setShowSideMenu(false);
+    };
 
     return (
         <TestContext.Provider value={{
@@ -237,17 +169,17 @@ const TestStartPage = () => {
                         <h2 css={headerCenter}>{headerCategories.test[lang]}</h2>
                     </Header.Center>
                     <Header.Right>
-                        {/*<Button*/}
-                        {/*    type={"button"}*/}
-                        {/*    variant={"text"}*/}
-                        {/*    width={"fit"}*/}
-                        {/*    size={"sm"}*/}
-                        {/*    color={"third"}*/}
-                        {/*    style={{padding: 0}}*/}
-                        {/*    onClick={() => setShowSideMenu(true)}*/}
-                        {/*>*/}
-                        {/*    <Icon svg={menu} isHovered={true}/>*/}
-                        {/*</Button>*/}
+                        <Button
+                            type={"button"}
+                            variant={"text"}
+                            width={"fit"}
+                            size={"sm"}
+                            color={"third"}
+                            style={{padding: 0}}
+                            onClick={() => setShowSideMenu(true)}
+                        >
+                            <Icon svg={menu} isHovered={true}/>
+                        </Button>
                     </Header.Right>
                 </Grid>
             </Header>
@@ -317,13 +249,18 @@ const TestStartPage = () => {
                 </>
             }
 
-            {/*{showSideMenu &&*/}
-            {/*  <SideMenu*/}
-            {/*    content={<TestAnswersContent/>}*/}
-            {/*    direction={"right"}*/}
-            {/*    setSideMenu={setShowSideMenu}*/}
-            {/*  />*/}
-            {/*}*/}
+            {showSideMenu &&
+              <SideMenu
+                content={
+                  <TestSideMenuContent
+                      questions={questions}
+                      moveQuestionHandler={moveTargetQuestion}
+                  />
+              }
+                direction={"right"}
+                setSideMenu={setShowSideMenu}
+              />
+            }
         </TestContext.Provider>
     );
 };

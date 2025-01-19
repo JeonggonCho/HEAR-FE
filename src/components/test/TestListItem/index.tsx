@@ -19,6 +19,7 @@ const TestListItem = ({question}: ITestListItemProps) => {
     const {lang} = useThemeStore();
     const {scrollbarWidth} = useScrollbarSize();
     const {register, getValues, setValue} = useContext(TestContext);
+    const answer = getValues()[question._id];
 
     // 답안이 채워져 있는지 확인하는 함수
     const isAnswerFilled = (question: EducationType) => {
@@ -60,6 +61,11 @@ const TestListItem = ({question}: ITestListItemProps) => {
                                     type={question.questionType === "singleChoice" ? "radio" : "checkbox"}
                                     id={opt.optionId}
                                     value={opt.optionId}
+                                    defaultChecked={
+                                        question.questionType === "singleChoice"
+                                            ? answer === opt.optionId
+                                            : Array.isArray(answer) && answer.includes(opt.optionId)
+                                    }
                                     {...register(question._id)}
                                     readOnly
                                 />
