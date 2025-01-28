@@ -26,7 +26,7 @@ import getTimeStamp from "@util/getTimeStamp.ts";
 import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
 import {IFeedbackProps, IInquiryProps, INotice} from "@/types/componentProps.ts";
 import {IComment} from "@/types/comment.ts";
-import {useUserInfoStore} from "@store/useUserStore.ts";
+import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {
     BtnsWrapper, CommentBtnWrapper,
@@ -53,6 +53,7 @@ const InquiryDetailPage = () => {
 
     const {inquiryId} = useParams();
     const {userInfo} = useUserInfoStore();
+    const {userData} = useUserDataStore();
     const {lang, isDarkMode} = useThemeStore();
     const {isLoading, sendRequest} = useRequest();
     const {sendRequest:likeSendRequest} = useRequest();
@@ -149,18 +150,14 @@ const InquiryDetailPage = () => {
                             <div>
                                 <WriterWrapper>
                                     <ProfileImage size={24}/>
-                                    <UserInfoModal
-                                        email={}
-                                        studio={}
-                                        tel={}
-                                        userId={}
-                                        username={}
-                                        year={}
-                                        studentId={}
-                                        passEducation={}
-                                        countOfWarning={}
-                                        trigger={<span>{inquiry.creator}</span>}
-                                    />
+                                    {userData?.role === "assistant" || userData?.role === "admin" ? (
+                                        <UserInfoModal
+                                            trigger={<span>{inquiry.creator}</span>}
+                                            userId={inquiry.creatorId as string}
+                                        />
+                                    ) : (
+                                        <span>{inquiry.creator}</span>
+                                    )}
                                 </WriterWrapper>
                                 <DateWrapper>{timeStamp}</DateWrapper>
 

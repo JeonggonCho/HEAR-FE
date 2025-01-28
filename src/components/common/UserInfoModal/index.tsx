@@ -8,11 +8,12 @@ import {IUserInfo} from "@/types/user.ts";
 
 interface IUserInfoModalProps {
     trigger: ReactNode;
+    userId: string;
 }
 
 
-const UserInfoModal = (props: IUserInfo & IUserInfoModalProps) => {
-    const [_, setUserInfo] = useState<IUserInfo>(props);
+const UserInfoModal = (props: IUserInfoModalProps) => {
+    const [_, setUserInfo] = useState<IUserInfo>();
 
     const {modalRef, backdropRef, showModal, setShowModal} = useModal();
 

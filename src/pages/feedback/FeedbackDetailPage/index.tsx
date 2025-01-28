@@ -26,7 +26,7 @@ import generateLinksAndLineBreaks from "@util/generateLinksAndLineBreaks.ts";
 import getTimeStamp from "@util/getTimeStamp.ts";
 import {IFeedbackProps, IInquiryProps, INotice} from "@/types/componentProps.ts";
 import {IComment} from "@/types/comment.ts";
-import {useUserInfoStore} from "@store/useUserStore.ts";
+import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {
     BtnsWrapper, CommentBtnWrapper,
@@ -44,6 +44,7 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import views from "@assets/icons/visible.svg";
 import likes from "@assets/icons/feedback.svg";
 import chat from "@assets/icons/chat.svg";
+import UserInfoModal from "@components/common/UserInfoModal";
 
 
 const FeedbackDetailPage = () => {
@@ -53,6 +54,7 @@ const FeedbackDetailPage = () => {
 
     const {feedbackId} = useParams();
     const {userInfo} = useUserInfoStore();
+    const {userData} = useUserDataStore();
     const {lang, isDarkMode} = useThemeStore();
     const {isLoading, sendRequest} = useRequest();
     const {textareaRef} = useTextarea();
@@ -125,7 +127,14 @@ const FeedbackDetailPage = () => {
                             <div>
                                 <WriterWrapper>
                                     <ProfileImage size={24}/>
-                                    <span>{feedback.creator}</span>
+                                    {userData?.role === "assistant" || userData?.role === "admin" ? (
+                                        <UserInfoModal
+                                            trigger={<span>{feedback.creator}</span>}
+                                            userId={feedback.creatorId as string}
+                                        />
+                                    ) : (
+                                        <span>{feedback.creator}</span>
+                                    )}
                                 </WriterWrapper>
                                 <DateWrapper>{timeStamp}</DateWrapper>
                                 <CountsWrapper>

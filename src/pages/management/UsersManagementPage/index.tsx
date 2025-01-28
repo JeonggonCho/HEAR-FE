@@ -148,7 +148,7 @@ const UsersManagementPage = () => {
                                             </Flex>
                                         </UserListItem>
                                     }
-                                    {...user}
+                                    userId={user.userId}
                                 />
                             ))
                         }

@@ -13,7 +13,7 @@ import useTextarea from "@hooks/useTextarea.ts";
 import BoardSchemaProvider from "@schemata/BoardSchemaProvider.ts";
 import {IComment} from "@/types/comment.ts";
 import {IFeedbackProps, IInquiryProps, INotice} from "@/types/componentProps.ts";
-import {useUserInfoStore} from "@store/useUserStore.ts";
+import {useUserDataStore, useUserInfoStore} from "@store/useUserStore.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import CommentContext from "@context/CommentContext.ts";
 import {
@@ -24,6 +24,7 @@ import {
     // VerticalLine
 } from "./style.ts";
 import stripHtml from "@util/stripHtml.ts";
+import UserInfoModal from "@components/common/UserInfoModal";
 // import {buttonCategories} from "@constants/buttonCategories.ts";
 
 
@@ -33,6 +34,7 @@ const CommentListItem = (props: IComment) => {
 
     const {lang} = useThemeStore();
     const {userInfo} = useUserInfoStore();
+    const {userData} = useUserDataStore();
     const {textareaRef, isEditMode, setIsEditMode} = useTextarea();
     const {commentSchema} = BoardSchemaProvider();
 
@@ -89,7 +91,14 @@ const CommentListItem = (props: IComment) => {
                     }}
                 >
                     <Flex align={"center"} justify={"space-between"} style={{marginRight: "6px"}}>
-                        <AuthorWrapper>{props.author}</AuthorWrapper>
+                        {userData?.role === "assistant" || userData?.role === "admin" ? (
+                            <UserInfoModal
+                                trigger={<AuthorWrapper>{props.author}</AuthorWrapper>}
+                                userId={props.authorId as string}
+                            />
+                        ) : (
+                            <AuthorWrapper>{props.author}</AuthorWrapper>
+                        )}
                         {!isEditMode && props.authorId === userInfo?.userId && <CommentDropdown/>}
                     </Flex>
 
