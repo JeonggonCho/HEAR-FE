@@ -39,7 +39,7 @@ export interface IEducationSettings {
     cutOffPoint: string;
 }
 
-export interface ITestAnswer {
+export interface IEducationAnswer {
     questionId: string;
     myAnswer: string | string[] | undefined;
 }
@@ -58,7 +58,7 @@ export interface QuestionResultType {
     isCorrect: boolean;
 };
 
-export interface ITestResult {
+export interface IEducationResult {
     isPassed: boolean;
     questions: QuestionResultType[];
 }

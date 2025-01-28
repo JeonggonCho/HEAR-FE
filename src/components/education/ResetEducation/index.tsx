@@ -3,7 +3,7 @@ import ConfirmModal from "@components/common/Modal/ConfirmModal.tsx";
 import Button from "@components/common/Button";
 import useModal from "@hooks/useModal.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import TestContext from "@context/TestContext.ts";
+import EducationContext from "@context/EducationContext.ts";
 import {confirmModalHeader, confirmModalSubMessage} from "@components/common/Modal/style.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
@@ -13,7 +13,7 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 const ResetTest = () => {
     const {lang} = useThemeStore();
     const {modalRef, backdropRef, setShowModal, showModal} = useModal();
-    const {reset} = useContext(TestContext);
+    const {reset} = useContext(EducationContext);
 
     return (
         <ConfirmModal

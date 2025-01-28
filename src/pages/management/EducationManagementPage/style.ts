@@ -51,7 +51,7 @@ export const MenusWrapper = styled.div`
 export const ResetButtonWrapper = styled.div<{modified: string, darkmode: string}>`
     width: 100%;
     height: 100%;
-    padding: 4px 4px 4px 10px;
+    padding: 2px 2px 2px 8px;
     border-radius: 8px;
     background-color: ${({theme, modified, darkmode}) => {
         return modified === "true" ? theme.colors.button.approval 

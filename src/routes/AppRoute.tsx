@@ -40,9 +40,9 @@ const ReservationHeat = lazy(() => import("@pages/reservation/ReservationHeat"))
 const ReservationCnc = lazy(() => import("@pages/reservation/ReservationCnc"));
 const ReservationSaw = lazy(() => import("@pages/reservation/ReservationSaw"));
 const ReservationVacuum = lazy(() => import("@pages/reservation/ReservationVacuum"));
-const TestIntroductionPage = lazy(() => import("@pages/test/TestIntroductionPage"));
-const TestStartPage = lazy(() => import("@pages/test/TestStartPage"));
-const TestEndPage = lazy(() => import("@pages/test/TestEndPage"));
+const EducationIntroductionPage = lazy(() => import("@pages/education/EducationIntroductionPage"));
+const EducationStartPage = lazy(() => import("@pages/education/EducationStartPage"));
+const EducationEndPage = lazy(() => import("@pages/education/EducationEndPage"));
 const NotFoundPage = lazy(() => import("@pages/home/NotFoundPage"));
 const MachinesManagementPage = lazy(() => import("@pages/management/MachinesManagementPage"));
 const UsersManagementPage = lazy(() => import("@pages/management/UsersManagementPage"));
@@ -119,9 +119,9 @@ const AppRoute = () => {
 
                             <Route path="alarm" element={<NotificationPage/>}/>
 
-                            <Route path="test" element={<TestIntroductionPage/>}/>
-                            <Route path="test/start" element={<TestStartPage/>}/>
-                            <Route path="test/end" element={<TestEndPage/>}/>
+                            <Route path="education" element={<EducationIntroductionPage/>}/>
+                            <Route path="education/start" element={<EducationStartPage/>}/>
+                            <Route path="education/end" element={<EducationEndPage/>}/>
                         </>
                     :
                         <>

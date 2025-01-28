@@ -19,7 +19,7 @@ const Nav = () => {
     const navInfoCategories: ICategory[] = [
         { label: navCategories.home[lang], icon: home, path: "/home" },
         { label: navCategories.instruction[lang], icon: note, path: "/instruction" },
-        { label: navCategories.test[lang], icon: test, path: "/test" },
+        { label: navCategories.test[lang], icon: test, path: "/education" },
         { label: navCategories.board[lang], icon: inquiry, path: "/board" },
         { label: navCategories.account[lang], icon: account, path: "/account" },
     ];

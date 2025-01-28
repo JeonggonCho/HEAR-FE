@@ -70,7 +70,7 @@ const TestIntroductionPage = () => {
                 url: "/education/status",
             });
             if (response.data) {
-                navigate("/test/start");
+                navigate("/education/start");
             }
         } catch (err) {
             console.error("응시 확인 중 에러 발생: ", err);

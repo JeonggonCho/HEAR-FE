@@ -16,7 +16,7 @@ interface IInputProps<T extends FieldValues> {
     name: FieldPath<T>;
     placeholder?: string;
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-    onClick?: () => void;
+    onClick?: (e?: any) => void;
     register?: UseFormRegister<T>;
     errorMessage?: string;
     readonly?: boolean;
@@ -24,6 +24,7 @@ interface IInputProps<T extends FieldValues> {
     disabled?: boolean;
     value?: any;
     maxLength?: number;
+    checked?: boolean;
 }
 
 
@@ -44,9 +45,18 @@ const Input = <T extends FieldValues>(
         disabled,
         value,
         maxLength,
+        checked,
     }: IInputProps<T>
 ) => {
     const [inputType, setInputType] = useState<string>(type);
+
+    // register가 있으면 register를 사용하고, 없으면 일반 props를 사용
+    const inputProps = register
+        ? register(name, { onChange })
+        : {
+            onChange,
+            name,
+        };
 
     return (
         <Container>
@@ -59,7 +69,7 @@ const Input = <T extends FieldValues>(
 
             {type === "range" ?
                 <input
-                    {...register ? register(name, {onChange}) : null}
+                    {...inputProps}
                     type={inputType}
                     id={id}
                     min={0}
@@ -68,7 +78,7 @@ const Input = <T extends FieldValues>(
                 />
                 :
                 <input
-                    {...register ? register(name, {onChange}) : null}
+                    {...inputProps}
                     type={inputType}
                     id={id}
                     placeholder={placeholder}
@@ -79,6 +89,7 @@ const Input = <T extends FieldValues>(
                     onWheel={e => (e.target as HTMLElement).blur()}
                     value={value}
                     maxLength={maxLength}
+                    checked={checked}
                 />
             }
 

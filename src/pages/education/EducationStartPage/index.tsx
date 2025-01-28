@@ -9,21 +9,21 @@ import LoadingLoop from "@components/common/LoadingLoop";
 import Button from "@components/common/Button";
 import SideMenu from "@components/common/SideMenu";
 import ProgressBar from "@components/common/ProgressBar";
-import TestListItem from "@components/test/TestListItem";
+import EducationListItem from "@components/education/EducationListItem";
 import Empty from "@components/common/Empty";
 import Grid from "@components/common/Grid";
 import Flex from "@components/common/Flex";
 import Icon from "@components/common/Icon";
 import Card from "@components/common/Card";
-import SubmitTest from "@components/test/SubmitTest";
-import ResetTest from "@components/test/ResetTest";
-import TestSideMenuContent from "@components/test/TestSideMenuContent";
+import SubmitEducation from "@components/education/SubmitEducation";
+import ResetEducation from "@components/education/ResetEducation";
+import EducationSideMenuContent from "@components/education/EducationSideMenuContent";
 import useRequest from "@hooks/useRequest.ts";
 import useScrollbarSize from "@hooks/useScrollbarSize.ts";
-import TestSchemaProvider from "@schemata/TestSchemaProvider.ts";
-import {EducationType, ITestAnswer} from "@/types/education.ts";
+import QuestionSchemaProvider from "@schemata/QuestionSchemaProvider.ts";
+import {EducationType, IEducationAnswer} from "@/types/education.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import TestContext from "@context/TestContext.ts";
+import EducationContext from "@context/EducationContext.ts";
 import {
     MenusWrapper,
     QuestionsWrapper,
@@ -36,7 +36,7 @@ import {messageCategories} from "@constants/messageCategories.ts";
 import menu from "@assets/icons/menu.svg";
 
 
-const TestStartPage = () => {
+const EducationStartPage = () => {
     const questionReducer = (state: number, action: any) => {
         switch (action.type) {
             case "NEXT":
@@ -57,17 +57,18 @@ const TestStartPage = () => {
     const {lang} = useThemeStore();
     const {isLoading, sendRequest} = useRequest();
     const {scrollbarWidth} = useScrollbarSize();
-    const {testSchema} = TestSchemaProvider(questions);
+    const {questionSchema} = QuestionSchemaProvider(questions);
 
-    type TestFormDataType = z.infer<typeof testSchema>;
+    type TestFormDataType = z.infer<typeof questionSchema>;
 
     // 기존에 작성한 답안을 세션 스토리지에서 로드하기
-    const loadAnswersFromStorage = (): ITestAnswer[] => {
-        const savedAnswers = sessionStorage.getItem("testAnswers");
+    const loadAnswersFromStorage = (): IEducationAnswer[] => {
+        const savedAnswers = sessionStorage.getItem("educationAnswers");
         return savedAnswers ? JSON.parse(savedAnswers) : [];
     };
 
     const {
+        control,
         register,
         handleSubmit,
         watch,
@@ -75,7 +76,7 @@ const TestStartPage = () => {
         setValue,
         reset,
     } = useForm<TestFormDataType>({
-        resolver: zodResolver(testSchema),
+        resolver: zodResolver(questionSchema),
         defaultValues: {},
         mode: "onChange",
     });
@@ -86,8 +87,10 @@ const TestStartPage = () => {
             const savedAnswers = loadAnswersFromStorage();
             const initialValues = questions.reduce((acc, question) => {
                 const existingAnswer = savedAnswers.find(answer => answer.questionId === question._id);
-                const initialAnswer = existingAnswer ? existingAnswer.myAnswer
-                    : question.questionType === ("shortAnswer" || "singleChoice") ? ""
+                const initialAnswer = existingAnswer
+                    ? existingAnswer.myAnswer
+                    : question.questionType === "shortAnswer" || question.questionType === "singleChoice"
+                        ? ""
                         : [];
                 return { ...acc, [question._id]: initialAnswer };
             }, {});
@@ -96,7 +99,7 @@ const TestStartPage = () => {
     }, [questions, reset]);
 
     // 초기화 버튼 클릭 시, 답안 비우기
-    const resetTest = () => {
+    const resetEducation = () => {
         const emptyAnswers = questions.reduce((acc, question) => {
             const emptyAnswer = question.questionType === "shortAnswer" || "singleChoice" ? "" : [];
             return {...acc, [question._id]: emptyAnswer};
@@ -108,11 +111,12 @@ const TestStartPage = () => {
     const watchedAnswers = watch();
 
     // 작성한 답변 세션 스토리지에 저장하는 함수
-    const saveAnswersToStorage = (answers: ITestAnswer[]) => {
-        sessionStorage.setItem("testAnswers", JSON.stringify(answers));
+    const saveAnswersToStorage = (answers: IEducationAnswer[]) => {
+        sessionStorage.setItem("educationAnswers", JSON.stringify(answers));
+        console.log(getValues())
     };
 
-    // testAnswers 변경될 때마다 스토리지에 저장
+    // educationAnswers 변경될 때마다 스토리지에 저장
     useEffect(() => {
         if (Object.keys(watchedAnswers).length > 0) {
             const answersToSave = Object.entries(watchedAnswers).map(([questionId, myAnswer]) => ({
@@ -151,12 +155,14 @@ const TestStartPage = () => {
     };
 
     return (
-        <TestContext.Provider value={{
+        <EducationContext.Provider value={{
             register,
             handleSubmit,
             setValue,
             getValues,
-            reset: resetTest,
+            watch,
+            reset: resetEducation,
+            control,
         }}>
             <HeadTag title={navCategories.test[lang]}/>
 
@@ -198,8 +204,8 @@ const TestStartPage = () => {
                                 <div>
                                     <span>{`${currentQuestion + 1} / ${questions.length}`}</span>
                                     <div>
-                                        <ResetTest/>
-                                        <SubmitTest/>
+                                        <ResetEducation/>
+                                        <SubmitEducation/>
                                     </div>
                                 </div>
                                 <ProgressBar total={questions.length} current={currentQuestion + 1}/>
@@ -212,7 +218,7 @@ const TestStartPage = () => {
                                 <div>
                                     <div>
                                         {questions.map((question, index) => (
-                                            <TestListItem key={index} question={question}/>
+                                            <EducationListItem key={index} question={question}/>
                                         ))}
                                     </div>
                                 </div>
@@ -252,7 +258,7 @@ const TestStartPage = () => {
             {showSideMenu &&
               <SideMenu
                 content={
-                  <TestSideMenuContent
+                  <EducationSideMenuContent
                       questions={questions}
                       moveQuestionHandler={moveTargetQuestion}
                   />
@@ -261,8 +267,8 @@ const TestStartPage = () => {
                 setSideMenu={setShowSideMenu}
               />
             }
-        </TestContext.Provider>
+        </EducationContext.Provider>
     );
 };
 
-export default TestStartPage;
+export default EducationStartPage;

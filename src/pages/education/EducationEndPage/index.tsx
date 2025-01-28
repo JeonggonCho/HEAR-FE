@@ -3,13 +3,14 @@ import {Header} from "@components/common/Header";
 import HeadTag from "@components/common/HeadTag";
 import LoadingLoop from "@components/common/LoadingLoop";
 import Icon from "@components/common/Icon";
-import GradingAnswerListItem from "@components/test/GradingAnswerListItem";
+import GradingAnswerListItem from "@components/education/GradingAnswerListItem";
 import Flex from "@components/common/Flex";
+import Card from "@components/common/Card";
 import useRequest from "@hooks/useRequest.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {QuestionsWrapper, ResultCard, ResultSignWrapper, ResultWrapper} from "./style.ts";
 import {headerCenter} from "@components/common/Header/style.ts";
-import {ITestResult, QuestionResultType} from "@/types/education.ts";
+import {IEducationResult, QuestionResultType} from "@/types/education.ts";
 import {navCategories} from "@constants/navCategories.ts";
 import {cardCategories} from "@constants/cardCategories.ts";
 import {headerCategories} from "@constants/headerCategories.ts";
@@ -17,8 +18,8 @@ import checkCircle from "@assets/icons/check_circle.svg";
 import cancelCircle from "@assets/icons/cancel_circle.svg";
 
 
-const TestEndPage = () => {
-    const [testResult, setTestResult] = useState<ITestResult>();
+const EducationEndPage = () => {
+    const [testResult, setTestResult] = useState<IEducationResult>();
 
     const {lang} = useThemeStore();
     const {isLoading, sendRequest} = useRequest();
@@ -63,7 +64,11 @@ const TestEndPage = () => {
             </Header>
 
             {isLoading ?
-                <LoadingLoop/>
+                <Card padding={0} borderRadius={0} bgColor={"sub"}>
+                    <Flex align={"center"} justify={"center"} style={{height: "80vh"}}>
+                        <LoadingLoop/>
+                    </Flex>
+                </Card>
                 :
                 <ResultWrapper>
                     <ResultCard>
@@ -105,4 +110,4 @@ const TestEndPage = () => {
     );
 };
 
-export default TestEndPage;
+export default EducationEndPage;

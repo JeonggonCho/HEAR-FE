@@ -12,7 +12,7 @@ import useModal from "@hooks/useModal.ts";
 import useRequest from "@hooks/useRequest.ts";
 import UserSchemaProvider from "@schemata/UserSchemaProvider.ts";
 import {useThemeStore} from "@store/useThemeStore.ts";
-import TestContext from "@context/TestContext.ts";
+import EducationContext from "@context/EducationContext.ts";
 import {confirmModalHeader, confirmModalSubMessage} from "@components/common/Modal/style.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
@@ -21,13 +21,13 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
 
 
-const SubmitTest = () => {
+const SubmitEducation = () => {
     const navigate = useNavigate();
     const {lang} = useThemeStore();
     const {modalRef, backdropRef, showModal, setShowModal} = useModal();
     const {sendRequest} = useRequest();
     const {updateYearAndStudioSchema} = UserSchemaProvider();
-    const {testAnswers} = useContext(TestContext);
+    const {getValues: getEducationAnswers} = useContext(EducationContext);
 
     const yearCategories = [
         {label: inputCategories.first[lang], value: "1", id: "select-1"},
@@ -55,20 +55,20 @@ const SubmitTest = () => {
     });
 
     // 문제 제출하기
-    const submitTest:SubmitHandler<UpdateYearAndStudioForm> = async () => {
+    const submitEducation:SubmitHandler<UpdateYearAndStudioForm> = async () => {
         try {
             const response = await sendRequest({
                 url: "/education/check",
                 method: "post",
                 data: {
-                    testAnswers: testAnswers,
+                    educationAnswers: getEducationAnswers(),
                     year: getValues("year"),
                     studio: getValues("studio"),
                 },
             });
             if (response.data) {
-                sessionStorage.removeItem("testAnswers");
-                navigate("/test/end", {replace: true});
+                sessionStorage.removeItem("educationAnswers");
+                navigate("/education/end", {replace: true});
             }
         } catch (err) {
             console.error("문제 제출 중 에러 발생: ", err);
@@ -122,7 +122,7 @@ const SubmitTest = () => {
                     size={"md"}
                     color={"approval"}
                     width={"full"}
-                    onClick={handleSubmit(submitTest)}
+                    onClick={handleSubmit(submitEducation)}
                 >
                     {buttonCategories.submit[lang]}
                 </Button>
@@ -156,4 +156,4 @@ const SubmitTest = () => {
     );
 };
 
-export default SubmitTest;
+export default SubmitEducation;

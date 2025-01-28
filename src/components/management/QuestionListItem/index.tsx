@@ -4,6 +4,7 @@ import {Draggable} from "@hello-pangea/dnd";
 import Input from "@components/common/Input";
 import Button from "@components/common/Button";
 import Icon from "@components/common/Icon";
+import Flex from "@components/common/Flex";
 import OptionListContent from "@components/management/OptionListContent";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {
@@ -12,7 +13,7 @@ import {
     IndexWrapper,
     OptionsWrapper, QuestionTypeWrapper,
     RemoveWrapper,
-    TextAnswerWrapper
+    TextAnswerWrapper,
 } from "./style.ts";
 import {EducationType, IMultipleChoice, IShortAnswer, ISingleChoice} from "@/types/education.ts";
 import {placeholderCategories} from "@constants/placeholderCategories.ts";
@@ -299,7 +300,7 @@ const QuestionListItem = (
                         </div>
 
                         {/*질문 입력 부분, 문제유형*/}
-                        <div>
+                        <Flex direction={"row"} align={"center"} gap={12}>
                             <Input
                                 label={placeholderCategories.question[lang]}
                                 placeholder={placeholderCategories.question[lang]}
@@ -323,7 +324,7 @@ const QuestionListItem = (
                                     <option value={"multipleChoice"}>{filterCategories.multiple[lang]}</option>
                                 </select>
                             </QuestionTypeWrapper>
-                        </div>
+                        </Flex>
 
                         {/*질문 부가설명 입력 부분*/}
                         {question.explanation || showExplanation ?

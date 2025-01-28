@@ -2,8 +2,8 @@ import {z} from "zod";
 import {EducationType} from "@/types/education.ts";
 
 
-const TestSchemaProvider = (questions: EducationType[]) => {
-    const testSchema = z.object(
+const QuestionSchemaProvider = (questions: EducationType[]) => {
+    const questionSchema = z.object(
         Object.fromEntries(
             questions.map((question) => [
                 question._id,
@@ -14,7 +14,7 @@ const TestSchemaProvider = (questions: EducationType[]) => {
         )
     );
 
-    return {testSchema};
+    return {questionSchema};
 };
 
-export default TestSchemaProvider;
+export default QuestionSchemaProvider;
