@@ -45,13 +45,13 @@ export const Container = styled.div`
         justify-content: center;
     }
 
-    & > div:nth-of-type(3) {
+    & > div:last-child {
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        margin-top: 40px;
+        margin-top: 24px;
         padding: 4px 4px 4px 28px;
         border-radius: 6px;
         transition: all 0.2s ease-in-out 0s;
@@ -89,6 +89,7 @@ export const ReservationListWrapper = styled.div<{ isOpen: boolean; maxHeight: s
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    margin-top: 24px;
 `;
 
 export const ReservationStatusWrapper = styled.div`

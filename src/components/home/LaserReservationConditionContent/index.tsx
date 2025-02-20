@@ -31,6 +31,8 @@ const LaserReservationConditionContent = ({laserStatus, rate, color}: ILaserRese
                 <h4>{cardCategories.laserReservationCondition[lang]}</h4>
             </div>
 
+            <span>2025.02.05</span>
+
             <div>
                 <Chart
                     containerHeight={"5rem"}
@@ -44,13 +46,6 @@ const LaserReservationConditionContent = ({laserStatus, rate, color}: ILaserRese
                     endAngle={90}
                     colors={[color]}
                 />
-            </div>
-
-            <div onClick={handleList}>
-                <p>{buttonCategories.reservationStatus[lang]}</p>
-                <MoreWrapper isOpen={isOpen}>
-                    <Icon svg={more}/>
-                </MoreWrapper>
             </div>
 
             <ReservationListWrapper
@@ -71,6 +66,13 @@ const LaserReservationConditionContent = ({laserStatus, rate, color}: ILaserRese
                     )
                 )}
             </ReservationListWrapper>
+
+            <div onClick={handleList}>
+                <p>{buttonCategories.reservationStatus[lang]}</p>
+                <MoreWrapper isOpen={isOpen}>
+                    <Icon svg={more}/>
+                </MoreWrapper>
+            </div>
         </Container>
     );
 };

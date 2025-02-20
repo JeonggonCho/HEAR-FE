@@ -9,7 +9,6 @@ import {buttonCategories} from "@constants/buttonCategories.ts";
 import more from "@assets/icons/more.svg";
 
 
-
 const FeedbackDropdown = () => {
     const navigate = useNavigate();
     const {lang} = useThemeStore();

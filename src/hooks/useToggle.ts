@@ -5,7 +5,7 @@ import useRequest from "@hooks/useRequest.ts";
 const useToggle = (initialStatus: boolean, url: string) => {
     const [status, setStatus] = useState<boolean>(initialStatus);
 
-    const {isLoading, errorText, sendRequest, clearError} = useRequest();
+    const {isLoading, sendRequest} = useRequest();
 
     const handleToggle = useCallback(async () => {
         try {
@@ -21,7 +21,7 @@ const useToggle = (initialStatus: boolean, url: string) => {
         }
     }, [url, sendRequest, isLoading, status])
 
-    return {status, handleToggle, isLoading, errorText, clearError};
+    return {status, handleToggle, isLoading};
 };
 
 export default useToggle;

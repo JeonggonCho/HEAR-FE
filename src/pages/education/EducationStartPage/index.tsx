@@ -175,17 +175,17 @@ const EducationStartPage = () => {
                         <h2 css={headerCenter}>{headerCategories.test[lang]}</h2>
                     </Header.Center>
                     <Header.Right>
-                        <Button
-                            type={"button"}
-                            variant={"text"}
-                            width={"fit"}
-                            size={"sm"}
-                            color={"third"}
-                            style={{padding: 0}}
-                            onClick={() => setShowSideMenu(true)}
-                        >
-                            <Icon svg={menu} isHovered={true}/>
-                        </Button>
+                        {/*<Button*/}
+                        {/*    type={"button"}*/}
+                        {/*    variant={"text"}*/}
+                        {/*    width={"fit"}*/}
+                        {/*    size={"sm"}*/}
+                        {/*    color={"third"}*/}
+                        {/*    style={{padding: 0}}*/}
+                        {/*    onClick={() => setShowSideMenu(true)}*/}
+                        {/*>*/}
+                        {/*    <Icon svg={menu} isHovered={true}/>*/}
+                        {/*</Button>*/}
                     </Header.Right>
                 </Grid>
             </Header>

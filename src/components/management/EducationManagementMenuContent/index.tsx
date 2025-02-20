@@ -142,7 +142,7 @@ const EducationManagementMenuContent = (
         const data = {cutOffPoint: parseInt(settings.cutOffPoint, 10)};
         try {
             const response = await sendRequest({
-                url: "/education/cutOffPoint",
+                url: "/education/cut-off-point",
                 method: "patch",
                 data: data,
             });

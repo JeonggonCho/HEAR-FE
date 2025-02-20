@@ -2,7 +2,6 @@ import React, {Dispatch, ReactNode, SetStateAction} from "react";
 import {BottomSheet} from "@components/common/BottomSheet/index.tsx";
 import Backdrop from "@components/common/Backdrop";
 
-
 interface IBasicBottomSheetProps {
     modalRef: React.Ref<HTMLDivElement>;
     backdropRef: React.Ref<HTMLDivElement>;
@@ -12,7 +11,6 @@ interface IBasicBottomSheetProps {
     header: ReactNode | string;
     body: ReactNode | string;
 }
-
 
 const BasicBottomSheet = (
     {

@@ -5,18 +5,13 @@ import BottomSheetTrigger from "@components/common/BottomSheet/BottomSheetTrigge
 import BottomSheetPortal from "@components/common/BottomSheet/BottomSheetPortal.tsx";
 import {BottomSheetWrapper} from "@components/common/BottomSheet/style.ts";
 
-
 interface IBottomSheetProps {
     children: ReactNode;
 }
 
-
 const BottomSheetMain = forwardRef<HTMLDivElement, IBottomSheetProps>(({children, ...props}, ref ) => {
     return (
-        <BottomSheetWrapper
-            ref={ref}
-            {...props}
-        >
+        <BottomSheetWrapper ref={ref} {...props}>
             {children}
         </BottomSheetWrapper>
     );

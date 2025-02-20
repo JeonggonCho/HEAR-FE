@@ -10,13 +10,12 @@ export const ContentWrapper = styled.div`
 
     // 교육 일러스트 이미지
     & > div:first-of-type {
-        margin: 0 0 24px;
         display: flex;
         align-items: center;
         justify-content: center;
 
         img {
-            margin-left: 24px;
+            margin-left: 8px;
             width: 20%;
             object-fit: contain;
 
