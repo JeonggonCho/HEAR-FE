@@ -31,7 +31,8 @@ const LaserReservationConditionContent = ({laserStatus, rate, color}: ILaserRese
                 <h4>{cardCategories.laserReservationCondition[lang]}</h4>
             </div>
 
-            <span>2025.02.05</span>
+            {/*TODO 날짜 표시 필요*/}
+            {/*<span>2025.02.05</span>*/}
 
             <div>
                 <Chart
