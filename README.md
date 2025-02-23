@@ -889,7 +889,7 @@ src
 
 | Splash                                                             | 홈                                                                                                                         |
 |--------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
-| <img src="./readme_assets/splash_page.gif" alt="splash" width=300> | <img src="./readme_assets/home_page.gif" alt="home" width=300>                                                            |
+| <img src="./readme_assets/splash_page.gif" alt="splash" width=200> | <img src="./readme_assets/home_page.gif" alt="home" width=200>                                                            |
 | - 일정시간 이후, 페이드 아웃<br/>- session storage를 사용하여 초기에만 표시              | - 기기 예약 현황 확인 가능<br/>- 기기 아이콘 클릭으로 예약 페이지 이동<br/>- 최근 공지사항 확인 가능<br/>- 조교 정보 카드 표시<br/>- 학과 카페 사이트(불꽃건축) 및 피드백 작성으로 이동 가능 |
 
 <br/>
@@ -898,22 +898,22 @@ src
 
 | 로그인                                                              | 회원가입                                                               | 비밀번호 찾기                                                                          | 회원정보 수정                                                                            |
 |------------------------------------------------------------------|--------------------------------------------------------------------|----------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| <img src="./readme_assets/login_page.gif" alt="login" width=300> | <img src="./readme_assets/signin_page.gif" alt="signin" width=300> | <img src="./readme_assets/find_password_page.png" alt="find_password" width=300> | <img src="./readme_assets/change_profile_page.gif" alt="change_profile" width=300> 
+| <img src="./readme_assets/login_page.gif" alt="login" width=200> | <img src="./readme_assets/signin_page.gif" alt="signin" width=200> | <img src="./readme_assets/find_password_page.png" alt="find_password" width=200> | <img src="./readme_assets/change_profile_page.gif" alt="change_profile" width=200> 
 | - 실시간 유효성 검사를 통해 한양대 이메일만 이용 가능                                  | - nodemailer를 이용한 한양대 이메일 인증<br/>- 학생 정보 입력                        | - 기존 비밀번호 제거 후, 새로운 비밀번호를 이메일로 전송                                                | - 이름, 학번, 전화번호 수정 가능                                                               |
 
 | 학생 프로필                                                                               | 조교 프로필                                                                                   | 테마 및 언어 설정                                                                               |
 |--------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
-| <img src="./readme_assets/student_profile_page.gif" alt="student_profile" width=300> | <img src="./readme_assets/assistant_profile_page.png" alt="assistant_profile" width=300> | <img src="./readme_assets/setting_page.gif" alt="setting" width=300>                     |
+| <img src="./readme_assets/student_profile_page.gif" alt="student_profile" width=200> | <img src="./readme_assets/assistant_profile_page.png" alt="assistant_profile" width=200> | <img src="./readme_assets/setting_page.gif" alt="setting" width=200>                     |
 | - 내 예약, 이용 내역, 문의 내역, 경고 내역 확인 가능                                                    | - 예약 관리, 유저 관리, 기기 관리, 교육 관리 기능 제공                                                       | - local storage를 이용하여 설정 관리<br/>- 테마는 라이트모드와 다크모드 지원<br/>- 언어는 교환학생을 고려해 한국어, 영어, 중국어 지원 |
 
 <br/>
 
 ### 온보딩(사용법) 페이지
 
-| 사용법 목록                                                                                | 사용법                                                                          | 이미지 뷰어                                                                                            |
-|---------------------------------------------------------------------------------------|------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-| <img src="./readme_assets/instruction_list_page.png" alt="instruction_list" width=300> | <img src="./readme_assets/instruction_page.gif" alt="instruction" width=300> | <img src="./readme_assets/instruction_image_viewer.gif" alt="instruction_image_viewer" width=300> |
-| - 모형 제작실 기기 6종에 대한 이용 수칙 및 주의사항 안내                                                    | - 기기에 대한 세부 정보를 볼 수 있으며 탭을 통해 분류                                             | - 이미지 클릭 시, 뷰어 창 열림<br/>- 확대 및 축소, 크기 초기화 기능 제공                                                   |
+| 사용법 목록                                                                                 | 사용법                                                                          | 이미지 뷰어                                                                                            |
+|----------------------------------------------------------------------------------------|------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| <img src="./readme_assets/instruction_list_page.png" alt="instruction_list" width=200> | <img src="./readme_assets/instruction_page.gif" alt="instruction" width=200> | <img src="./readme_assets/instruction_image_viewer.gif" alt="instruction_image_viewer" width=200> |
+| - 모형 제작실 기기 6종에 대한 이용 수칙 및 주의사항 안내                                                     | - 기기에 대한 세부 정보를 볼 수 있으며 탭을 통해 분류                                             | - 이미지 클릭 시, 뷰어 창 열림<br/>- 확대 및 축소, 크기 초기화 기능 제공                                                   |
 
 <br/>
 
