@@ -55,7 +55,6 @@ const CncReservationForm = () => {
             check: false,
             date: "",
         },
-        mode: "onChange",
     });
 
     // 현재 CNC 예약 현황 조회
@@ -129,7 +128,6 @@ const CncReservationForm = () => {
                         width={"full"}
                         color={"primary"}
                         size={"lg"}
-                        disabled={!isValid}
                     >
                         {buttonCategories.reservation[lang]}
                     </Button>
