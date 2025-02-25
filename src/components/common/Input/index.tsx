@@ -75,6 +75,7 @@ const Input = <T extends FieldValues>(
                     min={0}
                     max={15}
                     value={value}
+                    onChange={onChange}
                 />
                 :
                 <input

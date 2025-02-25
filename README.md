@@ -1,52 +1,24 @@
-<h1>
-<img src="./readme_assets/hear.png" width="28"> HEAR
-</h1>
-
-> HYU ERICA Architecture Reservation
-> 
-> 한양대학교 에리카 건축학부 모형제작실 기기 예약 시스템
-
 <p align="center">
 <img src="./readme_assets/hear_intro.jpg" alt="hear_intro" width="800">
 </p>
 
+<h1>
+<img src="./readme_assets/hear.png" width="28"> 
+HEAR
+</h1>
+
+> HYU ERICA Architecture Reservation<br/>
+> <b>한양대학교 에리카 건축학부 모형제작실 기기 예약 시스템</b>
+
 - 1인 개발 프로젝트 (기획, 디자인, 프론트엔드, 백엔드)
 - 2024.08 ~ 진행중
+- [백엔드 repository 링크](https://github.com/JeonggonCho/HEAR-BE)
 
 <br/>
 
-<details>
-<summary>프로젝트 환경 설정 가이드 (클릭하여 펼치기)</summary>
-<div markdown="1">
-
-- 서버와 DB가 설정되어야 합니다
-
-1. repository에서 `git clone` 진행
-
-```bash
-https://github.com/JeonggonCho/HEAR-FE.git
-```
-
-2. 라이브러리 설치
-
-```bash
-$ npm install
-```
-
-3. 로컬에서 프로젝트 실행하기
-
-```bash
-$ npm run dev
-```
-</div>
-</details>
-
-<br>
-<br>
-
 ## 1. 프로젝트 소개
 
-### 🔍 현황
+### 🔍 개요
 
 <p align="center">
 <img src="readme_assets/writing_reservation.png" alt="기존수기예약"/><br/>
@@ -74,11 +46,48 @@ $ npm run dev
 <br>
 <br>
 
-## 2. Commit Conventions
+## 2. 프로젝트 환경 설정
 
-- commit -m '동사 : 커밋 메시지'
+<details>
+<summary>프로젝트 환경 설정 가이드 (클릭하여 펼치기)</summary>
+<div markdown="1">
 
-| 동사       | 의미                  |
+- 서버와 DB, 환경변수가 설정되어야 합니다
+
+1. `git clone` 진행
+
+```bash
+https://github.com/JeonggonCho/HEAR-FE.git
+```
+
+<br/>
+
+2. 라이브러리 설치
+
+- 라이브러리 버전으로 오류가 발생할 수 있습니다
+
+```bash
+$ npm install
+```
+
+<br/>
+
+3. 로컬에서 프로젝트 실행하기
+
+```bash
+$ npm run dev
+```
+</div>
+</details>
+
+<br>
+<br>
+
+## 3. 커밋 컨벤션
+
+- commit -m '커밋 타입 : 커밋 설명'
+
+| 타입       | 의미                  |
 |----------|---------------------|
 | add      | 새로운 컴포넌트 추가         |
 | feat     | 새로운 기능 추가           |
@@ -90,7 +99,7 @@ $ npm run dev
 <br>
 <br>
 
-## 3. 주요 기능
+## 4. 주요 기능
 
 ### 🙋🏻 회원
 - 회원가입 (한양대 이메일 검증)
@@ -136,7 +145,7 @@ $ npm run dev
 <br/>
 <br/>
 
-## 4. 개발 환경
+## 5. 개발 환경
 
 ### Frontend
 
@@ -275,7 +284,7 @@ agenda
 
 [//]: # (<br/>)
 
-## 5. 프로젝트 구조
+## 6. 프로젝트 구조
 
 <details>
 <summary>프로젝트 구조 보기 (클릭하여 펼치기)</summary>
@@ -675,7 +684,7 @@ src
 <br/>
 <br/>
 
-## 6. API 명세서
+## 7. API 명세서
 
 
 ### 🙋🏻 회원
@@ -883,7 +892,7 @@ src
 <br>
 <br>
 
-## 7. 개발 화면
+## 8. 개발 화면
 
 ### 스플래쉬 페이지 / 홈 페이지
 
@@ -975,22 +984,20 @@ src
 
 #### 조교 및 관리자
 
-| 예약 | 유저 |
-|----|----|
-|    |    |
-|    |    |
+| 예약 | 유저                                                                                               |
+|----|--------------------------------------------------------------------------------------------------|
+|    | <img src="./readme_assets/manage_user_page.gif" alt="manage_user" width=250>                     |
+|    | - 이름 검색 기능<br/>- 학년, 경고 회수, 교육 이수여부 필터링 기능<br/>- 유저 정보 상세보기 제공<br/>- 유저 경고 부과, 유저 탈퇴, 조교 인수인계 기능 |
 
-| 기기 | 교육 |
-|----|----|
-|    |    |
-|    |    |
+| 기기                                                                                                                          | 교육 |
+|-----------------------------------------------------------------------------------------------------------------------------|----|
+| <img src="./readme_assets/manage_machine_page.gif" alt="manage_machine" width=250>                                          |    |
+| - 레이저 커팅기 기기 추가 및 삭제<br/>- 레이저 커팅기 예약 시간 추가 및 삭제, 순서 변경<br/>- 3D 프린터 기기 추가 및 삭제<br/>- 열선 운용 개수 설정<br/>- 기기 활성화 온오프 토글 버튼 기능 |    |
 
 <br/>
 <br/>
 
-## 8. 이슈
-
-
+## 9. 이슈
 
 <br/>
 <br/>
