@@ -10,7 +10,11 @@ interface IGenerateCalendar {
     selectWeekend: boolean;
 }
 
-const generateCalendar = ({calendarType, currentDate, lang, machine, condition, selectWeekend}: IGenerateCalendar) => { // 날짜를 인자로 받기
+const generateCalendar = ({
+                              // calendarType,
+                              currentDate, lang, machine, condition,
+                              // selectWeekend
+}: IGenerateCalendar) => { // 날짜를 인자로 받기
     const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1); // 현재 날짜의 해당 월의 첫번째 날의 (년도, 월, 일) 구하기
     const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0); // 현재 날짜의 해당 월의 마지막 날의 (년도, 월, 일) 구하기 -> 월에 +1 하고 일에 0을 주면 마지막 날 구할 수 있음
 

@@ -37,10 +37,10 @@ const PrinterSelectContent = (
         onSelectDate,
         selectedDate,
         selectMachineMode,
-        setSelectMachineMode,
-        selectedMachine,
-        setSelectedMachine,
-        setReservation
+        // setSelectMachineMode,
+        // selectedMachine,
+        // setSelectedMachine,
+        // setReservation
     }: IPrinterSelectContentProps
 ) => {
     const {lang} = useThemeStore();

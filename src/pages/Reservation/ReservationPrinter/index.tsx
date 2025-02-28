@@ -5,8 +5,8 @@ import Button from "@components/common/Button";
 import Icon from "@components/common/Icon";
 import Flex from "@components/common/Flex";
 import Card from "@components/common/Card";
-import {Modal} from "@components/common/Modal";
-import PrinterSelectContent from "@components/reservation/PrinterSelectContent";
+// import {Modal} from "@components/common/Modal";
+// import PrinterSelectContent from "@components/reservation/PrinterSelectContent";
 import LoadingLoop from "@components/common/LoadingLoop";
 import HeadTag from "@components/common/HeadTag";
 import Grid from "@components/common/Grid";
@@ -27,10 +27,12 @@ import mapIcon from "@assets/icons/map.svg";
 
 
 const ReservationPrinter = () => {
-    const [reservation, setReservation] = useState<IPrinterReservation>();
-    const [selectedDate, setSelectedDate] = useState<string>();
-    const [selectMachineMode, setSelectMachineMode] = useState<boolean>(false);
-    const [selectedMachine, setSelectedMachine] = useState<string>("");
+    const [reservation,
+        // setReservation
+    ] = useState<IPrinterReservation>();
+    // const [selectedDate, setSelectedDate] = useState<string>();
+    // const [selectMachineMode, setSelectMachineMode] = useState<boolean>(false);
+    // const [selectedMachine, setSelectedMachine] = useState<string>("");
     const [showSelectModal, setShowSelectModal] = useState<boolean>(false);
     const [showEmptyError, setShowEmptyError] = useState<boolean>(false);
 
@@ -63,16 +65,16 @@ const ReservationPrinter = () => {
         return () => clearTimeout(errorTimer);
     }, [showEmptyError]);
 
-    const handleDateSelect = (date: string) => {
-        setSelectedDate(date);
-        setSelectMachineMode(true);
-    };
+    // const handleDateSelect = (date: string) => {
+    //     setSelectedDate(date);
+    //     setSelectMachineMode(true);
+    // };
 
-    const handleCloseModal = () => {
-        setShowSelectModal(false);
-        setSelectMachineMode(false);
-        setSelectedDate("");
-    };
+    // const handleCloseModal = () => {
+    //     setShowSelectModal(false);
+    //     setSelectMachineMode(false);
+    //     setSelectedDate("");
+    // };
 
     const submitHandler = useCallback(async (e: any) => {
         e.preventDefault();
@@ -168,26 +170,27 @@ const ReservationPrinter = () => {
             </Container>
 
             {showSelectModal &&
-              <Modal
-                title={selectMachineMode ? (
-                    <div style={{display:"flex", alignItems:"center"}}>
-                        <ArrowBack action={() => setSelectMachineMode(false)}/>
-                        <h3>{inputCategories.selectMachine[lang]}</h3>
-                    </div>
-                ) : headerCategories.date[lang]}
-                content={<PrinterSelectContent
-                    setModal={handleCloseModal}
-                    onSelectDate={handleDateSelect}
-                    selectedDate={selectedDate}
-                    selectMachineMode={selectMachineMode}
-                    setSelectMachineMode={setSelectMachineMode}
-                    selectedMachine={selectedMachine}
-                    setSelectedMachine={setSelectedMachine}
-                    setReservation={setReservation}
-                />}
-                setModal={handleCloseModal}
-                type={"bottomSheet"}
-              />
+                <></>
+              // <Modal
+              //   title={selectMachineMode ? (
+              //       <div style={{display:"flex", alignItems:"center"}}>
+              //           <ArrowBack action={() => setSelectMachineMode(false)}/>
+              //           <h3>{inputCategories.selectMachine[lang]}</h3>
+              //       </div>
+              //   ) : headerCategories.date[lang]}
+              //   content={<PrinterSelectContent
+              //       setModal={handleCloseModal}
+              //       onSelectDate={handleDateSelect}
+              //       selectedDate={selectedDate}
+              //       selectMachineMode={selectMachineMode}
+              //       setSelectMachineMode={setSelectMachineMode}
+              //       selectedMachine={selectedMachine}
+              //       setSelectedMachine={setSelectedMachine}
+              //       setReservation={setReservation}
+              //   />}
+              //   setModal={handleCloseModal}
+              //   type={"bottomSheet"}
+              // />
             }
         </>
     );

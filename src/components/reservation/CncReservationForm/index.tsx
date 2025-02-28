@@ -45,7 +45,7 @@ const CncReservationForm = () => {
     const {
         register,
         handleSubmit,
-        formState: {errors, isValid},
+        formState: {errors},
         setValue,
         getValues,
         reset

@@ -23,11 +23,11 @@ import {ILaserStatus} from "@/types/reservation.ts";
 const HomePage = () => {
     const [machineStatus, setMachineStatus] = useState({laser: false, printer: false, heat: false, saw: false, vacuum: false, cnc: false});
     const [laserStatus, setLaserStatus] = useState<ILaserStatus[]>([]);
-    const [printerStatus, setPrinterStatus] = useState([]);
-    const [heatStatus, setHeatStatus] = useState([]);
-    const [sawStatus, setSawStatus] = useState([]);
-    const [vacuumStatus, setVacuumStatus] = useState([]);
-    const [cncStatus, setCncStatus] = useState([]);
+    // const [printerStatus, setPrinterStatus] = useState([]);
+    // const [heatStatus, setHeatStatus] = useState([]);
+    // const [sawStatus, setSawStatus] = useState([]);
+    // const [vacuumStatus, setVacuumStatus] = useState([]);
+    // const [cncStatus, setCncStatus] = useState([]);
 
     const {isLoading, sendRequest} = useRequest();
 
@@ -40,11 +40,11 @@ const HomePage = () => {
             });
             if (response.data) {
                 setLaserStatus(response.data.laserStatus);
-                setPrinterStatus(response.data.printerStatus);
-                setHeatStatus(response.data.heatStatus);
-                setSawStatus(response.data.sawStatus);
-                setVacuumStatus(response.data.vacuumStatus);
-                setCncStatus(response.data.cncStatus);
+                // setPrinterStatus(response.data.printerStatus);
+                // setHeatStatus(response.data.heatStatus);
+                // setSawStatus(response.data.sawStatus);
+                // setVacuumStatus(response.data.vacuumStatus);
+                // setCncStatus(response.data.cncStatus);
             }
         } catch (err) {
             console.error("예약 현황 조회 중 에러 발생: ", err);

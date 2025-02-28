@@ -21,8 +21,12 @@ import {messageCategories} from "@constants/messageCategories.ts";
 
 const MyUsagePage = () => {
     const [history, setHistory] = useState<IReservation[]>([]);
-    const [startDate, setStartDate] = useState(); // Date range picker 적용
-    const [endDate, setEndDate] = useState();
+    const [startDate,
+        // setStartDate
+    ] = useState(); // Date range picker 적용
+    const [endDate,
+        // setEndDate
+    ] = useState();
     const [filter, setFilter] = useState("all");
 
     const {lang} = useThemeStore();
