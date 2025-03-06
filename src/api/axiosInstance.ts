@@ -4,10 +4,9 @@ import {useToastStore} from "@store/useToastStore.ts";
 
 const axiosInstance:AxiosInstance = axios.create({
     baseURL: `${import.meta.env.VITE_SERVER}`,
-    timeout: 3000,
-    headers: {
-        'Content-Type': 'application/json'
-    }
+    timeout: 10000,
+    headers: {'Content-Type': 'application/json'},
+    withXSRFToken: true,
 });
 
 axiosInstance.interceptors.request.use(

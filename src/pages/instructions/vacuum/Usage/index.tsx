@@ -102,8 +102,6 @@ const Usage = () => {
                 <p>{vacuumInstruction.usage.complete[lang]}</p>
                 <Image images={images} targetIndex={16} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
 
-                <Image images={images} targetIndex={17} currentImage={currentImage} setCurrentImage={setCurrentImage}/>
-
                 <p>{vacuumInstruction.usage.turnOff[lang]}</p>
             </section>
         </Container>

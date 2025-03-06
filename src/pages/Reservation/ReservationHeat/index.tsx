@@ -120,7 +120,7 @@ const ReservationHeat = () => {
                     </HeatCheckWrapper>
 
                     <Input
-                        label={inputCategories.tomorrowRentalDate[lang]}
+                        label={inputCategories.date[lang]}
                         subLabel={messageCategories.noWeekendAndHoliday[lang]}
                         type={"text"}
                         id={"heat-reservation-date"}

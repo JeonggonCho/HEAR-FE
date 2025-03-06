@@ -267,6 +267,23 @@ agenda
 
 ### Deployment
 
+<h3 style="display: flex; align-items: center; gap: 6px">
+<img src="./readme_assets/s3.png" alt="s3_logo" width="22px"/>
+S3
+</h3>
+
+- 정적 웹사이트 호스팅에 최적화되어 HTML, CSS, JS 파일을 쉽게 배포할 수 있다.
+- 사용량 기반으로 과금이 되며, 안정적인 스토리지를 이용할 수 있다.
+
+<h3 style="display: flex; align-items: center; gap: 6px">
+<img src="./readme_assets/cloudfront.jpeg" alt="cloudfront_logo" width="22px"/>
+CloudFront
+</h3>
+
+- CDN(Content Delivery Network)을 활용해 엣지 로케이션에 빠른 컨텐츠 전송이 가능하다.
+- 리소스 캐싱을 통해 서버의 부담을 최소화 할 수 있다.
+- HTTPS를 지원하여 보안을 강화할 수 있다.
+
 <br/>
 <br/>
 
@@ -1045,6 +1062,10 @@ src
 <br/>
 
 ### 12. useForm 훅으로 폼을 관리하고 세션 스토리지에 저장하여 새로고침 시에도 유지하도록 하려했는데 새로고침 시, 세션이 초기화 되거나, 세션에 폼이 안 채워지는 문제 해결하기
+
+<br/>
+
+### 13. 도커 빌드 캐시로 인한 문제 및 AWS Cloudfront의 캐싱으로 인한 페이지 접근 시, 에러 문제 해결하기
 
 <br/>
 

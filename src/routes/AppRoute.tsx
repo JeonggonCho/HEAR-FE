@@ -57,85 +57,82 @@ const ThemeSettingPage = lazy(() => import("@pages/auth/ThemeSettingPage"));
 
 
 const AppRoute = () => {
-    const {isLoggedIn} = useAuth();
+    const { isLoggedIn } = useAuth();
 
     return (
         <Suspense fallback={<></>}>
             <Routes>
-                <Route path="/" element={<Layout showNav={isLoggedIn}/>}>
-                    <Route index element={<Navigate to={isLoggedIn ? "/home" : "/login"}/>}/>
-                    {isLoggedIn ?
+                <Route path="/" element={<Layout showNav={isLoggedIn} />}>
+                    {/* 루트 경로 처리 */}
+                    <Route index element={<Navigate to={isLoggedIn ? "/home" : "/login"} replace />} />
+
+                    {/* 로그인 상태와 상관없이 항상 접근 가능한 라우트 */}
+                    <Route path="login" element={isLoggedIn ? <Navigate to="/home" replace /> : <SignInPage />} />
+                    <Route path="signup" element={<SignUpPage />} />
+                    <Route path="signup/done" element={<SignUpDonePage />} />
+                    <Route path="password/reset" element={<FindPasswordPage />} />
+
+                    {/* 로그인 상태일 때만 접근 가능한 라우트 */}
+                    {isLoggedIn && (
                         <>
-                            {/*로그인 유저 라우트*/}
-                            <Route path="home" element={<HomePage/>}/>
-                            <Route path="signup/done" element={<SignUpDonePage/>}/>
-                            <Route path="account" element={<AccountPage/>}/>
-                            <Route path="account/update" element={<UpdateAccountPage/>}/>
-                            <Route path="password/reset" element={<FindPasswordPage/>}/>
-                            <Route path="password/update" element={<UpdatePasswordPage/>}/>
-                            <Route path="setting" element={<SettingPage/>}/>
-                            <Route path="setting/theme" element={<ThemeSettingPage/>}/>
-                            <Route path="my-reservations" element={<MyReservationsPage/>}/>
-                            <Route path="my-usage" element={<MyUsagePage/>}/>
-                            <Route path="my-inquiries" element={<MyInquiriesPage/>}/>
-                            <Route path="my-warning" element={<MyWarningPage/>}/>
+                            <Route path="home" element={<HomePage />} />
+                            <Route path="account" element={<AccountPage />} />
+                            <Route path="account/update" element={<UpdateAccountPage />} />
+                            <Route path="password/update" element={<UpdatePasswordPage />} />
+                            <Route path="setting" element={<SettingPage />} />
+                            <Route path="setting/theme" element={<ThemeSettingPage />} />
+                            <Route path="my-reservations" element={<MyReservationsPage />} />
+                            <Route path="my-usage" element={<MyUsagePage />} />
+                            <Route path="my-inquiries" element={<MyInquiriesPage />} />
+                            <Route path="my-warning" element={<MyWarningPage />} />
 
                             <Route path="board">
-                                <Route index element={<Navigate to="notice" replace/>} />
-                                <Route path="notice" element={<NoticePage/>}/>
-                                <Route path="inquiry" element={<InquiryPage/>}/>
-                                <Route path="feedback" element={<FeedbackPage/>}/>
-                                <Route path="notice/new" element={<CreateNoticePage/>}/>
-                                <Route path="notice/:noticeId" element={<NoticeDetailPage/>}/>
-                                <Route path="notice/:noticeId/update" element={<UpdateNoticePage/>}/>
-                                <Route path="inquiry/new" element={<CreateInquiryPage/>}/>
-                                <Route path="inquiry/:inquiryId" element={<InquiryDetailPage/>}/>
-                                <Route path="inquiry/:inquiryId/update" element={<UpdateInquiryPage/>}/>
-                                <Route path="feedback/new" element={<CreateFeedbackPage/>}/>
-                                <Route path="feedback/:feedbackId" element={<FeedbackDetailPage/>}/>
-                                <Route path="feedback/:feedbackId/update" element={<UpdateFeedbackPage/>}/>
+                                <Route index element={<Navigate to="notice" replace />} />
+                                <Route path="notice" element={<NoticePage />} />
+                                <Route path="inquiry" element={<InquiryPage />} />
+                                <Route path="feedback" element={<FeedbackPage />} />
+                                <Route path="notice/new" element={<CreateNoticePage />} />
+                                <Route path="notice/:noticeId" element={<NoticeDetailPage />} />
+                                <Route path="notice/:noticeId/update" element={<UpdateNoticePage />} />
+                                <Route path="inquiry/new" element={<CreateInquiryPage />} />
+                                <Route path="inquiry/:inquiryId" element={<InquiryDetailPage />} />
+                                <Route path="inquiry/:inquiryId/update" element={<UpdateInquiryPage />} />
+                                <Route path="feedback/new" element={<CreateFeedbackPage />} />
+                                <Route path="feedback/:feedbackId" element={<FeedbackDetailPage />} />
+                                <Route path="feedback/:feedbackId/update" element={<UpdateFeedbackPage />} />
                             </Route>
 
-                            <Route path="instruction" element={<InstructionPage/>}/>
-                            <Route path="instruction/3d-printer" element={<InstructionPrinter/>}/>
-                            <Route path="instruction/laser" element={<InstructionLaser/>}/>
-                            <Route path="instruction/heat" element={<InstructionHeat/>}/>
-                            <Route path="instruction/cnc" element={<InstructionCnc/>}/>
-                            <Route path="instruction/saw" element={<InstructionSaw/>}/>
-                            <Route path="instruction/vacuum" element={<InstructionVacuum/>}/>
+                            <Route path="instruction" element={<InstructionPage />} />
+                            <Route path="instruction/3d-printer" element={<InstructionPrinter />} />
+                            <Route path="instruction/laser" element={<InstructionLaser />} />
+                            <Route path="instruction/heat" element={<InstructionHeat />} />
+                            <Route path="instruction/cnc" element={<InstructionCnc />} />
+                            <Route path="instruction/saw" element={<InstructionSaw />} />
+                            <Route path="instruction/vacuum" element={<InstructionVacuum />} />
 
-                            <Route path="reservation/done" element={<ReservationDonePage/>}/>
-                            <Route path="reservation/3d-printer" element={<ReservationPrinter/>}/>
-                            <Route path="reservation/laser" element={<ReservationLaser/>}/>
-                            <Route path="reservation/heat" element={<ReservationHeat/>}/>
-                            <Route path="reservation/cnc" element={<ReservationCnc/>}/>
-                            <Route path="reservation/saw" element={<ReservationSaw/>}/>
-                            <Route path="reservation/vacuum" element={<ReservationVacuum/>}/>
+                            <Route path="reservation/done" element={<ReservationDonePage />} />
+                            <Route path="reservation/3d-printer" element={<ReservationPrinter />} />
+                            <Route path="reservation/laser" element={<ReservationLaser />} />
+                            <Route path="reservation/heat" element={<ReservationHeat />} />
+                            <Route path="reservation/cnc" element={<ReservationCnc />} />
+                            <Route path="reservation/saw" element={<ReservationSaw />} />
+                            <Route path="reservation/vacuum" element={<ReservationVacuum />} />
 
-                            <Route path="management/machines" element={<MachinesManagementPage/>}/>
-                            <Route path="management/users" element={<UsersManagementPage/>}/>
-                            <Route path="management/reservations" element={<ReservationsManagementPage/>}/>
-                            <Route path="management/education" element={<EducationManagementPage/>}/>
+                            <Route path="management/machines" element={<MachinesManagementPage />} />
+                            <Route path="management/users" element={<UsersManagementPage />} />
+                            <Route path="management/reservations" element={<ReservationsManagementPage />} />
+                            <Route path="management/education" element={<EducationManagementPage />} />
 
-                            <Route path="alarm" element={<NotificationPage/>}/>
+                            <Route path="alarm" element={<NotificationPage />} />
 
-                            <Route path="education" element={<EducationIntroductionPage/>}/>
-                            <Route path="education/start" element={<EducationStartPage/>}/>
-                            <Route path="education/end" element={<EducationEndPage/>}/>
+                            <Route path="education" element={<EducationIntroductionPage />} />
+                            <Route path="education/start" element={<EducationStartPage />} />
+                            <Route path="education/end" element={<EducationEndPage />} />
                         </>
-                    :
-                        <>
-                            {/*비로그인 유저 라우트*/}
-                            <Route index element={<Navigate to="/login"/>}/>
-                            <Route path="login" element={<SignInPage/>}/>
-                            <Route path="signup" element={<SignUpPage/>}/>
-                            <Route path="signup/done" element={<SignUpDonePage/>}/>
-                            <Route path="password/reset" element={<FindPasswordPage/>}/>
-                        </>
-                    }
+                    )}
 
-                    {/*로그인 유무 상관없는 공통 라우트*/}
-                    <Route path="*" element={<NotFoundPage/>}/>
+                    {/* 항상 접근 가능한 404 페이지 */}
+                    <Route path="*" element={<NotFoundPage />} />
                 </Route>
             </Routes>
         </Suspense>

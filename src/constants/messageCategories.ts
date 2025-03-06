@@ -65,9 +65,9 @@ export const messageCategories = {
         ch: "该时间可能会根据助理的情况而有所变化。",
     },
     heatRule: {
-        ko: "[열선 이용 규정]",
-        en: "[Hot Wire Cutter Usage Regulations]",
-        ch: "[热丝切割机使用规定]",
+        ko: "[열선 예약 가이드]",
+        en: "[Hot Wire Cutter Reservation Guide]",
+        ch: "[热线切割机预订指南]",
     },
     heatDescription: {
         ko: "열선 기기는 설계 스튜디오당 1대만 대여할 수 있으며, 사용 기간은 1주일로 제한됩니다. 이 기간 내에 반납하지 않을 경우, 스튜디오 전체 인원에게 경고가 1회씩 부과됩니다.",

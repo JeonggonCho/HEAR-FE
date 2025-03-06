@@ -65,14 +65,14 @@ export const cardCategories = {
         ch: "未通过",
     },
     eduMessage: {
-        ko: "(미이수 시, 사용제한)",
-        en: "(Usage restriction if not completed)",
+        ko: "(미이수 시, 사용 제한)",
+        en: "(Access restricted if not completed)",
         ch: "(未完成时，使用限制)",
     },
     warningMessage: {
-        ko: "(2회 시, 사용제한)",
-        en: "(Usage restriction after 2 warnings)",
-        ch: "(警告两次后，使用限制)",
+        ko: "(2회 시, 사용 제한)",
+        en: "(Access restricted after 2 warnings)",
+        ch: "()",
     },
     assistant: {
         ko: "모형 제작실 관리 조교",

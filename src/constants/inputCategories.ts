@@ -65,9 +65,9 @@ export const inputCategories = {
         ch: "学年",
     },
     tomorrowDate: {
-        ko: "날짜 (다음날만 예약 가능)",
-        en: "Date (Reservations can only be made for the next day)",
-        ch: "日期（只能预约明天）",
+        ko: "날짜",
+        en: "Date",
+        ch: "日期",
     },
     date: {
         ko: "날짜",
@@ -113,11 +113,6 @@ export const inputCategories = {
         ko: "희망 시간 설정",
         en: "Preferred Time Setting",
         ch: "希望时间设置",
-    },
-    tomorrowRentalDate: {
-        ko: "대여 날짜 (다음날만 대여 가능)",
-        en: "Rental Date (Only the next day is available for rental)",
-        ch: "租赁日期（仅可租赁明天）",
     },
     twoDayLaterDate: {
         ko: "날짜 (사용 날짜 이틀 전 예약 가능)",
