@@ -63,7 +63,7 @@ const MachineManageCard = (
     const {lang, isDarkMode} = useThemeStore();
     const {isOpen, listRef, maxHeight, handleList} = useListCollapse(machineData.length, timeData?.length);
     const {sendRequest} = useRequest();
-    const {status, handleToggle, isLoading} = useToggle(machineData[0]?.status, machineData[0]?.url);
+    const {status, handleToggle} = useToggle(machineData[0]?.status, machineData[0]?.url);
     const {updateHeatCountSchema} = MachineSchemaProvider();
 
     type UpdateHeatCountFormType = z.infer<typeof updateHeatCountSchema>;
@@ -122,22 +122,23 @@ const MachineManageCard = (
                     <IconWrapper>
                         <img src={
                             machineType === "laser" ? laser_icon
-                                : machineType === "printer" ? printer_icon
-                                    : machineType === "saw" ? saw_icon
-                                        : machineType === "heat" ? heat_icon
-                                            : machineType === "vacuum" ? vacuum_icon
-                                                : machineType === "cnc" ? cnc_icon
-                                                    : undefined}
-                             alt="기기 이미지"/>
+                            : machineType === "printer" ? printer_icon
+                            : machineType === "saw" ? saw_icon
+                            : machineType === "heat" ? heat_icon
+                            : machineType === "vacuum" ? vacuum_icon
+                            : machineType === "cnc" ? cnc_icon
+                            : undefined}
+                             alt="기기 이미지"
+                        />
                     </IconWrapper>
                     <MachineTitleWrapper>{
                         machineType === "laser" ? machineName.laser[lang]
-                            : machineType === "printer" ? machineName.printer[lang]
-                                : machineType === "heat" ? machineName.heat[lang]
-                                    : machineType === "saw" ? machineName.saw[lang]
-                                        : machineType === "vacuum" ? machineName.vacuum[lang]
-                                            : machineType === "cnc" ? machineName.cnc[lang]
-                                                : undefined
+                        : machineType === "printer" ? machineName.printer[lang]
+                        : machineType === "heat" ? machineName.heat[lang]
+                        : machineType === "saw" ? machineName.saw[lang]
+                        : machineType === "vacuum" ? machineName.vacuum[lang]
+                        : machineType === "cnc" ? machineName.cnc[lang]
+                        : undefined
                     }</MachineTitleWrapper>
                 </Flex>
 
@@ -150,7 +151,10 @@ const MachineManageCard = (
 
                 {/*토글 버튼 배치*/}
                 {(machineType === "saw" || machineType === "vacuum" || machineType === "cnc") &&
-                  <Toggle click={() => handleToggle} status={status} isLoading={isLoading}/>
+                  <Toggle
+                      click={() => handleToggle}
+                      status={status}
+                  />
                 }
             </Flex>
 
@@ -234,7 +238,10 @@ const MachineManageCard = (
                                 />
                                 <span>{rangeValue}</span>
                             </div>
-                            <Toggle click={handleToggle} status={status} isLoading={isLoading}/>
+                            <Toggle
+                                click={handleToggle}
+                                status={status}
+                            />
                         </CountWrapper>
                     }
                 </>

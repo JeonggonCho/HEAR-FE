@@ -5,23 +5,26 @@ import useRequest from "@hooks/useRequest.ts";
 const useToggle = (initialStatus: boolean, url: string) => {
     const [status, setStatus] = useState<boolean>(initialStatus);
 
-    const {isLoading, sendRequest} = useRequest();
+    const {sendRequest} = useRequest();
 
-    const handleToggle = useCallback(async () => {
-        try {
-            if (isLoading) return;
-            await sendRequest({
+    const handleToggle = useCallback(() => {
+        setStatus(prevState => {
+            const newState = !prevState;
+
+            sendRequest({
                 url: url,
                 method: "patch",
-                data: {status: !status},
+                data: {status: newState},
+            }).catch(err => {
+                console.error("토글 에러 발생: ", err);
+                setStatus(currentState => (currentState === newState ? prevState : currentState));
             });
-            setStatus((prevState) => !prevState);
-        } catch (err) {
-            console.error("토글 에러 발생: ", err);
-        }
-    }, [url, sendRequest, isLoading, status])
 
-    return {status, handleToggle, isLoading};
+            return newState;
+        });
+    }, [url, sendRequest])
+
+    return {status, handleToggle};
 };
 
 export default useToggle;

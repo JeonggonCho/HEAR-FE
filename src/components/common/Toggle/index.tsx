@@ -5,18 +5,16 @@ import {Container} from "./style.ts";
 interface IToggleProps {
     click: () => void;
     status: boolean;
-    isLoading: boolean;
 }
 
 
-const Toggle = ({status, isLoading, click}: IToggleProps) => {
+const Toggle = ({status, click}: IToggleProps) => {
     const {isDarkMode} = useThemeStore();
 
     return (
         <Container
             onClick={click}
             status={status}
-            disabled={isLoading as boolean}
             darkmode={isDarkMode.toString()}
         >
             <div/>
