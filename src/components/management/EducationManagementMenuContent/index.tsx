@@ -52,7 +52,7 @@ const EducationManagementMenuContent = (
     const {lang} = useThemeStore();
     const {showToast} = useToastStore();
     const {sendRequest} = useRequest();
-    const {status, handleToggle, isLoading} = useToggle(settings.status, "/education/implementation");
+    const {status, handleToggle} = useToggle(settings.status, "/education/implementation");
     const {dateRangeSchema} = EducationSchemaProvider();
 
     type EducationDateFormData = z.infer<typeof dateRangeSchema>;
@@ -291,7 +291,6 @@ const EducationManagementMenuContent = (
                 <Toggle
                     click={handleToggle}
                     status={status}
-                    isLoading={isLoading}
                 />
             </Flex>
         </Flex>

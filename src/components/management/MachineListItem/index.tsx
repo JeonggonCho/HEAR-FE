@@ -26,7 +26,7 @@ const MachineListItem = (
     const [isEdit, setIsEdit] = useState<boolean>(false);
 
     const {lang} = useThemeStore();
-    const {handleToggle, status, isLoading} = useToggle(props.status, props.url);
+    const {handleToggle, status} = useToggle(props.status, props.url);
     const {sendRequest} = useRequest();
     const {newMachineSchema} = MachineSchemaProvider();
 
@@ -110,7 +110,6 @@ const MachineListItem = (
                   <Toggle
                     click={handleToggle}
                     status={status}
-                    isLoading={isLoading}
                   />
                 }
 

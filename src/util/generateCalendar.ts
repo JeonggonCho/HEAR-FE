@@ -5,7 +5,7 @@ interface IGenerateCalendar {
     calendarType: "normal" | "reservation";
     currentDate: Date;
     lang: "ko" | "en" | "ch";
-    machine?: "printer" | "saw" | "vacuum" | "cnc";
+    machine?: "printer" | "saw" | "vacuum" | "cnc" | "heat";
     condition?: any[];
     selectWeekend: boolean;
 }

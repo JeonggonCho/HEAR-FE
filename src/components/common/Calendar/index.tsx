@@ -27,7 +27,7 @@ interface ICalendarProps {
     setModal: Dispatch<SetStateAction<boolean>>;
     onSelectDate: (date:string) => void;
     date?: string;
-    machine?: "printer" | "saw" | "vacuum" | "cnc";
+    machine?: "printer" | "saw" | "vacuum" | "cnc" | "heat";
     condition?: any[];
     selectWeekend: boolean;
 }

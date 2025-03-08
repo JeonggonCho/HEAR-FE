@@ -1,23 +1,24 @@
 import {createContext, useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {SubmitHandler, useForm, UseFormRegister, UseFormSetValue, UseFormGetValues, FieldErrors} from "react-hook-form";
+import {FieldErrors, SubmitHandler, useForm, UseFormGetValues, UseFormRegister, UseFormSetValue} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-import CncSelect from "@components/reservation/CncSelect";
-import Button from "@components/common/Button";
 import Flex from "@components/common/Flex";
 import Icon from "@components/common/Icon";
+import Button from "@components/common/Button";
+import HeatSelect from "@components/reservation/HeatSelect";
+import {HeatCheckWrapper, ReturnDateWrapper} from "./style.ts";
+import {useThemeStore} from "@store/useThemeStore.ts";
 import useRequest from "@hooks/useRequest.ts";
 import MachineSchemaProvider from "@schemata/MachineSchemaProvider.ts";
-import {useThemeStore} from "@store/useThemeStore.ts";
-import {CncCheckWrapper} from "@components/reservation/CncReservationForm/style.ts";
-import {buttonCategories} from "@constants/buttonCategories.ts";
 import {inputCategories} from "@constants/inputCategories.ts";
 import {messageCategories} from "@constants/messageCategories.ts";
+import {cardCategories} from "@constants/cardCategories.ts";
+import {buttonCategories} from "@constants/buttonCategories.ts";
 import check from "@assets/icons/check.svg";
 
 
-const CncReservationContext = createContext<{
+const HeatReservationContext = createContext<{
     condition: any[];
     register: UseFormRegister<any>;
     setValue: UseFormSetValue<any>;
@@ -32,14 +33,14 @@ const CncReservationContext = createContext<{
 });
 
 
-const CncReservationForm = () => {
+const HeatReservationForm = () => {
     const [condition, setCondition] = useState([]);
     const navigate = useNavigate();
     const {lang} = useThemeStore();
     const {sendRequest} = useRequest();
     const {cncHeatSchema} = MachineSchemaProvider();
 
-    type CncFormData = z.infer<typeof cncHeatSchema>;
+    type HeatFormData = z.infer<typeof cncHeatSchema>;
 
     const {
         register,
@@ -48,7 +49,7 @@ const CncReservationForm = () => {
         setValue,
         getValues,
         reset
-    } = useForm<CncFormData>({
+    } = useForm<HeatFormData>({
         resolver: zodResolver(cncHeatSchema),
         defaultValues: {
             check: false,
@@ -56,70 +57,71 @@ const CncReservationForm = () => {
         },
     });
 
-    // 현재 CNC 예약 현황 조회
-    const fetchAllCncReservationInfo = useCallback(async () => {
+    // 현재 열선 예약 현황 조회
+    const fetchAllHeatReservationInfo = useCallback(async () => {
         try {
             const response = await sendRequest({
-                url: "/reservations/cncs",
+                url: "/reservations/heats",
             });
             if (response.data) {
                 setCondition(response.data);
             }
         } catch (err) {
-            console.error("cnc 예약 현황 조회 중 에러 발생: ", err);
+            console.error("열선 예약 현황 조회 중 에러 발생: ", err);
         }
-    }, [sendRequest, setCondition]);
+    }, []);
 
     useEffect(() => {
-        fetchAllCncReservationInfo();
-    }, [fetchAllCncReservationInfo]);
+        fetchAllHeatReservationInfo();
+    }, [fetchAllHeatReservationInfo]);
 
-    // CNC 예약 요청
-    const submitHandler:SubmitHandler<CncFormData> = async (data) => {
+    // 열선 예약 요청
+    const submitHandler:SubmitHandler<HeatFormData> = useCallback(async (data) => {
         try {
-            const response = await sendRequest({
-                url: "/reservations/cncs",
+            await sendRequest({
+                url: "/reservations/heats",
                 method: "post",
                 data: data,
             });
-            if (response.data) {
-                // 예약 완료 페이지로 이동
-                setTimeout(() => {
-                    navigate("/reservation/done", {replace:true});
-                }, 300);
-            }
+            navigate("/reservation/done", {replace: true});
         } catch (err) {
-            console.error("CNC 예약 요청 중 에러 발생: ", err);
+            console.error("열선 예약 요청 중 에러 발생: ", err);
             reset();
         }
-    };
+    }, [sendRequest, reset]);
 
     return (
-        <CncReservationContext.Provider value={{condition, register, setValue, getValues, errors}}>
+        <HeatReservationContext.Provider value={{condition, register, setValue, getValues, errors}}>
             <form onSubmit={handleSubmit(submitHandler)}>
-                <Flex direction={"column"} gap={32} style={{margin: "24px"}}>
-                    <CncCheckWrapper>
+                <Flex direction={"column"} gap={32}>
+                    <HeatCheckWrapper>
                         <div>
                             <input
                                 type={"checkbox"}
-                                id={"cncWarning"}
+                                id={"heatWarning"}
                                 onClick={() => setValue("check", !getValues("check"))}
                             />
-                            <label htmlFor={"cncWarning"}>
+                            <label htmlFor={"heatWarning"}>
                                 <div><Icon svg={check}/></div>
                                 {inputCategories.check[lang]}
                             </label>
                         </div>
 
                         <div>
-                            <span>{messageCategories.cncRule[lang]}</span>
-                            <p>{messageCategories.cncDescription[lang]}</p>
+                            <span>{messageCategories.heatRule[lang]}</span>
+                            <p>{messageCategories.heatDescription[lang]}</p>
                         </div>
 
-                        {errors.check?.message && <p>{errors.check.message}</p>}
-                    </CncCheckWrapper>
+                        {errors.check?.message &&
+                            <p>{errors.check.message}</p>
+                        }
+                    </HeatCheckWrapper>
 
-                    <CncSelect/>
+                    <HeatSelect/>
+
+                    <ReturnDateWrapper>
+                        {cardCategories.return[lang]} <span>{}</span>
+                    </ReturnDateWrapper>
 
                     <Button
                         type={"submit"}
@@ -132,8 +134,8 @@ const CncReservationForm = () => {
                     </Button>
                 </Flex>
             </form>
-        </CncReservationContext.Provider>
+        </HeatReservationContext.Provider>
     );
 };
 
-export {CncReservationForm, CncReservationContext};
+export {HeatReservationForm, HeatReservationContext};
