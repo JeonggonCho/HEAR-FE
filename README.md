@@ -16,6 +16,18 @@ HEAR
 
 <br/>
 
+## 배포링크
+
+https://hyue-hear.com
+
+### 테스트용 계정
+
+- `ID` : test@hanyang.ac.kr
+- `PW` : test1234
+
+
+<br/>
+
 ## 1. 프로젝트 소개
 
 ### 🔍 개요
@@ -907,10 +919,20 @@ src
 </div>
 </details>
 
+
+<br/>
+<br/>
+
+## 8. 디자인 목업
+
+### 피그마 목업
+
+https://www.figma.com/design/U39GPUlT8z3KoOOaW7MiEl/HEAR?m=auto&t=HVueMdVK1sukZC6P-1
+
 <br>
 <br>
 
-## 8. 개발 화면
+## 9. 개발 화면
 
 ### 스플래쉬 페이지 / 홈 페이지
 
@@ -1015,9 +1037,13 @@ src
 <br/>
 <br/>
 
-## 9. 이슈
+## 10. 이슈
 
 ### 1. 토글 버튼을 빠르게 연속 클릭 시, DB의 상태와 토글 상태의 싱크가 맞지 않는 문제 해결하기
+
+[[블로그 전문 확인하기]](https://jeonggon.netlify.app/HEAR/01-HEAR-toggle-sync/)
+
+
 
 <br/>
 

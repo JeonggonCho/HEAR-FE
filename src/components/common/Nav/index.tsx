@@ -1,5 +1,6 @@
 import React from "react";
 import Icon from "@components/common/Icon";
+import Flex from "@components/common/Flex";
 import {useLocation} from "react-router-dom";
 import {useThemeStore} from "@store/useThemeStore.ts";
 import {Container, NavButton} from "./style.ts";
@@ -26,19 +27,21 @@ const Nav = () => {
 
     return (
         <Container>
-            {navInfoCategories.map((category, index) => (
-                <NavButton
-                    to={category.path}
-                    key={index}
-                    active={(pathname.includes(category.path)).toString()}
-                    darkmode={isDarkMode.toString()}
-                >
-                    <div>
-                        <Icon svg={category.icon} />
-                        {category.label}
-                    </div>
-                </NavButton>
-            ))}
+            <Flex align={"center"} justify={"space-between"}>
+                {navInfoCategories.map((category, index) => (
+                    <NavButton
+                        to={category.path}
+                        key={index}
+                        active={(pathname.includes(category.path)).toString()}
+                        darkmode={isDarkMode.toString()}
+                    >
+                        <Flex direction={"column"} align={"center"} justify={"space-between"}>
+                            <Icon svg={category.icon} size={28}/>
+                            {category.label}
+                        </Flex>
+                    </NavButton>
+                ))}
+            </Flex>
         </Container>
     );
 };

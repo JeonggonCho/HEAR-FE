@@ -31,7 +31,7 @@ const HomeHeader = () => {
                         size={"md"}
                         onClick={() => navigate("/alarm")}
                     >
-                        <Icon svg={alarm} isHovered={true}/>
+                        <Icon svg={alarm} isHovered={true} size={32}/>
                     </Button>
                 </Header.Right>
             </Flex>

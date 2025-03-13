@@ -1,10 +1,10 @@
 import {useCallback, useEffect, useMemo, useState} from "react";
 import AssistantCard from "@components/home/AssistantCard";
 import NoticeCard from "@components/home/NoticeCard";
-import Carousel from "@components/common/Carousel";
+// import Carousel from "@components/common/Carousel";
 import FeedbackCard from "@components/home/FeedbackCard";
 import ReservationCard from "@components/home/ReservationCard";
-import CardLoading from "@components/skeleton/CardLoading";
+// import CardLoading from "@components/skeleton/CardLoading";
 import CafeSiteCard from "@components/home/CafeSiteCard";
 import HeadTag from "@components/common/HeadTag";
 import Flex from "@components/common/Flex";
@@ -83,13 +83,14 @@ const HomePage = () => {
             <HeadTag title={"HEAR"}/>
             <HomeHeader/>
             <Flex direction={"column"} gap={16} style={{margin: "0 24px"}}>
-                {isLoading ?
-                    <CardLoading heightValue={"300px"}/>
-                    :
-                    (machineStatus.laser || machineStatus.printer || machineStatus.heat || machineStatus.saw || machineStatus.vacuum || machineStatus.cnc) ?
-                        <Carousel contents={carouselContents}/>
-                        : null
-                }
+                <NoticeCard/>
+                {/*{isLoading ?*/}
+                {/*    <CardLoading heightValue={"300px"}/>*/}
+                {/*    :*/}
+                {/*    (machineStatus.laser || machineStatus.printer || machineStatus.heat || machineStatus.saw || machineStatus.vacuum || machineStatus.cnc) ?*/}
+                {/*        <Carousel contents={carouselContents}/>*/}
+                {/*        : null*/}
+                {/*}*/}
                 <ReservationCard
                     laser={machineStatus.laser}
                     printer={machineStatus.printer}
@@ -99,7 +100,6 @@ const HomePage = () => {
                     cnc={machineStatus.cnc}
                     isLoading={isLoading}
                 />
-                <NoticeCard/>
                 <AssistantCard/>
                 <Flex
                     align={"center"}

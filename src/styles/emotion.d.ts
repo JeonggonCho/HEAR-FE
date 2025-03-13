@@ -40,6 +40,18 @@ declare module "@emotion/react" {
                 orange: string,
                 purple: string,
             },
-        };
+        },
+        fontSize: {
+            desktop: {
+                small: string
+                body: string
+                title: string
+            },
+            mobile: {
+                small: string
+                body: string
+                title: string
+            },
+        },
     }
 }

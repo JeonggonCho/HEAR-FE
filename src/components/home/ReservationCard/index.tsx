@@ -29,6 +29,7 @@ const ReservationCard = ({laser, printer, heat, saw, vacuum, cnc, isLoading}: IR
             padding={"12px 8px 20px"}
             bgColor={"sub"}
         >
+            <h3>예약하기</h3>
             <ReservationLinksWrapper>
                 {machineReservationCategories.map((machine, index) => {
                     const nameKey = machine.type as keyof MachineNameType;

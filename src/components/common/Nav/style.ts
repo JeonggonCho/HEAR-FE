@@ -11,9 +11,6 @@ export const Container = styled.nav`
     border-right: 1px solid ${({theme}) => theme.colors.line.main};
     padding: 4px 20px 20px 20px;
     border-radius: 24px 24px 0 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     background-color: ${({theme}) => theme.colors.bg.main};
     position: fixed;
     bottom: -8px;
@@ -23,10 +20,11 @@ export const Container = styled.nav`
 `;
 
 export const NavButton = styled(NavLink)<{ active: string, darkmode: string }>`
+    margin-bottom: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.9rem;
+    font-size: ${({theme}) => theme.fontSize.desktop.small};
     text-wrap: nowrap;
     color: ${({active, theme}) => active === "true" ? theme.colors.font.primary : theme.colors.font.sub};
     flex-grow: 1;
@@ -44,13 +42,13 @@ export const NavButton = styled(NavLink)<{ active: string, darkmode: string }>`
         width: 56px;
         height: 56px;
         padding: 6px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
 
         svg {
             fill: ${({active, theme, darkmode}) => active === "true" ? theme.colors.button.primary : darkmode === "true" ? lighten(0.1, theme.colors.icon.fill) : darken(0.1, theme.colors.icon.fill)};
         }
+    }
+
+    @media (max-width: 767px) {
+        font-size: ${({theme}) => theme.fontSize.mobile.small};
     }
 `;

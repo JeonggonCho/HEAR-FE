@@ -22,7 +22,7 @@ export const lightTheme:Theme = {
             danger: "#FF8585",
         },
         icon: {
-            fill: "#C7CBCF",
+            fill: "#999999",
         },
         button: {
             primary: "#2B65FC",
@@ -38,6 +38,18 @@ export const lightTheme:Theme = {
             danger: "#FF3D3D",
             orange: "#FFA500",
             purple: "#9B59B6",
+        },
+    },
+    fontSize: {
+        desktop: {
+            small: "0.875rem",  // 14px
+            body: "1rem",        // 16px
+            title: "1.25rem",    // 20px
+        },
+        mobile: {
+            small: "0.75rem",    // 12px
+            body: "0.875rem",    // 14px
+            title: "1rem",       // 16px
         },
     },
 };
@@ -64,7 +76,7 @@ export const darkTheme:Theme = {
             danger: "#E07070",
         },
         icon: {
-            fill: "#4B4B53",
+            fill: "#999999",
         },
         button: {
             primary: "#1949C6",
@@ -80,6 +92,18 @@ export const darkTheme:Theme = {
             danger: "#FF6F61",
             orange: "#FF8C00",
             purple: "#6A5ACD",
+        },
+    },
+    fontSize: {
+        desktop: {
+            small: "0.875rem",  // 14px
+            body: "1rem",        // 16px
+            title: "1.25rem",    // 20px
+        },
+        mobile: {
+            small: "0.75rem",    // 12px
+            body: "0.875rem",    // 14px
+            title: "1rem",       // 16px
         },
     },
 };

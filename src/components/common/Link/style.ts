@@ -114,7 +114,7 @@ export const ButtonImgWrapper = styled.div<{disabled: boolean}>`
     padding: 14px;
     background: ${({theme}) => theme.colors.bg.main};
     background-size: 200% 100%;
-    border-radius: 24px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
